@@ -14,17 +14,19 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
   const navigate = useNavigate();
   const location = useLocation();
   const refMenu = useRef<HTMLUListElement>(null);
+  const clearTime = useRef<NodeJS.Timeout>();
 
   const [menuActive, set_menuActive] = useState<string[]>();
   useEffect(() => {
+    clearTimeout(clearTime.current);
     let linkActive = '';
     listMenu.forEach((item) => {
       if (!linkActive && !!item.child && location.pathname.indexOf(routerLinks(item.name)) > -1) {
         linkActive = routerLinks(item.name);
       }
     });
-    set_menuActive([linkActive]);
-  }, []);
+    clearTime.current = setTimeout(() => set_menuActive([linkActive]), 100);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (isCollapsed) {
