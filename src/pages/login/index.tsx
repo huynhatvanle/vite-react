@@ -5,7 +5,6 @@ import { Spin } from '@core/spin';
 import { Form } from '@core/form';
 import { ModalForm } from '@core/modal/form';
 
-import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
 import { FormModalRefObject } from '@models';
 
@@ -16,7 +15,7 @@ const Page = () => {
   const { isLoading, status, user, data, login } = globalFacade;
   useEffect(() => {
     if (status === 'login.fulfilled' && user && Object.keys(user).length > 0) {
-      navigate(routerLinks('Dashboard'), { replace: true });
+      navigate('/', { replace: true });
     }
   }, [status]);
   const modalFormRef = useRef<FormModalRefObject>(null);
