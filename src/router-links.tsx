@@ -5,7 +5,7 @@ const Util = (name: string, type?: string) => {
     Login: '/auth/login',
     ResetPassword: '/auth/reset-password',
     MyProfile: '/my-profile',
-    Dashboard: '/',
+    Dashboard: '/dashboard',
     User: '/user',
     'User/List': '/user/list',
     'User/Add': '/user/add',
