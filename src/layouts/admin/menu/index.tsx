@@ -25,7 +25,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
         linkActive = routerLinks(item.name);
       }
     });
-    clearTime.current = setTimeout(() => set_menuActive([linkActive]), 100);
+    clearTime.current = setTimeout(() => set_menuActive([linkActive]), 200);
   }, [location.pathname]);
 
   useEffect(() => {
