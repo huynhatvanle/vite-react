@@ -115,11 +115,9 @@ const Layout = ({
 const Page = ({
   title = '',
   component: Comp,
-  path,
 }: {
   title: string;
-  component: React.LazyExoticComponent<() => JSX.Element> | string;
-  path: string;
+  component: React.LazyExoticComponent<() => JSX.Element>;
 }) => {
   const { t } = useTranslation();
   const globalFacade = GlobalFacade();
@@ -128,10 +126,6 @@ const Page = ({
     document.title = t('pages.' + title || '');
     globalFacade.set({ title, formatDate: globalFacade.formatDate });
   }, [title]);
-  if (typeof Comp === 'string') {
-    if (path === '/') return (location.href = Comp);
-    return <Navigate to={Comp} />;
-  }
   return <Comp />;
 };
 const Pages = () => (
@@ -151,7 +145,11 @@ const Pages = () => (
                     </Spin>
                   }
                 >
-                  <Page title={title} component={component} path={path} />
+                  {typeof component === 'string' ? (
+                    <Navigate to={component} />
+                  ) : (
+                    <Page title={title} component={component} />
+                  )}
                 </Suspense>
               }
             />
