@@ -75,24 +75,34 @@
     "User": "User",
     "User/List": "List",
     "User/Add": "Add",
+    "DayOff/List": "List",
+    "DayOff/Add": "Add",
     "MyProfile": "My Profile",
     "Setting": "Setting",
+    "Team": "Team",
     "Code": "Code",
     "Data": "Data",
-    "Page": "Page"
+    "Page": "Page",
+    "DayOff": "Day Off"
   },
   "pages": {
     "User/List": "List User",
     "User/Add": "Add new User",
     "User/Edit": "Edit User",
+    "DayOff/List": "List Dayoff",
+    "DayOff/Add": "Add new Dayoff",
+    "DayOff/Edit": "Edit Dayoff",
+    "DayOff/Detail": "Detail Dayoff",
     "MyProfile": "My Profile",
     "Login": "Login",
     "Dashboard": "Dashboard",
     "User": "User",
     "Setting": "Setting",
+    "Team": "Team",
     "Code": "Code",
     "Data": "Data",
-    "Page": "Page"
+    "Page": "Page",
+    "DayOff": "Day Off"
   },
   "columns": {
     "auth": {
@@ -159,11 +169,47 @@
         "Delete": "Delete",
         "My Profile": "My Profile",
         "No Data": "No Data",
+        "Apply for leave": "Apply for leave: ",
         "Pagination": "Show {{from}} - {{to}} /Total {{total}} categories",
+        "DayOff": "Show {{from}} - {{to}} /Total {{total}} requests",
         "User": "Show {{from}} - {{to}} /Total {{total}} user",
         "Day": "day"
       }
     }
+  },
+  "dayoff": {
+    "Fullname": "Full Name",
+    "Team": "Team",
+    "Manager": "Manager",
+    "Type": "Type",
+    "Time": "Time",
+    "Leave Date": "Leave Date",
+    "Status": "Status",
+    "Approved Date": "Approvated Date",
+    "Approved At": "Approved At",
+    "Approved By": "Approvated By",
+    "Reason": "Reason",
+    "Approve": "Approve",
+    "Reject": "Reject",
+    "Reason Reject": "Reason Reject",
+    "register": {
+      "Leave Type": "Leave Type",
+      "Annual Leave": "Annual Leave",
+      "Leave without Pay": "Leave without Pay",
+      "Remote": "Remote",
+      "Time": "Time",
+      "All day": "All day",
+      "Morning": "Morning",
+      "Afternoon": "Afternoon",
+      "Date": "Date",
+      "Start Date": "Start Date",
+      "End Date": "End Date",
+      "Upload screenshot": "Upload screenshot"
+    }
+  },
+  "team": {
+    "Name": "Name",
+    "Manager": "Manager"
   },
   "user": {
     "Role": "Role",

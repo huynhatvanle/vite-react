@@ -75,11 +75,15 @@
     "User": "Người Dùng",
     "User/List": "Danh sách",
     "User/Add": "Tạo mới",
+    "DayOff/List": "Danh sách",
+    "DayOff/Add": "Tạo mới",
     "MyProfile": "Thông tin cá nhân",
     "Setting": "Thiết lập",
+    "Team": "Nhóm",
     "Code": "Mã",
     "Data": "Dữ liệu",
-    "Page": "Trang"
+    "Page": "Trang",
+    "DayOff": "Nghỉ phép"
   },
   "pages": {
     "Login": "Đăng nhập",
@@ -88,11 +92,17 @@
     "User/List": "Danh sách Người dùng",
     "User/Add": "Tạo mới người dùng",
     "User/Edit": "Chỉnh sửa người dùng",
+    "DayOff/List": "Danh sách nghỉ phép",
+    "DayOff/Add": "Tạo mới ngày nghỉ",
+    "DayOff/Edit": "Chỉnh sửa ngày nghỉ",
+    "DayOff/Detail": "Chi tiết ngày nghỉ",
     "MyProfile": "Thông tin cá nhân",
     "Setting": "Thiết lập",
+    "Team": "Nhóm",
     "Code": "Mã",
     "Data": "Dữ liệu",
-    "Page": "Trang"
+    "Page": "Trang",
+    "DayOff": "Nghỉ phép"
   },
   "columns": {
     "auth": {
@@ -159,12 +169,47 @@
         "Delete": "Xóa",
         "My Profile": "Thông tin cá nhân",
         "No Data": "Trống",
+        "Apply for leave": "Ngày phép còn lại ",
         "Pagination": "Hiển thị {{from}} - {{to}} /Tổng số {{total}} danh mục",
         "DayOff": "Hiển thị {{from}} - {{to}} /Tổng số {{total}} yêu cầu",
         "User": "Hiển thị {{from}} - {{to}} /Tổng số {{total}} người dùng",
         "Day": "Ngày phép"
       }
     }
+  },
+  "dayoff": {
+    "Fullname": "Họ và tên",
+    "Team": "Nhóm",
+    "Manager": "Quản lý",
+    "Type": "Loại phép",
+    "Time": "Thời gian",
+    "Leave Date": "Ngày nghỉ",
+    "Status": "Trạng thái",
+    "Approved Date": "Ngày phê duyệt",
+    "Approved At": "Ngày phê duyệt",
+    "Approved By": "Phê duyệt bởi",
+    "Reason": "Lý do",
+    "Approve": "Duyệt",
+    "Reject": " Từ chối ",
+    "Reason Reject": "Lý do từ chối",
+    "register": {
+      "Leave Type": "Loại phép",
+      "Annual Leave": "Nghỉ phép có lương",
+      "Leave without Pay": "Nghỉ phép không lương",
+      "Remote": "Làm remote",
+      "Time": "Thời gian",
+      "All day": "Cả ngày",
+      "Morning": "Sáng",
+      "Afternoon": "Chiều",
+      "Date": "Ngày",
+      "Start Date": "Ngày bắt đầu",
+      "End Date": "Ngày kết thúc",
+      "Upload screenshot": "Tải ảnh lên"
+    }
+  },
+  "team": {
+    "Name": "Tên Nhóm",
+    "Manager": "Quản lý"
   },
   "user": {
     "Role": "Vai trò",
