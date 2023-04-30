@@ -115,10 +115,11 @@ const Layout = ({
 const Page = ({
   title = '',
   component: Comp,
-  ...props
+  path,
 }: {
   title: string;
   component: React.LazyExoticComponent<() => JSX.Element> | string;
+  path: string;
 }) => {
   const { t } = useTranslation();
   const globalFacade = GlobalFacade();
@@ -128,9 +129,10 @@ const Page = ({
     globalFacade.set({ title, formatDate: globalFacade.formatDate });
   }, [title]);
   if (typeof Comp === 'string') {
+    if (path === '/') return (location.href = Comp);
     return <Navigate to={Comp} />;
   }
-  return <Comp {...props} />;
+  return <Comp />;
 };
 const Pages = () => (
   <BrowserRouter>
@@ -149,7 +151,7 @@ const Pages = () => (
                     </Spin>
                   }
                 >
-                  <Page title={title} component={component} />
+                  <Page title={title} component={component} path={path} />
                 </Suspense>
               }
             />
