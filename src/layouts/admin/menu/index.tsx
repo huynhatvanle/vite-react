@@ -73,7 +73,6 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                   onClick={() => navigate(routerLinks(item.name))}
                   key={index}
                 >
-                  {/* <img src={item.icon} className='h-8  w-8 block text-slate-700 fill-red-700'/> */}
                   {item.icon}
                   <span
                     className={classNames('ml-2.5 transition-all duration-300 ease-in-out font-bold', {
@@ -89,7 +88,6 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
               return isCollapsed ? (
                 <Popover key={index} placement="rightTop" trigger={'hover'} content={subMenu(item.child)}>
                   <li className="flex items-center justify-center h-11 m-3 px-2 fill-gray-600 ">
-                    {/* <img src={item.icon} className={classNames('h-8  w-8 block !fill-red-700', { 'ml-1': !isCollapsed})}/> */}
                     <div className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</div>
                   </li>
                 </Popover>
@@ -112,7 +110,6 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                             'justify-center ': isCollapsed,
                           })}
                         >
-                          {/* <img src={item.icon} className={classNames('h-8 w-8 block !fill-red-700', { 'ml-1': !isCollapsed})}/> */}
                           <div className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</div>
                           <span
                             className={classNames('pl-2.5 transition-all duration-300 ease-in-out font-bold', {
