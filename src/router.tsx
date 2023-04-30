@@ -29,7 +29,7 @@ const pages = [
     child: [
       {
         path: '/',
-        component: routerLinks('Dashboard'),
+        component: routerLinks('DayOff/List'),
       },
       {
         path: routerLinks('MyProfile'),
