@@ -12,6 +12,10 @@ const Util = (name: string, type?: string) => {
     Setting: '/setting',
     Data: '/setting/data',
     Code: '/setting/code',
+    Team: '/team',
+    'DayOff/List': '/dayoff/list',
+    'DayOff/Add': '/dayoff/add',
+    'DayOff/Detail': '/dayoff/detail',
   }; // 💬 generate link to here
 
   const apis: {
@@ -24,6 +28,8 @@ const Util = (name: string, type?: string) => {
     User: '/user',
     DataType: '/data-type',
     Data: '/data',
+    UserTeam: '/user-team',
+    DayOff: '/dayoff',
   }; // 💬 generate api to here
 
   switch (type) {

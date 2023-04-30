@@ -1,15 +1,11 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
 
 import { Spin } from '@core/spin';
 import { DataTable } from '@core/data-table';
 
 const Page = () => {
   const { t } = useTranslation();
-  const { pathname } = useLocation();
-
-  useEffect(() => {}, [pathname]);
 
   return (
     <Fragment>

@@ -62,6 +62,31 @@ const pages = [
         component: React.lazy(() => import('@pages/user/add')),
         title: 'User/Edit',
       },
+      {
+        path: routerLinks('Team'),
+        component: React.lazy(() => import('@pages/team')),
+        title: 'Team',
+      },
+      {
+        path: routerLinks('DayOff') + '/:id',
+        component: React.lazy(() => import('@pages/dayoff/add')),
+        title: 'DayOff/Edit',
+      },
+      {
+        path: routerLinks('DayOff/List'),
+        component: React.lazy(() => import('@pages/dayoff')),
+        title: 'DayOff/List',
+      },
+      {
+        path: routerLinks('DayOff/Add'),
+        component: React.lazy(() => import('@pages/dayoff/add')),
+        title: 'DayOff/Add',
+      },
+      {
+        path: routerLinks('DayOff/Detail') + '/:id',
+        component: React.lazy(() => import('@pages/dayoff/detail')),
+        title: 'DayOff/Detail',
+      },
     ], // 💬 generate link to here
   },
 ];

@@ -2,10 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { UserRoleFacade, UserFacade, CodeFacade, User } from '@store';
-import { routerLinks } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
+import { Avatar } from '@core/avatar';
+import { UserRoleFacade, UserFacade, CodeFacade, User, UserTeamFacade, ManagerFacade } from '@store';
+import { routerLinks } from '@utils';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -75,7 +76,7 @@ const Page = () => {
                 tabIndex: 2,
                 col: 6,
                 type: 'password',
-                condition: (value: string, form, index: number, values: any) => !values?.id,
+                condition: (value: string, form: any, index: number, values: any) => !values?.id,
                 rules: [{ type: 'required' }, { type: 'min', value: 6 }],
               },
             },
@@ -96,13 +97,13 @@ const Page = () => {
                 tabIndex: 2,
                 col: 6,
                 type: 'password',
-                condition: (value: string, form, index: number, values) => !values?.id,
+                condition: (value: string, form: any, index: number, values: any) => !values?.id,
                 rules: [
                   { type: 'required' },
                   {
                     type: 'custom',
-                    validator: ({ getFieldValue }) => ({
-                      validator(rule, value: string) {
+                    validator: ({ getFieldValue }: any) => ({
+                      validator(rule: any, value: string) {
                         if (!value || getFieldValue('password') === value) {
                           return Promise.resolve();
                         }
@@ -137,7 +138,7 @@ const Page = () => {
                 col: 6,
                 type: 'select',
                 rules: [{ type: 'required' }],
-                convert: (data) =>
+                convert: (data: any) =>
                   data?.map ? data.map((_item: any) => (_item?.id !== undefined ? +_item.id : _item)) : data,
                 get: {
                   facade: CodeFacade,
@@ -146,7 +147,7 @@ const Page = () => {
                     filter: { type: 'POS' },
                     extend: {},
                   }),
-                  format: (item) => ({
+                  format: (item: any) => ({
                     label: item.name,
                     value: item.code,
                   }),
@@ -163,16 +164,73 @@ const Page = () => {
               },
             },
             {
-              title: t('user.Role'),
+              title: t('components.button.Role'),
               name: 'roleId',
               formItem: {
                 col: 6,
                 type: 'select',
                 rules: [{ type: 'required' }],
-                list: result.data.map((item: any) => ({
+                list: result?.data?.map((item: any) => ({
                   value: item?.id,
                   label: item?.name,
                 })),
+              },
+            },
+            {
+              title: t('user.Team'),
+              name: 'teams',
+              formItem: {
+                col: 6,
+                type: 'select',
+                mode: 'multiple',
+                get: {
+                  facade: UserTeamFacade,
+                  format: (item: any) => ({
+                    label: item.name,
+                    value: item.id,
+                  }),
+                  params: (fullTextSearch: string, getFieldValue: any) => ({
+                    fullTextSearch,
+                    extend: { id: getFieldValue('teamId') || undefined },
+                  }),
+                },
+              },
+            },
+            {
+              title: t('team.Manager'),
+              name: 'managerId',
+              formItem: {
+                col: 6,
+                type: 'select',
+                get: {
+                  facade: ManagerFacade,
+                  format: (item: any) => ({
+                    label: <Avatar size={5} src={item?.avatar} text={item.name} />,
+                    value: item.id,
+                  }),
+                  params: (fullTextSearch: string, getFieldValue: any) => ({
+                    fullTextSearch,
+                    filter: { roleId: result?.data?.filter((item: any) => item.name === 'Manager')[0]?.id },
+                    skip: { id: getFieldValue('id') || undefined },
+                  }),
+                },
+              },
+            },
+            {
+              name: 'dateLeave',
+              title: t('dayoff.Leave Date'),
+              formItem: {
+                condition: (value) => value !== undefined,
+                type: 'number',
+                col: 6,
+                mask: {
+                  mask: '9{1,2}[.V{0,1}]',
+                  definitions: {
+                    V: {
+                      validator: '[05]',
+                    },
+                  },
+                },
               },
             },
             {

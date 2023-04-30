@@ -6,10 +6,13 @@ import { Slice, State } from './slice';
 import { globalSlice, GlobalFacade, User } from './global';
 import { userSlice, UserFacade } from './user';
 import { userRoleSlice, UserRoleFacade, UserRole } from './user/role';
-import { codeSlice, CodeFacade } from './code';
+import { codeSlice, CodeFacade, Code } from './code';
 import { codeTypeSlice, CodeTypeFacade } from './code/type';
 import { dataSlice, DataFacade } from './data';
 import { dataTypeSlice, DataTypeFacade } from './data/type';
+import { userTeamSlice, UserTeamFacade } from './user/team';
+import { dayoffSlice, DayoffFacade } from './dayoff';
+import { managerSlice, ManagerFacade } from './user/manager';
 
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
@@ -19,6 +22,9 @@ const rootReducer = combineReducers({
   [codeTypeSlice.name]: codeTypeSlice.reducer,
   [dataSlice.name]: dataSlice.reducer,
   [dataTypeSlice.name]: dataTypeSlice.reducer,
+  [userTeamSlice.name]: userTeamSlice.reducer,
+  [dayoffSlice.name]: dayoffSlice.reducer,
+  [managerSlice.name]: managerSlice.reducer,
 });
 
 const setupStore = () => {
@@ -35,6 +41,7 @@ export {
   Slice,
   User,
   UserRole,
+  Code,
   setupStore,
   useAppDispatch,
   useTypedSelector,
@@ -45,5 +52,8 @@ export {
   CodeTypeFacade,
   DataFacade,
   DataTypeFacade,
+  UserTeamFacade,
+  DayoffFacade,
+  ManagerFacade,
 };
 export type { State };
