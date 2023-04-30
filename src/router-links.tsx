@@ -31,6 +31,7 @@ const Util = (name: string, type?: string) => {
     Data: '/data',
     UserTeam: '/user-team',
     DayOff: '/dayoff',
+    UserManager: '/user',
   }; // 💬 generate api to here
 
   switch (type) {
