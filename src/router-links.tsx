@@ -13,6 +13,7 @@ const Util = (name: string, type?: string) => {
     Data: '/setting/data',
     Code: '/setting/code',
     Team: '/team',
+    DayOff: '/dayoff',
     'DayOff/List': '/dayoff/list',
     'DayOff/Add': '/dayoff/add',
     'DayOff/Detail': '/dayoff/detail',
