@@ -56,10 +56,10 @@ const Page = () => {
               },
             ]}
             columns={[
-              { title: t('dashboard.Profile'), name: 'name', tableItem: {} },
-              { title: t('dashboard.Package'), name: 'package', tableItem: {} },
-              { title: t('dashboard.Start Date'), name: 'date', tableItem: {} },
-              { title: t('dashboard.Status'), name: 'status', tableItem: {} },
+              { title: 'dashboard.Profile', name: 'name', tableItem: {} },
+              { title: 'dashboard.Package', name: 'package', tableItem: {} },
+              { title: 'dashboard.Start Date', name: 'date', tableItem: {} },
+              { title: 'dashboard.Status', name: 'status', tableItem: {} },
             ]}
           />
         </div>
@@ -109,10 +109,10 @@ const Page = () => {
               },
             ]}
             columns={[
-              { title: t('dashboard.Profile'), name: 'name', tableItem: {} },
-              { title: t('dashboard.Package'), name: 'package', tableItem: {} },
-              { title: t('dashboard.Start Date'), name: 'date', tableItem: {} },
-              { title: t('dashboard.Status'), name: 'status', tableItem: {} },
+              { title: 'dashboard.Profile', name: 'name', tableItem: {} },
+              { title: 'dashboard.Package', name: 'package', tableItem: {} },
+              { title: 'dashboard.Start Date', name: 'date', tableItem: {} },
+              { title: 'dashboard.Status', name: 'status', tableItem: {} },
             ]}
           />
         </div>
@@ -162,10 +162,10 @@ const Page = () => {
               },
             ]}
             columns={[
-              { title: t('dashboard.Profile'), name: 'name', tableItem: {} },
-              { title: t('dashboard.Package'), name: 'package', tableItem: {} },
-              { title: t('dashboard.Start Date'), name: 'date', tableItem: {} },
-              { title: t('dashboard.Status'), name: 'status', tableItem: {} },
+              { title: 'dashboard.Profile', name: 'name', tableItem: {} },
+              { title: 'dashboard.Package', name: 'package', tableItem: {} },
+              { title: 'dashboard.Start Date', name: 'date', tableItem: {} },
+              { title: 'dashboard.Status', name: 'status', tableItem: {} },
             ]}
           />
         </div>
@@ -215,10 +215,10 @@ const Page = () => {
               },
             ]}
             columns={[
-              { title: t('dashboard.Profile'), name: 'name', tableItem: {} },
-              { title: t('dashboard.Package'), name: 'package', tableItem: {} },
-              { title: t('dashboard.Start Date'), name: 'date', tableItem: {} },
-              { title: t('dashboard.Status'), name: 'status', tableItem: {} },
+              { title: 'dashboard.Profile', name: 'name', tableItem: {} },
+              { title: 'dashboard.Package', name: 'package', tableItem: {} },
+              { title: 'dashboard.Start Date', name: 'date', tableItem: {} },
+              { title: 'dashboard.Status', name: 'status', tableItem: {} },
             ]}
           />
         </div>

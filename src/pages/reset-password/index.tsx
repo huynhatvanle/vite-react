@@ -23,7 +23,7 @@ const Page = () => {
     <Fragment>
       <div className="mb-8">
         <h1 className="intro-x text-4xl mb-3 font-bold" id={'title-login'}>
-          {t('routes.auth.login.Reset password')}
+          {t('routes.auth.reset-password.title')}
         </h1>
         <h5 className="intro-x font-medium text-gray-300">{t('routes.auth.login.subTitle')}</h5>
       </div>
@@ -33,24 +33,24 @@ const Page = () => {
           columns={[
             {
               name: 'password',
-              title: t('columns.auth.login.password'),
+              title: 'columns.auth.login.password',
               formItem: {
-                placeholder: t('columns.auth.login.Enter Password'),
+                placeholder: 'columns.auth.login.Enter Password',
                 type: 'password',
                 rules: [{ type: 'required' }, { type: 'min', value: 6 }],
               },
             },
             {
               name: 'retypedPassword',
-              title: t('columns.auth.register.retypedPassword'),
+              title: 'columns.auth.register.retypedPassword',
               formItem: {
-                placeholder: t('columns.auth.register.retypedPassword'),
+                placeholder: 'columns.auth.register.retypedPassword',
                 type: 'password',
                 rules: [{ type: 'required' }, { type: 'min', value: 6 }],
               },
             },
           ]}
-          textSubmit={'routes.auth.login.Reset password'}
+          textSubmit={'routes.auth.reset-password.Submit'}
           handSubmit={(values) => resetPassword({ ...values, token: new URLSearchParams(search).get('token') || '' })}
           disableSubmit={isLoading}
         />

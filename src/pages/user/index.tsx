@@ -40,7 +40,7 @@ const Page = () => {
       }
       columns={[
         {
-          title: t(`user.Fullname`),
+          title: `user.Fullname`,
           name: 'name',
           tableItem: {
             filter: { type: 'search' },
@@ -55,7 +55,7 @@ const Page = () => {
           },
         },
         {
-          title: t('user.Position'),
+          title: 'user.Position',
           name: 'positionCode',
           tableItem: {
             filter: {
@@ -79,7 +79,7 @@ const Page = () => {
           },
         },
         {
-          title: t('Email'),
+          title: 'Email',
           name: 'email',
           tableItem: {
             filter: { type: 'search' },
@@ -87,7 +87,7 @@ const Page = () => {
           },
         },
         {
-          title: t('user.Phone Number'),
+          title: 'user.Phone Number',
           name: 'phoneNumber',
           tableItem: {
             filter: { type: 'search' },
@@ -95,7 +95,7 @@ const Page = () => {
           },
         },
         {
-          title: t('user.Date of birth'),
+          title: 'user.Date of birth',
           name: 'dob',
           tableItem: {
             filter: { type: 'date' },
@@ -104,7 +104,7 @@ const Page = () => {
           },
         },
         {
-          title: t('user.Start Date'),
+          title: 'user.Start Date',
           name: 'startDate',
           tableItem: {
             filter: { type: 'search' },
@@ -113,7 +113,7 @@ const Page = () => {
           },
         },
         {
-          title: t('user.Action'),
+          title: 'user.Action',
           tableItem: {
             width: 80,
             align: 'center',

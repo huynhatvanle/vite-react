@@ -48,7 +48,7 @@ const Page = () => {
         }
         columns={[
           {
-            title: t('titles.Code'),
+            title: 'titles.Code',
             name: 'code',
             tableItem: {
               width: 100,
@@ -57,7 +57,7 @@ const Page = () => {
             },
           },
           {
-            title: t('Code.Name'),
+            title: 'Code.Name',
             name: 'name',
             tableItem: {
               filter: { type: 'search' },
@@ -65,7 +65,7 @@ const Page = () => {
             },
           },
           {
-            title: t('Code.Type'),
+            title: 'Code.Type',
             name: 'type',
             tableItem: {
               filter: {
@@ -78,7 +78,7 @@ const Page = () => {
             },
           },
           {
-            title: t('user.Description'),
+            title: 'user.Description',
             name: 'description',
             tableItem: {
               filter: { type: 'search' },
@@ -86,7 +86,7 @@ const Page = () => {
             },
           },
           {
-            title: t('user.Action'),
+            title: 'user.Action',
             tableItem: {
               width: 100,
               align: 'center',
@@ -139,7 +139,7 @@ const Page = () => {
         title={() => (!codeFacade.data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
         columns={[
           {
-            title: t('Code.Name'),
+            title: 'Code.Name',
             name: 'name',
             formItem: {
               col: 4,
@@ -152,7 +152,7 @@ const Page = () => {
             },
           },
           {
-            title: t('Code.Type'),
+            title: 'Code.Type',
             name: 'type',
             formItem: {
               type: 'select',
@@ -162,7 +162,7 @@ const Page = () => {
             },
           },
           {
-            title: t('titles.Code'),
+            title: 'titles.Code',
             name: 'code',
             formItem: {
               col: 4,
@@ -170,7 +170,7 @@ const Page = () => {
             },
           },
           {
-            title: t('user.Description'),
+            title: 'user.Description',
             name: 'description',
             formItem: {
               type: 'textarea',

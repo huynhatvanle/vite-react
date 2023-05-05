@@ -61,7 +61,7 @@ const Page = () => {
           className="intro-x"
           columns={[
             {
-              title: t('dayoff.Fullname'),
+              title: 'user.Fullname',
               name: 'name',
               formItem: {
                 tabIndex: 1,
@@ -70,18 +70,18 @@ const Page = () => {
               },
             },
             {
-              title: t('columns.auth.login.password'),
+              title: 'columns.auth.login.password',
               name: 'password',
               formItem: {
                 tabIndex: 2,
                 col: 6,
                 type: 'password',
-                condition: (value: string, form: any, index: number, values: any) => !values?.id,
+                condition: (value: string, form, index: number, values: any) => !values?.id,
                 rules: [{ type: 'required' }, { type: 'min', value: 6 }],
               },
             },
             {
-              title: t('Email'),
+              title: 'Email',
               name: 'email',
               formItem: {
                 tabIndex: 1,
@@ -90,20 +90,20 @@ const Page = () => {
               },
             },
             {
-              title: t('columns.auth.register.retypedPassword'),
+              title: 'columns.auth.register.retypedPassword',
               name: 'retypedPassword',
               formItem: {
-                placeholder: t('columns.auth.register.retypedPassword'),
+                placeholder: 'columns.auth.register.retypedPassword',
                 tabIndex: 2,
                 col: 6,
                 type: 'password',
-                condition: (value: string, form: any, index: number, values: any) => !values?.id,
+                condition: (value: string, form, index: number, values) => !values?.id,
                 rules: [
                   { type: 'required' },
                   {
                     type: 'custom',
-                    validator: ({ getFieldValue }: any) => ({
-                      validator(rule: any, value: string) {
+                    validator: ({ getFieldValue }) => ({
+                      validator(rule, value: string) {
                         if (!value || getFieldValue('password') === value) {
                           return Promise.resolve();
                         }
@@ -115,7 +115,7 @@ const Page = () => {
               },
             },
             {
-              title: t('Số điện thoại'),
+              title: 'Số điện thoại',
               name: 'phoneNumber',
               formItem: {
                 col: 6,
@@ -123,7 +123,7 @@ const Page = () => {
               },
             },
             {
-              title: t('user.Date of birth'),
+              title: 'user.Date of birth',
               name: 'dob',
               formItem: {
                 col: 6,
@@ -132,13 +132,13 @@ const Page = () => {
               },
             },
             {
-              title: t('user.Position'),
+              title: 'user.Position',
               name: 'positionCode',
               formItem: {
                 col: 6,
                 type: 'select',
                 rules: [{ type: 'required' }],
-                convert: (data: any) =>
+                convert: (data) =>
                   data?.map ? data.map((_item: any) => (_item?.id !== undefined ? +_item.id : _item)) : data,
                 get: {
                   facade: CodeFacade,
@@ -147,7 +147,7 @@ const Page = () => {
                     filter: { type: 'POS' },
                     extend: {},
                   }),
-                  format: (item: any) => ({
+                  format: (item) => ({
                     label: item.name,
                     value: item.code,
                   }),
@@ -155,7 +155,7 @@ const Page = () => {
               },
             },
             {
-              title: t('user.Start Date'),
+              title: 'user.Start Date',
               name: 'startDate',
               formItem: {
                 col: 6,
@@ -164,20 +164,20 @@ const Page = () => {
               },
             },
             {
-              title: t('user.Role'),
+              title: 'user.Role',
               name: 'roleId',
               formItem: {
                 col: 6,
                 type: 'select',
                 rules: [{ type: 'required' }],
-                list: result?.data?.map((item: any) => ({
+                list: result.data.map((item: any) => ({
                   value: item?.id,
                   label: item?.name,
                 })),
               },
             },
             {
-              title: t('user.Team'),
+              title: 'user.Team',
               name: 'teams',
               formItem: {
                 col: 6,
@@ -197,7 +197,7 @@ const Page = () => {
               },
             },
             {
-              title: t('team.Manager'),
+              title: 'team.Manager',
               name: 'managerId',
               formItem: {
                 col: 6,
@@ -218,7 +218,7 @@ const Page = () => {
             },
             {
               name: 'dateLeave',
-              title: t('dayoff.Leave Date'),
+              title: 'dayoff.Leave Date',
               formItem: {
                 condition: (value) => value !== undefined,
                 type: 'number',
@@ -234,7 +234,7 @@ const Page = () => {
               },
             },
             {
-              title: t('user.Description'),
+              title: 'user.Description',
               name: 'description',
               formItem: {
                 col: 8,
@@ -243,7 +243,7 @@ const Page = () => {
             },
             {
               name: 'avatar',
-              title: t('user.Upload avatar'),
+              title: 'user.Upload avatar',
               formItem: {
                 col: 4,
                 type: 'upload',

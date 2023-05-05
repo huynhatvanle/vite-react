@@ -52,7 +52,7 @@ const Page = () => {
         }
         columns={[
           {
-            title: t('Data.Type'),
+            title: 'Data.Type',
             name: 'type',
             tableItem: {
               filter: {
@@ -65,7 +65,7 @@ const Page = () => {
             },
           },
           {
-            title: t('Data.Name'),
+            title: 'Data.Name',
             name: 'translations',
             tableItem: {
               filter: { type: 'search' },
@@ -75,7 +75,7 @@ const Page = () => {
             },
           },
           {
-            title: t('Data.Order'),
+            title: 'Data.Order',
             name: 'order',
             tableItem: {
               filter: { type: 'search' },
@@ -83,7 +83,7 @@ const Page = () => {
             },
           },
           {
-            title: t('user.Action'),
+            title: 'user.Action',
             tableItem: {
               width: 100,
               align: 'center',
@@ -136,7 +136,7 @@ const Page = () => {
         title={() => (!dataFacade.data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
         columns={[
           {
-            title: t('Data.Type'),
+            title: 'Data.Type',
             name: 'type',
             formItem: {
               type: 'select',
@@ -146,7 +146,7 @@ const Page = () => {
             },
           },
           {
-            title: t('Data.Order'),
+            title: 'Data.Order',
             name: 'order',
             formItem: {
               col: 4,
@@ -154,7 +154,7 @@ const Page = () => {
             },
           },
           {
-            title: t('Data.Created At'),
+            title: 'Data.Created At',
             name: 'createdAt',
             formItem: {
               col: 4,
@@ -162,7 +162,7 @@ const Page = () => {
             },
           },
           {
-            title: t('Data.Image'),
+            title: 'Data.Image',
             name: 'image',
             formItem: {
               type: 'upload',
@@ -184,7 +184,7 @@ const Page = () => {
               ],
               column: [
                 {
-                  title: t('Name'),
+                  title: 'Name',
                   name: 'name',
                   formItem: {
                     col: 6,
@@ -197,14 +197,14 @@ const Page = () => {
                   },
                 },
                 {
-                  title: t('Slug'),
+                  title: 'Slug',
                   name: 'slug',
                   formItem: {
                     col: 6,
                   },
                 },
                 {
-                  title: t('Description'),
+                  title: 'Description',
                   name: 'description',
                   formItem: {
                     type: 'textarea',
@@ -226,7 +226,7 @@ const Page = () => {
                 },
 
                 {
-                  title: t('Content'),
+                  title: 'Content',
                   name: 'content',
                   formItem: {
                     type: 'editor',

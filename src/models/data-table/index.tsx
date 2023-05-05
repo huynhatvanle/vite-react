@@ -3,7 +3,7 @@ import { DefaultTFuncReturn } from 'i18next';
 
 export class DataTableModel {
   name?: string;
-  title?: DefaultTFuncReturn;
+  title?: string | DefaultTFuncReturn;
   tableItem?: TableItem;
 }
 

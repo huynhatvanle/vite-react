@@ -109,7 +109,9 @@ export const Form = ({
         return (
           <Password
             tabIndex={formItem.tabIndex || index}
-            placeholder={formItem.placeholder || t('components.form.Enter') + ' ' + item.title!.toLowerCase()}
+            placeholder={
+              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+            }
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
           />
         );
@@ -126,7 +128,9 @@ export const Form = ({
             )}
             rows={4}
             maxLength={1000}
-            placeholder={formItem.placeholder || t('components.form.Enter') + ' ' + item.title!.toLowerCase()}
+            placeholder={
+              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+            }
             onChange={(e) => formItem.onChange && formItem.onChange(e.target.value, form, reRender)}
           />
         );
@@ -167,7 +171,7 @@ export const Form = ({
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             form={form}
             name={item.name}
-            placeholder={formItem.placeholder || t('components.form.Select Date') || ''}
+            placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
           />
         );
       case 'date_range':
@@ -212,7 +216,9 @@ export const Form = ({
         return (
           <SelectTag
             maxTagCount={formItem.maxTagCount || 'responsive'}
-            placeholder={formItem.placeholder || t('components.form.Enter') + ' ' + item.title!.toLowerCase()}
+            placeholder={
+              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+            }
             tag={formItem.tag}
             form={form}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
@@ -221,7 +227,9 @@ export const Form = ({
       case 'chips':
         return (
           <Chips
-            placeholder={formItem.placeholder || t('components.form.Enter') + ' ' + item.title!.toLowerCase()}
+            placeholder={
+              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+            }
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
           />
         );
@@ -232,7 +240,9 @@ export const Form = ({
             showSearch={formItem.showSearch}
             maxTagCount={formItem.maxTagCount || 'responsive'}
             onChange={(value: any) => formItem.onChange && formItem.onChange(value, form, reRender)}
-            placeholder={formItem.placeholder || t('components.form.Enter') + ' ' + item.title!.toLowerCase()}
+            placeholder={
+              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+            }
             formItem={formItem}
             form={form}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
@@ -246,7 +256,9 @@ export const Form = ({
             showSearch={formItem.showSearch}
             form={form}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
-            placeholder={formItem.placeholder || t('components.form.Enter') + ' ' + item.title!.toLowerCase()}
+            placeholder={
+              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+            }
           />
         );
       case 'switch':
@@ -267,7 +279,9 @@ export const Form = ({
             addonBefore={formItem.addonBefore}
             addonAfter={formItem.addonAfter}
             maxLength={formItem.maxLength}
-            placeholder={formItem.placeholder || t('components.form.Enter') + ' ' + item.title!.toLowerCase()}
+            placeholder={
+              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+            }
             onBlur={(e: React.FocusEvent<HTMLInputElement, Element>) =>
               formItem.onBlur && formItem.onBlur(e, form, name)
             }
@@ -507,7 +521,7 @@ export const Form = ({
       }
       const otherProps: any = {
         key: index,
-        label: showLabel && item.title,
+        label: showLabel && t(item.title),
         name: name || item.name,
         labelAlign: 'left',
         validateTrigger: 'onBlur',

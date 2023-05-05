@@ -302,8 +302,8 @@ export const DataTable = forwardRef(
       ),
     });
     cols.current = columns
-      .filter((col: DataTableModel) => !!col && !!col.tableItem)
-      .map((col: DataTableModel) => {
+      .filter((col) => !!col && !!col.tableItem)
+      .map((col) => {
         let item = col.tableItem;
 
         if (item?.filter) {
@@ -347,7 +347,7 @@ export const DataTable = forwardRef(
         }
         // noinspection JSUnusedGlobalSymbols
         return {
-          title: col.title,
+          title: t(col.title || ''),
           dataIndex: col.name,
           ...item,
         };

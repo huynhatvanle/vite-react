@@ -1,12 +1,10 @@
 import React, { Fragment, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { Form } from '@core/form';
 import { Spin } from '@core/spin';
 import { GlobalFacade } from '@store';
 
 const Page = () => {
-  const { t } = useTranslation();
   const { user, isLoading, putProfile, profile } = GlobalFacade();
   const listPosition = useRef([]);
   useEffect(() => {
@@ -19,7 +17,7 @@ const Page = () => {
           className="intro-x w-[550px] mx-auto"
           columns={[
             {
-              title: t('dayoff.Fullname'),
+              title: 'dayoff.Fullname',
               name: 'name',
               formItem: {
                 col: 6,
@@ -27,7 +25,7 @@ const Page = () => {
               },
             },
             {
-              title: t('columns.auth.login.password'),
+              title: 'columns.auth.login.password',
               name: 'password',
               formItem: {
                 col: 6,
@@ -36,7 +34,7 @@ const Page = () => {
               },
             },
             {
-              title: t('Email'),
+              title: 'Email',
               name: 'email',
               formItem: {
                 col: 6,
@@ -44,10 +42,10 @@ const Page = () => {
               },
             },
             {
-              title: t('columns.auth.register.retypedPassword'),
+              title: 'columns.auth.register.retypedPassword',
               name: 'retypedPassword',
               formItem: {
-                placeholder: t('columns.auth.register.retypedPassword'),
+                placeholder: 'columns.auth.register.retypedPassword',
                 col: 6,
                 type: 'password',
                 rules: [
@@ -66,7 +64,7 @@ const Page = () => {
               },
             },
             {
-              title: t('customer.Phone Number'),
+              title: 'customer.Phone Number',
               name: 'phoneNumber',
               formItem: {
                 col: 6,
@@ -74,7 +72,7 @@ const Page = () => {
               },
             },
             {
-              title: t('user.Date of birth'),
+              title: 'user.Date of birth',
               name: 'dob',
               formItem: {
                 col: 6,
@@ -83,7 +81,7 @@ const Page = () => {
               },
             },
             {
-              title: t('user.Position'),
+              title: 'user.Position',
               name: 'positionCode',
               formItem: {
                 col: 6,
@@ -93,7 +91,7 @@ const Page = () => {
               },
             },
             {
-              title: t('user.Description'),
+              title: 'user.Description',
               name: 'description',
               formItem: {
                 col: 8,
@@ -102,7 +100,7 @@ const Page = () => {
             },
             {
               name: 'avatar',
-              title: t('user.Upload avatar'),
+              title: 'user.Upload avatar',
               formItem: {
                 col: 4,
                 type: 'upload',

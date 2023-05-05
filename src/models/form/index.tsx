@@ -1,9 +1,8 @@
 import { CheckboxOptionType, FormInstance } from 'antd';
 import { TableGet } from '../data-table';
-import { DefaultTFuncReturn } from 'i18next';
 
 export class FormModel {
-  constructor(public name: string, public title?: DefaultTFuncReturn, public formItem?: FormItem) {}
+  constructor(public name: string, public title: string = '', public formItem?: FormItem) {}
 }
 
 export class FormItem {
@@ -37,7 +36,7 @@ export class FormItem {
   tab?: FormItemTab;
   column?: FormModel[];
   disabled?: (values: any, form?: FormInstance) => boolean;
-  placeholder?: string | null;
+  placeholder?: string;
   min?: number;
   max?: number;
   sliderMarks?: Record<number, string>;
