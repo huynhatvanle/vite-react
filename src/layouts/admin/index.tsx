@@ -224,7 +224,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           'ml-20': isCollapsed && isDesktop,
         })}
       >
-        <div className={'h-[calc(100vh-9rem)]'}>
+        <div className={'h-[calc(100vh-9rem)] overflow-y-auto'}>
           <h1 className={'text-xl font-bold block sm:hidden pb-5'}>{t('pages.' + title)}</h1>
           {children}
         </div>

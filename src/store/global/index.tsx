@@ -113,11 +113,10 @@ export const globalSlice = createSlice({
     setLanguage: (state: State, action: PayloadAction<'vn' | 'en'>) => {
       if (action.payload !== state.language) {
         const { language, formatDate, locale } = checkLanguage(action.payload);
-        i18n.changeLanguage(language).then(() => {
-          state.language = language;
-          state.formatDate = formatDate;
-          state.locale = locale;
-        });
+        i18n.changeLanguage(language);
+        state.language = language;
+        state.formatDate = formatDate;
+        state.locale = locale;
       }
     },
   },
