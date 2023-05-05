@@ -210,7 +210,8 @@
   },
   "team": {
     "Name": "Name",
-    "Manager": "Manager"
+    "Manager": "Manager",
+    "Pagination": "Show {{from}} - {{to}} /Total {{total}} team"
   },
   "user": {
     "Role": "Role",

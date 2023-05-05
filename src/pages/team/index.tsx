@@ -43,9 +43,7 @@ const Page = () => {
         })}
         pageSizeRender={(sizePage: number) => sizePage}
         pageSizeWidth={'50px'}
-        paginationDescription={(from: number, to: number, total: number) =>
-          t('routes.admin.Layout.Pagination', { from, to, total })
-        }
+        paginationDescription={(from: number, to: number, total: number) => t('team.Pagination', { from, to, total })}
         columns={[
           {
             title: 'team.Name',
@@ -142,7 +140,7 @@ const Page = () => {
               type: 'select',
               get: {
                 facade: UserFacade,
-                params: (form: any, fullTextSearch: string) => ({
+                params: (fullTextSearch) => ({
                   fullTextSearch,
                   filter: { roleId: result?.data?.filter((item: any) => item.name == 'Manager')[0]?.id },
                   extend: {},

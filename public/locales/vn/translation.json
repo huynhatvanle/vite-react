@@ -210,7 +210,8 @@
   },
   "team": {
     "Name": "Tên Nhóm",
-    "Manager": "Quản lý"
+    "Manager": "Quản lý",
+    "Pagination": "Hiển thị {{from}} - {{to}} /Tổng số {{total}} nhóm"
   },
   "user": {
     "Role": "Vai trò",
