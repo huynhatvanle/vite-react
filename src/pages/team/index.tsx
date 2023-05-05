@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { DataTable } from '@core/data-table';
 import { ModalForm } from '@core/modal/form';
 import { Button } from '@core/button';
-import { ColumnTableUserTeam, ColumnFormUserTeam } from './column';
-import { GlobalFacade, UserRoleFacade, UserTeamFacade } from '@store';
+import { GlobalFacade, UserFacade, UserRoleFacade, UserTeamFacade } from '@store';
 
 import { keyRole } from '@utils';
-import { Plus } from 'src/assets/svgs';
+import { Edit, Plus, Trash } from 'src/assets/svgs';
+import { Avatar } from '@core/avatar';
+import { Popconfirm, Tooltip } from 'antd';
 
 const Page = () => {
   const { t } = useTranslation();
-  const { formatDate, user } = GlobalFacade();
+  const { user } = GlobalFacade();
   const { result, get } = UserRoleFacade();
   const userTeamFacade = UserTeamFacade();
   const { status } = userTeamFacade;
@@ -45,12 +46,63 @@ const Page = () => {
         paginationDescription={(from: number, to: number, total: number) =>
           t('routes.admin.Layout.Pagination', { from, to, total })
         }
-        columns={ColumnTableUserTeam({
-          t,
-          formatDate,
-          modalFormRef,
-          permissions: user?.role?.permissions,
-        })}
+        columns={[
+          {
+            title: 'team.Name',
+            name: 'name',
+            tableItem: {
+              sorter: true,
+            },
+          },
+          {
+            title: 'dayoff.Manager',
+            name: 'manager',
+            tableItem: {
+              render: (text: any) => text && <Avatar src={text.avatar} text={text.name} />,
+            },
+          },
+          {
+            title: 'user.Description',
+            name: 'description',
+            tableItem: {},
+          },
+          {
+            title: 'user.Action',
+            tableItem: {
+              width: 90,
+              align: 'center',
+              onCell: () => ({
+                style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' },
+              }),
+              render: (text: string, data: any) => (
+                <div className={'flex gap-2'}>
+                  {user?.role?.permissions?.includes(keyRole.P_USER_TEAM_UPDATE) && (
+                    <Tooltip title={t('routes.admin.Layout.Edit')}>
+                      <Edit
+                        className="icon-cud bg-blue-600 w-9 h-7 fill-white rounded"
+                        onClick={() => modalFormRef?.current?.handleEdit(data)}
+                      />
+                    </Tooltip>
+                  )}
+
+                  {user?.role?.permissions?.includes(keyRole.P_USER_TEAM_DELETE) && (
+                    <Tooltip title={t('routes.admin.Layout.Delete')}>
+                      <Popconfirm
+                        placement="left"
+                        title={t('components.datatable.areYouSureWant')}
+                        onConfirm={() => modalFormRef?.current?.handleDelete(data.id)}
+                        okText={t('components.datatable.ok')}
+                        cancelText={t('components.datatable.cancel')}
+                      >
+                        <Trash className="icon-cud bg-red-500 w-9 h-7 fill-white rounded" />
+                      </Popconfirm>
+                    </Tooltip>
+                  )}
+                </div>
+              ),
+            },
+          },
+        ]}
         rightHeader={
           <div className={'flex gap-2'}>
             {user?.role?.permissions?.includes(keyRole.P_USER_TEAM_CREATE) && (
@@ -67,10 +119,42 @@ const Page = () => {
         facade={userTeamFacade}
         ref={modalFormRef}
         title={(data: any) => (!data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
-        columns={ColumnFormUserTeam({
-          t,
-          listRole: result?.data || [],
-        })}
+        columns={[
+          {
+            title: 'team.Name',
+            name: 'name',
+            formItem: {
+              rules: [{ type: 'required' }],
+            },
+          },
+          {
+            title: 'user.Description',
+            name: 'description',
+            formItem: {
+              type: 'textarea',
+            },
+          },
+          {
+            title: 'dayoff.Manager',
+            name: 'managerId',
+            formItem: {
+              rules: [{ type: 'required' }],
+              type: 'select',
+              get: {
+                facade: UserFacade,
+                params: (form: any, fullTextSearch: string) => ({
+                  fullTextSearch,
+                  filter: { roleId: result?.data?.filter((item: any) => item.name == 'Manager')[0]?.id },
+                  extend: {},
+                }),
+                format: (item: any) => ({
+                  label: item.name,
+                  value: item.id,
+                }),
+              },
+            },
+          },
+        ]}
         widthModal={600}
         idElement={'user'}
       />

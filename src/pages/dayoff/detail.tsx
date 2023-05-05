@@ -161,7 +161,7 @@ const Page = () => {
                     {t('dayoff.Approved By')}
                   </th>
                   <td className="py-4 px-6">
-                    {data?.approvedBy?.name && <Avatar src={data?.approvedBy?.avatar!} text={data?.approvedBy?.name} />}
+                    {data?.approvedBy?.name && <Avatar src={data?.approvedBy?.avatar} text={data?.approvedBy?.name} />}
                   </td>
                 </tr>
               </Fragment>

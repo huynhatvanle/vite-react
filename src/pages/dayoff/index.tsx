@@ -6,8 +6,10 @@ import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { DayoffFacade, GlobalFacade } from '@store';
 import { keyRole, routerLinks } from '@utils';
-import { Plus } from '@svgs';
-import { ColumnDayOffTable } from './column';
+import { CheckCircle, Plus, Times, Trash } from '@svgs';
+import { Avatar } from '@core/avatar';
+import dayjs from 'dayjs';
+import { Popconfirm, Tooltip } from 'antd';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -76,16 +78,154 @@ const Page = () => {
         paginationDescription={(from: number, to: number, total: number) =>
           t('routes.admin.Layout.DayOff', { from, to, total })
         }
-        columns={ColumnDayOffTable({
-          t,
-          formatDate,
-          dataTableRef,
-          navigate,
-          listType,
-          listTime,
-          permissions: user?.role?.permissions,
-          user,
-        })}
+        columns={[
+          {
+            title: 'dayoff.Fullname',
+            name: 'staff',
+            tableItem: {
+              sorter: true,
+              onCell: () => ({
+                style: { paddingTop: '0.25rem', paddingBottom: 0 },
+                onClick: () => null,
+              }),
+              render: (value, item) => item.staff?.name && <Avatar src={item.staff?.avatar} text={item.staff?.name} />,
+            },
+          },
+          {
+            title: 'dayoff.Manager',
+            name: 'manager',
+            tableItem: {
+              // filter: {
+              //   type: 'checkbox',
+              //   name: 'teams',
+              //   api: {
+              //     link: () => routerLinks('UserTeam', 'api') + '/',
+              //     format: (item: any) => ({
+              //       label: item.name,
+              //       value: item.id,
+              //     }),
+              //   },
+              // },
+              render: (text: any, item) =>
+                item.manager?.name && <Avatar src={item.manager?.avatar} text={item.manager?.name} />,
+            },
+          },
+          {
+            title: 'dayoff.Type',
+            name: 'type',
+            tableItem: {
+              width: 190,
+              sorter: true,
+              render: (text: string) =>
+                text !== undefined ? listType.filter((item: any) => item.value === text)[0].label : '',
+            },
+          },
+          {
+            title: 'dayoff.Time',
+            name: 'time',
+            tableItem: {
+              width: 110,
+              sorter: true,
+              render: (text: string) =>
+                text !== undefined ? listTime.filter((item: any) => item.value === text)[0].label : '',
+            },
+          },
+          {
+            title: 'dayoff.Leave Date',
+            name: 'dateLeaveStart',
+            tableItem: {
+              width: 210,
+              filter: { type: 'date' },
+              sorter: true,
+              render: (text: string, item: any) => {
+                const startDate = dayjs(text).format(formatDate);
+                const endDate = dayjs(item.dateLeaveEnd).format(formatDate);
+                return startDate + (startDate !== endDate ? ' => ' + endDate : '');
+              },
+            },
+          },
+          {
+            title: 'dayoff.Status',
+            name: 'status',
+            tableItem: {
+              onCell: () => ({ style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' } }),
+              filter: {
+                type: 'radio',
+                list: [
+                  { label: 'Pending', value: 0 },
+                  { label: 'Approved', value: 1 },
+                  { label: 'Rejected', value: -1 },
+                ],
+              },
+              width: 130,
+              sorter: true,
+              render: (text: number) =>
+                text !== 0 ? (
+                  text === 1 ? (
+                    <CheckCircle className="w-5 h-5 fill-green-500 !flex !justify-center" />
+                  ) : (
+                    <Times className="w-5 h-5 fill-red-500 !flex !justify-center" />
+                  )
+                ) : (
+                  ''
+                ),
+            },
+          },
+          {
+            title: 'dayoff.Approved Date',
+            name: 'approvedAt',
+            tableItem: {
+              width: 180,
+              filter: { type: 'date' },
+              sorter: true,
+              render: (text: string) => (text ? dayjs(text).format(formatDate) : ''),
+            },
+          },
+          {
+            title: 'dayoff.Approved By',
+            name: 'approvedBy',
+            tableItem: {
+              onCell: () => ({
+                style: { paddingTop: '0.25rem', paddingBottom: 0 },
+                onClick: async () => null,
+              }),
+              render: (value, item) =>
+                item.approvedBy?.name && <Avatar src={item.approvedBy?.avatar} text={item.approvedBy?.name} />,
+            },
+          },
+          {
+            title: t('user.Action'),
+            tableItem: user?.role?.permissions?.includes(keyRole.P_DAYOFF_DELETE)
+              ? {
+                  width: 90,
+                  fixed: window.innerWidth > 767 ? 'right' : undefined,
+                  align: 'center',
+                  onCell: () => ({ style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' } }),
+                  render: (text: string, data: any) => (
+                    <div className={'flex justify-center'}>
+                      {user?.role?.permissions?.includes(keyRole.P_DAYOFF_DELETE) &&
+                        data.staff?.id === user.id &&
+                        data.status === 0 && (
+                          <Tooltip title={t('routes.admin.Layout.Delete')}>
+                            <Popconfirm
+                              placement="left"
+                              title={t('components.datatable.areYouSureWant')}
+                              onConfirm={() => {
+                                dataTableRef?.current?.handleDelete(data.id);
+                              }}
+                              okText={t('components.datatable.ok')}
+                              cancelText={t('components.datatable.cancel')}
+                            >
+                              <Trash className="icon-cud bg-red-600 hover:bg-red-400" />
+                            </Popconfirm>
+                          </Tooltip>
+                        )}
+                    </div>
+                  ),
+                }
+              : undefined,
+          },
+        ]}
         rightHeader={
           <Fragment>
             {user?.role?.permissions?.includes(keyRole.P_DAYOFF_CREATE) && user.managerId && (

@@ -6,7 +6,6 @@ import { Button } from '@core/button';
 import { Form } from '@core/form';
 import { GlobalFacade, DayoffFacade } from '@store';
 import { routerLinks } from '@utils';
-import { ColumnDayOffForm } from './column';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -38,6 +37,7 @@ const Page = () => {
     {
       value: 0,
       label: t('dayoff.register.All day'),
+      disabled: false,
     },
     {
       value: 1,
@@ -102,12 +102,151 @@ const Page = () => {
           <Form
             values={{ ...data }}
             className="intro-x"
-            columns={ColumnDayOffForm({
-              t,
-              listType,
-              listTime,
-              user,
-            })}
+            columns={[
+              {
+                name: 'type',
+                title: 'dayoff.register.Leave Type',
+                formItem: {
+                  type: 'select',
+                  col: 6,
+                  rules: [{ type: 'required' }],
+                  list: listType || [],
+                  onChange: (value: number, form: any) => {
+                    const dateLeave = form.getFieldValue('dateLeave');
+                    if (
+                      value === 1 &&
+                      dateLeave &&
+                      user.dateLeave! > user.dateOff! &&
+                      dateLeave[1].diff(dateLeave[0], 'days') > user.dateLeave! - user.dateOff!
+                    ) {
+                      listTime[0].disabled = value === 1 ? user.dateLeave! - user.dateOff! < 1 : false;
+                      form.resetFields(['dateLeave', 'time']);
+                    }
+                  },
+                },
+              },
+              {
+                name: 'time',
+                title: 'dayoff.register.Time',
+                formItem: {
+                  type: 'select',
+                  col: 6,
+                  rules: [{ type: 'required' }],
+                  disabled: (values: any, form: any) =>
+                    form.getFieldValue('date') &&
+                    form.getFieldValue('date')[1].diff(form.getFieldValue('date')[0], 'days') > 0,
+                  onChange: (value: number, form: any) => {
+                    form.resetFields(['dateLeave']);
+                  },
+                  list: listTime || [],
+                },
+              },
+              {
+                title: 'dayoff.Leave Date',
+                name: 'dateLeave',
+                formItem: {
+                  type: 'date_range',
+                  rules: [{ type: 'required' }],
+                  disabledDate: (current: any, form: any) => {
+                    if (
+                      current.startOf('day').toString() !== current.startOf('week').toString() &&
+                      current.endOf('day').toString() !== current.endOf('week').toString()
+                    ) {
+                      const dateLeave = form.getFieldValue('dateLeave');
+                      if (dateLeave && !dateLeave[0]) {
+                        return false;
+                      }
+                      const type = form.getFieldValue('type');
+                      if (dateLeave && (!type || type === 1)) {
+                        let number;
+                        const floorLeave = Math.floor(user.dateLeave! - user.dateOff!);
+
+                        if (floorLeave < 7 && dateLeave[0].get('day') + floorLeave < 7) number = -1;
+                        else number = Math.floor((dateLeave[0].get('day') + 1 + floorLeave) / 7);
+                        console.log(number);
+                        if (number > 1) {
+                          number = number - 1 + (number - 1) * 2;
+                        }
+                        const day = dateLeave[0].add(floorLeave + number, 'days').get('day');
+                        if (day === 6 || day === 0) {
+                          number += day === 6 ? 2 : 1;
+                        }
+
+                        if (floorLeave > 12 && floorLeave < 15 && dateLeave[0].get('day') === 5) {
+                          number += 1;
+                        }
+                        if (floorLeave > 13 && floorLeave < 15 && dateLeave[0].get('day') === 5) {
+                          number += 1;
+                        }
+                        if (floorLeave > 14 && floorLeave < 17 && dateLeave[0].get('day') === 5) {
+                          number -= 1;
+                        }
+
+                        if (floorLeave > 13 && floorLeave < 16 && dateLeave[0].get('day') === 4) {
+                          number += 1;
+                        }
+                        if (floorLeave > 14 && floorLeave < 16 && dateLeave[0].get('day') === 4) {
+                          number += 1;
+                        }
+                        if (floorLeave > 15 && dateLeave[0].get('day') === 4) {
+                          number -= 1;
+                        }
+                        if (floorLeave > 16 && dateLeave[0].get('day') === 4) {
+                          number -= 1;
+                        }
+
+                        if (floorLeave > 14 && floorLeave < 17 && dateLeave[0].get('day') === 3) {
+                          number += 1;
+                        }
+                        if (floorLeave > 15 && floorLeave < 17 && dateLeave[0].get('day') === 3) {
+                          number += 1;
+                        }
+                        if (floorLeave > 16 && dateLeave[0].get('day') === 3) {
+                          number -= 1;
+                        }
+
+                        if (floorLeave > 15 && dateLeave[0].get('day') === 2) {
+                          number += 1;
+                        }
+                        if (floorLeave > 16 && dateLeave[0].get('day') === 2) {
+                          number += 1;
+                        }
+
+                        if (floorLeave > 16 && dateLeave[0].get('day') === 1) {
+                          number += 1;
+                        }
+
+                        return dateLeave[0] && current.diff(dateLeave[0], 'days') > floorLeave + number;
+                      }
+                      return false;
+                    }
+                    return true;
+                  },
+                  onChange: (value: any[], form: any) => {
+                    if (value && value.length === 2 && value[1].diff(value[0], 'days') > 0) {
+                      form.setFieldValue('time', 0);
+                    }
+                  },
+                },
+              },
+              {
+                name: 'reason',
+                title: 'dayoff.Reason',
+                formItem: {
+                  col: 8,
+                  type: 'textarea',
+                  rules: [{ type: 'required' }],
+                },
+              },
+              {
+                name: 'image',
+                title: 'dayoff.register.Upload screenshot',
+                formItem: {
+                  col: 4,
+                  type: 'upload',
+                },
+              },
+            ]}
             extendButton={(form) => (
               <div className="flex">
                 <Button
