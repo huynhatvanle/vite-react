@@ -55,7 +55,7 @@ export const Modal = forwardRef(
               />
               <Button
                 icon={isLoading ? <Spinner className={'animate-spin h-5 w-5'} /> : ''}
-                text={textSubmit || t('components.form.modal.save')}
+                text={t(textSubmit || '') || t('components.form.modal.save')}
                 disabled={!firstChange}
                 onClick={handleOk}
               />

@@ -65,13 +65,13 @@ const Page = () => {
       <ModalForm
         facade={globalFacade}
         ref={modalFormRef}
-        title={() => 'Quên mật khẩu'}
+        title={() => t('routes.auth.login.Forgot Password')}
+        textSubmit={'columns.auth.login.Send'}
         columns={[
           {
             name: 'email',
             title: 'Email',
             formItem: {
-              placeholder: 'Email',
               rules: [{ type: 'required' }, { type: 'email' }, { type: 'min', value: 6 }],
             },
           },

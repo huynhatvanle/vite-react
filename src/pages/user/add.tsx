@@ -64,16 +64,22 @@ const Page = () => {
               title: 'user.Fullname',
               name: 'name',
               formItem: {
-                tabIndex: 1,
                 col: 6,
                 rules: [{ type: 'required' }],
+              },
+            },
+            {
+              title: 'Email',
+              name: 'email',
+              formItem: {
+                col: 6,
+                rules: [{ type: 'required' }, { type: 'email' }, { type: 'min', value: 6 }],
               },
             },
             {
               title: 'columns.auth.login.password',
               name: 'password',
               formItem: {
-                tabIndex: 2,
                 col: 6,
                 type: 'password',
                 condition: (value: string, form, index: number, values: any) => !values?.id,
@@ -81,20 +87,10 @@ const Page = () => {
               },
             },
             {
-              title: 'Email',
-              name: 'email',
-              formItem: {
-                tabIndex: 1,
-                col: 6,
-                rules: [{ type: 'required' }, { type: 'email' }, { type: 'min', value: 6 }],
-              },
-            },
-            {
               title: 'columns.auth.register.retypedPassword',
               name: 'retypedPassword',
               formItem: {
                 placeholder: 'columns.auth.register.retypedPassword',
-                tabIndex: 2,
                 col: 6,
                 type: 'password',
                 condition: (value: string, form, index: number, values) => !values?.id,

@@ -114,7 +114,8 @@
         "remember": "Remember Me",
         "New password": "New password",
         "Enter new password": "Enter new password",
-        "Confirm Password": "Confirm Password"
+        "Confirm Password": "Confirm Password",
+        "Send": "Send"
       },
       "register": {
         "firstName": "First Name",

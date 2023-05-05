@@ -114,7 +114,8 @@
         "remember": "Ghi nhớ",
         "New password": "Mật khẩu mới",
         "Enter new password": "Nhập mật khẩu mới",
-        "Confirm Password": "Xác nhận mật khẩu"
+        "Confirm Password": "Xác nhận mật khẩu",
+        "Send": "Gửi"
       },
       "register": {
         "firstName": "Tên",

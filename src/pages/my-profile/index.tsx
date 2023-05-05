@@ -64,7 +64,7 @@ const Page = () => {
               },
             },
             {
-              title: 'customer.Phone Number',
+              title: 'user.Phone Number',
               name: 'phoneNumber',
               formItem: {
                 col: 6,
