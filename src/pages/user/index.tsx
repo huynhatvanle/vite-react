@@ -56,7 +56,7 @@ const Page = () => {
         },
         {
           title: 'user.Position',
-          name: 'positionCode',
+          name: 'position',
           tableItem: {
             filter: {
               type: 'checkbox',
