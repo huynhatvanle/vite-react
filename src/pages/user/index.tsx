@@ -7,7 +7,7 @@ import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 
 import { keyRole, routerLinks } from '@utils';
-import { UserFacade, GlobalFacade, CodeFacade } from '@store';
+import { UserFacade, GlobalFacade, CodeFacade, UserTeamFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
 import dayjs from 'dayjs';
@@ -76,6 +76,28 @@ const Page = () => {
             },
             sorter: true,
             render: (item) => item?.name,
+          },
+        },
+        {
+          title: 'user.Team',
+          name: 'teams.id',
+          tableItem: {
+            filter: {
+              type: 'checkbox',
+              name: 'teams.id',
+              get: {
+                facade: UserTeamFacade,
+                format: (item: any) => ({
+                  label: item.name,
+                  value: item.id,
+                }),
+                params: (fullTextSearch: string, value) => ({
+                  fullTextSearch,
+                  extend: { id: value },
+                }),
+              },
+            },
+            render: (data, item) => item.teams.map((i: any) => i.name).join(','),
           },
         },
         {
