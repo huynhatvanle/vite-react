@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import i18n from 'i18next';
 import XHR from 'i18next-xhr-backend';
@@ -34,6 +34,13 @@ const Styling = lazy(() => import('./utils/init/styling'));
 
 const Context = () => {
   const { locale } = GlobalFacade();
+  useEffect(() => {
+    for (let i = 0; i < localStorage.length; i++) {
+      if (localStorage.key(i)?.indexOf('temp-') === 0) {
+        localStorage.removeItem(localStorage.key(i) || '');
+      }
+    }
+  }, []);
 
   return (
     <Styling>
