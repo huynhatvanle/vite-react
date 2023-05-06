@@ -57,7 +57,7 @@ const Component = ({
       showSearch={showSearch}
       allowClear
       // onBlur={() => loadData('')}
-      onSearch={(value) => loadData(value)}
+      onSearch={showSearch ? (value) => loadData(value) : undefined}
       value={value}
       maxTagPlaceholder={(array) => '+' + array.length}
       mode={formItem.mode}

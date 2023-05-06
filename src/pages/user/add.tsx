@@ -99,7 +99,7 @@ const Page = () => {
                       if (!value || getFieldValue('password') === value) {
                         return Promise.resolve();
                       }
-                      return Promise.reject(new Error('Hai mật khẩu không giống nhau!'));
+                      return Promise.reject(t('components.form.ruleConfirmPassword'));
                     },
                   }),
                 },
