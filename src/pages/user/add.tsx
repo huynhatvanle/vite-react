@@ -206,7 +206,7 @@ const Page = () => {
                 }),
                 params: (fullTextSearch: string, getFieldValue: any) => ({
                   fullTextSearch,
-                  filter: { roleId: result?.data?.filter((item: any) => item.name === 'Manager')[0]?.id },
+                  filter: { roleCode: 'manager' },
                   skip: { id: getFieldValue('id') || undefined },
                 }),
               },
