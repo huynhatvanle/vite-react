@@ -227,7 +227,8 @@
     "Upload avatar": "Tải ảnh lên",
     "Fullname": "Họ và tên",
     "Phone Number": "Số điện thoại",
-    "Action": "Hoạt động"
+    "Action": "Hoạt động",
+    "Leave date cannot exceed": "Ngày nghỉ không được quá {{day}} ngày"
   },
   "Code": {
     "Type": "Loại mã",

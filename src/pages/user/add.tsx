@@ -227,6 +227,18 @@ const Page = () => {
                   },
                 },
               },
+              rules: [
+                { type: 'required' },
+                {
+                  type: 'custom',
+                  validator: () => ({
+                    validator(rule, value: string) {
+                      if (parseFloat(value) < 17) return Promise.resolve();
+                      else return Promise.reject(t('user.Leave date cannot exceed', { day: 17 }));
+                    },
+                  }),
+                },
+              ],
             },
           },
           {

@@ -65,7 +65,6 @@ const Page = () => {
   };
 
   useEffect(() => {
-    console.log(status);
     switch (status) {
       case 'put.fulfilled':
       case 'post.fulfilled':
@@ -147,7 +146,7 @@ const Page = () => {
                 formItem: {
                   type: 'date_range',
                   rules: [{ type: 'required' }],
-                  disabledDate: (current: any, form: any) => {
+                  disabledDate: (current, form) => {
                     if (
                       current.startOf('day').toString() !== current.startOf('week').toString() &&
                       current.endOf('day').toString() !== current.endOf('week').toString()
@@ -163,7 +162,6 @@ const Page = () => {
 
                         if (floorLeave < 7 && dateLeave[0].get('day') + floorLeave < 7) number = -1;
                         else number = Math.floor((dateLeave[0].get('day') + 1 + floorLeave) / 7);
-                        console.log(number);
                         if (number > 1) {
                           number = number - 1 + (number - 1) * 2;
                         }
@@ -222,7 +220,7 @@ const Page = () => {
                     }
                     return true;
                   },
-                  onChange: (value: any[], form: any) => {
+                  onChange: (value: any[], form) => {
                     if (value && value.length === 2 && value[1].diff(value[0], 'days') > 0) {
                       form.setFieldValue('time', 0);
                     }
