@@ -161,13 +161,13 @@ const Page = () => {
             },
             {
               title: 'user.Role',
-              name: 'roleId',
+              name: 'roleCode',
               formItem: {
                 col: 6,
                 type: 'select',
                 rules: [{ type: 'required' }],
                 list: result.data.map((item: any) => ({
-                  value: item?.id,
+                  value: item?.code,
                   label: item?.name,
                 })),
               },

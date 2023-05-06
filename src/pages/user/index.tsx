@@ -83,6 +83,29 @@ const Page = () => {
           },
         },
         {
+          title: 'user.Role',
+          name: 'role',
+          tableItem: {
+            filter: {
+              type: 'checkbox',
+              name: 'roleCode',
+              get: {
+                facade: UserRoleFacade,
+                format: (item: any) => ({
+                  label: item.name,
+                  value: item.code,
+                }),
+                params: (fullTextSearch: string, value) => ({
+                  fullTextSearch,
+                  extend: { code: value },
+                }),
+              },
+            },
+            sorter: true,
+            render: (item) => item?.name,
+          },
+        },
+        {
           title: 'team.Manager',
           name: 'manager',
           tableItem: {
