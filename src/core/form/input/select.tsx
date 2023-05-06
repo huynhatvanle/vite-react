@@ -39,7 +39,7 @@ const Component = ({
   };
 
   useEffect(() => {
-    if (!!facade?.result && !facade?.isLoading && !facade?.result?.data) {
+    if (!facade?.isLoading) {
       loadData('');
     }
   }, []);
