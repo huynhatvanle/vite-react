@@ -17,12 +17,8 @@ const Page = () => {
   const { t } = useTranslation();
   const { formatDate, user } = GlobalFacade();
   const navigate = useNavigate();
-  const { result, get } = UserRoleFacade();
 
   const userFacade = UserFacade();
-  useEffect(() => {
-    if (!result?.data) get({});
-  }, []);
   useEffect(() => {
     switch (userFacade.status) {
       case 'delete.fulfilled':
@@ -120,7 +116,7 @@ const Page = () => {
                 }),
                 params: (fullTextSearch: string, value) => ({
                   fullTextSearch,
-                  filter: { roleId: result?.data?.filter((item: any) => item.name === 'Manager')[0]?.id },
+                  filter: { roleCode: 'manager' },
                   extend: { id: value },
                 }),
               },

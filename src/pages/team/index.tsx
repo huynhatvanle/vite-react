@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { DataTable } from '@core/data-table';
 import { ModalForm } from '@core/modal/form';
 import { Button } from '@core/button';
-import { GlobalFacade, UserFacade, UserRoleFacade, UserTeamFacade } from '@store';
+import { GlobalFacade, UserFacade, UserTeamFacade } from '@store';
 
 import { keyRole } from '@utils';
 import { Edit, Plus, Trash } from 'src/assets/svgs';
@@ -14,7 +14,6 @@ import { Popconfirm, Tooltip } from 'antd';
 const Page = () => {
   const { t } = useTranslation();
   const { user } = GlobalFacade();
-  const { result, get } = UserRoleFacade();
   const userTeamFacade = UserTeamFacade();
   const { status } = userTeamFacade;
   useEffect(() => {
@@ -26,9 +25,6 @@ const Page = () => {
         break;
     }
   }, [status]);
-  useEffect(() => {
-    if (!result?.data) get({});
-  }, []);
 
   const dataTableRef = useRef<any>();
 
@@ -142,7 +138,7 @@ const Page = () => {
                 facade: UserFacade,
                 params: (fullTextSearch) => ({
                   fullTextSearch,
-                  filter: { roleId: result?.data?.filter((item: any) => item.name == 'Manager')[0]?.id },
+                  filter: { roleCode: 'manager' },
                   extend: {},
                 }),
                 format: (item: any) => ({
