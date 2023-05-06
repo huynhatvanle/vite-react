@@ -177,8 +177,21 @@ export const Form = ({
       case 'date_range':
         return (
           <DateAntDesign.RangePicker
-            onCalendarChange={(date) => formItem.onCalendarChange && formItem.onCalendarChange(date, form, reRender)}
-            onChange={(date) => formItem.onChange && formItem.onChange(date, form, reRender)}
+            onCalendarChange={(date) => {
+              form.setFieldValue(
+                item.name,
+                date?.filter((i) => !!i),
+              );
+              formItem.onChange &&
+                formItem.onChange(
+                  date?.filter((i) => !!i),
+                  form,
+                  reRender,
+                );
+            }}
+            onOpenChange={(open) => {
+              if (!open && form.getFieldValue(item.name)?.length < 2) form.resetFields([item.name]);
+            }}
             format={formatDate + (formItem.showTime ? ' HH:mm' : '')}
             disabledDate={(current) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
             defaultValue={
