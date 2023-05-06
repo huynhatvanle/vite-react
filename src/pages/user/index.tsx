@@ -7,7 +7,7 @@ import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 
 import { keyRole, routerLinks } from '@utils';
-import { UserFacade, GlobalFacade, CodeFacade, UserTeamFacade } from '@store';
+import { UserFacade, GlobalFacade, CodeFacade, UserTeamFacade, ManagerFacade, UserRoleFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
 import dayjs from 'dayjs';
@@ -17,8 +17,12 @@ const Page = () => {
   const { t } = useTranslation();
   const { formatDate, user } = GlobalFacade();
   const navigate = useNavigate();
+  const { result, get } = UserRoleFacade();
 
   const userFacade = UserFacade();
+  useEffect(() => {
+    if (!result?.data) get({});
+  }, []);
   useEffect(() => {
     switch (userFacade.status) {
       case 'delete.fulfilled':
@@ -71,6 +75,30 @@ const Page = () => {
                   fullTextSearch,
                   filter: { type: 'POS' },
                   extend: { code: value },
+                }),
+              },
+            },
+            sorter: true,
+            render: (item) => item?.name,
+          },
+        },
+        {
+          title: 'team.Manager',
+          name: 'manager',
+          tableItem: {
+            filter: {
+              type: 'checkbox',
+              name: 'positionCode',
+              get: {
+                facade: ManagerFacade,
+                format: (item: any) => ({
+                  label: item.name,
+                  value: item.id,
+                }),
+                params: (fullTextSearch: string, value) => ({
+                  fullTextSearch,
+                  filter: { roleId: result?.data?.filter((item: any) => item.name === 'Manager')[0]?.id },
+                  extend: { id: value },
                 }),
               },
             },
