@@ -10,7 +10,6 @@ import { routerLinks } from '@utils';
 
 const Page = () => {
   const { t } = useTranslation();
-  const { result, get } = UserRoleFacade();
   const userFacade = UserFacade();
   const { data, isLoading, queryParams, status } = userFacade;
   const navigate = useNavigate();
@@ -20,8 +19,6 @@ const Page = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    if (!result?.data) get({});
-
     if (id) userFacade.getById({ id });
     else userFacade.set({ data: undefined });
 
@@ -55,213 +52,215 @@ const Page = () => {
 
   return (
     <div className={'max-w-4xl mx-auto'}>
-      {!!result?.data && (
-        <Form
-          values={{ ...data }}
-          className="intro-x"
-          columns={[
-            {
-              title: 'user.Fullname',
-              name: 'name',
-              formItem: {
-                col: 6,
-                rules: [{ type: 'required' }],
-              },
+      <Form
+        values={{ ...data }}
+        className="intro-x"
+        columns={[
+          {
+            title: 'user.Fullname',
+            name: 'name',
+            formItem: {
+              col: 6,
+              rules: [{ type: 'required' }],
             },
-            {
-              title: 'Email',
-              name: 'email',
-              formItem: {
-                col: 6,
-                rules: [{ type: 'required' }, { type: 'email' }, { type: 'min', value: 6 }],
-              },
+          },
+          {
+            title: 'Email',
+            name: 'email',
+            formItem: {
+              col: 6,
+              rules: [{ type: 'required' }, { type: 'email' }, { type: 'min', value: 6 }],
             },
-            {
-              title: 'columns.auth.login.password',
-              name: 'password',
-              formItem: {
-                col: 6,
-                type: 'password',
-                condition: (value: string, form, index: number, values: any) => !values?.id,
-                rules: [{ type: 'required' }, { type: 'min', value: 6 }],
-              },
+          },
+          {
+            title: 'columns.auth.login.password',
+            name: 'password',
+            formItem: {
+              col: 6,
+              type: 'password',
+              condition: (value: string, form, index: number, values: any) => !values?.id,
+              rules: [{ type: 'required' }, { type: 'min', value: 6 }],
             },
-            {
-              title: 'columns.auth.register.retypedPassword',
-              name: 'retypedPassword',
-              formItem: {
-                placeholder: 'columns.auth.register.retypedPassword',
-                col: 6,
-                type: 'password',
-                condition: (value: string, form, index: number, values) => !values?.id,
-                rules: [
-                  { type: 'required' },
-                  {
-                    type: 'custom',
-                    validator: ({ getFieldValue }) => ({
-                      validator(rule, value: string) {
-                        if (!value || getFieldValue('password') === value) {
-                          return Promise.resolve();
-                        }
-                        return Promise.reject(new Error('Hai mật khẩu không giống nhau!'));
-                      },
-                    }),
-                  },
-                ],
-              },
-            },
-            {
-              title: 'Số điện thoại',
-              name: 'phoneNumber',
-              formItem: {
-                col: 6,
-                rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 15 }],
-              },
-            },
-            {
-              title: 'user.Date of birth',
-              name: 'dob',
-              formItem: {
-                col: 6,
-                type: 'date',
-                rules: [{ type: 'required' }],
-              },
-            },
-            {
-              title: 'user.Position',
-              name: 'positionCode',
-              formItem: {
-                col: 6,
-                type: 'select',
-                rules: [{ type: 'required' }],
-                convert: (data) =>
-                  data?.map ? data.map((_item: any) => (_item?.id !== undefined ? +_item.id : _item)) : data,
-                get: {
-                  facade: CodeFacade,
-                  params: (fullTextSearch: string) => ({
-                    fullTextSearch,
-                    filter: { type: 'POS' },
-                    extend: {},
-                  }),
-                  format: (item) => ({
-                    label: item.name,
-                    value: item.code,
-                  }),
-                },
-              },
-            },
-            {
-              title: 'user.Start Date',
-              name: 'startDate',
-              formItem: {
-                col: 6,
-                type: 'date',
-                rules: [{ type: 'required' }],
-              },
-            },
-            {
-              title: 'user.Role',
-              name: 'roleCode',
-              formItem: {
-                col: 6,
-                type: 'select',
-                rules: [{ type: 'required' }],
-                list: result.data.map((item: any) => ({
-                  value: item?.code,
-                  label: item?.name,
-                })),
-              },
-            },
-            {
-              title: 'user.Team',
-              name: 'teams',
-              formItem: {
-                col: 6,
-                type: 'select',
-                mode: 'multiple',
-                get: {
-                  facade: UserTeamFacade,
-                  format: (item: any) => ({
-                    label: item.name,
-                    value: item.id,
-                  }),
-                  params: (fullTextSearch: string, getFieldValue: any) => ({
-                    fullTextSearch,
-                    extend: { id: getFieldValue('teamId') || undefined },
-                  }),
-                },
-              },
-            },
-            {
-              title: 'team.Manager',
-              name: 'managerId',
-              formItem: {
-                col: 6,
-                type: 'select',
-                get: {
-                  facade: ManagerFacade,
-                  format: (item: any) => ({
-                    label: <Avatar size={5} src={item?.avatar} text={item.name} />,
-                    value: item.id,
-                  }),
-                  params: (fullTextSearch: string, getFieldValue: any) => ({
-                    fullTextSearch,
-                    filter: { roleId: result?.data?.filter((item: any) => item.name === 'Manager')[0]?.id },
-                    skip: { id: getFieldValue('id') || undefined },
-                  }),
-                },
-              },
-            },
-            {
-              name: 'dateLeave',
-              title: 'dayoff.Leave Date',
-              formItem: {
-                condition: (value) => value !== undefined,
-                type: 'number',
-                col: 6,
-                mask: {
-                  mask: '9{1,2}[.V{0,1}]',
-                  definitions: {
-                    V: {
-                      validator: '[05]',
+          },
+          {
+            title: 'columns.auth.register.retypedPassword',
+            name: 'retypedPassword',
+            formItem: {
+              placeholder: 'columns.auth.register.retypedPassword',
+              col: 6,
+              type: 'password',
+              condition: (value: string, form, index: number, values) => !values?.id,
+              rules: [
+                { type: 'required' },
+                {
+                  type: 'custom',
+                  validator: ({ getFieldValue }) => ({
+                    validator(rule, value: string) {
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('Hai mật khẩu không giống nhau!'));
                     },
+                  }),
+                },
+              ],
+            },
+          },
+          {
+            title: 'Số điện thoại',
+            name: 'phoneNumber',
+            formItem: {
+              col: 6,
+              rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 15 }],
+            },
+          },
+          {
+            title: 'user.Date of birth',
+            name: 'dob',
+            formItem: {
+              col: 6,
+              type: 'date',
+              rules: [{ type: 'required' }],
+            },
+          },
+          {
+            title: 'user.Position',
+            name: 'positionCode',
+            formItem: {
+              col: 6,
+              type: 'select',
+              rules: [{ type: 'required' }],
+              convert: (data) =>
+                data?.map ? data.map((_item: any) => (_item?.id !== undefined ? +_item.id : _item)) : data,
+              get: {
+                facade: CodeFacade,
+                params: (fullTextSearch: string) => ({
+                  fullTextSearch,
+                  filter: { type: 'POS' },
+                  extend: {},
+                }),
+                format: (item) => ({
+                  label: item.name,
+                  value: item.code,
+                }),
+              },
+            },
+          },
+          {
+            title: 'user.Start Date',
+            name: 'startDate',
+            formItem: {
+              col: 6,
+              type: 'date',
+              rules: [{ type: 'required' }],
+            },
+          },
+          {
+            title: 'user.Role',
+            name: 'roleCode',
+            formItem: {
+              col: 6,
+              type: 'select',
+              rules: [{ type: 'required' }],
+              showSearch: false,
+              get: {
+                facade: UserRoleFacade,
+                format: (item) => ({
+                  label: item.name,
+                  value: item.code,
+                }),
+              },
+            },
+          },
+          {
+            title: 'user.Team',
+            name: 'teams',
+            formItem: {
+              col: 6,
+              type: 'select',
+              mode: 'multiple',
+              get: {
+                facade: UserTeamFacade,
+                format: (item: any) => ({
+                  label: item.name,
+                  value: item.id,
+                }),
+                params: (fullTextSearch: string, getFieldValue: any) => ({
+                  fullTextSearch,
+                  extend: { id: getFieldValue('teamId') || undefined },
+                }),
+              },
+            },
+          },
+          {
+            title: 'team.Manager',
+            name: 'managerId',
+            formItem: {
+              col: 6,
+              type: 'select',
+              get: {
+                facade: ManagerFacade,
+                format: (item: any) => ({
+                  label: <Avatar size={5} src={item?.avatar} text={item.name} />,
+                  value: item.id,
+                }),
+                params: (fullTextSearch: string, getFieldValue: any) => ({
+                  fullTextSearch,
+                  filter: { roleId: result?.data?.filter((item: any) => item.name === 'Manager')[0]?.id },
+                  skip: { id: getFieldValue('id') || undefined },
+                }),
+              },
+            },
+          },
+          {
+            name: 'dateLeave',
+            title: 'dayoff.Leave Date',
+            formItem: {
+              condition: (value) => value !== undefined,
+              type: 'number',
+              col: 6,
+              mask: {
+                mask: '9{1,2}[.V{0,1}]',
+                definitions: {
+                  V: {
+                    validator: '[05]',
                   },
                 },
               },
             },
-            {
-              title: 'user.Description',
-              name: 'description',
-              formItem: {
-                col: 8,
-                type: 'textarea',
-              },
+          },
+          {
+            title: 'user.Description',
+            name: 'description',
+            formItem: {
+              col: 8,
+              type: 'textarea',
             },
-            {
-              name: 'avatar',
-              title: 'user.Upload avatar',
-              formItem: {
-                col: 4,
-                type: 'upload',
-                mode: 'multiple',
-              },
+          },
+          {
+            name: 'avatar',
+            title: 'user.Upload avatar',
+            formItem: {
+              col: 4,
+              type: 'upload',
+              mode: 'multiple',
             },
-          ]}
-          extendButton={(form) => (
-            <Button
-              text={t('components.button.Save and Add new')}
-              className={'md:min-w-[12rem] w-full justify-center out-line'}
-              onClick={() => {
-                form.submit();
-                isBack.current = false;
-              }}
-            />
-          )}
-          handSubmit={handleSubmit}
-          disableSubmit={isLoading}
-          handCancel={handleBack}
-        />
-      )}
+          },
+        ]}
+        extendButton={(form) => (
+          <Button
+            text={t('components.button.Save and Add new')}
+            className={'md:min-w-[12rem] w-full justify-center out-line'}
+            onClick={() => {
+              form.submit();
+              isBack.current = false;
+            }}
+          />
+        )}
+        handSubmit={handleSubmit}
+        disableSubmit={isLoading}
+        handCancel={handleBack}
+      />
     </div>
   );
 };
