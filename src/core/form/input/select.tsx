@@ -45,10 +45,10 @@ const Component = ({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
-      {...prop}
       listHeight={200}
       filterOption={false}
       showSearch={showSearch}
+      loading={facade?.isLoading || false}
       allowClear
       // onBlur={() => loadData('')}
       onSearch={showSearch ? (value) => loadData(value) : undefined}
@@ -58,6 +58,7 @@ const Component = ({
       optionFilterProp="label"
       onSelect={(value) => formItem?.onSelect && formItem?.onSelect(value, form)}
       onDropdownVisibleChange={(open) => (open && !facade?.isLoading) && loadData('')}
+      {...prop}
     >
       {formItem &&
         list?.map((item: any, index: number) => (
