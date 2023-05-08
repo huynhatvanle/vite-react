@@ -38,12 +38,6 @@ const Component = ({
     }
   };
 
-  useEffect(() => {
-    if (!facade?.isLoading) {
-      loadData('');
-    }
-  }, []);
-
   return (
     <Select
       tabIndex={tabIndex}
@@ -63,6 +57,7 @@ const Component = ({
       mode={formItem.mode}
       optionFilterProp="label"
       onSelect={(value) => formItem?.onSelect && formItem?.onSelect(value, form)}
+      onDropdownVisibleChange={(open) => (open && !facade?.isLoading) && loadData('')}
     >
       {formItem &&
         list?.map((item: any, index: number) => (
