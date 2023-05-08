@@ -48,6 +48,7 @@ const Context = () => {
         locale={locale}
         theme={{
           token: {
+            colorTextQuaternary: '#9ca3af',
             fontFamily:
               "'Manrope', -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif",
           },
