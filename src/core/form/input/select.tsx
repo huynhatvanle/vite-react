@@ -47,7 +47,7 @@ const Component = ({
       disabled={disabled}
       listHeight={200}
       filterOption={false}
-      showSearch={showSearch}
+      showSearch={true}
       loading={facade?.isLoading || false}
       allowClear
       // onBlur={() => loadData('')}
