@@ -142,6 +142,7 @@ export const Pagination: any = ({
                 defaultValue={perPage}
                 style={{ minWidth: pageSizeWidth }}
                 onChange={(value) => onPageSizeChange(value)}
+                showArrow={true}
               >
                 {pageSizeOptions.map((item: any, index: number) => (
                   <Select.Option key={index} value={item}>

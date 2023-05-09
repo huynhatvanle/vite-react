@@ -47,7 +47,7 @@ const Component = ({
       disabled={disabled}
       listHeight={200}
       filterOption={false}
-      showSearch={true}
+      showSearch={showSearch}
       loading={facade?.isLoading || false}
       allowClear
       // onBlur={() => loadData('')}
@@ -57,7 +57,7 @@ const Component = ({
       mode={formItem.mode}
       optionFilterProp="label"
       onSelect={(value) => formItem?.onSelect && formItem?.onSelect(value, form)}
-      onDropdownVisibleChange={(open) => (open && !facade?.isLoading) && loadData('')}
+      onDropdownVisibleChange={(open) => open && !facade?.isLoading && loadData('')}
       {...prop}
     >
       {formItem &&
