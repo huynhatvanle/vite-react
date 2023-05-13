@@ -255,7 +255,6 @@ const Page = () => {
             formItem: {
               col: 4,
               type: 'upload',
-              mode: 'multiple',
             },
           },
         ]}

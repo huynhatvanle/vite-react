@@ -22,4 +22,5 @@ export { ReactComponent as Spinner } from './spinner.svg';
 export { ReactComponent as Times } from './times.svg';
 export { ReactComponent as Trash } from './trash.svg';
 export { ReactComponent as Twitter } from './twitter.svg';
+export { ReactComponent as UploadSVG } from './upload.svg'
 export { ReactComponent as UserSolid } from './users.svg';

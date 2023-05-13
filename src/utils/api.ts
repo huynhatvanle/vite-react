@@ -9,7 +9,6 @@ const API = {
       cache: 'no-cache',
       credentials: 'same-origin',
       headers: {
-        'Content-Type': 'application/json',
         authorization: 'Bearer ' + (localStorage.getItem(keyToken) || ''),
         'Accept-Language': localStorage.getItem('i18nextLng') || '',
       },
@@ -55,7 +54,7 @@ const API = {
       localStorage.removeItem(keyUser);
       window.location.href = routerLinks('Login');
     }
-    return {};
+    return false;
   },
   get: <T>(url: string, params = {}, headers?: RequestInit['headers']) =>
     API.responsible<T>(url, params, { ...API.init(), method: 'GET' }, headers),
