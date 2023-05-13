@@ -17,11 +17,11 @@ const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
 const { RangePicker } = DatePicker;
 const checkTextToShort = (text: string) => {
-  return text?.length < 50 ? (
+  return text?.toString()?.length < 50 ? (
     text
   ) : (
     <span>
-      {text?.substring(0, 40)}
+      {text?.toString()?.substring(0, 40)}
       <Popover trigger="hover" overlayClassName="table-tooltip" content={text}>
         ...
       </Popover>
