@@ -35,7 +35,7 @@ const Layout = ({
         <Outlet />
       </Layout>
     );
-  return <Navigate to={'/' + i18n.language + routerLinks('Login')} />;
+  return <Navigate to={`/${i18n.language}${routerLinks('Login')}`} />;
 };
 
 const Page = ({
