@@ -6,15 +6,22 @@ import { GlobalFacade } from '@store';
 import { Facebook, Twitter, Linkedin, Logo } from '@svgs';
 
 import './index.less';
+import { useNavigate } from 'react-router';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();
   const globalFacade = GlobalFacade();
+  const navigate = useNavigate();
 
   useEffect(() => {
     globalFacade.logout();
   }, []);
-
+  useEffect(() => {
+    if (globalFacade.pathname && globalFacade.pathname !== location.pathname) {
+      globalFacade.setPathname('');
+      navigate(globalFacade.pathname);
+    }
+  }, [globalFacade.pathname]);
   return (
     <div className="layout-auth bg-cover bg-center p-20 relative z-10">
       <div className="container mx-auto block lg:flex bg-white rounded-xl overflow-hidden">
@@ -58,7 +65,7 @@ const Layout = ({ children }: PropsWithChildren) => {
               <Select
                 aria-hidden="true"
                 value={globalFacade.language}
-                onChange={(e: 'vn' | 'en') => globalFacade.setLanguage(e)}
+                onChange={(e: string) => globalFacade.setLanguage(e)}
               >
                 <Select.Option value="en">
                   <img

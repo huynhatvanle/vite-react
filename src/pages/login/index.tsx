@@ -9,13 +9,13 @@ import { GlobalFacade } from '@store';
 import { FormModalRefObject } from '@models';
 
 const Page = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const globalFacade = GlobalFacade();
   const { isLoading, status, user, data, login } = globalFacade;
   useEffect(() => {
     if (status === 'login.fulfilled' && user && Object.keys(user).length > 0) {
-      navigate('/', { replace: true });
+      navigate('/' + i18n.language + '/', { replace: true });
     }
   }, [status]);
   const modalFormRef = useRef<FormModalRefObject>(null);

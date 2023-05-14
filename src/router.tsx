@@ -29,17 +29,13 @@ const pages = [
     child: [
       {
         path: '/',
-        component: routerLinks('Dashboard'),
+        component: React.lazy(() => import('@pages/dashboard')),
+        title: 'Dashboard',
       },
       {
         path: routerLinks('MyProfile'),
         component: React.lazy(() => import('@pages/my-profile')),
         title: 'MyProfile',
-      },
-      {
-        path: routerLinks('Dashboard'),
-        component: React.lazy(() => import('@pages/dashboard')),
-        title: 'Dashboard',
       },
       {
         path: routerLinks('Code'),
@@ -77,6 +73,7 @@ const Layout = ({
   layout: React.LazyExoticComponent<({ children }: { children?: React.ReactNode }) => JSX.Element>;
   isPublic: boolean;
 }) => {
+  const { i18n } = useTranslation();
   const { user } = GlobalFacade();
   if (isPublic || !!user?.email || !!JSON.parse(localStorage.getItem(keyUser) || '{}')?.email)
     return (
@@ -84,7 +81,7 @@ const Layout = ({
         <Outlet />
       </Layout>
     );
-  return <Navigate to={routerLinks('Login')} />;
+  return <Navigate to={'/' + i18n.language + routerLinks('Login')} />;
 };
 
 const Page = ({
@@ -103,36 +100,42 @@ const Page = ({
   }, [title]);
   return <Comp />;
 };
-const Pages = () => (
-  <BrowserRouter>
-    <Routes>
-      {pages.map(({ layout, isPublic, child }, index) => (
-        <Route key={index} element={<Layout layout={layout} isPublic={isPublic} />}>
-          {child.map(({ path = '', title = '', component }, subIndex: number) => (
-            <Route
-              key={path + subIndex}
-              path={path}
-              element={
-                <Suspense
-                  fallback={
-                    <Spin>
-                      <div className="w-screen h-screen" />
-                    </Spin>
+const Pages = () => {
+  const { i18n } = useTranslation();
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path={'/:lang/'}>
+          {pages.map(({ layout, isPublic, child }, index) => (
+            <Route key={index} element={<Layout layout={layout} isPublic={isPublic} />}>
+              {child.map(({ path = '', title = '', component }, subIndex: number) => (
+                <Route
+                  key={path + subIndex}
+                  path={'/:lang/' + path}
+                  element={
+                    <Suspense
+                      fallback={
+                        <Spin>
+                          <div className="w-screen h-screen" />
+                        </Spin>
+                      }
+                    >
+                      {typeof component === 'string' ? (
+                        <Navigate to={component} />
+                      ) : (
+                        <Page title={title} component={component} />
+                      )}
+                    </Suspense>
                   }
-                >
-                  {typeof component === 'string' ? (
-                    <Navigate to={component} />
-                  ) : (
-                    <Page title={title} component={component} />
-                  )}
-                </Suspense>
-              }
-            />
+                />
+              ))}
+            </Route>
           ))}
         </Route>
-      ))}
-    </Routes>
-  </BrowserRouter>
-);
+        <Route path="*" element={<Navigate to={'/' + i18n.language + '/'} />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default Pages;
