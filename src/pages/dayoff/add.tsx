@@ -8,7 +8,7 @@ import { GlobalFacade, DayoffFacade } from '@store';
 import { routerLinks } from '@utils';
 
 const Page = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { user, profile } = GlobalFacade();
   const dayoffFacade = DayoffFacade();
   const { isLoading, status, data, queryParams } = dayoffFacade;
@@ -61,7 +61,7 @@ const Page = () => {
   }, [id]);
 
   const navigateToDetail = (data: any) => {
-    navigate(routerLinks('DayOff/Detail') + '/' + data.id);
+    navigate(`/${i18n.language}${routerLinks('DayOff/Detail')}/${data.id}`);
   };
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const Page = () => {
     }
   }, [status, data]);
 
-  const handleBack = () => navigate(routerLinks('DayOff/List') + '?' + new URLSearchParams(param).toString());
+  const handleBack = () => navigate(`/${i18n.language}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
     if (id) dayoffFacade.put(values);
     else dayoffFacade.post(values);

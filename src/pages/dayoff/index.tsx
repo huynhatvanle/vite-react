@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 import { Popconfirm, Tooltip } from 'antd';
 
 const Page = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { formatDate, user } = GlobalFacade();
   const navigate = useNavigate();
   const dayoffFacade = DayoffFacade();
@@ -69,7 +69,7 @@ const Page = () => {
         ref={dataTableRef}
         onRow={(data: any) => ({
           onDoubleClick: () => {
-            navigate(routerLinks('DayOff/Detail') + '/' + data.id);
+            navigate(`/${i18n.language}${routerLinks('DayOff/Detail')}/${data.id}`);
           },
         })}
         xScroll={'1400px'}
@@ -232,7 +232,7 @@ const Page = () => {
               <Button
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
                 text={t('components.button.New')}
-                onClick={() => navigate(routerLinks('DayOff/Add') + '?' + new URLSearchParams(param).toString())}
+                onClick={() => navigate(`/${i18n.language}${routerLinks('DayOff/Add')}?${new URLSearchParams(param).toString()}`)}
               />
             )}
           </Fragment>

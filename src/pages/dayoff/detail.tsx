@@ -12,7 +12,7 @@ import { keyRole, routerLinks } from '@utils';
 import { CheckCircle, Times } from '@svgs';
 
 const Page = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { formatDate, user } = GlobalFacade();
   const dayoffFacade = DayoffFacade();
   const { data, queryParams } = dayoffFacade;
@@ -180,7 +180,7 @@ const Page = () => {
           <Button
             className="right-32 md:min-w-[12rem] justify-center out-line"
             text={t('components.button.Back')}
-            onClick={() => navigate(routerLinks('DayOff/List') + '?' + new URLSearchParams(param).toString())}
+            onClick={() => navigate(`/${i18n.language}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`)}
           />
           {user?.role?.permissions?.includes(keyRole.P_DAYOFF_UPDATE_STATUS) &&
             data?.status === 0 &&
@@ -190,7 +190,7 @@ const Page = () => {
                 title={t('Bạn có muốn duyệt?')}
                 onConfirm={() => {
                   dayoffFacade.putStatus({ id: data.id, status: 1 }),
-                    navigate(routerLinks('DayOff/List') + '?' + new URLSearchParams(param).toString());
+                    navigate(`/${i18n.language}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
                 }}
                 okText={t('components.datatable.ok')}
                 cancelText={t('components.datatable.cancel')}
