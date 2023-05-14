@@ -6,11 +6,11 @@ import { Chart, Cog, User } from '@svgs';
 
 const Layout = [
   {
-    icon: <Chart className="icon-menu" />,
+    icon: <Chart className="h-8 w-8" />,
     name: 'Dashboard',
   },
   {
-    icon: <User className="icon-menu" />,
+    icon: <User className="h-8 w-8" />,
     name: 'User',
     child: [
       {
@@ -24,7 +24,7 @@ const Layout = [
     ],
   },
   {
-    icon: <Cog className="icon-menu" />,
+    icon: <Cog className="h-8 w-8" />,
     name: 'Setting',
     child: [
       {

@@ -146,7 +146,7 @@ const Layout = ({ children }: PropsWithChildren) => {
             }}
             placement="bottomRight"
           >
-            <section className="flex items-center" id={'dropdown-profile'}>
+            <section className="flex items-center image-shine" id={'dropdown-profile'}>
               <div className="text-right leading-none mr-3 hidden sm:block">
                 <div className="font-bold text-black text-lg leading-snug mb-0.5">{user?.name}</div>
                 <div className="text-gray-600">{user?.email}</div>
@@ -202,6 +202,12 @@ const Layout = ({ children }: PropsWithChildren) => {
           <span className="line" />
         </div>
       </div>
+      {!isDesktop && (
+        <div className={classNames('fixed h-full bg-black transition-all duration-500 ease-in-out w-full z-20', {
+          'opacity-70 left-0': !isCollapsed,
+          'opacity-0 -left-full': isCollapsed,
+        })} onClick={() => set_isCollapsed(true)} />
+      )}
       <div
         onMouseEnter={() => {
           const offsetWidth = document.body.offsetWidth;
@@ -220,9 +226,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       >
         <Menu isCollapsed={isCollapsed} permission={user?.role?.permissions} />
       </div>
-      {!isCollapsed && !isDesktop && (
-        <div className={'w-full h-full fixed bg-black opacity-50 z-[1]'} onClick={() => set_isCollapsed(true)} />
-      )}
+
       <section
         id={'main'}
         className={classNames('px-5 transition-all duration-300 ease-in-out z-10 h-[calc(100vh-5rem)] relative', {
