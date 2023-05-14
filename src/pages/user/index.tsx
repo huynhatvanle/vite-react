@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 import { Popconfirm, Tooltip } from 'antd';
 
 const Page = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { formatDate, user } = GlobalFacade();
   const navigate = useNavigate();
 
@@ -195,7 +195,7 @@ const Page = () => {
                   <Tooltip title={t('routes.admin.Layout.Edit')}>
                     <Edit
                       className="icon-cud bg-blue-600 hover:bg-blue-400"
-                      onClick={() => navigate(routerLinks('User') + '/' + data.id)}
+                      onClick={() => navigate('/' + i18n.language + routerLinks('User') + '/' + data.id)}
                     />
                   </Tooltip>
                 )}
@@ -224,7 +224,7 @@ const Page = () => {
             <Button
               icon={<Plus className="icon-cud !h-5 !w-5" />}
               text={t('components.button.New')}
-              onClick={() => navigate(routerLinks('User/Add'))}
+              onClick={() => navigate('/' + i18n.language + routerLinks('User/Add'))}
             />
           )}
         </div>

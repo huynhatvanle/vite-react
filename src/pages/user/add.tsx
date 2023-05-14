@@ -9,7 +9,7 @@ import { UserRoleFacade, UserFacade, CodeFacade, User, UserTeamFacade, ManagerFa
 import { routerLinks } from '@utils';
 
 const Page = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const userFacade = UserFacade();
   const { data, isLoading, queryParams, status } = userFacade;
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Page = () => {
   useEffect(() => {
     switch (status) {
       case 'post.fulfilled':
-        navigate(routerLinks('User') + '/' + data?.id);
+        navigate('/' + i18n.language + routerLinks('User') + '/' + data?.id);
         break;
       case 'put.fulfilled':
         if (Object.keys(param).length > 0) isReload.current = true;
@@ -38,13 +38,14 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          if (status === 'put.fulfilled') navigate(routerLinks('User/Add'));
+          if (status === 'put.fulfilled') navigate('/' + i18n.language + routerLinks('User/Add'));
         }
         break;
     }
   }, [status]);
 
-  const handleBack = () => navigate(routerLinks('User/List') + '?' + new URLSearchParams(param).toString());
+  const handleBack = () =>
+    navigate('/' + i18n.language + routerLinks('User/List') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: User) => {
     if (id) userFacade.put({ ...values, id });
     else userFacade.post(values);

@@ -15,7 +15,7 @@ import './index.less';
 import { Logo } from '@svgs';
 
 const Layout = ({ children }: PropsWithChildren) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const globalFacade = GlobalFacade();
   const { user, title } = globalFacade;
 
@@ -71,6 +71,12 @@ const Layout = ({ children }: PropsWithChildren) => {
       set_isCollapsed(true);
     }
   }, [location]);
+  useEffect(() => {
+    if (globalFacade.pathname && globalFacade.pathname !== location.pathname) {
+      globalFacade.setPathname('');
+      navigate(globalFacade.pathname);
+    }
+  }, [globalFacade.pathname]);
 
   const Header = ({ isCollapsed, isDesktop }: { isCollapsed: boolean; isDesktop: boolean }) => (
     <header
@@ -91,7 +97,7 @@ const Layout = ({ children }: PropsWithChildren) => {
             <Select
               aria-hidden="true"
               value={globalFacade?.language}
-              onChange={(e: 'vn' | 'en') => globalFacade.setLanguage(e)}
+              onChange={(e: string) => globalFacade.setLanguage(e)}
             >
               <Select.Option value="en">
                 <img
@@ -123,7 +129,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 {
                   key: '1',
                   label: (
-                    <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
+                    <div onClick={() => navigate('/' + i18n.language + routerLinks('MyProfile'), { replace: true })}>
                       {t('routes.admin.Layout.My Profile')}
                     </div>
                   ),
@@ -131,7 +137,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 {
                   key: '2',
                   label: (
-                    <div onClick={() => navigate(routerLinks('Login'), { replace: true })}>
+                    <div onClick={() => navigate('/' + i18n.language + routerLinks('Login'), { replace: true })}>
                       {t('routes.admin.Layout.Sign out')}
                     </div>
                   ),

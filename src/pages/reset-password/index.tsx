@@ -7,7 +7,7 @@ import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
 
 const Page = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { search } = useLocation();
 
@@ -15,7 +15,7 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'resetPassword.fulfilled') {
-      navigate(routerLinks('Login'), { replace: true });
+      navigate('/' + i18n.language + routerLinks('Login'), { replace: true });
     }
   }, [status]);
 
