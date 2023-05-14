@@ -184,7 +184,7 @@ export const Upload = ({
       set_listFiles(files);
       onChange && (await onChange(files));
     }
-  }
+  };
 
   const array_move = (arr: any[], old_index: number, new_index: number) => {
     if (new_index >= arr.length) {
@@ -195,21 +195,30 @@ export const Upload = ({
     }
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
     return arr.filter((item) => !!item);
-  }
+  };
   return (
     <Fragment>
       <div className={'flex gap-2 mb-2'}>
-        <Button isLoading={isLoading} onClick={() => ref.current.click()} className={'!px-2 !py-0.5 !font-normal'} icon={<UploadSVG className={'h-4 w-4'} />} text={'Upload'}/>
-        <div onPaste={async (event) => {
-          const items = event.clipboardData.items;
-          for (const index in items) {
-            const item = items[index];
-            if (item.kind === 'file') {
-              const blob = item.getAsFile();
-              await onUpload({target: {files: [blob]}})
+        <Button
+          isLoading={isLoading}
+          onClick={() => ref.current.click()}
+          className={'!px-2 !py-0.5 !font-normal'}
+          icon={<UploadSVG className={'h-4 w-4'} />}
+          text={'Upload'}
+        />
+        <div
+          onPaste={async (event) => {
+            const items = event.clipboardData.items;
+            for (const index in items) {
+              const item = items[index];
+              if (item.kind === 'file') {
+                const blob = item.getAsFile();
+                await onUpload({ target: { files: [blob] } });
+              }
             }
-          }
-        }} className={'!px-2 !py-0.5 !font-normal button cursor-pointer'} >
+          }}
+          className={'!px-2 !py-0.5 !font-normal button cursor-pointer'}
+        >
           <Paste className={'h-4 w-4'} />
           Paste
         </div>
@@ -217,61 +226,85 @@ export const Upload = ({
 
       <input type="file" className={'hidden'} accept={accept} multiple={multiple} ref={ref} onChange={onUpload} />
 
-      <div className={classNames({'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4': multiple,'w-40': !multiple })}>
+      <div
+        className={classNames({
+          'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4': multiple,
+          'w-40': !multiple,
+        })}
+      >
         {listFiles.map((file: any, index: number) => (
-            <div
-              key={index}
-              className={classNames('relative',{
-                'bg-yellow-100': file.status === 'error',
-              })}
-            >
-              <a href={file[keyImage] ? file[keyImage] : file} className="glightbox">
-                <img
-                  className={classNames('object-cover object-center', {'h-28 w-full': multiple, 'h-40 w-40': !multiple})}
-                  src={file[keyImage] ? file[keyImage] : file}
-                  alt={file.name}
-                />
-              </a>
-              {index > 0 && (
-                <div onClick={() => moverImage(index, index - 1)} className={'absolute top-1 right-1 bg-gray-300 hover:bg-blue-500 text-white rounded-full cursor-pointer w-6 h-6 transition-all duration-300 flex items-center justify-center'}>
-                  <Arrow className={'h-3 w-3 fill-blue-400 hover:fill-white rotate-180'} />
-                </div>
-              )}
+          <div
+            key={index}
+            className={classNames('relative', {
+              'bg-yellow-100': file.status === 'error',
+            })}
+          >
+            <a href={file[keyImage] ? file[keyImage] : file} className="glightbox">
+              <img
+                className={classNames('object-cover object-center', {
+                  'h-28 w-full': multiple,
+                  'h-40 w-40': !multiple,
+                })}
+                src={file[keyImage] ? file[keyImage] : file}
+                alt={file.name}
+              />
+            </a>
+            {index > 0 && (
+              <div
+                onClick={() => moverImage(index, index - 1)}
+                className={
+                  'absolute top-1 right-1 bg-gray-300 hover:bg-blue-500 text-white rounded-full cursor-pointer w-6 h-6 transition-all duration-300 flex items-center justify-center'
+                }
+              >
+                <Arrow className={'h-3 w-3 fill-blue-400 hover:fill-white rotate-180'} />
+              </div>
+            )}
 
-              {index < listFiles.length - 1 && (
-                <div onClick={() => moverImage(index, index + 1)} className={classNames('absolute right-1 bg-gray-300 hover:bg-blue-500 text-white rounded-full cursor-pointer w-6 h-6 transition-all duration-300 flex items-center justify-center', {
-                  'top-8': index > 0, 'top-1': index === 0
-                })}>
-                  <Arrow className={'h-3 w-3 fill-blue-400 hover:fill-white'} />
-                </div>
-              )}
+            {index < listFiles.length - 1 && (
+              <div
+                onClick={() => moverImage(index, index + 1)}
+                className={classNames(
+                  'absolute right-1 bg-gray-300 hover:bg-blue-500 text-white rounded-full cursor-pointer w-6 h-6 transition-all duration-300 flex items-center justify-center',
+                  {
+                    'top-8': index > 0,
+                    'top-1': index === 0,
+                  },
+                )}
+              >
+                <Arrow className={'h-3 w-3 fill-blue-400 hover:fill-white'} />
+              </div>
+            )}
 
-              {showBtnDelete(file) && (
-                <Popconfirm
-                  placement="left"
-                  title={t('components.datatable.areYouSureWant')}
-                  onConfirm={async () => {
-                    if (deleteFile && file?.id) {
-                      const data = await deleteFile(file?.id);
-                      if (!data) {
-                        return false;
-                      }
+            {showBtnDelete(file) && (
+              <Popconfirm
+                placement="left"
+                title={t('components.datatable.areYouSureWant')}
+                onConfirm={async () => {
+                  if (deleteFile && file?.id) {
+                    const data = await deleteFile(file?.id);
+                    if (!data) {
+                      return false;
                     }
-                    onChange && onChange(listFiles.filter((_item: any) => _item.id !== file.id));
-                  }}
-                  okText={t('components.datatable.ok')}
-                  cancelText={t('components.datatable.cancel')}
-                >
-                  <Button
-                    icon={<Times className={'h-3 w-3 fill-red-400 hover:fill-white'} />}
-                    className={classNames('!bg-gray-300 !rounded-full absolute right-1 hover:!bg-red-500 text-white cursor-pointer w-6 h-6 transition-all duration-300 flex items-center justify-center',
-                    { 'top-16 ': index > 0 && index < listFiles.length - 1, 'top-8': index === 0 || index === listFiles.length - 1 }
-                    )}
-                  />
-                </Popconfirm>
-              )}
-            </div>
-          ))}
+                  }
+                  onChange && onChange(listFiles.filter((_item: any) => _item.id !== file.id));
+                }}
+                okText={t('components.datatable.ok')}
+                cancelText={t('components.datatable.cancel')}
+              >
+                <Button
+                  icon={<Times className={'h-3 w-3 fill-red-400 hover:fill-white'} />}
+                  className={classNames(
+                    '!bg-gray-300 !rounded-full absolute right-1 hover:!bg-red-500 text-white cursor-pointer w-6 h-6 transition-all duration-300 flex items-center justify-center',
+                    {
+                      'top-16 ': index > 0 && index < listFiles.length - 1,
+                      'top-8': index === 0 || index === listFiles.length - 1,
+                    },
+                  )}
+                />
+              </Popconfirm>
+            )}
+          </div>
+        ))}
       </div>
     </Fragment>
   );

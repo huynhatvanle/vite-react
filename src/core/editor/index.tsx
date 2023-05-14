@@ -20,22 +20,20 @@ export const Editor = forwardRef(({ value, onChange }: { value?: any; onChange?:
                 value.blocks
                   ? value
                   : {
-                    blocks: [
-                      {
-                        id: 'r3s9SCBudq',
-                        type: 'paragraph',
-                        data: {
-                          text: '',
+                      blocks: [
+                        {
+                          id: 'r3s9SCBudq',
+                          type: 'paragraph',
+                          data: {
+                            text: '',
+                          },
                         },
-                      },
-                    ],
-                  },
+                      ],
+                    },
               );
             }, 1000);
           }
         });
-
-
       }
     });
   }, []);

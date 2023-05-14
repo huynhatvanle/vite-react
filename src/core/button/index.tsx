@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 import classNames from 'classnames';
 import { DefaultTFuncReturn } from 'i18next';
-import {Spinner} from "@svgs";
+import { Spinner } from '@svgs';
 
 export const Button = ({ text, icon, className, disabled, isLoading = false, ...props }: Type) => {
   return (
