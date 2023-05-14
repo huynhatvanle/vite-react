@@ -149,7 +149,7 @@ const Page = () => {
                   <Tooltip title={t('routes.admin.Layout.Edit')}>
                     <Edit
                       className="icon-cud bg-blue-600 hover:bg-blue-400"
-                      onClick={() => navigate('/' + i18n.language + routerLinks('User') + '/' + data.id)}
+                      onClick={() => navigate(`/${i18n.language}${routerLinks('User')}/${data.id}`)}
                     />
                   </Tooltip>
                 )}
@@ -178,7 +178,7 @@ const Page = () => {
             <Button
               icon={<Plus className="icon-cud !h-5 !w-5" />}
               text={t('components.button.New')}
-              onClick={() => navigate('/' + i18n.language + routerLinks('User/Add'))}
+              onClick={() => navigate(`/${i18n.language}${routerLinks('User/Add')}`)}
             />
           )}
         </div>

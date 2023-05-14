@@ -15,7 +15,7 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'resetPassword.fulfilled') {
-      navigate('/' + i18n.language + routerLinks('Login'), { replace: true });
+      navigate(`/${i18n.language}${routerLinks('Login')}`, { replace: true });
     }
   }, [status]);
 

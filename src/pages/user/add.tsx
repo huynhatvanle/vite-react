@@ -29,7 +29,7 @@ const Page = () => {
   useEffect(() => {
     switch (status) {
       case 'post.fulfilled':
-        navigate('/' + i18n.language + routerLinks('User') + '/' + data?.id);
+        navigate(`/${i18n.language}${routerLinks('User')}/${data?.id}`);
         break;
       case 'put.fulfilled':
         if (Object.keys(param).length > 0) isReload.current = true;
@@ -37,14 +37,14 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          if (status === 'put.fulfilled') navigate('/' + i18n.language + routerLinks('User/Add'));
+          if (status === 'put.fulfilled') navigate(`/${i18n.language}${routerLinks('User/Add')}`);
         }
         break;
     }
   }, [status]);
 
   const handleBack = () =>
-    navigate('/' + i18n.language + routerLinks('User/List') + '?' + new URLSearchParams(param).toString());
+    navigate(`/${i18n.language}${routerLinks('User/List')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: User) => {
     if (id) userFacade.put({ ...values, id });
     else userFacade.post(values);
