@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { v4 } from 'uuid';
 
-import {API, keyToken} from '@utils';
+import { API, keyToken } from '@utils';
 import { Button } from '../button';
 import { Message } from '../message';
 import { Arrow, Paste, Times, UploadSVG } from '@svgs';
@@ -125,10 +125,19 @@ export const Upload = ({
         if (typeof action === 'string') {
           const bodyFormData = new FormData();
           bodyFormData.append('file', file);
-          const { data } = await API.responsible<any>(action, {}, { ...API.init(), method, body: bodyFormData, headers: {
-              authorization: 'Bearer ' + (localStorage.getItem(keyToken) || ''),
-              'Accept-Language': localStorage.getItem('i18nextLng') || '',
-            }});
+          const { data } = await API.responsible<any>(
+            action,
+            {},
+            {
+              ...API.init(),
+              method,
+              body: bodyFormData,
+              headers: {
+                authorization: 'Bearer ' + (localStorage.getItem(keyToken) || ''),
+                'Accept-Language': localStorage.getItem('i18nextLng') || '',
+              },
+            },
+          );
           if (data) {
             const files = multiple
               ? listFiles.map((item: any) => {
@@ -231,8 +240,8 @@ export const Upload = ({
 
       <div
         className={classNames({
-          'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4': multiple,
-          'w-40': !multiple,
+          'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4': multiple,
+          'w-24': !multiple,
         })}
       >
         {listFiles.map((file: any, index: number) => (
@@ -244,9 +253,9 @@ export const Upload = ({
           >
             <a href={file[keyImage] ? file[keyImage] : file} className="glightbox">
               <img
-                className={classNames('object-cover object-center', {
-                  'h-28 w-full': multiple,
-                  'h-40 w-40': !multiple,
+                className={classNames('object-cover object-center h-24', {
+                  'w-full': multiple,
+                  'w-24': !multiple,
                 })}
                 src={file[keyImage] ? file[keyImage] : file}
                 alt={file.name}
@@ -299,8 +308,9 @@ export const Upload = ({
                   className={classNames(
                     '!bg-gray-300 !rounded-full absolute right-1 hover:!bg-red-500 text-white cursor-pointer w-6 h-6 transition-all duration-300 flex items-center justify-center',
                     {
-                      'top-16 ': index > 0 && index < listFiles.length - 1,
-                      'top-8': index === 0 || index === listFiles.length - 1,
+                      'top-16 ': listFiles.length > 1 && index > 0 && index < listFiles.length - 1,
+                      'top-8': listFiles.length > 1 && (index === 0 || index === listFiles.length - 1),
+                      'top-1': listFiles.length === 1,
                     },
                   )}
                 />
