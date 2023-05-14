@@ -68,7 +68,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
             if (!item.child) {
               return (
                 <li
-                  className={classNames('flex items-center h-11 m-3 px-2', {
+                  className={classNames('flex items-center h-11 my-2 px-5', {
                     'bg-white text-blue-600 !fill-blue-600 rounded-2xl':
                       location.pathname === `/${i18n.language}${routerLinks(item.name)}`,
                     'fill-gray-600': location.pathname !== `/${i18n.language}${routerLinks(item.name)}`,
@@ -96,7 +96,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                   </li>
                 </Popover>
               ) : (
-                <li className="my-3" key={index}>
+                <li key={index}>
                   <Collapse
                     accordion
                     bordered={false}

@@ -281,6 +281,28 @@ module.exports = {
         900: '#881337',
       },
     }),
+    keyframes: {
+      shine: {
+        '100%': { left: '125%' },
+      },
+      'burger-hover': {
+        '0%': {
+          width: '100%',
+        },
+        '50%': {
+          width: '50%',
+        },
+        '100%': {
+          width: '100%',
+        },
+      },
+    },
+    animation: {
+      shine: 'shine 0.8s',
+      'burger-hover-2': 'burger-hover 1s infinite ease-in-out alternate forwards 200ms',
+      'burger-hover-4': 'burger-hover 1s infinite ease-in-out alternate forwards 400ms',
+      'burger-hover-6': 'burger-hover 1s infinite ease-in-out alternate forwards 600ms',
+    },
   },
   plugins: [],
 };

@@ -6,7 +6,7 @@ import { Cog, User, Coffee, UserSolid } from '@svgs';
 
 const Layout = [
   {
-    icon: <User className="icon-menu" />,
+    icon: <User className="h-8 w-8" />,
     name: 'User',
     child: [
       {
@@ -20,7 +20,7 @@ const Layout = [
     ],
   },
   {
-    icon: <Coffee className="icon-menu" />,
+    icon: <Coffee className="h-8 w-8" />,
     name: 'DayOff',
     child: [
       {
@@ -34,12 +34,12 @@ const Layout = [
     ],
   },
   {
-    icon: <UserSolid className="icon-menu" />,
+    icon: <UserSolid className="h-8 w-8" />,
     name: 'Team',
     permission: keyRole.P_USER_TEAM_LISTED,
   },
   {
-    icon: <Cog className="icon-menu" />,
+    icon: <Cog className="h-8 w-8" />,
     name: 'Setting',
     child: [
       {
