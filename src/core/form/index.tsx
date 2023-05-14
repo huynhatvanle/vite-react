@@ -11,7 +11,7 @@ import { Check, Times } from '@svgs';
 import { Chips, SelectTag, Select, TreeSelect, TableTransfer, Password, Mask, Addable, DatePicker, Tab } from './input';
 import { Upload } from '../upload';
 import { Button } from '../button';
-import {Editor} from "../editor";
+import { Editor } from '../editor';
 import { DraggableLayout } from '../draggable/layout';
 
 export const Form = ({

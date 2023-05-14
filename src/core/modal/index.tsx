@@ -5,7 +5,6 @@ import { v4 } from 'uuid';
 
 import { Button } from '../button';
 import { Spin } from '../spin';
-import { Spinner } from '@svgs';
 
 export const Modal = forwardRef(
   (

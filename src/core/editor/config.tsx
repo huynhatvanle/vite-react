@@ -62,19 +62,16 @@ export const editorjsConfig: any = {
           async uploadByFile(file) {
             const bodyFormData = new FormData();
             bodyFormData.append('file', file);
-            const res = await API.post(
+            const { data } = await API.responsible(
               `/auth/upload`,
-              bodyFormData,
               {},
-              {
-                'Content-Type': 'multipart/form-data',
-              },
+              { ...API.init(), method: 'post', body: bodyFormData },
             );
 
             return {
               success: 1,
               file: {
-                url: res.data.data.url,
+                url: data.url,
               },
             };
           },
