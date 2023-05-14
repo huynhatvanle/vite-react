@@ -38,24 +38,6 @@
       },
       "Select Date": "Select Date"
     },
-    "media-management": {
-      "filename": "File name",
-      "fileSize": "File size",
-      "lastModified": "Last modified",
-      "detail": "Detail",
-      "areYouSure": "Are you sure you want to delete?",
-      "mediaManagement": "Media Management",
-      "filesOnSystem": "Files on system",
-      "addFiles": "Add files",
-      "multiFiles": "Multi files",
-      "createFolder": "Create folder",
-      "uploadFile": "Upload file",
-      "moveUpLevel": "Move up a level",
-      "outsideLink": "Outside link",
-      "save": "Save",
-      "nameFolder": "Name folder",
-      "onlyLettersAndDigitsAllowed": "Only letters and digits allowed"
-    },
     "message": {
       "Success": "Success",
       "Warning": "Warning",
@@ -70,175 +52,14 @@
     }
   },
   "titles": {
-    "Login": "Login",
-    "Dashboard": "Dashboard",
-    "User": "User",
-    "User/List": "List",
-    "User/Add": "Add",
-    "MyProfile": "My Profile",
-    "Setting": "Setting",
-    "Code": "Code",
-    "Data": "Data",
-    "Page": "Page"
+    "Home": "Home"
   },
   "pages": {
-    "User/List": "List User",
-    "User/Add": "Add new User",
-    "User/Edit": "Edit User",
-    "MyProfile": "My Profile",
-    "Login": "Login",
-    "Dashboard": "Dashboard",
-    "User": "User",
-    "Setting": "Setting",
-    "Code": "Code",
-    "Data": "Data",
-    "Page": "Page"
-  },
-  "columns": {
-    "auth": {
-      "login": {
-        "Username": "Username",
-        "Enter Username": "Enter Username",
-        "Enter Password": "Enter Password",
-        "password": "Password",
-        "remember": "Remember Me",
-        "New password": "New password",
-        "Enter new password": "Enter new password",
-        "Confirm Password": "Confirm Password",
-        "Send": "Send"
-      },
-      "register": {
-        "firstName": "First Name",
-        "lastName": "Last Name",
-        "retypedPassword": "Retype Password"
-      },
-      "reset-password": {
-        "Recovery Email": "Recovery Email",
-        "Enter Recovery Email": "Enter Recovery Email"
-      }
-    }
+    "Home": "Home"
   },
   "layout": {
     "footer": "Ari Technology Company Ltd. ©{{year}}"
   },
   "routes": {
-    "auth": {
-      "login": {
-        "title": "Sign In",
-        "subTitle": "Enter your details to login to your account",
-        "Log In": "Log In",
-        "Forgot Password": "Forgot Password",
-        "Confirm Password": "Confirm Password",
-        "Reset password": "Reset Password",
-        "New password": "New password",
-        "Enter new password": "Enter new password",
-        "Account": "Don't have an account?",
-        "Welcome": "Welcome to Web Member Ari"
-      },
-      "reset-password": {
-        "Recovery Email": "Recovery Email",
-        "Enter Recovery Email": "Enter Recovery Email",
-        "title": "Reset Password",
-        "Submit": "Submit",
-        "Back To Login": "Submit"
-      }
-    },
-    "admin": {
-      "Layout": {
-        "Search": "Search",
-        "English": "English",
-        "Vietnam": "Vietnamese",
-        "Available": "Available",
-        "Account Setting": "Account Setting",
-        "Sign out": "Sign out",
-        "Mark all as read": "Mark all as read",
-        "Setting": "Setting",
-        "Notifications": "Notifications",
-        "See All": "See All",
-        "Add": "Add new",
-        "Edit": "Edit",
-        "Delete": "Delete",
-        "My Profile": "My Profile",
-        "No Data": "No Data",
-        "Pagination": "Show {{from}} - {{to}} /Total {{total}} categories",
-        "User": "Show {{from}} - {{to}} /Total {{total}} user",
-        "Day": "day"
-      }
-    }
-  },
-  "user": {
-    "Role": "Role",
-    "Position": "Position",
-    "Team": "Team",
-    "Start Date": "Start Date",
-    "Remaining Leave Day": "Remaining Leave Day",
-    "Date of birth": "Date of birth",
-    "Name": "Name",
-    "Is System Admin": "Is System Admin",
-    "Permissions": "Permissions",
-    "Description": "Description",
-    "Upload avatar": "Upload avatar",
-    "Fullname": "Full Name",
-    "Phone Number": "Phone Number",
-    "Action": "Action"
-  },
-  "Code": {
-    "Type": "Type",
-    "Type Code": "Type Code",
-    "Type Category": "Type Category",
-    "Name": "Name"
-  },
-  "Data": {
-    "Type": "Type",
-    "Type Data": "Type Data",
-    "Name": "Name",
-    "Order": "Order",
-    "Page": "Page",
-    "Image": "Image",
-    "Create At": "Create At"
-  },
-  "dashboard":{
-    "Active Profile Report":"Active Profile Report",
-    "Total Profile": "Total Profile",
-    "Activated Profile":"Activated Profile",
-    "New Custommers":"New Custommers",
-    "User Purchasing Report":"User Purchasing Report",
-    "Free":"Free",
-    "Silver":"Silver",
-    "Gold":"Gold",
-    "Platinum":"Platinum",
-    "Seller Profiles":"Seller Profiles",
-    "Buyer Profiles":"Buyer Profiles",
-    "Introductions":"Introductions",
-    "Success Deal":"GSuccess Deal",
-    "Total Payment":"Total Payment",
-    "Partner Refund":"Partner Refund",
-    "Reference User":"Reference User",
-    "Sales Stats":"Sales Stats",
-    "Sales":"Sales",
-    "Share of total":"Share of total",
-    "active profiles":"active profiles",
-    "Total":"Total",
-    "active profile in":"active profile in",
-    "Business Profiles Activity":"Business Profiles Activity",
-    "Franchise Profiles Activity":"Franchise Profiles Activity",
-    "Investor Profiles Activity":"nvestor Profiles Activityư",
-    "Monthly Profiles Activity":"Monthly Profiles Activity",
-    "Profile":"Profile",
-    "Package":"Package",
-    "Start Date":"Start Date",
-    "Status":"Status",
-    "Jan":"Jan",
-    "Feb":"Feb",
-    "Mar":"Mar",
-    "Apr":"Apr",
-    "May":"May",
-    "Jun":"Jun",
-    "Jul":"Jul",
-    "Aug":"Aug",
-    "Sep":"Sep",
-    "Oct":"Oct",
-    "Nov":"Nov",
-    "Dev":"Dev"
   }
 }

@@ -8,65 +8,15 @@ import { GlobalFacade } from '@store';
 
 const pages = [
   {
-    layout: React.lazy(() => import('@layouts/auth')),
+    layout: React.lazy(() => import('src/layouts/default')),
     isPublic: true,
     child: [
       {
-        path: routerLinks('Login'),
-        component: React.lazy(() => import('@pages/login')),
-        title: 'Login',
-      },
-      {
-        path: routerLinks('ResetPassword'),
-        component: React.lazy(() => import('@pages/reset-password')),
-        title: 'Reset Password',
+        path: routerLinks('Home'),
+        component: React.lazy(() => import('src/pages/home')),
+        title: 'Home',
       },
     ],
-  },
-  {
-    layout: React.lazy(() => import('@layouts/admin')),
-    isPublic: false,
-    child: [
-      {
-        path: '/',
-        component: routerLinks('Dashboard'),
-      },
-      {
-        path: routerLinks('MyProfile'),
-        component: React.lazy(() => import('@pages/my-profile')),
-        title: 'MyProfile',
-      },
-      {
-        path: routerLinks('Dashboard'),
-        component: React.lazy(() => import('@pages/dashboard')),
-        title: 'Dashboard',
-      },
-      {
-        path: routerLinks('Code'),
-        component: React.lazy(() => import('@pages/code')),
-        title: 'Code',
-      },
-      {
-        path: routerLinks('Data'),
-        component: React.lazy(() => import('@pages/data')),
-        title: 'Data',
-      },
-      {
-        path: routerLinks('User/List'),
-        component: React.lazy(() => import('@pages/user')),
-        title: 'User/List',
-      },
-      {
-        path: routerLinks('User/Add'),
-        component: React.lazy(() => import('@pages/user/add')),
-        title: 'User/Add',
-      },
-      {
-        path: routerLinks('User') + '/:id',
-        component: React.lazy(() => import('@pages/user/add')),
-        title: 'User/Edit',
-      },
-    ], // 💬 generate link to here
   },
 ];
 
