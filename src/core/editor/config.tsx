@@ -15,7 +15,7 @@ import Delimiter from '@editorjs/delimiter';
 
 import Component from './component/index';
 import Button from './button/index';
-import { API } from '@utils';
+import {API, keyToken} from '@utils';
 
 const inlineToolbar = ['bold', 'italic', 'underline', 'link', 'inlineCode', 'marker'];
 export const editorjsConfig: any = {
@@ -65,7 +65,10 @@ export const editorjsConfig: any = {
             const { data } = await API.responsible(
               `/auth/upload`,
               {},
-              { ...API.init(), method: 'post', body: bodyFormData },
+              { ...API.init(), method: 'post', body: bodyFormData, headers: {
+                  authorization: 'Bearer ' + (localStorage.getItem(keyToken) || ''),
+                  'Accept-Language': localStorage.getItem('i18nextLng') || '',
+                }},
             );
 
             return {

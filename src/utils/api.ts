@@ -9,6 +9,7 @@ const API = {
       cache: 'no-cache',
       credentials: 'same-origin',
       headers: {
+        'Content-Type': 'application/json',
         authorization: 'Bearer ' + (localStorage.getItem(keyToken) || ''),
         'Accept-Language': localStorage.getItem('i18nextLng') || '',
       },

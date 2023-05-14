@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { v4 } from 'uuid';
 
-import { API } from '@utils';
+import {API, keyToken} from '@utils';
 import { Button } from '../button';
 import { Message } from '../message';
 import { Arrow, Paste, Times, UploadSVG } from '@svgs';
@@ -125,7 +125,10 @@ export const Upload = ({
         if (typeof action === 'string') {
           const bodyFormData = new FormData();
           bodyFormData.append('file', file);
-          const { data } = await API.responsible<any>(action, {}, { ...API.init(), method, body: bodyFormData });
+          const { data } = await API.responsible<any>(action, {}, { ...API.init(), method, body: bodyFormData, headers: {
+              authorization: 'Bearer ' + (localStorage.getItem(keyToken) || ''),
+              'Accept-Language': localStorage.getItem('i18nextLng') || '',
+            }});
           if (data) {
             const files = multiple
               ? listFiles.map((item: any) => {
