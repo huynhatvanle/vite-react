@@ -129,7 +129,7 @@ const Pages = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={'/:lang/'}>
+        <Route path={'/:lang'}>
           {pages.map(({ layout, isPublic, child }, index) => (
             <Route key={index} element={<Layout layout={layout} isPublic={isPublic} />}>
               {child.map(({ path = '', title = '', component }, subIndex: number) => (
