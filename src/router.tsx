@@ -29,13 +29,17 @@ const pages = [
     child: [
       {
         path: '/',
-        component: React.lazy(() => import('@pages/dashboard')),
-        title: 'Dashboard',
+        component: routerLinks('Dashboard'),
       },
       {
         path: routerLinks('MyProfile'),
         component: React.lazy(() => import('@pages/my-profile')),
         title: 'MyProfile',
+      },
+      {
+        path: routerLinks('Dashboard'),
+        component: React.lazy(() => import('@pages/dashboard')),
+        title: 'Dashboard',
       },
       {
         path: routerLinks('Code'),
@@ -111,7 +115,7 @@ const Pages = () => {
               {child.map(({ path = '', title = '', component }, subIndex: number) => (
                 <Route
                   key={path + subIndex}
-                  path={'/:lang/' + path}
+                  path={'/:lang' + path}
                   element={
                     <Suspense
                       fallback={
@@ -121,7 +125,7 @@ const Pages = () => {
                       }
                     >
                       {typeof component === 'string' ? (
-                        <Navigate to={component} />
+                        <Navigate to={'/' + i18n.language + component} />
                       ) : (
                         <Page title={title} component={component} />
                       )}
