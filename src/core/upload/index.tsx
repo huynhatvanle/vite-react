@@ -125,16 +125,16 @@ export const Upload = ({
         if (typeof action === 'string') {
           const bodyFormData = new FormData();
           bodyFormData.append('file', file);
-          const data = await API.responsible<any>(action, {}, { ...API.init(), method, body: bodyFormData });
+          const { data } = await API.responsible<any>(action, {}, { ...API.init(), method, body: bodyFormData });
           if (data) {
             const files = multiple
               ? listFiles.map((item: any) => {
                   if (item.id === dataFile.id) {
-                    item = { ...item, ...data.data, status: 'done' };
+                    item = { ...item, ...data, status: 'done' };
                   }
                   return item;
                 })
-              : [{ ...data.data, status: 'done' }];
+              : [{ ...data, status: 'done' }];
             set_listFiles(files);
             onChange && (await onChange(files));
           } else {

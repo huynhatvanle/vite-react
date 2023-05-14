@@ -54,7 +54,7 @@ const API = {
       localStorage.removeItem(keyUser);
       window.location.href = routerLinks('Login');
     }
-    return false;
+    return {};
   },
   get: <T>(url: string, params = {}, headers?: RequestInit['headers']) =>
     API.responsible<T>(url, params, { ...API.init(), method: 'GET' }, headers),
