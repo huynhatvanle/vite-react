@@ -129,7 +129,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 {
                   key: '1',
                   label: (
-                    <div onClick={() => navigate('/' + i18n.language + routerLinks('MyProfile'), { replace: true })}>
+                    <div onClick={() => navigate(`/${i18n.language}${routerLinks('MyProfile')}`, { replace: true })}>
                       {t('routes.admin.Layout.My Profile')}
                     </div>
                   ),
@@ -137,7 +137,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 {
                   key: '2',
                   label: (
-                    <div onClick={() => navigate('/' + i18n.language + routerLinks('Login'), { replace: true })}>
+                    <div onClick={() => navigate(`/${i18n.language}${routerLinks('Login')}`, { replace: true })}>
                       {t('routes.admin.Layout.Sign out')}
                     </div>
                   ),

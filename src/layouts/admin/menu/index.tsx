@@ -21,8 +21,8 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
     clearTimeout(clearTime.current);
     let linkActive = '';
     listMenu.forEach((item) => {
-      if (!linkActive && !!item.child && location.pathname.indexOf('/' + i18n.language + routerLinks(item.name)) > -1) {
-        linkActive = '/' + i18n.language + routerLinks(item.name);
+      if (!linkActive && !!item.child && location.pathname.indexOf(`/${i18n.language}${routerLinks(item.name)}`) > -1) {
+        linkActive = `/${i18n.language}${routerLinks(item.name)}`;
       }
     });
     clearTime.current = setTimeout(() => set_menuActive([linkActive]), 200);
@@ -43,9 +43,9 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
             key={index + v4()}
             className={classNames('child-item py-2 cursor-pointer', {
               'bg-white text-blue-600 !fill-blue-600':
-                location.pathname.indexOf('/' + i18n.language + routerLinks(subItem.name)) > -1,
+                location.pathname.indexOf(`/${i18n.language}${routerLinks(subItem.name)}`) > -1,
             })}
-            onClick={() => navigate('/' + i18n.language + routerLinks(subItem.name))}
+            onClick={() => navigate(`/${i18n.language}${routerLinks(subItem.name)}`)}
           >
             {t(`titles.${subItem.name}`)}
           </li>
@@ -70,11 +70,11 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                 <li
                   className={classNames('flex items-center h-11 m-3 px-2', {
                     'bg-white text-blue-600 !fill-blue-600 rounded-2xl':
-                      location.pathname === '/' + i18n.language + routerLinks(item.name),
-                    'fill-gray-600': location.pathname !== '/' + i18n.language + routerLinks(item.name),
+                      location.pathname === `/${i18n.language}${routerLinks(item.name)}`,
+                    'fill-gray-600': location.pathname !== `/${i18n.language}${routerLinks(item.name)}`,
                     'justify-center': isCollapsed,
                   })}
-                  onClick={() => navigate('/' + i18n.language + routerLinks(item.name))}
+                  onClick={() => navigate(`/${i18n.language}${routerLinks(item.name)}`)}
                   key={index}
                 >
                   {item.icon}
@@ -101,12 +101,12 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                     accordion
                     bordered={false}
                     className={classNames('bg-blue-100', {
-                      'active-menu': location.pathname.indexOf('/' + i18n.language + routerLinks(item.name)) > -1,
+                      'active-menu': location.pathname.indexOf(`/${i18n.language}${routerLinks(item.name)}`) > -1,
                     })}
                     defaultActiveKey={menuActive}
                   >
                     <Collapse.Panel
-                      key={'/' + i18n.language + routerLinks(item.name)}
+                      key={`/${i18n.language}${routerLinks(item.name)}`}
                       showArrow={!isCollapsed}
                       header={
                         <div
