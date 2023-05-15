@@ -58,7 +58,18 @@
     "Home": "Trang chủ"
   },
   "layout": {
-    "footer": "Công ty cổ phần Công nghệ Ari. ©{{year}}"
+    "header": {
+      "Home": "Trang chủ",
+      "Location": "Trụ sở",
+      "Address": "Vietnam Vietnam Vietnam Vietnam, Vietnam.",
+      "Mail us": "Hộp thư",
+      "Call us": "Liên hệ",
+      "Vietnamese": "Tiếng Việt",
+      "English": "Tiếng Anh"
+    },
+    "footer": {
+      "copyright": "Bản quyền ©{{year}} Co., JSC. Bảo lưu mọi quyền."
+    }
   },
   "routes": {
   }

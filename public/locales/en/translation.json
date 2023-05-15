@@ -58,7 +58,18 @@
     "Home": "Home"
   },
   "layout": {
-    "footer": "Ari Technology Company Ltd. ©{{year}}"
+    "header": {
+      "Home": "Home",
+      "Location": "Location",
+      "Address": "Vietnam Vietnam Vietnam Vietnam, Vietnam.",
+      "Mail us": "Mail us",
+      "Call us": "Call us",
+      "Vietnamese": "Vietnamese",
+      "English": "English"
+    },
+    "footer": {
+      "copyright": "Copyright ©{{year}} Co ., JSC. All rights reserved."
+    }
   },
   "routes": {
   }
