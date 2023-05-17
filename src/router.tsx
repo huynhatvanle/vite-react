@@ -5,6 +5,7 @@ import { Spin } from '@core/spin';
 import { keyUser, routerLinks } from '@utils';
 import { useTranslation } from 'react-i18next';
 import { GlobalFacade } from '@store';
+import { language, languages } from './utils/variable';
 
 const pages = [
   {
@@ -97,7 +98,7 @@ const Layout = ({
   layout: React.LazyExoticComponent<({ children }: { children?: React.ReactNode }) => JSX.Element>;
   isPublic: boolean;
 }) => {
-  const { i18n } = useTranslation();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const { user } = GlobalFacade();
   if (isPublic || !!user?.email || !!JSON.parse(localStorage.getItem(keyUser) || '{}')?.email)
     return (
@@ -105,7 +106,7 @@ const Layout = ({
         <Outlet />
       </Layout>
     );
-  return <Navigate to={`/${i18n.language}${routerLinks('Login')}`} />;
+  return <Navigate to={`/${lang}${routerLinks('Login')}`} />;
 };
 
 const Page = ({
@@ -125,7 +126,7 @@ const Page = ({
   return <Comp />;
 };
 const Pages = () => {
-  const { i18n } = useTranslation();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   return (
     <BrowserRouter>
       <Routes>
@@ -145,7 +146,7 @@ const Pages = () => {
                       }
                     >
                       {typeof component === 'string' ? (
-                        <Navigate to={'/' + i18n.language + component} />
+                        <Navigate to={'/' + lang + component} />
                       ) : (
                         <Page title={title} component={component} />
                       )}
@@ -156,7 +157,7 @@ const Pages = () => {
             </Route>
           ))}
         </Route>
-        <Route path="*" element={<Navigate to={'/' + i18n.language + '/'} />} />
+        <Route path="*" element={<Navigate to={'/' + lang + '/'} />} />
       </Routes>
     </BrowserRouter>
   );

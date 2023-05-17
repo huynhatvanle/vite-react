@@ -13,9 +13,10 @@ import Menu from './menu';
 // import { firebaseConfig } from 'variable';
 import './index.less';
 import { Logo } from '@svgs';
+import { language, languages } from '../../utils/variable';
 
 const Layout = ({ children }: PropsWithChildren) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const globalFacade = GlobalFacade();
   const { user, title } = globalFacade;
 
@@ -24,6 +25,7 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   const [isCollapsed, set_isCollapsed] = useState(window.innerWidth < 1025);
   const [isDesktop, set_isDesktop] = useState(window.innerWidth > 767);
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (window.innerWidth < 1025 && !isCollapsed) {
@@ -129,7 +131,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 {
                   key: '1',
                   label: (
-                    <div onClick={() => navigate(`/${i18n.language}${routerLinks('MyProfile')}`, { replace: true })}>
+                    <div onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}>
                       {t('routes.admin.Layout.My Profile')}
                     </div>
                   ),
@@ -137,7 +139,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 {
                   key: '2',
                   label: (
-                    <div onClick={() => navigate(`/${i18n.language}${routerLinks('Login')}`, { replace: true })}>
+                    <div onClick={() => navigate(`/${lang}${routerLinks('Login')}`, { replace: true })}>
                       {t('routes.admin.Layout.Sign out')}
                     </div>
                   ),
@@ -203,10 +205,13 @@ const Layout = ({ children }: PropsWithChildren) => {
         </div>
       </div>
       {!isDesktop && (
-        <div className={classNames('fixed h-full bg-black transition-all duration-500 ease-in-out w-full z-20', {
-          'opacity-70 left-0': !isCollapsed,
-          'opacity-0 -left-full': isCollapsed,
-        })} onClick={() => set_isCollapsed(true)} />
+        <div
+          className={classNames('fixed h-full bg-black transition-all duration-500 ease-in-out w-full z-20', {
+            'opacity-70 left-0': !isCollapsed,
+            'opacity-0 -left-full': isCollapsed,
+          })}
+          onClick={() => set_isCollapsed(true)}
+        />
       )}
       <div
         onMouseEnter={() => {
