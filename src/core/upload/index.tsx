@@ -225,7 +225,8 @@ export const Upload = ({
                 </div>
               ) : (
                 <div className='text-center justify-center'>
-                  <img alt={'Align'} className={'w-full h-full flex object-cover aspect-square rounded-[0.625rem] shadow-md bg-gray-100 cursor-pointer'} src={listFiles[0][keyImage]} />
+                  {/* rounded-2xl w-80 h-72 flex object-cover -----aspect-square object-cover rounded-[0.625rem] shadow-md bg-gray-100 cursor-pointer max-h-[500px]*/}
+                  <img alt={'Align'} className={' rounded-2xl w-auto max-h-[500px] flex object-cover bg-gray-100'} src={listFiles[0][keyImage]} />
                   <div
                     className='w-[55px] h-[45px] bg-teal-600 opacity-80 absolute right-0 bottom-0 rounded-tl-[0.625rem] rounded-br-[0.625rem] flex items-center justify-center'
                   >
@@ -288,11 +289,11 @@ export const Upload = ({
                               //   okText={t('components.datatable.ok')}
                               //   cancelText={t('components.datatable.cancel')}
                               // >
-                                <Button
-                                  icon={<Camera className={'h-6 w-6'} />}
-                                  className={'!bg-teal-600 !border-none mt-2 flex items-center justify-center'}
-                                />
-                            //    </Popconfirm>
+                              <Button
+                                icon={<Camera className={'h-6 w-6'} />}
+                                className={'!bg-teal-600 !border-none mt-2 flex items-center justify-center'}
+                              />
+                              //    </Popconfirm>
                             )}
                           </div>
                         </div>

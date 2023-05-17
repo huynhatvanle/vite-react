@@ -25,7 +25,7 @@ const Page = () => {
         <div className='col-span-1 lg:border lg:rounded-xl bg-white p-5'>
           <Spin spinning={isLoading}>
             <Form
-              className="text-center items-centers text-2xl text-black font-semibold"
+              className="text-center items-centers text-2xl text-black font-bold"
               columns={[
                 {
                   title: '',
@@ -56,7 +56,7 @@ const Page = () => {
                     render: (text: any, item: any) => {
                       if (text = item.userRole[0].mtRole.code === "ADMIN") {
                         return (
-                          <div className='flex w-full flex-row justify-center pt-2'>
+                          <div className='flex w-full flex-row justify-center pt-2 font-medium'>
                             <div><UserSolid className='w-7 h-7 mr-2 fill-slate-500' /></div>
                             <div className='text-xl text-gray-500'>
                               {t('user.RoleUser.ADMIN')}

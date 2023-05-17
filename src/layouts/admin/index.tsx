@@ -14,7 +14,7 @@ import { GlobalFacade } from '@store';
 import Menu1 from './menu';
 // import { firebaseConfig } from 'variable';
 import './index.less';
-import { Chevronleft, LeftArrow, Logo, RightArrow, Menu, ArrowBack, User1, Key, Out, User } from '@svgs';
+import { LeftArrow, RightArrow, Menu, ArrowBack, Key, Out, User1 } from '@svgs';
 import Logo1 from '../../assets/images/logo.png';
 
 const Layout = ({ children }: PropsWithChildren) => {
@@ -104,12 +104,12 @@ const Layout = ({ children }: PropsWithChildren) => {
               items: [
                 {
                   key: '0',
-                  className: 'hover:!bg-white',
+                  className: 'hover:!bg-white border-b !rounded-none',
                   label: (
                     <div className='flex'>
                       <Avatar src={user?.profileImage} size={8} />
                       <div className="text-left leading-none mr-3 hidden sm:block pl-2">
-                        <div className="font-bold text-black text-lg leading-snug mb-0.5">{user?.name}</div>
+                        <div className="font-bold text-black text-sm leading-snug mb-0.5">{user?.name}</div>
                         <div className="text-gray-500 text-[10px]">{user?.email}</div>
                       </div>
                     </div>
@@ -119,11 +119,11 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '1',
                   className: 'h-11',
                   label: (
-                    <div className='flex'>
+                    <div className='flex' onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
                       <div className='flex items-center'>
-                        <User className='w-6 h-6 pr-2 text-black' />
+                        <User1 className='w-6 h-6 pr-2 text-black' />
                       </div>
-                      <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
+                      <div >
                         {t('routes.admin.Layout.My Profile')}
                       </div>
                     </div>
@@ -131,13 +131,13 @@ const Layout = ({ children }: PropsWithChildren) => {
                 },
                 {
                   key: '2',
-                  className: 'h-11',
+                  className: 'h-11 border-b !rounded-none',
                   label: (
-                    <div className='flex'>
+                    <div className='flex' onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
                       <div className='flex items-center'>
                         <Key className='w-6 h-6 pr-2 text-black' />
                       </div>
-                      <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
+                      <div>
                         {t('routes.admin.Layout.Change Password')}
                       </div>
                     </div>
@@ -147,11 +147,11 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '3',
                   className: 'h-11',
                   label: (
-                    <div className='flex'>
+                    <div className='flex' onClick={() => navigate(routerLinks('Login'), { replace: true })}>
                       <div className='flex items-center'>
                         <Out className='w-6 h-6 pr-2 text-black' />
                       </div>
-                      <div onClick={() => navigate(routerLinks('Login'), { replace: true })}>
+                      <div>
                         {t('routes.admin.Layout.Sign out')}
                       </div>
                     </div>
@@ -162,10 +162,6 @@ const Layout = ({ children }: PropsWithChildren) => {
             placement="bottomRight"
           >
             <section className="flex items-center" id={'dropdown-profile'}>
-              {/* <div className="text-right leading-none mr-3 hidden sm:block">
-                <div className="font-bold text-black text-lg leading-snug mb-0.5">{user?.name}</div>
-                <div className="text-gray-500">{user?.email}</div>
-              </div> */}
               <Avatar src={user?.profileImage} size={10} />
             </section>
           </Dropdown>
@@ -203,22 +199,12 @@ const Layout = ({ children }: PropsWithChildren) => {
             {(isCollapsed && !isDesktop) && <Menu className="w-9 text-black select-none" />}
             {(!isCollapsed && !isDesktop) && <ArrowBack className="w-9 text-black select-none" />}
 
-            {/* <span className="line" />
-              <span className="line" />
-              <span className="line" /> */}
           </div>
           <a href="/dashboard" className="flex items-center">
-            {/* <Logo className={classNames('w-10 h-10 mr-3',
-                {
-                  'opacity-100 text-lg': !isCollapsed && isDesktop || isCollapsed && !isDesktop,
-                  'opacity-0 text-[0px] hidden': isCollapsed && isDesktop,
-                },)} /> */}
-
             <img src={Logo1} className={classNames('w-12 mr-3 rounded ',
               {
                 'opacity-100 text-lg w-12': !isCollapsed && isDesktop || isCollapsed && !isDesktop,
                 'opacity-0 text-[0px] hidden': isCollapsed && isDesktop,
-                // 'opacity-100 text-xl': isCollapsed && !isDesktop,
               },)}></img>
             <div
               id={'name-application'}
@@ -275,7 +261,6 @@ const Layout = ({ children }: PropsWithChildren) => {
         })}
       >
         <div className={''}>
-          {/* <h1 className={'text-xl font-bold block sm:hidden pb-5'}>{t('pages.' + title)}</h1> */}
           {title !== 'Dashboard' && (
             <h1 className={'text-2xl text-teal-900 font-bold block pb-5'}>{t('titles.' + title)}</h1>)}
           {children}

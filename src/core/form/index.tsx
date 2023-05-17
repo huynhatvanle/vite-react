@@ -116,7 +116,7 @@ export const Form = ({
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
           />
         );
-        case 'passConfirm':
+      case 'passConfirm':
         return (
           <Password
             tabIndex={formItem.tabIndex || index}
@@ -532,7 +532,7 @@ export const Form = ({
             },
           }));
           break;
-          case 'password':
+        case 'password':
           rules.push(() => ({
             validator: async (rule: any, value: any) => {
               if (value) {
@@ -548,13 +548,13 @@ export const Form = ({
                 }
               } else {
                 return Promise.resolve();
-            }
-          },
+              }
+            },
           }));
           break;
         case 'passConfirm':
           rules.push(() => ({
-            }),
+          }),
           );
           break;
         case 'only_number':

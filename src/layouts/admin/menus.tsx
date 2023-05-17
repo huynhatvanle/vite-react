@@ -2,11 +2,11 @@ import React from 'react';
 
 import { keyRole } from '@utils';
 import './index.less';
-import { Cart, Chart, Cog, Store, User } from '@svgs';
+import { Cart, Dashboard, Store, User } from '@svgs';
 
 const Layout = () => [
   {
-    icon: <Chart className="icon-menu" />,
+    icon: <Dashboard className="icon-menu" />,
     name: 'Dashboard',
   },
   {
@@ -14,7 +14,7 @@ const Layout = () => [
     name: 'User/List',
   },
   {
-    icon: <Cart className="icon-menu" />,
+    icon: <Cart className="icon-menu " />,
     name: 'Supplier',
   },
   {
