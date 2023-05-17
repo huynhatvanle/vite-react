@@ -12,11 +12,13 @@ import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
 import dayjs from 'dayjs';
 import { Popconfirm, Tooltip } from 'antd';
+import { language, languages } from '../../utils/variable';
 
 const Page = () => {
   const { t, i18n } = useTranslation();
   const { formatDate, user } = GlobalFacade();
   const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   const userFacade = UserFacade();
   useEffect(() => {
@@ -149,7 +151,7 @@ const Page = () => {
                   <Tooltip title={t('routes.admin.Layout.Edit')}>
                     <Edit
                       className="icon-cud bg-blue-600 hover:bg-blue-400"
-                      onClick={() => navigate(`/${i18n.language}${routerLinks('User')}/${data.id}`)}
+                      onClick={() => navigate(`/${lang}${routerLinks('User')}/${data.id}`)}
                     />
                   </Tooltip>
                 )}
@@ -178,7 +180,7 @@ const Page = () => {
             <Button
               icon={<Plus className="icon-cud !h-5 !w-5" />}
               text={t('components.button.New')}
-              onClick={() => navigate(`/${i18n.language}${routerLinks('User/Add')}`)}
+              onClick={() => navigate(`/${lang}${routerLinks('User/Add')}`)}
             />
           )}
         </div>

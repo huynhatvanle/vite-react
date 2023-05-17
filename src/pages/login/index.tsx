@@ -7,15 +7,18 @@ import { ModalForm } from '@core/modal/form';
 
 import { GlobalFacade } from '@store';
 import { FormModalRefObject } from '@models';
+import { language, languages } from '../../utils/variable';
 
 const Page = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const globalFacade = GlobalFacade();
   const { isLoading, status, user, data, login } = globalFacade;
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+
   useEffect(() => {
     if (status === 'login.fulfilled' && user && Object.keys(user).length > 0) {
-      navigate('/' + i18n.language + '/', { replace: true });
+      navigate('/' + lang + '/', { replace: true });
     }
   }, [status]);
   const modalFormRef = useRef<FormModalRefObject>(null);

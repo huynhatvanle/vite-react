@@ -5,17 +5,19 @@ import { Spin } from '@core/spin';
 import { Form } from '@core/form';
 import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
+import { language, languages } from '../../utils/variable';
 
 const Page = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { search } = useLocation();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   const { isLoading, status, resetPassword } = GlobalFacade();
 
   useEffect(() => {
     if (status === 'resetPassword.fulfilled') {
-      navigate(`/${i18n.language}${routerLinks('Login')}`, { replace: true });
+      navigate(`/${lang}${routerLinks('Login')}`, { replace: true });
     }
   }, [status]);
 
