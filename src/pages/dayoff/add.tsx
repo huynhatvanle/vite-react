@@ -6,6 +6,7 @@ import { Button } from '@core/button';
 import { Form } from '@core/form';
 import { GlobalFacade, DayoffFacade } from '@store';
 import { routerLinks } from '@utils';
+import { language, languages } from '../../utils/variable';
 
 const Page = () => {
   const { t, i18n } = useTranslation();
@@ -17,6 +18,7 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   const listType = [
     {
@@ -61,7 +63,7 @@ const Page = () => {
   }, [id]);
 
   const navigateToDetail = (data: any) => {
-    navigate(`/${i18n.language}${routerLinks('DayOff/Detail')}/${data.id}`);
+    navigate(`/${lang}${routerLinks('DayOff/Detail')}/${data.id}`);
   };
 
   useEffect(() => {
@@ -78,7 +80,7 @@ const Page = () => {
     }
   }, [status, data]);
 
-  const handleBack = () => navigate(`/${i18n.language}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => navigate(`/${lang}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
     if (id) dayoffFacade.put(values);
     else dayoffFacade.post(values);

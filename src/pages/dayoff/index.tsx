@@ -10,6 +10,7 @@ import { CheckCircle, Plus, Times, Trash } from '@svgs';
 import { Avatar } from '@core/avatar';
 import dayjs from 'dayjs';
 import { Popconfirm, Tooltip } from 'antd';
+import { language, languages } from '../../utils/variable';
 
 const Page = () => {
   const { t, i18n } = useTranslation();
@@ -49,6 +50,7 @@ const Page = () => {
       label: t('dayoff.register.Afternoon'),
     },
   ];
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     switch (status) {
@@ -69,7 +71,7 @@ const Page = () => {
         ref={dataTableRef}
         onRow={(data: any) => ({
           onDoubleClick: () => {
-            navigate(`/${i18n.language}${routerLinks('DayOff/Detail')}/${data.id}`);
+            navigate(`/${lang}${routerLinks('DayOff/Detail')}/${data.id}`);
           },
         })}
         xScroll={'1400px'}
@@ -232,7 +234,9 @@ const Page = () => {
               <Button
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
                 text={t('components.button.New')}
-                onClick={() => navigate(`/${i18n.language}${routerLinks('DayOff/Add')}?${new URLSearchParams(param).toString()}`)}
+                onClick={() =>
+                  navigate(`/${lang}${routerLinks('DayOff/Add')}?${new URLSearchParams(param).toString()}`)
+                }
               />
             )}
           </Fragment>

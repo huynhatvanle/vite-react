@@ -10,6 +10,7 @@ import { Avatar } from '@core/avatar';
 import { GlobalFacade, DayoffFacade } from '@store';
 import { keyRole, routerLinks } from '@utils';
 import { CheckCircle, Times } from '@svgs';
+import { language, languages } from '../../utils/variable';
 
 const Page = () => {
   const { t, i18n } = useTranslation();
@@ -21,6 +22,7 @@ const Page = () => {
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
   const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   const listType = [
     {
@@ -180,7 +182,7 @@ const Page = () => {
           <Button
             className="right-32 md:min-w-[12rem] justify-center out-line"
             text={t('components.button.Back')}
-            onClick={() => navigate(`/${i18n.language}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`)}
+            onClick={() => navigate(`/${lang}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`)}
           />
           {user?.role?.permissions?.includes(keyRole.P_DAYOFF_UPDATE_STATUS) &&
             data?.status === 0 &&
@@ -190,7 +192,7 @@ const Page = () => {
                 title={t('Bạn có muốn duyệt?')}
                 onConfirm={() => {
                   dayoffFacade.putStatus({ id: data.id, status: 1 }),
-                    navigate(`/${i18n.language}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
+                    navigate(`/${lang}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
                 }}
                 okText={t('components.datatable.ok')}
                 cancelText={t('components.datatable.cancel')}
