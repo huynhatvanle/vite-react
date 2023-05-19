@@ -27,7 +27,6 @@ const Page = () => {
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
   const [supplier, setSupplier] = useState('')
-
   // useEffect(() => {
   //   console.log(supplier)
   //   productFacede.get({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: supplier })
@@ -117,7 +116,6 @@ const Page = () => {
                           form.resetFields(['districtId', 'wardId'])
                         },
                       },
-
                     },
                     {
                       title: 'store.District',

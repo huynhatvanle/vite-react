@@ -13,23 +13,11 @@ const Page = () => {
   const navigate = useNavigate();
   const isReload = useRef(false);
 
-  // const provinceFacade = ProvinceFacade()
-  // const { result } = provinceFacade
-
-  // const districtFacade = DistrictFacade()
-  // const wardFacade = WardFacade()
-
   const data = StoreManagement
 
   const storeFace = StoreFacade();
   const { isLoading, queryParams } = storeFace;
   const param = JSON.parse(queryParams || '{}');
-
-  // useEffect(() => {
-  //   if (!result?.data) provinceFacade.get({})
-  //   // districtFacade.get('12')
-  // }, []);
-
   const handleBack = () => navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: any) => {
     storeFace.post(values);

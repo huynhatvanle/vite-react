@@ -11,14 +11,6 @@ export const action = {
     name + '/get',
     async (code: string) => await API.get(routerLinks(name, 'api'), code),
   ),
-  // getDistrict: createAsyncThunk(
-  //     'District' + '/get',
-  //     async (provinceCode: string) => await API.get(`${routerLinks('District', 'api')}/${provinceCode}`)
-  // ),
-  // getWard: createAsyncThunk(
-  //     name + '/get',
-  //     async (districCode: string) => await API.get(`${routerLinks(name, 'api')}/${districCode}`),
-  // )
 };
 export const provinceSlice = createSlice(new Slice<Province>(action));
 export const ProvinceFacade = () => {
@@ -37,24 +29,23 @@ export class Province extends CommonEntity {
     super();
   }
 }
-
 // export class District extends CommonEntity {
-//     constructor(
-//         public id?: string,
-//         public code?: string,
-//         public name?: string,
-//         public provinceCode?: string,
-//     ) {
-//         super();
-//     }
+//   constructor(
+//     public id?: string,
+//     public code?: string,
+//     public name?: string,
+//     public provinceId?: string,
+//   ) {
+//     super();
+//   }
 // }
 // export class Ward extends CommonEntity {
-//     constructor(
-//         public id?: string,
-//         public code?: string,
-//         public name?: string,
-//         public districtCode?: string,
-//     ) {
-//         super();
-//     }
+//   constructor(
+//     public id?: string,
+//     public code?: string,
+//     public name?: string,
+//     public districtId?: string,
+//   ) {
+//     super();
+//   }
 // }
