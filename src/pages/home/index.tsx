@@ -4,14 +4,16 @@ import LazyLoad from 'vanilla-lazyload';
 
 const Page = () => {
   useEffect(() => {
-    new LazyLoad();
+    new LazyLoad({
+      callback_error: (el: any) => (el.src = 'https://via.placeholder.com/440x560/?text=Error'),
+    });
   }, []);
 
   return (
     <Fragment>
       <Swiper spaceBetween={50} slidesPerView={3}>
         <SwiperSlide>
-          <img className={'lazy'} alt="Row 01, col 01" data-src="https://via.placeholder.com/440x560?text=Img+01" />
+          <img className={'lazy'} alt="Row 01, col 01" data-src="via.placeholder.com/440x560?text=Img+01" />
         </SwiperSlide>
         <SwiperSlide>
           <img className={'lazy'} alt="Row 01, col 02" data-src="https://via.placeholder.com/440x560?text=Img+02" />
