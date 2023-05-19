@@ -1,7 +1,30 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import LazyLoad from 'vanilla-lazyload';
 
 const Page = () => {
-  return <Fragment>Home</Fragment>;
+  useEffect(() => {
+    new LazyLoad();
+  }, []);
+
+  return (
+    <Fragment>
+      <Swiper spaceBetween={50} slidesPerView={3}>
+        <SwiperSlide>
+          <img className={'lazy'} alt="Row 01, col 01" data-src="https://via.placeholder.com/440x560?text=Img+01" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className={'lazy'} alt="Row 01, col 02" data-src="https://via.placeholder.com/440x560?text=Img+02" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className={'lazy'} alt="Row 01, col 01" data-src="https://via.placeholder.com/440x560?text=Img+03" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className={'lazy'} alt="Row 01, col 02" data-src="https://via.placeholder.com/440x560?text=Img+04" />
+        </SwiperSlide>
+      </Swiper>
+    </Fragment>
+  );
 };
 
 export default Page;
