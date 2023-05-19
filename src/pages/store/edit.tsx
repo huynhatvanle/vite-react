@@ -27,13 +27,14 @@ const Page = () => {
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
   const [supplier, setSupplier] = useState('')
-  useEffect(() => {
-    console.log(supplier)
-    productFacede.get({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: supplier })
-    // return () => {
-    //   isReload.current && storeFacade.get(param);
-    // };
-  }, [supplier]);
+
+  // useEffect(() => {
+  //   console.log(supplier)
+  //   productFacede.get({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: supplier })
+  //   // return () => {
+  //   //   isReload.current && storeFacade.get(param);
+  //   // };
+  // }, [supplier]);
 
   useEffect(() => {
     if (id) storeFacade.getById({ id });
@@ -53,182 +54,185 @@ const Page = () => {
       <Fragment>
         <div>
           <Tabs defaultActiveKey='1' type='card' size='large'>
-          <Tabs.TabPane tab={'Thông tin cửa hàng'} key='1' className='bg-white rounded-xl rounded-tl-none'>
-              <Form
-                values={{ ...data, street: data?.address?.street,emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.name }}
-                className="intro-x p-6 pb-4 pt-3 rounded-lg w-full"
-                columns={[
-                  {
-                    title: 'store.Code',
-                    name: 'code',
-                    formItem: {
-                      tabIndex: 1,
-                      col: 4,
-                      disabled: () => true
-                    },
-                  },
-                  {
-                    title: 'store.Name',
-                    name: 'name',
-                    formItem: {
-                      tabIndex: 2,
-                      col: 4,
-                      rules: [{ type: 'required' }],
-                    },
-                  },
-                  {
-                    title: 'store.Fax',
-                    name: 'fax',
-                    formItem: {
-                      tabIndex: 3,
-                      col: 4,
-                    },
-                  },
-                  {
-                    title: '',
-                    name: 'address',
-                    formItem: {
-                      rules: [{ type: 'required' }],
-                      render() {
-                        return (
-                          <h3 className='mb-2.5 text-base text-black font-medium'>Địa chỉ cửa hàng</h3>
-                        )
-                      },
-                    }
-                  },
-                  {
-                    title: 'store.Province',
-                    name: 'provinceId',
-                    formItem: {
-                      tabIndex: 3,
-                      col: 3,
-                      rules: [{ type: 'required' }],
-                      type: 'select',
-                      get: {
-                        facade: ProvinceFacade,
-                        format: (item: any) => ({
-                          label: item.name,
-                          value: item.id + '|' + item.code,
-                        }),
-                      },
-                      onChange(value, form) {
-                        form.resetFields(['districtId', 'wardId'])
+            <Tabs.TabPane tab={'Thông tin cửa hàng'} key='1' className='bg-white rounded-xl rounded-tl-none'>
+              <div className='bg-white p-5 rounded-t-xl'>
+                <Form
+                  values={{ ...data, street: data?.address?.street, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.name }}
+                  className="intro-x"
+                  columns={[
+                    {
+                      title: 'store.Code',
+                      name: 'code',
+                      formItem: {
+                        tabIndex: 1,
+                        col: 4,
+                        disabled: () => true
                       },
                     },
-                  },
-                  {
-                    title: 'store.District',
-                    name: 'districtId',
-                    formItem: {
-                      type: 'select',
-                      rules: [{ type: 'required' }],
-                      col: 3,
-                      get: {
-                        facade: DistrictFacade,
-                        format: (item: any) => ({
-                          label: item.name,
-                          value: item.id + '|' + item.code,
-                        }),
-                        params: (fullTextSearch, value) => ({
-                          fullTextSearch,
-                          code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
-                        }),
-                      },
-                      onChange(value, form) {
-                        form.resetFields(['wardId'])
+                    {
+                      title: 'store.Name',
+                      name: 'name',
+                      formItem: {
+                        tabIndex: 2,
+                        col: 4,
+                        rules: [{ type: 'required' }],
                       },
                     },
-                  },
-                  {
-                    title: 'store.Ward',
-                    name: 'wardId',
-                    formItem: {
-                      type: 'select',
-                      rules: [{ type: 'required' }],
-                      col: 3,
-                      get: {
-                        facade: WardFacade,
-                        format: (item: any) => ({
-                          label: item.name,
-                          value: item.id,
-                        }),
-                        params: (fullTextSearch, value) => ({
-                          fullTextSearch,
-                          code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                        })
+                    {
+                      title: 'store.Fax',
+                      name: 'fax',
+                      formItem: {
+                        tabIndex: 3,
+                        col: 4,
+                      },
+                    },
+                    {
+                      title: '',
+                      name: 'address',
+                      formItem: {
+                        rules: [{ type: 'required' }],
+                        render() {
+                          return (
+                            <h3 className='mb-2.5 text-base text-black font-medium'>Địa chỉ cửa hàng</h3>
+                          )
+                        },
                       }
                     },
-                  },
-                  {
-                    title: 'store.Street',
-                    name: 'street',
-                    formItem: {
-                      rules: [{ type: 'required' }],
-                      col: 3,
-                    },
-                  },
-                  {
-                    title: '',
-                    name: '',
-                    formItem: {
-                      render() {
-                        return (
-                          <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
-                        )
-                      }
-                    }
-                  },
-                  {
-                    title: 'store.ContactName',
-                    name: 'nameContact',
-                    formItem: {
-                      col: 4,
-                      rules: [{ type: 'required' }],
-                    },
-                  },
-                  {
-                    title: 'store.Contact Phone Number',
-                    name: 'phoneNumber',
-                    formItem: {
-                      col: 4,
-                      rules: [{ type: 'required' }],
-                    },
-                  },
-                  {
-                    title: 'store.Contact Email',
-                    name: 'emailContact',
-                    formItem: {
-                      col: 4,
-                      rules: [{ type: 'required' }],
-                    },
-                  },
-                  {
-                    title: 'store.Note',
-                    name: 'note',
-                    formItem: {
-                      type: 'textarea',
-                    },
-                  },
-                  {
-                    title: '',
-                    name: '',
-                    formItem: {
-                      render() {
-                        return (
-                          <div className='flex items-center mb-2.5'>
-                            <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
-                            <Switch className='bg-gray-500' />
-                          </div>
-                        )
-                      }
-                    }
-                  },
+                    {
+                      title: 'store.Province',
+                      name: 'provinceId',
+                      formItem: {
+                        tabIndex: 3,
+                        col: 3,
+                        rules: [{ type: 'required' }],
+                        type: 'select',
+                        get: {
+                          facade: ProvinceFacade,
+                          format: (item: any) => ({
+                            label: item.name,
+                            value: item.id + '|' + item.code,
+                          }),
+                        },
+                        onChange(value, form) {
+                          form.resetFields(['districtId', 'wardId'])
+                        },
+                      },
 
-                ]}
-                handSubmit={handleSubmit}
-                disableSubmit={isLoading}
-                handCancel={handleBack}
-              />
+                    },
+                    {
+                      title: 'store.District',
+                      name: 'districtId',
+                      formItem: {
+                        type: 'select',
+                        rules: [{ type: 'required' }],
+                        col: 3,
+                        get: {
+                          facade: DistrictFacade,
+                          format: (item: any) => ({
+                            label: item.name,
+                            value: item.id + '|' + item.code,
+                          }),
+                          params: (fullTextSearch, value) => ({
+                            fullTextSearch,
+                            code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
+                          }),
+                        },
+                        onChange(value, form) {
+                          form.resetFields(['wardId'])
+                        },
+                      },
+                    },
+                    {
+                      title: 'store.Ward',
+                      name: 'wardId',
+                      formItem: {
+                        type: 'select',
+                        rules: [{ type: 'required' }],
+                        col: 3,
+                        get: {
+                          facade: WardFacade,
+                          format: (item: any) => ({
+                            label: item.name,
+                            value: item.id,
+                          }),
+                          params: (fullTextSearch, value) => ({
+                            fullTextSearch,
+                            code: value().districtId.slice(value().districtId.indexOf('|') + 1),
+                          })
+                        }
+                      },
+                    },
+                    {
+                      title: 'store.Street',
+                      name: 'street',
+                      formItem: {
+                        rules: [{ type: 'required' }],
+                        col: 3,
+                      },
+                    },
+                    {
+                      title: '',
+                      name: '',
+                      formItem: {
+                        render() {
+                          return (
+                            <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
+                          )
+                        }
+                      }
+                    },
+                    {
+                      title: 'store.ContactName',
+                      name: 'nameContact',
+                      formItem: {
+                        col: 4,
+                        rules: [{ type: 'required' }],
+                      },
+                    },
+                    {
+                      title: 'store.Contact Phone Number',
+                      name: 'phoneNumber',
+                      formItem: {
+                        col: 4,
+                        rules: [{ type: 'required' }],
+                      },
+                    },
+                    {
+                      title: 'store.Contact Email',
+                      name: 'emailContact',
+                      formItem: {
+                        col: 4,
+                        rules: [{ type: 'required' }],
+                      },
+                    },
+                    {
+                      title: 'store.Note',
+                      name: 'note',
+                      formItem: {
+                        type: 'textarea',
+                      },
+                    },
+                    {
+                      title: '',
+                      name: '',
+                      formItem: {
+                        render() {
+                          return (
+                            <div className='flex items-center mb-2.5'>
+                              <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
+                              <Switch className='bg-gray-500' />
+                            </div>
+                          )
+                        }
+                      }
+                    },
+
+                  ]}
+                  handSubmit={handleSubmit}
+                  disableSubmit={isLoading}
+                  handCancel={handleBack}
+                />
+              </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab='Danh sách hàng hóa' key='2' className='rounded-xl'>
               <DataTable
@@ -323,114 +327,114 @@ const Page = () => {
                 }
                 leftHeader={
                   <>
-                   <Form
-                    className="intro-x pt-5 rounded-lg w-full "
-                    columns={
-                      [
-                        {
-                          title: '',
-                          name: 'supplierName',
-                          formItem: {
-                            placeholder: 'Chọn nhà cung cấp',
-                            col: 5,
-                            type: 'select',
-                            get: {
-                              facade: SupplierStoreFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                              params: (fullTextSearch) => ({
-                                fullTextSearch,
-                                storeId: id,
-                                type : 'BALANCE',
-                              }),
-                            },
-                            onChange(value, form) {
-                              setSupplier(`${value}`)
-                            },
-                          },
-                        },
-                      ]
-                    }
-                    // handSubmit={handleSubmit}
-                    disableSubmit={isLoading}
-                  />
-                  <Form
-                    className="intro-x pt-5 rounded-lg w-full "
-                    columns={
-                      [
-                        {
-                          title: '',
-                          name: 'cap1',
-                          formItem: {
-                            tabIndex: 3,
-                            placeholder: 'Danh mục chính',
-                            col: 3,
-                            type: 'select',
-                            get: {
-                              facade: CategoryFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                            },
-                            onChange(value, form) {
-                              form.resetFields(['cap2', 'cap3'])
+                    <Form
+                      className="intro-x pt-5 rounded-lg w-full "
+                      columns={
+                        [
+                          {
+                            title: '',
+                            name: 'supplierName',
+                            formItem: {
+                              placeholder: 'Chọn nhà cung cấp',
+                              col: 5,
+                              type: 'select',
+                              get: {
+                                facade: SupplierStoreFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                                params: (fullTextSearch) => ({
+                                  fullTextSearch,
+                                  storeId: id,
+                                  type: 'BALANCE',
+                                }),
+                              },
+                              onChange(value, form) {
+                                setSupplier(`${value}`)
+                              },
                             },
                           },
-                        },
-                        {
-                          name: 'cap2',
-                          title: '',
-                          formItem: {
-                            // disabled:() => true,
-                            placeholder: 'Danh mục cấp 1',
-                            type: 'select',
-                            col: 3,
-                            get: {
-                              facade: CategoryFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                              params: (fullTextSearch, value) => ({
-                                fullTextSearch,
-                                id: value().cap1,
-                              }),
-                            },
-                            onChange(value, form) {
-                              form.resetFields(['cap3'])
+                        ]
+                      }
+                      // handSubmit={handleSubmit}
+                      disableSubmit={isLoading}
+                    />
+                    <Form
+                      className="intro-x pt-5 rounded-lg w-full "
+                      columns={
+                        [
+                          {
+                            title: '',
+                            name: 'cap1',
+                            formItem: {
+                              tabIndex: 3,
+                              placeholder: 'Danh mục chính',
+                              col: 3,
+                              type: 'select',
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                              },
+                              onChange(value, form) {
+                                form.resetFields(['cap2', 'cap3'])
+                              },
                             },
                           },
-                        },
-                        {
-                          name: 'cap3',
-                          title: '',
-                          formItem: {
-                            // disabled:() => true,
-                            placeholder: 'Danh mục cấp 2',
-                            type: 'select',
-                            col: 3,
-                            get: {
-                              facade: CategoryFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                              params: (fullTextSearch, value) => ({
-                                fullTextSearch,
-                                id: value().cap2,
-                              })
-                            }
+                          {
+                            name: 'cap2',
+                            title: '',
+                            formItem: {
+                              // disabled:() => true,
+                              placeholder: 'Danh mục cấp 1',
+                              type: 'select',
+                              col: 3,
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                                params: (fullTextSearch, value) => ({
+                                  fullTextSearch,
+                                  id: value().cap1,
+                                }),
+                              },
+                              onChange(value, form) {
+                                form.resetFields(['cap3'])
+                              },
+                            },
                           },
-                        },
-                      ]
-                    }
-                    // handSubmit={handleSubmit}
-                    disableSubmit={isLoading}
+                          {
+                            name: 'cap3',
+                            title: '',
+                            formItem: {
+                              // disabled:() => true,
+                              placeholder: 'Danh mục cấp 2',
+                              type: 'select',
+                              col: 3,
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                                params: (fullTextSearch, value) => ({
+                                  fullTextSearch,
+                                  id: value().cap2,
+                                })
+                              }
+                            },
+                          },
+                        ]
+                      }
+                      // handSubmit={handleSubmit}
+                      disableSubmit={isLoading}
 
-                  />
+                    />
                   </>
                 }
               />
@@ -571,35 +575,35 @@ const Page = () => {
                 }
                 leftHeader={
                   <Form
-                  className="intro-x rounded-lg w-full "
-                  columns={
-                    [
-                      {
-                        title: '',
-                        name: 'supplierName',
-                        formItem: {
-                        //  tabIndex: 1,
-                          placeholder: 'Chọn loại đơn hàng',
-                          col: 7,
-                          type: 'select',
-                          get: {
-                            facade:  ConnectSupplierFacade,
-                            format: (item: any) => ({
-                              label: item.supplier?.name,
-                              value: item.supplier?.id,
-                            }),
-                            // params: (fullTextSearch: string, getFieldValue: any) => ({
-                            //   fullTextSearch,
-                            //   extend: { name: getFieldValue('supplierName') || undefined },
-                            // }),
-                          }
+                    className="intro-x rounded-lg w-full "
+                    columns={
+                      [
+                        {
+                          title: '',
+                          name: 'supplierName',
+                          formItem: {
+                            //  tabIndex: 1,
+                            placeholder: 'Chọn loại đơn hàng',
+                            col: 7,
+                            type: 'select',
+                            get: {
+                              facade: ConnectSupplierFacade,
+                              format: (item: any) => ({
+                                label: item.supplier?.name,
+                                value: item.supplier?.id,
+                              }),
+                              // params: (fullTextSearch: string, getFieldValue: any) => ({
+                              //   fullTextSearch,
+                              //   extend: { name: getFieldValue('supplierName') || undefined },
+                              // }),
+                            }
+                          },
                         },
-                      },
-                    ]
-                  }
-                  // handSubmit={handleSubmit}
-                  disableSubmit={isLoading}
-                />
+                      ]
+                    }
+                    // handSubmit={handleSubmit}
+                    disableSubmit={isLoading}
+                  />
                 }
                 columns={[
                   {
@@ -642,7 +646,7 @@ const Page = () => {
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab='Quản lý kho' key='6' className='rounded-xl'>
-            <DataTable
+              <DataTable
                 facade={inventoryProductFacade.data?.inventory}
                 defaultRequest={{ page: 1, perPage: 10, idStore: id }}
                 xScroll='1440px'
@@ -673,12 +677,12 @@ const Page = () => {
                           title: '',
                           name: 'supplierName',
                           formItem: {
-                          //  tabIndex: 1,
+                            //  tabIndex: 1,
                             placeholder: 'Chọn nhà cung cấp',
                             col: 7,
                             type: 'select',
                             get: {
-                              facade:  ConnectSupplierFacade,
+                              facade: ConnectSupplierFacade,
                               format: (item: any) => ({
                                 label: item.supplier?.name,
                                 value: item.supplier?.id,

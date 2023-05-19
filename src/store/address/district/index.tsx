@@ -28,7 +28,6 @@ export class District extends CommonEntity {
     public id?: string,
     public code?: string,
     public name?: string,
-
   ) {
     super();
   }

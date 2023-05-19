@@ -92,20 +92,25 @@
     "merchandise-managerment/product": "Sản phẩm",
     "merchandise-managerment/category": "Danh mục",
     "merchandise-managerment/tax": "Thuế",
-    "Userinformation":"Thông tin người dùng"
+    "Userinformation":"Thông tin người dùng",
+    "Storeinformation":"Thông tin cửa hàng",
+    "Supplierinformation":"Thông tin nhà cung cấp"
   },
   "pages": {
     "Login": "Đăng Nhập",
-    "User/List": "Quản Lý Người Dùng",
-    "User/Add": "Tạo mới Người Dùng",
-    "User/Edit": "Chỉnh sửa người dùng",
-    "store-managerment/create": "Thêm cửa hàng",
-    "Đặt Lại Mật Khẩu": "Đặt Lại Mật Khẩu",
     "Sign-in": "Đăng Nhập",
+    "Đặt Lại Mật Khẩu": "Đặt Lại Mật Khẩu",
     "Quên Mật Khẩu": "Quên Mật Khẩu",
-    "Store": "Quản lý cửa hàng",
-    "store-managerment/edit": "Quản lý cửa hàng",
-    "MyProfile": "Thông tin cá nhân"
+    "MyProfile": "Thông Tin Cá Nhân",
+    "Dashboard":"Tra Cứu Dữ Liệu",
+    "User/List": "Quản Lý Người Dùng",
+    "User/Add": "Quản Lý Người Dùng",
+    "User/Edit": "Quản Lý Người Dùng",
+    "Store": "Quản Lý Cửa Hàng",
+    "store-managerment/edit": "Quản Lý Cửa Hàng",
+    "store-managerment/create": "Quản Lý Cửa Hàng",
+    "Supplier":"Quản Lý Nhà Cung Cấp",
+    "Supplier/Add":"Quản Lý Nhà Cung Cấp"
   },
   "columns": {
     "auth": {
@@ -213,7 +218,16 @@
     "Representative": "Người đại diện",
     "Phone Number": "Số điện thoại",
     "Status": "Trạng thái",
-    "CodeName": "Mã nhà cung cấp"
+    "CodeName": "Mã nhà cung cấp",
+    "Fax":"Số fax",
+    "ProvinceId":"Tỉnh/Thành Phố",
+    "DistrictId":"Quận/Huyện",
+    "WardId":"Phường/Xã",
+    "Street":"Địa chỉ cụ thế",
+    "NameContact":"Họ tên đại diện",
+    "PhonenumberContact":"Số điện thoại đại diện",
+    "EmailContact":"Email đại diện",
+    "Note":"Ghi chú"
   },
   "store": {
     "Name": "Tên cửa hàng",

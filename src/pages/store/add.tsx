@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
@@ -36,14 +36,12 @@ const Page = () => {
   };
 
   return (
-    <div className={'w-full mx-auto bg-white rounded-xl'}>
-      <div className='text-xl text-teal-900 px-5 pt-3.5 font-bold bg-white w-max rounded-t-2xl'>
-        Thông tin cửa hàng
-      </div>
-      <div className='p-5 bg-white'>
-        {/* {!!result?.data && */}
+    <Fragment>
+      <div className='bg-white rounded-xl p-4'>
+        <div className={'text-xl text-teal-900 font-bold block pb-5'}>{t('titles.Storeinformation')}</div>
         <Form
           values={{ ...data }}
+          className="intro-x"
           columns={[
             {
               title: 'Tên cửa hàng',
@@ -207,9 +205,9 @@ const Page = () => {
           disableSubmit={isLoading}
           handCancel={handleBack}
         />
-        {/* } */}
+        {/* )} */}
       </div>
-    </div>
+    </Fragment>
   );
 };
 export default Page;

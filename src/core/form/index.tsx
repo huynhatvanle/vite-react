@@ -116,6 +116,16 @@ export const Form = ({
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
           />
         );
+      case 'changepassword':
+        return (
+          <Password
+            tabIndex={formItem.tabIndex || index}
+            placeholder={
+              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+            }
+            disabled={!!formItem.disabled && formItem.disabled(values, form)}
+          />
+        );
       case 'passConfirm':
         return (
           <Password
@@ -552,6 +562,11 @@ export const Form = ({
             },
           }));
           break;
+        case 'chagepassword':
+          rules.push(() => ({
+          }),
+          );
+          break;
         case 'passConfirm':
           rules.push(() => ({
           }),
@@ -670,7 +685,7 @@ export const Form = ({
           'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between': handSubmit,
           'w-full md:w-auto md:inline-flex md:float-right right-0 sm:text-center items-center mt-8': handSubmit && extendButton,
-          'w-full md:w-auto md:inline-flex md:float-right right-0 justify-between top-[350px] sm:text-center items-center': extendButtonChangePassword,
+          'w-full md:w-auto md:inline-flex md:float-right right-0 justify-between top-[300px] sm:text-center items-center': extendButtonChangePassword,
         })}
       >
         {handCancel && (
