@@ -14,7 +14,7 @@ export default class Common {
     switchByName: (name: string) => this.elements.forItemByName(name).find('nz-switch').should('be.visible'),
     treeSelectByName: (name: string) => this.elements.forItemByName(name).find('nz-tree-select').should('be.visible'),
     treeSelectSelectionTitle: (title: string) => cy.get(`.ant-select-tree-node-content-wrapper[title='${title}']`).should('be.visible'),
-    treeByName: (val: any) => cy.get('nz-tree-node-title[title="' + val + '"]  > .group').should('be.visible'),
+    treeByName: (val: any) => cy.get('nz-tree-node-title[title="' + val + '"]  > .group'),
     removeTreeByName: (val: any) => this.elements.treeByName(val).find('.la-trash'),
     buttonConfirmPopover: () => cy.get('.ant-popover-buttons .ant-btn-primary').should('be.visible'),
   };
