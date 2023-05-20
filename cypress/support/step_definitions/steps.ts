@@ -4,7 +4,7 @@ import Common from '../page_objects/Common';
 
 const common = new Common();
 
-Given('User go to login page', () => cy.visit('/auth/login'));
+Given('User go to login page', () => cy.visit('vn/auth/login'));
 When('Enter "{}" in "{}" with "{}"', common.typeInputByName);
 When('Click "{}" button', common.clickTextButton);
 When('Click "{}" menu', common.clickTextMenu);
