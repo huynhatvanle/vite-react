@@ -83,8 +83,8 @@ const checkLanguage = (language: string) => {
   const formatDate = language === 'vn' ? 'DD-MM-YYYY' : 'DD-MM-YYYY';
   const locale = language === 'vn' ? viVN : enUS;
   dayjs.locale(language === 'vn' ? 'vi' : language);
-  localStorage.setItem('i18nextLng', location.pathname.split('/')[1] || language);
-  return { language: location.pathname.split('/')[1] || language, formatDate, locale };
+  localStorage.setItem('i18nextLng', language);
+  return { language: language, formatDate, locale };
 };
 const initialState: State = {
   data: {},
@@ -94,7 +94,7 @@ const initialState: State = {
   status: 'idle',
   title: '',
   pathname: '',
-  ...checkLanguage(JSON.parse(JSON.stringify(localStorage.getItem('i18nextLng') || 'en'))),
+  ...checkLanguage(location.pathname.split('/')[1] || JSON.parse(JSON.stringify(localStorage.getItem('i18nextLng') || 'en'))),
 };
 export const globalSlice = createSlice({
   name: action.name,
@@ -104,10 +104,10 @@ export const globalSlice = createSlice({
       if (action.payload !== state.language) {
         const { language, formatDate, locale } = checkLanguage(action.payload);
         i18n.changeLanguage(language);
-        state.pathname = location.pathname.replace('/' + state.language + '/', '/' + action.payload + '/');
         state.language = language;
         state.formatDate = formatDate;
         state.locale = locale;
+        state.pathname = location.pathname.replace('/' + state.language + '/', '/' + action.payload + '/');
       }
     },
     setPathname: (state: State, action: PayloadAction<string>) => {
