@@ -89,9 +89,15 @@
     "merchandise-managerment/product": "Product",
     "merchandise-managerment/category": "Category",
     "merchandise-managerment/tax": "Tax",
+    "store-managerment/edit": "Store Information",
     "Userinformation":"User Information",
     "Storeinformation":"Store Information",
-    "Supplierinformation":"Supplier Information"
+    "Supplierinformation":"Supplier Information",
+    "Listofgoods":"List of goods",
+    "Listofbranches":"List of branches",
+    "Manage":"Manage NCC",
+    "Revenue":"Revenue",
+    "Inventory management":"Inventory management"
   },
   "pages": {
     "Login": "Login",
@@ -107,7 +113,8 @@
     "MyProfile": "MyProfile",
     "Dashboard":"Dashboard",
     "Supplier":"Supplier",
-    "Supplier/Add":"Add new Supplier"
+    "Supplier/Add":"Add new Supplier",
+    "Supplier/Edit":"Edit Supplier"
   },
   "columns": {
     "auth": {

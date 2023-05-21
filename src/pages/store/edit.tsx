@@ -53,7 +53,7 @@ const Page = () => {
       <Fragment>
         <div>
           <Tabs defaultActiveKey='1' type='card' size='large'>
-            <Tabs.TabPane tab={'Thông tin cửa hàng'} key='1' className='bg-white rounded-xl rounded-tl-none'>
+            <Tabs.TabPane tab={t('titles.Storeinformation')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <div className='bg-white p-5 rounded-t-xl'>
                 <Form
                   values={{ ...data, street: data?.address?.street, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.name }}
@@ -232,7 +232,7 @@ const Page = () => {
                 />
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Danh sách hàng hóa' key='2' className='rounded-xl'>
+            <Tabs.TabPane tab={t('titles.Listofgoods')} key='2' className='rounded-xl'>
               <DataTable
                 facade={productFacede}
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' }}
@@ -437,7 +437,7 @@ const Page = () => {
                 }
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Danh sách chi nhánh' key='3' className='rounded-xl'>
+            <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, supplierType: 'BALANCE' }}
@@ -499,7 +499,7 @@ const Page = () => {
                 ]}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Quản lý NCC' key='4' className='rounded-xl'>
+            <Tabs.TabPane tab={t('titles.Manage')} key='4' className='rounded-xl'>
               <DataTable
                 facade={connectSupplierFacade}
                 defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
@@ -555,7 +555,7 @@ const Page = () => {
                 ]}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Doanh thu' key='5' className='rounded-xl'>
+            <Tabs.TabPane tab={t('titles.Revenue')} key='5' className='rounded-xl'>
               <DataTable
                 facade={invoicevietFacade.data}
                 defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
@@ -643,7 +643,7 @@ const Page = () => {
                 ]}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Quản lý kho' key='6' className='rounded-xl'>
+            <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
                 facade={inventoryProductFacade.data?.inventory}
                 defaultRequest={{ page: 1, perPage: 10, idStore: id }}

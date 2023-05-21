@@ -32,7 +32,7 @@ const Page = () => {
           className="intro-x"
           columns={[
             {
-              title: 'Tên cửa hàng',
+              title: 'store.Name',
               name: 'name',
               formItem: {
                 tabIndex: 1,
@@ -41,7 +41,7 @@ const Page = () => {
               },
             },
             {
-              title: 'Số fax',
+              title: 'store.Fax',
               name: 'fax',
               formItem: {
                 tabIndex: 2,
@@ -61,7 +61,7 @@ const Page = () => {
               }
             },
             {
-              title: 'Tỉnh/Thành phố',
+              title: 'store.Province',
               name: 'provinceId',
               formItem: {
                 tabIndex: 3,
@@ -81,8 +81,8 @@ const Page = () => {
               },
             },
             {
+              title: 'store.District',
               name: 'districtId',
-              title: 'Quận/Huyện',
               formItem: {
                 type: 'select',
                 rules: [{ type: 'required' }],
@@ -104,8 +104,8 @@ const Page = () => {
               },
             },
             {
+              title: 'store.Ward',
               name: 'wardId',
-              title: 'Phường/Xã',
               formItem: {
                 type: 'select',
                 rules: [{ type: 'required' }],
@@ -124,8 +124,8 @@ const Page = () => {
               },
             },
             {
+              title: 'store.Street',
               name: 'street',
-              title: 'Địa chỉ cụ thể',
               formItem: {
                 rules: [{ type: 'required' }],
                 col: 3,
@@ -143,32 +143,32 @@ const Page = () => {
               }
             },
             {
+              title: 'store.ContactName',
               name: 'nameContact',
-              title: 'Họ tên đại diện',
               formItem: {
                 col: 4,
                 rules: [{ type: 'required' }],
               },
             },
             {
+              title: 'store.Contact Phone Number',
               name: 'phoneNumber',
-              title: 'Số điện thoại đại diện',
               formItem: {
                 col: 4,
                 rules: [{ type: 'required' }],
               },
             },
             {
+              title: 'store.Contact Email',
               name: 'emailContact',
-              title: 'Email đại diện',
               formItem: {
                 col: 4,
                 rules: [{ type: 'required' }],
               },
             },
             {
+              title: 'store.Note',
               name: 'note',
-              title: 'Ghi chú',
               formItem: {
                 type: 'textarea',
               },
