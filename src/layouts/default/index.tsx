@@ -36,7 +36,6 @@ const Layout = ({ children }: PropsWithChildren) => {
   loop(data, menus);
 
   useEffect(() => {
-    console.log(!!pathname && pathname !== location.pathname, pathname, pathname !== location.pathname, language)
     if (!!pathname && pathname !== location.pathname) {
       setPathname('');
       navigate(pathname);
