@@ -11,9 +11,10 @@ import './index.less';
 import { Envelope, MapMarked, Phone, Facebook, Linkedin, Arrow } from '@svgs';
 
 const Layout = ({ children }: PropsWithChildren) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const { setLanguage, pathname, setPathname, language } = GlobalFacade();
   const [showMenu, set_showMenu] = useState(false);
-  const [data, set_data]: any = useState([{ name: 'Home', url: '/' + i18n.language }]);
+  const [data, set_data]: any = useState([{ name: 'Home', url: '/' + language }]);
   const menus: any = [];
   const navigate = useNavigate();
 
@@ -35,17 +36,13 @@ const Layout = ({ children }: PropsWithChildren) => {
   loop(data, menus);
 
   useEffect(() => {
-    // const init = async () => {
-    //   const { data } = await PageService.get();
-    //   set_data(data);
-    // };
-    // if (timeOutHeader.current) {
-    //   clearTimeout(timeOutHeader.current);
-    // }
-    // timeOutHeader.current = setTimeout(() => {
-    //   init().then();
-    // }, 10);
-  }, [location.pathname]);
+    console.log(!!pathname && pathname !== location.pathname, pathname, pathname !== location.pathname, language)
+    if (!!pathname && pathname !== location.pathname) {
+      setPathname('');
+      navigate(pathname);
+    }
+  }, [pathname]);
+
 
   const handleScrollTo = (id: string) => {
     const element = document.getElementById(id);
@@ -57,16 +54,10 @@ const Layout = ({ children }: PropsWithChildren) => {
     }
     set_showMenu(false);
   };
-  const handleChangeLanguage = (language: string) => {
-    // changeLanguage(language);
-    // if (languageChange.current) {
-    //   return navigate(languageChange.current[language]);
-    // }
-  };
 
   return (
     <Fragment>
-      <div className="max-w-[1250px] px-6 mx-auto py-5 items-center justify-between hidden lg:flex">
+      <div className="container px-6 mx-auto py-5 items-center justify-between hidden lg:flex">
         <div className="flex items-center">
           <Link to={'/'}>
             <img src="/assets/images/logo.svg" className="h-14" alt="logo" />
@@ -109,7 +100,7 @@ const Layout = ({ children }: PropsWithChildren) => {
         </div>
       </div>
       <header className="w-full sticky top-0 left-0 z-30">
-        <div className="max-w-[1250px] mx-auto py-3.5 pl-5 pr-3.5 flex items-center justify-between bg-blue-500">
+        <div className="container mx-auto py-3.5 pl-5 pr-3.5 flex items-center justify-between bg-blue-500">
           <div className="text-center hidden lg:block">
             <div className="flex gap-10 font-bold items-center">
               {menus.map((item: any, index: number) => (
@@ -141,13 +132,13 @@ const Layout = ({ children }: PropsWithChildren) => {
               ))}
               <span
                 className="text-white font-bold hover:text-white cursor-pointer"
-                onClick={() => navigate(i18n.language === 'vn' ? '/vn/tin-tuc' : '/en/news')}
+                onClick={() => navigate(language === 'vn' ? '/vn/tin-tuc' : '/en/news')}
               >
                 {t('layout.header.News')}
               </span>
               <span
                 className="text-white font-bold hover:text-white cursor-pointer"
-                onClick={() => navigate(i18n.language === 'vn' ? '/vn/du-an' : '/en/projects')}
+                onClick={() => navigate(language === 'vn' ? '/vn/du-an' : '/en/projects')}
               >
                 {t('layout.header.Projects')}
               </span>
@@ -170,8 +161,8 @@ const Layout = ({ children }: PropsWithChildren) => {
                   {
                     key: '1',
                     label: (
-                      <div onClick={() => handleChangeLanguage(i18n.language === 'vn' ? 'en' : 'vn')}>
-                        {t(`layout.header.${i18n.language === 'vn' ? 'English' : 'Vietnamese'}`)}
+                      <div onClick={() => setLanguage(language === 'vn' ? 'en' : 'vn')}>
+                        {t(`layout.header.${language === 'vn' ? 'English' : 'Vietnamese'}`)}
                       </div>
                     ),
                   },
@@ -179,7 +170,7 @@ const Layout = ({ children }: PropsWithChildren) => {
               }}
             >
               <div className="pr-3 mr-3 border-r">
-                <img src={`/assets/images/flag-${i18n.language}.svg`} alt="" className="w-10" />
+                <img src={`/assets/svg/${language}.svg`} alt="" className="w-6" />
               </div>
             </Dropdown>
             <div className="hidden lg:flex items-center gap-2">
@@ -189,7 +180,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Facebook className={'w-6 h-6 inline'} />
+                <Facebook className={'w-5 h-5 inline'} />
               </a>
               <a
                 className="text-white inline-flex"
@@ -197,7 +188,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Linkedin className={'w-6 h-6 inline'} />
+                <Linkedin className={'w-5 h-5 inline'} />
               </a>
             </div>
           </div>
@@ -327,7 +318,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       {children}
       <footer className="text-white">
         <div className="bg-black">
-          <div className="max-w-[1250px] px-6 mx-auto py-5">
+          <div className="container px-6 mx-auto py-5">
             <div className="lg:flex items-center justify-between">
               <ul className="flex justify-center lg:justify-end gap-1 mb-3 lg:m-0 order-last">
                 <li>
