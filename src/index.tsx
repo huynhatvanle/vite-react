@@ -10,6 +10,7 @@ import { Spin } from '@core/spin';
 import { GlobalFacade, setupStore } from '@store';
 import { reportWebVitals } from '@utils';
 import Router from './router';
+import {language, languages} from "./utils/variable";
 
 const fallbackLng = localStorage.getItem('i18nextLng');
 if (!fallbackLng) {
@@ -33,13 +34,14 @@ let container: HTMLElement;
 const Styling = lazy(() => import('./utils/init/styling'));
 
 const Context = () => {
-  const { locale } = GlobalFacade();
+  const { locale, setLanguage } = GlobalFacade();
   useEffect(() => {
     for (let i = 0; i < localStorage.length; i++) {
       if (localStorage.key(i)?.indexOf('temp-') === 0) {
         localStorage.removeItem(localStorage.key(i) || '');
       }
     }
+    setLanguage(languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language)
   }, []);
 
   return (
