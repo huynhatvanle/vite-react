@@ -33,15 +33,10 @@ body {
   .intro-x:nth-child(@{counter}) { @apply translate-x-12; }
   .-intro-x:nth-child(@{counter}) { @apply -translate-x-12; }
   .-intro-x:nth-child(@{counter}), .intro-x:nth-child(@{counter}) {
-    opacity: 0;
+    @apply opacity-0 animate-intro-x-animation;
     z-index: (10 - @counter);
-    animation: intro-x-animation .4s ease-in-out .33333s;
-    animation-fill-mode: forwards;
     animation-delay: ~"0.@{counter}s"
   }
-}
-@keyframes intro-x-animation {
-  to { @apply opacity-100 -translate-x-0; }
 }
 
 .ant-btn {
@@ -62,3 +57,14 @@ svg { fill: currentColor; }
   &:hover:before { @apply animate-shine; }
 }
 
+.slide-zoom {
+@apply overflow-visible;
+
+  swiper-slide {
+  @apply opacity-0 duration-500 transition-all ease-in-out !scale-110;
+
+    &.swiper-slide-next, &.swiper-slide-active, &.swiper-slide-prev {
+    @apply opacity-100 duration-500 transition-all ease-in-out !scale-100;
+    }
+  }
+}
