@@ -21,7 +21,7 @@ const Page = () => {
 
   return (
     <Fragment>
-      <div className='lg:grid lg:grid-cols-3 gap-5 w-full '>
+      <div className='lg:grid lg:grid-cols-3 gap-5 w-full'>
         <div className='col-span-1 lg:border lg:rounded-xl bg-white p-8 font-normal'>
           <Spin spinning={isLoading}>
             <Form

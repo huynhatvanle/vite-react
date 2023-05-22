@@ -192,6 +192,7 @@
         "My Profile": "My Profile",
         "No Data": "No Data",
         "Pagination": "Show {{from}} - {{to}} / Total {{total}} categories",
+        "Supplier": "Show {{from}} - {{to}} / Total {{total}} Suppliers",
         "User": "Show {{from}} - {{to}} / Total {{total}} user",
         "PaginationStore": "Show {{from}} - {{to}} / Total {{total}} store",
         "Day": "day"
@@ -259,8 +260,29 @@
     "NameContact":"Contact Person's Name",
     "PhonenumberContact":"Contact Person's Phone Number",
     "EmailContact":"Contact Person's Email",
-    "Note":"Note"
+    "Note": "Note",
+    "SupplierCode": "Supplier Code",
+    "CodeOrders": "Order Code",
+    "Receiver": "Receiver",
+    "ReceiverAddress": "Receiver Address",
+    "TotalAmount": "Total Amount (VND)",
+    "BookingDate": "Booking Date",
+    "ReceivedDate": "Received Date",
+    "BeforeTax": "Before Tax",
+    "AfterTax": "After Tax",
+    "Promotion": "Promotion",
+    "SingleType": "Single Type"
 },
+  "product": {
+    "Code": "Product Code",
+    "StoreCode": "Barcode (Store)",
+    "SupplierCode": "Barcode (Supplier)",
+    "Name": "Product Name",
+    "Category": "Category",
+    "SupplierName": "Supplier",
+    "Unit": "Unit",
+    "Price": "Retail Price (VND)"
+  },
   "dashboard":{
     "Active Profile Report":"Active Profile Report",
     "Total Profile": "Total Profile",

@@ -194,12 +194,13 @@
         "My Profile": "Thông tin cá nhân",
         "No Data": "Trống",
         "Pagination": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Danh mục",
-        "User": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Người dùng",
+        "Supplier": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} nhà cung cấp",
+        "User": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} người dùng",
         "Day": "Ngày phép",
-        "PaginationStore": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Cửa hàng",
-        "PaginationSubStore": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Chi nhánh",
-        "PaginationSupplier": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Nhà cung cấp",
-        "PaginationProduct": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Sản phẩm"
+        "PaginationStore": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} cửa hàng",
+        "PaginationSubStore": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} chi nhánh",
+        "PaginationSupplier": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} nhà cung cấp",
+        "PaginationProduct": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} sản phẩm"
       }
     }
   },
@@ -233,7 +234,18 @@
     "NameContact":"Họ tên đại diện",
     "PhonenumberContact":"Số điện thoại đại diện",
     "EmailContact":"Email đại diện",
-    "Note":"Ghi chú"
+    "Note":"Ghi chú",
+    "SupplierCode":"Mã nhà cung cấp",
+    "CodeOrders":"Mã đơn hàng",
+    "Receiver":"Người nhận",
+    "ReceiverAddress":"Địa chỉ người nhận",
+    "TotalAmount":"Tổng tiền(VND)",
+    "BookingDate":"Ngày đặt",
+    "ReceivedDate":"Ngày nhận",
+    "BeforeTax":"Trước thuế",
+    "AfterTax":"Sau thuế",
+    "Promotion":"Khuyến mãi",
+    "SingleType":"Loại đơn"
   },
   "store": {
     "Name": "Tên cửa hàng",

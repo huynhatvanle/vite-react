@@ -59,6 +59,7 @@ export const DataTable = forwardRef(
       showPagination = true,
       leftHeader,
       rightHeader,
+      bottomHeader,
       showSearch = true,
       save = true,
       searchPlaceholder,
@@ -453,6 +454,7 @@ export const DataTable = forwardRef(
           {!!leftHeader && <div className={'mt-2 sm:mt-0'}>{leftHeader}</div>}
           {!!rightHeader && <div className={'mt-2 sm:mt-0'}>{rightHeader}</div>}
         </div>
+        {!!bottomHeader && <div className={'mt-2 sm:mt-0'}>{bottomHeader}</div>}
         {subHeader && subHeader(result?.count)}
         {!!showList && (
           <Fragment>
@@ -510,6 +512,7 @@ type Type = {
   showPagination?: boolean;
   leftHeader?: JSX.Element;
   rightHeader?: JSX.Element;
+  bottomHeader?: JSX.Element;
   showSearch?: boolean;
   save?: boolean;
   searchPlaceholder?: string;
