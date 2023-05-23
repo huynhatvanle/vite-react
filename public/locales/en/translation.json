@@ -216,7 +216,26 @@
     "Representative": "Representative",
     "Phone Number": "Phone Number",
     "Status": "Status",
-    "CodeName": "Code Supplier"
+    "CodeName": "Code Supplier",
+    "Order": {
+      "STT": "STT",
+      "Time": "Time",
+      "Discount": "Discount (VND)",
+      "Paid": "Paid (VND)",
+      "Unpaid": "Unpaidn (VND)",
+      "Order ID": "Order ID",
+      "Store Name": "Store Name",
+      "Recipient": "Recipient",
+      "Delivery Address": "Delivery Address",
+      "Total Price (VND)": "Total Price (VND)",
+      "Order Date": "Order Date",
+      "Delivery Date": "Delivery Date",
+      "Before Tax": "Before Tax",
+      "After Tax": "After Tax",
+      "Promotion": "Promotion",
+      "Total Amount": "Total Amount",
+      "Order Type": "Order Type"
+    }
   },
   "store": {
     "Name": "Store name",
@@ -257,6 +276,7 @@
     "Category": "Category",
     "SupplierName": "Supplier name",
     "Unit": "Unit",
-    "Price": "Retail price (VND)"
+    "Price": "Retail price (VND)",
+    "Status": "Status"
   }
 }

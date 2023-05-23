@@ -216,7 +216,26 @@
     "Representative": "Người đại diện",
     "Phone Number": "Số điện thoại",
     "Status": "Trạng thái",
-    "CodeName": "Mã nhà cung cấp"
+    "CodeName": "Mã nhà cung cấp",
+    "Order": {
+      "STT": "STT",
+      "Time": "Thời gian",
+      "Discount": "Chiết khấu (VND)",
+      "Paid": "Đã thanh toán (VND)",
+      "Unpaid": "Chưa thanh toán (VND)",
+      "Order ID": "Mã đơn hàng",
+      "Store Name": "Tên cửa hàng",
+      "Recipient": "Người nhận",
+      "Delivery Address": "Địa chỉ nhận hàng",
+      "Total Price (VND)": "Tổng tiền (VND)",
+      "Order Date": "Ngày đặt",
+      "Delivery Date": "Ngày nhận",
+      "Before Tax": "Trước thuế",
+      "After Tax": "Sau thuế",
+      "Promotion": "Khuyến mãi",
+      "Total Amount": "Thành tiền",
+      "Order Type": "Loại đơn"
+    }
   },
   "store": {
     "Name": "Tên cửa hàng",
@@ -257,6 +276,7 @@
     "Category": "Danh mục",
     "SupplierName": "Nhà cung cấp",
     "Unit": "Đơn vị",
-    "Price": "Giá bán lẻ (VND)"
+    "Price": "Giá bán lẻ (VND)",
+    "Status": "Tình trạng"
   }
 }
