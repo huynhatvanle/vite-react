@@ -45,7 +45,7 @@ const Page = () => {
       <div className='text-xl text-teal-900 px-5 pt-3.5 font-bold bg-white w-max rounded-t-2xl'>
         Thông tin cửa hàng
       </div>
-      <div className='p-5 bg-white'>
+      <div className='bg-white'>
         {/* {!!result?.data && */}
         <Form
           values={{ ...data }}
