@@ -109,6 +109,7 @@ const Page = () => {
                       col: 3,
                       rules: [{ type: 'requiredSelect' }],
                       type: 'select',
+
                       get: {
                         facade: ProvinceFacade,
                         format: (item: any) => ({
