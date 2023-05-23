@@ -1,9 +1,7 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import classNames from 'classnames';
-import { ColumnFormSupplier, ColumnFormSupplierDetail, ColumnTableSupplierDiscount, ColumnTableSupplierOrder, ColumnTableSupplierProduct } from './column';
 import { Supplier, SupplierFacade } from '@store/supplier';
 import { DistrictFacade } from '@store/address/district';
 import { WardFacade } from '@store/address/ward';
@@ -78,7 +76,167 @@ const Page = () => {
                 values={{ ...data, street: data?.address?.street, province: data?.address?.province?.name, district: data?.address?.district?.name, ward: data?.address?.ward?.name,
                   nameContact: data?.userRole?.[0].userAdmin.name, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber  }}
                 className="intro-x pt-6 rounded-lg w-full"
-                columns={ColumnFormSupplierDetail({ t })}
+                columns={
+                  [
+                      {
+                        title: 'supplier.CodeName',
+                        name: 'code',
+                        formItem: {
+                          disabled: () => true,
+                          tabIndex: 1,
+                          col: 4,
+                        },
+                      },
+                      {
+                        title: 'supplier.Name',
+                        name: 'name',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          rules: [{ type: 'required' }],
+                        },
+                      },
+                      {
+                        title: 'store.Fax',
+                        name: 'fax',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 4,
+                        },
+                      },
+                      {
+                        title: '',
+                        name: 'address',
+                        formItem: {
+                          rules: [{ type: 'required' }],
+                          render() {
+                            return (
+                              <h3 className='mb-2.5 text-base '>Địa chỉ nhà cung cấp </h3>
+                            )
+                          },
+                        }
+                      },
+                      {
+                        title: 'store.Province',
+                        name: 'provinceId',
+                        formItem: {
+                          tabIndex: 3,
+                          col: 3,
+                          type: 'select',
+                          rules: [{ type: 'required',message: 'Xin vui lòng chọn tỉnh/thành phố' }],
+                          get: {
+                            facade: ProvinceFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id + '|' + item.code,
+                            }),
+                          },
+                          onChange(value, form) {
+                            form.resetFields(['districtId', 'wardId'])
+                          },
+                        },
+                      },
+                      {
+                        name: 'districtId',
+                        title: 'store.District',
+                        formItem: {
+                          type: 'select',
+                          rules: [{ type: 'required', message: 'Xin vui lòng chọn quận/huyện' }],
+                          col: 3,
+                          get: {
+                            facade: DistrictFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id + '|' + item.code,
+                            }),
+                            params: (fullTextSearch, value) => ({
+                              fullTextSearch,
+                              code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
+                            }),
+                          },
+                          onChange(value, form) {
+                            form.resetFields(['wardId'])
+                          },
+                        },
+                      },
+                      {
+                        name: 'wardId',
+                        title: 'store.Ward',
+                        formItem: {
+                          type: 'select',
+                          rules: [{ type: 'required', message: 'Xin vui lòng chọn phường/xã' }],
+                          col: 3,
+                          get: {
+                            facade: WardFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id,
+                            }),
+                            params: (fullTextSearch, value) => ({
+                              fullTextSearch,
+                              code: value().districtId.slice(value().districtId.indexOf('|') + 1),
+                            })
+                          }
+                        },
+                      },
+                      {
+                        title: 'store.Street',
+                        name: `street`,
+                        formItem: {
+                          tabIndex: 1,
+                          col: 3,
+                          rules: [{ type: 'required' }],
+                        },
+                      },
+                      {
+                        title: '',
+                        name: '',
+                        formItem: {
+                          render() {
+                            return (
+                              <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
+                            )
+                          }
+                        }
+                      },
+                      {
+                        title: 'store.ContactName',
+                        name: 'nameContact',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          rules: [{ type: 'required' }],
+                        },
+                      },
+                      {
+                        title: 'store.Contact Phone Number',
+                        name: 'phoneNumber',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 4,
+                          rules: [{ type: 'required' }],
+                        },
+                      },
+                      {
+                        title: 'store.Contact Email',
+                        name: 'emailContact',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          rules: [{ type: 'required' }],
+                        },
+                      },
+                      {
+                        title: 'store.Note',
+                        name: 'note',
+                        formItem: {
+                          type: 'textarea',
+                          tabIndex: 1,
+                          col: 12,
+                        },
+                      },
+                    ]
+                }
                 handSubmit={handleSubmit}
                 disableSubmit={isLoading}
                 handCancel={handleBack}
@@ -91,18 +249,58 @@ const Page = () => {
                   <DataTable
                   facade={productFacade}
                   defaultRequest={{page: 1, perPage: 10, supplierId: id,type: "BALANCE"}}
-                  
+
                   xScroll = '895px'
                   pageSizeRender={(sizePage: number) => sizePage}
                   pageSizeWidth={'50px'}
                   paginationDescription={(from: number, to: number, total: number) =>
                     t('routes.admin.Layout.Pagination', { from, to, total })
                   }
-                  columns={ColumnTableSupplierProduct({
-                    t,
-                    navigate,
-                    dataTableRef,
-                  })}
+                  columns={
+                    [
+                        {
+                          title: `product.Code`,
+                          name: 'code',
+                          tableItem: {
+                            width: 170,
+                          },
+                        },
+                        {
+                          title: `product.Name`,
+                          name: 'name',
+                          tableItem: {
+                            width: 300,
+                            render: (value: any,item: any) => item?.name,
+                          },
+                        },
+                        {
+                          title: `product.Category`,
+                          name: ('address'),
+                          tableItem: {
+                            width: 205,
+                            render: (value: any,item: any) => item?.category?.child?.child?.name,
+                          }
+                        },
+                        {
+                          title: `product.Price`,
+                          name: 'contract',
+                          tableItem: {
+                            width: 280,
+                            render: (value: any,item: any) => item?.productPrice[0]?.price.toLocaleString(),
+                          },
+                        },
+                        {
+                          title: `product.Status`,
+                          name: "isActive",
+                          tableItem: {
+                            width: 160,
+                            align: 'center',
+                            render: (text: string) => (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đang bán</div>)
+
+                          },
+                        },
+                      ]
+                  }
                   rightHeader={
                     <div className={'flex h-10 w-36 mt-6'}>
                       {
@@ -210,7 +408,7 @@ const Page = () => {
                   }
                   columns={[
                     {
-                      title: t(`Mã đơn hàng`),
+                      title: `supplier.Order.Order ID`,
                       name: 'code',
                       tableItem: {
                         width: 280,
@@ -218,7 +416,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: t(`Tên cửa hàng`),
+                      title: `supplier.Order.Store Name`,
                       name: 'name',
                       tableItem: {
                         width: 180,
@@ -226,7 +424,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: t(`Người nhận`),
+                      title: `supplier.Order.Recipient`,
                       name: ('address'),
                       tableItem: {
                         width: 180,
@@ -234,7 +432,7 @@ const Page = () => {
                       }
                     },
                     {
-                      title: t(`Địa chỉ nhận hàng`),
+                      title: `supplier.Order.Delivery Address`,
                       name: 'contract',
                       tableItem: {
                         width: 300  ,
@@ -242,7 +440,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: t(`Tổng tiền (VND)`),
+                      title: `supplier.Order.Total Price (VND)`,
                       name: 'total',
                       tableItem: {
                         width: 150,
@@ -250,14 +448,14 @@ const Page = () => {
                       },
                     },
                     {
-                      title: t(`Ngày đặt`),
+                      title: `supplier.Order.Order Date`,
                       name: 'createdAt',
                       tableItem: {
                         width: 150,
                       },
                     },
                     {
-                      title: t(`supplier.Status`),
+                      title: `supplier.Status`,
                       name: "isActive",
                       tableItem: {
                         width: 180,
@@ -321,7 +519,7 @@ const Page = () => {
                             },
                             {
                               name: 'Store',
-                              title: '',  
+                              title: '',
                               formItem: {
                                 // disabled:() => true,
                                 placeholder: 'Chọn cửa hàng',
@@ -389,23 +587,23 @@ const Page = () => {
                   searchPlaceholder='Tìm kiếm theo mã đơn hàng'
                   columns={[
                     {
-                      title: t(`STT`),
+                      title: `supplier.Order.STT`,
                       name: 'code',
                       tableItem: {
                         width: 70,
-                      
+
                       },
                     },
                     {
-                      title: t(`Mã đơn hàng`),
+                      title: `supplier.Order.Order ID`,
                       name: 'code',
                       tableItem: {
                         width: 175,
-                      
+
                       },
                     },
                     {
-                      title: t(`Tên cửa hàng`),
+                      title: `supplier.Order.Store Name`,
                       name: 'name',
                       tableItem: {
                         width: 180,
@@ -413,7 +611,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: t(`Ngày đặt`),
+                      title: `supplier.Order.Order Date`,
                       name: 'name',
                       tableItem: {
                         width: 135,
@@ -421,7 +619,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: t(`Ngày nhận`),
+                      title: `supplier.Order.Delivery Date`,
                       name: ('address'),
                       tableItem: {
                         width: 150,
@@ -429,7 +627,7 @@ const Page = () => {
                       }
                     },
                     {
-                      title: t(`Trước thuế`),
+                      title: `supplier.Order.Before Tax`,
                       name: 'name',
                       tableItem: {
                         width: 145,
@@ -437,7 +635,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: t(`Sau thuế`),
+                      title: `supplier.Order.After Tax`,
                       name: 'name',
                       tableItem: {
                         width: 130,
@@ -445,7 +643,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: t(`Khuyến mãi`),
+                      title: `supplier.Order.Promotion`,
                       name: 'name',
                       tableItem: {
                         width: 160,
@@ -453,7 +651,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: t(`Thành tiền`),
+                      title: `supplier.Order.Total Amount`,
                       name: 'total',
                       tableItem: {
                         width: 145  ,
@@ -461,7 +659,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: t(`Loại đơn`),
+                      title: `supplier.Order.Order Type`,
                       name: 'total',
                       tableItem: {
                         width: 100,
@@ -478,7 +676,7 @@ const Page = () => {
                 <div className='px-5 pt-6 pb-4'>
                   <DataTable
                     facade={discountFacade}
-                    
+
                     defaultRequest={{page: 1, perPage: 10}}
                     xScroll = '1370px'
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -486,11 +684,59 @@ const Page = () => {
                     paginationDescription={(from: number, to: number, total: number) =>
                       t('routes.admin.Layout.Pagination', { from, to, total })
                     }
-                    columns={ColumnTableSupplierDiscount({
-                      t,
-                      navigate,
-                      dataTableRef,
-                    })}
+                    columns={
+                      [
+                          {
+                            title: `supplier.Order.STT`,
+                            name: 'code',
+                            tableItem: {
+                              width: 110,
+                            },
+                          },
+                          {
+                            title: `supplier.Order.Time`,
+                            name: 'name',
+                            tableItem: {
+                              width: 300,
+                            },
+                          },
+                          {
+                            title: `supplier.Order.Discount`,
+                            name: ('address'),
+                            tableItem: {
+                              width: 245,
+                              render: (value: any,item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
+                            }
+                          },
+                          {
+                            title: `supplier.Order.Paid`,
+                            name: 'contract',
+                            tableItem: {
+                              width: 245  ,
+                              render: (value: any,item: any) => item?.contract[0].name,
+                            },
+                          },
+                          {
+                            title: `supplier.Order.Unpaid`,
+                            name: 'userRole',
+                            tableItem: {
+                              width: 245,
+                              render: (value: any,item: any) => item?.userRole[0].userAdmin.phoneNumber,
+                            },
+                          },
+                          {
+                            title: `supplier.Status`,
+                            name: "isActive",
+                            tableItem: {
+                              width: 240,
+                              align: 'center',
+                              render: (text: string) => text
+                              ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>)
+                              : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Chờ ký</div>),
+                            },
+                          },
+                        ]
+                    }
                     showSearch={false}
                     rightHeader={
                       <div className={'flex h-10 w-36'}>
@@ -513,7 +759,7 @@ const Page = () => {
                 <div className='px-5 pt-6 pb-4'>
                   <DataTable
                     facade={discountFacade}
-                    
+
                     defaultRequest={{page: 1, perPage: 10}}
                     xScroll = '1370px'
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -521,11 +767,59 @@ const Page = () => {
                     paginationDescription={(from: number, to: number, total: number) =>
                       t('routes.admin.Layout.Pagination', { from, to, total })
                     }
-                    columns={ColumnTableSupplierDiscount({
-                      t,
-                      navigate,
-                      dataTableRef,
-                    })}
+                    columns={
+                      [
+                            {
+                              title: `supplier.Order.STT`,
+                              name: 'code',
+                              tableItem: {
+                                width: 110,
+                              },
+                            },
+                            {
+                              title: `supplier.Order.Time`,
+                              name: 'name',
+                              tableItem: {
+                                width: 300,
+                              },
+                            },
+                            {
+                              title: `supplier.Order.Discount`,
+                              name: ('address'),
+                              tableItem: {
+                                width: 245,
+                                render: (value: any,item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
+                              }
+                            },
+                            {
+                              title: `supplier.Order.Paid`,
+                              name: 'contract',
+                              tableItem: {
+                                width: 245  ,
+                                render: (value: any,item: any) => item?.contract[0].name,
+                              },
+                            },
+                            {
+                              title: `supplier.Order.Unpaid`,
+                              name: 'userRole',
+                              tableItem: {
+                                width: 245,
+                                render: (value: any,item: any) => item?.userRole[0].userAdmin.phoneNumber,
+                              },
+                            },
+                            {
+                              title: `supplier.Status`,
+                              name: "isActive",
+                              tableItem: {
+                                width: 240,
+                                align: 'center',
+                                render: (text: string) => text
+                                ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>)
+                                : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Chờ ký</div>),
+                              },
+                            },
+                          ]
+                    }
                     showSearch={false}
                     rightHeader={
                       <div className={'flex h-10 w-36'}>
@@ -593,7 +887,7 @@ const Page = () => {
               <DataTable
               facade={productFacade}
               defaultRequest={{page: 1, perPage: 10, supplierId: id,type: "BALANCE"}}
-              
+
               xScroll = '895px'
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
@@ -627,7 +921,7 @@ const Page = () => {
             <div className='px-1 pt-6 pb-4'>
               <DataTable
               facade={ordersFacade}
-              
+
               defaultRequest={{page: 1, perPage: 10, filterSupplier: id}}
               xScroll = '1400px'
               pageSizeRender={(sizePage: number) => sizePage}
@@ -728,7 +1022,7 @@ const Page = () => {
             <div className='px-1 pt-6 pb-4'>
               <DataTable
                 facade={discountFacade}
-                
+
                 defaultRequest={{page: 1, perPage: 10}}
                 xScroll = '1370px'
                 pageSizeRender={(sizePage: number) => sizePage}

@@ -51,7 +51,7 @@ const Page = () => {
           values={{ ...data }}
           columns={[
             {
-              title: 'Tên cửa hàng',
+              title: 'store.Name',
               name: 'name',
               formItem: {
                 tabIndex: 1,
@@ -60,7 +60,7 @@ const Page = () => {
               },
             },
             {
-              title: 'Số fax',
+              title: 'store.Fax',
               name: 'fax',
               formItem: {
                 tabIndex: 2,
@@ -80,7 +80,7 @@ const Page = () => {
               }
             },
             {
-              title: 'Tỉnh/Thành phố',
+              title: 'store.Province',
               name: 'provinceId',
               formItem: {
                 tabIndex: 3,
@@ -101,7 +101,7 @@ const Page = () => {
             },
             {
               name: 'districtId',
-              title: 'Quận/Huyện',
+              title: 'store.District',
               formItem: {
                 type: 'select',
                 rules: [{ type: 'required' }],
@@ -124,7 +124,7 @@ const Page = () => {
             },
             {
               name: 'wardId',
-              title: 'Phường/Xã',
+              title: 'store.Ward',
               formItem: {
                 type: 'select',
                 rules: [{ type: 'required' }],
@@ -144,7 +144,7 @@ const Page = () => {
             },
             {
               name: 'street',
-              title: 'Địa chỉ cụ thể',
+              title: 'store.Street',
               formItem: {
                 rules: [{ type: 'required' }],
                 col: 3,
@@ -163,7 +163,7 @@ const Page = () => {
             },
             {
               name: 'nameContact',
-              title: 'Họ tên đại diện',
+              title: 'store.ContactName',
               formItem: {
                 col: 4,
                 rules: [{ type: 'required' }],
@@ -171,7 +171,7 @@ const Page = () => {
             },
             {
               name: 'phoneNumber',
-              title: 'Số điện thoại đại diện',
+              title: 'store.Contact Phone Number',
               formItem: {
                 col: 4,
                 rules: [{ type: 'required' }],
@@ -179,7 +179,7 @@ const Page = () => {
             },
             {
               name: 'emailContact',
-              title: 'Email đại diện',
+              title: 'store.Contact Email',
               formItem: {
                 col: 4,
                 rules: [{ type: 'required' }],
@@ -187,7 +187,7 @@ const Page = () => {
             },
             {
               name: 'note',
-              title: 'Ghi chú',
+              title: 'store.Note',
               formItem: {
                 type: 'textarea',
               },
