@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Supplier, SupplierFacade } from '@store/supplier';
 import { Form } from '@core/form';
@@ -15,10 +15,10 @@ const Page = () => {
   const supplierFace = SupplierFacade();
   const { isLoading, queryParams, status } = supplierFace;
   const param = JSON.parse(queryParams || '{}');
-  
+
 
   console.log("statusSupplier",status);
-  
+
 
   const data = Supplier;
 
@@ -29,7 +29,7 @@ const Page = () => {
         break;
     }
   }, [status]);
-  
+
 
   const handleBack = () => navigate(routerLinks('Supplier') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: any) => {
@@ -52,7 +52,7 @@ const Page = () => {
                   className="rounded-lg w-full "
                   columns={[
                     {
-                      title: 'Tên nhà cung cấp',
+                      title: 'supplier.Name',
                       name: 'name',
                       formItem: {
                         tabIndex: 2,
@@ -61,7 +61,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: 'Số fax',
+                      title: 'store.Fax',
                       name: 'fax',
                       formItem: {
                         tabIndex: 3,
@@ -81,7 +81,7 @@ const Page = () => {
                       }
                     },
                     {
-                      title: 'Tỉnh/Thành phố',
+                      title: 'store.Province',
                       name: 'provinceId',
                       formItem: {
                         tabIndex: 3,
@@ -102,7 +102,7 @@ const Page = () => {
                     },
                     {
                       name: 'districtId',
-                      title: 'Quận/Huyện',  
+                      title: 'store.District',
                       formItem: {
                         type: 'select',
                         rules: [{ type: 'required', message: 'Xin vui lòng chọn quận/huyện' }],
@@ -125,7 +125,7 @@ const Page = () => {
                     },
                     {
                       name: 'wardId',
-                      title: 'Phường/Xã',
+                      title: 'store.Ward',
                       formItem: {
                         type: 'select',
                         rules: [{ type: 'required', message: 'Xin vui lòng chọn phường/xã' }],
@@ -145,7 +145,7 @@ const Page = () => {
                     },
                     {
                       name: 'street',
-                      title: 'Địa chỉ cụ thể',
+                      title: 'store.Street',
                       formItem: {
                         rules: [{ type: 'required', message: 'Xin vui lòng nhập địa chỉ cụ thể' }],
                         col: 3,
@@ -164,7 +164,7 @@ const Page = () => {
                     },
                     {
                       name: 'nameContact',
-                      title: 'Họ tên đại diện',
+                      title: 'store.ContactName',
                       formItem: {
                         col: 4,
                         rules: [{ type: 'required', message: 'Xin vui lòng nhập họ và tên đại diện' }],
@@ -172,7 +172,7 @@ const Page = () => {
                     },
                     {
                       name: 'phoneNumber',
-                      title: 'Số điện thoại đại diện',
+                      title: 'store.Contact Phone Number',
                       formItem: {
                         col: 4,
                         rules: [{ type: 'required', message: 'Xin vui lòng nhập số điện thoại đại diện' }],
@@ -180,14 +180,14 @@ const Page = () => {
                     },
                     {
                       name: 'emailContact',
-                      title: 'Email đại diện',
+                      title: 'store.Contact Email',
                       formItem: {
                         col: 4,
                         rules: [{ type: 'required', message: 'Xin vui lòng nhập email đại diện' }],
                       },
                     },
                     {
-                      name: 'note',
+                      name: 'store.Note',
                       title: 'Ghi chú',
                       formItem: {
                         type: 'textarea',
@@ -218,7 +218,7 @@ const Page = () => {
       <div className='h-20'>
       </div>
     </div>
-    
+
   );
 };
 export default Page;

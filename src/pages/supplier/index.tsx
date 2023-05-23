@@ -1,22 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { routerLinks } from '@utils';
-import { GlobalFacade, SupplierFacade } from '@store';
+import {  SupplierFacade } from '@store';
 import { Plus } from '@svgs';
-import { ColumnTableSupplier } from './column';
-import { TableRefObject } from '@models';
 
 const Page = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const supplierFacade = SupplierFacade();
-  
-  
+
+
   // useEffect(() => {
   //   switch (supplierFacade.status) {
   //     case 'delete.fulfilled':
@@ -80,10 +78,10 @@ const Page = () => {
         title: t(`supplier.Status`),
         name: "isActive",
         tableItem: {
-          width: 100,  
+          width: 100,
           align: 'center',
           render: (value: any,item: any) => item?.contract?.[0]?.status === 'SIGNED_CONTRACT'
-          ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>) 
+          ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>)
           : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Chờ ký</div>),
         },
       },
@@ -153,10 +151,10 @@ const Page = () => {
     //           title: t(`supplier.Status`),
     //           name: "isActive",
     //           tableItem: {
-    //             width: 100,  
+    //             width: 100,
     //             align: 'center',
     //             render: (value: any,item: any) => item?.contract?.[0]?.status === 'SIGNED_CONTRACT'
-    //             ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>) 
+    //             ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>)
     //             : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Chờ ký</div>),
     //           },
     //         },
