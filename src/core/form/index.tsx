@@ -345,7 +345,7 @@ export const Form = ({
                   });
                 }
                 break;
-              case '  ':
+              case 'requiredSelect':
                 if (!rule.message) {
                   rule.message = t('components.form.ruleRequiredSelect',{title: t(item.title).toLowerCase()});
                 }
