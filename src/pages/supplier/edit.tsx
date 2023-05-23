@@ -3,24 +3,37 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
 import classNames from 'classnames';
-import { ColumnFormSupplier, ColumnFormSupplierDetail, ColumnTableSupplierDiscount, ColumnTableSupplierOrder, ColumnTableSupplierProduct } from './column';
+import {
+  ColumnFormSupplier,
+  ColumnFormSupplierDetail,
+  ColumnTableSupplierDiscount,
+  ColumnTableSupplierOrder,
+  ColumnTableSupplierProduct,
+} from './column';
 import { Supplier, SupplierFacade } from '@store/supplier';
 import { DistrictFacade } from '@store/address/district';
 import { WardFacade } from '@store/address/ward';
 import { routerLinks } from '@utils';
-import { CategoryFacade, GlobalFacade, ProductFacade, OrdersFacade, DiscountFacade, inventoryOrdersFacade } from '@store';
+import {
+  CategoryFacade,
+  GlobalFacade,
+  ProductFacade,
+  OrdersFacade,
+  DiscountFacade,
+  inventoryOrdersFacade,
+} from '@store';
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
-import { Download } from '@svgs';
-import { Tabs } from 'antd';
+import { DownArrow, Download } from '@svgs';
+import { Avatar, Dropdown, Tabs } from 'antd';
 
 const Page = () => {
   const { t } = useTranslation();
 
-  const provinceFacade = ProvinceFacade()
+  const provinceFacade = ProvinceFacade();
   const { result } = provinceFacade;
   const supplierFacade = SupplierFacade();
   const { data, isLoading, queryParams, status } = supplierFacade;
@@ -37,9 +50,8 @@ const Page = () => {
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
 
-
   useEffect(() => {
-    if (!result?.data) provinceFacade.get({})
+    if (!result?.data) provinceFacade.get({});
 
     if (id) supplierFacade.getById({ id });
 
@@ -50,11 +62,10 @@ const Page = () => {
   useEffect(() => {
     switch (status) {
       case 'put.fulfilled':
-        navigate(routerLinks('Supplier'))
+        navigate(routerLinks('Supplier'));
         break;
     }
   }, [status]);
-
 
   const handleBack = () => navigate(routerLinks('Supplier') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: Supplier) => {
@@ -64,57 +75,65 @@ const Page = () => {
   return (
     <div className={'w-full'}>
       <Fragment>
-      <div className=''>
-          <Tabs defaultActiveKey='1' type='card' size='large' className=''>
-            <Tabs.TabPane tab='Thông tin nhà cung cấp' key='1' className='bg-white rounded-xl rounded-tl-none'>
-              <div className='px-5'>
-              <Form
-              // provinceId: data?.address?.province?.name, district: data?.address?.district?.name, ward: data?.address?.ward?.name,
-                values={{ ...data, street: data?.address?.street, province: data?.address?.province?.name, district: data?.address?.district?.name, ward: data?.address?.ward?.name,
-                  nameContact: data?.userRole?.[0].userAdmin.name, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber  }}
-                className="intro-x pt-6 rounded-lg w-full"
-                columns={ColumnFormSupplierDetail({ t })}
-                handSubmit={handleSubmit}
-                disableSubmit={isLoading}
-                handCancel={handleBack}
-              />
+        <div className="">
+          <Tabs defaultActiveKey="1" type="card" size="large" className="relative">
+            <Tabs.TabPane tab="Thông tin nhà cung cấp" key="1" className="bg-white rounded-xl rounded-tl-none">
+              <div className="px-5">
+                <Form
+                  // provinceId: data?.address?.province?.name, district: data?.address?.district?.name, ward: data?.address?.ward?.name,
+                  values={{
+                    ...data,
+                    street: data?.address?.street,
+                    provinceId: data?.address?.province?.id,
+                    districtId: data?.address?.district?.id,
+                    wardId: data?.address?.ward?.id,
+                    nameContact: data?.userRole?.[0].userAdmin.name,
+                    emailContact: data?.userRole?.[0].userAdmin.email,
+                    phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
+                  }}
+                  className="intro-x pt-6 rounded-lg w-full"
+                  columns={ColumnFormSupplierDetail({ t })}
+                  handSubmit={handleSubmit}
+                  disableSubmit={isLoading}
+                  handCancel={handleBack}
+                />
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Danh sách hàng hóa' key='2' className='rounded-xl'>
+            <Tabs.TabPane tab="Danh sách hàng hóa" key="2" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className='px-5 pb-4'>
+                <div className="px-5 pb-4">
                   <DataTable
-                  facade={productFacade}
-                  defaultRequest={{page: 1, perPage: 10, supplierId: id,type: "BALANCE"}}
-                  
-                  xScroll = '895px'
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.Pagination', { from, to, total })
-                  }
-                  columns={ColumnTableSupplierProduct({
-                    t,
-                    navigate,
-                    dataTableRef,
-                  })}
-                  rightHeader={
-                    <div className={'flex h-10 w-36 mt-6'}>
-                      {
-                        <Button
-                          className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group'
-                          icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
-                          text={t('Xuất file excel')}
-                          onClick={() => navigate(routerLinks('Supplier/Excel'))}
-                        />
-                      }
-                    </div>
-                  }
-                  leftHeader={
-                    <Form
-                      className="intro-x pt-6 rounded-lg w-full "
-                      columns={
-                        [
+                    facade={productFacade}
+                    defaultRequest={{ page: 1, perPage: 10, supplierId: id, type: 'BALANCE' }}
+                    xScroll="895px"
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.Pagination', { from, to, total })
+                    }
+                    columns={ColumnTableSupplierProduct({
+                      t,
+                      navigate,
+                      dataTableRef,
+                    })}
+                    rightHeader={
+                      <div className={'flex h-10 w-36 mt-6'}>
+                        {
+                          <Button
+                            className="!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
+                            icon={
+                              <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
+                            }
+                            text={t('Xuất file excel')}
+                            onClick={() => navigate(routerLinks('Supplier/Excel'))}
+                          />
+                        }
+                      </div>
+                    }
+                    leftHeader={
+                      <Form
+                        className="intro-x pt-6 rounded-lg w-full"
+                        columns={[
                           {
                             title: '',
                             name: 'cap1',
@@ -131,7 +150,7 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                form.resetFields(['cap2', 'cap3'])
+                                form.resetFields(['cap2', 'cap3']);
                               },
                             },
                           },
@@ -139,7 +158,7 @@ const Page = () => {
                             name: 'cap2',
                             title: '',
                             formItem: {
-                              disabled:() => true,
+                              disabled: () => true,
                               placeholder: 'Danh mục cấp 1',
                               type: 'select',
                               col: 3,
@@ -155,7 +174,7 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                form.resetFields(['cap3'])
+                                form.resetFields(['cap3']);
                               },
                             },
                           },
@@ -163,7 +182,7 @@ const Page = () => {
                             name: 'cap3',
                             title: '',
                             formItem: {
-                              disabled:() => true,
+                              disabled: () => true,
                               placeholder: 'Danh mục cấp 2',
                               type: 'select',
                               col: 3,
@@ -176,122 +195,203 @@ const Page = () => {
                                 params: (fullTextSearch, value) => ({
                                   fullTextSearch,
                                   id: value().cap2,
-                                })
-                              }
+                                }),
+                              },
                             },
                           },
-                        ]
-                      }
-                      handSubmit={handleSubmit}
-                      disableSubmit={isLoading}
-                    />
-                  }
-                  showSearch={false}
+                        ]}
+                      />
+                    }
+                    showSearch={false}
                   />
                 </div>
               </div>
-            </Tabs.TabPane>
-            <Tabs.TabPane tab='Quản lý đơn hàng' key='3' className='rounded-xl'>
-              <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className='px-5 pt-6 pb-4'>
-                  <DataTable
-                  facade={ordersFacade}
-                  defaultRequest={{page: 1, perPage: 10, filterSupplier: id}}
-                  xScroll = '1400px'
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.Pagination', { from, to, total })
-                  }
-                  columns={[
-                    {
-                      title: t(`Mã đơn hàng`),
-                      name: 'code',
-                      tableItem: {
-                        width: 280,
-
-                      },
-                    },
-                    {
-                      title: t(`Tên cửa hàng`),
-                      name: 'name',
-                      tableItem: {
-                        width: 180,
-                        render: (value: any,item: any) => item?.store?.name,
-                      },
-                    },
-                    {
-                      title: t(`Người nhận`),
-                      name: ('address'),
-                      tableItem: {
-                        width: 180,
-                        render: (value: any,item: any) => item?.storeAdmin?.name,
-                      }
-                    },
-                    {
-                      title: t(`Địa chỉ nhận hàng`),
-                      name: 'contract',
-                      tableItem: {
-                        width: 300  ,
-                        render: (value: any,item: any) => item?.store?.address?.street + ', ' + item?.store?.address?.ward?.name + ', ' + item?.store?.address?.district?.name + ', ' + item?.store?.address?.province?.name,
-                      },
-                    },
-                    {
-                      title: t(`Tổng tiền (VND)`),
-                      name: 'total',
-                      tableItem: {
-                        width: 150,
-                        render: (value: any,item: any) => item?.total.toLocaleString(),
-                      },
-                    },
-                    {
-                      title: t(`Ngày đặt`),
-                      name: 'createdAt',
-                      tableItem: {
-                        width: 150,
-                      },
-                    },
-                    {
-                      title: t(`supplier.Status`),
-                      name: "isActive",
-                      tableItem: {
-                        width: 180,
-                        align: 'center',
-                        render: (item: any) => !item?.isApplyTax
-                        ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã giao</div>)
-                        : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Đang giao</div>),
-                      },
-                    },
-                  ]}
-                />
+              <div className="sm:flex sm:mt-7 mt-2 ">
+                <div className="flex flex-col items-center mt-2">
+                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+                    {t('components.form.modal.cancel')}
+                  </button>
                 </div>
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Doanh thu' key='4' className='rounded-xl bg-white'>
+            <Tabs.TabPane tab="Quản lý đơn hàng" key="3" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className='px-5 pt-6 pb-4'>
+                <div className="px-5 pt-6 pb-4">
                   <DataTable
-                  facade={inventoryOrders}
-                  defaultRequest={{page: 1, perPage: 10, idSuppiler: id}}
-                  xScroll = '1400px'
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.Pagination', { from, to, total })
-                  }
-                  rightHeader={
-                    <div className='flex items-end justify-between'>
-                      <Form
-                        className="intro-x items-end rounded-lg w-full flex justify-between"
-                        columns={
-                          [
+                    facade={ordersFacade}
+                    defaultRequest={{ page: 1, perPage: 10, filterSupplier: id }}
+                    xScroll="1400px"
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.Pagination', { from, to, total })
+                    }
+                    columns={[
+                      {
+                        title: t(`Mã đơn hàng`),
+                        name: 'code',
+                        tableItem: {
+                          width: 280,
+                        },
+                      },
+                      {
+                        title: t(`Tên cửa hàng`),
+                        name: 'name',
+                        tableItem: {
+                          width: 180,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
+                      },
+                      {
+                        title: t(`Người nhận`),
+                        name: 'address',
+                        tableItem: {
+                          width: 180,
+                          render: (value: any, item: any) => item?.storeAdmin?.name,
+                        },
+                      },
+                      {
+                        title: t(`Địa chỉ nhận hàng`),
+                        name: 'contract',
+                        tableItem: {
+                          width: 300,
+                          render: (value: any, item: any) =>
+                            item?.store?.address?.street +
+                            ', ' +
+                            item?.store?.address?.ward?.name +
+                            ', ' +
+                            item?.store?.address?.district?.name +
+                            ', ' +
+                            item?.store?.address?.province?.name,
+                        },
+                      },
+                      {
+                        title: t(`Tổng tiền (VND)`),
+                        name: 'total',
+                        tableItem: {
+                          width: 150,
+                          render: (value: any, item: any) => parseInt(item?.total).toLocaleString(),
+                        },
+                      },
+                      {
+                        title: t(`Ngày đặt`),
+                        name: 'createdAt',
+                        tableItem: {
+                          width: 150,
+                        },
+                      },
+                      {
+                        title: t(`supplier.Status`),
+                        name: 'isActive',
+                        tableItem: {
+                          width: 180,
+                          align: 'center',
+                          render: (value: any, item: any) =>
+                            item?.status === 'DELIVERED' ? (
+                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                Đã giao
+                              </div>
+                            ) : item?.status === 'WAITING_APPROVED' ? (
+                              <div className="bg-yellow-50 text-center p-1 border border-yellow-500 text-yellow-500 rounded">
+                                Chờ xác nhận
+                              </div>
+                            ) : item?.status === 'DELIVERY_RECEIVE' || item?.status === 'DELIVERY_RECEIVING' ? (
+                              <div className="bg-blue-100 text-center p-1 border border-blue-500 text-blue-600 rounded">
+                                Đang giao
+                              </div>
+                            ) : item?.status === 'WAITING_PICKUP' ? (
+                              <div className="bg-orange-50 text-center p-1 border border-orange-500 text-orange-500 rounded">
+                                Chờ lấy hàng
+                              </div>
+                            ) : (
+                              <div className="bg-red-100 text-center p-1 border border-red-500 text-red-500 rounded">
+                                Đã huỷ
+                              </div>
+                            ),
+                        },
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+              <div className="sm:flex sm:mt-7 mt-2 ">
+                <div className="flex flex-col items-center mt-2">
+                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+                    {t('components.form.modal.cancel')}
+                  </button>
+                </div>
+              </div>
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Doanh thu" key="4" className="rounded-xl">
+              <Dropdown
+                className="absolute right-3 z-50"
+                trigger={['click']}
+                menu={{
+                  items: [
+                    {
+                      key: '0',
+                      className: 'hover:!bg-white',
+                      label: (
+                        <div className="flex">
+                          <Avatar src={user?.profileImage} size={8} />
+                          <div className="text-left leading-none mr-3 hidden sm:block pl-2">
+                            <div className="font-bold text-black text-lg leading-snug mb-0.5">{user?.name}</div>
+                            <div className="text-gray-500 text-[10px]">{user?.email}</div>
+                          </div>
+                        </div>
+                      ),
+                    },
+                    {
+                      key: '1',
+                      className: 'h-11',
+                      label: (
+                        <div className="w-full">
+                          <div className="flex">
+                            <div className="flex items-center">
+                              <Avatar className="w-6 h-6 pr-2 text-black" />
+                            </div>
+                            <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
+                              {t('routes.admin.Layout.My Profile')}
+                            </div>
+                          </div>
+                        </div>
+                      ),
+                    },
+                  ],
+                }}
+                placement="bottomRight"
+              >
+                <section className="flex items-center">
+                  <DownArrow className="w-4 h-4" />
+                </section>
+              </Dropdown>
+              <div className={'w-full mx-auto bg-white rounded-xl'}>
+                <div className="px-5 pt-6 pb-4">
+                  <DataTable
+                    facade={inventoryOrders}
+                    defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
+                    xScroll="1400px"
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.Pagination', { from, to, total })
+                    }
+                    rightHeader={
+                      <div className="flex items-end justify-between">
+                        <Form
+                          className="intro-x items-end rounded-lg w-full flex justify-between"
+                          columns={[
                             {
                               title: '',
                               name: '',
                               formItem: {
                                 tabIndex: 3,
                                 col: 2,
-                                render: () => (<div className='flex h-10 items-center'><p></p></div>)
+                                render: () => (
+                                  <div className="flex h-10 items-center">
+                                    <p></p>
+                                  </div>
+                                ),
                               },
                             },
                             {
@@ -310,13 +410,13 @@ const Page = () => {
                                   }),
                                 },
                                 onChange(value, form) {
-                                  form.resetFields(['cap2', 'cap3'])
+                                  form.resetFields(['cap2', 'cap3']);
                                 },
                               },
                             },
                             {
                               name: 'Store',
-                              title: '',  
+                              title: '',
                               formItem: {
                                 // disabled:() => true,
                                 placeholder: 'Chọn cửa hàng',
@@ -334,7 +434,7 @@ const Page = () => {
                                   }),
                                 },
                                 onChange(value, form) {
-                                  form.resetFields(['cap2'])
+                                  form.resetFields(['cap2']);
                                 },
                               },
                             },
@@ -344,7 +444,11 @@ const Page = () => {
                               formItem: {
                                 tabIndex: 3,
                                 col: 2,
-                                render: () => (<div className='flex h-10 items-center'><p>Từ Ngày</p></div>)
+                                render: () => (
+                                  <div className="flex h-10 items-center">
+                                    <p>Từ Ngày</p>
+                                  </div>
+                                ),
                               },
                             },
                             {
@@ -362,7 +466,11 @@ const Page = () => {
                               formItem: {
                                 tabIndex: 3,
                                 col: 2,
-                                render: () => (<div className='flex h-10 items-center'><p>Đến ngày</p></div>)
+                                render: () => (
+                                  <div className="flex h-10 items-center">
+                                    <p>Đến ngày</p>
+                                  </div>
+                                ),
                               },
                             },
                             {
@@ -374,108 +482,118 @@ const Page = () => {
                                 type: 'date',
                               },
                             },
-                          ]
-                        }
-                        // handSubmit={handleSubmit}
-                        disableSubmit={isLoading}
-                      />
-                    </div>
-                  }
-                  searchPlaceholder='Tìm kiếm theo mã đơn hàng'
-                  columns={[
-                    {
-                      title: t(`STT`),
-                      name: 'code',
-                      tableItem: {
-                        width: 70,
-                      
+                          ]}
+                          // handSubmit={handleSubmit}
+                          disableSubmit={isLoading}
+                        />
+                      </div>
+                    }
+                    searchPlaceholder="Tìm kiếm theo mã đơn hàng"
+                    columns={[
+                      {
+                        title: t(`STT`),
+                        name: 'code',
+                        tableItem: {
+                          width: 70,
+                        },
                       },
-                    },
-                    {
-                      title: t(`Mã đơn hàng`),
-                      name: 'code',
-                      tableItem: {
-                        width: 175,
-                      
+                      {
+                        title: t(`Mã đơn hàng`),
+                        name: 'code',
+                        tableItem: {
+                          width: 175,
+                        },
                       },
-                    },
-                    {
-                      title: t(`Tên cửa hàng`),
-                      name: 'name',
-                      tableItem: {
-                        width: 180,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: t(`Tên cửa hàng`),
+                        name: 'name',
+                        tableItem: {
+                          width: 180,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: t(`Ngày đặt`),
-                      name: 'name',
-                      tableItem: {
-                        width: 135,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: t(`Ngày đặt`),
+                        name: 'name',
+                        tableItem: {
+                          width: 135,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: t(`Ngày nhận`),
-                      name: ('address'),
-                      tableItem: {
-                        width: 150,
-                        render: (value: any,item: any) => item?.storeAdmin?.name,
-                      }
-                    },
-                    {
-                      title: t(`Trước thuế`),
-                      name: 'name',
-                      tableItem: {
-                        width: 145,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: t(`Ngày nhận`),
+                        name: 'address',
+                        tableItem: {
+                          width: 150,
+                          render: (value: any, item: any) => item?.storeAdmin?.name,
+                        },
                       },
-                    },
-                    {
-                      title: t(`Sau thuế`),
-                      name: 'name',
-                      tableItem: {
-                        width: 130,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: t(`Trước thuế`),
+                        name: 'name',
+                        tableItem: {
+                          width: 145,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: t(`Khuyến mãi`),
-                      name: 'name',
-                      tableItem: {
-                        width: 160,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: t(`Sau thuế`),
+                        name: 'name',
+                        tableItem: {
+                          width: 130,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: t(`Thành tiền`),
-                      name: 'total',
-                      tableItem: {
-                        width: 145  ,
-                        render: (value: any,item: any) => item?.store?.address?.street + ', ' + item?.store?.address?.ward?.name + ', ' + item?.store?.address?.district?.name + ', ' + item?.store?.address?.province?.name,
+                      {
+                        title: t(`Khuyến mãi`),
+                        name: 'name',
+                        tableItem: {
+                          width: 160,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: t(`Loại đơn`),
-                      name: 'total',
-                      tableItem: {
-                        width: 100,
-                        render: (value: any,item: any) => item?.total.toLocaleString(),
+                      {
+                        title: t(`Thành tiền`),
+                        name: 'total',
+                        tableItem: {
+                          width: 145,
+                          render: (value: any, item: any) =>
+                            item?.store?.address?.street +
+                            ', ' +
+                            item?.store?.address?.ward?.name +
+                            ', ' +
+                            item?.store?.address?.district?.name +
+                            ', ' +
+                            item?.store?.address?.province?.name,
+                        },
                       },
-                    },
-                  ]}
+                      {
+                        title: t(`Loại đơn`),
+                        name: 'total',
+                        tableItem: {
+                          width: 100,
+                          render: (value: any, item: any) => item?.total.toLocaleString(),
+                        },
+                      },
+                    ]}
                   />
                 </div>
               </div>
+              <div className="sm:flex sm:mt-7 mt-2 ">
+                <div className="flex flex-col items-center mt-2">
+                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+                    {t('components.form.modal.cancel')}
+                  </button>
+                </div>
+              </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Chiết khấu' key='5' className='rounded-xl'>
+            <Tabs.TabPane tab="Chiết khấu" key="5" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className='px-5 pt-6 pb-4'>
+                <div className="px-5 pt-6 pb-4">
                   <DataTable
                     facade={discountFacade}
-                    
-                    defaultRequest={{page: 1, perPage: 10}}
-                    xScroll = '1370px'
+                    defaultRequest={{ page: 1, perPage: 10 }}
+                    xScroll="1370px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
@@ -491,7 +609,7 @@ const Page = () => {
                       <div className={'flex h-10 w-36'}>
                         {user && (
                           <Button
-                            className='!bg-white flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group'
+                            className="!bg-white flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
                             icon={<Download className="icon-cud !h-6 !w-6 !fill-gray-600 group-hover:!fill-white" />}
                             text={t('Xuất file excel')}
                             onClick={() => navigate(routerLinks('Supplier/Excel'))}
@@ -502,15 +620,21 @@ const Page = () => {
                   />
                 </div>
               </div>
+              <div className="sm:flex sm:mt-7 mt-2 ">
+                <div className="flex flex-col items-center mt-2">
+                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+                    {t('components.form.modal.cancel')}
+                  </button>
+                </div>
+              </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Hợp đồng' key='6' className='rounded-xl'>
+            <Tabs.TabPane tab="Hợp đồng" key="6" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className='px-5 pt-6 pb-4'>
+                <div className="px-5 pt-6 pb-4">
                   <DataTable
                     facade={discountFacade}
-                    
-                    defaultRequest={{page: 1, perPage: 10}}
-                    xScroll = '1370px'
+                    defaultRequest={{ page: 1, perPage: 10 }}
+                    xScroll="1370px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
@@ -526,7 +650,7 @@ const Page = () => {
                       <div className={'flex h-10 w-36'}>
                         {user && (
                           <Button
-                            className='!bg-white flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group'
+                            className="!bg-white flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
                             icon={<Download className="icon-cud !h-6 !w-6 !fill-gray-600 group-hover:!fill-white" />}
                             text={t('Xuất file excel')}
                             onClick={() => navigate(routerLinks('Supplier/Excel'))}

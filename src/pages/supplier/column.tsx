@@ -21,18 +21,25 @@ export const ColumnTableSupplier = ({ t, navigate, dataTableRef }: any) => {
     },
     {
       title: t(`supplier.Address`),
-      name: ('address'),
+      name: 'address',
       tableItem: {
         width: 555,
-        render: (value: any,item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
-      }
+        render: (value: any, item: any) =>
+          item?.address?.street +
+          ', ' +
+          item?.address?.ward?.name +
+          ', ' +
+          item?.address?.district?.name +
+          ', ' +
+          item?.address?.province?.name,
+      },
     },
     {
       title: t(`supplier.Representative`),
       name: 'contract',
       tableItem: {
-        width: 242  ,
-        render: (value: any,item: any) => item?.contract[0].name,
+        width: 242,
+        render: (value: any, item: any) => item?.contract[0].name,
       },
     },
     {
@@ -40,24 +47,27 @@ export const ColumnTableSupplier = ({ t, navigate, dataTableRef }: any) => {
       name: 'userRole',
       tableItem: {
         width: 115,
-        render: (value: any,item: any) => item?.userRole[0].userAdmin.phoneNumber,
+        render: (value: any, item: any) => item?.userRole[0].userAdmin.phoneNumber,
       },
     },
     {
       title: t(`supplier.Status`),
-      name: "isActive",
+      name: 'isActive',
       tableItem: {
-        width: 100,  
+        width: 100,
         align: 'center',
-        render: (value: any,item: any) => item?.contract?.[0]?.status === 'SIGNED_CONTRACT'
-        ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>) 
-        : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Chờ ký</div>),
+        render: (value: any, item: any) =>
+          item?.contract?.[0]?.status === 'SIGNED_CONTRACT' ? (
+            <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">Đã ký</div>
+          ) : (
+            <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">Chờ ký</div>
+          ),
       },
     },
   ];
   return col;
 };
-export const ColumnFormSupplier= ({ t, listRole }: any) => {
+export const ColumnFormSupplier = ({ t, listRole }: any) => {
   // const districtFaca = DistrictFacade();
   const col: FormModel[] = [
     {
@@ -78,83 +88,81 @@ export const ColumnFormSupplier= ({ t, listRole }: any) => {
         rules: [{ type: 'required' }, { type: 'min', value: 6 }],
       },
     },
-    
+
     {
-                    title: '',
-                    name: 'address',
-                    formItem: {
-                      rules: [{ type: 'required' }],
-                      render() {
-                        return (
-                          <h3 className='mb-2.5 text-left text-base text-black font-medium'>Địa chỉ cửa hàng</h3>
-                        )
-                      },
-                    }
-                  },
-                  {
-                    title: 'Tỉnh/Thành phố',
-                    name: 'provinceId',
-                    formItem: {
-                      tabIndex: 3,
-                      col: 3,
-                      type: 'select',
-                      rules: [{ type: 'required' }],
-                      list: listRole.map((item: any) => ({
-                        label: item?.name,
-                        value: item?.code,
-                      })),
-                      onChange(value, form) {
-                        const districtFacade = DistrictFacade()
-                        form.resetFields(['district'])
-                        districtFacade.get(value)
-                      },
-                    },
-                  },
-                  {
-                    name: 'districtId',
-                    title: 'Quận/Huyện',
-                    formItem: {
-                      type: 'select',
-                      rules: [{ type: 'required' }],
-                      col: 3,
-                      get: {
-                        facade: DistrictFacade,
-                        format: (item: any) => ({
-                          label: item.name,
-                          value: item.code,
-                        }),
-                      },
-                      onChange(value, form) {
-                        const wardFacade = WardFacade()
-                        form.resetFields(['wardId'])
-                        wardFacade.get(value)
-                      },
-                    },
-                  },
-                  {
-                    name: 'wardId',
-                    title: 'Phường/Xã',
-                    formItem: {
-                      type: 'select',
-                      rules: [{ type: 'required' }],
-                      col: 3,
-                      get: {
-                        facade: WardFacade,
-                        format: (item: any) => ({
-                          label: item.name,
-                          value: item.code,
-                        }),
-                      }
-                    },
-                  },
-                  {
-                    name: 'street',
-                    title: 'Địa chỉ cụ thể',
-                    formItem: {
-                      rules: [{ type: 'required' }],
-                      col: 3,
-                    },
-                  },
+      title: '',
+      name: 'address',
+      formItem: {
+        rules: [{ type: 'required' }],
+        render() {
+          return <h3 className="mb-2.5 text-left text-base text-black font-medium">Địa chỉ cửa hàng</h3>;
+        },
+      },
+    },
+    {
+      title: 'Tỉnh/Thành phố',
+      name: 'provinceId',
+      formItem: {
+        tabIndex: 3,
+        col: 3,
+        type: 'select',
+        rules: [{ type: 'required' }],
+        list: listRole.map((item: any) => ({
+          label: item?.name,
+          value: item?.code,
+        })),
+        onChange(value, form) {
+          const districtFacade = DistrictFacade();
+          form.resetFields(['district']);
+          districtFacade.get(value);
+        },
+      },
+    },
+    {
+      name: 'districtId',
+      title: 'Quận/Huyện',
+      formItem: {
+        type: 'select',
+        rules: [{ type: 'required' }],
+        col: 3,
+        get: {
+          facade: DistrictFacade,
+          format: (item: any) => ({
+            label: item.name,
+            value: item.code,
+          }),
+        },
+        onChange(value, form) {
+          const wardFacade = WardFacade();
+          form.resetFields(['wardId']);
+          wardFacade.get(value);
+        },
+      },
+    },
+    {
+      name: 'wardId',
+      title: 'Phường/Xã',
+      formItem: {
+        type: 'select',
+        rules: [{ type: 'required' }],
+        col: 3,
+        get: {
+          facade: WardFacade,
+          format: (item: any) => ({
+            label: item.name,
+            value: item.code,
+          }),
+        },
+      },
+    },
+    {
+      name: 'street',
+      title: 'Địa chỉ cụ thể',
+      formItem: {
+        rules: [{ type: 'required' }],
+        col: 3,
+      },
+    },
     {
       title: t('Họ tên đại diện'),
       name: 'name',
@@ -196,7 +204,7 @@ export const ColumnFormSupplier= ({ t, listRole }: any) => {
 };
 
 export const ColumnFormSupplierDetail = ({ t }: any) => {
- const col: FormModel[] = [
+  const col: FormModel[] = [
     {
       title: t('Mã nhà cung cấp'),
       name: 'code',
@@ -229,11 +237,9 @@ export const ColumnFormSupplierDetail = ({ t }: any) => {
       formItem: {
         rules: [{ type: 'required' }],
         render() {
-          return (
-            <h3 className='mb-2.5 text-base '>Địa chỉ nhà cung cấp </h3>
-          )
+          return <h3 className="mb-2.5 text-base ">Địa chỉ nhà cung cấp </h3>;
         },
-      }
+      },
     },
     {
       title: 'Tỉnh/Thành phố',
@@ -242,7 +248,7 @@ export const ColumnFormSupplierDetail = ({ t }: any) => {
         tabIndex: 3,
         col: 3,
         type: 'select',
-        rules: [{ type: 'required',message: 'Xin vui lòng chọn tỉnh/thành phố' }],
+        rules: [{ type: 'required', message: 'Xin vui lòng chọn tỉnh/thành phố' }],
         get: {
           facade: ProvinceFacade,
           format: (item: any) => ({
@@ -251,13 +257,13 @@ export const ColumnFormSupplierDetail = ({ t }: any) => {
           }),
         },
         onChange(value, form) {
-          form.resetFields(['districtId', 'wardId']) 
+          form.resetFields(['districtId', 'wardId']);
         },
       },
     },
     {
       name: 'districtId',
-      title: 'Quận/Huyện',  
+      title: 'Quận/Huyện',
       formItem: {
         type: 'select',
         rules: [{ type: 'required', message: 'Xin vui lòng chọn quận/huyện' }],
@@ -274,7 +280,7 @@ export const ColumnFormSupplierDetail = ({ t }: any) => {
           }),
         },
         onChange(value, form) {
-          form.resetFields(['wardId'])
+          form.resetFields(['wardId']);
         },
       },
     },
@@ -294,8 +300,8 @@ export const ColumnFormSupplierDetail = ({ t }: any) => {
           params: (fullTextSearch, value) => ({
             fullTextSearch,
             code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-          })
-        }
+          }),
+        },
       },
     },
     {
@@ -312,16 +318,15 @@ export const ColumnFormSupplierDetail = ({ t }: any) => {
       name: '',
       formItem: {
         render() {
-          return (
-            <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
-          )
-        }
-      }
+          return <div className="text-xl text-teal-900 font-bold mb-2.5">Thông tin người đại diện</div>;
+        },
+      },
     },
     {
       title: t('Họ tên đại diện'),
       name: 'nameContact',
       formItem: {
+        type: 'name',
         tabIndex: 1,
         col: 4,
         rules: [{ type: 'required' }],
@@ -331,6 +336,7 @@ export const ColumnFormSupplierDetail = ({ t }: any) => {
       title: t('Số điện thoại đại diện'),
       name: 'phoneNumber',
       formItem: {
+        type: 'number',
         tabIndex: 2,
         col: 4,
         rules: [{ type: 'required' }],
@@ -359,13 +365,13 @@ export const ColumnFormSupplierDetail = ({ t }: any) => {
 };
 
 export const ColumnTableSupplierOrder = ({ t, listRole }: any) => {
- const col: DataTableModel[] = [
+  const col: DataTableModel[] = [
     {
       title: t(`Mã đơn hàng`),
       name: 'code',
       tableItem: {
         width: 280,
-        render: (value: any,item: any) => item?.code &&  console.log(item?.code),
+        render: (value: any, item: any) => item?.code && console.log(item?.code),
       },
     },
     {
@@ -373,23 +379,30 @@ export const ColumnTableSupplierOrder = ({ t, listRole }: any) => {
       name: 'name',
       tableItem: {
         width: 180,
-        render: (value: any,item: any) => item?.store?.address?.name,
+        render: (value: any, item: any) => item?.store?.address?.name,
       },
     },
     {
       title: t(`Người nhận`),
-      name: ('address'),
+      name: 'address',
       tableItem: {
         width: 180,
-        render: (value: any,item: any) => item?.storeAdmin?.name,
-      }
+        render: (value: any, item: any) => item?.storeAdmin?.name,
+      },
     },
     {
       title: t(`Địa chỉ nhận hàng`),
       name: 'contract',
       tableItem: {
-        width: 300  ,
-        render: (value: any,item: any) => item?.store?.address?.street + ', ' + item?.store?.address?.ward?.name + ', ' + item?.store?.address?.district?.name + ', ' + item?.store?.address?.province?.name,
+        width: 300,
+        render: (value: any, item: any) =>
+          item?.store?.address?.street +
+          ', ' +
+          item?.store?.address?.ward?.name +
+          ', ' +
+          item?.store?.address?.district?.name +
+          ', ' +
+          item?.store?.address?.province?.name,
       },
     },
     {
@@ -397,7 +410,7 @@ export const ColumnTableSupplierOrder = ({ t, listRole }: any) => {
       name: 'userRole',
       tableItem: {
         width: 150,
-        render: (value: any,item: any) => item?.total.toLocaleString(),
+        render: (value: any, item: any) => item?.total.toLocaleString(),
       },
     },
     {
@@ -405,18 +418,21 @@ export const ColumnTableSupplierOrder = ({ t, listRole }: any) => {
       name: 'userRole',
       tableItem: {
         width: 150,
-        render: (value: any,item: any) => item?.userRole[0].userAdmin.phoneNumber,
+        render: (value: any, item: any) => item?.userRole[0].userAdmin.phoneNumber,
       },
     },
     {
       title: t(`supplier.Status`),
-      name: "isActive",
+      name: 'isActive',
       tableItem: {
-        width: 180,  
+        width: 180,
         align: 'center',
-        render: (text: string) => text
-        ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>) 
-        : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Chờ ký</div>),
+        render: (text: string) =>
+          text ? (
+            <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">Đã ký</div>
+          ) : (
+            <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">Chờ ký</div>
+          ),
       },
     },
   ];
@@ -437,33 +453,34 @@ export const ColumnTableSupplierProduct = ({ t, listRole }: any) => {
       name: 'name',
       tableItem: {
         width: 300,
-        render: (value: any,item: any) => item?.name,
+        render: (value: any, item: any) => item?.name,
       },
     },
     {
       title: t(`Danh mục`),
-      name: ('address'),
+      name: 'address',
       tableItem: {
         width: 205,
-        render: (value: any,item: any) => item?.category?.child?.child?.name,
-      }
+        render: (value: any, item: any) => item?.category?.child?.child?.name,
+      },
     },
     {
       title: t(`Giá bán lẻ (VND)`),
       name: 'contract',
       tableItem: {
         width: 280,
-        render: (value: any,item: any) => item?.productPrice[0]?.price.toLocaleString(),
+        render: (value: any, item: any) => item?.productPrice[0]?.price.toLocaleString(),
       },
     },
     {
       title: t(`Tình trạng`),
-      name: "isActive",
+      name: 'isActive',
       tableItem: {
-        width: 160,  
+        width: 160,
         align: 'center',
-        render: (text: string) => (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đang bán</div>) 
-        
+        render: (text: string) => (
+          <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">Đang bán</div>
+        ),
       },
     },
   ];
@@ -471,8 +488,8 @@ export const ColumnTableSupplierProduct = ({ t, listRole }: any) => {
 };
 
 export const ColumnFormSupplierRevenue = ({ t, listRole }: any) => {
- const col: FormModel[] = [
-  {
+  const col: FormModel[] = [
+    {
       title: t('Mã nhà cung cấp'),
       name: 'code',
       formItem: {
@@ -609,7 +626,7 @@ export const ColumnFormSupplierRevenue = ({ t, listRole }: any) => {
 };
 
 export const ColumnTableSupplierDiscount = ({ t, listRole }: any) => {
- const col: DataTableModel[] = [
+  const col: DataTableModel[] = [
     {
       title: t(`STT`),
       name: 'code',
@@ -626,18 +643,25 @@ export const ColumnTableSupplierDiscount = ({ t, listRole }: any) => {
     },
     {
       title: t(`Chiết khấu (VND)`),
-      name: ('address'),
+      name: 'address',
       tableItem: {
         width: 245,
-        render: (value: any,item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
-      }
+        render: (value: any, item: any) =>
+          item?.address?.street +
+          ', ' +
+          item?.address?.ward?.name +
+          ', ' +
+          item?.address?.district?.name +
+          ', ' +
+          item?.address?.province?.name,
+      },
     },
     {
       title: t(`Đã thanh toán (VND)`),
       name: 'contract',
       tableItem: {
-        width: 245  ,
-        render: (value: any,item: any) => item?.contract[0].name,
+        width: 245,
+        render: (value: any, item: any) => item?.contract[0].name,
       },
     },
     {
@@ -645,18 +669,21 @@ export const ColumnTableSupplierDiscount = ({ t, listRole }: any) => {
       name: 'userRole',
       tableItem: {
         width: 245,
-        render: (value: any,item: any) => item?.userRole[0].userAdmin.phoneNumber,
+        render: (value: any, item: any) => item?.userRole[0].userAdmin.phoneNumber,
       },
     },
     {
       title: t(`Trạng thái`),
-      name: "isActive",
+      name: 'isActive',
       tableItem: {
-        width: 240,  
+        width: 240,
         align: 'center',
-        render: (text: string) => text
-        ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>) 
-        : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Chờ ký</div>),
+        render: (text: string) =>
+          text ? (
+            <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">Đã ký</div>
+          ) : (
+            <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">Chờ ký</div>
+          ),
       },
     },
   ];
@@ -664,8 +691,8 @@ export const ColumnTableSupplierDiscount = ({ t, listRole }: any) => {
 };
 
 export const ColumnFormSupplierContract = ({ t, listRole }: any) => {
- const col: FormModel[] = [
-  {
+  const col: FormModel[] = [
+    {
       title: t('Mã nhà cung cấp'),
       name: 'code',
       formItem: {

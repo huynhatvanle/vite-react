@@ -20,7 +20,7 @@ export const action = {
       return { data, keyState };
     },
   ),
-  post: createAsyncThunk(name + '/post', async (values: Supplier) => {
+  postSup: createAsyncThunk(name + '/post', async (values: Supplier) => {
     const provinceId = values.provinceId?.slice(0, values.provinceId.indexOf('|'))
     const districtId = values.districtId?.slice(0, values.districtId.indexOf('|'))
     const wardId = values.wardId
@@ -28,11 +28,11 @@ export const action = {
     const supplierType = 'BALANCE'
     const type = 'SUPPLIER'
     const address = { provinceId, districtId, wardId, street }
-    const { data, message } = await API.post<Supplier>(routerLinks(name, 'api'), { ...values, address, supplierType, type });
+    const { statusCode, message } = await API.post<Supplier>(routerLinks(name, 'api'), { ...values, address, supplierType, type });
     if (message) await Message.success({ text: message });
-    return data;
+    return statusCode;
   }),
-  put: createAsyncThunk(name + '/put', async ({ id, ...values }: Supplier) => {
+  putSup: createAsyncThunk(name + '/put', async ({ id, ...values }: Supplier) => {
     const provinceId = values.provinceId?.slice(0, values.provinceId.indexOf('|'))
     const districtId = values.districtId?.slice(0, values.districtId.indexOf('|'))
     const wardId = values.wardId
@@ -46,9 +46,9 @@ export const action = {
     delete(rs.wardId)
     console.log("rssssssssss",rs);
     
-    const { data, message } = await API.put<Supplier>(`${routerLinks(name, 'api')}/${id}`, rs);
+    const { statusCode, message } = await API.put<Supplier>(`${routerLinks(name, 'api')}/${id}`, rs);
     if (message) await Message.success({ text: message });
-    return data;
+    return statusCode;
   }),
 };
 export const supplierSlice = createSlice(
@@ -117,8 +117,8 @@ export const SupplierFacade = () => {
     get: (params: PaginationQuery<Supplier>) => dispatch(action.get(params)),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Supplier> }) =>
       dispatch(action.getByIdSupplier({ id, keyState })),
-    post: (values: Supplier) => dispatch(action.post(values)),
-    put: (values: Supplier) => dispatch(action.put(values)),
+    post: (values: Supplier) => dispatch(action.postSup(values)),
+    put: (values: Supplier) => dispatch(action.putSup(values)),
     delete: (id: string) => dispatch(action.delete(id)),
   };
 };
