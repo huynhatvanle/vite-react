@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
@@ -19,6 +19,7 @@ const Page = () => {
   // const districtFacade = DistrictFacade()
   // const wardFacade = WardFacade()
 
+
   const storeFace = StoreFacade();
   const { isLoading, queryParams, status, data } = storeFace;
   const param = JSON.parse(queryParams || '{}');
@@ -31,13 +32,19 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    if(status === 'post.fulfilled')
-    navigate(routerLinks('Store'))
+    if (status === 'post.fulfilled')
+      navigate(routerLinks('Store'))
   }, [status]);
 
   const handleBack = () => navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: any) => {
     storeFace.post(values);
+  };
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleClick = () => {
+    setIsChecked(prevState => !prevState);
   };
 
   return (
@@ -200,7 +207,30 @@ const Page = () => {
                   return (
                     <div className='flex items-center mb-2.5'>
                       <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
-                      <Switch className='bg-gray-500' />
+                      <Switch checked={isChecked} onChange={handleClick} />
+                      {isChecked && (
+                        <Form
+                          values={{ ...data }}
+                          columns={[
+                            {
+                              title: 'store.Name',
+                              name: 'name',
+                              formItem: {
+                                tabIndex: 1,
+                                col: 6,
+                                rules: [{ type: 'required' },],
+                              },
+                            },
+                            {
+                              title: 'store.Fax',
+                              name: 'fax',
+                              formItem: {
+                                tabIndex: 2,
+                                col: 6,
+                              },
+                            },
+                          ]}/>
+                      )}
                     </div>
                   )
                 }

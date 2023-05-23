@@ -14,7 +14,7 @@ import { GlobalFacade } from '@store';
 import Menu1 from './menu';
 // import { firebaseConfig } from 'variable';
 import './index.less';
-import { Chevronleft, LeftArrow, Logo, RightArrow, Menu, ArrowBack, User1, Key, Out, User } from '@svgs';
+import { Chevronleft, LeftArrow, Logo, RightArrow, Menu, ArrowBack, User1, Key, Out, User, UserProfile } from '@svgs';
 import Logo1 from '../../assets/images/logo.png';
 
 const Layout = ({ children }: PropsWithChildren) => {
@@ -104,12 +104,12 @@ const Layout = ({ children }: PropsWithChildren) => {
               items: [
                 {
                   key: '0',
-                  className: 'hover:!bg-white',
+                  className: 'hover:!bg-white !border-b-slate-300 border-b !rounded-none',
                   label: (
                     <div className='flex'>
                       <Avatar src={user?.profileImage} size={8} />
                       <div className="text-left leading-none mr-3 hidden sm:block pl-2">
-                        <div className="font-bold text-black text-lg leading-snug mb-0.5">{user?.name}</div>
+                        <div className="font-semibold text-black text-sm leading-snug mb-0.5">{user?.name}</div>
                         <div className="text-gray-500 text-[10px]">{user?.email}</div>
                       </div>
                     </div>
@@ -121,7 +121,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                   label: (
                     <div className='flex'>
                       <div className='flex items-center'>
-                        <User className='w-6 h-6 pr-2 text-black' />
+                        <UserProfile className='w-6 h-6 pr-2 text-black' />
                       </div>
                       <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
                         {t('routes.admin.Layout.My Profile')}
@@ -131,7 +131,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 },
                 {
                   key: '2',
-                  className: 'h-11',
+                  className: 'h-11 !border-b-slate-300 border-b !rounded-none',
                   label: (
                     <div className='flex'>
                       <div className='flex items-center'>
