@@ -360,6 +360,21 @@ export const Form = ({
                   });
                 }
                 break;
+                case 'requiredPassword':
+                if (!rule.message) {
+                  rule.message = t('components.form.ruleRequiredPassword',{title: item.title.toLowerCase()});
+                }
+                rules.push({
+                  required: true,
+                  message: rule.message,
+                });
+                if (!item.formItem.type) {
+                  rules.push({
+                    whitespace: true,
+                    message: t('components.form.ruleRequiredPassword',{title: item.title.toLowerCase()}),
+                  });
+                }
+                break;
               case 'email':
                 if (!rule.message) {
                   rule.message = t('components.form.ruleEmail');
