@@ -50,12 +50,7 @@ const Page = () => {
   useEffect(() => {
     switch (status) {
       case 'put.fulfilled':
-        if (Object.keys(param).length > 0) isReload.current = true;
-
-        if (isBack.current) handleBack();
-        else {
-          isBack.current = true;
-        }
+        navigate(routerLinks('Supplier'))
         break;
     }
   }, [status]);
