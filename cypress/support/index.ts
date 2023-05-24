@@ -1,4 +1,3 @@
-/// <reference types="cypress" />
 // ***********************************************************
 // This example support/index.js is processed and
 // loaded automatically before your test files.
@@ -24,12 +23,10 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
-      compareText(element: any, value: string): Chainable<Element>;
       iframe(): Chainable<JQueryWithSelector>;
       typeRandom(
         value: string,
-        type?: 'text' | 'words' | 'number' | 'email' | 'format',
-        length?: number,
+        type?: 'text' | 'words' | 'number' | 'email' | 'percentage',
       ): Chainable<JQueryWithSelector>;
     }
   }
