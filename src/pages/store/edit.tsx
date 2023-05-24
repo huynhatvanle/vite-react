@@ -591,9 +591,9 @@ const Page = () => {
                 paginationDescription={(from: number, to: number, total: number) =>
                   t('routes.admin.Layout.PaginationSupplier', { from, to, total })
                 }
-                leftHeader={
+                rightHeader={
                   <Form
-                  className="intro-x rounded-lg w-full "
+                  className="intro-x rounded-lg w-full form-store mt-2.5"
                   columns={
                     [
                       {
