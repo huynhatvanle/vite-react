@@ -78,7 +78,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   const Header = ({ isCollapsed, isDesktop }: any) => (
     <header
       className={classNames(
-        'bg-white w-full header h-20 transition-all duration-300 ease-in-out top-0 block sm:bg-gray-100 z-20 fixed',
+        'bg-white w-full h-20 transition-all duration-300 ease-in-out top-0 block sm:bg-gray-100 z-20 fixed lg:relative',
         {
           'pl-64': !isCollapsed && isDesktop,
           'pl-32': isCollapsed && isDesktop,
@@ -119,14 +119,12 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '1',
                   className: 'h-11',
                   label: (
-                    <div className="flex">
+                    <div className="flex" onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
                       <div className="flex items-center">
                         <UserProfile className="w-6 h-6 pr-2 text-black" />
                       </div>
-                      <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
-                        {t('routes.admin.Layout.My Profile')}
-                      </div>
                       <div>{t('routes.admin.Layout.My Profile')}</div>
+                      {/* <div>{t('routes.admin.Layout.My Profile')}</div> */}
                     </div>
                   ),
                 },

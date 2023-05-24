@@ -76,9 +76,9 @@ const Page = () => {
                   values={{
                     ...data,
                     street: data?.address?.street,
-                    province: data?.address?.province?.name,
-                    district: data?.address?.district?.name,
-                    ward: data?.address?.ward?.name,
+                    provinceId: data?.address?.province?.name,
+                    districtId: data?.address?.district?.name,
+                    wardId: data?.address?.ward?.name,
                     nameContact: data?.userRole?.[0].userAdmin.name,
                     emailContact: data?.userRole?.[0].userAdmin.email,
                     phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
@@ -278,7 +278,8 @@ const Page = () => {
                         name: 'address',
                         tableItem: {
                           width: 205,
-                          render: (value: any, item: any) => item?.category?.child?.child?.name,
+                          render: (value: any, item: any) =>
+                            item?.category?.child?.child?.name || item?.category?.child?.name,
                         },
                       },
                       {
@@ -295,11 +296,16 @@ const Page = () => {
                         tableItem: {
                           width: 160,
                           align: 'center',
-                          render: (text: string) => (
-                            <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                              Đang bán
-                            </div>
-                          ),
+                          render: (text: string, item: any) =>
+                            item?.approveStatus === 'APPROVED' ? (
+                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                Đang bán
+                              </div>
+                            ) : (
+                              <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
+                                Ngưng bán
+                              </div>
+                            ),
                         },
                       },
                     ]}
@@ -393,8 +399,15 @@ const Page = () => {
                   />
                 </div>
               </div>
+              <div className="sm:flex sm:mt-7 mt-2">
+                <div className="flex flex-col items-center mt-2" onClick={handleBack}>
+                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+                    {t('components.form.modal.cancel')}
+                  </button>
+                </div>
+              </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Quản lý đơn hàng" key="3" className="rounded-xl">
+            {/* <Tabs.TabPane tab="Quản lý đơn hàng" key="3" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
@@ -482,7 +495,7 @@ const Page = () => {
                   />
                 </div>
               </div>
-            </Tabs.TabPane>
+            </Tabs.TabPane> */}
             <Tabs.TabPane tab="Quản lý đơn hàng" key="3" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-6 pb-4">
@@ -583,8 +596,8 @@ const Page = () => {
                   />
                 </div>
               </div>
-              <div className="sm:flex sm:mt-7 mt-2 ">
-                <div className="flex flex-col items-center mt-2">
+              <div className="sm:flex sm:mt-7 mt-2">
+                <div className="flex flex-col items-center mt-2" onClick={handleBack}>
                   <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
                     {t('components.form.modal.cancel')}
                   </button>
@@ -592,7 +605,7 @@ const Page = () => {
               </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Doanh thu" key="4" className="rounded-xl">
-              <Dropdown
+              {/* <Dropdown
                 className="absolute right-3 z-50"
                 trigger={['click']}
                 menu={{
@@ -633,7 +646,7 @@ const Page = () => {
                 <section className="flex items-center">
                   <DownArrow className="w-4 h-4" />
                 </section>
-              </Dropdown>
+              </Dropdown> */}
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
@@ -761,64 +774,63 @@ const Page = () => {
                     columns={[
                       {
                         title: `supplier.Order.STT`,
-                        name: 'code',
+                        name: 'id',
                         tableItem: {
                           width: 70,
                         },
                       },
                       {
                         title: `supplier.Order.Order ID`,
-                        name: 'code',
+                        name: 'invoiceCode',
                         tableItem: {
                           width: 175,
                         },
                       },
                       {
                         title: `supplier.Order.Store Name`,
-                        name: 'name',
+                        name: 'storeName',
                         tableItem: {
                           width: 180,
-                          render: (value: any, item: any) => item?.store?.name,
+                          // render: (value: any, item: any) => item?.store?.name,
                         },
                       },
                       {
                         title: `supplier.Order.Order Date`,
-                        name: 'name',
+                        name: 'pickUpDate',
                         tableItem: {
                           width: 135,
-                          render: (value: any, item: any) => item?.store?.name,
+                          // render: (value: any, item: any) => item?.store?.name,
                         },
                       },
                       {
                         title: `supplier.Order.Delivery Date`,
-                        name: 'address',
+                        name: 'completedDate',
                         tableItem: {
                           width: 150,
-                          render: (value: any, item: any) => item?.storeAdmin?.name,
+                          // render: (value: any, item: any) => item?.storeAdmin?.name,
                         },
                       },
                       {
                         title: `supplier.Order.Before Tax`,
-                        name: 'name',
+                        name: 'subTotal',
                         tableItem: {
                           width: 145,
-                          render: (value: any, item: any) => item?.store?.name,
+                          render: (value: any, item: any) => item?.subTotal?.toLocaleString(),
                         },
                       },
                       {
                         title: `supplier.Order.After Tax`,
-                        name: 'name',
+                        name: 'total',
                         tableItem: {
                           width: 130,
-                          render: (value: any, item: any) => item?.store?.name,
+                          render: (value: any, item: any) => item?.total?.toLocaleString(),
                         },
                       },
                       {
                         title: `supplier.Order.Promotion`,
-                        name: 'name',
+                        name: 'voucherAmount',
                         tableItem: {
                           width: 160,
-                          render: (value: any, item: any) => item?.store?.name,
                         },
                       },
                       {
@@ -826,14 +838,7 @@ const Page = () => {
                         name: 'total',
                         tableItem: {
                           width: 145,
-                          render: (value: any, item: any) =>
-                            item?.store?.address?.street +
-                            ', ' +
-                            item?.store?.address?.ward?.name +
-                            ', ' +
-                            item?.store?.address?.district?.name +
-                            ', ' +
-                            item?.store?.address?.province?.name,
+                          render: (value: any, item: any) => item?.total.toLocaleString(),
                         },
                       },
                       {
@@ -841,23 +846,25 @@ const Page = () => {
                         name: 'total',
                         tableItem: {
                           width: 100,
-                          render: (value: any, item: any) => item?.total.toLocaleString(),
-                        },
-                      },
-                      {
-                        title: t(`Loại đơn`),
-                        name: 'total',
-                        tableItem: {
-                          width: 100,
-                          render: (value: any, item: any) => item?.total.toLocaleString(),
+                          render: (text: string, item: any) =>
+                            // RETURN
+                            item?.billType === 'RECIEVED' ? (
+                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                Bán hàng
+                              </div>
+                            ) : (
+                              <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
+                                Trả hàng
+                              </div>
+                            ),
                         },
                       },
                     ]}
                   />
                 </div>
               </div>
-              <div className="sm:flex sm:mt-7 mt-2 ">
-                <div className="flex flex-col items-center mt-2">
+              <div className="sm:flex sm:mt-7 mt-2">
+                <div className="flex flex-col items-center mt-2" onClick={handleBack}>
                   <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
                     {t('components.form.modal.cancel')}
                   </button>
@@ -957,8 +964,8 @@ const Page = () => {
                   />
                 </div>
               </div>
-              <div className="sm:flex sm:mt-7 mt-2 ">
-                <div className="flex flex-col items-center mt-2">
+              <div className="sm:flex sm:mt-7 mt-2">
+                <div className="flex flex-col items-center mt-2" onClick={handleBack}>
                   <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
                     {t('components.form.modal.cancel')}
                   </button>
@@ -1056,6 +1063,13 @@ const Page = () => {
                       </div>
                     }
                   />
+                </div>
+              </div>
+              <div className="sm:flex sm:mt-7 mt-2">
+                <div className="flex flex-col items-center mt-2" onClick={handleBack}>
+                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+                    {t('components.form.modal.cancel')}
+                  </button>
                 </div>
               </div>
             </Tabs.TabPane>
