@@ -1,24 +1,18 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Form } from '@core/form';
 import { routerLinks } from '@utils';
-import { DistrictFacade, ProvinceFacade, StoreFacade, WardFacade, StoreManagement } from '@store';
+import { DistrictFacade, ProvinceFacade, StoreFacade, WardFacade } from '@store';
 import { Switch } from 'antd';
+import { Button } from '@core/button';
 
 const Page = () => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
   const isReload = useRef(false);
-
-  // const provinceFacade = ProvinceFacade()
-  // const { result } = provinceFacade
-
-  // const districtFacade = DistrictFacade()
-  // const wardFacade = WardFacade()
-
 
   const storeFace = StoreFacade();
   const { isLoading, queryParams, status, data } = storeFace;
@@ -47,7 +41,6 @@ const Page = () => {
   const handleClick = () => {
     setIsChecked(!isChecked);
   };
-  console.log(isChecked)
 
   return (
     <div className={'w-full mx-auto bg-white rounded-xl'}>
@@ -56,7 +49,6 @@ const Page = () => {
       </div>
       <div className='p-5 bg-white'>
         <Fragment>
-          {/* {!!result?.data && */}
           <Form
             values={{ ...data }}
             columns={[
@@ -203,13 +195,21 @@ const Page = () => {
                 },
               },
             ]}
-          />
-          <div className='flex items-center mb-2.5  '>
-            <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
-            <Switch onClick={handleClick} className='' />
-          </div>
-            {isChecked ?
-              (<Form
+
+            extendForm1=
+            {<div className='flex items-center justify-between mb-2.5 '>
+              <div className='flex'>
+                <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
+                <Switch onClick={handleClick} />
+              </div>
+              {isChecked && (
+                <Button className='!font-normal' text={t('Lấy DS chi nhánh')}/>
+              )}
+            </div>}
+
+            extendForm=
+            {isChecked ? () => (
+              <Form
                 values={{ ...data }}
                 columns={[
                   {
@@ -249,19 +249,17 @@ const Page = () => {
                     },
                   },
                 ]}
-                handSubmit={handleSubmit}
-                disableSubmit={isLoading}
-                handCancel={handleBack}
-              />)
+
+              />
+            )
               :
-              (<Form
-                values={{ ...data }}
-                columns={[]}
-                handSubmit={handleSubmit}
-                disableSubmit={isLoading}
-                handCancel={handleBack}
-              />)
+              undefined
             }
+
+            handSubmit={handleSubmit}
+            disableSubmit={isLoading}
+            handCancel={handleBack}
+          />
         </Fragment>
       </div>
     </div>
