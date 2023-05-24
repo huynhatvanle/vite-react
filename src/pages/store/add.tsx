@@ -54,19 +54,57 @@ const Page = () => {
       <div className='text-xl text-teal-900 px-5 pt-3.5 font-bold bg-white w-max rounded-t-2xl'>
         Thông tin cửa hàng
       </div>
-      <div className='p-5 bg-white'>
-        <Fragment>
-          {/* {!!result?.data && */}
-          <Form
-            values={{ ...data }}
-            columns={[
-              {
-                title: 'store.Name',
-                name: 'name',
-                formItem: {
-                  tabIndex: 1,
-                  col: 6,
-                  rules: [{ type: 'required' },],
+      <div className='bg-white'>
+        {/* {!!result?.data && */}
+        <Form
+          values={{ ...data }}
+          columns={[
+            {
+              title: 'store.Name',
+              name: 'name',
+              formItem: {
+                tabIndex: 1,
+                col: 6,
+                rules: [{ type: 'required' },],
+              },
+            },
+            {
+              title: 'store.Fax',
+              name: 'fax',
+              formItem: {
+                tabIndex: 2,
+                col: 6,
+              },
+            },
+            {
+              title: '',
+              name: 'address',
+              formItem: {
+                rules: [{ type: 'required' }],
+                render() {
+                  return (
+                    <h3 className='mb-2.5 text-base text-black font-medium'>Địa chỉ cửa hàng</h3>
+                  )
+                },
+              }
+            },
+            {
+              title: 'store.Province',
+              name: 'provinceId',
+              formItem: {
+                tabIndex: 3,
+                col: 3,
+                type: 'select',
+                rules: [{ type: 'requiredSelect' }],
+                get: {
+                  facade: ProvinceFacade,
+                  format: (item: any) => ({
+                    label: item.name,
+                    value: item.id + '|' + item.code,
+                  }),
+                },
+                onChange(value, form) {
+                  form.resetFields(['districtId', 'wardId'])
                 },
               },
               {
@@ -262,7 +300,6 @@ const Page = () => {
                 handCancel={handleBack}
               />)
             }
-        </Fragment>
       </div>
     </div>
   );

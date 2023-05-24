@@ -67,7 +67,7 @@ const Page = () => {
   return (
     <div className={'w-full'}>
       <Fragment>
-      <div className=''>
+      <div className='tab-wrapper'>
           <Tabs defaultActiveKey='1' type='card' size='large' className=''>
             <Tabs.TabPane tab='Thông tin nhà cung cấp' key='1' className='bg-white rounded-xl rounded-tl-none'>
               <div className='px-5'>
