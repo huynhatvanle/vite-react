@@ -88,45 +88,6 @@ const Page = () => {
                 },
               }
             },
-            {
-              title: 'store.Province',
-              name: 'provinceId',
-              formItem: {
-                tabIndex: 3,
-                col: 3,
-                type: 'select',
-                rules: [{ type: 'requiredSelect' }],
-                get: {
-                  facade: ProvinceFacade,
-                  format: (item: any) => ({
-                    label: item.name,
-                    value: item.id + '|' + item.code,
-                  }),
-                },
-                onChange(value, form) {
-                  form.resetFields(['districtId', 'wardId'])
-                },
-              },
-              {
-                title: 'store.Fax',
-                name: 'fax',
-                formItem: {
-                  tabIndex: 2,
-                  col: 6,
-                },
-              },
-              {
-                title: '',
-                name: 'address',
-                formItem: {
-                  rules: [{ type: 'required' }],
-                  render() {
-                    return (
-                      <h3 className='mb-2.5 text-base text-black font-medium'>Địa chỉ cửa hàng</h3>
-                    )
-                  },
-                }
-              },
               {
                 title: 'store.Province',
                 name: 'provinceId',
