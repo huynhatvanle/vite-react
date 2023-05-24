@@ -48,7 +48,6 @@ const Page = () => {
         Thông tin cửa hàng
       </div>
       <div className='bg-white'>
-        {/* {!!result?.data && */}
         <Form
           values={{ ...data }}
           columns={[

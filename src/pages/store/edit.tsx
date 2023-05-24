@@ -1,14 +1,15 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import { Input, Switch, Tabs } from 'antd';
+import { Input, Select, Switch, Tabs, Dropdown } from 'antd';
 
 import { routerLinks } from '@utils';
 import { Form } from '@core/form';
 import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, invoicekiotvietFacade } from '@store';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
-import { Download } from '@svgs';
+import { Arrow, Download } from '@svgs';
+
 
 const Page = () => {
   const { t } = useTranslation();
@@ -57,6 +58,10 @@ const Page = () => {
 
   const handleClick = () => {
     setIsChecked(!isChecked);
+  };
+
+  const handleSelectChange = (value: any) => {
+    console.log(`Selected: ${value}`);
   };
 
   return (
@@ -272,11 +277,10 @@ const Page = () => {
                         formItem: {
                           tabIndex: 2,
                           col: 6,
-                          rules: [{ type: 'required' },],
+                          rules: [{ type: 'required' }],
                         },
                       },
                     ]}
-
                   />
                 )
                   :
@@ -288,7 +292,44 @@ const Page = () => {
                 handCancel={handleBack}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Danh sách hàng hóa' key='2' className='rounded-xl'>
+
+            <Tabs.TabPane tab={
+              <Dropdown trigger={['click']}
+                className='!rounded-xl'
+                menu={{
+                  items: [
+                    {
+                      key: '1',
+                      className: '!font-semibold !text-base !text-teal-900',
+                      label: (
+                        <div className='focus:!text-white'>
+                          BALANCE
+                        </div>
+                      ),
+                    },
+                    {
+                      key: '2',
+                      className: '!font-semibold !text-base !text-teal-900',
+                      label: (
+                        <div>
+                          Non - BALANCE
+                        </div>
+                      ),
+                    },
+                  ]
+                }}
+              >
+
+                <section className="flex items-center" id={'dropdown-store'}>
+                  <div className="flex">
+                    <h2>Danh sách hàng hóa</h2>
+                    <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
+                  </div>
+                </section>
+              </Dropdown>
+            }
+              key='2' className='rounded-xl'>
+
               <DataTable
                 facade={productFacede}
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' }}
@@ -488,12 +529,13 @@ const Page = () => {
                       }
                       // handSubmit={handleSubmit}
                       disableSubmit={isLoading}
-
                     />
                   </>
                 }
               />
+
             </Tabs.TabPane>
+
             <Tabs.TabPane tab='Danh sách chi nhánh' key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
@@ -556,7 +598,42 @@ const Page = () => {
                 ]}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Quản lý NCC' key='4' className='rounded-xl'>
+            <Tabs.TabPane
+              tab={
+                <Dropdown trigger={['click']}
+                  className='rounded-xl'
+                  menu={{
+                    items: [
+                      {
+                        key: '0',
+                        className: '!font-semibold !text-base !text-teal-900',
+                        label: (
+                          <div >
+                            BALANCE
+                          </div>
+                        ),
+                      },
+                      {
+                        key: '1',
+                        className: '!font-semibold !text-base !text-teal-900',
+                        label: (
+                          <div>
+                            Non - BALANCE
+                          </div>
+                        ),
+                      },
+                    ]
+                  }}
+                >
+                  <section className="flex items-center" id={'dropdown-profile'}>
+                    <div className="flex">
+                      <h2>Quản lý NCC</h2>
+                      <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
+                    </div>
+                  </section>
+                </Dropdown>
+              }
+              key='4' className='rounded-xl'>
               <DataTable
                 facade={connectSupplierFacade}
                 defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
@@ -612,7 +689,42 @@ const Page = () => {
                 ]}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Doanh thu' key='5' className='rounded-xl'>
+            <Tabs.TabPane
+              tab={
+                <Dropdown trigger={['click']}
+                  className='rounded-xl'
+                  menu={{
+                    items: [
+                      {
+                        key: '0',
+                        className: '!font-semibold !text-base !text-teal-900',
+                        label: (
+                          <div >
+                            BALANCE
+                          </div>
+                        ),
+                      },
+                      {
+                        key: '1',
+                        className: '!font-semibold !text-base !text-teal-900',
+                        label: (
+                          <div>
+                            Non - BALANCE
+                          </div>
+                        ),
+                      },
+                    ]
+                  }}
+                >
+                  <section className="flex items-center" id={'dropdown-profile'}>
+                    <div className="flex">
+                      <h2>Doạnh Thu</h2>
+                      <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
+                    </div>
+                  </section>
+                </Dropdown>
+              }
+              key='5' className='rounded-xl'>
               <DataTable
                 facade={invoicevietFacade.data}
                 defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
@@ -839,8 +951,8 @@ const Page = () => {
             </Tabs.TabPane>
           </Tabs>
         </div>
-      </Fragment>
-    </div>
+      </Fragment >
+    </div >
   );
 };
 export default Page;
