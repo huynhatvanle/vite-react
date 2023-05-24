@@ -67,257 +67,260 @@ const Page = () => {
   return (
     <div className={'w-full'}>
       <Fragment>
-      <div className=''>
-          <Tabs defaultActiveKey='1' type='card' size='large' className=''>
-            <Tabs.TabPane tab='Thông tin nhà cung cấp' key='1' className='bg-white rounded-xl rounded-tl-none'>
-              <div className='px-5'>
-              <Form
-              // provinceId: data?.address?.province?.name, district: data?.address?.district?.name, ward: data?.address?.ward?.name,
-                values={{ ...data, street: data?.address?.street, province: data?.address?.province?.name, district: data?.address?.district?.name, ward: data?.address?.ward?.name,
-                  nameContact: data?.userRole?.[0].userAdmin.name, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber  }}
-                className="intro-x pt-6 rounded-lg w-full"
-                columns={
-                  [
-                      {
-                        title: 'supplier.CodeName',
-                        name: 'code',
-                        formItem: {
-                          disabled: () => true,
-                          tabIndex: 1,
-                          col: 4,
+        <div className="">
+          <Tabs defaultActiveKey="1" type="card" size="large" className="">
+            <Tabs.TabPane tab="Thông tin nhà cung cấp" key="1" className="bg-white rounded-xl rounded-tl-none">
+              <div className="px-5">
+                <Form
+                  // provinceId: data?.address?.province?.name, district: data?.address?.district?.name, ward: data?.address?.ward?.name,
+                  values={{
+                    ...data,
+                    street: data?.address?.street,
+                    province: data?.address?.province?.name,
+                    district: data?.address?.district?.name,
+                    ward: data?.address?.ward?.name,
+                    nameContact: data?.userRole?.[0].userAdmin.name,
+                    emailContact: data?.userRole?.[0].userAdmin.email,
+                    phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
+                  }}
+                  className="intro-x pt-6 rounded-lg w-full"
+                  columns={[
+                    {
+                      title: 'supplier.CodeName',
+                      name: 'code',
+                      formItem: {
+                        disabled: () => true,
+                        tabIndex: 1,
+                        col: 4,
+                      },
+                    },
+                    {
+                      title: 'supplier.Name',
+                      name: 'name',
+                      formItem: {
+                        tabIndex: 1,
+                        col: 4,
+                        rules: [{ type: 'required' }],
+                      },
+                    },
+                    {
+                      title: 'store.Fax',
+                      name: 'fax',
+                      formItem: {
+                        tabIndex: 2,
+                        col: 4,
+                      },
+                    },
+                    {
+                      title: '',
+                      name: 'address',
+                      formItem: {
+                        rules: [{ type: 'required' }],
+                        render() {
+                          return <h3 className="mb-2.5 text-base ">Địa chỉ nhà cung cấp </h3>;
                         },
                       },
-                      {
-                        title: 'supplier.Name',
-                        name: 'name',
-                        formItem: {
-                          tabIndex: 1,
-                          col: 4,
-                          rules: [{ type: 'required' }],
+                    },
+                    {
+                      title: 'store.Province',
+                      name: 'provinceId',
+                      formItem: {
+                        tabIndex: 3,
+                        col: 3,
+                        type: 'select',
+                        rules: [{ type: 'required', message: 'Xin vui lòng chọn tỉnh/thành phố' }],
+                        get: {
+                          facade: ProvinceFacade,
+                          format: (item: any) => ({
+                            label: item.name,
+                            value: item.id + '|' + item.code,
+                          }),
+                        },
+                        onChange(value, form) {
+                          form.resetFields(['districtId', 'wardId']);
                         },
                       },
-                      {
-                        title: 'store.Fax',
-                        name: 'fax',
-                        formItem: {
-                          tabIndex: 2,
-                          col: 4,
+                    },
+                    {
+                      name: 'districtId',
+                      title: 'store.District',
+                      formItem: {
+                        type: 'select',
+                        rules: [{ type: 'required', message: 'Xin vui lòng chọn quận/huyện' }],
+                        col: 3,
+                        get: {
+                          facade: DistrictFacade,
+                          format: (item: any) => ({
+                            label: item.name,
+                            value: item.id + '|' + item.code,
+                          }),
+                          params: (fullTextSearch, value) => ({
+                            fullTextSearch,
+                            code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
+                          }),
+                        },
+                        onChange(value, form) {
+                          form.resetFields(['wardId']);
                         },
                       },
-                      {
-                        title: '',
-                        name: 'address',
-                        formItem: {
-                          rules: [{ type: 'required' }],
-                          render() {
-                            return (
-                              <h3 className='mb-2.5 text-base '>Địa chỉ nhà cung cấp </h3>
-                            )
-                          },
-                        }
-                      },
-                      {
-                        title: 'store.Province',
-                        name: 'provinceId',
-                        formItem: {
-                          tabIndex: 3,
-                          col: 3,
-                          type: 'select',
-                          rules: [{ type: 'required',message: 'Xin vui lòng chọn tỉnh/thành phố' }],
-                          get: {
-                            facade: ProvinceFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id + '|' + item.code,
-                            }),
-                          },
-                          onChange(value, form) {
-                            form.resetFields(['districtId', 'wardId'])
-                          },
+                    },
+                    {
+                      name: 'wardId',
+                      title: 'store.Ward',
+                      formItem: {
+                        type: 'select',
+                        rules: [{ type: 'required', message: 'Xin vui lòng chọn phường/xã' }],
+                        col: 3,
+                        get: {
+                          facade: WardFacade,
+                          format: (item: any) => ({
+                            label: item.name,
+                            value: item.id,
+                          }),
+                          params: (fullTextSearch, value) => ({
+                            fullTextSearch,
+                            code: value().districtId.slice(value().districtId.indexOf('|') + 1),
+                          }),
                         },
                       },
-                      {
-                        name: 'districtId',
-                        title: 'store.District',
-                        formItem: {
-                          type: 'select',
-                          rules: [{ type: 'required', message: 'Xin vui lòng chọn quận/huyện' }],
-                          col: 3,
-                          get: {
-                            facade: DistrictFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id + '|' + item.code,
-                            }),
-                            params: (fullTextSearch, value) => ({
-                              fullTextSearch,
-                              code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
-                            }),
-                          },
-                          onChange(value, form) {
-                            form.resetFields(['wardId'])
-                          },
+                    },
+                    {
+                      title: 'store.Street',
+                      name: `street`,
+                      formItem: {
+                        tabIndex: 1,
+                        col: 3,
+                        rules: [{ type: 'required' }],
+                      },
+                    },
+                    {
+                      title: '',
+                      name: '',
+                      formItem: {
+                        render() {
+                          return <div className="text-xl text-teal-900 font-bold mb-2.5">Thông tin người đại diện</div>;
                         },
                       },
-                      {
-                        name: 'wardId',
-                        title: 'store.Ward',
-                        formItem: {
-                          type: 'select',
-                          rules: [{ type: 'required', message: 'Xin vui lòng chọn phường/xã' }],
-                          col: 3,
-                          get: {
-                            facade: WardFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch, value) => ({
-                              fullTextSearch,
-                              code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                            })
-                          }
-                        },
+                    },
+                    {
+                      title: 'store.ContactName',
+                      name: 'nameContact',
+                      formItem: {
+                        tabIndex: 1,
+                        col: 4,
+                        rules: [{ type: 'required' }],
                       },
-                      {
-                        title: 'store.Street',
-                        name: `street`,
-                        formItem: {
-                          tabIndex: 1,
-                          col: 3,
-                          rules: [{ type: 'required' }],
-                        },
+                    },
+                    {
+                      title: 'store.Contact Phone Number',
+                      name: 'phoneNumber',
+                      formItem: {
+                        tabIndex: 2,
+                        col: 4,
+                        rules: [{ type: 'required' }],
                       },
-                      {
-                        title: '',
-                        name: '',
-                        formItem: {
-                          render() {
-                            return (
-                              <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
-                            )
-                          }
-                        }
+                    },
+                    {
+                      title: 'store.Contact Email',
+                      name: 'emailContact',
+                      formItem: {
+                        tabIndex: 1,
+                        col: 4,
+                        rules: [{ type: 'required' }],
                       },
-                      {
-                        title: 'store.ContactName',
-                        name: 'nameContact',
-                        formItem: {
-                          tabIndex: 1,
-                          col: 4,
-                          rules: [{ type: 'required' }],
-                        },
+                    },
+                    {
+                      title: 'store.Note',
+                      name: 'note',
+                      formItem: {
+                        type: 'textarea',
+                        tabIndex: 1,
+                        col: 12,
                       },
-                      {
-                        title: 'store.Contact Phone Number',
-                        name: 'phoneNumber',
-                        formItem: {
-                          tabIndex: 2,
-                          col: 4,
-                          rules: [{ type: 'required' }],
-                        },
-                      },
-                      {
-                        title: 'store.Contact Email',
-                        name: 'emailContact',
-                        formItem: {
-                          tabIndex: 1,
-                          col: 4,
-                          rules: [{ type: 'required' }],
-                        },
-                      },
-                      {
-                        title: 'store.Note',
-                        name: 'note',
-                        formItem: {
-                          type: 'textarea',
-                          tabIndex: 1,
-                          col: 12,
-                        },
-                      },
-                    ]
-                }
-                handSubmit={handleSubmit}
-                disableSubmit={isLoading}
-                handCancel={handleBack}
-              />
+                    },
+                  ]}
+                  handSubmit={handleSubmit}
+                  disableSubmit={isLoading}
+                  handCancel={handleBack}
+                />
               </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Danh sách hàng hóa" key="2" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pb-4">
                   <DataTable
-                  facade={productFacade}
-                  defaultRequest={{page: 1, perPage: 10, supplierId: id,type: "BALANCE"}}
-
-                  xScroll = '895px'
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.Pagination', { from, to, total })
-                  }
-                  columns={
-                    [
-                        {
-                          title: `product.Code`,
-                          name: 'code',
-                          tableItem: {
-                            width: 170,
-                          },
-                        },
-                        {
-                          title: `product.Name`,
-                          name: 'name',
-                          tableItem: {
-                            width: 300,
-                            render: (value: any,item: any) => item?.name,
-                          },
-                        },
-                        {
-                          title: `product.Category`,
-                          name: ('address'),
-                          tableItem: {
-                            width: 205,
-                            render: (value: any,item: any) => item?.category?.child?.child?.name,
-                          }
-                        },
-                        {
-                          title: `product.Price`,
-                          name: 'contract',
-                          tableItem: {
-                            width: 280,
-                            render: (value: any,item: any) => item?.productPrice[0]?.price.toLocaleString(),
-                          },
-                        },
-                        {
-                          title: `product.Status`,
-                          name: "isActive",
-                          tableItem: {
-                            width: 160,
-                            align: 'center',
-                            render: (text: string) => (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đang bán</div>)
-
-                          },
-                        },
-                      ]
-                  }
-                  rightHeader={
-                    <div className={'flex h-10 w-36 mt-6'}>
+                    facade={productFacade}
+                    defaultRequest={{ page: 1, perPage: 10, supplierId: id, type: 'BALANCE' }}
+                    xScroll="895px"
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.Pagination', { from, to, total })
+                    }
+                    columns={[
                       {
-                        <Button
-                          className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group'
-                          icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
-                          text={t('Xuất file excel')}
-                          onClick={() => navigate(routerLinks('Supplier/Excel'))}
-                        />
-                      }
-                    </div>
-                  }
-                  leftHeader={
-                    <Form
-                      className="intro-x pt-6 rounded-lg w-full "
-                      columns={
-                        [
+                        title: `product.Code`,
+                        name: 'code',
+                        tableItem: {
+                          width: 170,
+                        },
+                      },
+                      {
+                        title: `product.Name`,
+                        name: 'name',
+                        tableItem: {
+                          width: 300,
+                          render: (value: any, item: any) => item?.name,
+                        },
+                      },
+                      {
+                        title: `product.Category`,
+                        name: 'address',
+                        tableItem: {
+                          width: 205,
+                          render: (value: any, item: any) => item?.category?.child?.child?.name,
+                        },
+                      },
+                      {
+                        title: `product.Price`,
+                        name: 'contract',
+                        tableItem: {
+                          width: 280,
+                          render: (value: any, item: any) => item?.productPrice[0]?.price.toLocaleString(),
+                        },
+                      },
+                      {
+                        title: `product.Status`,
+                        name: 'isActive',
+                        tableItem: {
+                          width: 160,
+                          align: 'center',
+                          render: (text: string) => (
+                            <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                              Đang bán
+                            </div>
+                          ),
+                        },
+                      },
+                    ]}
+                    rightHeader={
+                      <div className={'flex h-10 w-36 mt-6'}>
+                        {
+                          <Button
+                            className="!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
+                            icon={
+                              <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
+                            }
+                            text={t('Xuất file excel')}
+                            onClick={() => navigate(routerLinks('Supplier/Excel'))}
+                          />
+                        }
+                      </div>
+                    }
+                    leftHeader={
+                      <Form
+                        className="intro-x pt-6 rounded-lg w-full "
+                        columns={[
                           {
                             title: '',
                             name: 'cap1',
@@ -391,79 +394,92 @@ const Page = () => {
                 </div>
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Quản lý đơn hàng' key='3' className='rounded-xl'>
+            <Tabs.TabPane tab="Quản lý đơn hàng" key="3" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className='px-5 pt-6 pb-4'>
+                <div className="px-5 pt-6 pb-4">
                   <DataTable
-                  facade={ordersFacade}
-                  defaultRequest={{page: 1, perPage: 10, filterSupplier: id}}
-                  xScroll = '1400px'
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.Pagination', { from, to, total })
-                  }
-                  columns={[
-                    {
-                      title: `supplier.Order.Order ID`,
-                      name: 'code',
-                      tableItem: {
-                        width: 280,
-
+                    facade={ordersFacade}
+                    defaultRequest={{ page: 1, perPage: 10, filterSupplier: id }}
+                    xScroll="1400px"
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.Pagination', { from, to, total })
+                    }
+                    columns={[
+                      {
+                        title: `supplier.Order.Order ID`,
+                        name: 'code',
+                        tableItem: {
+                          width: 280,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Store Name`,
-                      name: 'name',
-                      tableItem: {
-                        width: 180,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: `supplier.Order.Store Name`,
+                        name: 'name',
+                        tableItem: {
+                          width: 180,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Recipient`,
-                      name: ('address'),
-                      tableItem: {
-                        width: 180,
-                        render: (value: any,item: any) => item?.storeAdmin?.name,
-                      }
-                    },
-                    {
-                      title: `supplier.Order.Delivery Address`,
-                      name: 'contract',
-                      tableItem: {
-                        width: 300  ,
-                        render: (value: any,item: any) => item?.store?.address?.street + ', ' + item?.store?.address?.ward?.name + ', ' + item?.store?.address?.district?.name + ', ' + item?.store?.address?.province?.name,
+                      {
+                        title: `supplier.Order.Recipient`,
+                        name: 'address',
+                        tableItem: {
+                          width: 180,
+                          render: (value: any, item: any) => item?.storeAdmin?.name,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Total Price (VND)`,
-                      name: 'total',
-                      tableItem: {
-                        width: 150,
-                        render: (value: any,item: any) => item?.total.toLocaleString(),
+                      {
+                        title: `supplier.Order.Delivery Address`,
+                        name: 'contract',
+                        tableItem: {
+                          width: 300,
+                          render: (value: any, item: any) =>
+                            item?.store?.address?.street +
+                            ', ' +
+                            item?.store?.address?.ward?.name +
+                            ', ' +
+                            item?.store?.address?.district?.name +
+                            ', ' +
+                            item?.store?.address?.province?.name,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Order Date`,
-                      name: 'createdAt',
-                      tableItem: {
-                        width: 150,
+                      {
+                        title: `supplier.Order.Total Price (VND)`,
+                        name: 'total',
+                        tableItem: {
+                          width: 150,
+                          render: (value: any, item: any) => item?.total.toLocaleString(),
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Status`,
-                      name: "isActive",
-                      tableItem: {
-                        width: 180,
-                        align: 'center',
-                        render: (item: any) => !item?.isApplyTax
-                        ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã giao</div>)
-                        : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Đang giao</div>),
+                      {
+                        title: `supplier.Order.Order Date`,
+                        name: 'createdAt',
+                        tableItem: {
+                          width: 150,
+                        },
                       },
-                    },
-                  ]}
-                />
+                      {
+                        title: `supplier.Status`,
+                        name: 'isActive',
+                        tableItem: {
+                          width: 180,
+                          align: 'center',
+                          render: (item: any) =>
+                            !item?.isApplyTax ? (
+                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                Đã giao
+                              </div>
+                            ) : (
+                              <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
+                                Đang giao
+                              </div>
+                            ),
+                        },
+                      },
+                    ]}
+                  />
                 </div>
               </div>
             </Tabs.TabPane>
@@ -735,93 +751,98 @@ const Page = () => {
                                 type: 'date',
                               },
                             },
-                          ]
-                        }
-                        // handSubmit={handleSubmit}
-                        disableSubmit={isLoading}
-                      />
-                    </div>
-                  }
-                  searchPlaceholder='Tìm kiếm theo mã đơn hàng'
-                  columns={[
-                    {
-                      title: `supplier.Order.STT`,
-                      name: 'code',
-                      tableItem: {
-                        width: 70,
-
+                          ]}
+                          // handSubmit={handleSubmit}
+                          disableSubmit={isLoading}
+                        />
+                      </div>
+                    }
+                    searchPlaceholder="Tìm kiếm theo mã đơn hàng"
+                    columns={[
+                      {
+                        title: `supplier.Order.STT`,
+                        name: 'code',
+                        tableItem: {
+                          width: 70,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Order ID`,
-                      name: 'code',
-                      tableItem: {
-                        width: 175,
-
+                      {
+                        title: `supplier.Order.Order ID`,
+                        name: 'code',
+                        tableItem: {
+                          width: 175,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Store Name`,
-                      name: 'name',
-                      tableItem: {
-                        width: 180,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: `supplier.Order.Store Name`,
+                        name: 'name',
+                        tableItem: {
+                          width: 180,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Order Date`,
-                      name: 'name',
-                      tableItem: {
-                        width: 135,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: `supplier.Order.Order Date`,
+                        name: 'name',
+                        tableItem: {
+                          width: 135,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Delivery Date`,
-                      name: ('address'),
-                      tableItem: {
-                        width: 150,
-                        render: (value: any,item: any) => item?.storeAdmin?.name,
-                      }
-                    },
-                    {
-                      title: `supplier.Order.Before Tax`,
-                      name: 'name',
-                      tableItem: {
-                        width: 145,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: `supplier.Order.Delivery Date`,
+                        name: 'address',
+                        tableItem: {
+                          width: 150,
+                          render: (value: any, item: any) => item?.storeAdmin?.name,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.After Tax`,
-                      name: 'name',
-                      tableItem: {
-                        width: 130,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: `supplier.Order.Before Tax`,
+                        name: 'name',
+                        tableItem: {
+                          width: 145,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Promotion`,
-                      name: 'name',
-                      tableItem: {
-                        width: 160,
-                        render: (value: any,item: any) => item?.store?.name,
+                      {
+                        title: `supplier.Order.After Tax`,
+                        name: 'name',
+                        tableItem: {
+                          width: 130,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Total Amount`,
-                      name: 'total',
-                      tableItem: {
-                        width: 145  ,
-                        render: (value: any,item: any) => item?.store?.address?.street + ', ' + item?.store?.address?.ward?.name + ', ' + item?.store?.address?.district?.name + ', ' + item?.store?.address?.province?.name,
+                      {
+                        title: `supplier.Order.Promotion`,
+                        name: 'name',
+                        tableItem: {
+                          width: 160,
+                          render: (value: any, item: any) => item?.store?.name,
+                        },
                       },
-                    },
-                    {
-                      title: `supplier.Order.Order Type`,
-                      name: 'total',
-                      tableItem: {
-                        width: 100,
-                        render: (value: any,item: any) => item?.total.toLocaleString(),
+                      {
+                        title: `supplier.Order.Total Amount`,
+                        name: 'total',
+                        tableItem: {
+                          width: 145,
+                          render: (value: any, item: any) =>
+                            item?.store?.address?.street +
+                            ', ' +
+                            item?.store?.address?.ward?.name +
+                            ', ' +
+                            item?.store?.address?.district?.name +
+                            ', ' +
+                            item?.store?.address?.province?.name,
+                        },
+                      },
+                      {
+                        title: `supplier.Order.Order Type`,
+                        name: 'total',
+                        tableItem: {
+                          width: 100,
+                          render: (value: any, item: any) => item?.total.toLocaleString(),
+                        },
                       },
                       {
                         title: t(`Loại đơn`),
@@ -848,67 +869,78 @@ const Page = () => {
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
                     facade={discountFacade}
-
-                    defaultRequest={{page: 1, perPage: 10}}
-                    xScroll = '1370px'
+                    defaultRequest={{ page: 1, perPage: 10 }}
+                    xScroll="1370px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
                       t('routes.admin.Layout.Pagination', { from, to, total })
                     }
-                    columns={
-                      [
-                          {
-                            title: `supplier.Order.STT`,
-                            name: 'code',
-                            tableItem: {
-                              width: 110,
-                            },
-                          },
-                          {
-                            title: `supplier.Order.Time`,
-                            name: 'name',
-                            tableItem: {
-                              width: 300,
-                            },
-                          },
-                          {
-                            title: `supplier.Order.Discount`,
-                            name: ('address'),
-                            tableItem: {
-                              width: 245,
-                              render: (value: any,item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
-                            }
-                          },
-                          {
-                            title: `supplier.Order.Paid`,
-                            name: 'contract',
-                            tableItem: {
-                              width: 245  ,
-                              render: (value: any,item: any) => item?.contract[0].name,
-                            },
-                          },
-                          {
-                            title: `supplier.Order.Unpaid`,
-                            name: 'userRole',
-                            tableItem: {
-                              width: 245,
-                              render: (value: any,item: any) => item?.userRole[0].userAdmin.phoneNumber,
-                            },
-                          },
-                          {
-                            title: `supplier.Status`,
-                            name: "isActive",
-                            tableItem: {
-                              width: 240,
-                              align: 'center',
-                              render: (text: string) => text
-                              ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>)
-                              : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Chờ ký</div>),
-                            },
-                          },
-                        ]
-                    }
+                    columns={[
+                      {
+                        title: `supplier.Order.STT`,
+                        name: 'code',
+                        tableItem: {
+                          width: 110,
+                        },
+                      },
+                      {
+                        title: `supplier.Order.Time`,
+                        name: 'name',
+                        tableItem: {
+                          width: 300,
+                        },
+                      },
+                      {
+                        title: `supplier.Order.Discount`,
+                        name: 'address',
+                        tableItem: {
+                          width: 245,
+                          render: (value: any, item: any) =>
+                            item?.address?.street +
+                            ', ' +
+                            item?.address?.ward?.name +
+                            ', ' +
+                            item?.address?.district?.name +
+                            ', ' +
+                            item?.address?.province?.name,
+                        },
+                      },
+                      {
+                        title: `supplier.Order.Paid`,
+                        name: 'contract',
+                        tableItem: {
+                          width: 245,
+                          render: (value: any, item: any) => item?.contract[0].name,
+                        },
+                      },
+                      {
+                        title: `supplier.Order.Unpaid`,
+                        name: 'userRole',
+                        tableItem: {
+                          width: 245,
+                          render: (value: any, item: any) => item?.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: `supplier.Status`,
+                        name: 'isActive',
+                        tableItem: {
+                          width: 240,
+                          align: 'center',
+                          render: (text: string) =>
+                            text ? (
+                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                Đã ký
+                              </div>
+                            ) : (
+                              <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
+                                Chờ ký
+                              </div>
+                            ),
+                        },
+                      },
+                    ]}
                     showSearch={false}
                     rightHeader={
                       <div className={'flex h-10 w-36'}>
@@ -938,67 +970,78 @@ const Page = () => {
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
                     facade={discountFacade}
-
-                    defaultRequest={{page: 1, perPage: 10}}
-                    xScroll = '1370px'
+                    defaultRequest={{ page: 1, perPage: 10 }}
+                    xScroll="1370px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
                       t('routes.admin.Layout.Pagination', { from, to, total })
                     }
-                    columns={
-                      [
-                            {
-                              title: `supplier.Order.STT`,
-                              name: 'code',
-                              tableItem: {
-                                width: 110,
-                              },
-                            },
-                            {
-                              title: `supplier.Order.Time`,
-                              name: 'name',
-                              tableItem: {
-                                width: 300,
-                              },
-                            },
-                            {
-                              title: `supplier.Order.Discount`,
-                              name: ('address'),
-                              tableItem: {
-                                width: 245,
-                                render: (value: any,item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
-                              }
-                            },
-                            {
-                              title: `supplier.Order.Paid`,
-                              name: 'contract',
-                              tableItem: {
-                                width: 245  ,
-                                render: (value: any,item: any) => item?.contract[0].name,
-                              },
-                            },
-                            {
-                              title: `supplier.Order.Unpaid`,
-                              name: 'userRole',
-                              tableItem: {
-                                width: 245,
-                                render: (value: any,item: any) => item?.userRole[0].userAdmin.phoneNumber,
-                              },
-                            },
-                            {
-                              title: `supplier.Status`,
-                              name: "isActive",
-                              tableItem: {
-                                width: 240,
-                                align: 'center',
-                                render: (text: string) => text
-                                ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đã ký</div>)
-                                : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'>Chờ ký</div>),
-                              },
-                            },
-                          ]
-                    }
+                    columns={[
+                      {
+                        title: `supplier.Order.STT`,
+                        name: 'code',
+                        tableItem: {
+                          width: 110,
+                        },
+                      },
+                      {
+                        title: `supplier.Order.Time`,
+                        name: 'name',
+                        tableItem: {
+                          width: 300,
+                        },
+                      },
+                      {
+                        title: `supplier.Order.Discount`,
+                        name: 'address',
+                        tableItem: {
+                          width: 245,
+                          render: (value: any, item: any) =>
+                            item?.address?.street +
+                            ', ' +
+                            item?.address?.ward?.name +
+                            ', ' +
+                            item?.address?.district?.name +
+                            ', ' +
+                            item?.address?.province?.name,
+                        },
+                      },
+                      {
+                        title: `supplier.Order.Paid`,
+                        name: 'contract',
+                        tableItem: {
+                          width: 245,
+                          render: (value: any, item: any) => item?.contract[0].name,
+                        },
+                      },
+                      {
+                        title: `supplier.Order.Unpaid`,
+                        name: 'userRole',
+                        tableItem: {
+                          width: 245,
+                          render: (value: any, item: any) => item?.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: `supplier.Status`,
+                        name: 'isActive',
+                        tableItem: {
+                          width: 240,
+                          align: 'center',
+                          render: (text: string) =>
+                            text ? (
+                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                Đã ký
+                              </div>
+                            ) : (
+                              <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
+                                Chờ ký
+                              </div>
+                            ),
+                        },
+                      },
+                    ]}
                     showSearch={false}
                     rightHeader={
                       <div className={'flex h-10 w-36'}>
