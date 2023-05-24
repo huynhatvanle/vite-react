@@ -7,6 +7,7 @@ export class FormModel {
 
 export class FormItem {
   type?:
+    | 'name'
     | 'hidden'
     | 'number'
     | 'tab'

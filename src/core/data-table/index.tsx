@@ -425,7 +425,7 @@ export const DataTable = forwardRef(
               />
               {!params.fullTextSearch ? (
                 <Search
-                  className="w-4 h-4 my-1 fill-gray-500 text-lg las absolute top-2 left-2.5 z-10"
+                  className="w-4 h-4 my-1 fill-gray-500 text-lg absolute top-2 left-2.5 z-10"
                   onClick={() => {
                     if (params.fullTextSearch) {
                       (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';
@@ -436,7 +436,7 @@ export const DataTable = forwardRef(
               ) : (
                 !!params.fullTextSearch && (
                   <Times
-                    className="w-4 h-4 my-1 fill-gray-500 text-lg las absolute top-2 right-3 z-10"
+                    className="w-4 h-4 my-1 fill-gray-500 text-lg las absolute top-2 right-3 z-10 "
                     onClick={() => {
                       if (params.fullTextSearch) {
                         (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';
