@@ -118,7 +118,7 @@ export const Form = ({
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
           />
         );
-      case 'passConfirm':
+        case 'passConfirm':
         return (
           <Password
             tabIndex={formItem.tabIndex || index}
@@ -334,7 +334,7 @@ export const Form = ({
             switch (rule.type) {
               case 'required':
                 if (!rule.message) {
-                  rule.message = t('components.form.ruleRequired', { title: t(item.title).toLowerCase() });
+                  rule.message = t('components.form.ruleRequired',{title: t(item.title).toLowerCase()});
                 }
                 rules.push({
                   required: true,
@@ -349,7 +349,7 @@ export const Form = ({
                 break;
               case 'requiredSelect':
                 if (!rule.message) {
-                  rule.message = t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() });
+                  rule.message = t('components.form.ruleRequiredSelect',{title: t(item.title).toLowerCase()});
                 }
                 rules.push({
                   required: true,
@@ -358,13 +358,13 @@ export const Form = ({
                 if (!item.formItem.type) {
                   rules.push({
                     whitespace: true,
-                    message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+                    message: t('components.form.ruleRequiredSelect',{title: t(item.title).toLowerCase()}),
                   });
                 }
                 break;
-              case 'requiredPassword':
+                case 'requiredPassword':
                 if (!rule.message) {
-                  rule.message = t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() });
+                  rule.message = t('components.form.ruleRequiredPassword',{title: t(item.title).toLowerCase()});
                 }
                 rules.push({
                   required: true,
@@ -373,7 +373,7 @@ export const Form = ({
                 if (!item.formItem.type) {
                   rules.push({
                     whitespace: true,
-                    message: t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() }),
+                    message: t('components.form.ruleRequiredPassword',{title: t(item.title).toLowerCase()}),
                   });
                 }
                 break;
@@ -549,17 +549,7 @@ export const Form = ({
             },
           }));
           break;
-        case 'name':
-          rules.push(() => ({
-            validator(_: any, value: any) {
-              if (!value || /^[a-zA-Z]+$/.test(value)) {
-                return Promise.resolve();
-              }
-              return Promise.reject(t('components.form.only text'));
-            },
-          }));
-          break;
-        case 'password':
+          case 'password':
           rules.push(() => ({
             validator: async (rule: any, value: any) => {
               if (value) {
@@ -571,18 +561,18 @@ export const Form = ({
                 if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value)) {
                   return Promise.resolve();
                 } else {
-                  return Promise.reject(
-                    'Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt',
-                  );
+                  return Promise.reject('Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt');
                 }
               } else {
                 return Promise.resolve();
-              }
-            },
+            }
+          },
           }));
           break;
         case 'passConfirm':
-          rules.push(() => ({}));
+          rules.push(() => ({
+            }),
+          );
           break;
         case 'only_number':
           rules.push(() => ({
@@ -633,7 +623,7 @@ export const Form = ({
 
   const handFinish = (values: any) => {
     values = convertFormValue(columns, values);
-    (handSubmit && handSubmit(values)) || (extendButtonChangePassword && extendButtonChangePassword(values));
+    handSubmit && handSubmit(values) || extendButtonChangePassword && extendButtonChangePassword(values);
   };
 
   return (
@@ -662,7 +652,7 @@ export const Form = ({
         }
       }}
     >
-      <div className={'group-input p-5'}>
+      <div className={'group-input'}>
         <div className={'grid gap-x-5 grid-cols-12'}>
           {_columns.map(
             (column: any, index: number) =>
@@ -672,13 +662,13 @@ export const Form = ({
                   className={classNames(
                     column?.formItem?.classItem,
                     'col-span-12' +
-                      (' sm:col-span-' +
-                        (column?.formItem?.colTablet
-                          ? column?.formItem?.colTablet
-                          : column?.formItem?.col
+                    (' sm:col-span-' +
+                      (column?.formItem?.colTablet
+                        ? column?.formItem?.colTablet
+                        : column?.formItem?.col
                           ? column?.formItem?.col
                           : 12)) +
-                      (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
+                    (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
                   )}
                   key={index}
                 >

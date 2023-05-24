@@ -13,7 +13,7 @@ export const Spin = ({ spinning = true, text = 'Now Loading...', children, class
           },
         )}
       >
-        <h5 className="mb-2 text-teal-600">{text}</h5>
+        <h5 className="mb-2 text-blue-600">{text}</h5>
         <div className="loader w-24 h-5">
           <div className="bar bar1 w-24 h-5 absolute flex items-center" />
           <div className="bar bar2 w-24 h-5 absolute flex items-center" />

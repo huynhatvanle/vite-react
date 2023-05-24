@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { API, routerLinks } from '@utils';
 import { Message } from '@core/message';
 // import Action from '../action';
@@ -20,7 +20,7 @@ export const action = {
       return { data, keyState };
     },
   ),
-  postSup: createAsyncThunk(name + '/post', async (values: Supplier) => {
+  post: createAsyncThunk(name + '/post', async (values: Supplier) => {
     const provinceId = values.provinceId?.slice(0, values.provinceId.indexOf('|'))
     const districtId = values.districtId?.slice(0, values.districtId.indexOf('|'))
     const wardId = values.wardId
@@ -28,11 +28,11 @@ export const action = {
     const supplierType = 'BALANCE'
     const type = 'SUPPLIER'
     const address = { provinceId, districtId, wardId, street }
-    const { statusCode, message } = await API.post<Supplier>(routerLinks(name, 'api'), { ...values, address, supplierType, type });
+    const { data, message } = await API.post<Supplier>(routerLinks(name, 'api'), { ...values, address, supplierType, type });
     if (message) await Message.success({ text: message });
-    return statusCode;
+    return data;
   }),
-  putSup: createAsyncThunk(name + '/put', async ({ id, ...values }: Supplier) => {
+  put: createAsyncThunk(name + '/put', async ({ id, ...values }: Supplier) => {
     const provinceId = values.provinceId?.slice(0, values.provinceId.indexOf('|'))
     const districtId = values.districtId?.slice(0, values.districtId.indexOf('|'))
     const wardId = values.wardId
@@ -40,73 +40,12 @@ export const action = {
     const supplierType = 'BALANCE'
     const type = 'SUPPLIER'
     const address = { provinceId, districtId, wardId, street }
-    const rs = {...values, address, supplierType, type }
-    delete(rs.provinceId)
-    delete(rs.districtId)
-    delete(rs.wardId)
-    console.log("rssssssssss",rs);
-    
-    const { statusCode, message } = await API.put<Supplier>(`${routerLinks(name, 'api')}/${id}`, rs);
+    const { data, message } = await API.put<Supplier>(`${routerLinks(name, 'api')}/${id}`, { ...values, address, supplierType, type});
     if (message) await Message.success({ text: message });
-    return statusCode;
+    return data;
   }),
 };
-export const supplierSlice = createSlice(
-  new Slice<Supplier>(action, (builder: any) => {
-    builder
-      .addCase(action.getByIdSupplier.pending, (state: State<Supplier>) => {
-        state.isLoading = true;
-        state.status = 'getById.pending';
-      })
-      .addCase(action.getByIdSupplier.fulfilled, (state: State<Supplier>, action: PayloadAction<{ data: Supplier; keyState: keyof State<Supplier> }>) => {
-        if (action.payload) {
-          const { data, keyState } = action.payload;
-          if (JSON.stringify(state.data) !== JSON.stringify(data)) state.data = data;
-          state[keyState] = true;
-          state.status = 'getById.fulfilled';
-        } else state.status = 'idle';
-        state.isLoading = false;
-      })
-      .addCase(
-        action.post.pending,
-        (
-          state: State<Supplier>,
-          action: PayloadAction<undefined, string, { arg: Supplier; requestId: string; requestStatus: 'pending' }>,
-        ) => {
-          state.data = action.meta.arg;
-          state.isLoading = true;
-          state.status = 'post.pending';
-        },
-      )
-      .addCase(action.post.fulfilled, (state: State<Supplier>, action: PayloadAction<Supplier>) => {
-        if (action.payload.toString() === '200') {
-          state.isVisible = false;
-          state.status = 'post.fulfilled';
-        } else state.status = 'idle';
-        state.isLoading = false;
-      })
-      .addCase(
-        action.put.pending,
-        (
-          state: State<Supplier>,
-          action: PayloadAction<undefined, string, { arg: Supplier; requestId: string; requestStatus: 'pending' }>,
-        ) => {
-          state.data = action.meta.arg;
-          state.isLoading = true;
-          state.status = 'put.pending';
-          console.log("state.status",state.status)
-        },
-      )
-      .addCase(action.put.fulfilled, (state: State<Supplier>, action: PayloadAction<Supplier>) => {
-        if (action.payload.toString() === '200') {
-          console.log("action.payload",action.payload);
-          state.isVisible = false;
-          state.status = 'put.fulfilled';
-        } else state.status = 'idle';
-        state.isLoading = false;
-      })
-  }),
-);
+export const supplierSlice = createSlice(new Slice<Supplier>(action));
 
 
 export const SupplierFacade = () => {
@@ -117,8 +56,8 @@ export const SupplierFacade = () => {
     get: (params: PaginationQuery<Supplier>) => dispatch(action.get(params)),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Supplier> }) =>
       dispatch(action.getByIdSupplier({ id, keyState })),
-    post: (values: Supplier) => dispatch(action.postSup(values)),
-    put: (values: Supplier) => dispatch(action.putSup(values)),
+    post: (values: Supplier) => dispatch(action.post(values)),
+    put: (values: Supplier) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),
   };
 };
