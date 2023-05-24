@@ -60,15 +60,19 @@
   "layout": {
     "header": {
       "Home": "Trang chủ",
+      "About": "Giới thiệu",
+      "News": "Tin tức",
+      "Projects": "Dự án",
+      "Contact Us": "Liên hệ",
       "Location": "Trụ sở",
-      "Address": "Vietnam Vietnam Vietnam Vietnam, Vietnam.",
+      "Address": "7 Cộng Hòa, Phường 4, Quận Tân Bình, TP. Hồ Chí Minh, Việt Nam.",
       "Mail us": "Hộp thư",
       "Call us": "Liên hệ",
       "Vietnamese": "Tiếng Việt",
       "English": "Tiếng Anh"
     },
     "footer": {
-      "copyright": "Bản quyền ©{{year}} Co., JSC. Bảo lưu mọi quyền."
+      "copyright": "Bản quyền ©{{year}} ARI Technology Co., JSC. Bảo lưu mọi quyền."
     }
   },
   "routes": {

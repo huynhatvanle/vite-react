@@ -14,7 +14,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();
   const { setLanguage, pathname, setPathname, language } = GlobalFacade();
   const [showMenu, set_showMenu] = useState(false);
-  const [data, set_data]: any = useState([{ name: 'Home', url: '/' + language }]);
+  const [data, set_data]: any = useState([{ title: 'Home', slug: '/' + language }, { title: 'About', slug: '/' + language }]);
   const menus: any = [];
   const navigate = useNavigate();
 
@@ -30,6 +30,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           loop(item.children, data.children);
         }
         returnArray.push(data);
+        console.log(returnArray);
       }
     });
   };
@@ -53,6 +54,7 @@ const Layout = ({ children }: PropsWithChildren) => {
     }
     set_showMenu(false);
   };
+  console.log(menus);
 
   return (
     <Fragment>
@@ -102,10 +104,10 @@ const Layout = ({ children }: PropsWithChildren) => {
         <div className="container mx-auto py-3.5 pl-5 pr-3.5 flex items-center justify-between bg-blue-500">
           <div className="text-center hidden lg:block">
             <div className="flex gap-10 font-bold items-center">
-              {menus.map((item: any, index: number) => (
+              {data.map((item: any, index: number) => (
                 <Fragment key={index}>
                   <Dropdown
-                    disabled={!item.children.length}
+                    disabled={!item.children?.length}
                     destroyPopupOnHide={true}
                     menu={{
                       items: item.children
@@ -124,7 +126,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                       className="text-white font-bold hover:text-white cursor-pointer"
                       onClick={() => navigate(item.slug)}
                     >
-                      {item.title}
+                      {t('layout.header.' + item.title)}
                     </span>
                   </Dropdown>
                 </Fragment>
@@ -320,9 +322,19 @@ const Layout = ({ children }: PropsWithChildren) => {
           <div className="container px-6 mx-auto py-5">
             <div className="lg:flex items-center justify-between">
               <ul className="flex justify-center lg:justify-end gap-1 mb-3 lg:m-0 order-last">
+                {data.map((item: any, index: number) => (<li key={index}>
+                  <Link to={'/' + language} className="text-white xs:mx-2">
+                    {t('layout.header.' + item.title)}
+                  </Link>
+                </li>))}
                 <li>
-                  <Link to={'/'} className="text-white xs:mx-2">
-                    {t('layout.header.Home')}
+                  <Link to={language === 'vn' ? '/vn/tin-tuc' : '/en/news'} className="text-white xs:mx-2">
+                    {t('layout.header.News')}
+                  </Link>
+                </li>
+                <li>
+                  <Link to={language === 'vn' ? '/vn/du-an' : '/en/projects'} className="text-white xs:mx-2">
+                    {t('layout.header.Projects')}
                   </Link>
                 </li>
               </ul>

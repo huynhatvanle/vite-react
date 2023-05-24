@@ -60,15 +60,19 @@
   "layout": {
     "header": {
       "Home": "Home",
+      "About": "About",
+      "News": "News",
+      "Projects": "Projects",
+      "Contact Us": "Contact Us",
       "Location": "Location",
-      "Address": "Vietnam Vietnam Vietnam Vietnam, Vietnam.",
+      "Address": "7 Cong Hoa St., Ward 4, Tan Binh Dist., Ho Chi Minh City, Vietnam.",
       "Mail us": "Mail us",
       "Call us": "Call us",
       "Vietnamese": "Vietnamese",
       "English": "English"
     },
     "footer": {
-      "copyright": "Copyright ©{{year}} Co ., JSC. All rights reserved."
+      "copyright": "Copyright ©{{year}} ARI Technology Co ., JSC. All rights reserved."
     }
   },
   "routes": {
