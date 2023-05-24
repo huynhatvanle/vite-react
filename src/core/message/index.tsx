@@ -21,6 +21,9 @@ export const Message = {
         showCancelButton,
         showConfirmButton,
         padding,
+        customClass: { 
+          cancelButton: '!border !border-solid !border-teal-900 !bg-white !text-teal-900 hover:!bg-none'
+        }
       }),
     ),
   warning: ({

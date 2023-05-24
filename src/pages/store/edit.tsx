@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import { Switch, Tabs } from 'antd';
+import { Input, Switch, Tabs } from 'antd';
 
 import { routerLinks } from '@utils';
 import { Form } from '@core/form';
@@ -36,7 +36,6 @@ const Page = () => {
   // }, [supplier]);
 
   useEffect(() => {
-    // console.log(status)
     if (status === 'put.fulfilled')
       navigate(routerLinks('Store'))
   }, [status]);
@@ -52,7 +51,6 @@ const Page = () => {
   const handleBack = () => navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: StoreManagement) => {
     storeFacade.put({ ...values, id });
-    // navigate(routerLinks('Store'))
   };
 
   const [isChecked, setIsChecked] = useState(false);
@@ -64,12 +62,12 @@ const Page = () => {
   return (
     <div className={'w-full'}>
       <Fragment>
-        <div>
+        <div className='tab-wrapper'>
           <Tabs defaultActiveKey='1' type='card' size='large'>
             <Tabs.TabPane tab={'Thông tin cửa hàng'} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <Form
-                values={{ ...data, street: data?.address?.street, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
-                className="intro-x p-6 pb-4 pt-3 rounded-lg w-full"
+                values={{ ...data, street: data?.address?.street, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name, provinceId: data?.address?.province?.id, districtId: data?.address?.district?.id, wardId: data?.address?.ward?.id, }}
+                className="intro-x rounded-lg w-full"
                 columns={[
                   {
                     title: 'store.Code',
@@ -115,8 +113,9 @@ const Page = () => {
                     formItem: {
                       tabIndex: 3,
                       col: 3,
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'requiredSelect' }],
                       type: 'select',
+
                       get: {
                         facade: ProvinceFacade,
                         format: (item: any) => ({
@@ -134,7 +133,7 @@ const Page = () => {
                     name: 'districtId',
                     formItem: {
                       type: 'select',
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'requiredSelect' }],
                       col: 3,
                       get: {
                         facade: DistrictFacade,
@@ -157,7 +156,7 @@ const Page = () => {
                     name: 'wardId',
                     formItem: {
                       type: 'select',
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'requiredSelect' }],
                       col: 3,
                       get: {
                         facade: WardFacade,
@@ -231,7 +230,7 @@ const Page = () => {
                     <Switch onClick={handleClick} />
                   </div>
                   {isChecked && (
-                    <Button className='!font-normal' text={t('Lấy DS chi nhánh')}/>
+                    <Button className='!font-normal' text={t('Lấy DS chi nhánh')} />
                   )}
                 </div>}
 
@@ -358,7 +357,7 @@ const Page = () => {
                     title: 'product.Price',
                     name: 'productPrice',
                     tableItem: {
-                      render: (text, item) => item.productPrice[0] ? item.productPrice[0]?.price.toLocaleString() : '0'
+                      render: (text, item) => parseInt(item.productPrice[0] ? item.productPrice[0]?.price : '0').toLocaleString()
                     },
                   },
                 ]}
@@ -372,7 +371,7 @@ const Page = () => {
                   <div className={'flex h-10 w-36 mt-6'}>
                     {
                       <Button
-                        className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group'
+                        className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0'
                         icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
                         text={t('Xuất file excel')}
                         onClick={() => navigate(routerLinks('Supplier/Excel'))}
@@ -383,7 +382,7 @@ const Page = () => {
                 leftHeader={
                   <>
                     <Form
-                      className="intro-x pt-5 rounded-lg w-full "
+                      className="intro-x rounded-lg w-full"
                       columns={
                         [
                           {
@@ -416,7 +415,7 @@ const Page = () => {
                       disableSubmit={isLoading}
                     />
                     <Form
-                      className="intro-x pt-5 rounded-lg w-full "
+                      className="intro-x rounded-lg w-full "
                       columns={
                         [
                           {
@@ -484,6 +483,7 @@ const Page = () => {
                               }
                             },
                           },
+
                         ]
                       }
                       // handSubmit={handleSubmit}
