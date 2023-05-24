@@ -101,7 +101,7 @@ const Layout = ({ children }: PropsWithChildren) => {
         </div>
       </div>
       <header className="w-full sticky top-0 left-0 z-30">
-        <div className="container mx-auto py-3.5 pl-5 pr-3.5 flex items-center justify-between bg-blue-500">
+        <div className="max-w-screen-2xl mx-auto py-3.5 pl-5 pr-3.5 flex items-center justify-between bg-blue-500">
           <div className="text-center hidden lg:block">
             <div className="flex gap-10 font-bold items-center">
               {data.map((item: any, index: number) => (
@@ -170,7 +170,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 ],
               }}
             >
-              <div className="pr-3 mr-3 border-r">
+              <div className="lg:mr-6 mr-12 lg:border-r">
                 <img src={`/assets/svg/${language}.svg`} alt="" className="w-6" />
               </div>
             </Dropdown>
@@ -196,7 +196,7 @@ const Layout = ({ children }: PropsWithChildren) => {
         </div>
       </header>
       <span
-        className={classNames('hamburger lg:hidden fixed z-50 right-6 top-6', { 'body-menu-opened': showMenu })}
+        className={classNames('hamburger lg:!hidden fixed z-50 right-6 top-6', { 'body-menu-opened': showMenu })}
         onClick={() => set_showMenu(!showMenu)}
       >
         <span className="top-bun"></span>
@@ -265,26 +265,8 @@ const Layout = ({ children }: PropsWithChildren) => {
             '-top-10 opacity-0': !showMenu,
           })}
         >
-          <div className="mt-4">
-            <a
-              className="mr-3 text-white"
-              href="https://www.facebook.com/ARI-Technology-103059672364812"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Facebook className={'w-6 h-6 inline'} />
-            </a>
-            <a
-              className="mr-1 text-white"
-              href="https://www.linkedin.com/company/aritechnology/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Linkedin className={'w-6 h-6 inline'} />
-            </a>
-          </div>
           <div className="flex items-center mt-5">
-            <MapMarked className={'w-8 h-8 mr-3'} />
+            <MapMarked className={'w-12 h-8 mr-3'} />
             <div className="leading-5">
               <strong>{t('layout.header.Location')}</strong>
               <br />
@@ -317,34 +299,118 @@ const Layout = ({ children }: PropsWithChildren) => {
         </div>
       </div>
       {children}
-      <footer className="text-white">
-        <div className="bg-black">
-          <div className="container px-6 mx-auto py-5">
-            <div className="lg:flex items-center justify-between">
-              <ul className="flex justify-center lg:justify-end gap-1 mb-3 lg:m-0 order-last">
-                {data.map((item: any, index: number) => (<li key={index}>
-                  <Link to={'/' + language} className="text-white xs:mx-2">
-                    {t('layout.header.' + item.title)}
-                  </Link>
-                </li>))}
-                <li>
-                  <Link to={language === 'vn' ? '/vn/tin-tuc' : '/en/news'} className="text-white xs:mx-2">
-                    {t('layout.header.News')}
-                  </Link>
-                </li>
-                <li>
-                  <Link to={language === 'vn' ? '/vn/du-an' : '/en/projects'} className="text-white xs:mx-2">
-                    {t('layout.header.Projects')}
-                  </Link>
-                </li>
-              </ul>
-              <div className="lg:text-left text-center">
-                <p className="text-white leading-7 m-0">
-                  {t('layout.footer.copyright', { year: new Date().getFullYear() })}
-                </p>
+      <footer className="text-white font-medium bg-gray-900 bg-[url('/assets/images/footer-shape.png')] bg-cover bg-[center_top_9rem] bg-no-repeat">
+        <div className="container mx-auto px-6 py-28 leading-8">
+          <div className="grid grid-cols-2 gap-16 lg:flex lg:justify-between">
+            <div className={'lg:max-w-xs'}>
+              <img src="/assets/images/logo.svg" className="h-12 brightness-0 invert mb-5" alt="logo" />
+              <p>
+                Tincidunt neque pretium lectus donec risus. Mauris mi tempor nunc orc leo consequat vitae erat gravida lobortis nec et sagittis.
+              </p>
+              <div className={'gap-4 flex mt-8'}>
+                <a
+                  className="text-white inline-flex bg-gray-700 p-3 rounded-md"
+                  href="https://www.facebook.com/ARI-Technology-103059672364812"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Facebook className={'w-5 h-5 inline'} />
+                </a>
+                <a
+                  className="text-white inline-flex bg-gray-700 p-3 rounded-md"
+                  href="https://www.linkedin.com/company/aritechnology/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Linkedin className={'w-5 h-5 inline'} />
+                </a>
               </div>
             </div>
+            <div className={'lg:max-w-xs'}>
+              <h3 className={'text-xl font-bold pb-7'}>Our Services</h3>
+              <div className={'leading-10'}>
+                <a className="text-white font-bold hover:text-white cursor-pointer block">
+                  {t('Digital transformation')}
+                </a>
+                <a className="text-white font-bold hover:text-white cursor-pointer block">
+                  {t('R&D services')}
+                </a>
+                <a className="text-white font-bold hover:text-white cursor-pointer block">
+                  {t('Outsourcing services')}
+                </a>
+                <a className="text-white font-bold hover:text-white cursor-pointer block">
+                  {t('Product development')}
+                </a>
+              </div>
+            </div>
+            <div className={'lg:max-w-xs'}>
+              <h3 className={'text-xl font-bold pb-7'}>Usefull Links</h3>
+              <div className={'leading-10'}>
+                {data.map((item: any, index: number) => (
+                  <a key={index}
+                    className="text-white font-bold hover:text-white cursor-pointer block"
+                    onClick={() => navigate(item.slug)}
+                  >
+                      {t('layout.header.' + item.title)}
+                  </a>
+                ))}
+              <a
+                className="text-white font-bold hover:text-white cursor-pointer block"
+                onClick={() => navigate(language === 'vn' ? '/vn/tin-tuc' : '/en/news')}
+              >
+                {t('layout.header.News')}
+              </a>
+              <a
+                className="text-white font-bold hover:text-white cursor-pointer block"
+                onClick={() => navigate(language === 'vn' ? '/vn/du-an' : '/en/projects')}
+              >
+                {t('layout.header.Projects')}
+              </a>
+              <a
+                className="text-white font-bold hover:text-white cursor-pointer block"
+                onClick={() => handleScrollTo('form-contact-us')}
+              >
+                {t('layout.header.Contact Us')}
+              </a>
+              </div>
+            </div>
+            <div className={'lg:max-w-xs'}>
+              <h3 className={'text-xl font-bold pb-8'}>Contact</h3>
+
+              <div className={'flex flex-col gap-6'}>
+                <div className="flex items-center">
+                  <MapMarked className={'w-12 h-8 lg:mr-3 mr-0.5 text-blue-600 lg:ml-0 -ml-2'} />
+                  <div className="leading-5">
+                    <span className="text-sm">{t('layout.header.Address')}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center ">
+                  <Envelope className={'w-8 h-8 mr-3 text-blue-600'} />
+                  <div className="leading-5">
+                    <a className="text-sm text-white" href="mailto:contact@ari.com.vn">
+                      contact@ari.com.vn
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center ">
+                  <Phone className={'w-8 h-8 mr-3 text-blue-600'} />
+                  <div className="leading-5">
+                    <a className="text-sm text-white" href="tel:(+84)363672405">
+                      {' '}
+                      (+84) 098 7765926
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
+
+        </div>
+        <div className="py-8 text-center border-t border-gray-800">
+          {t('layout.footer.copyright', { year: new Date().getFullYear() })}
         </div>
       </footer>
     </Fragment>
