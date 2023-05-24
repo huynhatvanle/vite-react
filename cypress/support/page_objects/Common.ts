@@ -2,7 +2,7 @@ import slug from 'slug';
 export default class Common {
   elements = {
     messageSwal2: () => cy.get('div#swal2-html-container').should('be.visible'),
-    textButton: (text: string) => cy.get('button.button').contains(text).should('be.visible').should('not.be.disabled'),
+    textButton: (text: string) => cy.get('button').contains(text).should('be.visible').should('not.be.disabled'),
     textMenu: (text: string) => cy.get('li.menu').contains(text).should('be.visible'),
     textSubMenu: (text: string) => cy.get('a.sub-menu').contains(text).should('be.visible'),
 
