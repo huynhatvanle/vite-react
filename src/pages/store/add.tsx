@@ -47,40 +47,40 @@ const Page = () => {
       <div className='text-xl text-teal-900 px-5 pt-3.5 font-bold bg-white w-max rounded-t-2xl'>
         Thông tin cửa hàng
       </div>
-      <div className='bg-white'>
-        {/* {!!result?.data && */}
-        <Form
-          values={{ ...data }}
-          columns={[
-            {
-              title: 'store.Name',
-              name: 'name',
-              formItem: {
-                tabIndex: 1,
-                col: 6,
-                rules: [{ type: 'required' },],
-              },
-            },
-            {
-              title: 'store.Fax',
-              name: 'fax',
-              formItem: {
-                tabIndex: 2,
-                col: 6,
-              },
-            },
-            {
-              title: '',
-              name: 'address',
-              formItem: {
-                rules: [{ type: 'required' }],
-                render() {
-                  return (
-                    <h3 className='mb-2.5 text-base text-black font-medium'>Địa chỉ cửa hàng</h3>
-                  )
+      <div className='p-5 bg-white'>
+        <Fragment>
+          <Form
+            values={{ ...data }}
+            columns={[
+              {
+                title: 'store.Name',
+                name: 'name',
+                formItem: {
+                  tabIndex: 1,
+                  col: 6,
+                  rules: [{ type: 'required' },],
                 },
-              }
-            },
+              },
+              {
+                title: 'store.Fax',
+                name: 'fax',
+                formItem: {
+                  tabIndex: 2,
+                  col: 6,
+                },
+              },
+              {
+                title: '',
+                name: 'address',
+                formItem: {
+                  rules: [{ type: 'required' }],
+                  render() {
+                    return (
+                      <h3 className='mb-2.5 text-base text-black font-medium'>Địa chỉ cửa hàng</h3>
+                    )
+                  },
+                }
+              },
               {
                 title: 'store.Province',
                 name: 'provinceId',
@@ -260,6 +260,7 @@ const Page = () => {
             disableSubmit={isLoading}
             handCancel={handleBack}
           />
+        </Fragment>
       </div>
     </div>
   );

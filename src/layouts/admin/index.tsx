@@ -106,7 +106,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '0',
                   className: 'hover:!bg-white !border-b-slate-300 border-b !rounded-none',
                   label: (
-                    <div className="flex">
+                    <div className='flex'>
                       <Avatar src={user?.profileImage} size={8} />
                       <div className="text-left leading-none mr-3 hidden sm:block pl-2">
                         <div className="font-semibold text-black text-sm leading-snug mb-0.5">{user?.name}</div>
@@ -119,14 +119,13 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '1',
                   className: 'h-11',
                   label: (
-                    <div className="flex">
-                      <div className="flex items-center">
-                        <UserProfile className="w-6 h-6 pr-2 text-black" />
+                    <div className='flex'>
+                      <div className='flex items-center'>
+                        <UserProfile className='w-6 h-6 pr-2 text-black' />
                       </div>
                       <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
                         {t('routes.admin.Layout.My Profile')}
                       </div>
-                      <div>{t('routes.admin.Layout.My Profile')}</div>
                     </div>
                   ),
                 },
@@ -134,11 +133,13 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '2',
                   className: 'h-11 !border-b-slate-300 border-b !rounded-none',
                   label: (
-                    <div className="flex" onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
-                      <div className="flex items-center">
-                        <Key className="w-6 h-6 pr-2 text-black" />
+                    <div className='flex'>
+                      <div className='flex items-center'>
+                        <Key className='w-6 h-6 pr-2 text-black' />
                       </div>
-                      <div>{t('routes.admin.Layout.Change Password')}</div>
+                      <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
+                        {t('routes.admin.Layout.Change Password')}
+                      </div>
                     </div>
                   ),
                 },
@@ -146,11 +147,13 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '3',
                   className: 'h-11',
                   label: (
-                    <div className="flex" onClick={() => navigate(routerLinks('Login'), { replace: true })}>
-                      <div className="flex items-center">
-                        <Out className="w-6 h-6 pr-2 text-black" />
+                    <div className='flex'>
+                      <div className='flex items-center'>
+                        <Out className='w-6 h-6 pr-2 text-black' />
                       </div>
-                      <div>{t('routes.admin.Layout.Sign out')}</div>
+                      <div onClick={() => navigate(routerLinks('Login'), { replace: true })}>
+                        {t('routes.admin.Layout.Sign out')}
+                      </div>
                     </div>
                   ),
                 },
@@ -173,8 +176,8 @@ const Layout = ({ children }: PropsWithChildren) => {
   return (
     <main>
       <div className="leading-5 leading-10" />
-      <div className="h-20 relative">
-        <div className="absolute top-0 left-0 right-0">
+      <div className='h-20 relative'>
+        <div className='absolute top-0 left-0 right-0'>
           <Header isCollapsed={isCollapsed} isDesktop={isDesktop} />
         </div>
       </div>
@@ -189,17 +192,16 @@ const Layout = ({ children }: PropsWithChildren) => {
           },
         )}
       >
-        <div className="flex">
+
+        <div className='flex'>
           <div
-            className={classNames('max-md:mr-3 flex items-center', {
+            className={classNames('max-md:mr-3', {
               'is-active': (isCollapsed && isDesktop) || (!isCollapsed && !isDesktop),
             })}
-            onClick={() => {
-              set_isCollapsed(!isCollapsed), set_isDesktop(isDesktop);
-            }}
+            onClick={() => { set_isCollapsed(!isCollapsed), set_isDesktop(isDesktop) }}
           >
-            {isCollapsed && !isDesktop && <Menu className="w-7 text-black select-none" />}
-            {!isCollapsed && !isDesktop && <ArrowBack className="w-8 text-black select-none" />}
+            {(isCollapsed && !isDesktop) && <Menu className="w-9 text-black select-none" />}
+            {(!isCollapsed && !isDesktop) && <ArrowBack className="w-9 text-black select-none" />}
 
             {/* <span className="line" />
               <span className="line" />
@@ -212,14 +214,12 @@ const Layout = ({ children }: PropsWithChildren) => {
                   'opacity-0 text-[0px] hidden': isCollapsed && isDesktop,
                 },)} /> */}
 
-            <img
-              src={Logo1}
-              className={classNames('w-12 mr-3 rounded ', {
-                'opacity-100 text-lg w-12': (!isCollapsed && isDesktop) || (isCollapsed && !isDesktop),
+            <img src={Logo1} className={classNames('w-12 mr-3 rounded ',
+              {
+                'opacity-100 text-lg w-12': !isCollapsed && isDesktop || isCollapsed && !isDesktop,
                 'opacity-0 text-[0px] hidden': isCollapsed && isDesktop,
                 // 'opacity-100 text-xl': isCollapsed && !isDesktop,
-              })}
-            ></img>
+              },)}></img>
             <div
               id={'name-application'}
               className={classNames(
@@ -238,12 +238,11 @@ const Layout = ({ children }: PropsWithChildren) => {
           className={classNames('hamburger', {
             'is-active': (isCollapsed && isDesktop) || (!isCollapsed && !isDesktop),
           })}
-          onClick={() => {
-            set_isCollapsed(!isCollapsed), set_isDesktop(isDesktop);
-          }}
+          onClick={() => { set_isCollapsed(!isCollapsed), set_isDesktop(isDesktop) }}
         >
-          {!isCollapsed && isDesktop && <LeftArrow className="w-9 text-white" />}
-          {isCollapsed && isDesktop && <RightArrow className="w-9 text-white" />}
+          {(!isCollapsed && isDesktop) && <LeftArrow className="w-9 text-white" />}
+          {(isCollapsed && isDesktop) && <RightArrow className="w-9 text-white" />}
+
         </div>
       </div>
       <div
@@ -270,7 +269,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       )}
       <section
         id={'main'}
-        className={classNames('px-2 sm:px-5 min-h-screen transition-all duration-300 ease-in-out z-10 relative', {
+        className={classNames('px-5 min-h-screen transition-all duration-300 ease-in-out z-10  relative', {
           'ml-64': !isCollapsed && isDesktop,
           'ml-16': isCollapsed && isDesktop,
         })}
@@ -278,17 +277,14 @@ const Layout = ({ children }: PropsWithChildren) => {
         <div className={''}>
           {/* <h1 className={'text-xl font-bold block sm:hidden pb-5'}>{t('pages.' + title)}</h1> */}
           {title !== 'Dashboard' && (
-            <h1 className={'text-2xl text-teal-900 font-bold block pb-5'}>{t('titles.' + title)}</h1>
-          )}
+            <h1 className={'text-2xl text-teal-900 font-bold block pb-5'}>{t('titles.' + title)}</h1>)}
           {children}
         </div>
       </section>
-      <footer
-        className={classNames('text-left pt-5 z-50  mt-10  bg-white p-4 !mr-0', {
-          'ml-64': !isCollapsed && isDesktop,
-          'ml-16': isCollapsed && isDesktop,
-        })}
-      >
+      <footer className={classNames("text-left pt-5 z-50  mt-10  bg-white p-4 !mr-0", {
+        'ml-64': !isCollapsed && isDesktop,
+        'ml-16': isCollapsed && isDesktop,
+      })}>
         {t('layout.footer', { year: new Date().getFullYear() })}
       </footer>
       <div className="hidden h-7 w-7 leading-7" />

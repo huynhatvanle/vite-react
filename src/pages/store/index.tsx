@@ -86,8 +86,8 @@ const Page = () => {
       rightHeader={
         <div className={'flex gap-2 !bg-teal-900 !rounded-lg mt-0 max-lg:mt-2.5 max-lg:w-48'}>
           <Button
-            className='!bg-teal-900 !rounded-3xl !font-normal'
-            icon={<Plus className="icon-cud !h-5 !w-5 !fill-white " />}
+            className='!bg-teal-900 !rounded-3xl'
+            icon={<Plus className="icon-cud !h-5 !w-5 !fill-slate-200 " />}
             text={t('titles.Store/Add')}
             onClick={() => navigate(routerLinks('store-managerment/create'))}
           />
