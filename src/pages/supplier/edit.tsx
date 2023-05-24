@@ -823,6 +823,7 @@ const Page = () => {
                         width: 100,
                         render: (value: any,item: any) => item?.total.toLocaleString(),
                       },
+                    },
                       {
                         title: t(`Loại đơn`),
                         name: 'total',
