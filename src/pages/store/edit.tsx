@@ -795,42 +795,42 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'store.Inventory management.Product code',
+                        title: 'store.Revenue.Order code',
                         name: 'supplier',
                         tableItem: {
                           render: (value: any, item: any) => item.supplier?.name,
                         },
                       },
                       {
-                        title: 'store.Inventory management.Product name',
+                        title: 'store.Revenue.Sale date',
                         name: 'supplier',
                         tableItem: {
-                          render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                          render: (value: any, item: any) => item.supplier?.name,
                         },
                       },
                       {
-                        title: 'store.Barcode',
+                        title: 'store.Revenue.Value (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Discount (VND)',
                         name: 'supplier',
                         tableItem: {
                           render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
                         },
                       },
                       {
-                        title: 'titles.Revenue',
+                        title: 'store.Revenue.Total amount (VND)',
                         name: 'supplier',
                         tableItem: {
                           render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                         },
                       },
                       {
-                        title: 'supplier.Status',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
-                      {
-                        title: 'store.Phone Number',
+                        title: 'store.Revenue.Order type',
                         name: 'supplier',
                         tableItem: {
                           render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
@@ -841,59 +841,24 @@ const Page = () => {
                     rightHeader={
                       <div className='flex justify-end w-full text-left flex-col'>
                         <Form
-                          className="intro-x rounded-lg w-full flex justify-between"
+                          className="intro-x flex justify-end"
                           columns={
                             [
                               {
                                 title: '',
-                                name: 'StartDate',
+                                name: 'supplierName',
                                 formItem: {
-                                  tabIndex: 3,
-                                  type: 'date',
-                                  placeholder: 'Chọn thời điểm',
-                                },
+                                  placeholder: 'Chọn trạng thái',
+                                  type: 'select',
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.supplier?.name,
+                                      value: item.supplier?.id,
+                                    })
+                                  }
+                                }
                               },
-                              {
-                                title: '',
-                                name: 'EndDate',
-                                formItem: {
-                                  tabIndex: 3,
-                                  type: 'date',
-                                  placeholder: 'Chọn thời điểm',
-                                },
-                              },
-                              // {
-                              //   title: '',
-                              //   name: 'supplierName',
-                              //   formItem: {
-                              //     placeholder: 'Chọn trạng thái',
-                              //     type: 'select',
-                              //     tabIndex: 1,
-                              //     get: {
-                              //       facade: ConnectSupplierFacade,
-                              //       format: (item: any) => ({
-                              //         label: item.supplier?.name,
-                              //         value: item.supplier?.id,
-                              //       })
-                              //     }
-                              //   }
-                              // },
-                              // {
-                              //   title: '',
-                              //   name: 'supplierName',
-                              //   formItem: {
-                              //     placeholder: 'Chọn loại đơn hàng',
-                              //     type: 'select',
-                              //     tabIndex: 1,
-                              //     get: {
-                              //       facade: ConnectSupplierFacade,
-                              //       format: (item: any) => ({
-                              //         label: item.supplier?.name,
-                              //         value: item.supplier?.id,
-                              //       })
-                              //     }
-                              //   }
-                              // },
                             ]
                           }
                           disableSubmit={isLoading}
@@ -969,56 +934,48 @@ const Page = () => {
                   }
                   columns={[
                     {
-                      title: 'supplier.Order.STT',
-                      name: 'code',
+                      title: 'store.Revenue.Serial number',
+                      name: 'supplier',
                       tableItem: {
                         width: 150,
                         render: (value: any, item: any) => item.supplier?.code,
                       },
                     },
                     {
-                      title: 'product.Code',
-                      name: 'code',
+                      title: 'store.Inventory management.Product code',
+                      name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier?.name,
                       },
                     },
                     {
-                      title: 'product.Name',
-                      name: 'name',
+                      title: 'store.Inventory management.Product name',
+                      name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
                       },
                     },
                     {
-                      title: 'product.Storecode',
+                      title: 'store.Barcode',
                       name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
                       },
                     },
                     {
-                      title: 'product.SupplierName',
+                      title: 'titles.Revenue',
                       name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                       },
                     },
                     {
-                      title: 'product.Revenue',
+                      title: 'supplier.Status',
                       name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                       },
                     },
-                    {
-                      title: 'product.Status',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      },
-                    },
-
                   ]}
                   searchPlaceholder='Tìm kiếm theo mã đơn hàng'
                   rightHeader={
