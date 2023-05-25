@@ -26,7 +26,7 @@ declare global {
       iframe(): Chainable<JQueryWithSelector>;
       typeRandom(
         value: string,
-        type?: 'text' | 'words' | 'number' | 'email' | 'percentage',
+        type?: 'text' | 'words' | 'number' | 'email' | 'percentage' | 'color' | 'phone' | 'date',
       ): Chainable<JQueryWithSelector>;
     }
   }
