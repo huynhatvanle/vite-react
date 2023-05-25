@@ -677,7 +677,7 @@ export const Form = ({
         }
       }}
     >
-      <div className={'group-input w-full'}>
+      <div className={'group-input'}>
         <div className={'grid gap-x-5 grid-cols-12'}>
           {_columns.map(
             (column: any, index: number) =>

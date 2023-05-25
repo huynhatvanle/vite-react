@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Supplier, SupplierFacade } from '@store/supplier';
@@ -552,7 +552,7 @@ const Page = () => {
                                     form.resetFields(['cap2'])
                                   },
                                 },
-                              }
+                              },
                             ]
                           }
                           disableSubmit={isLoading}
@@ -925,7 +925,6 @@ const Page = () => {
                         Trạng thái:
                       </div>
                       <div className=" bg-blue-300 items-center flex justify-center">
-
                         <Form
                           className=''
                           columns={[
@@ -947,10 +946,6 @@ const Page = () => {
                           ]}
                         />
                       </div>
-
-
-
-
                     </div>
                   </div>
                 </div>
