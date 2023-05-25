@@ -769,272 +769,383 @@ const Page = () => {
               key='5' className='rounded-xl'>
 
               <div className='px-5 pt-6 pb-4 bg-white p-5 rounded-lg'>
+
                 {isBalanceClicked ?
-                <DataTable
-                  facade={invoicevietFacade.data}
-                  defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
-                  xScroll='1440px'
-                  onRow={(data: any) => ({
-                    onDoubleClick: () => {
-                      navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                    },
-                  })}
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                  }
-                  columns={[
-                    {
-                      title: 'supplier.CodeName',
-                      name: 'supplier',
-                      tableItem: {
-                        width: 150,
-                        render: (value: any, item: any) => item.supplier?.code,
+                  <DataTable
+                    facade={invoicevietFacade.data}
+                    defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
+                    xScroll='1440px'
+                    onRow={(data: any) => ({
+                      onDoubleClick: () => {
+                        navigate(routerLinks('store-managerment/edit') + '/' + data.id);
                       },
-                    },
-                    {
-                      title: 'supplier.Name',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier?.name,
+                    })}
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                    }
+                    columns={[
+                      {
+                        title: 'supplier.CodeName',
+                        name: 'supplier',
+                        tableItem: {
+                          width: 150,
+                          render: (value: any, item: any) => item.supplier?.code,
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Address',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                      {
+                        title: 'supplier.Name',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier?.name,
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Name management',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                      {
+                        title: 'store.Address',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Phone Number',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                      {
+                        title: 'store.Name management',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        },
                       },
-                    },
-                  ]}
-                  searchPlaceholder='Tìm kiếm theo mã đơn hàng'
-                  rightHeader={
-                    <div className='flex justify-end text-left flex-col'>
-                      <Form
-                        className="intro-x flex justify-end"
-                        columns={
-                          [
+                      {
+                        title: 'store.Phone Number',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                    ]}
+                    searchPlaceholder='Tìm kiếm theo mã đơn hàng'
+                    rightHeader={
+                      <div className='flex justify-end text-left flex-col'>
+                        <Form
+                          className="intro-x flex justify-end"
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'supplierName',
+                                formItem: {
+                                  placeholder: 'Chọn loại đơn hàng',
+                                  type: 'select',
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.supplier?.name,
+                                      value: item.supplier?.id,
+                                    })
+                                  }
+                                }
+                              },
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                        <Form
+                          className='intro-x rounded-lg w-full flex justify-between'
+                          columns={[
                             {
                               title: '',
-                              name: 'supplierName',
+                              name: '',
                               formItem: {
-                                placeholder: 'Chọn loại đơn hàng',
-                                type: 'select',
-                                get: {
-                                  facade: ConnectSupplierFacade,
-                                  format: (item: any) => ({
-                                    label: item.supplier?.name,
-                                    value: item.supplier?.id,
-                                  })
-                                }
-                              }
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>Từ ngày</p>
+                                  </div>
+                                )
+                              },
                             },
-                          ]
-                        }
-                        disableSubmit={isLoading}
-                      />
-                      <Form
-                        className='intro-x rounded-lg w-full flex justify-between'
-                        columns={[
-                          {
-                            title: '',
-                            name: '',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 2,
-                              render: () => (
-                                <div className='flex h-10 items-center !w-full'>
-                                  <p className='text-sm'>Từ ngày</p>
-                                </div>
-                              )
-                            },
-                          },
-                          {
-                            title: '',
-                            name: 'StartDate',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 4,
-                              type: 'date',
-                              placeholder: 'Chọn thời điểm',
-                            },
-                          },
-                          {
-                            title: '',
-                            name: '',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 2,
-                              render: () => (
-                                <div className='flex h-10 items-center !w-full'>
-                                  <p className='text-sm'>Đến ngày</p>
-                                </div>
-                              )
-                            },
-                          },
-                          {
-                            title: '',
-                            name: 'EndDate',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 4,
-                              type: 'date',
-                              placeholder: 'Chọn thời điểm',
-                            },
-                          },
-                        ]}
-                      />
-                    </div>
-                  }
-                />
-              :
-              <DataTable
-                  facade={invoicevietFacade.data}
-                  defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
-                  xScroll='1440px'
-                  onRow={(data: any) => ({
-                    onDoubleClick: () => {
-                      navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                    },
-                  })}
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                  }
-                  columns={[
-                    {
-                      title: 'supplier.CodeName',
-                      name: 'supplier',
-                      tableItem: {
-                        width: 150,
-                        render: (value: any, item: any) => item.supplier?.code,
-                      },
-                    },
-                    {
-                      title: 'supplier.Name',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier?.name,
-                      },
-                    },
-                    {
-                      title: 'store.Address',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
-                      },
-                    },
-                    {
-                      title: 'store.Name management',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                      },
-                    },
-                    {
-                      title: 'store.Phone Number',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      },
-                    },
-                  ]}
-                  searchPlaceholder='Tìm kiếm theo mã đơn hàng'
-                  rightHeader={
-                    <div className='flex justify-end text-left flex-col'>
-                      <Form
-                        className="intro-x flex justify-end"
-                        columns={
-                          [
                             {
                               title: '',
-                              name: 'supplierName',
+                              name: 'StartDate',
                               formItem: {
-                                placeholder: 'Chọn loại đơn hàng',
-                                type: 'select',
-                                get: {
-                                  facade: ConnectSupplierFacade,
-                                  format: (item: any) => ({
-                                    label: item.supplier?.name,
-                                    value: item.supplier?.id,
-                                  })
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'Chọn thời điểm',
+                              },
+                            },
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>Đến ngày</p>
+                                  </div>
+                                )
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'EndDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'Chọn thời điểm',
+                              },
+                            },
+                          ]}
+                        />
+                      </div>
+                    }
+                  />
+                  :
+                  <DataTable
+                    facade={invoicevietFacade.data}
+                    defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
+                    xScroll='1440px'
+                    onRow={(data: any) => ({
+                      onDoubleClick: () => {
+                        navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                      },
+                    })}
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                    }
+                    columns={[
+                      {
+                        title: 'supplier.Order.STT',
+                        name: 'code',
+                        tableItem: {
+                          width: 150,
+                          render: (value: any, item: any) => item.supplier?.code,
+                        },
+                      },
+                      {
+                        title: 'product.Code',
+                        name: 'code',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'product.Name',
+                        name: 'name',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                        },
+                      },
+                      {
+                        title: 'product.Storecode',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        },
+                      },
+                      {
+                        title: 'product.SupplierName',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'product.Revenue',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'product.Status',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+
+                    ]}
+                    searchPlaceholder='Tìm kiếm theo mã đơn hàng'
+                    rightHeader={
+                      <div className='flex justify-end text-left flex-col w-full '>
+                        <Form
+                          className="intro-x flex justify-end"
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'supplierName',
+                                formItem: {
+                                  placeholder: 'Chọn trạng thái',
+                                  type: 'select',
+                                  tabIndex: 3,
+                                  col: 6,
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.supplier?.name,
+                                      value: item.supplier?.id,
+                                    })
+                                  }
                                 }
-                              }
+                              },
+                              {
+                                title: '',
+                                name: 'supplierName',
+                                formItem: {
+                                  placeholder: 'Chọn nhà cung cấp',
+                                  type: 'select',
+                                  tabIndex: 3,
+                                  col: 6,
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.supplier?.name,
+                                      value: item.supplier?.id,
+                                    })
+                                  }
+                                }
+                              },
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                        <Form
+                          className='intro-x rounded-lg w-full flex justify-between'
+                          columns={[
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>Từ ngày</p>
+                                  </div>
+                                )
+                              },
                             },
-                          ]
-                        }
-                        disableSubmit={isLoading}
-                      />
-                      <Form
-                        className='intro-x rounded-lg w-full flex justify-between'
-                        columns={[
-                          {
-                            title: '',
-                            name: '',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 2,
-                              render: () => (
-                                <div className='flex h-10 items-center !w-full'>
-                                  <p className='text-sm'>Từ ngày</p>
-                                </div>
-                              )
+                            {
+                              title: '',
+                              name: 'StartDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'Chọn thời điểm',
+                              },
                             },
-                          },
-                          {
-                            title: '',
-                            name: 'StartDate',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 4,
-                              type: 'date',
-                              placeholder: 'Chọn thời điểm',
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>Đến ngày</p>
+                                  </div>
+                                )
+                              },
                             },
-                          },
-                          {
-                            title: '',
-                            name: '',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 2,
-                              render: () => (
-                                <div className='flex h-10 items-center !w-full'>
-                                  <p className='text-sm'>Đến ngày</p>
-                                </div>
-                              )
+                            {
+                              title: '',
+                              name: 'EndDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'Chọn thời điểm',
+                              },
                             },
-                          },
-                          {
-                            title: '',
-                            name: 'EndDate',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 4,
-                              type: 'date',
-                              placeholder: 'Chọn thời điểm',
-                            },
-                          },
-                        ]}
-                      />
-                    </div>
-                  }
-                />
+                          ]}
+                        />
+                      </div>
+                    }
+                    bottomHeader={
+                      <div>
+                        <Form
+                          className="intro-x pt-5 rounded-lg flex "
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'cap1',
+                                formItem: {
+                                  tabIndex: 3,
+                                  placeholder: 'Danh mục chính',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap2', 'cap3'])
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap2',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'Danh mục cấp 1',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap1,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap3'])
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap3',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'Danh mục cấp 2',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap2,
+                                    })
+                                  }
+                                },
+                              },
+
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                      </div>
+                    }
+                  />
                 }
 
                 <div className='flex sm:justify-end justify-center items-center p-5'>
