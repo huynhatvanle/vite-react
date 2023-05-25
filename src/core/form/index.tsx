@@ -11,6 +11,7 @@ import { FormItem, FormModel } from '@models';
 import { GlobalFacade } from '@store';
 import { Check, Times } from '@svgs';
 import { Chips, SelectTag, Select, TreeSelect, TableTransfer, Password, Mask, Addable, DatePicker, Tab } from './input';
+import ReactNode from 'react';
 
 export const Form = ({
   className,
@@ -23,6 +24,7 @@ export const Form = ({
   widthLabel,
   checkHidden = false,
   extendForm,
+  extendForm1,
   extendButton,
   extendButtonChangePassword,
   idSubmit = 'idSubmit',
@@ -332,7 +334,7 @@ export const Form = ({
             switch (rule.type) {
               case 'required':
                 if (!rule.message) {
-                  rule.message = t('components.form.ruleRequired');
+                  rule.message = t('components.form.ruleRequired', { title: t(item.title).toLowerCase() });
                 }
                 rules.push({
                   required: true,
@@ -345,9 +347,9 @@ export const Form = ({
                   });
                 }
                 break;
-              case 'required1':
+              case 'requiredSelect':
                 if (!rule.message) {
-                  rule.message = t('components.form.ruleRequired');
+                  rule.message = t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() });
                 }
                 rules.push({
                   required: true,
@@ -356,7 +358,22 @@ export const Form = ({
                 if (!item.formItem.type) {
                   rules.push({
                     whitespace: true,
-                    message: t('components.form.ruleRequired'),
+                    message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+                  });
+                }
+                break;
+              case 'requiredPassword':
+                if (!rule.message) {
+                  rule.message = t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() });
+                }
+                rules.push({
+                  required: true,
+                  message: rule.message,
+                });
+                if (!item.formItem.type) {
+                  rules.push({
+                    whitespace: true,
+                    message: t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() }),
                   });
                 }
                 break;
@@ -532,6 +549,16 @@ export const Form = ({
             },
           }));
           break;
+        case 'name':
+          rules.push(() => ({
+            validator(_: any, value: any) {
+              if (!value || /^[a-zA-Z]+$/.test(value)) {
+                return Promise.resolve();
+              }
+              return Promise.reject(t('components.form.only text'));
+            },
+          }));
+          break;
         case 'password':
           rules.push(() => ({
             validator: async (rule: any, value: any) => {
@@ -544,7 +571,9 @@ export const Form = ({
                 if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value)) {
                   return Promise.resolve();
                 } else {
-                  return Promise.reject('Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt');
+                  return Promise.reject(
+                    'Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt',
+                  );
                 }
               } else {
                 return Promise.resolve();
@@ -553,9 +582,7 @@ export const Form = ({
           }));
           break;
         case 'passConfirm':
-          rules.push(() => ({
-          }),
-          );
+          rules.push(() => ({}));
           break;
         case 'only_number':
           rules.push(() => ({
@@ -606,7 +633,7 @@ export const Form = ({
 
   const handFinish = (values: any) => {
     values = convertFormValue(columns, values);
-    handSubmit && handSubmit(values) || extendButtonChangePassword && extendButtonChangePassword(values);
+    (handSubmit && handSubmit(values)) || (extendButtonChangePassword && extendButtonChangePassword(values));
   };
 
   return (
@@ -635,7 +662,7 @@ export const Form = ({
         }
       }}
     >
-      <div className={'group-input'}>
+      <div className={'group-input p-5'}>
         <div className={'grid gap-x-5 grid-cols-12'}>
           {_columns.map(
             (column: any, index: number) =>
@@ -660,8 +687,9 @@ export const Form = ({
               ),
           )}
         </div>
-
+        {extendForm1}
         {extendForm && extendForm(values)}
+
       </div>
 
       <div
@@ -721,7 +749,8 @@ type Type = {
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?: (values: any) => JSX.Element;
+  extendForm?: ((values: any) => JSX.Element);
+  extendForm1?: JSX.Element;
   extendButton?: (values: any) => JSX.Element;
   extendButtonChangePassword?: (values: any) => void;
   idSubmit?: string;

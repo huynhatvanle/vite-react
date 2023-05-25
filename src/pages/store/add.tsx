@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Form } from '@core/form';
 import { routerLinks } from '@utils';
-import { DistrictFacade, ProvinceFacade, StoreFacade, WardFacade, StoreManagement } from '@store';
+import { DistrictFacade, ProvinceFacade, StoreFacade, WardFacade } from '@store';
 import { Switch } from 'antd';
+import { Button } from '@core/button';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -13,26 +14,32 @@ const Page = () => {
   const navigate = useNavigate();
   const isReload = useRef(false);
 
-  // const provinceFacade = ProvinceFacade()
-  // const { result } = provinceFacade
-
-  // const districtFacade = DistrictFacade()
-  // const wardFacade = WardFacade()
-
-  const data = StoreManagement
-
   const storeFace = StoreFacade();
-  const { isLoading, queryParams } = storeFace;
+  const { isLoading, queryParams, status, data } = storeFace;
   const param = JSON.parse(queryParams || '{}');
 
-  // useEffect(() => {
-  //   if (!result?.data) provinceFacade.get({})
-  //   // districtFacade.get('12')
-  // }, []);
+  useEffect(() => {
+    storeFace.set({ data: undefined });
+    return () => {
+      isReload.current && storeFace.get(param);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (status === 'post.fulfilled')
+      navigate(routerLinks('Store'))
+  }, [status]);
 
   const handleBack = () => navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString());
+
   const handleSubmit = (values: any) => {
     storeFace.post(values);
+  };
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleClick = () => {
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -40,22 +47,21 @@ const Page = () => {
       <div className='text-xl text-teal-900 px-5 pt-3.5 font-bold bg-white w-max rounded-t-2xl'>
         Thông tin cửa hàng
       </div>
-      <div className='p-5 bg-white'>
-        {/* {!!result?.data && */}
+      <div className='bg-white'>
         <Form
           values={{ ...data }}
           columns={[
             {
-              title: 'Tên cửa hàng',
+              title: 'store.Name',
               name: 'name',
               formItem: {
                 tabIndex: 1,
                 col: 6,
-                rules: [{ type: 'required' }],
+                rules: [{ type: 'required' },],
               },
             },
             {
-              title: 'Số fax',
+              title: 'store.Fax',
               name: 'fax',
               formItem: {
                 tabIndex: 2,
@@ -74,140 +80,185 @@ const Page = () => {
                 },
               }
             },
-            {
-              title: 'Tỉnh/Thành phố',
-              name: 'provinceId',
-              formItem: {
-                tabIndex: 3,
-                col: 3,
-                type: 'select',
-                rules: [{ type: 'required' }],
-                get: {
-                  facade: ProvinceFacade,
-                  format: (item: any) => ({
-                    label: item.name,
-                    value: item.id + '|' + item.code,
-                  }),
-                },
-                onChange(value, form) {
-                  form.resetFields(['districtId', 'wardId'])
-                },
-              },
-            },
-            {
-              name: 'districtId',
-              title: 'Quận/Huyện',
-              formItem: {
-                type: 'select',
-                rules: [{ type: 'required' }],
-                col: 3,
-                get: {
-                  facade: DistrictFacade,
-                  format: (item: any) => ({
-                    label: item.name,
-                    value: item.id + '|' + item.code,
-                  }),
-                  params: (fullTextSearch, value) => ({
-                    fullTextSearch,
-                    code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
-                  }),
-                },
-                onChange(value, form) {
-                  form.resetFields(['wardId'])
+              {
+                title: 'store.Province',
+                name: 'provinceId',
+                formItem: {
+                  tabIndex: 3,
+                  col: 3,
+                  type: 'select',
+                  rules: [{ type: 'requiredSelect' }],
+                  get: {
+                    facade: ProvinceFacade,
+                    format: (item: any) => ({
+                      label: item.name,
+                      value: item.id + '|' + item.code,
+                    }),
+                  },
+                  onChange(value, form) {
+                    form.resetFields(['districtId', 'wardId'])
+                  },
                 },
               },
-            },
-            {
-              name: 'wardId',
-              title: 'Phường/Xã',
-              formItem: {
-                type: 'select',
-                rules: [{ type: 'required' }],
-                col: 3,
-                get: {
-                  facade: WardFacade,
-                  format: (item: any) => ({
-                    label: item.name,
-                    value: item.id,
-                  }),
-                  params: (fullTextSearch, value) => ({
-                    fullTextSearch,
-                    code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                  })
+              {
+                name: 'districtId',
+                title: 'store.District',
+                formItem: {
+                  type: 'select',
+                  rules: [{ type: 'requiredSelect' }],
+                  col: 3,
+                  get: {
+                    facade: DistrictFacade,
+                    format: (item: any) => ({
+                      label: item.name,
+                      value: item.id + '|' + item.code,
+                    }),
+                    params: (fullTextSearch, value) => ({
+                      fullTextSearch,
+                      code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
+                    }),
+                  },
+                  onChange(value, form) {
+                    form.resetFields(['wardId'])
+                  },
+                },
+              },
+              {
+                name: 'wardId',
+                title: 'store.Ward',
+                formItem: {
+                  type: 'select',
+                  rules: [{ type: 'requiredSelect' }],
+                  col: 3,
+                  get: {
+                    facade: WardFacade,
+                    format: (item: any) => ({
+                      label: item.name,
+                      value: item.id,
+                    }),
+                    params: (fullTextSearch, value) => ({
+                      fullTextSearch,
+                      code: value().districtId.slice(value().districtId.indexOf('|') + 1),
+                    })
+                  }
+                },
+              },
+              {
+                name: 'street',
+                title: 'store.Street',
+                formItem: {
+                  rules: [{ type: 'required' }],
+                  col: 3,
+                },
+              },
+              {
+                title: '',
+                name: '',
+                formItem: {
+                  render() {
+                    return (
+                      <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
+                    )
+                  }
                 }
               },
-            },
-            {
-              name: 'street',
-              title: 'Địa chỉ cụ thể',
-              formItem: {
-                rules: [{ type: 'required' }],
-                col: 3,
+              {
+                name: 'nameContact',
+                title: 'store.ContactName',
+                formItem: {
+                  col: 4,
+                  rules: [{ type: 'required' }],
+                },
               },
-            },
-            {
-              title: '',
-              name: '',
-              formItem: {
-                render() {
-                  return (
-                    <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
-                  )
-                }
-              }
-            },
-            {
-              name: 'nameContact',
-              title: 'Họ tên đại diện',
-              formItem: {
-                col: 4,
-                rules: [{ type: 'required' }],
+              {
+                name: 'phoneNumber',
+                title: 'store.Contact Phone Number',
+                formItem: {
+                  col: 4,
+                  rules: [{ type: 'required' }],
+                },
               },
-            },
-            {
-              name: 'phoneNumber',
-              title: 'Số điện thoại đại diện',
-              formItem: {
-                col: 4,
-                rules: [{ type: 'required' }],
+              {
+                name: 'emailContact',
+                title: 'store.Contact Email',
+                formItem: {
+                  col: 4,
+                  rules: [{ type: 'required' }],
+                },
               },
-            },
-            {
-              name: 'emailContact',
-              title: 'Email đại diện',
-              formItem: {
-                col: 4,
-                rules: [{ type: 'required' }],
+              {
+                name: 'note',
+                title: 'store.Note',
+                formItem: {
+                  type: 'textarea',
+                },
               },
-            },
-            {
-              name: 'note',
-              title: 'Ghi chú',
-              formItem: {
-                type: 'textarea',
-              },
-            },
-            {
-              title: '',
-              name: '',
-              formItem: {
-                render() {
-                  return (
-                    <div className='flex items-center mb-2.5'>
-                      <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
-                      <Switch className='bg-gray-500' />
-                    </div>
-                  )
-                }
-              }
-            },
+            ]}
 
-          ]}
-          handSubmit={handleSubmit}
-          disableSubmit={isLoading}
-          handCancel={handleBack}
-        />
-        {/* } */}
+            extendForm1=
+            {<div className='flex items-center justify-between mb-2.5 '>
+              <div className='flex'>
+                <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
+                <Switch onClick={handleClick} />
+              </div>
+              {isChecked && (
+                <Button className='!font-normal' text={t('Lấy DS chi nhánh')}/>
+              )}
+            </div>}
+
+            extendForm=
+            {isChecked ? () => (
+              <Form
+                values={{ ...data }}
+                columns={[
+                  {
+                    title: 'client_id',
+                    name: 'clientid',
+                    formItem: {
+                      tabIndex: 1,
+                      col: 6,
+                      rules: [{ type: 'required' },],
+                    },
+                  },
+                  {
+                    title: 'client_secret',
+                    name: 'clientsecret',
+                    formItem: {
+                      tabIndex: 2,
+                      col: 6,
+                      rules: [{ type: 'required' },],
+                    },
+                  },
+                  {
+                    title: 'retailer',
+                    name: 'retailer',
+                    formItem: {
+                      tabIndex: 1,
+                      col: 6,
+                      rules: [{ type: 'required' },],
+                    },
+                  },
+                  {
+                    title: 'branchId',
+                    name: 'branchid',
+                    formItem: {
+                      tabIndex: 2,
+                      col: 6,
+                      rules: [{ type: 'required' },],
+                    },
+                  },
+                ]}
+
+              />
+            )
+              :
+              undefined
+            }
+
+            handSubmit={handleSubmit}
+            disableSubmit={isLoading}
+            handCancel={handleBack}
+          />
       </div>
     </div>
   );

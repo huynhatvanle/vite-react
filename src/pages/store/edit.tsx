@@ -1,14 +1,15 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import { Switch, Tabs } from 'antd';
+import { Input, Select, Switch, Tabs, Dropdown } from 'antd';
 
 import { routerLinks } from '@utils';
 import { Form } from '@core/form';
 import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, invoicekiotvietFacade } from '@store';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
-import { Download } from '@svgs';
+import { Arrow, Download } from '@svgs';
+
 
 const Page = () => {
   const { t } = useTranslation();
@@ -27,13 +28,18 @@ const Page = () => {
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
   const [supplier, setSupplier] = useState('')
+  // useEffect(() => {
+  //   console.log(supplier)
+  //   productFacede.get({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: supplier })
+  //   // return () => {
+  //   //   isReload.current && storeFacade.get(param);
+  //   // };
+  // }, [supplier]);
+
   useEffect(() => {
-    console.log(supplier)
-    productFacede.get({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: supplier })
-    // return () => {
-    //   isReload.current && storeFacade.get(param);
-    // };
-  }, [supplier]);
+    if (status === 'put.fulfilled')
+      navigate(routerLinks('Store'))
+  }, [status]);
 
   useEffect(() => {
     if (id) storeFacade.getById({ id });
@@ -41,22 +47,32 @@ const Page = () => {
     return () => {
       isReload.current && storeFacade.get(param);
     };
-  }, [id, data]);
+  }, [id]);
 
   const handleBack = () => navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: StoreManagement) => {
     storeFacade.put({ ...values, id });
   };
 
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleClick = () => {
+    setIsChecked(!isChecked);
+  };
+
+  const handleSelectChange = (value: any) => {
+    console.log(`Selected: ${value}`);
+  };
+
   return (
     <div className={'w-full'}>
       <Fragment>
-        <div>
+        <div className='tab-wrapper'>
           <Tabs defaultActiveKey='1' type='card' size='large'>
-          <Tabs.TabPane tab={'Thông tin cửa hàng'} key='1' className='bg-white rounded-xl rounded-tl-none'>
+            <Tabs.TabPane tab={'Thông tin cửa hàng'} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <Form
-                values={{ ...data, street: data?.address?.street,emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.name }}
-                className="intro-x p-6 pb-4 pt-3 rounded-lg w-full"
+                values={{ ...data, street: data?.address?.street, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name, provinceId: data?.address?.province?.id, districtId: data?.address?.district?.id, wardId: data?.address?.ward?.id, }}
+                className="intro-x rounded-lg w-full"
                 columns={[
                   {
                     title: 'store.Code',
@@ -102,8 +118,9 @@ const Page = () => {
                     formItem: {
                       tabIndex: 3,
                       col: 3,
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'requiredSelect' }],
                       type: 'select',
+
                       get: {
                         facade: ProvinceFacade,
                         format: (item: any) => ({
@@ -121,7 +138,7 @@ const Page = () => {
                     name: 'districtId',
                     formItem: {
                       type: 'select',
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'requiredSelect' }],
                       col: 3,
                       get: {
                         facade: DistrictFacade,
@@ -144,7 +161,7 @@ const Page = () => {
                     name: 'wardId',
                     formItem: {
                       type: 'select',
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'requiredSelect' }],
                       col: 3,
                       get: {
                         facade: WardFacade,
@@ -209,28 +226,110 @@ const Page = () => {
                       type: 'textarea',
                     },
                   },
-                  {
-                    title: '',
-                    name: '',
-                    formItem: {
-                      render() {
-                        return (
-                          <div className='flex items-center mb-2.5'>
-                            <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
-                            <Switch className='bg-gray-500' />
-                          </div>
-                        )
-                      }
-                    }
-                  },
-
                 ]}
+
+                extendForm1=
+                {<div className='flex items-center justify-between mb-2.5 '>
+                  <div className='flex'>
+                    <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
+                    <Switch onClick={handleClick} />
+                  </div>
+                  {isChecked && (
+                    <Button className='!font-normal' text={t('Lấy DS chi nhánh')} />
+                  )}
+                </div>}
+
+                extendForm=
+                {isChecked ? (values: any) => (
+                  <Form
+                    values={{ ...data }}
+                    columns={[
+                      {
+                        title: 'client_id',
+                        name: 'clientid',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 6,
+                          rules: [{ type: 'required' },],
+                        },
+                      },
+                      {
+                        title: 'client_secret',
+                        name: 'clientsecret',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 6,
+                          rules: [{ type: 'required' },],
+                        },
+                      },
+                      {
+                        title: 'retailer',
+                        name: 'retailer',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 6,
+                          rules: [{ type: 'required' },],
+                        },
+                      },
+                      {
+                        title: 'branchId',
+                        name: 'branchid',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 6,
+                          rules: [{ type: 'required' }],
+                        },
+                      },
+                    ]}
+                  />
+                )
+                  :
+                  undefined
+                }
+
                 handSubmit={handleSubmit}
                 disableSubmit={isLoading}
                 handCancel={handleBack}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Danh sách hàng hóa' key='2' className='rounded-xl'>
+
+            <Tabs.TabPane tab={
+              <Dropdown trigger={['click']}
+                className='!rounded-xl'
+                menu={{
+                  items: [
+                    {
+                      key: '1',
+                      className: '!font-semibold !text-base !text-teal-900',
+                      label: (
+                        <div className='focus:!text-white'>
+                          BALANCE
+                        </div>
+                      ),
+                    },
+                    {
+                      key: '2',
+                      className: '!font-semibold !text-base !text-teal-900',
+                      label: (
+                        <div>
+                          Non - BALANCE
+                        </div>
+                      ),
+                    },
+                  ]
+                }}
+              >
+
+                <section className="flex items-center" id={'dropdown-store'}>
+                  <div className="flex">
+                    <h2>Danh sách hàng hóa</h2>
+                    <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
+                  </div>
+                </section>
+              </Dropdown>
+            }
+              key='2' className='rounded-xl'>
+
               <DataTable
                 facade={productFacede}
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' }}
@@ -299,7 +398,7 @@ const Page = () => {
                     title: 'product.Price',
                     name: 'productPrice',
                     tableItem: {
-                      render: (text, item) => item.productPrice[0] ? item.productPrice[0]?.price.toLocaleString() : '0'
+                      render: (text, item) => parseInt(item.productPrice[0] ? item.productPrice[0]?.price : '0').toLocaleString()
                     },
                   },
                 ]}
@@ -313,7 +412,7 @@ const Page = () => {
                   <div className={'flex h-10 w-36 mt-6'}>
                     {
                       <Button
-                        className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group'
+                        className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0'
                         icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
                         text={t('Xuất file excel')}
                         onClick={() => navigate(routerLinks('Supplier/Excel'))}
@@ -323,118 +422,120 @@ const Page = () => {
                 }
                 leftHeader={
                   <>
-                   <Form
-                    className="intro-x pt-5 rounded-lg w-full "
-                    columns={
-                      [
-                        {
-                          title: '',
-                          name: 'supplierName',
-                          formItem: {
-                            placeholder: 'Chọn nhà cung cấp',
-                            col: 5,
-                            type: 'select',
-                            get: {
-                              facade: SupplierStoreFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                              params: (fullTextSearch) => ({
-                                fullTextSearch,
-                                storeId: id,
-                                type : 'BALANCE',
-                              }),
-                            },
-                            onChange(value, form) {
-                              setSupplier(`${value}`)
-                            },
-                          },
-                        },
-                      ]
-                    }
-                    // handSubmit={handleSubmit}
-                    disableSubmit={isLoading}
-                  />
-                  <Form
-                    className="intro-x pt-5 rounded-lg w-full "
-                    columns={
-                      [
-                        {
-                          title: '',
-                          name: 'cap1',
-                          formItem: {
-                            tabIndex: 3,
-                            placeholder: 'Danh mục chính',
-                            col: 3,
-                            type: 'select',
-                            get: {
-                              facade: CategoryFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                            },
-                            onChange(value, form) {
-                              form.resetFields(['cap2', 'cap3'])
+                    <Form
+                      className="intro-x rounded-lg w-full"
+                      columns={
+                        [
+                          {
+                            title: '',
+                            name: 'supplierName',
+                            formItem: {
+                              placeholder: 'Chọn nhà cung cấp',
+                              col: 5,
+                              type: 'select',
+                              get: {
+                                facade: SupplierStoreFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                                params: (fullTextSearch) => ({
+                                  fullTextSearch,
+                                  storeId: id,
+                                  type: 'BALANCE',
+                                }),
+                              },
+                              onChange(value, form) {
+                                setSupplier(`${value}`)
+                              },
                             },
                           },
-                        },
-                        {
-                          name: 'cap2',
-                          title: '',
-                          formItem: {
-                            // disabled:() => true,
-                            placeholder: 'Danh mục cấp 1',
-                            type: 'select',
-                            col: 3,
-                            get: {
-                              facade: CategoryFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                              params: (fullTextSearch, value) => ({
-                                fullTextSearch,
-                                id: value().cap1,
-                              }),
-                            },
-                            onChange(value, form) {
-                              form.resetFields(['cap3'])
+                        ]
+                      }
+                      // handSubmit={handleSubmit}
+                      disableSubmit={isLoading}
+                    />
+                    <Form
+                      className="intro-x rounded-lg w-full "
+                      columns={
+                        [
+                          {
+                            title: '',
+                            name: 'cap1',
+                            formItem: {
+                              tabIndex: 3,
+                              placeholder: 'Danh mục chính',
+                              col: 3,
+                              type: 'select',
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                              },
+                              onChange(value, form) {
+                                form.resetFields(['cap2', 'cap3'])
+                              },
                             },
                           },
-                        },
-                        {
-                          name: 'cap3',
-                          title: '',
-                          formItem: {
-                            // disabled:() => true,
-                            placeholder: 'Danh mục cấp 2',
-                            type: 'select',
-                            col: 3,
-                            get: {
-                              facade: CategoryFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                              params: (fullTextSearch, value) => ({
-                                fullTextSearch,
-                                id: value().cap2,
-                              })
-                            }
+                          {
+                            name: 'cap2',
+                            title: '',
+                            formItem: {
+                              // disabled:() => true,
+                              placeholder: 'Danh mục cấp 1',
+                              type: 'select',
+                              col: 3,
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                                params: (fullTextSearch, value) => ({
+                                  fullTextSearch,
+                                  id: value().cap1,
+                                }),
+                              },
+                              onChange(value, form) {
+                                form.resetFields(['cap3'])
+                              },
+                            },
                           },
-                        },
-                      ]
-                    }
-                    // handSubmit={handleSubmit}
-                    disableSubmit={isLoading}
+                          {
+                            name: 'cap3',
+                            title: '',
+                            formItem: {
+                              // disabled:() => true,
+                              placeholder: 'Danh mục cấp 2',
+                              type: 'select',
+                              col: 3,
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                                params: (fullTextSearch, value) => ({
+                                  fullTextSearch,
+                                  id: value().cap2,
+                                })
+                              }
+                            },
+                          },
 
-                  />
+                        ]
+                      }
+                      // handSubmit={handleSubmit}
+                      disableSubmit={isLoading}
+                    />
                   </>
                 }
               />
+
             </Tabs.TabPane>
+
             <Tabs.TabPane tab='Danh sách chi nhánh' key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
@@ -497,7 +598,42 @@ const Page = () => {
                 ]}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Quản lý NCC' key='4' className='rounded-xl'>
+            <Tabs.TabPane
+              tab={
+                <Dropdown trigger={['click']}
+                  className='rounded-xl'
+                  menu={{
+                    items: [
+                      {
+                        key: '0',
+                        className: '!font-semibold !text-base !text-teal-900',
+                        label: (
+                          <div >
+                            BALANCE
+                          </div>
+                        ),
+                      },
+                      {
+                        key: '1',
+                        className: '!font-semibold !text-base !text-teal-900',
+                        label: (
+                          <div>
+                            Non - BALANCE
+                          </div>
+                        ),
+                      },
+                    ]
+                  }}
+                >
+                  <section className="flex items-center" id={'dropdown-profile'}>
+                    <div className="flex">
+                      <h2>Quản lý NCC</h2>
+                      <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
+                    </div>
+                  </section>
+                </Dropdown>
+              }
+              key='4' className='rounded-xl'>
               <DataTable
                 facade={connectSupplierFacade}
                 defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
@@ -553,7 +689,42 @@ const Page = () => {
                 ]}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Doanh thu' key='5' className='rounded-xl'>
+            <Tabs.TabPane
+              tab={
+                <Dropdown trigger={['click']}
+                  className='rounded-xl'
+                  menu={{
+                    items: [
+                      {
+                        key: '0',
+                        className: '!font-semibold !text-base !text-teal-900',
+                        label: (
+                          <div >
+                            BALANCE
+                          </div>
+                        ),
+                      },
+                      {
+                        key: '1',
+                        className: '!font-semibold !text-base !text-teal-900',
+                        label: (
+                          <div>
+                            Non - BALANCE
+                          </div>
+                        ),
+                      },
+                    ]
+                  }}
+                >
+                  <section className="flex items-center" id={'dropdown-profile'}>
+                    <div className="flex">
+                      <h2>Doạnh Thu</h2>
+                      <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
+                    </div>
+                  </section>
+                </Dropdown>
+              }
+              key='5' className='rounded-xl'>
               <DataTable
                 facade={invoicevietFacade.data}
                 defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
@@ -571,35 +742,35 @@ const Page = () => {
                 }
                 leftHeader={
                   <Form
-                  className="intro-x rounded-lg w-full "
-                  columns={
-                    [
-                      {
-                        title: '',
-                        name: 'supplierName',
-                        formItem: {
-                        //  tabIndex: 1,
-                          placeholder: 'Chọn loại đơn hàng',
-                          col: 7,
-                          type: 'select',
-                          get: {
-                            facade:  ConnectSupplierFacade,
-                            format: (item: any) => ({
-                              label: item.supplier?.name,
-                              value: item.supplier?.id,
-                            }),
-                            // params: (fullTextSearch: string, getFieldValue: any) => ({
-                            //   fullTextSearch,
-                            //   extend: { name: getFieldValue('supplierName') || undefined },
-                            // }),
-                          }
+                    className="intro-x rounded-lg w-full "
+                    columns={
+                      [
+                        {
+                          title: '',
+                          name: 'supplierName',
+                          formItem: {
+                            //  tabIndex: 1,
+                            placeholder: 'Chọn loại đơn hàng',
+                            col: 7,
+                            type: 'select',
+                            get: {
+                              facade: ConnectSupplierFacade,
+                              format: (item: any) => ({
+                                label: item.supplier?.name,
+                                value: item.supplier?.id,
+                              }),
+                              // params: (fullTextSearch: string, getFieldValue: any) => ({
+                              //   fullTextSearch,
+                              //   extend: { name: getFieldValue('supplierName') || undefined },
+                              // }),
+                            }
+                          },
                         },
-                      },
-                    ]
-                  }
-                  // handSubmit={handleSubmit}
-                  disableSubmit={isLoading}
-                />
+                      ]
+                    }
+                    // handSubmit={handleSubmit}
+                    disableSubmit={isLoading}
+                  />
                 }
                 columns={[
                   {
@@ -642,7 +813,7 @@ const Page = () => {
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab='Quản lý kho' key='6' className='rounded-xl'>
-            <DataTable
+              <DataTable
                 facade={inventoryProductFacade.data?.inventory}
                 defaultRequest={{ page: 1, perPage: 10, idStore: id }}
                 xScroll='1440px'
@@ -673,12 +844,12 @@ const Page = () => {
                           title: '',
                           name: 'supplierName',
                           formItem: {
-                          //  tabIndex: 1,
+                            //  tabIndex: 1,
                             placeholder: 'Chọn nhà cung cấp',
                             col: 7,
                             type: 'select',
                             get: {
-                              facade:  ConnectSupplierFacade,
+                              facade: ConnectSupplierFacade,
                               format: (item: any) => ({
                                 label: item.supplier?.name,
                                 value: item.supplier?.id,
@@ -780,8 +951,8 @@ const Page = () => {
             </Tabs.TabPane>
           </Tabs>
         </div>
-      </Fragment>
-    </div>
+      </Fragment >
+    </div >
   );
 };
 export default Page;

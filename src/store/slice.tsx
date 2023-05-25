@@ -114,11 +114,13 @@ export class Slice<T extends CommonEntity> {
           },
         )
         .addCase(action.put.fulfilled, (state: State<T>, action: PayloadAction<T>) => {
+          console.log(action)
           if (action.payload) {
             if (JSON.stringify(state.data) !== JSON.stringify(action.payload)) state.data = action.payload;
             state.isVisible = false;
             state.status = 'put.fulfilled';
           } else state.status = 'idle';
+          console.log(state.status, state, state.result?.statusCode)
           state.isLoading = false;
         })
         .addCase(action.put.rejected, (state: State) => {

@@ -88,7 +88,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: any) => {
             if (!item.child) {
               return (
                 <li
-                  className={classNames('flex items-center text-gray-300 h-11 m-3 px-2 relative', {
+                  className={classNames('flex items-center text-gray-300 h-11 m-3 px-2 relative cursor-pointer py-1', {
                     'bg-teal-700 text-white !fill-gray-300 rounded-2xl opacity-100': location.pathname === routerLinks(item.name),
                     'fill-gray-300': location.pathname !== routerLinks(item.name),
                     'justify-center': isCollapsed,
@@ -100,7 +100,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: any) => {
                   {/* {item.icon} */}
                   <div className={classNames({'absolute': isCollapsed })}>{item.icon}</div>
                   <span
-                    className={classNames('ml-2.5 transition-all duration-300 ease-in-out font-medium text-base ', {
+                    className={classNames('ml-2.5 transition-all duration-300 ease-in-out font-medium text-base', {
                       'opacity-100': !isCollapsed,
                       'opacity-0 text-[0] ml-0': isCollapsed,
                     })}
