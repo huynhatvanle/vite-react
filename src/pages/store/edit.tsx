@@ -767,7 +767,9 @@ const Page = () => {
                 </Dropdown>
               }
               key='5' className='rounded-xl'>
+
               <div className='px-5 pt-6 pb-4 bg-white p-5 rounded-lg'>
+                {isBalanceClicked ?
                 <DataTable
                   facade={invoicevietFacade.data}
                   defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
@@ -900,6 +902,141 @@ const Page = () => {
                     </div>
                   }
                 />
+              :
+              <DataTable
+                  facade={invoicevietFacade.data}
+                  defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
+                  xScroll='1440px'
+                  onRow={(data: any) => ({
+                    onDoubleClick: () => {
+                      navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                    },
+                  })}
+                  pageSizeRender={(sizePage: number) => sizePage}
+                  pageSizeWidth={'50px'}
+                  paginationDescription={(from: number, to: number, total: number) =>
+                    t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                  }
+                  columns={[
+                    {
+                      title: 'supplier.CodeName',
+                      name: 'supplier',
+                      tableItem: {
+                        width: 150,
+                        render: (value: any, item: any) => item.supplier?.code,
+                      },
+                    },
+                    {
+                      title: 'supplier.Name',
+                      name: 'supplier',
+                      tableItem: {
+                        render: (value: any, item: any) => item.supplier?.name,
+                      },
+                    },
+                    {
+                      title: 'store.Address',
+                      name: 'supplier',
+                      tableItem: {
+                        render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                      },
+                    },
+                    {
+                      title: 'store.Name management',
+                      name: 'supplier',
+                      tableItem: {
+                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                      },
+                    },
+                    {
+                      title: 'store.Phone Number',
+                      name: 'supplier',
+                      tableItem: {
+                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                      },
+                    },
+                  ]}
+                  searchPlaceholder='Tìm kiếm theo mã đơn hàng'
+                  rightHeader={
+                    <div className='flex justify-end text-left flex-col'>
+                      <Form
+                        className="intro-x flex justify-end"
+                        columns={
+                          [
+                            {
+                              title: '',
+                              name: 'supplierName',
+                              formItem: {
+                                placeholder: 'Chọn loại đơn hàng',
+                                type: 'select',
+                                get: {
+                                  facade: ConnectSupplierFacade,
+                                  format: (item: any) => ({
+                                    label: item.supplier?.name,
+                                    value: item.supplier?.id,
+                                  })
+                                }
+                              }
+                            },
+                          ]
+                        }
+                        disableSubmit={isLoading}
+                      />
+                      <Form
+                        className='intro-x rounded-lg w-full flex justify-between'
+                        columns={[
+                          {
+                            title: '',
+                            name: '',
+                            formItem: {
+                              tabIndex: 3,
+                              col: 2,
+                              render: () => (
+                                <div className='flex h-10 items-center !w-full'>
+                                  <p className='text-sm'>Từ ngày</p>
+                                </div>
+                              )
+                            },
+                          },
+                          {
+                            title: '',
+                            name: 'StartDate',
+                            formItem: {
+                              tabIndex: 3,
+                              col: 4,
+                              type: 'date',
+                              placeholder: 'Chọn thời điểm',
+                            },
+                          },
+                          {
+                            title: '',
+                            name: '',
+                            formItem: {
+                              tabIndex: 3,
+                              col: 2,
+                              render: () => (
+                                <div className='flex h-10 items-center !w-full'>
+                                  <p className='text-sm'>Đến ngày</p>
+                                </div>
+                              )
+                            },
+                          },
+                          {
+                            title: '',
+                            name: 'EndDate',
+                            formItem: {
+                              tabIndex: 3,
+                              col: 4,
+                              type: 'date',
+                              placeholder: 'Chọn thời điểm',
+                            },
+                          },
+                        ]}
+                      />
+                    </div>
+                  }
+                />
+                }
+
                 <div className='flex sm:justify-end justify-center items-center p-5'>
                   <Button
                     disabled={true}
