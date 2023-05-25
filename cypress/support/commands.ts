@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import slug from 'slug';
+import dayjs from 'dayjs';
 
 Cypress.Commands.add(
   'iframe', // @ts-ignore
@@ -32,6 +33,9 @@ Cypress.Commands.add('typeRandom', { prevSubject: 'element' }, (element, text, t
           break;
         case 'color':
           text = text.replace(random, faker.color.rgb({ casing: 'upper' }));
+          break;
+        case 'date':
+          text = text.replace(random, dayjs(faker.date.anytime()).format('DD-MM-YYYY'));
           break;
         default:
           text = text.replace(random, faker.word.sample());

@@ -8,12 +8,14 @@ export default class Common {
     tableByName: (val: string) => cy.get('.ant-table-cell').contains(val),
     buttonTableByName: (val: string, text: string) =>
       this.elements.tableByName(val).parents('tr').find(`button`).contains(text),
-    buttonConfirmPopover: () => cy.get('.ant-popover-buttons .ant-btn-primary').should('be.visible'),
+    buttonConfirmPopover: () => cy.get('.ant-popover .ant-btn-primary').should('be.visible'),
     messageSwal2: () => cy.get('div#swal2-html-container').should('be.visible'),
 
     forItemByName: (name: string) =>
       cy.contains('.ant-form-item-label > label', name).parent().parent().should('be.visible'),
     inputByName: (name: string) => this.elements.forItemByName(name).find('input').should('be.visible'),
+    pickerInputByName: (name: string) =>
+      this.elements.forItemByName(name).find('.ant-picker-input input').should('be.visible'),
     textareaByName: (name: string) => this.elements.forItemByName(name).find('textarea').should('be.visible'),
     switchByName: (name: string) => this.elements.forItemByName(name).find('nz-switch').should('be.visible'),
     radioByName: (name: string, text: string) =>
@@ -51,8 +53,7 @@ export default class Common {
       this.elements.buttonTableByName(val, text).click({ force: true });
       cy.wait(0).then(
         () =>
-          cy.$$('.ant-popover-buttons .ant-btn-primary').length &&
-          this.elements.buttonConfirmPopover().click({ force: true }),
+          cy.$$('.ant-popover .ant-btn-primary').length && this.elements.buttonConfirmPopover().click({ force: true }),
       );
     };
     hand().then();
@@ -85,6 +86,8 @@ export default class Common {
     const input = this.elements.textareaByName(name).typeRandom(text, type);
     if (text) input.invoke('val').as(slug(name));
   };
+  typePickerInputByName = (name: string) =>
+    this.elements.pickerInputByName(name).click().typeRandom('_RANDOM_', 'date');
   clickSwitchByName = (name: string) => this.elements.switchByName(name).click();
   clickRadioByName = (text: string, name: string) => this.elements.radioByName(name, text).click();
   clickSelectByName = (name: string, text: string) => {

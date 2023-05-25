@@ -14,12 +14,15 @@ Feature: Login
       When Enter "text" in "Mật khẩu" with "Password1"
       When Enter "text" in "Nhập lại mật khẩu" with "Password1"
       When Enter "phone" in "Số điện thoại" with "_RANDOM_"
-#      When Enter "text" in "Ngày sinh" with "_RANDOM_"
+      When Enter date in "Ngày sinh"
       When Click select "Vị trí" with "Tester"
-#      When Enter "text" in "Ngày đầu đi làm" with "_RANDOM_"
+      When Enter date in "Ngày đầu đi làm"
       When Click select "Vai trò" with "Supper Admin"
-      When Enter "text" in textarea "Mô tả" with "_RANDOM_"
+      When Enter "words" in textarea "Mô tả" with "_RANDOM_"
+      When Click "Lưu lại" button
 
     Scenario: SI-01 Verify that login successfully with valid Email and Password
-      Then User look message "Thành công" popup
+      Then User look message "Tạo thành công" popup
+      When Click "Huỷ bỏ" button
+      When Click on the "Xóa" button in the "Email" table line
 

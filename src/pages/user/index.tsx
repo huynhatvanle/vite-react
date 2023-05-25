@@ -157,17 +157,16 @@ const Page = () => {
                 )}
 
                 {user?.role?.permissions?.includes(keyRole.P_USER_DELETE) && (
-                  <Tooltip title={t('routes.admin.Layout.Delete')}>
-                    <Popconfirm
-                      placement="left"
-                      title={t('components.datatable.areYouSureWant')}
-                      onConfirm={() => dataTableRef?.current?.handleDelete(data.id)}
-                      okText={t('components.datatable.ok')}
-                      cancelText={t('components.datatable.cancel')}
-                    >
-                      <Trash className="icon-cud bg-red-600 hover:bg-red-400" />
-                    </Popconfirm>
-                  </Tooltip>
+                  <Popconfirm
+                    placement="left"
+                    title={t('components.datatable.areYouSureWant')}
+                    onConfirm={() => dataTableRef?.current?.handleDelete(data.id)}
+                    okText={t('components.datatable.ok')}
+                    cancelText={t('components.datatable.cancel')}
+                  >
+                    <button>{t('routes.admin.Layout.Delete')}</button>
+                    {/*<Trash className="icon-cud bg-red-600 hover:bg-red-400" />*/}
+                  </Popconfirm>
                 )}
               </div>
             ),

@@ -14,6 +14,7 @@ Then('User look message "{}" popup', common.verifyMessageSwal2);
 
 When('Enter "{}" in "{}" with "{}"', common.typeInputByName);
 When('Enter "{}" in textarea "{}" with "{}"', common.typeTextareaByName);
+When('Enter date in "{}"', common.typePickerInputByName);
 When('Click switch "{}" to be activated', common.clickSwitchByName);
 When('Click radio "{}" in line "{}"', common.clickRadioByName);
 When('Click select "{}" with "{}"', common.clickSelectByName);
