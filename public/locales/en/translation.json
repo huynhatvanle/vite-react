@@ -264,6 +264,8 @@
     "Contact Email": "Representative email",
     "Note": "Note",
     "Name management": "Manager's name",
+    "Revenue by product":"Revenue by product",
+    "Revenue by order":"Revenue by order",
     "Inventory management": {
       "Product code": "Product code",
       "Barcode (Supplier)": "Supplier barcode",
@@ -276,6 +278,15 @@
       "Quantity on BALANCE": "Quantity on BALANCE",
       "Warehouse price": "Warehouse price",
       "Total amount": "Total amount"
+    },
+    "Revenue": {
+      "Serial number": "Serial number",
+      "Order code": "Order code",
+      "Sale date": "Sale date",
+      "Value (VND)": "Value (VND)",
+      "Discount (VND)": "Discount (VND)",
+      "Total amount (VND)": "Total amount (VND)",
+      "Order type": "Order type"
     }
   },
   "product": {

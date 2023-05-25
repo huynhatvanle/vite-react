@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, Ref, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Input, Select, Switch, Tabs, Dropdown } from 'antd';
@@ -9,6 +9,7 @@ import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagemen
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { Arrow, Download, Plus } from '@svgs';
+import { TableRefObject } from '@models';
 
 
 const Page = () => {
@@ -28,6 +29,8 @@ const Page = () => {
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
   const [supplier, setSupplier] = useState('')
+
+  const dataTableRef = useRef<TableRefObject>(null);
   // useEffect(() => {
   //   console.log(supplier)
   //   productFacede.get({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: supplier })
@@ -60,9 +63,7 @@ const Page = () => {
     setIsChecked(!isChecked);
   };
 
-  const handleSelectChange = (value: any) => {
-    console.log(`Selected: ${value}`);
-  };
+  const [isBalanceClicked, setIsBalanceClicked] = useState<boolean>(false);
 
   return (
     <div className={'w-full'}>
@@ -221,7 +222,7 @@ const Page = () => {
                     },
                   ]}
 
-                  extendForm1=
+                  extendFormSwitch=
                   {<div className='flex items-center justify-between mb-2.5 '>
                     <div className='flex'>
                       <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
@@ -295,7 +296,10 @@ const Page = () => {
                       key: '1',
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
-                        <div className='focus:!text-white'>
+                        <div onClick={() => {
+                          setIsBalanceClicked(false);
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' });
+                        }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                           BALANCE
                         </div>
                       ),
@@ -304,7 +308,10 @@ const Page = () => {
                       key: '2',
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
-                        <div>
+                        <div onClick={() => {
+                          setIsBalanceClicked(true);
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'NON_BALANCE' });
+                        }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                           Non - BALANCE
                         </div>
                       ),
@@ -312,7 +319,6 @@ const Page = () => {
                   ]
                 }}
               >
-
                 <section className="flex items-center" id={'dropdown-store'}>
                   <div className="flex">
                     <div>{t('titles.Listofgoods')}</div>
@@ -325,6 +331,7 @@ const Page = () => {
 
               <DataTable
                 facade={productFacede}
+                ref={dataTableRef}
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
@@ -384,7 +391,6 @@ const Page = () => {
                     title: 'product.Unit',
                     name: 'basicUnit',
                     tableItem: {
-
                     },
                   },
                   {
@@ -612,6 +618,7 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
+
             <Tabs.TabPane
               tab={
                 <Dropdown trigger={['click']}
@@ -622,7 +629,10 @@ const Page = () => {
                         key: '0',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div >
+                          <div onClick={() => {
+                            setIsBalanceClicked(false);
+                            dataTableRef?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id });
+                          }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             BALANCE
                           </div>
                         ),
@@ -631,7 +641,10 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div>
+                          <div onClick={() => {
+                            setIsBalanceClicked(true);
+                            dataTableRef?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'NON_BALANCE' });
+                          }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
                         ),
@@ -649,6 +662,7 @@ const Page = () => {
               }
               key='4' className='rounded-xl'>
               <DataTable
+                ref={dataTableRef}
                 facade={connectSupplierFacade}
                 defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
                 xScroll='1440px'
@@ -710,6 +724,7 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
+
             <Tabs.TabPane
               tab={
                 <Dropdown trigger={['click']}
@@ -718,10 +733,13 @@ const Page = () => {
                     items: [
                       {
                         key: '0',
-                        className: '!font-semibold !text-base !text-teal-900',
+                        className: '!font-semibold !text-base !text-teal-900 !w-full',
                         label: (
-                          <div >
-                            Doanh thu theo đơn hàng
+                          <div onClick={() => {
+                            setIsBalanceClicked(false);
+                            dataTableRef?.current?.onChange();
+                          }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
+                            {t('store.Revenue by product')}
                           </div>
                         ),
                       },
@@ -729,8 +747,11 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div>
-                            Doanh thu theo sản phẩm
+                          <div onClick={() => {
+                            setIsBalanceClicked(true);
+                            dataTableRef?.current?.onChange();
+                          }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
+                            {t('store.Revenue by order')}
                           </div>
                         ),
                       },
