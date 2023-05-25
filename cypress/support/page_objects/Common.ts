@@ -17,7 +17,7 @@ export default class Common {
     pickerInputByName: (name: string) =>
       this.elements.forItemByName(name).find('.ant-picker-input input').should('be.visible'),
     textareaByName: (name: string) => this.elements.forItemByName(name).find('textarea').should('be.visible'),
-    switchByName: (name: string) => this.elements.forItemByName(name).find('nz-switch').should('be.visible'),
+    switchByName: (name: string) => this.elements.forItemByName(name).find('.ant-switch').should('be.visible'),
     radioByName: (name: string, text: string) =>
       this.elements.forItemByName(name).find('.ant-radio-wrapper-in-form-item').contains(text).should('be.visible'),
     selectByName: (name: string) =>
@@ -34,7 +34,7 @@ export default class Common {
     buttonRightTransfer: () => cy.get(`.ant-transfer-operation button`).eq(1).should('be.visible'),
     treeSelectByName: (name: string) => this.elements.forItemByName(name).find('nz-tree-select').should('be.visible'),
     treeSelectSelectionTitle: (title: string) => cy.get(`.ant-select-tree-node-content-wrapper[title='${title}']`),
-    treeByName: (val: string) => cy.get('nz-tree-node-title[title="' + val + '"]  > .group'),
+    treeByName: (val: string) => cy.get('.ant-tree-node-content-wrapper[title="' + val + '"]  > .group'),
     removeTreeByName: (val: string) => this.elements.treeByName(val).find('.la-trash'),
   };
   getTag = async (name: string): Promise<string> =>
