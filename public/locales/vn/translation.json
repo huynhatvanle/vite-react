@@ -254,6 +254,8 @@
     "Contact Email": "Email đại diện",
     "Note": "Ghi chú",
     "Name management": "Tên quản lý",
+    "Revenue by product": "Doanh thu theo sản phẩm",
+    "Revenue by order": "Doanh thu theo đơn hàng",
     "Inventory management": {
       "Product code": "Mã sản phẩm",
       "Barcode (Supplier)": "Mã vạch (NCC)",
@@ -266,6 +268,15 @@
       "Quantity on BALANCE": "Số lượng trên BALANCE",
       "Warehouse price": "Giá kho",
       "Total amount": "Thành tiền"
+    },
+    "Revenue": {
+      "Serial number": "STT",
+      "Order code": "Mã đơn hàng",
+      "Sale date": "Ngày bán",
+      "Value (VND)": "Giá trị (VND)",
+      "Discount (VND)": "Khuyến mãi (VND)",
+      "Total amount (VND)": "Thành tiền (VND)",
+      "Order type": "Loại đơn"
     }
   },
   "product": {
