@@ -126,7 +126,6 @@ const Layout = ({ children }: PropsWithChildren) => {
                       <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
                         {t('routes.admin.Layout.My Profile')}
                       </div>
-                      <div>{t('routes.admin.Layout.My Profile')}</div>
                     </div>
                   ),
                 },

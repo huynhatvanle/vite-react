@@ -11,6 +11,7 @@ import { FormItem, FormModel } from '@models';
 import { GlobalFacade } from '@store';
 import { Check, Times } from '@svgs';
 import { Chips, SelectTag, Select, TreeSelect, TableTransfer, Password, Mask, Addable, DatePicker, Tab } from './input';
+import ReactNode from 'react';
 
 export const Form = ({
   className,
@@ -23,6 +24,7 @@ export const Form = ({
   widthLabel,
   checkHidden = false,
   extendForm,
+  extendForm1,
   extendButton,
   extendButtonChangePassword,
   idSubmit = 'idSubmit',
@@ -685,8 +687,9 @@ export const Form = ({
               ),
           )}
         </div>
-
+        {extendForm1}
         {extendForm && extendForm(values)}
+
       </div>
 
       <div
@@ -746,7 +749,8 @@ type Type = {
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?: (values: any) => JSX.Element;
+  extendForm?:  ((values: any) =>  JSX.Element );
+  extendForm1?:  JSX.Element;
   extendButton?: (values: any) => JSX.Element;
   extendButtonChangePassword?: (values: any) => void;
   idSubmit?: string;
