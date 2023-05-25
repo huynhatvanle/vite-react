@@ -21,7 +21,7 @@ export const Message = {
         showCancelButton,
         showConfirmButton,
         padding,
-        customClass: { 
+        customClass: {
           cancelButton: '!border !border-solid !border-teal-900 !bg-white !text-teal-900 hover:!bg-none'
         }
       }),
@@ -47,6 +47,9 @@ export const Message = {
         showCancelButton,
         showConfirmButton,
         padding,
+        customClass: {
+          cancelButton: '!border !border-solid !border-black-900 !rounded-lg !text-teal-900 !bg-white',
+        }
       }),
     ),
   error: ({
@@ -70,6 +73,9 @@ export const Message = {
         padding,
         focusCancel: showCancelButton,
         timer: 6000,
+        customClass: {
+          cancelButton: '!border !border-solid !border-black-900 !rounded-lg !text-teal-900 !bg-white',
+        }
       }),
     ),
   confirm: ({

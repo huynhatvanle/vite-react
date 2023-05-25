@@ -94,21 +94,31 @@
     "merchandise-managerment": "Inventory management",
     "merchandise-managerment/product": "Product",
     "merchandise-managerment/category": "Category",
-    "merchandise-managerment/tax": "Tax"
+    "merchandise-managerment/tax": "Tax",
+    "Storeinformation":"Store Information",
+    "Supplierinformation":"Supplier Information",
+    "Listofgoods":"List of goods",
+    "Listofbranches":"List of branches",
+    "Manage":"Manage NCC",
+    "Revenue":"Revenue",
+    "Inventory management":"Inventory management"
   },
   "pages": {
     "Dashboard": "Dashboard",
     "Login": "Login",
     "User/List": "List User",
-    "User/Add": "List User",
-    "User/Edit": "List User",
+    "User/Add": "Add new User",
+    "User/Edit": "Edit User",
     "store-managerment/create": "Create Store",
     "Đặt Lại Mật Khẩu": "Reset Password",
     "Sign-in": "Sign-in",
     "Quên Mật Khẩu": "Forgot Password",
     "Store": "Store",
     "store-managerment/edit": "Edit Store",
-    "MyProfile": "MyProfile"
+    "MyProfile": "MyProfile",
+    "Supplier":"Supplier",
+    "Supplier/Add":"Add new Supplier",
+    "Supplier/Edit":"Edit Supplier"
   },
   "columns": {
     "auth": {
@@ -163,8 +173,8 @@
         "title": "Reset Password",
         "Submit": "Submit",
         "Back To Login": "Submit",
-        "subTitle": "Please enter your email. The OTP verification code will be sent to you",
-        "OTP": "Get OTP Code"
+        "subTitle": "Please enter your email. An OTP verification code will be sent to you.",
+        "OTP":"Get OTP"
       }
     },
     "admin": {

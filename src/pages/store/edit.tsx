@@ -118,9 +118,8 @@ const Page = () => {
                     formItem: {
                       tabIndex: 3,
                       col: 3,
-                      rules: [{ type: 'requiredSelect' }],
+                      rules: [{ type: 'required' }],
                       type: 'select',
-
                       get: {
                         facade: ProvinceFacade,
                         format: (item: any) => ({
@@ -138,7 +137,7 @@ const Page = () => {
                     name: 'districtId',
                     formItem: {
                       type: 'select',
-                      rules: [{ type: 'requiredSelect' }],
+                      rules: [{ type: 'required' }],
                       col: 3,
                       get: {
                         facade: DistrictFacade,
@@ -161,7 +160,7 @@ const Page = () => {
                     name: 'wardId',
                     formItem: {
                       type: 'select',
-                      rules: [{ type: 'requiredSelect' }],
+                      rules: [{ type: 'required' }],
                       col: 3,
                       get: {
                         facade: WardFacade,
@@ -217,13 +216,6 @@ const Page = () => {
                     formItem: {
                       col: 4,
                       rules: [{ type: 'required' }],
-                    },
-                  },
-                  {
-                    title: 'store.Note',
-                    name: 'note',
-                    formItem: {
-                      type: 'textarea',
                     },
                   },
                 ]}
@@ -423,7 +415,7 @@ const Page = () => {
                 leftHeader={
                   <>
                     <Form
-                      className="intro-x rounded-lg w-full"
+                      className="intro-x pt-5 rounded-lg w-full "
                       columns={
                         [
                           {
@@ -456,7 +448,7 @@ const Page = () => {
                       disableSubmit={isLoading}
                     />
                     <Form
-                      className="intro-x rounded-lg w-full "
+                      className="intro-x pt-5 rounded-lg w-full "
                       columns={
                         [
                           {
@@ -535,8 +527,7 @@ const Page = () => {
               />
 
             </Tabs.TabPane>
-
-            <Tabs.TabPane tab='Danh sách chi nhánh' key='3' className='rounded-xl'>
+            <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, supplierType: 'BALANCE' }}
@@ -812,7 +803,7 @@ const Page = () => {
                 ]}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Quản lý kho' key='6' className='rounded-xl'>
+            <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
                 facade={inventoryProductFacade.data?.inventory}
                 defaultRequest={{ page: 1, perPage: 10, idStore: id }}
