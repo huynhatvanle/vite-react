@@ -24,7 +24,7 @@ export const Form = ({
   widthLabel,
   checkHidden = false,
   extendForm,
-  extendForm1,
+  extendFormSwitch,
   extendButton,
   extendButtonChangePassword,
   idSubmit = 'idSubmit',
@@ -687,7 +687,7 @@ export const Form = ({
               ),
           )}
         </div>
-        {extendForm1}
+        {extendFormSwitch}
         {extendForm && extendForm(values)}
 
       </div>
@@ -749,8 +749,8 @@ type Type = {
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?: ((values: any) => JSX.Element);
-  extendForm1?: JSX.Element;
+  extendForm?:  ((values: any) =>  JSX.Element );
+  extendFormSwitch?:  JSX.Element;
   extendButton?: (values: any) => JSX.Element;
   extendButtonChangePassword?: (values: any) => void;
   idSubmit?: string;
