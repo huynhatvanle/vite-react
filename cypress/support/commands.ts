@@ -22,16 +22,22 @@ Cypress.Commands.add('typeRandom', { prevSubject: 'element' }, (element, text, t
           text = text.replace(random, faker.number.int({ min: 1, max: 100 }).toString());
           break;
         case 'words':
-          text = text.replace(random, faker.word.words());
+          text = text.replace(random, faker.word.words(5));
           break;
         case 'email':
           text = text.replace(random, faker.internet.email().toLowerCase());
+          break;
+        case 'phone':
+          text = text.replace(random, faker.helpers.replaceCreditCardSymbols('#{10,15}'));
+          break;
+        case 'color':
+          text = text.replace(random, faker.color.rgb({ casing: 'upper' }));
           break;
         default:
           text = text.replace(random, faker.word.sample());
           break;
       }
     }
-    if (text) input.type(text);
+    if (text) input.type(text, { parseSpecialCharSequences: false });
   }
 });

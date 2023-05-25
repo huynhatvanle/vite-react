@@ -94,7 +94,9 @@ const initialState: State = {
   status: 'idle',
   title: '',
   pathname: '',
-  ...checkLanguage(location.pathname.split('/')[1] || JSON.parse(JSON.stringify(localStorage.getItem('i18nextLng') || 'en'))),
+  ...checkLanguage(
+    location.pathname.split('/')[1] || JSON.parse(JSON.stringify(localStorage.getItem('i18nextLng') || 'en')),
+  ),
 };
 export const globalSlice = createSlice({
   name: action.name,
@@ -104,10 +106,10 @@ export const globalSlice = createSlice({
       if (action.payload !== state.language) {
         const { language, formatDate, locale } = checkLanguage(action.payload);
         i18n.changeLanguage(language);
-        state.language = language;
         state.formatDate = formatDate;
         state.locale = locale;
         state.pathname = location.pathname.replace('/' + state.language + '/', '/' + action.payload + '/');
+        state.language = language;
       }
     },
     setPathname: (state: State, action: PayloadAction<string>) => {
