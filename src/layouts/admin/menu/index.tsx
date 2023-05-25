@@ -41,16 +41,16 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
       {child
         .filter((subItem) => !subItem.permission || permission?.includes(subItem.permission))
         .map((subItem, index: number) => (
-          <li
+          <a
             key={index + v4()}
-            className={classNames('child-item py-2 cursor-pointer', {
+            className={classNames('sub-menu py-2 cursor-pointer', {
               'bg-white text-blue-600 !fill-blue-600':
                 location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
             })}
             onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
           >
             {t(`titles.${subItem.name}`)}
-          </li>
+          </a>
         ))}
     </ul>
   );
@@ -111,12 +111,12 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                       key={`/${lang}${routerLinks(item.name)}`}
                       showArrow={!isCollapsed}
                       header={
-                        <div
-                          className={classNames('flex items-center text-gray-600 fill-gray-600  ', {
+                        <li
+                          className={classNames('flex items-center text-gray-600 fill-gray-600 menu', {
                             'justify-center ': isCollapsed,
                           })}
                         >
-                          <div className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</div>
+                          <span className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</span>
                           <span
                             className={classNames('pl-2.5 transition-all duration-300 ease-in-out font-bold', {
                               'opacity-100': !isCollapsed,
@@ -125,7 +125,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                           >
                             {t(`titles.${item.name}`)}
                           </span>
-                        </div>
+                        </li>
                       }
                     >
                       {subMenu(item.child)}
