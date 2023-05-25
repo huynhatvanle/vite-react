@@ -266,6 +266,7 @@
     "Name management": "Manager's name",
     "Revenue by product":"Revenue by product",
     "Revenue by order":"Revenue by order",
+    "Barcode": "Barcode",
     "Inventory management": {
       "Product code": "Product code",
       "Barcode (Supplier)": "Supplier barcode",

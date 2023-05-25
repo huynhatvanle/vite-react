@@ -786,7 +786,7 @@ const Page = () => {
                   }
                   columns={[
                     {
-                      title: 'supplier.CodeName',
+                      title: 'store.Revenue.Serial number',
                       name: 'supplier',
                       tableItem: {
                         width: 150,
@@ -794,24 +794,38 @@ const Page = () => {
                       },
                     },
                     {
-                      title: 'supplier.Name',
+                      title: 'store.Inventory management.Product code',
                       name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier?.name,
                       },
                     },
                     {
-                      title: 'store.Address',
+                      title: 'store.Inventory management.Product name',
                       name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
                       },
                     },
                     {
-                      title: 'store.Name management',
+                      title: 'store.Barcode',
                       name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                      },
+                    },
+                    {
+                      title: 'titles.Revenue',
+                      name: 'supplier',
+                      tableItem: {
+                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                      },
+                    },
+                    {
+                      title: 'supplier.Status',
+                      name: 'supplier',
+                      tableItem: {
+                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                       },
                     },
                     {
@@ -824,26 +838,61 @@ const Page = () => {
                   ]}
                   searchPlaceholder='Tìm kiếm theo mã đơn hàng'
                   rightHeader={
-                    <div className='flex justify-end text-left flex-col'>
+                    <div className='flex justify-end w-full text-left flex-col'>
                       <Form
-                        className="intro-x flex justify-end"
+                        className="intro-x rounded-lg w-full flex justify-between"
                         columns={
                           [
                             {
                               title: '',
-                              name: 'supplierName',
+                              name: 'StartDate',
                               formItem: {
-                                placeholder: 'Chọn loại đơn hàng',
-                                type: 'select',
-                                get: {
-                                  facade: ConnectSupplierFacade,
-                                  format: (item: any) => ({
-                                    label: item.supplier?.name,
-                                    value: item.supplier?.id,
-                                  })
-                                }
-                              }
+                                tabIndex: 3,
+                                type: 'date',
+                                placeholder: 'Chọn thời điểm',
+                              },
                             },
+                            {
+                              title: '',
+                              name: 'EndDate',
+                              formItem: {
+                                tabIndex: 3,
+                                type: 'date',
+                                placeholder: 'Chọn thời điểm',
+                              },
+                            },
+                            // {
+                            //   title: '',
+                            //   name: 'supplierName',
+                            //   formItem: {
+                            //     placeholder: 'Chọn trạng thái',
+                            //     type: 'select',
+                            //     tabIndex: 1,
+                            //     get: {
+                            //       facade: ConnectSupplierFacade,
+                            //       format: (item: any) => ({
+                            //         label: item.supplier?.name,
+                            //         value: item.supplier?.id,
+                            //       })
+                            //     }
+                            //   }
+                            // },
+                            // {
+                            //   title: '',
+                            //   name: 'supplierName',
+                            //   formItem: {
+                            //     placeholder: 'Chọn loại đơn hàng',
+                            //     type: 'select',
+                            //     tabIndex: 1,
+                            //     get: {
+                            //       facade: ConnectSupplierFacade,
+                            //       format: (item: any) => ({
+                            //         label: item.supplier?.name,
+                            //         value: item.supplier?.id,
+                            //       })
+                            //     }
+                            //   }
+                            // },
                           ]
                         }
                         disableSubmit={isLoading}
@@ -919,7 +968,7 @@ const Page = () => {
                   }
                   columns={[
                     {
-                      title: 'supplier.CodeName',
+                      title: 'store.Revenue.Serial number',
                       name: 'supplier',
                       tableItem: {
                         width: 150,
@@ -927,28 +976,42 @@ const Page = () => {
                       },
                     },
                     {
-                      title: 'supplier.Name',
+                      title: 'store.Revenue.Order code',
                       name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier?.name,
                       },
                     },
                     {
-                      title: 'store.Address',
+                      title: 'store.Revenue.Sale date',
                       name: 'supplier',
                       tableItem: {
-                        render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                        render: (value: any, item: any) => item.supplier?.name,
                       },
                     },
                     {
-                      title: 'store.Name management',
+                      title: 'store.Revenue.Value (VND)',
+                      name: 'supplier',
+                      tableItem: {
+                        render: (value: any, item: any) => item.supplier?.name,
+                      },
+                    },
+                    {
+                      title: 'store.Revenue.Discount (VND)',
                       name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
                       },
                     },
                     {
-                      title: 'store.Phone Number',
+                      title: 'store.Revenue.Total amount (VND)',
+                      name: 'supplier',
+                      tableItem: {
+                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                      },
+                    },
+                    {
+                      title: 'store.Revenue.Order type',
                       name: 'supplier',
                       tableItem: {
                         render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
