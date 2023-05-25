@@ -293,12 +293,14 @@
   "product": {
     "Code": "Mã sản phẩm",
     "StoreCode": "Mã vạch (CH)",
+    "Storecode": "Mã vạch",
     "SupplierCode": "Mã vạch (NCC)",
     "Name": "Tên sản phẩm",
     "Category": "Danh mục",
     "SupplierName": "Nhà cung cấp",
     "Unit": "Đơn vị",
     "Price": "Giá bán lẻ (VND)",
-    "Status": "Tình trạng"
+    "Status": "Tình trạng",
+    "Revenue":"Doanh thu"
   }
 }
