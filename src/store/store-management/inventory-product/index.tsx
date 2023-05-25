@@ -18,7 +18,6 @@ export const action = {...new Action<IventoryProduct>(name),
         }
       )
 }
-
 export const inventoryProductSlice = createSlice(
     new Slice<IventoryProduct>(action , (builder: any) => {
     builder
@@ -28,7 +27,7 @@ export const inventoryProductSlice = createSlice(
           state: State<IventoryProduct>,
           action: PayloadAction<undefined, string, { arg: IventoryProduct; requestId: string; requestStatus: 'pending' }>,
         ) => {
-            console.log(state.status)
+          console.log(state.status)
           state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
           state.queryParams = JSON.stringify(action.meta.arg);
           state.isLoading = true;
