@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { ModalForm } from '@core/modal/form';
-import { keyRole } from '@utils';
+import { keyRole, routerLinks } from '@utils';
 import { GlobalFacade, CodeFacade, CodeTypeFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { FormModalRefObject, TableRefObject } from '@models';
@@ -96,12 +96,11 @@ const Page = () => {
               render: (text: string, data) => (
                 <div className={'flex gap-2'}>
                   {user?.role?.permissions?.includes(keyRole.P_CODE_UPDATE) && (
-                    <Tooltip title={t('routes.admin.Layout.Edit')}>
-                      <Edit
-                        className="icon-cud bg-blue-600 hover:bg-blue-400"
-                        onClick={() => modalFormRef?.current?.handleEdit!(data)}
-                      />
-                    </Tooltip>
+                    <Button
+                      className={'!px-1 !py-0.5'}
+                      text={t('routes.admin.Layout.Edit')}
+                      onClick={() => modalFormRef?.current?.handleEdit!(data)}
+                    />
                   )}
                   {user?.role?.permissions?.includes(keyRole.P_CODE_DELETE) && (
                     <Tooltip title={t('routes.admin.Layout.Delete')}>
@@ -112,7 +111,10 @@ const Page = () => {
                         okText={t('components.datatable.ok')}
                         cancelText={t('components.datatable.cancel')}
                       >
-                        <Trash className="icon-cud bg-red-600 hover:bg-red-400" />
+                        <Button
+                          className={'!px-1 !py-0.5 !bg-red-600 hover:!bg-red-500'}
+                          text={t('routes.admin.Layout.Delete')}
+                        />
                       </Popconfirm>
                     </Tooltip>
                   )}

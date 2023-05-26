@@ -148,12 +148,11 @@ const Page = () => {
             render: (text: string, data) => (
               <div className={'flex gap-2'}>
                 {user?.role?.permissions?.includes(keyRole.P_USER_UPDATE) && (
-                  <Tooltip title={t('routes.admin.Layout.Edit')}>
-                    <Edit
-                      className="icon-cud bg-blue-600 hover:bg-blue-400"
-                      onClick={() => navigate(`/${lang}${routerLinks('User')}/${data.id}`)}
-                    />
-                  </Tooltip>
+                  <Button
+                    className={'!px-1 !py-0.5'}
+                    text={t('routes.admin.Layout.Edit')}
+                    onClick={() => navigate(`/${lang}${routerLinks('User')}/${data.id}`)}
+                  />
                 )}
 
                 {user?.role?.permissions?.includes(keyRole.P_USER_DELETE) && (
@@ -164,8 +163,10 @@ const Page = () => {
                     okText={t('components.datatable.ok')}
                     cancelText={t('components.datatable.cancel')}
                   >
-                    <button>{t('routes.admin.Layout.Delete')}</button>
-                    {/*<Trash className="icon-cud bg-red-600 hover:bg-red-400" />*/}
+                    <Button
+                      className={'!px-1 !py-0.5 !bg-red-600 hover:!bg-red-500'}
+                      text={t('routes.admin.Layout.Delete')}
+                    />
                   </Popconfirm>
                 )}
               </div>
