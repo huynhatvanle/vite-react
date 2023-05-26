@@ -88,7 +88,7 @@
     "Supplier/Edit": "Supplier Details",
     "Store": "Store",
     "Store/Add": "Add new Store",
-    "Store/SubStore": "Add new SubStore",
+    "Store/SubStore": "Add branch",
     "store-managerment/create": "Add new Store",
     "store-managerment/edit": "Store Information",
     "merchandise-managerment": "Inventory management",
@@ -99,9 +99,12 @@
     "Supplierinformation":"Supplier Information",
     "Listofgoods":"List of goods",
     "Listofbranches":"List of branches",
-    "Manage":"Manage NCC",
+    "Manage":"Manage Supplier",
     "Revenue":"Revenue",
-    "Inventory management":"Inventory management"
+    "Inventory management":"Inventory management",
+    "Export Excel file":"Export Excel",
+    "Export report":"Export report",
+    "synchronized":"Synchronized"
   },
   "pages": {
     "Dashboard": "Dashboard",
@@ -266,6 +269,12 @@
     "Name management": "Manager's name",
     "Revenue by product":"Revenue by product",
     "Revenue by order":"Revenue by order",
+    "Store Address":"Store Address",
+    "Representative information":"Representative information",
+    "Connect KiotViet":"Connect KiotViet",
+    "Get branch DS":"Get branch list",
+    "Since":"Since",
+    "To date":"to date",
     "Inventory management": {
       "Product code": "Product code",
       "Barcode (Supplier)": "Supplier barcode",
@@ -299,5 +308,15 @@
     "Unit": "Unit",
     "Price": "Retail price (VND)",
     "Status": "Status"
+  },
+  "placeholder":{
+    "Choose a supplier":"Choose a supplier",
+    "Select order type":"Select order type",
+    "Main categories":"Main categories",
+    "Category level 1":"Category level 1",
+    "Category level 2":"Category level 2",
+    "Search by order number":"Search by order number",
+    "Choose a time":"Choose a time",
+    "Select status":"Select status"
   }
 }
