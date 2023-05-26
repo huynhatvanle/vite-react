@@ -220,7 +220,7 @@ const Page = () => {
                     name: 'phoneNumber',
                     formItem: {
                       col: 4,
-                      rules: [{ type: 'required' },{ type: 'phone', min: 8, max: 12 }],
+                      rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
                     },
                   },
                   {
@@ -228,7 +228,7 @@ const Page = () => {
                     name: 'emailContact',
                     formItem: {
                       col: 4,
-                      rules: [{ type: 'required' },{ type: 'email' }],
+                      rules: [{ type: 'required' }, { type: 'email' }],
                     },
                   },
                 ]}
@@ -457,6 +457,8 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
+                                dataTableRef?.current?.onChange({page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE',supplierId: value});
+                                dataTableRef?.current?.reload({page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE',supplierId: value});
                               },
                             },
                           },
