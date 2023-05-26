@@ -88,20 +88,23 @@
     "Supplier/Edit": "Supplier Details",
     "Store": "Store",
     "Store/Add": "Add new Store",
-    "Store/SubStore": "Add new SubStore",
+    "Store/SubStore": "Add branch",
     "store-managerment/create": "Add new Store",
     "store-managerment/edit": "Store Information",
     "merchandise-managerment": "Inventory management",
     "merchandise-managerment/product": "Product",
     "merchandise-managerment/category": "Category",
     "merchandise-managerment/tax": "Tax",
-    "Storeinformation":"Store Information",
-    "Supplierinformation":"Supplier Information",
-    "Listofgoods":"List of goods",
-    "Listofbranches":"List of branches",
-    "Manage":"Manage Supplier",
-    "Revenue":"Revenue",
-    "Inventory management":"Inventory management"
+    "Storeinformation": "Store Information",
+    "Supplierinformation": "Supplier Information",
+    "Listofgoods": "List of goods",
+    "Listofbranches": "List of branches",
+    "Manage": "Manage Supplier",
+    "Revenue": "Revenue",
+    "Inventory management": "Inventory management",
+    "Export Excel file": "Export Excel",
+    "Export report": "Export report",
+    "synchronized": "Synchronized"
   },
   "pages": {
     "Dashboard": "Dashboard",
@@ -116,9 +119,9 @@
     "Store": "Store",
     "store-managerment/edit": "Edit Store",
     "MyProfile": "MyProfile",
-    "Supplier":"Supplier",
-    "Supplier/Add":"Add new Supplier",
-    "Supplier/Edit":"Edit Supplier"
+    "Supplier": "Supplier",
+    "Supplier/Add": "Add new Supplier",
+    "Supplier/Edit": "Edit Supplier"
   },
   "columns": {
     "auth": {
@@ -174,7 +177,7 @@
         "Submit": "Submit",
         "Back To Login": "Submit",
         "subTitle": "Please enter your email. An OTP verification code will be sent to you.",
-        "OTP":"Get OTP"
+        "OTP": "Get OTP"
       }
     },
     "admin": {
@@ -264,9 +267,14 @@
     "Contact Email": "Representative email",
     "Note": "Note",
     "Name management": "Manager's name",
-    "Revenue by product":"Revenue by product",
-    "Revenue by order":"Revenue by order",
-    "Barcode": "Barcode",
+    "Revenue by product": "Revenue by product",
+    "Revenue by order": "Revenue by order",
+    "Store Address": "Store Address",
+    "Representative information": "Representative information",
+    "Connect KiotViet": "Connect KiotViet",
+    "Get branch DS": "Get branch list",
+    "Since": "Since",
+    "To date": "to date",
     "Inventory management": {
       "Product code": "Product code",
       "Barcode (Supplier)": "Supplier barcode",
@@ -300,5 +308,15 @@
     "Unit": "Unit",
     "Price": "Retail price (VND)",
     "Status": "Status"
+  },
+  "placeholder": {
+    "Choose a supplier": "Choose a supplier",
+    "Select order type": "Select order type",
+    "Main categories": "Main categories",
+    "Category level 1": "Category level 1",
+    "Category level 2": "Category level 2",
+    "Search by order number": "Search by order number",
+    "Choose a time": "Choose a time",
+    "Select status": "Select status"
   }
 }
