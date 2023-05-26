@@ -14,9 +14,12 @@ export default class Common {
     forItemByName: (name: string) =>
       cy.contains('.ant-form-item-label > label', name).parent().parent().should('be.visible'),
     inputByName: (name: string) => this.elements.forItemByName(name).find('input').should('be.visible'),
+    textareaByName: (name: string) => this.elements.forItemByName(name).find('textarea').should('be.visible'),
+    editorByName: (name: string) => this.elements.forItemByName(name).find('.ce-paragraph'),
+    editorHtmlByName: (name: string) => this.elements.forItemByName(name).find('.note-editable'),
+    fileByName: (name: string) => this.elements.forItemByName(name).find('input[type=file]'),
     pickerInputByName: (name: string) =>
       this.elements.forItemByName(name).find('.ant-picker-input input').should('be.visible'),
-    textareaByName: (name: string) => this.elements.forItemByName(name).find('textarea').should('be.visible'),
     switchByName: (name: string) => this.elements.forItemByName(name).find('.ant-switch').should('be.visible'),
     radioByName: (name: string, text: string) =>
       this.elements.forItemByName(name).find('.ant-radio-wrapper-in-form-item').contains(text).should('be.visible'),
@@ -32,7 +35,7 @@ export default class Common {
 
     checkboxWrapper: (text: string) => cy.get(`.ant-checkbox-wrapper`).contains(text).should('be.visible'),
     buttonRightTransfer: () => cy.get(`.ant-transfer-operation button`).eq(1).should('be.visible'),
-    treeSelectByName: (name: string) => this.elements.forItemByName(name).find('nz-tree-select').should('be.visible'),
+    treeSelectByName: (name: string) => this.elements.forItemByName(name).find('.ant-tree-select').should('be.visible'),
     treeSelectSelectionTitle: (title: string) => cy.get(`.ant-select-tree-node-content-wrapper[title='${title}']`),
     treeByName: (val: string) => cy.get('.ant-tree-node-content-wrapper[title="' + val + '"]  > .group'),
     removeTreeByName: (val: string) => this.elements.treeByName(val).find('.la-trash'),
@@ -70,22 +73,27 @@ export default class Common {
     cy.get('.swal2-confirm').then((button) => !!button && button.click());
   };
 
-  typeInputByName = (
-    type: 'text' | 'words' | 'number' | 'email' | 'percentage' | 'color' | 'phone',
-    name: string,
-    text: string,
-  ) => {
+  typeInputByName = (type: inputType, name: string, text: string) => {
     const input = this.elements.inputByName(name).typeRandom(text, type);
     if (text) input.invoke('val').as(slug(name));
   };
-  typeTextareaByName = (
-    type: 'text' | 'words' | 'number' | 'email' | 'percentage' | 'color' | 'phone',
-    name: string,
-    text: string,
-  ) => {
+  typeTextareaByName = (type: inputType, name: string, text: string) => {
     const input = this.elements.textareaByName(name).typeRandom(text, type);
     if (text) input.invoke('val').as(slug(name));
   };
+  typeEditorByName = (type: inputType, name: string, text: string) => {
+    const input = this.elements.editorByName(name).typeRandom(text, type);
+    if (text) input.invoke('val').as(slug(name));
+  };
+  typeEditorHtmlByName = (type: inputType, name: string, text: string) => {
+    const input = this.elements.editorHtmlByName(name).typeRandom(text, type);
+    if (text) input.invoke('val').as(slug(name));
+  };
+  selectFileByName = (name: string, text: string) =>
+    this.elements.fileByName(name).selectFile(
+      text.split(',').map((item) => 'cypress/upload/' + item),
+      { force: true },
+    );
   typePickerInputByName = (name: string) =>
     this.elements.pickerInputByName(name).click().typeRandom('_RANDOM_', 'date');
   clickSwitchByName = (name: string) => this.elements.switchByName(name).click();
@@ -131,3 +139,4 @@ export default class Common {
     hand().then();
   };
 }
+type inputType = 'text' | 'words' | 'number' | 'email' | 'percentage' | 'color' | 'phone';
