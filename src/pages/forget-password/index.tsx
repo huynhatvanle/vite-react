@@ -18,13 +18,11 @@ const Page = () => {
     }
   }, [status]);
 
-  console.log(status)
-
   return (
     <Fragment>
       <div className="text-center mb-8">
-        <h1 className="intro-x text-3xl mb-10 font-bold text-green-900 leading-8 md:text-5xl lg:leading-10" id={'title-login'}>
-        {'Quên Mật Khẩu'}
+        <h1 className="intro-x text-3xl mb-8 font-bold text-green-900 leading-8 md:text-5xl lg:leading-10" id={'title-login'}>
+          {'Quên Mật Khẩu'}
         </h1>
         <h5 className="intro-x font-normal text-green-900 ">{t('routes.auth.reset-password.subTitle')}</h5>
       </div>
@@ -34,17 +32,17 @@ const Page = () => {
             values={{ ...data }}
             className="intro-x form-login"
             columns={[
-                {
-                  name: 'email',
-                  title: t('columns.auth.reset-password.Recovery Email'),
-                  formItem: {
-                    placeholder: 'Email khôi phục',
-                    rules: [{ type: 'required' }, { type: 'email' }],
-                  },
+              {
+                name: 'email',
+                title: t('columns.auth.reset-password.Recovery Email'),
+                formItem: {
+                  placeholder: 'Email khôi phục',
+                  rules: [{ type: 'required' }, { type: 'email' }],
                 },
-              ]}
+              },
+            ]}
             textSubmit={'routes.auth.reset-password.OTP'}
-            handSubmit={(values) => forgotPassword({ ...values})}
+            handSubmit={(values) => forgotPassword({ ...values })}
             disableSubmit={isLoading}
           />
         </Spin>
