@@ -713,12 +713,13 @@ export const Form = ({
       </div>
 
       <div
-        className={classNames('mt-9 gap-2 flex absolute sm:block', {
+        className={classNames('gap-2 flex absolute sm:block', {
           'justify-center': !extendButton && !handCancel,
+          '!mt-9': handCancel && handSubmit,
           'md:inline-flex w-full justify-between md:float-right': handCancel,
-          'md:inline-flex w-full justify-between relative !mt-0': handSubmit,
+          'md:inline-flex w-full justify-between relative': handSubmit,
           'w-full md:w-auto md:inline-flex md:float-right right-0 sm:text-center items-center mt-8': handSubmit && extendButton,
-          'w-full md:w-auto md:inline-flex md:float-right right-0 justify-between top-[300px] sm:text-center items-center': extendButtonChangePassword,
+          'w-full md:w-auto md:inline-flex md:float-right -bottom-1/3 right-0 justify-between sm:text-center items-center': extendButtonChangePassword && extendButton,
         })}
       >
         {handCancel && (
