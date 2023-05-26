@@ -101,7 +101,10 @@
     "Listofbranches":"Danh sách chi nhánh",
     "Manage":"Quản lý NCC",
     "Revenue":"Doanh thu",
-    "Inventory management":"Quản lý kho"
+    "Inventory management":"Quản lý kho",
+    "Export Excel file":"Xuất file Excel",
+    "Export report":"Xuất báo cáo",
+    "synchronized":"Đồng bộ"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -266,7 +269,12 @@
     "Name management": "Tên quản lý",
     "Revenue by product": "Doanh thu theo sản phẩm",
     "Revenue by order": "Doanh thu theo đơn hàng",
-    "Barcode": "Mã vạch",
+    "Store Address":"Địa chỉ cửa hàng",
+    "Representative information":"Thông tin người đại diện",
+    "Connect KiotViet":"Kết nối KiotViet",
+    "Get branch DS":"Lấy DS chi nhánh",
+    "Since":"Từ ngày",
+    "To date":"đến ngày",
     "Inventory management": {
       "Product code": "Mã sản phẩm",
       "Barcode (Supplier)": "Mã vạch (NCC)",
@@ -302,5 +310,15 @@
     "Price": "Giá bán lẻ (VND)",
     "Status": "Tình trạng",
     "Revenue":"Doanh thu"
+  },
+  "placeholder":{
+    "Choose a supplier":"Chọn nhà cung cấp",
+    "Select order type":"Chọn loại đơn hàng",
+    "Main categories":"Danh mục chính",
+    "Category level 1":"Danh mục cấp 1",
+    "Category level 2":"Danh mục cấp 2",
+    "Search by order number":"Tìm kiếm theo mã đơn hàng",
+    "Choose a time":"Chọn thời điểm",
+    "Select status":"Chọn trạng thái"
   }
 }

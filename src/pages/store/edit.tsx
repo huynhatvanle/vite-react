@@ -109,7 +109,7 @@ const Page = () => {
                         rules: [{ type: 'required' }],
                         render() {
                           return (
-                            <h3 className='mb-2.5 text-base text-black font-medium'>Địa chỉ cửa hàng</h3>
+                            <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>
                           )
                         },
                       }
@@ -191,7 +191,7 @@ const Page = () => {
                       formItem: {
                         render() {
                           return (
-                            <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
+                            <div className='text-xl text-teal-900 font-bold mb-2.5'>{t('store.Representative information')}</div>
                           )
                         }
                       }
@@ -225,11 +225,11 @@ const Page = () => {
                   extendFormSwitch=
                   {<div className='flex items-center justify-between mb-2.5 '>
                     <div className='flex'>
-                      <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
+                      <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
                       <Switch onClick={handleClick} />
                     </div>
                     {isChecked && (
-                      <Button className='!font-normal' text={t('Lấy DS chi nhánh')} />
+                      <Button className='!font-normal' text={t('store.Get branch DS')} />
                     )}
                   </div>}
 
@@ -414,7 +414,7 @@ const Page = () => {
                       <Button
                         className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0'
                         icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
-                        text={t('Xuất file excel')}
+                        text={t('titles.Export Excel file')}
                         onClick={() => navigate(routerLinks('Supplier/Excel'))}
                       />
                     }
@@ -430,7 +430,7 @@ const Page = () => {
                             title: '',
                             name: 'supplierName',
                             formItem: {
-                              placeholder: 'Chọn nhà cung cấp',
+                              placeholder: 'placeholder.Choose a supplier',
                               col: 5,
                               type: 'select',
                               get: {
@@ -463,7 +463,7 @@ const Page = () => {
                             name: 'cap1',
                             formItem: {
                               tabIndex: 3,
-                              placeholder: 'Danh mục chính',
+                              placeholder: 'placeholder.Main categories',
                               col: 3,
                               type: 'select',
                               get: {
@@ -482,8 +482,7 @@ const Page = () => {
                             name: 'cap2',
                             title: '',
                             formItem: {
-                              // disabled:() => true,
-                              placeholder: 'Danh mục cấp 1',
+                              placeholder: 'placeholder.Category level 1',
                               type: 'select',
                               col: 3,
                               get: {
@@ -506,7 +505,7 @@ const Page = () => {
                             name: 'cap3',
                             title: '',
                             formItem: {
-                              placeholder: 'Danh mục cấp 2',
+                              placeholder: 'placeholder.Category level 2',
                               type: 'select',
                               col: 3,
                               get: {
@@ -531,7 +530,7 @@ const Page = () => {
                 }
               />
               <Button
-                text={t('Trở về')}
+                text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
                   navigate(routerLinks('Store'))
@@ -591,7 +590,7 @@ const Page = () => {
                     },
                   },
                   {
-                    title: 'Trạng thái',
+                    title: 'supplier.Status',
                     name: 'isActive',
                     tableItem: {
                       render: (text: string) => text ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đang hoạt động</div>)
@@ -605,7 +604,7 @@ const Page = () => {
                       <Button
                         className='!bg-teal-800 !font-normal w-full !text-white hover:!bg-teal-700 group !rounded-xl !h-9'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
-                        text={t('Thêm chi nhánh')}
+                        text={t('titles.Store/SubStore')}
                         onClick={() => navigate(routerLinks('store-managerment/create'))}
                       />
                     }
@@ -613,7 +612,7 @@ const Page = () => {
                 }
               />
               <Button
-                text={t('Trở về')}
+                text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
                   navigate(routerLinks('Store'))
@@ -719,7 +718,7 @@ const Page = () => {
                 ]}
               />
               <Button
-                text={t('Trở về')}
+                text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
                   navigate(routerLinks('Store'))
@@ -741,7 +740,7 @@ const Page = () => {
                             setIsBalanceClicked(false);
                             dataTableRef?.current?.onChange();
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
-                            {t('store.Revenue by product')}
+                            {t('store.Revenue by order')}
                           </div>
                         ),
                       },
@@ -753,7 +752,7 @@ const Page = () => {
                             setIsBalanceClicked(true);
                             dataTableRef?.current?.onChange();
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
-                            {t('store.Revenue by order')}
+                            {t('store.Revenue by product')}
                           </div>
                         ),
                       },
@@ -839,7 +838,7 @@ const Page = () => {
                         },
                       },
                     ]}
-                    searchPlaceholder='Tìm kiếm theo mã đơn hàng'
+                    searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
                       <div className='flex justify-end w-full text-left flex-col'>
                         <Form
@@ -850,7 +849,7 @@ const Page = () => {
                                 title: '',
                                 name: 'supplierName',
                                 formItem: {
-                                  placeholder: 'Chọn trạng thái',
+                                  placeholder: 'placeholder.Select order type',
                                   type: 'select',
                                   get: {
                                     facade: ConnectSupplierFacade,
@@ -876,7 +875,7 @@ const Page = () => {
                                 col: 2,
                                 render: () => (
                                   <div className='flex h-10 items-center !w-full'>
-                                    <p className='text-sm'>Từ ngày</p>
+                                    <p className='text-sm'>{t('store.Since')}</p>
                                   </div>
                                 )
                               },
@@ -888,7 +887,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 4,
                                 type: 'date',
-                                placeholder: 'Chọn thời điểm',
+                                placeholder: 'placeholder.Choose a time',
                               },
                             },
                             {
@@ -899,7 +898,7 @@ const Page = () => {
                                 col: 2,
                                 render: () => (
                                   <div className='flex h-10 items-center !w-full'>
-                                    <p className='text-sm'>Đến ngày</p>
+                                    <p className='text-sm'>{t('store.To date')}</p>
                                   </div>
                                 )
                               },
@@ -911,7 +910,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 4,
                                 type: 'date',
-                                placeholder: 'Chọn thời điểm',
+                                placeholder: 'placeholder.Choose a time',
                               },
                             },
                           ]}
@@ -978,174 +977,189 @@ const Page = () => {
                         render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                       },
                     },
-                  ]}
-                  searchPlaceholder='Tìm kiếm theo mã đơn hàng'
-                  rightHeader={
-                    <div className='flex justify-end text-left flex-col w-full'>
-                      <Form
-                        className="intro-x flex justify-end"
-                        columns={
-                          [
-                            {
-                              title: '',
-                              name: 'supplierName',
-                              formItem: {
-                                placeholder: 'Chọn trạng thái',
-                                type: 'select',
-                                tabIndex: 3,
-                                col: 6,
-                                get: {
-                                  facade: ConnectSupplierFacade,
-                                  format: (item: any) => ({
-                                    label: item.supplier?.name,
-                                    value: item.supplier?.id,
-                                  })
+                      {
+                        title: 'product.Revenue',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'product.Status',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+
+                    ]}
+                    searchPlaceholder='placeholder.Select order type'
+                    rightHeader={
+                      <div className='flex justify-end text-left flex-col w-full '>
+                        <Form
+                          className="intro-x flex justify-end"
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'supplierName',
+                                formItem: {
+                                  placeholder: 'placeholder.Select status',
+                                  type: 'select',
+                                  tabIndex: 3,
+                                  col: 6,
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.supplier?.name,
+                                      value: item.supplier?.id,
+                                    })
+                                  }
                                 }
-                              }
-                            },
-                            {
-                              title: '',
-                              name: 'supplierName',
-                              formItem: {
-                                placeholder: 'Chọn nhà cung cấp',
-                                type: 'select',
-                                tabIndex: 3,
-                                col: 6,
-                                get: {
-                                  facade: ConnectSupplierFacade,
-                                  format: (item: any) => ({
-                                    label: item.supplier?.name,
-                                    value: item.supplier?.id,
-                                  })
+                              },
+                              {
+                                title: '',
+                                name: 'supplierName',
+                                formItem: {
+                                  placeholder: 'placeholder.Choose a supplier',
+                                  type: 'select',
+                                  tabIndex: 3,
+                                  col: 6,
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.supplier?.name,
+                                      value: item.supplier?.id,
+                                    })
+                                  }
                                 }
-                              }
-                            },
-                          ]
-                        }
-                        disableSubmit={isLoading}
-                      />
-                      <Form
-                        className='intro-x rounded-lg w-full flex justify-between'
-                        columns={[
-                          {
-                            title: '',
-                            name: '',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 2,
-                              render: () => (
-                                <div className='flex h-10 items-center !w-full'>
-                                  <p className='text-sm'>Từ ngày</p>
-                                </div>
-                              )
-                            },
-                          },
-                          {
-                            title: '',
-                            name: 'StartDate',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 4,
-                              type: 'date',
-                              placeholder: 'Chọn thời điểm',
-                            },
-                          },
-                          {
-                            title: '',
-                            name: '',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 2,
-                              render: () => (
-                                <div className='flex h-10 items-center !w-full'>
-                                  <p className='text-sm'>Đến ngày</p>
-                                </div>
-                              )
-                            },
-                          },
-                          {
-                            title: '',
-                            name: 'EndDate',
-                            formItem: {
-                              tabIndex: 3,
-                              col: 4,
-                              type: 'date',
-                              placeholder: 'Chọn thời điểm',
-                            },
-                          },
-                        ]}
-                      />
-                    </div>
-                  }
-                  bottomHeader={
-                    <div>
-                      <Form
-                        className="intro-x pt-5 rounded-lg flex "
-                        columns={
-                          [
+                              },
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                        <Form
+                          className='intro-x rounded-lg w-full flex justify-between'
+                          columns={[
                             {
                               title: '',
-                              name: 'cap1',
+                              name: '',
                               formItem: {
                                 tabIndex: 3,
-                                placeholder: 'Danh mục chính',
-                                type: 'select',
-                                col: 3,
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                },
-                                onChange(value, form) {
-                                  form.resetFields(['cap2', 'cap3'])
-                                },
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>{t('store.Since')}</p>
+                                  </div>
+                                )
                               },
                             },
                             {
-                              name: 'cap2',
                               title: '',
+                              name: 'StartDate',
                               formItem: {
-                                placeholder: 'Danh mục cấp 1',
-                                type: 'select',
-                                col: 3,
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().cap1,
-                                  }),
-                                },
-                                onChange(value, form) {
-                                  form.resetFields(['cap3'])
-                                },
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'placeholder.Choose a time',
                               },
                             },
                             {
-                              name: 'cap3',
                               title: '',
+                              name: '',
                               formItem: {
-                                placeholder: 'Danh mục cấp 2',
-                                type: 'select',
-                                col: 3,
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().cap2,
-                                  })
-                                }
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>{t('store.To date')}</p>
+                                  </div>
+                                )
                               },
                             },
+                            {
+                              title: '',
+                              name: 'EndDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'placeholder.Choose a time',
+                              },
+                            },
+                          ]}
+                        />
+                      </div>
+                    }
+                    bottomHeader={
+                      <div>
+                        <Form
+                          className="intro-x pt-5 rounded-lg flex "
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'cap1',
+                                formItem: {
+                                  tabIndex: 3,
+                                  placeholder: 'placeholder.Main categories',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap2', 'cap3'])
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap2',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'placeholder.Category level 1',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap1,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap3'])
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap3',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'placeholder.Category level 2',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap2,
+                                    })
+                                  }
+                                },
+                              },
 
                           ]
                         }
@@ -1159,14 +1173,14 @@ const Page = () => {
                 <div className='flex sm:justify-end justify-center items-center p-5'>
                   <Button
                     disabled={true}
-                    text={t('Xuất Báo Cáo')}
+                    text={t('titles.Export report')}
                     className={'md:w-[10rem] justify-center !bg-teal-800'}
                     onClick={() => { }}
                   />
                 </div>
               </div>
               <Button
-                text={t('Trở về')}
+                text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
                   navigate(routerLinks('Supplier'))
@@ -1187,11 +1201,11 @@ const Page = () => {
                 }
                 showSearch={false}
                 rightHeader={
-                  <div className={'h-10 w-24 '}>
+                  <div className={'w-auto'}>
                     {
                       <Button
                         className='!bg-teal-800 !font-normal w-full !text-white hover:!bg-teal-700 group'
-                        text={t('Đồng bộ')}
+                        text={t('titles.synchronized')}
                         onClick={() => navigate(routerLinks('Supplier/Excel'))}
                       />
                     }
@@ -1206,8 +1220,7 @@ const Page = () => {
                           title: '',
                           name: 'supplierName',
                           formItem: {
-                            //  tabIndex: 1,
-                            placeholder: 'Chọn nhà cung cấp',
+                            placeholder: 'placeholder.Choose a supplier',
                             col: 7,
                             type: 'select',
                             get: {
@@ -1306,7 +1319,7 @@ const Page = () => {
                 ]}
               />
               <Button
-                text={t('Trở về')}
+                text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
                   navigate(routerLinks('Store'))
