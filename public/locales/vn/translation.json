@@ -105,9 +105,9 @@
     "Export Excel file": "Xuất file Excel",
     "Export report": "Xuất báo cáo",
     "synchronized": "Đồng bộ",
-    "Ordermanagement": "Order Management",
-    "Discount": "Discount",
-    "Contract": "Contract"
+    "Ordermanagement": "Quản lý đơn hàng",
+    "Discount": "Chiết Khấu",
+    "Contract": "Hợp đồng"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
