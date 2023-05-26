@@ -211,7 +211,7 @@ const Page = () => {
                     name: 'phoneNumber',
                     formItem: {
                       col: 4,
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'required' },{ type: 'phone', min: 8, max: 12 }],
                     },
                   },
                   {
@@ -219,7 +219,7 @@ const Page = () => {
                     name: 'emailContact',
                     formItem: {
                       col: 4,
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'required' },{ type: 'email' }],
                     },
                   },
                 ]}
@@ -288,7 +288,6 @@ const Page = () => {
                 handCancel={handleBack}
               />
             </Tabs.TabPane>
-
             <Tabs.TabPane tab={
               <Dropdown trigger={['click']}
                 className='!rounded-xl'
@@ -537,7 +536,6 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
-
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
@@ -1176,7 +1174,6 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
-
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
                 facade={inventoryProductFacade.data?.inventory}

@@ -238,7 +238,7 @@ const Page = () => {
                       formItem: {
                         tabIndex: 2,
                         col: 4,
-                        rules: [{ type: 'required' }],
+                        rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
                       },
                     },
                     {
@@ -247,7 +247,7 @@ const Page = () => {
                       formItem: {
                         tabIndex: 1,
                         col: 4,
-                        rules: [{ type: 'required' }],
+                        rules: [{ type: 'required' }, { type: 'email' }],
                       },
                     },
                     {

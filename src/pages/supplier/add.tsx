@@ -68,7 +68,7 @@ const Page = () => {
                 rules: [{ type: 'required' }],
                 render() {
                   return (
-                    <h3 className='mb-2.5 text-base '>Địa chỉ nhà cung cấp </h3>
+                    <h3 className='mb-2.5 text-base '>{t('supplier.Supplier Address')}</h3>
                   )
                 },
               }
@@ -150,7 +150,7 @@ const Page = () => {
               formItem: {
                 render() {
                   return (
-                    <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
+                    <div className='text-xl text-teal-900 font-bold mb-2.5'>{t('store.Representative information')}</div>
                   )
                 }
               }
