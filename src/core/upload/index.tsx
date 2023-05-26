@@ -224,10 +224,12 @@ export const Upload = ({
                   <Plus className="w-12 h-12" />
                 </div>
               ) : (
-                <div className='text-center justify-center'>
-                  <img alt={'Align'} className={'w-full h-full flex object-cover aspect-square rounded-[0.625rem] shadow-md bg-gray-100 cursor-pointer'} src={listFiles[0][keyImage]} />
+                <div className='relative min-h-[80px]'>
+                  {/* text-center justify-center */}
+                  {/* rounded-2xl w-80 h-72 flex object-cover -----aspect-square object-cover rounded-[0.625rem] shadow-md bg-gray-100 cursor-pointer max-h-[500px]*/}
+                  <img alt={'Align'} className={' rounded-[0.625rem] w-auto h-auto flex object-cover bg-gray-100'} src={listFiles[0][keyImage]} />
                   <div
-                    className='w-[55px] h-[45px] bg-teal-600 opacity-80 absolute right-0 bottom-0 rounded-tl-[0.625rem] rounded-br-[0.625rem] flex items-center justify-center'
+                    className='w-[45px] h-[35px] bg-teal-600 opacity-80 absolute right-0 bottom-0 rounded-tl-[0.625rem] rounded-br-[0.625rem] flex items-center justify-center'
                   >
                     {multiple &&
                       listFiles.map((file: any, index: number) => (
@@ -288,11 +290,11 @@ export const Upload = ({
                               //   okText={t('components.datatable.ok')}
                               //   cancelText={t('components.datatable.cancel')}
                               // >
-                                <Button
-                                  icon={<Camera className={'h-6 w-6'} />}
-                                  className={'!bg-teal-600 !border-none mt-2 flex items-center justify-center'}
-                                />
-                            //    </Popconfirm>
+                              <Button
+                                icon={<Camera className={'h-6 w-6'} />}
+                                className={'!bg-teal-600 !border-none mt-2 flex items-center justify-center'}
+                              />
+                              //    </Popconfirm>
                             )}
                           </div>
                         </div>

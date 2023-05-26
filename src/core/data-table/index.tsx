@@ -60,6 +60,7 @@ export const DataTable = forwardRef(
       showPagination = true,
       leftHeader,
       rightHeader,
+      bottomHeader,
       showSearch = true,
       save = true,
       searchPlaceholder,
@@ -426,7 +427,7 @@ export const DataTable = forwardRef(
               />
               {!params.fullTextSearch ? (
                 <Search
-                  className="w-4 h-4 my-1 fill-gray-500 text-lg las absolute top-2 left-2.5 z-10"
+                  className="w-4 h-4 my-1 fill-gray-500 text-lg absolute top-2 left-2.5 z-10"
                   onClick={() => {
                     if (params.fullTextSearch) {
                       (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';
@@ -437,7 +438,7 @@ export const DataTable = forwardRef(
               ) : (
                 !!params.fullTextSearch && (
                   <Times
-                    className="w-4 h-4 my-1 fill-gray-500 text-lg las absolute top-2 right-3 z-10"
+                    className="w-4 h-4 my-1 fill-gray-500 text-lg las absolute top-2 right-3 z-10 "
                     onClick={() => {
                       if (params.fullTextSearch) {
                         (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';
@@ -454,6 +455,7 @@ export const DataTable = forwardRef(
           {!!leftHeader && <div className={'mt-2 sm:mt-0'}>{leftHeader}</div>}
           {!!rightHeader && <div className={'mt-2 sm:mt-0'}>{rightHeader}</div>}
         </div>
+        {!!bottomHeader && <div className={'mt-2 sm:mt-0'}>{bottomHeader}</div>}
         {subHeader && subHeader(result?.count)}
         {!!showList && (
           <Fragment>
@@ -511,6 +513,7 @@ type Type = {
   showPagination?: boolean;
   leftHeader?: JSX.Element;
   rightHeader?: JSX.Element;
+  bottomHeader?: JSX.Element;
   showSearch?: boolean;
   save?: boolean;
   searchPlaceholder?: string;

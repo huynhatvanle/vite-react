@@ -14,14 +14,6 @@ const Page = () => {
 
   const supplierFacade = SupplierFacade();
 
-  // useEffect(() => {
-  //   switch (supplierFacade.status) {
-  //     case 'delete.fulfilled':
-  //       dataTableRef?.current?.onChange!();
-  //       break;
-  //   }
-  // }, [supplierFacade.status]);
-
   return (
     <DataTable
       facade={supplierFacade}
@@ -101,6 +93,7 @@ const Page = () => {
             icon={<Plus className="icon-cud !h-5 !w-5" />}
             text={t('titles.Supplier/Add')}
             onClick={() => navigate(routerLinks('Supplier/Add'))}
+            className="!rounded-xl !font-normal"
           />
         </div>
       }
