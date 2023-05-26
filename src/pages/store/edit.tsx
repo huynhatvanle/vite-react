@@ -297,7 +297,6 @@ const Page = () => {
                 handCancel={handleBack}
               />
             </Tabs.TabPane>
-
             <Tabs.TabPane tab={
               <Dropdown trigger={['click']}
                 className='!rounded-xl'
@@ -546,7 +545,6 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
-
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
@@ -1185,7 +1183,6 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
-
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
                 facade={inventoryProductFacade.data?.inventory}
