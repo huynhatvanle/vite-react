@@ -107,7 +107,10 @@
     "Inventory management": "Quản lý kho",
     "Export Excel file": "Xuất file Excel",
     "Export report": "Xuất báo cáo",
-    "synchronized": "Đồng bộ"
+    "synchronized": "Đồng bộ",
+    "Ordermanagement": "Quản lý đơn hàng",
+    "Discount": "Chiết Khấu",
+    "Contract": "Hợp đồng"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -227,7 +230,9 @@
   },
   "supplier": {
     "Code": "Mã NCC",
+    "SupplierCode": "Mã nhà cung cấp",
     "Name": "Tên nhà cung cấp",
+    "Fax": "Số fax",
     "Address": "Địa chỉ",
     "Representative": "Người đại diện",
     "Phone Number": "Số điện thoại",
