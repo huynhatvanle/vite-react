@@ -100,7 +100,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: any) => {
                   {/* {item.icon} */}
                   <div className={classNames({'absolute': isCollapsed })}>{item.icon}</div>
                   <span
-                    className={classNames('ml-2.5 transition-all duration-300 ease-in-out font-medium text-base !h-8', {
+                    className={classNames('ml-2.5 transition-all duration-300 ease-in-out font-medium text-base !h-8 flex items-center', {
                       'opacity-100': !isCollapsed,
                       'opacity-0 text-[0] ml-0': isCollapsed,
                     })}
