@@ -24,9 +24,6 @@ const Page = () => {
   const inventoryProductFacade = InventoryProductFacade()
   const invoicevietFacade = invoicekiotvietFacade()
 
-
-  // console.log("inventoryProductFacade", inventoryProductFacade);
-
   const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
@@ -34,13 +31,7 @@ const Page = () => {
   const [supplier, setSupplier] = useState('')
 
   const dataTableRef = useRef<TableRefObject>(null);
-  // useEffect(() => {
-  //   console.log(supplier)
-  //   productFacede.get({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: supplier })
-  //   // return () => {
-  //   //   isReload.current && storeFacade.get(param);
-  //   // };
-  // }, [supplier]);
+
 
   useEffect(() => {
     if (status === 'put.fulfilled')
@@ -602,7 +593,7 @@ const Page = () => {
                     title: 'supplier.Status',
                     name: 'isActive',
                     tableItem: {
-                      render: (text: string) => text ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đang hoạt động</div>)
+                      render: (text: string) => text ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>{t('store.Active')}</div>)
                         : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'></div>),
                     },
                   },

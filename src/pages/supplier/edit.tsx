@@ -40,9 +40,6 @@ const Page = () => {
   const ordersFacade = OrdersFacade();
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
-
-  // console.log('inventoryOrders', inventoryOrders.result?.total);
-
   const [test, setTest] = useState('1');
 
   useEffect(() => {
@@ -141,7 +138,7 @@ const Page = () => {
                       formItem: {
                         rules: [{ type: 'required' }],
                         render() {
-                          return <h3 className="mb-2.5 text-base ">Địa chỉ nhà cung cấp </h3>;
+                          return <h3 className="mb-2.5 text-base ">{t('store.Store Address')}</h3>;
                         },
                       },
                     },
@@ -222,7 +219,7 @@ const Page = () => {
                       name: '',
                       formItem: {
                         render() {
-                          return <div className="text-xl text-teal-900 font-bold mb-2.5">Thông tin người đại diện</div>;
+                          return <div className="text-xl text-teal-900 font-bold mb-2.5">{t('store.Representative information')}</div>;
                         },
                       },
                     },
@@ -581,76 +578,6 @@ const Page = () => {
               {test === '1' ? (
                 <div className={'w-full mx-auto bg-white rounded-xl'}>
                   <div className="px-5 pt-6 pb-4">
-                    <Form
-                      className="intro-x pt-6 rounded-lg w-full "
-                      columns={[
-                        {
-                          title: '',
-                          name: 'cap1',
-                          formItem: {
-                            tabIndex: 3,
-                            placeholder: 'Danh mục chính',
-                            col: 3,
-                            type: 'select',
-                            get: {
-                              facade: CategoryFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                            },
-                            onChange(value, form) {
-                              form.resetFields(['cap2', 'cap3']);
-                            },
-                          },
-                        },
-                        {
-                          name: 'cap2',
-                          title: '',
-                          formItem: {
-                            disabled: () => true,
-                            placeholder: 'Danh mục cấp 1',
-                            type: 'select',
-                            col: 3,
-                            get: {
-                              facade: CategoryFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                              params: (fullTextSearch, value) => ({
-                                fullTextSearch,
-                                id: value().cap1,
-                              }),
-                            },
-                            onChange(value, form) {
-                              form.resetFields(['cap3']);
-                            },
-                          },
-                        },
-                        {
-                          name: 'cap3',
-                          title: '',
-                          formItem: {
-                            disabled: () => true,
-                            placeholder: 'Danh mục cấp 2',
-                            type: 'select',
-                            col: 3,
-                            get: {
-                              facade: CategoryFacade,
-                              format: (item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }),
-                              params: (fullTextSearch, value) => ({
-                                fullTextSearch,
-                                id: value().cap2,
-                              }),
-                            },
-                          },
-                        },
-                      ]}
-                    />
                     <DataTable
                       facade={inventoryOrders}
                       defaultRequest={{
@@ -708,7 +635,6 @@ const Page = () => {
                                 name: 'Store',
                                 title: '',
                                 formItem: {
-                                  // disabled:() => true,
                                   placeholder: 'Chọn cửa hàng',
                                   type: 'select',
                                   col: 5,
@@ -1275,7 +1201,7 @@ const Page = () => {
                     disabled={true}
                     text={t('Xuất Báo Cáo')}
                     className={'md:w-[10rem] justify-center out-line'}
-                    onClick={() => {}}
+                    onClick={() => { }}
                   />
                 </div>
               </div>
