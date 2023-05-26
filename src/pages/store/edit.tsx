@@ -972,7 +972,7 @@ const Page = () => {
                       },
 
                     ]}
-                    searchPlaceholder='placeholder.Select order type'
+                    searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
                       <div className='flex justify-end text-left flex-col w-full '>
                         <Form
