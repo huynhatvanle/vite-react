@@ -104,7 +104,10 @@
     "Inventory management": "Inventory management",
     "Export Excel file": "Export Excel",
     "Export report": "Export report",
-    "synchronized": "Synchronized"
+    "synchronized": "Synchronized",
+    "Ordermanagement": "Order Management",
+    "Discount": "Discount",
+    "Contract": "Contract"
   },
   "pages": {
     "Dashboard": "Dashboard",
@@ -226,6 +229,8 @@
     "Code": "ID Supplier",
     "Name": "Name",
     "Address": "Address",
+    "Fax": "Fax",
+    "SupplierCode": "SupplierCode",
     "Representative": "Representative",
     "Phone Number": "Phone Number",
     "Status": "Status",
