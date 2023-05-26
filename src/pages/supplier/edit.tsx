@@ -168,7 +168,6 @@ const Page = () => {
                     {
                       title: 'store.District',
                       name: 'districtId',
-                      title: 'store.District',
                       formItem: {
                         type: 'select',
                         rules: [{ type: 'required', message: 'Xin vui lòng chọn quận/huyện' }],
@@ -192,7 +191,6 @@ const Page = () => {
                     {
                       title: 'store.Ward',
                       name: 'wardId',
-                      title: 'store.Ward',
                       formItem: {
                         type: 'select',
                         rules: [{ type: 'required', message: 'Xin vui lòng chọn phường/xã' }],
