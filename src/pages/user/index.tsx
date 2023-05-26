@@ -94,7 +94,7 @@ const Page = () => {
       className='bg-white p-4 rounded-xl'
       columns={columns}
       rightHeader={
-        <div className={'flex gap-2 pb-3 mt-2 sm:mt-0'}>
+        <div className={'flex gap-2 pb-3 mt-2 lg:mt-0'}>
           <Button
             icon={<Plus className="icon-cud !h-5 !w-5" />}
             text={t('titles.User/Button')}
