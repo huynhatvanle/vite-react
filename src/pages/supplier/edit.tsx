@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
@@ -35,12 +35,15 @@ const Page = () => {
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
   const { user } = GlobalFacade();
-  const dataTableRef = useRef<TableRefObject>(null);
 
   const productFacade = ProductFacade();
   const ordersFacade = OrdersFacade();
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
+
+  // console.log('inventoryOrders', inventoryOrders.result?.total);
+
+  const [test, setTest] = useState('1');
 
   useEffect(() => {
     if (!result?.data) provinceFacade.get({});
@@ -58,6 +61,27 @@ const Page = () => {
         break;
     }
   }, [status]);
+
+  const a = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
+
+  const subHeader = [
+    {
+      title: 'Doanh thu',
+      total: a + ' VND',
+    },
+    {
+      title: 'Tổng số đơn thành công',
+      total: inventoryOrders.result?.statistical?.totalOderSuccess,
+    },
+    {
+      title: 'Tổng số đơn trả',
+      total: inventoryOrders.result?.statistical?.totalOderReturn,
+    },
+    {
+      title: 'Tổng số đơn bị hủy',
+      total: inventoryOrders.result?.statistical?.totalOderCancel,
+    },
+  ];
 
   const handleBack = () => navigate(routerLinks('Supplier') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: Supplier) => {
@@ -407,95 +431,6 @@ const Page = () => {
                 </div>
               </div>
             </Tabs.TabPane>
-            {/* <Tabs.TabPane tab="Quản lý đơn hàng" key="3" className="rounded-xl">
-              <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className="px-5 pt-6 pb-4">
-                  <DataTable
-                    facade={ordersFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filterSupplier: id }}
-                    xScroll="1400px"
-                    pageSizeRender={(sizePage: number) => sizePage}
-                    pageSizeWidth={'50px'}
-                    paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.Pagination', { from, to, total })
-                    }
-                    columns={[
-                      {
-                        title: `supplier.Order.Order ID`,
-                        name: 'code',
-                        tableItem: {
-                          width: 280,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Store Name`,
-                        name: 'name',
-                        tableItem: {
-                          width: 180,
-                          render: (value: any, item: any) => item?.store?.name,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Recipient`,
-                        name: 'address',
-                        tableItem: {
-                          width: 180,
-                          render: (value: any, item: any) => item?.storeAdmin?.name,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Delivery Address`,
-                        name: 'contract',
-                        tableItem: {
-                          width: 300,
-                          render: (value: any, item: any) =>
-                            item?.store?.address?.street +
-                            ', ' +
-                            item?.store?.address?.ward?.name +
-                            ', ' +
-                            item?.store?.address?.district?.name +
-                            ', ' +
-                            item?.store?.address?.province?.name,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Total Price (VND)`,
-                        name: 'total',
-                        tableItem: {
-                          width: 150,
-                          render: (value: any, item: any) => item?.total.toLocaleString(),
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Order Date`,
-                        name: 'createdAt',
-                        tableItem: {
-                          width: 150,
-                        },
-                      },
-                      {
-                        title: `supplier.Status`,
-                        name: 'isActive',
-                        tableItem: {
-                          width: 180,
-                          align: 'center',
-                          render: (item: any) =>
-                            !item?.isApplyTax ? (
-                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                Đã giao
-                              </div>
-                            ) : (
-                              <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
-                                Đang giao
-                              </div>
-                            ),
-                        },
-                      },
-                    ]}
-                  />
-                </div>
-              </div>
-            </Tabs.TabPane> */}
             <Tabs.TabPane tab="Quản lý đơn hàng" key="3" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-6 pb-4">
@@ -604,73 +539,710 @@ const Page = () => {
                 </div>
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Doanh thu" key="4" className="rounded-xl">
-              {/* <Dropdown
-                className="absolute right-3 z-50"
-                trigger={['click']}
-                menu={{
-                  items: [
-                    {
-                      key: '0',
-                      className: 'hover:!bg-white',
-                      label: (
-                        <div className="flex">
-                          <Avatar src={user?.profileImage} size={8} />
-                          <div className="text-left leading-none mr-3 hidden sm:block pl-2">
-                            <div className="font-bold text-black text-lg leading-snug mb-0.5">{user?.name}</div>
-                            <div className="text-gray-500 text-[10px]">{user?.email}</div>
+            <Tabs.TabPane
+              tab={
+                <Dropdown
+                  className=""
+                  trigger={['click']}
+                  menu={{
+                    className: 'top-2 left-10',
+                    items: [
+                      {
+                        key: '0',
+                        className: 'hover:!bg-white !py-2 !px-2.5',
+                        label: (
+                          <div className="text-base text-gray-400" onClick={() => setTest('1')}>
+                            Doanh thu theo đơn hàng
                           </div>
-                        </div>
-                      ),
-                    },
-                    {
-                      key: '1',
-                      className: 'h-11',
-                      label: (
-                        <div className="w-full">
-                          <div className="flex">
-                            <div className="flex items-center">
-                              <Avatar className="w-6 h-6 pr-2 text-black" />
-                            </div>
-                            <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
-                              {t('routes.admin.Layout.My Profile')}
-                            </div>
+                        ),
+                      },
+                      {
+                        key: '1',
+                        className: 'hover:!bg-white !py-2 !px-2.5',
+                        label: (
+                          <div className="text-base text-gray-400" onClick={() => setTest('2')}>
+                            Doanh thu theo sản phẩm
                           </div>
+                        ),
+                      },
+                    ],
+                  }}
+                  placement="bottomRight"
+                >
+                  <section className="flex items-center">
+                    <h1>Doanh thu</h1>
+                    <DownArrow className="w-4 h-4 ml-2" />
+                  </section>
+                </Dropdown>
+              }
+              key="4"
+              className="rounded-xl"
+            >
+              {test === '1' ? (
+                <div className={'w-full mx-auto bg-white rounded-xl'}>
+                  <div className="px-5 pt-6 pb-4">
+                    <DataTable
+                      facade={inventoryOrders}
+                      defaultRequest={{
+                        page: 1,
+                        perPage: 10,
+                        idSuppiler: id,
+                        filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                      }}
+                      xScroll="1400px"
+                      pageSizeRender={(sizePage: number) => sizePage}
+                      pageSizeWidth={'50px'}
+                      paginationDescription={(from: number, to: number, total: number) =>
+                        t('routes.admin.Layout.Pagination', { from, to, total })
+                      }
+                      rightHeader={
+                        <div className="flex items-end justify-between">
+                          <Form
+                            values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
+                            className="intro-x items-end rounded-lg w-full flex justify-between"
+                            columns={[
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center">
+                                      <p></p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'Category',
+                                formItem: {
+                                  tabIndex: 3,
+                                  placeholder: 'Chọn loại đơn hàng',
+                                  col: 5,
+                                  type: 'select',
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap2', 'cap3']);
+                                  },
+                                },
+                              },
+                              {
+                                name: 'Store',
+                                title: '',
+                                formItem: {
+                                  // disabled:() => true,
+                                  placeholder: 'Chọn cửa hàng',
+                                  type: 'select',
+                                  col: 5,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      code: value().id,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap2']);
+                                  },
+                                },
+                              },
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center">
+                                      <p>Từ Ngày</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateFrom',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                },
+                              },
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center">
+                                      <p>Đến ngày</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateTo',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                },
+                              },
+                            ]}
+                            disableSubmit={isLoading}
+                          />
                         </div>
-                      ),
-                    },
-                  ],
-                }}
-                placement="bottomRight"
-              >
-                <section className="flex items-center">
-                  <DownArrow className="w-4 h-4" />
-                </section>
-              </Dropdown> */}
+                      }
+                      searchPlaceholder="Tìm kiếm theo mã đơn hàng"
+                      columns={[
+                        {
+                          title: `supplier.Order.STT`,
+                          name: 'id',
+                          tableItem: {
+                            width: 70,
+                          },
+                        },
+                        {
+                          title: `supplier.Order.Order ID`,
+                          name: 'invoiceCode',
+                          tableItem: {
+                            width: 175,
+                          },
+                        },
+                        {
+                          title: `supplier.Order.Store Name`,
+                          name: 'storeName',
+                          tableItem: {
+                            width: 180,
+                            // render: (value: any, item: any) => item?.store?.name,
+                          },
+                        },
+                        {
+                          title: `supplier.Order.Order Date`,
+                          name: 'pickUpDate',
+                          tableItem: {
+                            width: 135,
+                            // render: (value: any, item: any) => item?.store?.name,
+                          },
+                        },
+                        {
+                          title: `supplier.Order.Delivery Date`,
+                          name: 'completedDate',
+                          tableItem: {
+                            width: 150,
+                            // render: (value: any, item: any) => item?.storeAdmin?.name,
+                          },
+                        },
+                        {
+                          title: `supplier.Order.Before Tax`,
+                          name: 'subTotal',
+                          tableItem: {
+                            width: 145,
+                            render: (value: any, item: any) => item?.subTotal?.toLocaleString(),
+                          },
+                        },
+                        {
+                          title: `supplier.Order.After Tax`,
+                          name: 'total',
+                          tableItem: {
+                            width: 130,
+                            render: (value: any, item: any) => item?.total?.toLocaleString(),
+                          },
+                        },
+                        {
+                          title: `supplier.Order.Promotion`,
+                          name: 'voucherAmount',
+                          tableItem: {
+                            width: 160,
+                          },
+                        },
+                        {
+                          title: `supplier.Order.Total Amount`,
+                          name: 'total',
+                          tableItem: {
+                            width: 145,
+                            render: (value: any, item: any) => item?.total.toLocaleString(),
+                          },
+                        },
+                        {
+                          title: `supplier.Order.Order Type`,
+                          name: 'total',
+                          tableItem: {
+                            width: 100,
+                            render: (text: string, item: any) =>
+                              // RETURN
+                              item?.billType === 'RECIEVED' ? (
+                                <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                  Bán hàng
+                                </div>
+                              ) : (
+                                <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
+                                  Trả hàng
+                                </div>
+                              ),
+                          },
+                        },
+                      ]}
+                      footer={() => (
+                        <div className="w-full flex sm:justify-end justify-center mt-4">
+                          <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                            Xuất báo cáo
+                          </button>
+                        </div>
+                      )}
+                      subHeader={() => (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
+                          {subHeader.map((e) => (
+                            <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
+                              <h1 className="font-bold mb-3">{e.title}</h1>
+                              <span className="text-teal-900 text-xl font-bold mt-auto">{e.total}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    />
+                  </div>
+                </div>
+              ) : (
+                test === '2' && (
+                  <div className={'w-full mx-auto bg-white rounded-xl'}>
+                    <div className="px-5 pt-6 pb-4">
+                      <Form
+                        className="intro-x pt-6 rounded-lg w-full "
+                        columns={[
+                          {
+                            title: '',
+                            name: 'cap1',
+                            formItem: {
+                              tabIndex: 3,
+                              placeholder: 'Danh mục chính',
+                              col: 3,
+                              type: 'select',
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                              },
+                              onChange(value, form) {
+                                form.resetFields(['cap2', 'cap3']);
+                              },
+                            },
+                          },
+                          {
+                            name: 'cap2',
+                            title: '',
+                            formItem: {
+                              disabled: () => true,
+                              placeholder: 'Danh mục cấp 1',
+                              type: 'select',
+                              col: 3,
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                                params: (fullTextSearch, value) => ({
+                                  fullTextSearch,
+                                  id: value().cap1,
+                                }),
+                              },
+                              onChange(value, form) {
+                                form.resetFields(['cap3']);
+                              },
+                            },
+                          },
+                          {
+                            name: 'cap3',
+                            title: '',
+                            formItem: {
+                              disabled: () => true,
+                              placeholder: 'Danh mục cấp 2',
+                              type: 'select',
+                              col: 3,
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                                params: (fullTextSearch, value) => ({
+                                  fullTextSearch,
+                                  id: value().cap2,
+                                }),
+                              },
+                            },
+                          },
+                        ]}
+                      />
+                      <DataTable
+                        facade={inventoryOrders}
+                        defaultRequest={{
+                          page: 1,
+                          perPage: 10,
+                          idSuppiler: id,
+                          filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                        }}
+                        xScroll="1400px"
+                        pageSizeRender={(sizePage: number) => sizePage}
+                        pageSizeWidth={'50px'}
+                        paginationDescription={(from: number, to: number, total: number) =>
+                          t('routes.admin.Layout.Pagination', { from, to, total })
+                        }
+                        rightHeader={
+                          <div className="flex items-end justify-between">
+                            <Form
+                              values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
+                              className="intro-x items-end rounded-lg w-full flex justify-between"
+                              columns={[
+                                {
+                                  title: '',
+                                  name: '',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 2,
+                                    render: () => (
+                                      <div className="flex h-10 items-center">
+                                        <p></p>
+                                      </div>
+                                    ),
+                                  },
+                                },
+                                {
+                                  title: '',
+                                  name: 'Category',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    placeholder: 'Chọn loại đơn hàng',
+                                    col: 5,
+                                    type: 'select',
+                                    get: {
+                                      facade: CategoryFacade,
+                                      format: (item: any) => ({
+                                        label: item.name,
+                                        value: item.id,
+                                      }),
+                                    },
+                                    onChange(value, form) {
+                                      form.resetFields(['cap2', 'cap3']);
+                                    },
+                                  },
+                                },
+                                {
+                                  name: 'Store',
+                                  title: '',
+                                  formItem: {
+                                    // disabled:() => true,
+                                    placeholder: 'Chọn cửa hàng',
+                                    type: 'select',
+                                    col: 5,
+                                    get: {
+                                      facade: CategoryFacade,
+                                      format: (item: any) => ({
+                                        label: item.name,
+                                        value: item.id,
+                                      }),
+                                      params: (fullTextSearch, value) => ({
+                                        fullTextSearch,
+                                        code: value().id,
+                                      }),
+                                    },
+                                    onChange(value, form) {
+                                      form.resetFields(['cap2']);
+                                    },
+                                  },
+                                },
+                                {
+                                  title: '',
+                                  name: '',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 2,
+                                    render: () => (
+                                      <div className="flex h-10 items-center">
+                                        <p>Từ Ngày</p>
+                                      </div>
+                                    ),
+                                  },
+                                },
+                                {
+                                  title: '',
+                                  name: 'dateFrom',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 4,
+                                    type: 'date',
+                                  },
+                                },
+                                {
+                                  title: '',
+                                  name: '',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 2,
+                                    render: () => (
+                                      <div className="flex h-10 items-center">
+                                        <p>Đến ngày</p>
+                                      </div>
+                                    ),
+                                  },
+                                },
+                                {
+                                  title: '',
+                                  name: 'dateTo',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 4,
+                                    type: 'date',
+                                  },
+                                },
+                              ]}
+                              // handSubmit={handleSubmit}
+                              disableSubmit={isLoading}
+                            />
+                          </div>
+                        }
+                        searchPlaceholder="Tìm kiếm theo mã đơn hàng"
+                        columns={[
+                          {
+                            title: `supplier.Order.STT`,
+                            name: 'id',
+                            tableItem: {
+                              width: 70,
+                            },
+                          },
+                          {
+                            title: `product.Code`,
+                            name: 'invoiceCode',
+                            tableItem: {
+                              width: 175,
+                            },
+                          },
+                          {
+                            title: `product.Name`,
+                            name: 'storeName',
+                            tableItem: {
+                              width: 180,
+                              // render: (value: any, item: any) => item?.store?.name,
+                            },
+                          },
+                          {
+                            title: `product.Barcode`,
+                            name: 'storeName',
+                            tableItem: {
+                              width: 180,
+                              // render: (value: any, item: any) => item?.store?.name,
+                            },
+                          },
+                          {
+                            title: `supplier.Order.Revenue Before Tax`,
+                            name: 'subTotal',
+                            tableItem: {
+                              width: 145,
+                              render: (value: any, item: any) => item?.subTotal?.toLocaleString(),
+                            },
+                          },
+                          {
+                            title: `supplier.Order.After Tax`,
+                            name: 'total',
+                            tableItem: {
+                              width: 130,
+                              render: (value: any, item: any) => item?.total?.toLocaleString(),
+                            },
+                          },
+                          {
+                            title: `supplier.Status`,
+                            name: 'total',
+                            tableItem: {
+                              width: 100,
+                              render: (text: string, item: any) =>
+                                // RETURN
+                                item?.billType === 'RECIEVED' ? (
+                                  <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                    Bán hàng
+                                  </div>
+                                ) : (
+                                  <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
+                                    Trả hàng
+                                  </div>
+                                ),
+                            },
+                          },
+                        ]}
+                        footer={() => (
+                          <div className="w-full flex sm:justify-end justify-center mt-4">
+                            <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                              Xuất báo cáo
+                            </button>
+                          </div>
+                        )}
+                      />
+                    </div>
+                  </div>
+                )
+              )}
+              <div className="sm:flex sm:mt-7 mt-2">
+                <div className="flex flex-col items-center mt-2" onClick={handleBack}>
+                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+                    {t('components.form.modal.cancel')}
+                  </button>
+                </div>
+              </div>
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Chiết khấu" key="5" className="rounded-xl">
+              {/* lấy về đc data/ tạo 1 cái data mới /lấy 1 cái key tạo 1 row mới trong table */}
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
-                    facade={inventoryOrders}
-                    defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
-                    xScroll="1400px"
+                    facade={discountFacade}
+                    defaultRequest={{
+                      page: 1,
+                      perPage: 10,
+                      filter: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                    }}
+                    xScroll="1370px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
                       t('routes.admin.Layout.Pagination', { from, to, total })
                     }
+                    columns={[
+                      {
+                        title: `supplier.Order.STT`,
+                        name: '',
+                        tableItem: {
+                          width: 110,
+                        },
+                      },
+                      // {
+                      //   title: `supplier.Order.Time`,
+                      //   name: 'name',
+                      //   tableItem: {
+                      //     width: 300,
+                      //   },
+                      // },
+                      // {
+                      //   title: `supplier.Order.Discount`,
+                      //   name: 'address',
+                      //   tableItem: {
+                      //     width: 245,
+                      //   },
+                      // },
+                      // {
+                      //   title: `supplier.Order.Paid`,
+                      //   name: 'contract',
+                      //   tableItem: {
+                      //     width: 245,
+                      //   },
+                      // },
+                      // {
+                      //   title: `supplier.Order.Unpaid`,
+                      //   name: 'userRole',
+                      //   tableItem: {
+                      //     width: 245,
+                      //   },
+                      // },
+                      // {
+                      //   title: `supplier.Status`,
+                      //   name: 'isActive',
+                      //   tableItem: {
+                      //     width: 240,
+                      //     align: 'center',
+                      //     // render: (text: string) =>
+                      //     //   text ? (
+                      //     //     <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                      //     //       Đã ký
+                      //     //     </div>
+                      //     //   ) : (
+                      //     //     <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
+                      //     //       Chờ ký
+                      //     //     </div>
+                      //     //   ),
+                      //   },
+                      // },
+                    ]}
+                    footer={() => (
+                      <div className="w-full flex sm:justify-end justify-center mt-4">
+                        <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                          Xuất báo cáo
+                        </button>
+                      </div>
+                    )}
+                    showSearch={false}
                     rightHeader={
-                      <div className="flex items-end justify-between">
+                      <div className="flex items-end justify-between h-[100px]">
                         <Form
+                          values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
                           className="intro-x items-end rounded-lg w-full flex justify-between"
                           columns={[
                             {
                               title: '',
                               name: '',
                               formItem: {
+                                render: () => (
+                                  <div className="flex h-10 items-center text-xs whitespace-nowrap">
+                                    <p>Kỳ hạn từ</p>
+                                  </div>
+                                ),
+                                tabIndex: 3,
+                                col: 1,
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'dateFrom',
+                              formItem: {
                                 tabIndex: 3,
                                 col: 2,
+                                type: 'date',
+                              },
+                            },
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 1,
                                 render: () => (
-                                  <div className="flex h-10 items-center">
+                                  <div className="flex w-10 h-10 items-center text-xs">
+                                    <p>đến</p>
+                                  </div>
+                                ),
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'dateTo',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                type: 'date',
+                              },
+                            },
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 6,
+                                render: () => (
+                                  <div className="flex w-10 h-10 items-center text-xs">
                                     <p></p>
                                   </div>
                                 ),
@@ -681,8 +1253,8 @@ const Page = () => {
                               name: 'Category',
                               formItem: {
                                 tabIndex: 3,
-                                placeholder: 'Chọn loại đơn hàng',
-                                col: 5,
+                                placeholder: 'Chọn trạng thái',
+                                col: 3,
                                 type: 'select',
                                 get: {
                                   facade: CategoryFacade,
@@ -691,276 +1263,21 @@ const Page = () => {
                                     value: item.id,
                                   }),
                                 },
-                                onChange(value, form) {
-                                  form.resetFields(['cap2', 'cap3']);
-                                },
-                              },
-                            },
-                            {
-                              name: 'Store',
-                              title: '',
-                              formItem: {
-                                // disabled:() => true,
-                                placeholder: 'Chọn cửa hàng',
-                                type: 'select',
-                                col: 5,
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    code: value().id,
-                                  }),
-                                },
-                                onChange(value, form) {
-                                  form.resetFields(['cap2']);
-                                },
-                              },
-                            },
-                            {
-                              title: '',
-                              name: '',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 2,
-                                render: () => (
-                                  <div className="flex h-10 items-center">
-                                    <p>Từ Ngày</p>
-                                  </div>
-                                ),
-                              },
-                            },
-                            {
-                              title: '',
-                              name: 'StartDate',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                              },
-                            },
-                            {
-                              title: '',
-                              name: '',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 2,
-                                render: () => (
-                                  <div className="flex h-10 items-center">
-                                    <p>Đến ngày</p>
-                                  </div>
-                                ),
-                              },
-                            },
-                            {
-                              title: '',
-                              name: 'EndDate',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
                               },
                             },
                           ]}
-                          // handSubmit={handleSubmit}
                           disableSubmit={isLoading}
                         />
                       </div>
                     }
-                    searchPlaceholder="Tìm kiếm theo mã đơn hàng"
-                    columns={[
-                      {
-                        title: `supplier.Order.STT`,
-                        name: 'id',
-                        tableItem: {
-                          width: 70,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Order ID`,
-                        name: 'invoiceCode',
-                        tableItem: {
-                          width: 175,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Store Name`,
-                        name: 'storeName',
-                        tableItem: {
-                          width: 180,
-                          // render: (value: any, item: any) => item?.store?.name,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Order Date`,
-                        name: 'pickUpDate',
-                        tableItem: {
-                          width: 135,
-                          // render: (value: any, item: any) => item?.store?.name,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Delivery Date`,
-                        name: 'completedDate',
-                        tableItem: {
-                          width: 150,
-                          // render: (value: any, item: any) => item?.storeAdmin?.name,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Before Tax`,
-                        name: 'subTotal',
-                        tableItem: {
-                          width: 145,
-                          render: (value: any, item: any) => item?.subTotal?.toLocaleString(),
-                        },
-                      },
-                      {
-                        title: `supplier.Order.After Tax`,
-                        name: 'total',
-                        tableItem: {
-                          width: 130,
-                          render: (value: any, item: any) => item?.total?.toLocaleString(),
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Promotion`,
-                        name: 'voucherAmount',
-                        tableItem: {
-                          width: 160,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Total Amount`,
-                        name: 'total',
-                        tableItem: {
-                          width: 145,
-                          render: (value: any, item: any) => item?.total.toLocaleString(),
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Order Type`,
-                        name: 'total',
-                        tableItem: {
-                          width: 100,
-                          render: (text: string, item: any) =>
-                            // RETURN
-                            item?.billType === 'RECIEVED' ? (
-                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                Bán hàng
-                              </div>
-                            ) : (
-                              <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                Trả hàng
-                              </div>
-                            ),
-                        },
-                      },
-                    ]}
-                  />
-                </div>
-              </div>
-              <div className="sm:flex sm:mt-7 mt-2">
-                <div className="flex flex-col items-center mt-2" onClick={handleBack}>
-                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
-                    {t('components.form.modal.cancel')}
-                  </button>
-                </div>
-              </div>
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Chiết khấu" key="5" className="rounded-xl">
-              <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className="px-5 pt-6 pb-4">
-                  <DataTable
-                    facade={discountFacade}
-                    defaultRequest={{ page: 1, perPage: 10 }}
-                    xScroll="1370px"
-                    pageSizeRender={(sizePage: number) => sizePage}
-                    pageSizeWidth={'50px'}
-                    paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.Pagination', { from, to, total })
-                    }
-                    columns={[
-                      {
-                        title: `supplier.Order.STT`,
-                        name: 'code',
-                        tableItem: {
-                          width: 110,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Time`,
-                        name: 'name',
-                        tableItem: {
-                          width: 300,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Discount`,
-                        name: 'address',
-                        tableItem: {
-                          width: 245,
-                          render: (value: any, item: any) =>
-                            item?.address?.street +
-                            ', ' +
-                            item?.address?.ward?.name +
-                            ', ' +
-                            item?.address?.district?.name +
-                            ', ' +
-                            item?.address?.province?.name,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Paid`,
-                        name: 'contract',
-                        tableItem: {
-                          width: 245,
-                          render: (value: any, item: any) => item?.contract[0].name,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Unpaid`,
-                        name: 'userRole',
-                        tableItem: {
-                          width: 245,
-                          render: (value: any, item: any) => item?.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
-                      {
-                        title: `supplier.Status`,
-                        name: 'isActive',
-                        tableItem: {
-                          width: 240,
-                          align: 'center',
-                          render: (text: string) =>
-                            text ? (
-                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                Đã ký
-                              </div>
-                            ) : (
-                              <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
-                                Chờ ký
-                              </div>
-                            ),
-                        },
-                      },
-                    ]}
-                    showSearch={false}
-                    rightHeader={
-                      <div className={'flex h-10 w-36'}>
-                        {user && (
-                          <Button
-                            className="!bg-white flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
-                            icon={<Download className="icon-cud !h-6 !w-6 !fill-gray-600 group-hover:!fill-white" />}
-                            text={t('Xuất file excel')}
-                            onClick={() => navigate(routerLinks('Supplier/Excel'))}
-                          />
-                        )}
+                    subHeader={() => (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
+                        <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
+                          <h1 className="font-bold mb-3">Chiết khấu cần thanh toán</h1>
+                          <span className="text-teal-900 text-xl font-bold mt-auto">0 VND</span>
+                        </div>
                       </div>
-                    }
+                    )}
                   />
                 </div>
               </div>

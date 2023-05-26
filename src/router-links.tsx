@@ -26,12 +26,12 @@ const Util = (name: string, type?: string) => {
 
     Category: '/category',
 
-    Product: '/product'
+    Product: '/product',
   }; // 💬 generate link to here
 
-//   import { routerLinks } from './router-links';
+  //   import { routerLinks } from './router-links';
 
-// const link = routerLinks('MyProfile') + '?tab=1';
+  // const link = routerLinks('MyProfile') + '?tab=1';
 
   const apis: {
     [selector: string]: string;
@@ -50,10 +50,10 @@ const Util = (name: string, type?: string) => {
     SubStore: '/sub-organization/sub-org-in-store',
     ConnectSupplier: '/store-connect-supplier/supplier',
     InventoryProduct: '/inventory-product',
-    Suborgcommision:'/sub-org-commision',
+    Suborgcommision: '/sub-org-commision/831',
     Invoicekiotviet: '/invoice-kiot-viet/invoice',
     InventoryOrders: '/inventory-order/revenue-list',
-    SupplierStore : '/sub-organization/store/all-supplier-store'
+    SupplierStore: '/sub-organization/store/all-supplier-store',
   }; // 💬 generate api to here
 
   switch (type) {

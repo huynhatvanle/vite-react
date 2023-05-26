@@ -254,7 +254,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           document.body.style.overflowY = 'auto';
           document.body.style.paddingRight = '';
         }}
-        className={classNames('fixed z-20 top-20 left-0 h-screen bg-teal-900 transition-all duration-300 ease-in-out', {
+        className={classNames('fixed z-30 top-20 left-0 h-screen bg-teal-900 transition-all duration-300 ease-in-out', {
           'w-64': !isCollapsed,
           'w-16': isCollapsed,
           '!-left-20': isCollapsed && !isDesktop,
@@ -264,7 +264,7 @@ const Layout = ({ children }: PropsWithChildren) => {
         {/* permission={user?.role?.permissions} */}
       </div>
       {!isCollapsed && !isDesktop && (
-        <div className={'w-full h-full fixed bg-gray-100 opacity-50 z-[1]'} onClick={() => set_isCollapsed(true)} />
+        <div className={'w-full h-full fixed bg-black opacity-30 z-20'} onClick={() => set_isCollapsed(true)} />
       )}
       <section
         id={'main'}

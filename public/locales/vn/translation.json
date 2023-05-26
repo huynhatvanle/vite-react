@@ -231,6 +231,7 @@
       "Order Date": "Ngày đặt",
       "Delivery Date": "Ngày nhận",
       "Before Tax": "Trước thuế",
+      "Revenue Before Tax": "Doanh thu trước thuế",
       "After Tax": "Sau thuế",
       "Promotion": "Khuyến mãi",
       "Total Amount": "Thành tiền",
@@ -277,6 +278,7 @@
     "SupplierName": "Nhà cung cấp",
     "Unit": "Đơn vị",
     "Price": "Giá bán lẻ (VND)",
-    "Status": "Tình trạng"
+    "Status": "Tình trạng",
+    "Barcode": "Mã vạch"
   }
 }
