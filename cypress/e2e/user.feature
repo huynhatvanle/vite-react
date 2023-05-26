@@ -19,6 +19,7 @@ Feature: Login
       When Enter date in "Ngày đầu đi làm"
       When Click select "Vai trò" with "Supper Admin"
       When Enter "words" in textarea "Mô tả" with "_RANDOM_"
+#      When Select file in "Tải ảnh lên" with "image.jpeg"
       When Click "Lưu lại" button
 
     Scenario: SI-01 Verify that login successfully with valid Email and Password
