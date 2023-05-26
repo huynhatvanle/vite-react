@@ -677,7 +677,7 @@ export const Form = ({
         }
       }}
     >
-      <div className={'group-input'}>
+      <div className={'group-input p-5'}>
         <div className={'grid gap-x-5 grid-cols-12'}>
           {_columns.map(
             (column: any, index: number) =>
@@ -764,8 +764,8 @@ type Type = {
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?:  ((values: any) =>  JSX.Element );
-  extendFormSwitch?:  JSX.Element;
+  extendForm?: ((values: any) => JSX.Element);
+  extendFormSwitch?: JSX.Element;
   extendButton?: (values: any) => JSX.Element;
   extendButtonChangePassword?: (values: any) => void;
   idSubmit?: string;
