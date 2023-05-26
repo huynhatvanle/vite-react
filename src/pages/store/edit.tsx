@@ -24,6 +24,9 @@ const Page = () => {
   const inventoryProductFacade = InventoryProductFacade()
   const invoicevietFacade = invoicekiotvietFacade()
 
+
+  // console.log("inventoryProductFacade", inventoryProductFacade);
+
   const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
@@ -211,7 +214,7 @@ const Page = () => {
                     name: 'phoneNumber',
                     formItem: {
                       col: 4,
-                      rules: [{ type: 'required' },{ type: 'phone', min: 8, max: 12 }],
+                      rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
                     },
                   },
                   {
@@ -219,7 +222,7 @@ const Page = () => {
                     name: 'emailContact',
                     formItem: {
                       col: 4,
-                      rules: [{ type: 'required' },{ type: 'email' }],
+                      rules: [{ type: 'required' }, { type: 'email' }],
                     },
                   },
                 ]}
@@ -448,6 +451,7 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
+                                dataTableRef?.current?.onChange({page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE',supplierId: value});
                               },
                             },
                           },
@@ -475,6 +479,7 @@ const Page = () => {
                               },
                               onChange(value, form) {
                                 form.resetFields(['cap2', 'cap3'])
+                                dataTableRef?.current?.onChange({id: value});
                               },
                             },
                           },
@@ -591,7 +596,7 @@ const Page = () => {
                     title: 'supplier.Status',
                     name: 'isActive',
                     tableItem: {
-                      render: (text: string) => text ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>{t('store.Active')}</div>)
+                      render: (text: string) => text ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đang hoạt động</div>)
                         : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'></div>),
                     },
                   },
