@@ -976,18 +976,26 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.Status',
+                        title: 'product.Revenue',
                         name: 'supplier',
                         tableItem: {
                           render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                         },
                       },
+                      {
+                        title: 'product.Status',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
                       <div className='flex justify-end text-left flex-col w-full '>
                         <Form
-                          className="intro-x flex justify-end form-store"
+                          className="intro-x flex justify-end"
                           columns={
                             [
                               {
@@ -1180,7 +1188,7 @@ const Page = () => {
 
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
-                facade={inventoryProductFacade}
+                facade={inventoryProductFacade.data?.inventory}
                 defaultRequest={{ page: 1, perPage: 10, idStore: id }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg form-store'
@@ -1198,76 +1206,76 @@ const Page = () => {
                       render: (text: string, item: any) => 'dasda',
                     },
                   },
-                  // {
-                  //   title: 'store.Inventory management.Barcode (Supplier)',
-                  //   name: 'supplierBarcode',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.supplierBarcode,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Barcode (Product)',
-                  //   name: 'storeBarcode',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.storeBarcode,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Product name',
-                  //   name: 'productName',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.productName,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Category',
-                  //   name: 'category',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Supplier',
-                  //   name: 'supplierName',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Unit',
-                  //   name: 'name',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Quantity on KiotViet',
-                  //   name: 'numberInKiot',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Quantity on BALANCE',
-                  //   name: 'numberInBal',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Warehouse price',
-                  //   name: 'inventoryPrice',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Total amount',
-                  //   name: 'inventoryPrice',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
+                  {
+                    title: 'store.Inventory management.Barcode (Supplier)',
+                    name: 'supplierBarcode',
+                    tableItem: {
+                      render: (value: any, item: any) => item.inventory?.supplierBarcode,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Barcode (Product)',
+                    name: 'storeBarcode',
+                    tableItem: {
+                      render: (value: any, item: any) => item.inventory?.storeBarcode,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Product name',
+                    name: 'productName',
+                    tableItem: {
+                      render: (value: any, item: any) => item.inventory?.productName,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Category',
+                    name: 'category',
+                    tableItem: {
+                      render: (value: any, item: any) => item.inventory?.category,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Supplier',
+                    name: 'supplierName',
+                    tableItem: {
+                      render: (value: any, item: any) => item.inventory?.category,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Unit',
+                    name: 'name',
+                    tableItem: {
+                      render: (value: any, item: any) => item.inventory?.category,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Quantity on KiotViet',
+                    name: 'numberInKiot',
+                    tableItem: {
+                      render: (value: any, item: any) => item.inventory?.category,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Quantity on BALANCE',
+                    name: 'numberInBal',
+                    tableItem: {
+                      render: (value: any, item: any) => item.inventory?.category,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Warehouse price',
+                    name: 'inventoryPrice',
+                    tableItem: {
+                      render: (value: any, item: any) => item.inventory?.category,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Total amount',
+                    name: 'inventoryPrice',
+                    tableItem: {
+                      render: (value: any, item: any) => item.inventory?.category,
+                    },
+                  },
                 ]}
                 showSearch={false}
                 rightHeader={
