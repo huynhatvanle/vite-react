@@ -229,6 +229,7 @@
     }
   },
   "supplier": {
+    "Supplier Address":"Địa chỉ nhà cung cấp",
     "Code": "Mã NCC",
     "SupplierCode": "Mã nhà cung cấp",
     "Name": "Tên nhà cung cấp",

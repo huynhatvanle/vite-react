@@ -229,6 +229,7 @@
     }
   },
   "supplier": {
+    "Supplier Address":"Supplier Address",
     "Code": "ID Supplier",
     "Name": "Name",
     "Address": "Address",
