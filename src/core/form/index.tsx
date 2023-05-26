@@ -760,7 +760,7 @@ export const Form = ({
 type Type = {
   className?: string;
   columns: FormModel[];
-  textSubmit?: string | DefaultTFuncReturn;
+  textSubmit?: string;
   textCancel?: string;
   handSubmit?: (values: any) => void;
   handCancel?: () => void;
