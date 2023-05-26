@@ -71,8 +71,8 @@ const Layout = ({ children }: PropsWithChildren) => {
                   <img
                     width={'16'}
                     height={'16'}
-                    src="/assets/svg/us.svg"
-                    alt="US"
+                    src="/assets/svg/en.svg"
+                    alt="EN"
                     className="mr-1 w-4 inline-block relative -top-0.5"
                   />{' '}
                   {t('routes.admin.Layout.English')}

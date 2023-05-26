@@ -2,11 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 @import "~glightbox/dist/css/glightbox.css";
-@import "swiper/swiper.min.css";
+
+@import "~swiper/swiper-bundle.css";
+@import "~swiper/swiper.min.css";
 
 @import "/src/core";
 .button {
-  @apply px-4 ~'py-2.5' rounded-lg bg-blue-600 text-white hover:bg-blue-400 inline-flex items-center gap-1 border border-transparent font-semibold;
+  @apply px-4 ~'py-2.5' rounded-lg bg-blue-600 text-white hover:bg-blue-400 inline-flex items-center gap-1 border border-transparent font-medium;
 
   &.icon {
     @apply p-0 border border-gray-300;
@@ -31,15 +33,10 @@ body {
   .intro-x:nth-child(@{counter}) { @apply translate-x-12; }
   .-intro-x:nth-child(@{counter}) { @apply -translate-x-12; }
   .-intro-x:nth-child(@{counter}), .intro-x:nth-child(@{counter}) {
-    opacity: 0;
+    @apply opacity-0 animate-intro-x-animation;
     z-index: (10 - @counter);
-    animation: intro-x-animation .4s ease-in-out .33333s;
-    animation-fill-mode: forwards;
     animation-delay: ~"0.@{counter}s"
   }
-}
-@keyframes intro-x-animation {
-  to { @apply opacity-100 -translate-x-0; }
 }
 
 .ant-btn {
@@ -58,4 +55,20 @@ svg { fill: currentColor; }
     content: '';
   }
   &:hover:before { @apply animate-shine; }
+}
+
+.slide-zoom {
+  @apply overflow-visible;
+
+  .swiper-slide {
+    @apply opacity-0 duration-500 transition-all ease-in-out !scale-110;
+
+    &.swiper-slide-next, &.swiper-slide-active, &.swiper-slide-prev {
+    @apply opacity-100 duration-500 transition-all ease-in-out !scale-100;
+    }
+  }
+}
+.swal2{
+  &-html-container { @apply !m-6; }
+  &-actions { @apply !mt-0 !mb-4; }
 }
