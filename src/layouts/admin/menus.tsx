@@ -14,7 +14,7 @@ const Layout = () => [
     name: 'User/List',
   },
   {
-    icon: <Cart className="icon-menu" />,
+    icon: <Cart className="icon-menu " />,
     name: 'Supplier',
   },
   {

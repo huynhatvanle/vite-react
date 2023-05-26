@@ -4,15 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import classNames from 'classnames';
 import { useLocation } from 'react-router-dom';
-// import { initializeApp } from 'firebase/app';
-// import { getMessaging, isSupported, getToken, onMessage } from 'firebase/messaging';
 import { routerLinks } from '@utils';
-// import { Avatar } from '@components/avatar';
-// import { GlobalFacade } from '@reducers';
 import { Avatar } from '@core/avatar';
 import { GlobalFacade } from '@store';
 import Menu1 from './menu';
-// import { firebaseConfig } from 'variable';
 import './index.less';
 import { Chevronleft, LeftArrow, Logo, RightArrow, Menu, ArrowBack, User1, Key, Out, User, UserProfile } from '@svgs';
 import Logo1 from '../../assets/images/logo.png';
@@ -119,11 +114,11 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '1',
                   className: 'h-11',
                   label: (
-                    <div className="flex">
+                    <div className="flex" onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
                       <div className="flex items-center">
                         <UserProfile className="w-6 h-6 pr-2 text-black" />
                       </div>
-                      <div onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
+                      <div >
                         {t('routes.admin.Layout.My Profile')}
                       </div>
                     </div>
@@ -158,10 +153,6 @@ const Layout = ({ children }: PropsWithChildren) => {
             placement="bottomRight"
           >
             <section className="flex items-center" id={'dropdown-profile'}>
-              {/* <div className="text-right leading-none mr-3 hidden sm:block">
-                <div className="font-bold text-black text-lg leading-snug mb-0.5">{user?.name}</div>
-                <div className="text-gray-500">{user?.email}</div>
-              </div> */}
               <Avatar src={user?.profileImage} size={10} />
             </section>
           </Dropdown>
@@ -200,23 +191,13 @@ const Layout = ({ children }: PropsWithChildren) => {
             {isCollapsed && !isDesktop && <Menu className="w-7 text-black select-none" />}
             {!isCollapsed && !isDesktop && <ArrowBack className="w-8 text-black select-none" />}
 
-            {/* <span className="line" />
-              <span className="line" />
-              <span className="line" /> */}
           </div>
           <a href="/dashboard" className="flex items-center">
-            {/* <Logo className={classNames('w-10 h-10 mr-3',
-                {
-                  'opacity-100 text-lg': !isCollapsed && isDesktop || isCollapsed && !isDesktop,
-                  'opacity-0 text-[0px] hidden': isCollapsed && isDesktop,
-                },)} /> */}
-
             <img
               src={Logo1}
               className={classNames('w-12 mr-3 rounded ', {
                 'opacity-100 text-lg w-12': (!isCollapsed && isDesktop) || (isCollapsed && !isDesktop),
                 'opacity-0 text-[0px] hidden': isCollapsed && isDesktop,
-                // 'opacity-100 text-xl': isCollapsed && !isDesktop,
               })}
             ></img>
             <div
@@ -275,7 +256,6 @@ const Layout = ({ children }: PropsWithChildren) => {
         })}
       >
         <div className={''}>
-          {/* <h1 className={'text-xl font-bold block sm:hidden pb-5'}>{t('pages.' + title)}</h1> */}
           {title !== 'Dashboard' && (
             <h1 className={'text-2xl text-teal-900 font-bold block pb-5'}>{t('titles.' + title)}</h1>
           )}

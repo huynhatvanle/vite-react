@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, Ref, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Input, Select, Switch, Tabs, Dropdown } from 'antd';
@@ -9,6 +9,7 @@ import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagemen
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { Arrow, Download, Plus } from '@svgs';
+import { TableRefObject } from '@models';
 
 
 const Page = () => {
@@ -30,6 +31,16 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
+  const [supplier, setSupplier] = useState('')
+
+  const dataTableRef = useRef<TableRefObject>(null);
+  // useEffect(() => {
+  //   console.log(supplier)
+  //   productFacede.get({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: supplier })
+  //   // return () => {
+  //   //   isReload.current && storeFacade.get(param);
+  //   // };
+  // }, [supplier]);
 
   useEffect(() => {
     if (status === 'put.fulfilled')
@@ -56,10 +67,7 @@ const Page = () => {
     setIsChecked(!isChecked);
   };
 
-  const handleSelectChange = (value: any) => {
-    console.log(`Selected: ${value}`);
-  };
-  const dataTableRef: any = useRef();
+  const [isBalanceClicked, setIsBalanceClicked] = useState<boolean>(false);
 
   return (
     <div className={'w-full'}>
@@ -185,6 +193,69 @@ const Page = () => {
                     },
                   },
                   {
+                    title: 'store.Province',
+                    name: 'provinceId',
+                    formItem: {
+                      tabIndex: 3,
+                      col: 3,
+                      rules: [{ type: 'required' }],
+                      type: 'select',
+                      get: {
+                        facade: ProvinceFacade,
+                        format: (item: any) => ({
+                          label: item.name,
+                          value: item.id + '|' + item.code,
+                        }),
+                      },
+                      onChange(value, form) {
+                        form.resetFields(['districtId', 'wardId'])
+                      },
+                    },
+                  },
+                  {
+                    title: 'store.District',
+                    name: 'districtId',
+                    formItem: {
+                      type: 'select',
+                      rules: [{ type: 'required' }],
+                      col: 3,
+                      get: {
+                        facade: DistrictFacade,
+                        format: (item: any) => ({
+                          label: item.name,
+                          value: item.id + '|' + item.code,
+                        }),
+                        params: (fullTextSearch, value) => ({
+                          fullTextSearch,
+                          code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
+                        }),
+                      },
+                      onChange(value, form) {
+                        form.resetFields(['wardId'])
+                      },
+                    },
+                  },
+                  {
+                    title: 'store.Ward',
+                    name: 'wardId',
+                    formItem: {
+                      type: 'select',
+                      rules: [{ type: 'required' }],
+                      col: 3,
+                      get: {
+                        facade: WardFacade,
+                        format: (item: any) => ({
+                          label: item.name,
+                          value: item.id,
+                        }),
+                        params: (fullTextSearch, value) => ({
+                          fullTextSearch,
+                          code: value().districtId.slice(value().districtId.indexOf('|') + 1),
+                        })
+                      }
+                    },
+                  },
+                  {
                     title: 'store.Street',
                     name: 'street',
                     formItem: {
@@ -227,15 +298,9 @@ const Page = () => {
                       rules: [{ type: 'required' }],
                     },
                   },
-                  {
-                    title: 'store.Note',
-                    name: 'note',
-                    formItem: {
-                      type: 'textarea',
-                    },
-                  },
                 ]}
-                extendForm1=
+
+                extendFormSwitch=
                 {<div className='flex items-center justify-between mb-2.5 '>
                   <div className='flex'>
                     <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
@@ -308,7 +373,10 @@ const Page = () => {
                       key: '1',
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
-                        <div className='focus:!text-white'>
+                        <div onClick={() => {
+                          setIsBalanceClicked(false);
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' });
+                        }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                           BALANCE
                         </div>
                       ),
@@ -317,7 +385,10 @@ const Page = () => {
                       key: '2',
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
-                        <div onClick={() => dataTableRef?.current?.onchange()}>
+                        <div onClick={() => {
+                          setIsBalanceClicked(true);
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'NON_BALANCE' });
+                        }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                           Non - BALANCE
                         </div>
                       ),
@@ -325,10 +396,9 @@ const Page = () => {
                   ]
                 }}
               >
-
                 <section className="flex items-center" id={'dropdown-store'}>
                   <div className="flex">
-                    <h2>Danh sách hàng hóa</h2>
+                    <div>{t('titles.Listofgoods')}</div>
                     <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
                   </div>
                 </section>
@@ -339,7 +409,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef}
                 facade={productFacede}
-                defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: type }}
+                defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
                 onRow={(data: any) => ({
@@ -398,7 +468,6 @@ const Page = () => {
                     title: 'product.Unit',
                     name: 'basicUnit',
                     tableItem: {
-
                     },
                   },
                   {
@@ -409,12 +478,14 @@ const Page = () => {
                     },
                   },
                 ]}
+
                 showSearch={false}
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
                   t('routes.admin.Layout.PaginationProduct', { from, to, total })
                 }
+
                 rightHeader={
                   <div className={'flex h-10 w-36'}>
                     <Button
@@ -509,7 +580,6 @@ const Page = () => {
                             name: 'cap3',
                             title: '',
                             formItem: {
-                              // disabled:() => true,
                               placeholder: 'Danh mục cấp 2',
                               type: 'select',
                               col: 3,
@@ -528,21 +598,20 @@ const Page = () => {
                           },
                         ]
                       }
-                      // handSubmit={handleSubmit}
                       disableSubmit={isLoading}
                     />
                   </>
                 }
               />
-              <div className="sm:flex sm:mt-5 mt-2 ">
-                <div className="flex flex-col items-center">
-                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 text-sm h-11" onClick={() => navigate(routerLinks('Store'))}>
-                    {t('components.form.modal.cancel')}
-                  </button>
-                </div>
-              </div>
+              <Button
+                text={t('Trở về')}
+                className={'md:w-32 justify-center out-line absolute mt-4'}
+                onClick={() => {
+                  navigate(routerLinks('Store'))
+                }}
+              />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Danh sách chi nhánh' key='3' className='rounded-xl'>
+            <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, supplierType: 'BALANCE' }}
@@ -621,6 +690,7 @@ const Page = () => {
                 </div>
               </div>
             </Tabs.TabPane>
+
             <Tabs.TabPane
               tab={
                 <Dropdown trigger={['click']}
@@ -631,7 +701,10 @@ const Page = () => {
                         key: '0',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div >
+                          <div onClick={() => {
+                            setIsBalanceClicked(false);
+                            dataTableRef?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id });
+                          }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             BALANCE
                           </div>
                         ),
@@ -640,7 +713,10 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div>
+                          <div onClick={() => {
+                            setIsBalanceClicked(true);
+                            dataTableRef?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'NON_BALANCE' });
+                          }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
                         ),
@@ -650,7 +726,7 @@ const Page = () => {
                 >
                   <section className="flex items-center" id={'dropdown-profile'}>
                     <div className="flex">
-                      <h2>Quản lý NCC</h2>
+                      <div>{t('titles.Manage')}</div>
                       <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
                     </div>
                   </section>
@@ -658,6 +734,7 @@ const Page = () => {
               }
               key='4' className='rounded-xl'>
               <DataTable
+                ref={dataTableRef}
                 facade={connectSupplierFacade}
                 defaultRequest={{ page: 1, perPage: 10, idSuppiler: id, type: type }}
                 xScroll='1270px'
@@ -711,14 +788,15 @@ const Page = () => {
                   },
                 ]}
               />
-              <div className="sm:flex sm:mt-5 mt-2 ">
-                <div className="flex flex-col items-center">
-                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 text-sm h-11" onClick={() => navigate(routerLinks('Store'))}>
-                    {t('components.form.modal.cancel')}
-                  </button>
-                </div>
-              </div>
+              <Button
+                text={t('Trở về')}
+                className={'md:w-32 justify-center out-line absolute mt-4'}
+                onClick={() => {
+                  navigate(routerLinks('Store'))
+                }}
+              />
             </Tabs.TabPane>
+
             <Tabs.TabPane
               tab={
                 <Dropdown trigger={['click']}
@@ -727,10 +805,13 @@ const Page = () => {
                     items: [
                       {
                         key: '0',
-                        className: '!font-semibold !text-base !text-teal-900',
+                        className: '!font-semibold !text-base !text-teal-900 !w-full',
                         label: (
-                          <div >
-                            BALANCE
+                          <div onClick={() => {
+                            setIsBalanceClicked(false);
+                            dataTableRef?.current?.onChange();
+                          }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
+                            {t('store.Revenue by product')}
                           </div>
                         ),
                       },
@@ -738,8 +819,11 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div>
-                            Non - BALANCE
+                          <div onClick={() => {
+                            setIsBalanceClicked(true);
+                            dataTableRef?.current?.onChange();
+                          }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
+                            {t('store.Revenue by order')}
                           </div>
                         ),
                       },
@@ -748,101 +832,418 @@ const Page = () => {
                 >
                   <section className="flex items-center" id={'dropdown-profile'}>
                     <div className="flex">
-                      <h2>Doạnh Thu</h2>
+                      <div>{t('titles.Revenue')}</div>
                       <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
                     </div>
                   </section>
                 </Dropdown>
               }
               key='5' className='rounded-xl'>
-              <DataTable
-                facade={invoicevietFacade.data}
-                defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
-                xScroll='1440px'
-                className=' bg-white p-5 rounded-lg'
-                onRow={(data: any) => ({
-                  onDoubleClick: () => {
-                    navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                  },
-                })}
-                pageSizeRender={(sizePage: number) => sizePage}
-                pageSizeWidth={'50px'}
-                paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                }
-                rightHeader={
-                  <Form
-                    className="intro-x rounded-lg w-full form-store mt-2.5"
-                    columns={
-                      [
-                        {
-                          title: '',
-                          name: 'supplierName',
-                          formItem: {
-                            //  tabIndex: 1,
-                            placeholder: 'Chọn loại đơn hàng',
-                            col: 7,
-                            type: 'select',
-                            get: {
-                              facade: ConnectSupplierFacade,
-                              format: (item: any) => ({
-                                label: item.supplier?.name,
-                                value: item.supplier?.id,
-                              }),
-                              // params: (fullTextSearch: string, getFieldValue: any) => ({
-                              //   fullTextSearch,
-                              //   extend: { name: getFieldValue('supplierName') || undefined },
-                              // }),
-                            }
-                          },
-                        },
-                      ]
+
+              <div className='px-5 pt-6 pb-4 bg-white p-5 rounded-lg'>
+
+                {isBalanceClicked ?
+                  <DataTable
+                    facade={invoicevietFacade.data}
+                    defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
+                    xScroll='1440px'
+                    onRow={(data: any) => ({
+                      onDoubleClick: () => {
+                        navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                      },
+                    })}
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
                     }
-                    // handSubmit={handleSubmit}
-                    disableSubmit={isLoading}
+                    columns={[
+                      {
+                        title: 'store.Revenue.Serial number',
+                        name: 'supplier',
+                        tableItem: {
+                          width: 150,
+                          render: (value: any, item: any) => item.supplier?.code,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Order code',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Sale date',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Value (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Discount (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Total amount (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Order type',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                    ]}
+                    searchPlaceholder='Tìm kiếm theo mã đơn hàng'
+                    rightHeader={
+                      <div className='flex justify-end w-full text-left flex-col'>
+                        <Form
+                          className="intro-x flex justify-end"
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'supplierName',
+                                formItem: {
+                                  placeholder: 'Chọn trạng thái',
+                                  type: 'select',
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.supplier?.name,
+                                      value: item.supplier?.id,
+                                    })
+                                  }
+                                }
+                              },
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                        <Form
+                          className='intro-x rounded-lg w-full flex justify-between'
+                          columns={[
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>Từ ngày</p>
+                                  </div>
+                                )
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'StartDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'Chọn thời điểm',
+                              },
+                            },
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>Đến ngày</p>
+                                  </div>
+                                )
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'EndDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'Chọn thời điểm',
+                              },
+                            },
+                          ]}
+                        />
+                      </div>
+                    }
+                  />
+                  :
+                  <DataTable
+                    facade={invoicevietFacade.data}
+                    defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
+                    xScroll='1440px'
+                    onRow={(data: any) => ({
+                      onDoubleClick: () => {
+                        navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                      },
+                    })}
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                    }
+                    columns={[
+                      {
+                        title: 'store.Revenue.Serial number',
+                        name: 'supplier',
+                        tableItem: {
+                          width: 150,
+                          render: (value: any, item: any) => item.supplier?.code,
+                        },
+                      },
+                      {
+                        title: 'store.Inventory management.Product code',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Inventory management.Product name',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                        },
+                      },
+                      {
+                        title: 'store.Barcode',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        },
+                      },
+                      {
+                        title: 'titles.Revenue',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'supplier.Status',
+                        name: 'supplier',
+                        tableItem: {
+                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                    ]}
+                    searchPlaceholder='Tìm kiếm theo mã đơn hàng'
+                    rightHeader={
+                      <div className='flex justify-end text-left flex-col w-full '>
+                        <Form
+                          className="intro-x flex justify-end"
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'supplierName',
+                                formItem: {
+                                  placeholder: 'Chọn trạng thái',
+                                  type: 'select',
+                                  tabIndex: 3,
+                                  col: 6,
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.supplier?.name,
+                                      value: item.supplier?.id,
+                                    })
+                                  }
+                                }
+                              },
+                              {
+                                title: '',
+                                name: 'supplierName',
+                                formItem: {
+                                  placeholder: 'Chọn nhà cung cấp',
+                                  type: 'select',
+                                  tabIndex: 3,
+                                  col: 6,
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.supplier?.name,
+                                      value: item.supplier?.id,
+                                    })
+                                  }
+                                }
+                              },
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                        <Form
+                          className='intro-x rounded-lg w-full flex justify-between'
+                          columns={[
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>Từ ngày</p>
+                                  </div>
+                                )
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'StartDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'Chọn thời điểm',
+                              },
+                            },
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>Đến ngày</p>
+                                  </div>
+                                )
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'EndDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'Chọn thời điểm',
+                              },
+                            },
+                          ]}
+                        />
+                      </div>
+                    }
+                    bottomHeader={
+                      <div>
+                        <Form
+                          className="intro-x pt-5 rounded-lg flex "
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'cap1',
+                                formItem: {
+                                  tabIndex: 3,
+                                  placeholder: 'Danh mục chính',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap2', 'cap3'])
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap2',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'Danh mục cấp 1',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap1,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap3'])
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap3',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'Danh mục cấp 2',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap2,
+                                    })
+                                  }
+                                },
+                              },
+
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                      </div>
+                    }
                   />
                 }
-                columns={[
-                  {
-                    title: 'supplier.CodeName',
-                    name: 'supplier',
-                    tableItem: {
-                      width: 150,
-                      render: (value: any, item: any) => item.supplier?.code,
-                    },
-                  },
-                  {
-                    title: 'supplier.Name',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier?.name,
-                    },
-                  },
-                  {
-                    title: 'store.Address',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
-                    },
-                  },
-                  {
-                    title: 'store.Name management',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                    },
-                  },
-                  {
-                    title: 'store.Phone Number',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                    },
-                  },
-                ]}
+
+                <div className='flex sm:justify-end justify-center items-center p-5'>
+                  <Button
+                    disabled={true}
+                    text={t('Xuất Báo Cáo')}
+                    className={'md:w-[10rem] justify-center !bg-teal-800'}
+                    onClick={() => { }}
+                  />
+                </div>
+              </div>
+              <Button
+                text={t('Trở về')}
+                className={'md:w-32 justify-center out-line absolute mt-4'}
+                onClick={() => {
+                  navigate(routerLinks('Supplier'))
+                }}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Quản lý kho' key='6' className='rounded-xl'>
+            <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
                 facade={inventoryProductFacade}
                 defaultRequest={{ page: 1, perPage: 10, idStore: id }}
@@ -973,16 +1374,17 @@ const Page = () => {
                         },
                       ]
                     }
+                    disableSubmit={isLoading}
                   />
                 }
               />
-              <div className="sm:flex sm:mt-5 mt-2 ">
-                <div className="flex flex-col items-center">
-                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 text-sm h-11" onClick={() => navigate(routerLinks('Store'))}>
-                    {t('components.form.modal.cancel')}
-                  </button>
-                </div>
-              </div>
+              <Button
+                text={t('Trở về')}
+                className={'md:w-32 justify-center out-line absolute mt-4'}
+                onClick={() => {
+                  navigate(routerLinks('Store'))
+                }}
+              />
             </Tabs.TabPane>
           </Tabs>
         </div>

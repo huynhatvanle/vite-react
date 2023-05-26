@@ -94,21 +94,31 @@
     "merchandise-managerment": "Quản lý hàng hóa",
     "merchandise-managerment/product": "Sản phẩm",
     "merchandise-managerment/category": "Danh mục",
-    "merchandise-managerment/tax": "Thuế"
+    "merchandise-managerment/tax": "Thuế",
+    "Storeinformation":"Thông tin cửa hàng",
+    "Supplierinformation":"Thông tin nhà cung cấp",
+    "Listofgoods":"Danh sách hàng hoá",
+    "Listofbranches":"Danh sách chi nhánh",
+    "Manage":"Quản lý NCC",
+    "Revenue":"Doanh thu",
+    "Inventory management":"Quản lý kho"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
     "Login": "Đăng Nhập",
+    "Sign-in": "Đăng Nhập",
+    "Đặt Lại Mật Khẩu": "Đặt Lại Mật Khẩu",
+    "Quên Mật Khẩu": "Quên Mật Khẩu",
+    "MyProfile": "Thông Tin Cá Nhân",
     "User/List": "Quản Lý Người Dùng",
     "User/Add": "Quản Lý Người Dùng",
     "User/Edit": "Quản Lý Người Dùng",
-    "store-managerment/create": "Thêm cửa hàng",
-    "Đặt Lại Mật Khẩu": "Đặt Lại Mật Khẩu",
-    "Sign-in": "Đăng Nhập",
-    "Quên Mật Khẩu": "Quên Mật Khẩu",
-    "Store": "Quản lý cửa hàng",
-    "store-managerment/edit": "Quản lý cửa hàng",
-    "MyProfile": "Thông tin cá nhân"
+    "Store": "Quản Lý Cửa Hàng",
+    "store-managerment/edit": "Quản Lý Cửa Hàng",
+    "store-managerment/create": "Quản Lý Cửa Hàng",
+    "Supplier":"Quản Lý Nhà Cung Cấp",
+    "Supplier/Add":"Quản Lý Nhà Cung Cấp",
+    "Supplier/Edit":"Quản Lý Nhà Cung Cấp"
   },
   "columns": {
     "auth": {
@@ -187,11 +197,11 @@
         "No Data": "Trống",
         "Day": "Ngày phép",
         "Pagination": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Danh mục",
-        "User": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Người dùng",
-        "PaginationStore": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Cửa hàng",
-        "PaginationSubStore": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Chi nhánh",
-        "PaginationSupplier": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Nhà cung cấp",
-        "PaginationProduct": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Sản phẩm"
+        "User": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} người dùng",
+        "PaginationStore": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} cửa hàng",
+        "PaginationSubStore": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} chi nhánh",
+        "PaginationSupplier": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} nhà cung cấp",
+        "PaginationProduct": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} sản phẩm"
       }
     }
   },
@@ -254,6 +264,9 @@
     "Contact Email": "Email đại diện",
     "Note": "Ghi chú",
     "Name management": "Tên quản lý",
+    "Revenue by product": "Doanh thu theo sản phẩm",
+    "Revenue by order": "Doanh thu theo đơn hàng",
+    "Barcode": "Mã vạch",
     "Inventory management": {
       "Product code": "Mã sản phẩm",
       "Barcode (Supplier)": "Mã vạch (NCC)",
@@ -266,17 +279,28 @@
       "Quantity on BALANCE": "Số lượng trên BALANCE",
       "Warehouse price": "Giá kho",
       "Total amount": "Thành tiền"
+    },
+    "Revenue": {
+      "Serial number": "STT",
+      "Order code": "Mã đơn hàng",
+      "Sale date": "Ngày bán",
+      "Value (VND)": "Giá trị (VND)",
+      "Discount (VND)": "Khuyến mãi (VND)",
+      "Total amount (VND)": "Thành tiền (VND)",
+      "Order type": "Loại đơn"
     }
   },
   "product": {
     "Code": "Mã sản phẩm",
     "StoreCode": "Mã vạch (CH)",
+    "Storecode": "Mã vạch",
     "SupplierCode": "Mã vạch (NCC)",
     "Name": "Tên sản phẩm",
     "Category": "Danh mục",
     "SupplierName": "Nhà cung cấp",
     "Unit": "Đơn vị",
     "Price": "Giá bán lẻ (VND)",
-    "Status": "Tình trạng"
+    "Status": "Tình trạng",
+    "Revenue":"Doanh thu"
   }
 }

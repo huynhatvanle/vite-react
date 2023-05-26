@@ -8,7 +8,7 @@ import { Spin } from '@core/spin';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
 import { routerLinks } from '@utils';
-import { UserSolid } from '@svgs';
+import { User, UserSolid } from '@svgs';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -21,11 +21,11 @@ const Page = () => {
 
   return (
     <Fragment>
-      <div className='lg:grid lg:grid-cols-3 gap-5 w-full block '>
-        <div className='col-span-1 lg:border lg:rounded-xl bg-white p-5'>
+      <div className='lg:grid lg:grid-cols-3 gap-5 w-full'>
+        <div className='col-span-1 lg:border lg:rounded-xl bg-white p-8 font-normal'>
           <Spin spinning={isLoading}>
             <Form
-              className="text-center items-centers text-2xl text-black font-semibold"
+              className="text-center items-centers text-xl font-bold text-slate-700"
               columns={[
                 {
                   title: '',
@@ -42,7 +42,7 @@ const Page = () => {
                   formItem: {
                     render: (form, values) => {
                       return (
-                        <div>
+                        <div className=''>
                           {values.name}
                         </div>
                       )
@@ -56,25 +56,23 @@ const Page = () => {
                     render: (text: any, item: any) => {
                       if (text = item.userRole[0].mtRole.code === "ADMIN") {
                         return (
-                          <div className='flex w-full flex-row justify-center pt-2'>
-                            <div><UserSolid className='w-7 h-7 mr-2 fill-slate-500' /></div>
-                            <div className='text-xl text-gray-500'>
-                              {t('user.RoleUser.ADMIN')}
-                            </div>
+                          <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                            <div><User className='w-5 h-5 mr-2 fill-slate-500' /></div>
+                            <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
                           </div>
                         )
                       } else if (text = item.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
                         return (
                           <div className='flex w-full flex-row justify-center'>
-                            <div><UserSolid className='w-7 h-7 mr-2' /></div>
-                            <div>{t('user.RoleUser.SUPPLIER')}</div>
+                            <div><User className='w-5 h-5 mr-2' /></div>
+                            <div className='text-base text-gray-500'>{t('user.RoleUser.SUPPLIER')}</div>
                           </div>
                         )
                       } else {
                         return (
                           <div className='flex w-full flex-row justify-center'>
-                            <div><UserSolid className='w-7 h-7 mr-2' /></div>
-                            <div>{t('user.RoleUser.STORE')}</div>
+                            <div><User className='w-5 h-5 mr-2' /></div>
+                            <div className='text-base text-gray-500'>{t('user.RoleUser.STORE')}</div>
                           </div>
                         )
                       }
@@ -88,7 +86,6 @@ const Page = () => {
           </Spin>
 
         </div>
-
         <div className='col-span-2 lg:border lg:rounded-xl bg-white p-5'>
           <Spin spinning={isLoading}>
             <Tabs defaultActiveKey="1" size="large">
@@ -208,8 +205,6 @@ const Page = () => {
               </Tabs.TabPane>
             </Tabs>
           </Spin>
-        </div>
-        <div>
         </div>
       </div>
     </Fragment>

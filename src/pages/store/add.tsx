@@ -43,13 +43,12 @@ const Page = () => {
   };
 
   return (
-    <div className={'w-full mx-auto bg-white rounded-xl'}>
-      <div className='text-xl text-teal-900 px-5 pt-3.5 font-bold bg-white w-max rounded-t-2xl'>
-        Thông tin cửa hàng
-      </div>
-      <div className='bg-white'>
+    <Fragment>
+      <div className='bg-white rounded-xl p-4'>
+        <div className={'text-xl text-teal-900 font-bold block pb-5'}>{t('titles.Storeinformation')}</div>
         <Form
           values={{ ...data }}
+          className="intro-x"
           columns={[
             {
               title: 'store.Name',
@@ -80,187 +79,187 @@ const Page = () => {
                 },
               }
             },
-              {
-                title: 'store.Province',
-                name: 'provinceId',
-                formItem: {
-                  tabIndex: 3,
-                  col: 3,
-                  type: 'select',
-                  rules: [{ type: 'requiredSelect' }],
-                  get: {
-                    facade: ProvinceFacade,
-                    format: (item: any) => ({
-                      label: item.name,
-                      value: item.id + '|' + item.code,
-                    }),
-                  },
-                  onChange(value, form) {
-                    form.resetFields(['districtId', 'wardId'])
-                  },
+            {
+              title: 'store.Province',
+              name: 'provinceId',
+              formItem: {
+                tabIndex: 3,
+                col: 3,
+                type: 'select',
+                rules: [{ type: 'requiredSelect' }],
+                get: {
+                  facade: ProvinceFacade,
+                  format: (item: any) => ({
+                    label: item.name,
+                    value: item.id + '|' + item.code,
+                  }),
+                },
+                onChange(value, form) {
+                  form.resetFields(['districtId', 'wardId'])
                 },
               },
-              {
-                name: 'districtId',
-                title: 'store.District',
-                formItem: {
-                  type: 'select',
-                  rules: [{ type: 'requiredSelect' }],
-                  col: 3,
-                  get: {
-                    facade: DistrictFacade,
-                    format: (item: any) => ({
-                      label: item.name,
-                      value: item.id + '|' + item.code,
-                    }),
-                    params: (fullTextSearch, value) => ({
-                      fullTextSearch,
-                      code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
-                    }),
-                  },
-                  onChange(value, form) {
-                    form.resetFields(['wardId'])
-                  },
+            },
+            {
+              name: 'districtId',
+              title: 'store.District',
+              formItem: {
+                type: 'select',
+                rules: [{ type: 'requiredSelect' }],
+                col: 3,
+                get: {
+                  facade: DistrictFacade,
+                  format: (item: any) => ({
+                    label: item.name,
+                    value: item.id + '|' + item.code,
+                  }),
+                  params: (fullTextSearch, value) => ({
+                    fullTextSearch,
+                    code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
+                  }),
+                },
+                onChange(value, form) {
+                  form.resetFields(['wardId'])
                 },
               },
-              {
-                name: 'wardId',
-                title: 'store.Ward',
-                formItem: {
-                  type: 'select',
-                  rules: [{ type: 'requiredSelect' }],
-                  col: 3,
-                  get: {
-                    facade: WardFacade,
-                    format: (item: any) => ({
-                      label: item.name,
-                      value: item.id,
-                    }),
-                    params: (fullTextSearch, value) => ({
-                      fullTextSearch,
-                      code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                    })
-                  }
-                },
-              },
-              {
-                name: 'street',
-                title: 'store.Street',
-                formItem: {
-                  rules: [{ type: 'required' }],
-                  col: 3,
-                },
-              },
-              {
-                title: '',
-                name: '',
-                formItem: {
-                  render() {
-                    return (
-                      <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
-                    )
-                  }
+            },
+            {
+              name: 'wardId',
+              title: 'store.Ward',
+              formItem: {
+                type: 'select',
+                rules: [{ type: 'requiredSelect' }],
+                col: 3,
+                get: {
+                  facade: WardFacade,
+                  format: (item: any) => ({
+                    label: item.name,
+                    value: item.id,
+                  }),
+                  params: (fullTextSearch, value) => ({
+                    fullTextSearch,
+                    code: value().districtId.slice(value().districtId.indexOf('|') + 1),
+                  })
                 }
               },
-              {
-                name: 'nameContact',
-                title: 'store.ContactName',
-                formItem: {
-                  col: 4,
-                  rules: [{ type: 'required' }],
-                },
+            },
+            {
+              name: 'street',
+              title: 'store.Street',
+              formItem: {
+                rules: [{ type: 'required' }],
+                col: 3,
               },
-              {
-                name: 'phoneNumber',
-                title: 'store.Contact Phone Number',
-                formItem: {
-                  col: 4,
-                  rules: [{ type: 'required' }],
-                },
+            },
+            {
+              title: '',
+              name: '',
+              formItem: {
+                render() {
+                  return (
+                    <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
+                  )
+                }
+              }
+            },
+            {
+              name: 'nameContact',
+              title: 'store.ContactName',
+              formItem: {
+                col: 4,
+                rules: [{ type: 'required' }],
               },
-              {
-                name: 'emailContact',
-                title: 'store.Contact Email',
-                formItem: {
-                  col: 4,
-                  rules: [{ type: 'required' }],
-                },
+            },
+            {
+              name: 'phoneNumber',
+              title: 'store.Contact Phone Number',
+              formItem: {
+                col: 4,
+                rules: [{ type: 'required' }],
               },
-              {
-                name: 'note',
-                title: 'store.Note',
-                formItem: {
-                  type: 'textarea',
-                },
+            },
+            {
+              name: 'emailContact',
+              title: 'store.Contact Email',
+              formItem: {
+                col: 4,
+                rules: [{ type: 'required' }],
               },
-            ]}
+            },
+            {
+              name: 'note',
+              title: 'store.Note',
+              formItem: {
+                type: 'textarea',
+              },
+            },
+          ]}
 
-            extendForm1=
-            {<div className='flex items-center justify-between mb-2.5 '>
-              <div className='flex'>
-                <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
-                <Switch onClick={handleClick} />
-              </div>
-              {isChecked && (
-                <Button className='!font-normal' text={t('Lấy DS chi nhánh')}/>
-              )}
-            </div>}
+          extendForm1=
+          {<div className='flex items-center justify-between mb-2.5 '>
+            <div className='flex'>
+              <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
+              <Switch onClick={handleClick} />
+            </div>
+            {isChecked && (
+              <Button className='!font-normal' text={t('Lấy DS chi nhánh')} />
+            )}
+          </div>}
 
-            extendForm=
-            {isChecked ? () => (
-              <Form
-                values={{ ...data }}
-                columns={[
-                  {
-                    title: 'client_id',
-                    name: 'clientid',
-                    formItem: {
-                      tabIndex: 1,
-                      col: 6,
-                      rules: [{ type: 'required' },],
-                    },
+          extendForm=
+          {isChecked ? () => (
+            <Form
+              values={{ ...data }}
+              columns={[
+                {
+                  title: 'client_id',
+                  name: 'clientid',
+                  formItem: {
+                    tabIndex: 1,
+                    col: 6,
+                    rules: [{ type: 'required' },],
                   },
-                  {
-                    title: 'client_secret',
-                    name: 'clientsecret',
-                    formItem: {
-                      tabIndex: 2,
-                      col: 6,
-                      rules: [{ type: 'required' },],
-                    },
+                },
+                {
+                  title: 'client_secret',
+                  name: 'clientsecret',
+                  formItem: {
+                    tabIndex: 2,
+                    col: 6,
+                    rules: [{ type: 'required' },],
                   },
-                  {
-                    title: 'retailer',
-                    name: 'retailer',
-                    formItem: {
-                      tabIndex: 1,
-                      col: 6,
-                      rules: [{ type: 'required' },],
-                    },
+                },
+                {
+                  title: 'retailer',
+                  name: 'retailer',
+                  formItem: {
+                    tabIndex: 1,
+                    col: 6,
+                    rules: [{ type: 'required' },],
                   },
-                  {
-                    title: 'branchId',
-                    name: 'branchid',
-                    formItem: {
-                      tabIndex: 2,
-                      col: 6,
-                      rules: [{ type: 'required' },],
-                    },
+                },
+                {
+                  title: 'branchId',
+                  name: 'branchid',
+                  formItem: {
+                    tabIndex: 2,
+                    col: 6,
+                    rules: [{ type: 'required' },],
                   },
-                ]}
+                },
+              ]}
 
-              />
-            )
-              :
-              undefined
-            }
+            />
+          )
+            :
+            undefined
+          }
 
-            handSubmit={handleSubmit}
-            disableSubmit={isLoading}
-            handCancel={handleBack}
-          />
+          handSubmit={handleSubmit}
+          disableSubmit={isLoading}
+          handCancel={handleBack}
+        />
       </div>
-    </div>
+    </Fragment>
   );
 };
 export default Page;
