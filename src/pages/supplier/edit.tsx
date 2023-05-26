@@ -93,7 +93,7 @@ const Page = () => {
       <Fragment>
         <div className="">
           <Tabs defaultActiveKey="1" type="card" size="large" className="">
-            <Tabs.TabPane tab="Thông tin nhà cung cấp" key="1" className="bg-white rounded-xl rounded-tl-none">
+            <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="bg-white rounded-xl rounded-tl-none">
               <div className="px-5">
                 <Form
                   // provinceId: data?.address?.province?.name, district: data?.address?.district?.name, ward: data?.address?.ward?.name,
@@ -166,6 +166,7 @@ const Page = () => {
                       },
                     },
                     {
+                      title: 'store.District',
                       name: 'districtId',
                       title: 'store.District',
                       formItem: {
@@ -189,6 +190,7 @@ const Page = () => {
                       },
                     },
                     {
+                      title: 'store.Ward',
                       name: 'wardId',
                       title: 'store.Ward',
                       formItem: {
@@ -210,7 +212,7 @@ const Page = () => {
                     },
                     {
                       title: 'store.Street',
-                      name: `street`,
+                      name: 'street',
                       formItem: {
                         tabIndex: 1,
                         col: 3,
@@ -269,7 +271,7 @@ const Page = () => {
                 />
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Danh sách hàng hóa" key="2" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Listofgoods')} key="2" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pb-4">
                   <DataTable
@@ -1287,7 +1289,7 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Hợp đồng" key="6" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="">
                   <div className={'text-xl text-teal-900 font-bold block pb-5'}>Chi tiết hợp đồng</div>

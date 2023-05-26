@@ -576,13 +576,13 @@ export const Form = ({
                 let min = 8;
                 rules.forEach((item: any) => item.min && (min = item.min));
                 if (value.trim().length < min) {
-                  return Promise.reject('Mật khẩu yêu cầu có 8 ký tự trở lên');
+                  return Promise.reject(t('components.form.Form Password.Lenght Password'));
                 }
                 if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value)) {
                   return Promise.resolve();
                 } else {
                   return Promise.reject(
-                    'Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt',
+                    t('components.form.rulePassword')
                   );
                 }
               } else {
@@ -677,7 +677,7 @@ export const Form = ({
         }
       }}
     >
-      <div className={'group-input'}>
+      <div className={'group-input p-5'}>
         <div className={'grid gap-x-5 grid-cols-12'}>
           {_columns.map(
             (column: any, index: number) =>
@@ -764,8 +764,8 @@ type Type = {
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?:  ((values: any) =>  JSX.Element );
-  extendFormSwitch?:  JSX.Element;
+  extendForm?: ((values: any) => JSX.Element);
+  extendFormSwitch?: JSX.Element;
   extendButton?: (values: any) => JSX.Element;
   extendButtonChangePassword?: (values: any) => void;
   idSubmit?: string;

@@ -11,7 +11,10 @@ const name = 'Organization';
 export const action = {
   ...new Action<StoreManagement>(name),
   getByIdStore: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id: string; keyState: keyof State<StoreManagement> }) => {
-    const data = await API.get<StoreManagement>(`${routerLinks(name, 'api')}/detail/${id}`);
+    let data = (await API.get<StoreManagement>(`${routerLinks(name, 'api')}/detail/${id}`));
+    data = { ...data, provinceId: data?.address?.province?.id, districtId: data?.address?.district?.id, wardId: data?.address?.ward?.id, street: data.address?.street }
+    console.log(data)
+    delete data.address
     return { data, keyState };
   }),
   postStore: createAsyncThunk(name + '/post', async (values: StoreManagement) => {
@@ -24,7 +27,8 @@ export const action = {
     const connectKiot = {}
     const address = { provinceId, districtId, wardId, street }
     const { statusCode, message } = await API.post<StoreManagement>(routerLinks(name, 'api'), {
-     ...values, address, supplierType, type, connectKiot });
+      ...values, address, supplierType, type, connectKiot
+    });
     if (message) await Message.success({ text: message });
     return statusCode;
   }),
@@ -37,10 +41,10 @@ export const action = {
     const connectKiot = {}
     const type = 'STORE'
     const address = { provinceId, districtId, wardId, street }
-    const rs = {...values, address, supplierType, type, connectKiot }
-    delete(rs.provinceId)
-    delete(rs.districtId)
-    delete(rs.wardId)
+    const rs = { ...values, address, supplierType, type, connectKiot }
+    delete (rs.provinceId)
+    delete (rs.districtId)
+    delete (rs.wardId)
     console.log(rs)
     const { statusCode, message } = await API.put<StoreManagement>(`${routerLinks(name, 'api')}/${id}`, rs);
     if (message) await Message.success({ text: message });

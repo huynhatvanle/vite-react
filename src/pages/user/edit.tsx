@@ -50,8 +50,8 @@ const Page = () => {
   return (
     <div className={'w-full'}>
       <Fragment>
-        <div className='bg-white rounded-2xl p-4'>
-          <div className={'text-xl text-teal-900 font-bold block pb-5'}>{t('titles.Userinformation')}</div>
+        <div className='bg-white rounded-2xl'>
+          <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5'}>{t('titles.Userinformation')}</div>
           {!!result?.data && (
             <Form
               values={{ ...data }}
