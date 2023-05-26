@@ -88,7 +88,7 @@ const Page = () => {
         </div>
         <div className='col-span-2 lg:border lg:rounded-xl bg-white p-5'>
           <Spin spinning={isLoading}>
-            <Tabs defaultActiveKey="1" size="large">
+            <Tabs defaultActiveKey="1" size="large" className='profile'>
               <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className='mt-5'>
                 <Form
                   columns={[

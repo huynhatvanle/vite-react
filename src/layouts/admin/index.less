@@ -58,7 +58,6 @@ main {
   }
 }
 
-
 .icon-menu {
   @apply !h-8 !w-8 ;
 }
@@ -84,4 +83,19 @@ main {
     &::before { @apply !border-none; }
   }
 }
+.profile{
+  .ant-tabs-tab{
+    @apply !bg-transparent;
+    &:hover {@apply !text-gray-400;}
+    .ant-tabs-tab-btn {
+     @apply text-xl !text-gray-400 font-semibold;
+   }
+  }
+  .ant-tabs-tab-active {
+    .ant-tabs-tab-btn {
+      @apply text-xl !text-green-800 font-semibold;
+    }
+  }
+}
+
 

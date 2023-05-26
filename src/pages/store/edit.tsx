@@ -74,7 +74,7 @@ const Page = () => {
       <Fragment>
         <div className='tab-wrapper'>
           <Tabs defaultActiveKey='1' type='card' size='large'>
-            <Tabs.TabPane tab={'Thông tin cửa hàng'} key='1' className='bg-white rounded-xl rounded-tl-none'>
+            <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <Form
                 values={{ ...data, emailContact: data?.userRole?.[0].userAdmin?.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
                 className="intro-x rounded-lg w-full"
@@ -112,7 +112,7 @@ const Page = () => {
                       rules: [{ type: 'required' }],
                       render() {
                         return (
-                          <h3 className='mb-2.5 text-base text-black font-medium'>Địa chỉ cửa hàng</h3>
+                          <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>
                         )
                       },
                     }
@@ -202,7 +202,7 @@ const Page = () => {
                     formItem: {
                       render() {
                         return (
-                          <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
+                          <div className='text-xl text-teal-900 font-bold mb-2.5'>{t('store.Representative information')}</div>
                         )
                       }
                     }
