@@ -13,7 +13,9 @@ export class Responses<T> {
       street?: string,
     },
     public province?: Province,
-    // public provinceId?: string,
+    public district?: District,
+    public ward?: Ward,
+    public provinceId?: string,
     public districtId?: string,
     public wardId?: string,
     public street?: string

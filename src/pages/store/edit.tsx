@@ -76,7 +76,7 @@ const Page = () => {
           <Tabs defaultActiveKey='1' type='card' size='large'>
             <Tabs.TabPane tab={'Thông tin cửa hàng'} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <Form
-                values={{ ...data, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
+                values={{ ...data, emailContact: data?.userRole?.[0].userAdmin?.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
                 className="intro-x rounded-lg w-full"
                 columns={[
                   {
@@ -119,87 +119,16 @@ const Page = () => {
                   },
                   {
                     title: 'store.Province',
-                    name: 'province',
-                    formItem: {
-                      tabIndex: 3,
-                      col: 3,
-                      rules: [{ type: 'requiredSelect' }],
-                      type: 'select',
-                      convert: (data) => ({
-                        label: data?.name,
-                        value: data?.id + '|' + data?.code
-                      }),
-                      get: {
-                        facade: ProvinceFacade,
-                        format: (item: any) => ({
-                          label: item.name,
-                          value: item.id + '|' + item.code,
-                        }),
-                      },
-                      onChange(value, form) {
-                        form.resetFields(['districtId', 'wardId'])
-                      },
-                    },
-                  },
-                  {
-                    title: 'store.District',
-                    name: 'districtId',
-                    formItem: {
-                      type: 'select',
-                      rules: [{ type: 'requiredSelect' }],
-                      col: 3,
-                      // convert(data) {
-                      //   console.log("data", data);
-                      //   return data?.name
-                      // },
-                      get: {
-                        facade: DistrictFacade,
-                        format: (item: any) => ({
-                          label: item.name,
-                          value: item.id + '|' + item.code,
-                        }),
-                        params: (fullTextSearch, value) => ({
-                          fullTextSearch,
-                          code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
-                        }),
-                      },
-                      onChange(value, form) {
-                        form.resetFields(['wardId'])
-                      },
-                    },
-                  },
-                  {
-                    title: 'store.Ward',
-                    name: 'wardId',
-                    formItem: {
-                      type: 'select',
-                      rules: [{ type: 'requiredSelect' }],
-                      col: 3,
-                      // convert(data) {
-                      //   console.log("data", data);
-                      //   return data?.name
-                      // },
-                      get: {
-                        facade: WardFacade,
-                        format: (item: any) => ({
-                          label: item.name,
-                          value: item.id,
-                        }),
-                        params: (fullTextSearch, value) => ({
-                          fullTextSearch,
-                          code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                        })
-                      }
-                    },
-                  },
-                  {
-                    title: 'store.Province',
                     name: 'provinceId',
                     formItem: {
                       tabIndex: 3,
                       col: 3,
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'requiredSelect' }],
                       type: 'select',
+                      // convert: (data) => ({
+                      //   label: data?.name,
+                      //   value: data?.id + '|' + data?.code
+                      // }),
                       get: {
                         facade: ProvinceFacade,
                         format: (item: any) => ({
@@ -217,7 +146,7 @@ const Page = () => {
                     name: 'districtId',
                     formItem: {
                       type: 'select',
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'requiredSelect' }],
                       col: 3,
                       get: {
                         facade: DistrictFacade,
@@ -240,8 +169,12 @@ const Page = () => {
                     name: 'wardId',
                     formItem: {
                       type: 'select',
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'requiredSelect' }],
                       col: 3,
+                      // convert(data) {
+                      //   console.log("data", data);
+                      //   return data?.name
+                      // },
                       get: {
                         facade: WardFacade,
                         format: (item: any) => ({
@@ -315,6 +248,7 @@ const Page = () => {
                 {isChecked ? (values: any) => (
                   <Form
                     values={{ ...data }}
+                    className='form-store'
                     columns={[
                       {
                         title: 'client_id',
@@ -358,7 +292,6 @@ const Page = () => {
                   :
                   undefined
                 }
-
                 handSubmit={handleSubmit}
                 disableSubmit={isLoading}
                 handCancel={handleBack}
@@ -690,7 +623,6 @@ const Page = () => {
                 </div>
               </div>
             </Tabs.TabPane>
-
             <Tabs.TabPane
               tab={
                 <Dropdown trigger={['click']}
@@ -796,7 +728,6 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
-
             <Tabs.TabPane
               tab={
                 <Dropdown trigger={['click']}
@@ -839,9 +770,7 @@ const Page = () => {
                 </Dropdown>
               }
               key='5' className='rounded-xl'>
-
               <div className='px-5 pt-6 pb-4 bg-white p-5 rounded-lg'>
-
                 {isBalanceClicked ?
                   <DataTable
                     facade={invoicevietFacade.data}
@@ -913,7 +842,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex justify-end w-full text-left flex-col'>
                         <Form
-                          className="intro-x flex justify-end"
+                          className="intro-x flex justify-end "
                           columns={
                             [
                               {
@@ -1053,7 +982,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex justify-end text-left flex-col w-full '>
                         <Form
-                          className="intro-x flex justify-end"
+                          className="intro-x flex justify-end form-store"
                           columns={
                             [
                               {
@@ -1095,7 +1024,7 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className='intro-x rounded-lg w-full flex justify-between'
+                          className='intro-x rounded-lg w-full flex justify-between form-store'
                           columns={[
                             {
                               title: '',
@@ -1150,7 +1079,7 @@ const Page = () => {
                     bottomHeader={
                       <div>
                         <Form
-                          className="intro-x pt-5 rounded-lg flex "
+                          className="intro-x rounded-lg flex form-store"
                           columns={
                             [
                               {

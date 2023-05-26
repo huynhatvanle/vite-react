@@ -12,9 +12,9 @@ export const action = {
   ...new Action<StoreManagement>(name),
   getByIdStore: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id: string; keyState: keyof State<StoreManagement> }) => {
     let data = (await API.get<StoreManagement>(`${routerLinks(name, 'api')}/detail/${id}`));
-    data = { ...data, province: data?.address?.province, districtId: data?.address?.district?.id, wardId: data?.address?.ward?.id, street: data.address?.street }
+    data = { ...data, provinceId: data?.address?.province?.id, districtId: data?.address?.district?.id, wardId: data?.address?.ward?.id, street: data.address?.street }
     console.log(data)
-    // delete data.address
+    delete data.address
     return { data, keyState };
   }),
   postStore: createAsyncThunk(name + '/post', async (values: StoreManagement) => {
