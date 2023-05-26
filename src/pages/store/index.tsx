@@ -48,19 +48,19 @@ const Page = () => {
             width: 150,
           },
         },
-          {
-            title: 'store.Name',
-            name: 'name',
-            tableItem: {
-            },
+        {
+          title: 'store.Name',
+          name: 'name',
+          tableItem: {
           },
-          {
-            title: 'store.Address',
-            name: 'address',
-            tableItem: {
-              render: (value: any, item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
-            },
+        },
+        {
+          title: 'store.Address',
+          name: 'address',
+          tableItem: {
+            render: (value: any, item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
           },
+        },
         {
           title: 'store.Type',
           name: 'isMain',

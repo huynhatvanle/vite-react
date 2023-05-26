@@ -1,9 +1,22 @@
+import { District, Province, Ward } from "@store";
+
 export class Responses<T> {
   constructor(
     public statusCode?: 200 | 201 | 500 | 404,
     public message?: string,
     public data?: T,
     public count?: number,
+    public address?: {
+      province?: Province,
+      district?: District,
+      ward?: Ward,
+      street?: string,
+    },
+    public province?: Province,
+    // public provinceId?: string,
+    public districtId?: string,
+    public wardId?: string,
+    public street?: string
   ) { }
 }
 

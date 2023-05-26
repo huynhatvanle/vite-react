@@ -23,6 +23,9 @@ const Page = () => {
   const inventoryProductFacade = InventoryProductFacade()
   const invoicevietFacade = invoicekiotvietFacade()
 
+
+  // console.log("inventoryProductFacade", inventoryProductFacade);
+
   const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
@@ -30,7 +33,7 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'put.fulfilled')
-      navigate(routerLinks('Store'))
+      navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString())
   }, [status]);
 
   useEffect(() => {
@@ -47,6 +50,7 @@ const Page = () => {
   };
 
   const [isChecked, setIsChecked] = useState(false);
+  const [type, setType] = useState('BALANCE');
 
   const handleClick = () => {
     setIsChecked(!isChecked);
@@ -55,6 +59,7 @@ const Page = () => {
   const handleSelectChange = (value: any) => {
     console.log(`Selected: ${value}`);
   };
+  const dataTableRef: any = useRef();
 
   return (
     <div className={'w-full'}>
@@ -63,7 +68,7 @@ const Page = () => {
           <Tabs defaultActiveKey='1' type='card' size='large'>
             <Tabs.TabPane tab={'Thông tin cửa hàng'} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <Form
-                values={{ ...data, street: data?.address?.street, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name, provinceId: data?.address?.province?.id, districtId: data?.address?.district?.id, wardId: data?.address?.ward?.id, }}
+                values={{ ...data, emailContact: data?.userRole?.[0].userAdmin.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
                 className="intro-x rounded-lg w-full"
                 columns={[
                   {
@@ -106,13 +111,16 @@ const Page = () => {
                   },
                   {
                     title: 'store.Province',
-                    name: 'provinceId',
+                    name: 'province',
                     formItem: {
                       tabIndex: 3,
                       col: 3,
                       rules: [{ type: 'requiredSelect' }],
                       type: 'select',
-
+                      convert: (data) => ({
+                        label: data?.name,
+                        value: data?.id + '|' + data?.code
+                      }),
                       get: {
                         facade: ProvinceFacade,
                         format: (item: any) => ({
@@ -132,6 +140,10 @@ const Page = () => {
                       type: 'select',
                       rules: [{ type: 'requiredSelect' }],
                       col: 3,
+                      // convert(data) {
+                      //   console.log("data", data);
+                      //   return data?.name
+                      // },
                       get: {
                         facade: DistrictFacade,
                         format: (item: any) => ({
@@ -155,6 +167,10 @@ const Page = () => {
                       type: 'select',
                       rules: [{ type: 'requiredSelect' }],
                       col: 3,
+                      // convert(data) {
+                      //   console.log("data", data);
+                      //   return data?.name
+                      // },
                       get: {
                         facade: WardFacade,
                         format: (item: any) => ({
@@ -219,7 +235,6 @@ const Page = () => {
                     },
                   },
                 ]}
-
                 extendForm1=
                 {<div className='flex items-center justify-between mb-2.5 '>
                   <div className='flex'>
@@ -284,7 +299,6 @@ const Page = () => {
                 handCancel={handleBack}
               />
             </Tabs.TabPane>
-
             <Tabs.TabPane tab={
               <Dropdown trigger={['click']}
                 className='!rounded-xl'
@@ -303,7 +317,7 @@ const Page = () => {
                       key: '2',
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
-                        <div>
+                        <div onClick={() => dataTableRef?.current?.onchange()}>
                           Non - BALANCE
                         </div>
                       ),
@@ -323,8 +337,9 @@ const Page = () => {
               key='2' className='rounded-xl'>
 
               <DataTable
+                ref={dataTableRef}
                 facade={productFacede}
-                defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' }}
+                defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: type }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
                 onRow={(data: any) => ({
@@ -436,6 +451,7 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
+
                               },
                             },
                           },
@@ -526,7 +542,6 @@ const Page = () => {
                 </div>
               </div>
             </Tabs.TabPane>
-
             <Tabs.TabPane tab='Danh sách chi nhánh' key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
@@ -644,7 +659,7 @@ const Page = () => {
               key='4' className='rounded-xl'>
               <DataTable
                 facade={connectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
+                defaultRequest={{ page: 1, perPage: 10, idSuppiler: id, type: type }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 onRow={(data: any) => ({
@@ -841,7 +856,7 @@ const Page = () => {
                 columns={[
                   {
                     title: 'store.Inventory management.Product code',
-                    name: 'inventory',
+                    name: 'category',
                     tableItem: {
                       width: 120,
                       render: (text: string, item: any) => 'dasda',
