@@ -74,7 +74,7 @@ const Page = () => {
                 rules: [{ type: 'required' }],
                 render() {
                   return (
-                    <h3 className='mb-2.5 text-base text-black font-medium'>Địa chỉ cửa hàng</h3>
+                    <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>
                   )
                 },
               }
@@ -156,7 +156,7 @@ const Page = () => {
               formItem: {
                 render() {
                   return (
-                    <div className='text-xl text-teal-900 font-bold mb-2.5'>Thông tin người đại diện</div>
+                    <div className='text-xl text-teal-900 font-bold mb-2.5'>{t('store.Representative information')}</div>
                   )
                 }
               }
@@ -197,11 +197,11 @@ const Page = () => {
           extendFormSwitch=
           {<div className='flex items-center justify-between mb-2.5 '>
             <div className='flex'>
-              <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
+              <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
               <Switch onClick={handleClick} />
             </div>
             {isChecked && (
-              <Button className='!font-normal' text={t('Lấy DS chi nhánh')} />
+              <Button className='!font-normal' text={t('store.Get branch DS')} />
             )}
           </div>}
 
