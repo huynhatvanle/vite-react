@@ -100,20 +100,18 @@ const Page = () => {
                     />
                   )}
                   {user?.role?.permissions?.includes(keyRole.P_CODE_DELETE) && (
-                    <Tooltip title={t('routes.admin.Layout.Delete')}>
-                      <Popconfirm
-                        placement="left"
-                        title={t('components.datatable.areYouSureWant')}
-                        onConfirm={() => modalFormRef?.current?.handleDelete!(data.id)}
-                        okText={t('components.datatable.ok')}
-                        cancelText={t('components.datatable.cancel')}
-                      >
-                        <Button
-                          className={'!px-1 !py-0.5 !bg-red-600 hover:!bg-red-500'}
-                          text={t('routes.admin.Layout.Delete')}
-                        />
-                      </Popconfirm>
-                    </Tooltip>
+                    <Popconfirm
+                      placement="left"
+                      title={t('components.datatable.areYouSureWant')}
+                      onConfirm={() => modalFormRef?.current?.handleDelete!(data.id)}
+                      okText={t('components.datatable.ok')}
+                      cancelText={t('components.datatable.cancel')}
+                    >
+                      <Button
+                        className={'!px-1 !py-0.5 !bg-red-600 hover:!bg-red-500'}
+                        text={t('routes.admin.Layout.Delete')}
+                      />
+                    </Popconfirm>
                   )}
                 </div>
               ),
