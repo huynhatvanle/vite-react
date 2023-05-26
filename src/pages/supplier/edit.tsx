@@ -138,9 +138,7 @@ const Page = () => {
                       formItem: {
                         rules: [{ type: 'required' }],
                         render() {
-                          return (
-                            <h3 className='mb-2.5 text-base '>{t('supplier.Supplier Address')}</h3>
-                          )
+                          return <h3 className="mb-2.5 text-base ">{t('store.Store Address')}</h3>;
                         },
                       },
                     },
@@ -240,7 +238,7 @@ const Page = () => {
                       formItem: {
                         tabIndex: 2,
                         col: 4,
-                        rules: [{ type: 'required' },{ type: 'phone', min: 8, max: 12 }],
+                        rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
                       },
                     },
                     {
@@ -249,7 +247,7 @@ const Page = () => {
                       formItem: {
                         tabIndex: 1,
                         col: 4,
-                        rules: [{ type: 'required' },{ type: 'email' }],
+                        rules: [{ type: 'required' }, { type: 'email' }],
                       },
                     },
                     {

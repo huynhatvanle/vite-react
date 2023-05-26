@@ -22,7 +22,7 @@ const Page = () => {
     <Fragment>
       <div className="text-center mb-8">
         <h1 className="intro-x text-3xl mb-8 font-bold text-green-900 leading-8 md:text-5xl lg:leading-10" id={'title-login'}>
-          {t('routes.auth.reset-password.Forgot Password')}
+          {t('columns.auth.login.Forgot Password')}
         </h1>
         <h5 className="intro-x font-normal text-green-900 ">{t('routes.auth.reset-password.subTitle')}</h5>
       </div>
