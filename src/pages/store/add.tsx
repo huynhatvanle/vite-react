@@ -174,7 +174,7 @@ const Page = () => {
               title: 'store.Contact Phone Number',
               formItem: {
                 col: 4,
-                rules: [{ type: 'required' }],
+                rules: [{ type: 'required' },{ type: 'phone', min: 8 , max: 12 }],
               },
             },
             {
@@ -182,7 +182,7 @@ const Page = () => {
               title: 'store.Contact Email',
               formItem: {
                 col: 4,
-                rules: [{ type: 'required' }],
+                rules: [{ type: 'required' },{ type: 'email' }],
               },
             },
             {

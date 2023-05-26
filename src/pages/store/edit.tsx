@@ -220,7 +220,7 @@ const Page = () => {
                     name: 'phoneNumber',
                     formItem: {
                       col: 4,
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'required' },{ type: 'phone', min: 8, max: 12 }],
                     },
                   },
                   {
@@ -228,7 +228,7 @@ const Page = () => {
                     name: 'emailContact',
                     formItem: {
                       col: 4,
-                      rules: [{ type: 'required' }],
+                      rules: [{ type: 'required' },{ type: 'email' }],
                     },
                   },
                 ]}
