@@ -5,6 +5,7 @@ import { Spin } from '@core/spin';
 import { Form } from '@core/form'
 import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
+import { t } from 'i18next';
 
 const Page = () => {
   // const isReload = useRef(false);
@@ -26,9 +27,9 @@ const Page = () => {
     <Fragment>
       <div className="text-center mb-8">
         <h1 className="intro-x text-3xl mb-10 font-bold text-green-900 leading-8 md:text-5xl lg:leading-10">
-          {'Quên Mật Khẩu'}
+          {t('columns.auth.login.Forgot Password')}
         </h1>
-        <h5 className="intro-x font-normal text-green-900 ">Vui lòng nhập mã OTP đã gửi đến email của bạn</h5>
+        <h5 className="intro-x font-normal text-green-900 ">{t('routes.auth.reset-password.subEmail')}</h5>
       </div>
       <div className='mx-auto w-3/4'>
         <Spin spinning={isLoading} >
@@ -36,30 +37,30 @@ const Page = () => {
             values={{ ...data }}
             className="intro-x form-forgetPassword"
             columns={[
-                {
-                    name: 'otp',
-                    title: 'Mã OTP',
-                    formItem: {
-                        placeholder: 'Mã OTP',
-                        rules: [{ type: 'required' }, { type: 'min', value: 6 }, { type: 'max', value: 6 }],
-                    },
+              {
+                name: 'otp',
+                title: 'routes.auth.reset-password.Code OTP',
+                formItem: {
+                  placeholder: 'routes.auth.reset-password.Code OTP',
+                  rules: [{ type: 'required' }, { type: 'min', value: 6 }, { type: 'max', value: 6 }],
                 },
-                {
-                    title: '',
-                    name: 'uuid',
-                    formItem: {
-                        type: 'hidden',
-                    },
+              },
+              {
+                title: '',
+                name: 'uuid',
+                formItem: {
+                  type: 'hidden',
                 },
-                {
-                    title: '',
-                    name: 'email',
-                    formItem: {
-                        type: 'hidden',
-                    },
+              },
+              {
+                title: '',
+                name: 'email',
+                formItem: {
+                  type: 'hidden',
                 },
+              },
             ]}
-            textSubmit={'Gửi OTP'}
+            textSubmit={t('routes.auth.reset-password.Send code')}
             handSubmit={(values) => verifyForgotPassword({ ...values })}
             disableSubmit={isLoading}
           />
@@ -67,7 +68,7 @@ const Page = () => {
         <div className="mt-3 text-center">
           <button className={'text-sky-600 font-normal underline hover:no-underline hover:text-sky-500'} onClick={() => navigate(routerLinks('Login'))}>
             {' '}
-            {'Quay trở lại Đăng nhập'}
+            {t('routes.auth.reset-password.Go back to login')}
           </button>
         </div>
       </div>

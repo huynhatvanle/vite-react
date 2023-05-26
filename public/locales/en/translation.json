@@ -141,7 +141,9 @@
         "Enter new password": "Enter new password",
         "Confirm Password": "Confirm Password",
         "Password": "Password",
-        "newPassword": "New Password"
+        "newPassword": "New Password",
+        "Forgot Password": "Forgot Password",
+        "Change Password":"Change Password"
       },
       "register": {
         "firstName": "First Name",
@@ -155,7 +157,8 @@
       "placeholder": {
         "Confirm Password": "Confirm Password",
         "Password": "Enter Password",
-        "newPassword": "Enter New Password"
+        "newPassword": "Enter New Password",
+        "subConfirm":"Two passwords are not the same!"
       }
     }
   },
@@ -168,7 +171,7 @@
         "title": "Sign In",
         "subTitle": "Enter your details to login to your account",
         "Log In": "Log In",
-        "Forgot Password": "Forgot Password",
+        "Forgot Password": "Forgot Password ?",
         "Confirm Password": "Confirm Password",
         "Reset Password": "Reset Password",
         "New password": "New password",
@@ -183,7 +186,14 @@
         "Submit": "Submit",
         "Back To Login": "Submit",
         "subTitle": "Please enter your email. An OTP verification code will be sent to you.",
-        "OTP": "Get OTP"
+        "subEmail":"Please enter the OTP code that has been sent to your email.",
+        "subReset":"Password requires 8 characters or more, with at least 1 uppercase letter, 1 lowercase letter,",
+        "subReset1":"1 digit and 1 special character.",
+        "OTP": "Get OTP",
+        "Go back to login":"Go back to login",
+        "Code OTP":"Code OTP",
+        "Send code":"Send code OTP",
+        "Reset Password":"Reset Password"
       }
     },
     "admin": {
@@ -286,6 +296,7 @@
     "Since": "Since",
     "To date": "to date",
     "Barcode": "Barcode",
+    "Active":"Active",
     "Inventory management": {
       "Product code": "Product code",
       "Barcode (Supplier)": "Supplier barcode",
