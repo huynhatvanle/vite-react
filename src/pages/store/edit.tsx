@@ -414,7 +414,7 @@ const Page = () => {
                 }
 
                 rightHeader={
-                  <div className={'flex h-10 w-36 mt-6'}>
+                  <div className={'flex h-10 w-36'}>
                     {
                       <Button
                         className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0'
