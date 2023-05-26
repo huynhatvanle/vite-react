@@ -14,6 +14,9 @@ Then('User look message "{}" popup', common.verifyMessageSwal2);
 
 When('Enter "{}" in "{}" with "{}"', common.typeInputByName);
 When('Enter "{}" in textarea "{}" with "{}"', common.typeTextareaByName);
+When('Enter "{}" in editor "{}" with "{}"', common.typeEditorByName);
+When('Enter "{}" in editor HTML "{}" with "{}"', common.typeEditorHtmlByName);
+When('Select file in "{}" with "{}"', common.selectFileByName);
 When('Enter date in "{}"', common.typePickerInputByName);
 When('Click switch "{}" to be activated', common.clickSwitchByName);
 When('Click radio "{}" in line "{}"', common.clickRadioByName);
