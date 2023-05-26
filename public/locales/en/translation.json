@@ -95,13 +95,16 @@
     "merchandise-managerment/product": "Product",
     "merchandise-managerment/category": "Category",
     "merchandise-managerment/tax": "Tax",
-    "Storeinformation":"Store Information",
-    "Supplierinformation":"Supplier Information",
-    "Listofgoods":"List of goods",
-    "Listofbranches":"List of branches",
-    "Manage":"Manage NCC",
-    "Revenue":"Revenue",
-    "Inventory management":"Inventory management"
+    "Storeinformation": "Store Information",
+    "Supplierinformation": "Supplier Information",
+    "Listofgoods": "List of goods",
+    "Listofbranches": "List of branches",
+    "Manage": "Manage NCC",
+    "Revenue": "Revenue",
+    "Inventory management": "Inventory management",
+    "Ordermanagement": "Order Management",
+    "Discount": "Discount",
+    "Contract": "Contract"
   },
   "pages": {
     "Dashboard": "Dashboard",
@@ -116,9 +119,9 @@
     "Store": "Store",
     "store-managerment/edit": "Edit Store",
     "MyProfile": "MyProfile",
-    "Supplier":"Supplier",
-    "Supplier/Add":"Add new Supplier",
-    "Supplier/Edit":"Edit Supplier"
+    "Supplier": "Supplier",
+    "Supplier/Add": "Add new Supplier",
+    "Supplier/Edit": "Edit Supplier"
   },
   "columns": {
     "auth": {
@@ -174,7 +177,7 @@
         "Submit": "Submit",
         "Back To Login": "Submit",
         "subTitle": "Please enter your email. An OTP verification code will be sent to you.",
-        "OTP":"Get OTP"
+        "OTP": "Get OTP"
       }
     },
     "admin": {
@@ -223,6 +226,8 @@
     "Code": "ID Supplier",
     "Name": "Name",
     "Address": "Address",
+    "Fax": "Fax",
+    "SupplierCode": "SupplierCode",
     "Representative": "Representative",
     "Phone Number": "Phone Number",
     "Status": "Status",
@@ -264,8 +269,8 @@
     "Contact Email": "Representative email",
     "Note": "Note",
     "Name management": "Manager's name",
-    "Revenue by product":"Revenue by product",
-    "Revenue by order":"Revenue by order",
+    "Revenue by product": "Revenue by product",
+    "Revenue by order": "Revenue by order",
     "Barcode": "Barcode",
     "Inventory management": {
       "Product code": "Product code",

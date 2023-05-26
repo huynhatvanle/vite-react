@@ -95,13 +95,16 @@
     "merchandise-managerment/product": "Sản phẩm",
     "merchandise-managerment/category": "Danh mục",
     "merchandise-managerment/tax": "Thuế",
-    "Storeinformation":"Thông tin cửa hàng",
-    "Supplierinformation":"Thông tin nhà cung cấp",
-    "Listofgoods":"Danh sách hàng hoá",
-    "Listofbranches":"Danh sách chi nhánh",
-    "Manage":"Quản lý NCC",
-    "Revenue":"Doanh thu",
-    "Inventory management":"Quản lý kho"
+    "Storeinformation": "Thông tin cửa hàng",
+    "Supplierinformation": "Thông tin nhà cung cấp",
+    "Listofgoods": "Danh sách hàng hoá",
+    "Listofbranches": "Danh sách chi nhánh",
+    "Manage": "Quản lý NCC",
+    "Revenue": "Doanh thu",
+    "Inventory management": "Quản lý kho",
+    "Ordermanagement": "Quản lý đơn hàng",
+    "Discount": "Chiết khấu",
+    "Contract": "Hợp đồng"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -116,9 +119,9 @@
     "Store": "Quản Lý Cửa Hàng",
     "store-managerment/edit": "Quản Lý Cửa Hàng",
     "store-managerment/create": "Quản Lý Cửa Hàng",
-    "Supplier":"Quản Lý Nhà Cung Cấp",
-    "Supplier/Add":"Quản Lý Nhà Cung Cấp",
-    "Supplier/Edit":"Quản Lý Nhà Cung Cấp"
+    "Supplier": "Quản Lý Nhà Cung Cấp",
+    "Supplier/Add": "Quản Lý Nhà Cung Cấp",
+    "Supplier/Edit": "Quản Lý Nhà Cung Cấp"
   },
   "columns": {
     "auth": {
@@ -221,7 +224,9 @@
   },
   "supplier": {
     "Code": "Mã NCC",
+    "SupplierCode": "Mã nhà cung cấp",
     "Name": "Tên nhà cung cấp",
+    "Fax": "Số fax",
     "Address": "Địa chỉ",
     "Representative": "Người đại diện",
     "Phone Number": "Số điện thoại",
@@ -301,6 +306,6 @@
     "Unit": "Đơn vị",
     "Price": "Giá bán lẻ (VND)",
     "Status": "Tình trạng",
-    "Revenue":"Doanh thu"
+    "Revenue": "Doanh thu"
   }
 }

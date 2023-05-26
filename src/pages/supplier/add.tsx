@@ -74,7 +74,7 @@ const Page = () => {
               }
             },
             {
-              title: 'supplier.ProvinceId',
+              title: 'store.Province',
               name: 'provinceId',
               formItem: {
                 tabIndex: 3,
@@ -94,7 +94,7 @@ const Page = () => {
               },
             },
             {
-              title: 'supplier.DistrictId',
+              title: 'store.District',
               name: 'districtId',
               formItem: {
                 type: 'select',
@@ -117,7 +117,7 @@ const Page = () => {
               },
             },
             {
-              title: 'supplier.WardId',
+              title: 'store.Ward',
               name: 'wardId',
               formItem: {
                 type: 'select',
@@ -137,7 +137,7 @@ const Page = () => {
               },
             },
             {
-              title: 'supplier.Street',
+              title: 'store.Street',
               name: 'street',
               formItem: {
                 rules: [{ type: 'required', message: 'Xin vui lòng nhập địa chỉ cụ thể' }],
@@ -156,7 +156,7 @@ const Page = () => {
               }
             },
             {
-              title: 'supplier.NameContact',
+              title: 'store.ContactName',
               name: 'nameContact',
               formItem: {
                 col: 4,
@@ -164,7 +164,7 @@ const Page = () => {
               },
             },
             {
-              title: 'supplier.PhonenumberContact',
+              title: 'store.Contact Phone Number',
               name: 'phoneNumber',
               formItem: {
                 col: 4,
@@ -172,7 +172,7 @@ const Page = () => {
               },
             },
             {
-              title: 'supplier.EmailContact',
+              title: 'store.Contact Email',
               name: 'emailContact',
               formItem: {
                 col: 4,
@@ -180,7 +180,7 @@ const Page = () => {
               },
             },
             {
-              title: 'supplier.Note',
+              title: 'store.Note',
               name: 'note',
               formItem: {
                 type: 'textarea',

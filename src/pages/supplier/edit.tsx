@@ -68,7 +68,7 @@ const Page = () => {
       <Fragment>
         <div className=''>
           <Tabs defaultActiveKey='1' type='card' size='large' className=''>
-            <Tabs.TabPane tab='Thông tin nhà cung cấp' key='1' className='bg-white rounded-xl rounded-tl-none'>
+            <Tabs.TabPane tab={t('titles.Supplierinformation')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <div className='px-5'>
                 <Form
                   values={{
@@ -117,7 +117,7 @@ const Page = () => {
                       }
                     },
                     {
-                      title: 'supplier.ProvinceId',
+                      title: 'store.Province',
                       name: 'provinceId',
                       formItem: {
                         tabIndex: 3,
@@ -137,7 +137,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: 'supplier.DistrictId',
+                      title: 'store.District',
                       name: 'districtId',
                       formItem: {
                         type: 'select',
@@ -160,7 +160,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: 'supplier.WardId',
+                      title: 'store.Ward',
                       name: 'wardId',
                       formItem: {
                         type: 'select',
@@ -180,7 +180,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: 'supplier.Street',
+                      title: 'store.Street',
                       name: 'street',
                       formItem: {
                         tabIndex: 1,
@@ -200,7 +200,7 @@ const Page = () => {
                       }
                     },
                     {
-                      title: 'supplier.NameContact',
+                      title: 'store.ContactName',
                       name: 'username',
                       formItem: {
                         tabIndex: 1,
@@ -209,7 +209,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: 'supplier.PhonenumberContact',
+                      title: 'store.Contact Phone Number',
                       name: 'phoneNumber',
                       formItem: {
                         tabIndex: 2,
@@ -218,7 +218,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: 'supplier.EmailContact',
+                      title: 'store.Contact Email',
                       name: 'email',
                       formItem: {
                         tabIndex: 1,
@@ -227,7 +227,7 @@ const Page = () => {
                       },
                     },
                     {
-                      title: 'supplier.Note',
+                      title: 'store.Note',
                       name: 'note',
                       formItem: {
                         type: 'textarea',
@@ -242,7 +242,7 @@ const Page = () => {
                 />
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Danh sách hàng hóa" key="2" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Listofgoods')} key="2" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pb-4">
                   <DataTable
@@ -396,7 +396,7 @@ const Page = () => {
                 />
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Quản lý đơn hàng' key='3' className='rounded-xl'>
+            <Tabs.TabPane tab={t('titles.Ordermanagement')} key='3' className='rounded-xl'>
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className='px-5 pt-6 pb-4'>
                   <DataTable
@@ -410,7 +410,7 @@ const Page = () => {
                     }
                     columns={[
                       {
-                        title: 'supplier.CodeOrders',
+                        title: 'supplier.Order.Order ID',
                         name: 'code',
                         tableItem: {
                           width: 280,
@@ -426,7 +426,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.Receiver',
+                        title: 'supplier.Order.Recipient',
                         name: 'address',
                         tableItem: {
                           width: 180,
@@ -434,7 +434,7 @@ const Page = () => {
                         }
                       },
                       {
-                        title: 'supplier.ReceiverAddress',
+                        title: 'supplier.Order.Delivery Address',
                         name: 'contract',
                         tableItem: {
                           width: 300,
@@ -442,7 +442,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.TotalAmount',
+                        title: 'supplier.Order.Total Price (VND)',
                         name: 'total',
                         tableItem: {
                           width: 150,
@@ -450,14 +450,14 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.BookingDate',
+                        title: 'supplier.Order.Order Date',
                         name: 'createdAt',
                         tableItem: {
                           width: 150,
                         },
                       },
                       {
-                        title: 'supplier.Status',
+                        title: 'product.Status',
                         name: "isActive",
                         tableItem: {
                           width: 180,
@@ -479,7 +479,7 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab='Doanh thu' key='4' className='rounded-xl bg-white'>
+            <Tabs.TabPane tab={t('titles.Revenue')} key='4' className='rounded-xl bg-white'>
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className='px-5 pt-6 pb-4'>
                   <DataTable
@@ -636,7 +636,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.CodeOrders',
+                        title: 'supplier.Order.Order ID',
                         name: 'code',
                         tableItem: {
                           //  width: 175,
@@ -651,7 +651,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.BookingDate',
+                        title: 'supplier.Order.Order Date',
                         name: 'name',
                         tableItem: {
                           //  width: 135,
@@ -659,7 +659,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.ReceivedDate',
+                        title: 'supplier.Order.Delivery Date',
                         name: 'address',
                         tableItem: {
                           //  width: 150,
@@ -667,7 +667,7 @@ const Page = () => {
                         }
                       },
                       {
-                        title: 'supplier.BeforeTax',
+                        title: 'supplier.Order.Before Tax',
                         name: 'name',
                         tableItem: {
                           //  width: 145,
@@ -675,7 +675,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: "supplier.AfterTax",
+                        title: "supplier.Order.After Tax",
                         name: 'name',
                         tableItem: {
                           // width: 130,
@@ -683,7 +683,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.Promotion',
+                        title: 'supplier.Order.Promotion',
                         name: 'name',
                         tableItem: {
                           //  width: 160,
@@ -700,7 +700,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.SingleType',
+                        title: 'supplier.Order.Order Type',
                         //name: 'total',
                         name: 'name',
                         tableItem: {
@@ -728,11 +728,11 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Chiết khấu" key="5" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Discount')} key="5" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
-                    facade={inventoryOrders}
+                    facade={inventoryOrders.data}
                     defaultRequest={{ page: 1, perPage: 10 }}
                     xScroll='1370px'
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -750,14 +750,14 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`Thời gian`),
+                        title: 'supplier.Order.Time',
                         name: 'name',
                         tableItem: {
                           width: 300,
                         },
                       },
                       {
-                        title: t(`Chiết khấu (VND)`),
+                        title: 'supplier.Order.Discount',
                         name: ('address'),
                         tableItem: {
                           width: 245,
@@ -765,7 +765,7 @@ const Page = () => {
                         }
                       },
                       {
-                        title: t(`Đã thanh toán (VND)`),
+                        title: 'supplier.Order.Paid',
                         name: 'contract',
                         tableItem: {
                           width: 245,
@@ -773,7 +773,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`Chưa thanh toán (VND)`),
+                        title: 'supplier.Order.Unpaid',
                         name: 'userRole',
                         tableItem: {
                           width: 245,
@@ -781,7 +781,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`Trạng thái`),
+                        title: 'supplier.Status',
                         name: "isActive",
                         tableItem: {
                           width: 240,
@@ -897,7 +897,7 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Hợp đồng" key="6" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className=''>
                   <div className={'text-xl text-teal-900 font-bold block pb-5'}>
