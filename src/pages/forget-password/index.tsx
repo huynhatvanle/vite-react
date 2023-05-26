@@ -46,7 +46,7 @@ const Page = () => {
             disableSubmit={isLoading}
           />
         </Spin>
-        <div className="mt-3 text-center">
+        <div className="mt-3 text-right">
           <button className={'text-sky-600 font-normal underline hover:no-underline hover:text-sky-500'} onClick={() => navigate(routerLinks('Login'))}>
             {' '}
             {'Quay trở lại Đăng nhập'}
