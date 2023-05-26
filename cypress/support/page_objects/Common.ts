@@ -102,7 +102,7 @@ export default class Common {
     const handle = async (text: string | Promise<string>) => {
       const newText = await text;
       this.elements.selectByName(name).type(newText);
-      // cy.scrollTo('top');
+      window.scrollY > 0 && cy.scrollTo('top');
       cy.get(`.ant-select-item-option[title='${newText}']`).should('be.visible').click();
     };
     if (text.indexOf('_@') > -1 && text.indexOf('@_') > -1)
