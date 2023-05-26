@@ -39,6 +39,9 @@
         "save": "Lưu",
         "cancel": "Trở về"
       },
+      "Form Password": {
+        "Lenght Password": "Mật khẩu yêu cầu có 8 ký tự trở lên"
+      },
       "Select Date": "Chọn ngày"
     },
     "media-management": {

@@ -576,13 +576,13 @@ export const Form = ({
                 let min = 8;
                 rules.forEach((item: any) => item.min && (min = item.min));
                 if (value.trim().length < min) {
-                  return Promise.reject('Mật khẩu yêu cầu có 8 ký tự trở lên');
+                  return Promise.reject(t('components.form.Form Password.Lenght Password'));
                 }
                 if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value)) {
                   return Promise.resolve();
                 } else {
                   return Promise.reject(
-                    'Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt',
+                    t('components.form.rulePassword')
                   );
                 }
               } else {
