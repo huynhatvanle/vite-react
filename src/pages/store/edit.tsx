@@ -993,7 +993,7 @@ const Page = () => {
                       },
 
                     ]}
-                    searchPlaceholder='placeholder.Select order type'
+                    searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
                       <div className='flex justify-end text-left flex-col w-full '>
                         <Form
@@ -1190,7 +1190,7 @@ const Page = () => {
 
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
-                facade={inventoryProductFacade}
+                facade={inventoryProductFacade.data?.inventory}
                 defaultRequest={{ page: 1, perPage: 10, idStore: id }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'

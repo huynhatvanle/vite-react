@@ -732,7 +732,7 @@ const Page = () => {
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
-                    facade={inventoryOrders}
+                    facade={inventoryOrders.data}
                     defaultRequest={{ page: 1, perPage: 10 }}
                     xScroll='1370px'
                     pageSizeRender={(sizePage: number) => sizePage}

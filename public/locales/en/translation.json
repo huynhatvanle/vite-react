@@ -275,6 +275,7 @@
     "Get branch DS":"Get branch list",
     "Since":"Since",
     "To date":"to date",
+    "Barcode":"Barcode",
     "Inventory management": {
       "Product code": "Product code",
       "Barcode (Supplier)": "Supplier barcode",
