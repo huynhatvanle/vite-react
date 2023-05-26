@@ -253,6 +253,7 @@
       "Order Date": "Order Date",
       "Delivery Date": "Delivery Date",
       "Before Tax": "Before Tax",
+      "Revenue Before Tax": "Revenue Before Tax",
       "After Tax": "After Tax",
       "Promotion": "Promotion",
       "Total Amount": "Total Amount",
@@ -317,6 +318,8 @@
     "SupplierName": "Supplier name",
     "Unit": "Unit",
     "Price": "Retail price (VND)",
+    "Status": "Status",
+    "Barcode": "Barcode",
     "Status": "Status"
   },
   "placeholder": {

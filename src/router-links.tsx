@@ -26,7 +26,7 @@ const Util = (name: string, type?: string) => {
 
     Category: '/category',
 
-    Product: '/product'
+    Product: '/product',
   }; // 💬 generate link to here
 
   //   import { routerLinks } from './router-links';
@@ -53,7 +53,7 @@ const Util = (name: string, type?: string) => {
     Suborgcommision: '/sub-org-commision',
     Invoicekiotviet: '/invoice-kiot-viet/invoice',
     InventoryOrders: '/inventory-order/revenue-list',
-    SupplierStore: '/sub-organization/store/all-supplier-store'
+    SupplierStore: '/sub-organization/store/all-supplier-store',
   }; // 💬 generate api to here
 
   switch (type) {

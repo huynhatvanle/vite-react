@@ -1,4 +1,4 @@
-import { District, Province, Ward } from "@store";
+import { District, Province, Ward } from '@store';
 
 export class Responses<T> {
   constructor(
@@ -6,11 +6,23 @@ export class Responses<T> {
     public message?: string,
     public data?: T,
     public count?: number,
+    public statistical?: {
+      totalOderCancel?: number;
+      totalOderReturn?: number;
+      totalOderSuccess?: number;
+      totalRenueve?: number;
+    },
+    public total?: {
+      sumMoney?: number;
+      sumSubTotal?: number;
+      sumTotal?: number;
+      sumVoucherAmount?: number;
+    },
     public address?: {
-      province?: Province,
-      district?: District,
-      ward?: Ward,
-      street?: string,
+      province?: Province;
+      district?: District;
+      ward?: Ward;
+      street?: string;
     },
     public province?: Province,
     public district?: District,
@@ -18,12 +30,12 @@ export class Responses<T> {
     public provinceId?: string,
     public districtId?: string,
     public wardId?: string,
-    public street?: string
-  ) { }
+    public street?: string,
+  ) {}
 }
 
 export class CommonEntity {
-  constructor(public id?: string, public created_at?: string, public updated_at?: string, public isDeleted?: string) { }
+  constructor(public id?: string, public created_at?: string, public updated_at?: string, public isDeleted?: string) {}
 }
 
 export class PaginationQuery<T = object> {
@@ -41,6 +53,10 @@ export class PaginationQuery<T = object> {
     public filterSupplier?: string,
     public supplierType?: string,
     public idSuppiler?: string,
-    public idStore?: string
-  ) { }
+    public idStore?: string,
+    public filterDate?: {
+      dateFrom?: string;
+      dateTo?: string;
+    },
+  ) {}
 }

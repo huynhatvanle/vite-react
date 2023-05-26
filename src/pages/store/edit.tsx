@@ -611,7 +611,7 @@ const Page = () => {
                   <div className={'flex gap-2 pb-2'}>
                     {
                       <Button
-                        className='!bg-teal-800 !font-normal w-full !text-white hover:!bg-teal-700 group !rounded-xl !h-9'
+                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-0 lg:w-full'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
                         onClick={() => navigate(routerLinks('store-managerment/create'))}
@@ -847,7 +847,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex justify-end w-full text-left flex-col'>
                         <Form
-                          className="intro-x flex justify-end "
+                          className="intro-x flex justify-end form-store"
                           columns={
                             [
                               {
@@ -870,7 +870,7 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className='intro-x rounded-lg w-full flex justify-between'
+                          className='intro-x rounded-lg w-full flex justify-between form-store'
                           columns={[
                             {
                               title: '',
@@ -995,7 +995,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex justify-end text-left flex-col w-full '>
                         <Form
-                          className="intro-x flex justify-end"
+                          className="intro-x flex justify-end form-store"
                           columns={
                             [
                               {
