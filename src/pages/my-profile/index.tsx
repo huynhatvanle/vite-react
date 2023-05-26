@@ -22,7 +22,7 @@ const Page = () => {
   return (
     <Fragment>
       <div className='lg:grid lg:grid-cols-3 gap-5 w-full'>
-        <div className='col-span-1 lg:border lg:rounded-xl bg-white p-8 font-normal'>
+        <div className='col-span-1 lg:border lg:rounded-xl bg-white font-normal'>
           <Spin spinning={isLoading}>
             <Form
               className="text-center items-centers text-xl font-bold text-slate-700"
@@ -86,11 +86,12 @@ const Page = () => {
           </Spin>
 
         </div>
-        <div className='col-span-2 lg:border lg:rounded-xl bg-white p-5'>
+        <div className='col-span-2 lg:border lg:rounded-xl bg-white'>
           <Spin spinning={isLoading}>
             <Tabs defaultActiveKey="1" size="large" className='profile'>
               <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className='mt-5'>
                 <Form
+                className='relative'
                   columns={[
                     {
                       title: 'user.Fullname',
@@ -143,6 +144,7 @@ const Page = () => {
 
               <Tabs.TabPane tab={t('routes.admin.Layout.Change Password')} key="2" className='mt-5'>
                 <Form
+                className='relative'
                   columns={[
                     {
                       title: 'columns.auth.login.Password',
