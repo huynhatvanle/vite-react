@@ -31,7 +31,7 @@ const Page = () => {
   const [supplier, setSupplier] = useState('')
 
   const dataTableRef = useRef<TableRefObject>(null);
-
+  const dataTableRef1 = useRef<TableRefObject>(null);
 
   useEffect(() => {
     if (status === 'put.fulfilled')
@@ -629,7 +629,7 @@ const Page = () => {
                         label: (
                           <div onClick={() => {
                             setIsBalanceClicked(false);
-                            dataTableRef?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id });
+                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'BALANCE' });
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             BALANCE
                           </div>
@@ -641,7 +641,7 @@ const Page = () => {
                         label: (
                           <div onClick={() => {
                             setIsBalanceClicked(true);
-                            dataTableRef?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'NON_BALANCE' });
+                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'NON_BALANCE' });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
@@ -660,7 +660,7 @@ const Page = () => {
               }
               key='4' className='rounded-xl'>
               <DataTable
-                ref={dataTableRef}
+                ref={dataTableRef1}
                 facade={connectSupplierFacade}
                 defaultRequest={{ page: 1, perPage: 10, idSuppiler: id, type: type }}
                 xScroll='1270px'
