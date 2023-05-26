@@ -287,6 +287,7 @@ const Page = () => {
                 />
               </div>
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={
               <Dropdown trigger={['click']}
                 className='!rounded-xl'
@@ -445,7 +446,7 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                setSupplier(`${value}`)
+                                setSupplier(`${value}`.toString())
                               },
                             },
                           },
@@ -537,6 +538,7 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
@@ -979,7 +981,7 @@ const Page = () => {
                   ]}
                   searchPlaceholder='Tìm kiếm theo mã đơn hàng'
                   rightHeader={
-                    <div className='flex justify-end text-left flex-col w-full '>
+                    <div className='flex justify-end text-left flex-col w-full'>
                       <Form
                         className="intro-x flex justify-end"
                         columns={
@@ -1171,9 +1173,10 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
-                facade={inventoryProductFacade.data?.inventory}
+                facade={inventoryProductFacade}
                 defaultRequest={{ page: 1, perPage: 10, idStore: id }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'

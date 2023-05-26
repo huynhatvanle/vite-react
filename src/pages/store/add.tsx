@@ -194,7 +194,7 @@ const Page = () => {
             },
           ]}
 
-          extendForm1=
+          extendFormSwitch=
           {<div className='flex items-center justify-between mb-2.5 '>
             <div className='flex'>
               <div className='text-xl text-teal-900 font-bold mr-6'>Kết nối KiotViet</div>
