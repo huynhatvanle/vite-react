@@ -1,18 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import dayjs from 'dayjs';
+import { Popconfirm } from 'antd';
 
 import { Avatar } from '@core/avatar';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 
-import { keyRole, routerLinks } from '@utils';
-import { UserFacade, GlobalFacade, CodeFacade, UserTeamFacade, ManagerFacade, UserRoleFacade } from '@store';
-import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
-import dayjs from 'dayjs';
-import { Popconfirm, Tooltip } from 'antd';
-import { language, languages } from '../../utils/variable';
+import { UserFacade, GlobalFacade, CodeFacade, UserTeamFacade, ManagerFacade, UserRoleFacade } from '@store';
+import { Plus } from '@svgs';
+import { keyRole, routerLinks, language, languages } from '@utils';
 
 const Page = () => {
   const { t, i18n } = useTranslation();
@@ -28,6 +27,7 @@ const Page = () => {
         break;
     }
   }, [userFacade.status]);
+
 
   const dataTableRef = useRef<TableRefObject>(null);
   return (
