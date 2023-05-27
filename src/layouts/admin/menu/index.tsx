@@ -111,7 +111,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                       key={`/${lang}${routerLinks(item.name)}`}
                       showArrow={!isCollapsed}
                       header={
-                        <li
+                        <ul><li
                           className={classNames('flex items-center text-gray-600 fill-gray-600 menu', {
                             'justify-center ': isCollapsed,
                           })}
@@ -125,7 +125,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                           >
                             {t(`titles.${item.name}`)}
                           </span>
-                        </li>
+                        </li></ul>
                       }
                     >
                       {subMenu(item.child)}

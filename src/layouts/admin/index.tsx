@@ -239,12 +239,12 @@ const Layout = ({ children }: PropsWithChildren) => {
           'ml-20': isCollapsed && isDesktop,
         })}
       >
-        <div className={'h-[calc(100vh-9rem)] overflow-y-auto'}>
+        <div className={'h-[calc(100vh-8rem)] overflow-y-auto lg:overflow-x-hidden'}>
           <h1 className={'text-xl font-bold block sm:hidden pb-5'}>{t('pages.' + title)}</h1>
           {children}
         </div>
 
-        <footer className="text-center bg-blue-50 pt-5 w-full">
+        <footer className="text-center bg-blue-50 pt-2.5 w-full">
           {t('layout.footer', { year: new Date().getFullYear() })}
         </footer>
       </section>

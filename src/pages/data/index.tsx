@@ -59,7 +59,7 @@ const Page = () => {
                 type: 'radio',
                 list: listType || [],
               },
-              width: 110,
+              width: 150,
               sorter: true,
               render: (text: string) => (text && listType.filter((item) => item.value === text)[0]?.label) || '',
             },
