@@ -6,7 +6,7 @@ import { useAppDispatch, useTypedSelector, Action, Slice, State, User } from '@s
 import { CommonEntity, PaginationQuery } from '@models';
 
 const name = 'DayOff';
-export const action = {
+const action = {
   ...new Action<DayOff>(name),
   post: createAsyncThunk(name + '/post', async ({ dateLeave, ...values }: DayOff) => {
     values.dateLeaveStart = dateLeave![0];

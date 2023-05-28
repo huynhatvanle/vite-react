@@ -5,7 +5,7 @@ import { UserRole } from './role';
 import { UserTeam } from './team';
 
 const name = 'UserManager';
-export const action = new Action<Manager>(name);
+const action = new Action<Manager>(name);
 export const managerSlice = createSlice(new Slice<Manager>(action));
 
 export const ManagerFacade = () => {
