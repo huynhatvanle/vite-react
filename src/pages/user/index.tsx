@@ -14,7 +14,7 @@ import { Plus } from '@svgs';
 import { keyRole, routerLinks, language, languages } from '@utils';
 
 const Page = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { formatDate, user } = GlobalFacade();
   const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
@@ -27,7 +27,6 @@ const Page = () => {
         break;
     }
   }, [userFacade.status]);
-
 
   const dataTableRef = useRef<TableRefObject>(null);
   return (

@@ -6,9 +6,9 @@ import { DataTable } from '@core/data-table';
 import { ModalForm } from '@core/modal/form';
 import { keyRole } from '@utils';
 import { GlobalFacade, DataTypeFacade, DataFacade } from '@store';
-import { Edit, Plus, Trash } from '@svgs';
+import { Plus } from '@svgs';
 import { FormModalRefObject, TableRefObject } from '@models';
-import { Popconfirm, Tooltip } from 'antd';
+import { Popconfirm } from 'antd';
 import slug from 'slug';
 
 const Page = () => {
