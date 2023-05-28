@@ -9,7 +9,7 @@ import { routerLinks } from '@utils';
 import { language, languages } from '../../utils/variable';
 
 const Page = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { user, profile } = GlobalFacade();
   const dayoffFacade = DayoffFacade();
   const { isLoading, status, data, queryParams } = dayoffFacade;

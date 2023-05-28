@@ -13,7 +13,7 @@ import { CheckCircle, Times } from '@svgs';
 import { language, languages } from '../../utils/variable';
 
 const Page = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { formatDate, user } = GlobalFacade();
   const dayoffFacade = DayoffFacade();
   const { data, queryParams } = dayoffFacade;

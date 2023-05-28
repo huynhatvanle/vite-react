@@ -6,14 +6,14 @@ import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { DayoffFacade, GlobalFacade } from '@store';
 import { keyRole, routerLinks } from '@utils';
-import { CheckCircle, Plus, Times, Trash } from '@svgs';
+import { CheckCircle, Plus, Times } from '@svgs';
 import { Avatar } from '@core/avatar';
 import dayjs from 'dayjs';
-import { Popconfirm, Tooltip } from 'antd';
+import { Popconfirm } from 'antd';
 import { language, languages } from '../../utils/variable';
 
 const Page = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { formatDate, user } = GlobalFacade();
   const navigate = useNavigate();
   const dayoffFacade = DayoffFacade();

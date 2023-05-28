@@ -7,9 +7,9 @@ import { Button } from '@core/button';
 import { GlobalFacade, UserFacade, UserTeamFacade } from '@store';
 
 import { keyRole } from '@utils';
-import { Edit, Plus, Trash } from 'src/assets/svgs';
+import { Plus } from 'src/assets/svgs';
 import { Avatar } from '@core/avatar';
-import { Popconfirm, Tooltip } from 'antd';
+import { Popconfirm } from 'antd';
 
 const Page = () => {
   const { t } = useTranslation();
