@@ -6,7 +6,6 @@ import { initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { ConfigProvider } from 'antd';
 
-import { Spin } from '@core/spin';
 import { GlobalFacade, setupStore } from '@store';
 import { reportWebVitals } from '@utils';
 import Router from './router';

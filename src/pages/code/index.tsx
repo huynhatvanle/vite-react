@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { ModalForm } from '@core/modal/form';
-import { keyRole, routerLinks } from '@utils';
+import { keyRole } from '@utils';
 import { GlobalFacade, CodeFacade, CodeTypeFacade } from '@store';
-import { Edit, Plus, Trash } from '@svgs';
+import { Plus } from '@svgs';
 import { FormModalRefObject, TableRefObject } from '@models';
-import { Popconfirm, Tooltip } from 'antd';
+import { Popconfirm } from 'antd';
 import slug from 'slug';
 const Page = () => {
   const { t } = useTranslation();

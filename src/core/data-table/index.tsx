@@ -1,4 +1,4 @@
-import React, {forwardRef, Fragment, Ref, useEffect, useImperativeHandle, useRef, useState} from 'react';
+import React, { forwardRef, Fragment, Ref, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { Checkbox, CheckboxOptionType, DatePicker, Popover, Radio, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { Button } from '../button';
 import { Pagination } from '../pagination';
 import { DataTableModel, PaginationQuery, TableGet, TableRefObject } from '@models';
-import {cleanObjectKeyNull, getSizePageByHeight} from '@utils';
+import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
 import { Calendar, CheckCircle, CheckSquare, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
 
@@ -90,20 +90,29 @@ export const DataTable = forwardRef(
     let [params, setParams] = useState(
       save && location.search && location.search.indexOf('=') > -1
         ? { ...defaultRequest, ...getQueryStringParams(location.search) }
-        : defaultRequest);
+        : defaultRequest,
+    );
 
     useEffect(() => {
       if (pageSizeOptions?.length === 0) {
         if (params?.perPage === 1) {
           params.perPage = getSizePageByHeight();
         }
-        refPageSizeOptions.current = [params.perPage || 10, (params.perPage || 10) * 2, (params.perPage || 10) * 3, (params.perPage || 10) * 4, (params.perPage || 10) * 5]
+        refPageSizeOptions.current = [
+          params.perPage || 10,
+          (params.perPage || 10) * 2,
+          (params.perPage || 10) * 3,
+          (params.perPage || 10) * 4,
+          (params.perPage || 10) * 5,
+        ];
       } else refPageSizeOptions.current = pageSizeOptions;
-      setParams(cleanObjectKeyNull({
-        ...params,
-        sorts: JSON.stringify(params.sorts),
-        filter: JSON.stringify(params.filter),
-      }));
+      setParams(
+        cleanObjectKeyNull({
+          ...params,
+          sorts: JSON.stringify(params.sorts),
+          filter: JSON.stringify(params.filter),
+        }),
+      );
       if (facade) {
         localStorage.setItem(idTable.current, JSON.stringify(cleanObjectKeyNull(params)));
         if (!result?.data || new Date().getTime() > time || JSON.stringify(params) != queryParams)
@@ -117,13 +126,15 @@ export const DataTable = forwardRef(
     const onChange = (request?: PaginationQuery, changeNavigate = true) => {
       if (request) {
         localStorage.setItem(idTable.current, JSON.stringify(request));
-        params = {...request};
+        params = { ...request };
         if (save) {
           if (request.sorts && typeof request.sorts === 'object') request.sorts = JSON.stringify(request.sorts);
           if (request.filter && typeof request.filter === 'object') request.filter = JSON.stringify(request.filter);
-          changeNavigate && navigate(location.pathname + '?' + new URLSearchParams(request as Record<string, string>).toString());
+          changeNavigate &&
+            navigate(location.pathname + '?' + new URLSearchParams(request as Record<string, string>).toString());
         }
-      } else if (localStorage.getItem(idTable.current)) params = JSON.parse(localStorage.getItem(idTable.current) || '{}')
+      } else if (localStorage.getItem(idTable.current))
+        params = JSON.parse(localStorage.getItem(idTable.current) || '{}');
       setParams(params);
 
       if (showList && facade?.get) {
@@ -476,7 +487,7 @@ export const DataTable = forwardRef(
               size="small"
               {...prop}
             />
-            { refPageSizeOptions.current && showPagination && (
+            {refPageSizeOptions.current && showPagination && (
               <Pagination
                 total={result?.count}
                 page={+params!.page!}
