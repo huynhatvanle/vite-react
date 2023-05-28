@@ -10,7 +10,7 @@ import { codeSlice, CodeFacade } from './code';
 import { codeTypeSlice, CodeTypeFacade } from './code/type';
 import { dataSlice, DataFacade } from './data';
 import { dataTypeSlice, DataTypeFacade } from './data/type';
-
+import { pageSlice, PageFacade } from './page';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
   [userSlice.name]: userSlice.reducer,
@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
   [codeTypeSlice.name]: codeTypeSlice.reducer,
   [dataSlice.name]: dataSlice.reducer,
   [dataTypeSlice.name]: dataTypeSlice.reducer,
+  [pageSlice.name]: pageSlice.reducer,
 });
 
 const setupStore = () => {
@@ -45,5 +46,6 @@ export {
   CodeTypeFacade,
   DataFacade,
   DataTypeFacade,
+  PageFacade,
 };
 export type { State };

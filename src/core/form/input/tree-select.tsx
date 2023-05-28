@@ -114,29 +114,29 @@ const Component = ({ formItem, placeholder, onChange, value, form, disabled, sho
     <TreeSelect
       treeNodeFilterProp={'title'}
       listHeight={200}
-      treeDataSimpleMode
       allowClear={true}
       showSearch={showSearch}
       onChange={(data) => {
-        if (formItem.api?.loadData) {
-          if (formItem.mode !== 'multiple') {
-            const _data = _list.filter((_item: any) => _item.id === data.value)[0];
-            onChange && onChange({ ..._data, label: _data.fullTitle });
-          } else {
-            onChange &&
-              onChange(
-                data.map((__item: any) => {
-                  const _data = _list.filter((_item: any) => _item.id === __item.value)[0];
-                  if (_data) {
-                    return { ..._data, label: _data.fullTitle };
-                  }
-                  return __item;
-                }),
-              );
-          }
-        } else {
-          onChange && onChange(data);
-        }
+        onChange && onChange(data?.value);
+        // if (formItem.api?.loadData) {
+        //   if (formItem.mode !== 'multiple') {
+        //     const _data = _list.filter((_item: any) => _item.id === data.value)[0];
+        //     onChange && onChange({ ..._data, label: _data.fullTitle });
+        //   } else {
+        //     onChange &&
+        //       onChange(
+        //         data.map((__item: any) => {
+        //           const _data = _list.filter((_item: any) => _item.id === __item.value)[0];
+        //           if (_data) {
+        //             return { ..._data, label: _data.fullTitle };
+        //           }
+        //           return __item;
+        //         }),
+        //       );
+        //   }
+        // } else {
+        //   onChange && onChange(data?.value);
+        // }
       }}
       dropdownRender={(originNode) => (
         <Fragment>

@@ -8,6 +8,7 @@ import convertFormValue from './convertFormValue';
 import cleanObjectKeyNull from './cleanObjectKeyNull';
 import covertChild from './covertChild';
 import getSizePageByHeight from './getSizePageByHeight';
+import loopMapSelect from './loopMapSelect';
 
 export {
   withClearCache,
@@ -26,4 +27,5 @@ export {
   covertChild,
   API,
   getSizePageByHeight,
+  loopMapSelect,
 };

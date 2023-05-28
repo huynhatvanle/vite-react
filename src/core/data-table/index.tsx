@@ -399,6 +399,10 @@ export const DataTable = forwardRef(
       onChange && onChange(tempParams);
     };
     if (!data) data = result?.data;
+    const loopData = (array?: any[]): any[] =>
+      array
+        ? array.map((item) => ({ ...item, key: item.id || v4(), children: item.children && loopData(item.children) }))
+        : [];
     return (
       <div className={classNames(className, 'intro-x')}>
         <div className="sm:flex justify-between mb-2.5">
@@ -475,10 +479,7 @@ export const DataTable = forwardRef(
               loading={isLoading}
               columns={cols.current}
               pagination={false}
-              dataSource={data?.map((item: any) => ({
-                ...item,
-                key: item.id || v4(),
-              }))}
+              dataSource={loopData(data)}
               onChange={(pagination, filters, sorts) =>
                 handleTableChange(undefined, filters, sorts as SorterResult<any>, params.fullTextSearch)
               }

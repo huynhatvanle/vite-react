@@ -12,6 +12,7 @@ const Util = (name: string, type?: string) => {
     Setting: '/setting',
     Data: '/setting/data',
     Code: '/setting/code',
+    Page: '/setting/page',
   }; // 💬 generate link to here
 
   const apis: {
@@ -24,6 +25,7 @@ const Util = (name: string, type?: string) => {
     User: '/user',
     DataType: '/data-type',
     Data: '/data',
+    Page: '/page',
   }; // 💬 generate api to here
 
   switch (type) {
