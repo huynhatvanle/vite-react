@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
 import { UserRoleFacade, UserFacade, CodeFacade, User } from '@store';
-import { routerLinks } from '@utils';
+import { routerLinks, language, languages } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
-import { language, languages } from '../../utils/variable';
 
 const Page = () => {
   const { t } = useTranslation();

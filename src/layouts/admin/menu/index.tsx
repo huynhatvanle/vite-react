@@ -4,11 +4,10 @@ import classNames from 'classnames';
 import { useNavigate, useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import { routerLinks } from '@utils';
+import { routerLinks, language, languages } from '@utils';
 import listMenu from '../menus';
 import './index.less';
 import { v4 } from 'uuid';
-import { language, languages } from '../../../utils/variable';
 
 const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean; permission?: string[] }) => {
   const { t } = useTranslation();

@@ -7,9 +7,8 @@ import { Provider } from 'react-redux';
 import { ConfigProvider } from 'antd';
 
 import { GlobalFacade, setupStore } from '@store';
-import { reportWebVitals } from '@utils';
+import { reportWebVitals, language, languages } from '@utils';
 import Router from './router';
-import { language, languages } from './utils/variable';
 
 const fallbackLng = localStorage.getItem('i18nextLng');
 if (!fallbackLng) {

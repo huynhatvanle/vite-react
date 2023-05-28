@@ -1,4 +1,4 @@
-const Util = (name: string, type?: string) => {
+export const routerLinks = (name: string, type?: string) => {
   const array: {
     [selector: string]: string;
   } = {
@@ -35,4 +35,3 @@ const Util = (name: string, type?: string) => {
       return array[name];
   }
 };
-export default Util;
