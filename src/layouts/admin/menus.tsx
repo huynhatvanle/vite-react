@@ -50,6 +50,10 @@ const Layout = [
         name: 'Data',
         permission: keyRole.P_DATA_LISTED,
       },
+      {
+        name: 'Page',
+        permission: keyRole.P_PAGE_LISTED,
+      },
     ],
   },
 ];

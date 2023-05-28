@@ -1,4 +1,4 @@
-const Util = (name: string, type?: string) => {
+export const routerLinks = (name: string, type?: string) => {
   const array: {
     [selector: string]: string;
   } = {
@@ -12,6 +12,7 @@ const Util = (name: string, type?: string) => {
     Setting: '/setting',
     Data: '/setting/data',
     Code: '/setting/code',
+    Page: '/setting/page',
     Team: '/team',
     DayOff: '/dayoff',
     'DayOff/List': '/dayoff/list',
@@ -29,6 +30,7 @@ const Util = (name: string, type?: string) => {
     User: '/user',
     DataType: '/data-type',
     Data: '/data',
+    Page: '/page',
     UserTeam: '/user-team',
     DayOff: '/dayoff',
     UserManager: '/user',
@@ -41,4 +43,3 @@ const Util = (name: string, type?: string) => {
       return array[name];
   }
 };
-export default Util;

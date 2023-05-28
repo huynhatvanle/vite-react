@@ -6,14 +6,13 @@ import classNames from 'classnames';
 import { useLocation } from 'react-router-dom';
 // import { initializeApp } from 'firebase/app';
 // import { getMessaging, isSupported, getToken, onMessage } from 'firebase/messaging';
-import { routerLinks } from '@utils';
+import { routerLinks, language, languages } from '@utils';
 import { Avatar } from '@core/avatar';
 import { GlobalFacade } from '@store';
 import Menu from './menu';
 // import { firebaseConfig } from 'variable';
 import './index.less';
 import { Logo } from '@svgs';
-import { language, languages } from '../../utils/variable';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();

@@ -7,7 +7,7 @@ import { ModalForm } from '@core/modal/form';
 
 import { GlobalFacade } from '@store';
 import { FormModalRefObject } from '@models';
-import { language, languages } from '../../utils/variable';
+import { language, languages } from '@utils';
 
 const Page = () => {
   const { t } = useTranslation();

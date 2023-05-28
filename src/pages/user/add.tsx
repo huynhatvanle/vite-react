@@ -2,12 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { Button } from '@core/button';
-import { Form } from '@core/form';
 import { Avatar } from '@core/avatar';
 import { UserRoleFacade, UserFacade, CodeFacade, User, UserTeamFacade, ManagerFacade } from '@store';
-import { routerLinks } from '@utils';
-import { language, languages } from '../../utils/variable';
+import { routerLinks, language, languages } from '@utils';
+import { Button } from '@core/button';
+import { Form } from '@core/form';
 
 const Page = () => {
   const { t } = useTranslation();

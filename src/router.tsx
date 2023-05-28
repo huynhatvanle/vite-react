@@ -2,10 +2,9 @@ import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
 import { Spin } from '@core/spin';
-import { keyUser, routerLinks } from '@utils';
+import { keyUser, routerLinks, language, languages } from '@utils';
 import { useTranslation } from 'react-i18next';
 import { GlobalFacade } from '@store';
-import { language, languages } from './utils/variable';
 
 const pages = [
   {
@@ -46,6 +45,11 @@ const pages = [
         path: routerLinks('Data'),
         component: React.lazy(() => import('@pages/data')),
         title: 'Data',
+      },
+      {
+        path: routerLinks('Page'),
+        component: React.lazy(() => import('@pages/page')),
+        title: 'Page',
       },
       {
         path: routerLinks('User/List'),
