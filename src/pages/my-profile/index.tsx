@@ -20,11 +20,6 @@ const Page = () => {
     profile();
   }, []);
 
-  const handleSubmit = (values: any) => {
-    globalFacade.putProfile(values);
-    profile();
-  };
-
   return (
     <Fragment>
       <div className='lg:grid lg:grid-cols-3 gap-5 w-full'>
@@ -131,7 +126,7 @@ const Page = () => {
                     },
                   ]}
                   disableSubmit={isLoading}
-                  handSubmit={handleSubmit}
+                  handSubmit={putProfile}
                   extendButton={(form) => (
                     <Button
                       text={t('components.button.Cancel')}
