@@ -43,7 +43,7 @@ const Page = () => {
   }, [status]);
 
   useEffect(() => {
-    if (id)  {
+    if (id) {
       storeFacade.getById({ id })
     }
     return () => {
@@ -52,10 +52,10 @@ const Page = () => {
   }, [id]);
 
   useEffect(() => {
-    if (data)  {
+    if (data) {
       provinceFacade.get({})
-      districtFacade.get({fullTextSearch: '', code: `${data?.address?.province?.code}`})
-      wardFacade.get({fullTextSearch:'', code: `${data.address?.district?.code}`})
+      districtFacade.get({ fullTextSearch: '', code: `${data?.address?.province?.code}` })
+      wardFacade.get({ fullTextSearch: '', code: `${data.address?.district?.code}` })
     }
   }, [data])
 
@@ -425,7 +425,7 @@ const Page = () => {
                         className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0'
                         icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
                         text={t('titles.Export Excel file')}
-                        // onClick={() => navigate(routerLinks(''))}
+                        onClick={() => navigate(routerLinks(''))}
                       />
                     }
                   </div>
@@ -485,7 +485,7 @@ const Page = () => {
                               },
                               onChange(value, form) {
                                 form.resetFields(['categoryId2', 'categoryId3'])
-                                dataTableRef?.current?.onChange({page: 1, perPage: 10, storeId: id, type: 'BALANCE',categoryId: value});
+                                dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: id, type: 'BALANCE', categoryId: value });
                               },
                             },
                           },
@@ -1294,7 +1294,7 @@ const Page = () => {
                 }
                 leftHeader={
                   <Form
-                    className="intro-x rounded-lg w-full "
+                    className="intro-x rounded-lg"
                     columns={
                       [
                         {
