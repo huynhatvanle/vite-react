@@ -97,6 +97,7 @@ const Page = () => {
                     formItem: {
                       tabIndex: 3,
                       col: 4,
+                      rules: [{ type: 'fax' }],
                     },
                   },
                   {
@@ -284,7 +285,7 @@ const Page = () => {
               />
             </Tabs.TabPane>
 
-            <Tabs.TabPane tab={
+            <Tabs.TabPane  tab={
               <Dropdown trigger={['click']}
                 className='!rounded-xl'
                 menu={{
