@@ -241,7 +241,10 @@ const Page = () => {
                       formItem: {
                         tabIndex: 2,
                         col: 4,
-                        rules: [{ type: 'required' }],
+                        rules: [
+                          { type: 'required', message: 'Xin vui lòng nhập số điện thoại đại diện' },
+                          { type: 'phone', min: 10, max: 12 },
+                        ],
                       },
                     },
                     {
@@ -349,7 +352,7 @@ const Page = () => {
                     }
                     leftHeader={
                       <Form
-                        className="intro-x pt-6 rounded-lg w-full "
+                        className="intro-x pt-1 rounded-lg w-full "
                         columns={[
                           {
                             title: '',
@@ -431,7 +434,7 @@ const Page = () => {
                 </div>
               </div>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Quản lý đơn hàng" key="3" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Ordermanagement')} key="3" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
@@ -552,7 +555,7 @@ const Page = () => {
                         className: 'hover:!bg-white !py-2 !px-2.5',
                         label: (
                           <div className="text-base text-gray-400" onClick={() => setTest('1')}>
-                            Doanh thu theo đơn hàng
+                            {t('store.Revenue by order')}
                           </div>
                         ),
                       },
@@ -561,7 +564,7 @@ const Page = () => {
                         className: 'hover:!bg-white !py-2 !px-2.5',
                         label: (
                           <div className="text-base text-gray-400" onClick={() => setTest('2')}>
-                            Doanh thu theo sản phẩm
+                            {t('store.Revenue by product')}
                           </div>
                         ),
                       },
@@ -570,7 +573,7 @@ const Page = () => {
                   placement="bottomRight"
                 >
                   <section className="flex items-center">
-                    <h1>Doanh thu</h1>
+                    <h1>{t('titles.Revenue')}</h1>
                     <DownArrow className="w-4 h-4 ml-2" />
                   </section>
                 </Dropdown>
@@ -1169,7 +1172,7 @@ const Page = () => {
                 )
               )}
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Chiết khấu" key="5" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Discount')} key="5" className="rounded-xl">
               {/* lấy về đc data/ tạo 1 cái data mới /lấy 1 cái key tạo 1 row mới trong table */}
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-6 pb-4">
