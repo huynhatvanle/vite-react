@@ -5,7 +5,7 @@ import { Input, Select, Switch, Tabs, Dropdown } from 'antd';
 
 import { routerLinks } from '@utils';
 import { Form } from '@core/form';
-import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, invoicekiotvietFacade } from '@store';
+import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, InvoiceKiotVietFacade } from '@store';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { Arrow, Download, Plus } from '@svgs';
@@ -22,16 +22,17 @@ const Page = () => {
   const subStoreFacade = SubStoreFacade()
   const connectSupplierFacade = ConnectSupplierFacade()
   const inventoryProductFacade = InventoryProductFacade()
-  const invoicevietFacade = invoicekiotvietFacade()
+  const invoiceKiotVietFacade = InvoiceKiotVietFacade()
+  const provinceFacade = ProvinceFacade()
+  const districtFacade = DistrictFacade()
+  const wardFacade = WardFacade()
 
-
-  // console.log("inventoryProductFacade", inventoryProductFacade);
 
   const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const [supplier, setSupplier] = useState('')
+  // const [supplier, setSupplier] = useState('')
 
   const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRef1 = useRef<TableRefObject>(null);
@@ -42,12 +43,21 @@ const Page = () => {
   }, [status]);
 
   useEffect(() => {
-    if (id) storeFacade.getById({ id });
-
+    if (id)  {
+      storeFacade.getById({ id })
+    }
     return () => {
       isReload.current && storeFacade.get(param);
     };
   }, [id]);
+
+  useEffect(() => {
+    if (data)  {
+      provinceFacade.get({})
+      districtFacade.get({fullTextSearch: '', code: `${data?.address?.province?.code}`})
+      wardFacade.get({fullTextSearch:'', code: `${data.address?.district?.code}`})
+    }
+  }, [data])
 
   const handleBack = () => navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: StoreManagement) => {
@@ -55,7 +65,7 @@ const Page = () => {
   };
 
   const [isChecked, setIsChecked] = useState(false);
-  const [type, setType] = useState('BALANCE');
+  const [type, setType] = useState('');
 
   const handleClick = () => {
     setIsChecked(!isChecked);
@@ -67,7 +77,7 @@ const Page = () => {
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='1' type='card' size='large'>
+          <Tabs defaultActiveKey='5' type='card' size='large'>
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <Form
                 values={{ ...data, emailContact: data?.userRole?.[0].userAdmin?.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
@@ -294,6 +304,7 @@ const Page = () => {
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
                         <div onClick={() => {
+                          setType('BALANCE')
                           setIsBalanceClicked(false);
                           dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' });
                         }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
@@ -306,6 +317,7 @@ const Page = () => {
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
                         <div onClick={() => {
+                          setType('NON_BALANCE')
                           setIsBalanceClicked(true);
                           dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'NON_BALANCE' });
                         }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
@@ -332,11 +344,11 @@ const Page = () => {
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
-                onRow={(data: any) => ({
-                  onDoubleClick: () => {
-                    navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                  },
-                })}
+                // onRow={(data: any) => ({
+                //   onDoubleClick: () => {
+                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                //   },
+                // })}
                 columns={[
                   {
                     title: 'product.Code',
@@ -413,7 +425,7 @@ const Page = () => {
                         className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0'
                         icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
                         text={t('titles.Export Excel file')}
-                        onClick={() => navigate(routerLinks(''))}
+                        // onClick={() => navigate(routerLinks(''))}
                       />
                     }
                   </div>
@@ -444,6 +456,7 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
+                                console.log(type)
                                 dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: value });
                               },
                             },
@@ -457,7 +470,7 @@ const Page = () => {
                         [
                           {
                             title: '',
-                            name: 'cap1',
+                            name: 'categoryId1',
                             formItem: {
                               tabIndex: 3,
                               placeholder: 'placeholder.Main categories',
@@ -471,13 +484,13 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                form.resetFields(['cap2', 'cap3'])
-                                // dataTableRef?.current?.onChange({page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE',categoryId: value});
+                                form.resetFields(['categoryId2', 'categoryId3'])
+                                dataTableRef?.current?.onChange({page: 1, perPage: 10, storeId: id, type: 'BALANCE',categoryId: value});
                               },
                             },
                           },
                           {
-                            name: 'cap2',
+                            name: 'categoryId2',
                             title: '',
                             formItem: {
                               placeholder: 'placeholder.Category level 1',
@@ -491,16 +504,16 @@ const Page = () => {
                                 }),
                                 params: (fullTextSearch, value) => ({
                                   fullTextSearch,
-                                  id: value().cap1,
+                                  id: value().categoryId1,
                                 }),
                               },
                               onChange(value, form) {
-                                form.resetFields(['cap3'])
+                                form.resetFields(['categoryId3'])
                               },
                             },
                           },
                           {
-                            name: 'cap3',
+                            name: 'categoryId3',
                             title: '',
                             formItem: {
                               placeholder: 'placeholder.Category level 2',
@@ -514,7 +527,7 @@ const Page = () => {
                                 }),
                                 params: (fullTextSearch, value) => ({
                                   fullTextSearch,
-                                  id: value().cap2,
+                                  id: value().categoryId2,
                                 })
                               }
                             },
@@ -541,11 +554,11 @@ const Page = () => {
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, supplierType: 'BALANCE' }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
-                onRow={(data: any) => ({
-                  onDoubleClick: () => {
-                    navigate(routerLinks('store/branch/edit') + '/' + data.id);
-                  },
-                })}
+                // onRow={(data: any) => ({
+                //   onDoubleClick: () => {
+                //     navigate(routerLinks('store/branch/edit') + '/' + data.id);
+                //   },
+                // })}
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -768,8 +781,8 @@ const Page = () => {
               <div className='px-5 pt-6 pb-4 bg-white p-5 rounded-lg'>
                 {isBalanceClicked ?
                   <DataTable
-                    facade={invoicevietFacade.data}
-                    defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
+                    facade={invoiceKiotVietFacade}
+                    defaultRequest={{ page: 1, perPage: 10, idStore: id }}
                     xScroll='1440px'
                     onRow={(data: any) => ({
                       onDoubleClick: () => {
@@ -787,63 +800,63 @@ const Page = () => {
                         name: 'supplier',
                         tableItem: {
                           width: 150,
-                          render: (value: any, item: any) => item.supplier?.code,
+                          // render: (value: any, item: any) => item.supplier?.code,
                         },
                       },
-                      {
-                        title: 'store.Inventory management.Product code',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier?.name,
-                        },
-                      },
-                      {
-                        title: 'store.Inventory management.Product name',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
-                        },
-                      },
-                      {
-                        title: 'store.Barcode',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                        },
-                      },
-                      {
-                        title: 'titles.Revenue',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
-                      {
-                        title: 'product.Revenue',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
-                      {
-                        title: 'product.Status',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
+                      // {
+                      //   title: 'store.Inventory management.Product code',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier?.name,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'store.Inventory management.Product name',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'store.Barcode',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'titles.Revenue',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'product.Revenue',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'product.Status',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                      //   },
+                      // },
 
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
                       <div className='flex justify-end text-left flex-col w-full '>
                         <Form
-                          className="intro-x flex justify-end form-store"
+                          className="intro-x flex justify-start mt-4 lg:justify-end lg:mt-0 form-store"
                           columns={
                             [
                               {
                                 title: '',
-                                name: 'supplierName',
+                                name: 'status',
                                 formItem: {
                                   placeholder: 'placeholder.Select status',
                                   type: 'select',
@@ -1011,8 +1024,8 @@ const Page = () => {
                   />
                   :
                   <DataTable
-                    facade={invoicevietFacade.data}
-                    defaultRequest={{ page: 1, perPage: 10, idSuppiler: id }}
+                    facade={invoiceKiotVietFacade}
+                    defaultRequest={{ page: 1, perPage: 10, idStore: id }}
                     xScroll='1440px'
                     onRow={(data: any) => ({
                       onDoubleClick: () => {
@@ -1025,62 +1038,62 @@ const Page = () => {
                       t('routes.admin.Layout.PaginationSupplier', { from, to, total })
                     }
                     columns={[
-                      {
-                        title: 'store.Revenue.Serial number',
-                        name: 'supplier',
-                        tableItem: {
-                          width: 150,
-                          render: (value: any, item: any) => item.supplier?.code,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Order code',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier?.name,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Sale date',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier?.name,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Value (VND)',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier?.name,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Discount (VND)',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Total amount (VND)',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Order type',
-                        name: 'supplier',
-                        tableItem: {
-                          render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
+                      // {
+                      //   title: 'store.Revenue.Serial number',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     width: 150,
+                      //     render: (value: any, item: any) => item.supplier?.code,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'store.Revenue.Order code',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier?.name,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'store.Revenue.Sale date',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier?.name,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'store.Revenue.Value (VND)',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier?.name,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'store.Revenue.Discount (VND)',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'store.Revenue.Total amount (VND)',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                      //   },
+                      // },
+                      // {
+                      //   title: 'store.Revenue.Order type',
+                      //   name: 'supplier',
+                      //   tableItem: {
+                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                      //   },
+                      // },
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
                       <div className='flex justify-end w-full text-left flex-col'>
                         <Form
-                          className="intro-x flex justify-end form-store"
+                          className="intro-x flex justify-start mt-4 lg:justify-end lg:mt-0 form-store"
                           columns={
                             [
                               {
@@ -1272,7 +1285,7 @@ const Page = () => {
                   <div className={'w-auto'}>
                     {
                       <Button
-                        className='!bg-teal-800 !font-normal w-full !text-white hover:!bg-teal-700 group'
+                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group'
                         text={t('titles.synchronized')}
                         onClick={() => navigate(routerLinks('Supplier/Excel'))}
                       />
