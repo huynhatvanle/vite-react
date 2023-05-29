@@ -16,9 +16,7 @@ const Page = () => {
   const { isLoading, queryParams, status } = supplierFace;
   const param = JSON.parse(queryParams || '{}');
 
-
-  console.log("statusSupplier", status);
-
+  console.log('statusSupplier', status);
 
   const data = Supplier;
 
@@ -29,7 +27,6 @@ const Page = () => {
         break;
     }
   }, [status]);
-
 
   const handleBack = () => navigate(routerLinks('Supplier') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: any) => {
@@ -71,7 +68,7 @@ const Page = () => {
                     <h3 className='mb-2.5 text-base '>{t('supplier.Supplier Address')}</h3>
                   )
                 },
-              }
+              },
             },
             {
               title: 'store.Province',
@@ -89,7 +86,7 @@ const Page = () => {
                   }),
                 },
                 onChange(value, form) {
-                  form.resetFields(['districtId', 'wardId'])
+                  form.resetFields(['districtId', 'wardId']);
                 },
               },
             },
@@ -112,7 +109,7 @@ const Page = () => {
                   }),
                 },
                 onChange(value, form) {
-                  form.resetFields(['wardId'])
+                  form.resetFields(['wardId']);
                 },
               },
             },
@@ -132,8 +129,8 @@ const Page = () => {
                   params: (fullTextSearch, value) => ({
                     fullTextSearch,
                     code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                  })
-                }
+                  }),
+                },
               },
             },
             {
@@ -168,7 +165,10 @@ const Page = () => {
               name: 'phoneNumber',
               formItem: {
                 col: 4,
-                rules: [{ type: 'required', message: 'Xin vui lòng nhập số điện thoại đại diện' }],
+                rules: [
+                  { type: 'required', message: 'Xin vui lòng nhập số điện thoại đại diện' },
+                  { type: 'phone', min: 10, max: 12 },
+                ],
               },
             },
             {
@@ -186,7 +186,6 @@ const Page = () => {
                 type: 'textarea',
               },
             },
-
           ]}
           handSubmit={handleSubmit}
           handCancel={handleBack}

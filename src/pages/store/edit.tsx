@@ -119,10 +119,6 @@ const Page = () => {
                       col: 3,
                       rules: [{ type: 'requiredSelect' }],
                       type: 'select',
-                      // convert: (data) => ({
-                      //   label: data?.name,
-                      //   value: data?.id + '|' + data?.code
-                      // }),
                       get: {
                         facade: ProvinceFacade,
                         format: (item: any) => ({
@@ -165,10 +161,6 @@ const Page = () => {
                       type: 'select',
                       rules: [{ type: 'requiredSelect' }],
                       col: 3,
-                      // convert(data) {
-                      //   console.log("data", data);
-                      //   return data?.name
-                      // },
                       get: {
                         facade: WardFacade,
                         format: (item: any) => ({
@@ -291,6 +283,7 @@ const Page = () => {
                 handCancel={handleBack}
               />
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={
               <Dropdown trigger={['click']}
                 className='!rounded-xl'
@@ -541,6 +534,7 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
@@ -622,6 +616,7 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
+
             <Tabs.TabPane
               tab={
                 <Dropdown trigger={['click']}
@@ -727,6 +722,7 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
+
             <Tabs.TabPane
               tab={
                 <Dropdown trigger={['click']}
@@ -1179,6 +1175,7 @@ const Page = () => {
                 }}
               />
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
                 facade={inventoryProductFacade}

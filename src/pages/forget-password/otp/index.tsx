@@ -31,7 +31,7 @@ const Page = () => {
         </h1>
         <h5 className="intro-x font-normal text-green-900 ">{t('routes.auth.reset-password.subEmail')}</h5>
       </div>
-      <div className='mx-auto w-3/4'>
+      <div className='mx-auto lg:w-full'>
         <Spin spinning={isLoading} >
           <Form
             values={{ ...data }}
@@ -60,7 +60,7 @@ const Page = () => {
                 },
               },
             ]}
-            textSubmit={t('routes.auth.reset-password.Send code')}
+            textSubmit={'routes.auth.reset-password.Send code'}
             handSubmit={(values) => verifyForgotPassword({ ...values })}
             disableSubmit={isLoading}
           />
