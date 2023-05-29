@@ -43,7 +43,7 @@ const Page = () => {
   }, [status]);
 
   useEffect(() => {
-    if (id)  {
+    if (id) {
       storeFacade.getById({ id })
     }
     return () => {
@@ -52,10 +52,10 @@ const Page = () => {
   }, [id]);
 
   useEffect(() => {
-    if (data)  {
+    if (data) {
       provinceFacade.get({})
-      districtFacade.get({fullTextSearch: '', code: `${data?.address?.province?.code}`})
-      wardFacade.get({fullTextSearch:'', code: `${data.address?.district?.code}`})
+      districtFacade.get({ fullTextSearch: '', code: `${data?.address?.province?.code}` })
+      wardFacade.get({ fullTextSearch: '', code: `${data.address?.district?.code}` })
     }
   }, [data])
 
@@ -77,7 +77,7 @@ const Page = () => {
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='5' type='card' size='large'>
+          <Tabs defaultActiveKey='1' type='card' size='large'>
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <Form
                 values={{ ...data, emailContact: data?.userRole?.[0].userAdmin?.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
@@ -295,7 +295,7 @@ const Page = () => {
               />
             </Tabs.TabPane>
 
-            <Tabs.TabPane  tab={
+            <Tabs.TabPane tab={
               <Dropdown trigger={['click']}
                 className='!rounded-xl'
                 menu={{
@@ -426,7 +426,7 @@ const Page = () => {
                         className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0'
                         icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
                         text={t('titles.Export Excel file')}
-                        // onClick={() => navigate(routerLinks(''))}
+                      // onClick={() => navigate(routerLinks(''))}
                       />
                     }
                   </div>
@@ -486,7 +486,7 @@ const Page = () => {
                               },
                               onChange(value, form) {
                                 form.resetFields(['categoryId2', 'categoryId3'])
-                                dataTableRef?.current?.onChange({page: 1, perPage: 10, storeId: id, type: 'BALANCE',categoryId: value});
+                                dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: id, type: 'BALANCE', categoryId: value });
                               },
                             },
                           },
