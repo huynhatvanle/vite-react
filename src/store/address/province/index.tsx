@@ -5,7 +5,7 @@ import { CommonEntity, PaginationQuery } from '@models';
 
 
 const name = 'Province';
-export const action = {
+const action = {
   ...new Action<Province>(name),
 };
 export const provinceSlice = createSlice(new Slice<Province>(action));

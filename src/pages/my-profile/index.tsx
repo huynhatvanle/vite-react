@@ -8,7 +8,7 @@ import { Spin } from '@core/spin';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
 import { routerLinks } from '@utils';
-import { User, UserSolid } from '@svgs';
+import { User } from '@svgs';
 
 const Page = () => {
   const { t } = useTranslation();

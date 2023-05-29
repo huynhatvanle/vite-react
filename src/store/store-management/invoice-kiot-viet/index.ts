@@ -6,7 +6,7 @@ import { API, routerLinks } from '@utils';
 
 const name = 'Invoicekiotviet';
 
-export const action = {
+const action = {
     ...new Action<InvoiceKiotViet>(name),
     getInvoiceKiotViet: createAsyncThunk(
         name + '/get',

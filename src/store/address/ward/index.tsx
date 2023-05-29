@@ -5,7 +5,7 @@ import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 import { CommonEntity } from '@models';
 
 const name = 'Ward';
-export const action = {
+const action = {
   ...new Action<Ward>(name),
   getWard: createAsyncThunk(
     name + '/get',
