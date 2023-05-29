@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import dayjs from 'dayjs';
-import { Popconfirm } from 'antd';
+import { Popconfirm, Tooltip } from 'antd';
 
 import { Avatar } from '@core/avatar';
 import { Button } from '@core/button';
@@ -10,7 +10,7 @@ import { DataTable } from '@core/data-table';
 
 import { TableRefObject } from '@models';
 import { UserFacade, GlobalFacade, CodeFacade, UserTeamFacade, ManagerFacade, UserRoleFacade } from '@store';
-import { Plus } from '@svgs';
+import { Edit, Plus, Trash } from '@svgs';
 import { keyRole, routerLinks, language, languages } from '@utils';
 
 const Page = () => {
@@ -193,26 +193,30 @@ const Page = () => {
             render: (text: string, data) => (
               <div className={'flex gap-2'}>
                 {user?.role?.permissions?.includes(keyRole.P_USER_UPDATE) && (
-                  <Button
-                    className={'!px-1 !py-0.5'}
-                    text={t('routes.admin.Layout.Edit')}
-                    onClick={() => navigate(`/${lang}${routerLinks('User')}/${data.id}`)}
-                  />
+                  <Tooltip title={t('routes.admin.Layout.Edit')}>
+                    <button
+                      title={t('routes.admin.Layout.Edit') || ''}
+                      onClick={() => navigate(`/${lang}${routerLinks('User')}/${data.id}`)}
+                    >
+                      <Edit className="icon-cud bg-blue-600 hover:bg-blue-400"/>
+                    </button>
+                  </Tooltip>
                 )}
 
                 {user?.role?.permissions?.includes(keyRole.P_USER_DELETE) && (
-                  <Popconfirm
-                    placement="left"
-                    title={t('components.datatable.areYouSureWant')}
-                    onConfirm={() => dataTableRef?.current?.handleDelete(data.id)}
-                    okText={t('components.datatable.ok')}
-                    cancelText={t('components.datatable.cancel')}
-                  >
-                    <Button
-                      className={'!px-1 !py-0.5 !bg-red-600 hover:!bg-red-500'}
-                      text={t('routes.admin.Layout.Delete')}
-                    />
-                  </Popconfirm>
+                  <Tooltip title={t('routes.admin.Layout.Delete')}>
+                    <Popconfirm
+                      placement="left"
+                      title={t('components.datatable.areYouSureWant')}
+                      onConfirm={() => dataTableRef?.current?.handleDelete(data.id)}
+                      okText={t('components.datatable.ok')}
+                      cancelText={t('components.datatable.cancel')}
+                    >
+                      <button title={t('routes.admin.Layout.Delete') || ''}>
+                        <Trash className="icon-cud bg-red-600 hover:bg-red-400" />
+                      </button>
+                    </Popconfirm>
+                  </Tooltip>
                 )}
               </div>
             ),
