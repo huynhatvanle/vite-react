@@ -63,19 +63,19 @@ const Page = () => {
 
   const subHeader = [
     {
-      title: 'Doanh thu',
+      title: t('supplier.titles.Revenue'),
       total: a + ' VND',
     },
     {
-      title: 'Tổng số đơn thành công',
+      title: t('supplier.titles.Total number of successful applications'),
       total: inventoryOrders.result?.statistical?.totalOderSuccess,
     },
     {
-      title: 'Tổng số đơn trả',
+      title: t('supplier.titles.Total number of payments'),
       total: inventoryOrders.result?.statistical?.totalOderReturn,
     },
     {
-      title: 'Tổng số đơn bị hủy',
+      title: t('supplier.titles.Total number of canceled orders'),
       total: inventoryOrders.result?.statistical?.totalOderCancel,
     },
   ];
@@ -149,7 +149,7 @@ const Page = () => {
                         tabIndex: 3,
                         col: 3,
                         type: 'select',
-                        rules: [{ type: 'required', message: 'Xin vui lòng chọn tỉnh/thành phố' }],
+                        rules: [{ type: 'required' }],
                         get: {
                           facade: ProvinceFacade,
                           format: (item: any) => ({
@@ -167,7 +167,7 @@ const Page = () => {
                       name: 'districtId',
                       formItem: {
                         type: 'select',
-                        rules: [{ type: 'required', message: 'Xin vui lòng chọn quận/huyện' }],
+                        rules: [{ type: 'required' }],
                         col: 3,
                         get: {
                           facade: DistrictFacade,
@@ -190,7 +190,7 @@ const Page = () => {
                       name: 'wardId',
                       formItem: {
                         type: 'select',
-                        rules: [{ type: 'required', message: 'Xin vui lòng chọn phường/xã' }],
+                        rules: [{ type: 'required' }],
                         col: 3,
                         get: {
                           facade: WardFacade,
@@ -324,11 +324,11 @@ const Page = () => {
                           render: (text: string, item: any) =>
                             item?.approveStatus === 'APPROVED' ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                Đang bán
+                                {t('supplier.status.on sale')}
                               </div>
                             ) : (
                               <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                Ngưng bán
+                                {t('supplier.status.stop selling')}
                               </div>
                             ),
                         },
@@ -342,7 +342,7 @@ const Page = () => {
                             icon={
                               <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
                             }
-                            text={t('Xuất file excel')}
+                            text={t('titles.Export Excel file')}
                             onClick={() => navigate(routerLinks('Supplier/Excel'))}
                           />
                         }
@@ -357,7 +357,7 @@ const Page = () => {
                             name: 'cap1',
                             formItem: {
                               tabIndex: 3,
-                              placeholder: 'Danh mục chính',
+                              placeholder: 'placeholder.Main categories',
                               col: 3,
                               type: 'select',
                               get: {
@@ -377,7 +377,7 @@ const Page = () => {
                             title: '',
                             formItem: {
                               disabled: () => true,
-                              placeholder: 'Danh mục cấp 1',
+                              placeholder: 'placeholder.Category level 1',
                               type: 'select',
                               col: 3,
                               get: {
@@ -401,7 +401,7 @@ const Page = () => {
                             title: '',
                             formItem: {
                               disabled: () => true,
-                              placeholder: 'Danh mục cấp 2',
+                              placeholder: 'placeholder.Category level 2',
                               type: 'select',
                               col: 3,
                               get: {
@@ -446,14 +446,14 @@ const Page = () => {
                     }
                     columns={[
                       {
-                        title: t(`Mã đơn hàng`),
+                        title: 'supplier.Order.Order ID',
                         name: 'code',
                         tableItem: {
                           width: 280,
                         },
                       },
                       {
-                        title: t(`Tên cửa hàng`),
+                        title: 'supplier.Order.Store Name',
                         name: 'name',
                         tableItem: {
                           width: 180,
@@ -461,7 +461,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`Người nhận`),
+                        title: 'supplier.Order.Recipient',
                         name: 'address',
                         tableItem: {
                           width: 180,
@@ -469,7 +469,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`Địa chỉ nhận hàng`),
+                        title: 'supplier.Order.Delivery Address',
                         name: 'contract',
                         tableItem: {
                           width: 300,
@@ -484,7 +484,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`Tổng tiền (VND)`),
+                        title: 'supplier.Order.Total Price (VND)',
                         name: 'total',
                         tableItem: {
                           width: 150,
@@ -492,7 +492,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`Ngày đặt`),
+                        title: 'supplier.Order.Order Date',
                         name: 'createdAt',
                         tableItem: {
                           width: 150,
@@ -507,23 +507,23 @@ const Page = () => {
                           render: (value: any, item: any) =>
                             item?.status === 'DELIVERED' ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                Đã giao
+                                {t('supplier.status.delivered')}
                               </div>
                             ) : item?.status === 'WAITING_APPROVED' ? (
                               <div className="bg-yellow-50 text-center p-1 border border-yellow-500 text-yellow-500 rounded">
-                                Chờ xác nhận
+                                {t('supplier.status.wait for confirmation')}
                               </div>
                             ) : item?.status === 'DELIVERY_RECEIVE' || item?.status === 'DELIVERY_RECEIVING' ? (
                               <div className="bg-blue-100 text-center p-1 border border-blue-500 text-blue-600 rounded">
-                                Đang giao
+                                {t('supplier.status.delivering')}
                               </div>
                             ) : item?.status === 'WAITING_PICKUP' ? (
                               <div className="bg-orange-50 text-center p-1 border border-orange-500 text-orange-500 rounded">
-                                Chờ lấy hàng
+                                {t('supplier.status.waiting for the goods')}
                               </div>
                             ) : (
                               <div className="bg-red-100 text-center p-1 border border-red-500 text-red-500 rounded">
-                                Đã huỷ
+                                {t('supplier.status.canceled')}
                               </div>
                             ),
                         },
@@ -533,7 +533,7 @@ const Page = () => {
                 </div>
               </div>
               <Button
-                text={t('Trở về')}
+                text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
                   navigate(routerLinks('Supplier'));
@@ -620,7 +620,7 @@ const Page = () => {
                                 name: 'Category',
                                 formItem: {
                                   tabIndex: 3,
-                                  placeholder: 'Chọn loại đơn hàng',
+                                  placeholder: 'placeholder.Select order type',
                                   col: 5,
                                   type: 'select',
                                   get: {
@@ -639,7 +639,7 @@ const Page = () => {
                                 name: 'Store',
                                 title: '',
                                 formItem: {
-                                  placeholder: 'Chọn cửa hàng',
+                                  placeholder: 'placeholder.Choose a store',
                                   type: 'select',
                                   col: 5,
                                   get: {
@@ -666,7 +666,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center">
-                                      <p>Từ Ngày</p>
+                                      <p>{t('store.Since')}</p>
                                     </div>
                                   ),
                                 },
@@ -688,7 +688,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center">
-                                      <p>Đến ngày</p>
+                                      <p>{t('store.To date')}</p>
                                     </div>
                                   ),
                                 },
@@ -703,12 +703,11 @@ const Page = () => {
                                 },
                               },
                             ]}
-                            // handSubmit={handleSubmit}
                             disableSubmit={isLoading}
                           />
                         </div>
                       }
-                      searchPlaceholder="Tìm kiếm theo mã đơn hàng"
+                      searchPlaceholder={t("placeholder.Search by order number")}
                       columns={[
                         {
                           title: `supplier.Order.STT`,
@@ -729,7 +728,6 @@ const Page = () => {
                           name: 'storeName',
                           tableItem: {
                             width: 180,
-                            // render: (value: any, item: any) => item?.store?.name,
                           },
                         },
                         {
@@ -737,7 +735,6 @@ const Page = () => {
                           name: 'pickUpDate',
                           tableItem: {
                             width: 135,
-                            // render: (value: any, item: any) => item?.store?.name,
                           },
                         },
                         {
@@ -745,7 +742,6 @@ const Page = () => {
                           name: 'completedDate',
                           tableItem: {
                             width: 150,
-                            // render: (value: any, item: any) => item?.storeAdmin?.name,
                           },
                         },
                         {
@@ -785,14 +781,13 @@ const Page = () => {
                           tableItem: {
                             width: 100,
                             render: (text: string, item: any) =>
-                              // RETURN
                               item?.billType === 'RECIEVED' ? (
                                 <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                  Bán hàng
+                                  {t('supplier.Order.order type.Sell')}
                                 </div>
                               ) : (
                                 <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                  Trả hàng
+                                  {t('supplier.Order.order type.Returns')}
                                 </div>
                               ),
                           },
@@ -801,7 +796,7 @@ const Page = () => {
                       footer={() => (
                         <div className="w-full flex sm:justify-end justify-center mt-4">
                           <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                            Xuất báo cáo
+                            {t('titles.Export report')}
                           </button>
                         </div>
                       )}
@@ -1205,7 +1200,7 @@ const Page = () => {
                     disabled={true}
                     text={t('Xuất Báo Cáo')}
                     className={'md:w-[10rem] justify-center out-line'}
-                    onClick={() => {}}
+                    onClick={() => { }}
                   />
                 </div>
               </div>

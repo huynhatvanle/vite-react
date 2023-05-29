@@ -603,7 +603,7 @@ const Page = () => {
                     title: 'supplier.Status',
                     name: 'isActive',
                     tableItem: {
-                      render: (text: string) => text ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>Đang hoạt động</div>)
+                      render: (text: string) => text ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>{t('store.Active')}</div>)
                         : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'></div>),
                     },
                   },

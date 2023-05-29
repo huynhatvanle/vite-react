@@ -11,9 +11,6 @@ import { FormItem, FormModel } from '@models';
 import { GlobalFacade } from '@store';
 import { Check, Times } from '@svgs';
 import { Chips, SelectTag, Select, TreeSelect, TableTransfer, Password, Mask, Addable, DatePicker, Tab } from './input';
-import ReactNode from 'react';
-import { DefaultTFuncReturn } from 'i18next';
-
 export const Form = ({
   className,
   columns,
@@ -761,7 +758,7 @@ export const Form = ({
 type Type = {
   className?: string;
   columns: FormModel[];
-  textSubmit?: string ;
+  textSubmit?: string;
   textCancel?: string;
   handSubmit?: (values: any) => void;
   handCancel?: () => void;
