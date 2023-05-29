@@ -102,7 +102,7 @@
     "Supplierinformation": "Thông tin nhà cung cấp",
     "Listofgoods": "Danh sách hàng hoá",
     "Listofbranches": "Danh sách chi nhánh",
-    "Manage": "Quản lý NCC",
+    "Manage": "Quản lý Supplier",
     "Revenue": "Doanh thu",
     "Inventory management": "Quản lý kho",
     "Export Excel file": "Xuất file Excel",
@@ -245,6 +245,15 @@
     "Representative": "Người đại diện",
     "Phone Number": "Số điện thoại",
     "Status": "Trạng thái",
+    "status":{
+      "delivered":"Đã giao",
+      "wait for confirmation":"Chờ xác nhận",
+      "delivering":"Đang giao",
+      "waiting for the goods":"Chờ lấy hàng",
+      "canceled":"Đã huỷ",
+      "on sale":"Đang bán",
+      "stop selling":"Ngưng bán"
+    },
     "CodeName": "Mã nhà cung cấp",
     "Order": {
       "STT": "STT",
@@ -264,7 +273,17 @@
       "After Tax": "Sau thuế",
       "Promotion": "Khuyến mãi",
       "Total Amount": "Thành tiền",
-      "Order Type": "Loại đơn"
+      "Order Type": "Loại đơn",
+      "order type":{
+        "Sell":"Bán hàng",
+        "Returns":"Trả hàng"
+      }
+    },
+    "titles":{
+      "Revenue":"Doanh thu",
+      "Total number of successful applications":"Tổng số đơn thành công",
+      "Total number of payments":"Tổng số đơn trả",
+      "Total number of canceled orders":"Tổng số đơn bị huỷ"
     }
   },
   "store": {
@@ -334,6 +353,7 @@
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",
     "Select order type": "Chọn loại đơn hàng",
+    "Choose a store":"Chọn cửa hàng",
     "Main categories": "Danh mục chính",
     "Category level 1": "Danh mục cấp 1",
     "Category level 2": "Danh mục cấp 2",
