@@ -7,7 +7,7 @@ export default class Common {
     textTabBtn: (text: string) => cy.get('.ant-tabs-tab-btn').contains(text).should('be.visible'),
     tableByName: (val: string) => cy.get('.ant-table-cell').contains(val),
     buttonTableByName: (val: string, text: string) =>
-      this.elements.tableByName(val).parents('tr').find(`button`).contains(text),
+      this.elements.tableByName(val).parents('tr').find(`button[title="${text}"]`),
     buttonConfirmPopover: () => cy.get('.ant-popover .ant-btn-primary').should('be.visible'),
     messageSwal2: () => cy.get('div#swal2-html-container').should('be.visible'),
 
