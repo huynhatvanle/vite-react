@@ -6,10 +6,10 @@ import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { DayoffFacade, GlobalFacade } from '@store';
 import { keyRole, routerLinks } from '@utils';
-import { CheckCircle, Plus, Times } from '@svgs';
+import {CheckCircle, Plus, Times, Trash} from '@svgs';
 import { Avatar } from '@core/avatar';
 import dayjs from 'dayjs';
-import { Popconfirm } from 'antd';
+import {Popconfirm, Tooltip} from 'antd';
 import { language, languages } from '../../utils/variable';
 
 const Page = () => {
@@ -208,20 +208,19 @@ const Page = () => {
                       {user?.role?.permissions?.includes(keyRole.P_DAYOFF_DELETE) &&
                         data.staff?.id === user.id &&
                         data.status === 0 && (
-                          <Popconfirm
-                            placement="left"
-                            title={t('components.datatable.areYouSureWant')}
-                            onConfirm={() => {
-                              dataTableRef?.current?.handleDelete(data.id);
-                            }}
-                            okText={t('components.datatable.ok')}
-                            cancelText={t('components.datatable.cancel')}
-                          >
-                            <Button
-                              className={'!px-1 !py-0.5 !bg-red-600 hover:!bg-red-500'}
-                              text={t('routes.admin.Layout.Delete')}
-                            />
-                          </Popconfirm>
+                          <Tooltip title={t('routes.admin.Layout.Delete')}>
+                            <Popconfirm
+                              placement="left"
+                              title={t('components.datatable.areYouSureWant')}
+                              onConfirm={() => dataTableRef?.current?.handleDelete!(data.id)}
+                              okText={t('components.datatable.ok')}
+                              cancelText={t('components.datatable.cancel')}
+                            >
+                              <button title={t('routes.admin.Layout.Delete') || ''}>
+                                <Trash className="icon-cud bg-red-600 hover:bg-red-400" />
+                              </button>
+                            </Popconfirm>
+                          </Tooltip>
                         )}
                     </div>
                   ),
