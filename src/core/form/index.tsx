@@ -4,13 +4,16 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 
-import { Upload } from '../upload';
-import { Button } from '../button';
 import { convertFormValue } from '@utils';
 import { FormItem, FormModel } from '@models';
 import { GlobalFacade } from '@store';
 import { Check, Times } from '@svgs';
 import { Chips, SelectTag, Select, TreeSelect, TableTransfer, Password, Mask, Addable, DatePicker, Tab } from './input';
+import { Upload } from '../upload';
+import { Button } from '../button';
+import { Editor } from '../editor';
+import { DraggableLayout } from '../draggable/layout';
+
 export const Form = ({
   className,
   columns,
@@ -102,6 +105,10 @@ export const Form = ({
             form={form}
           />
         );
+      case 'editor':
+        return <Editor />;
+      case 'layout':
+        return <DraggableLayout />;
       case 'upload':
         return <Upload multiple={!!formItem.mode} />;
       case 'table_transfer':

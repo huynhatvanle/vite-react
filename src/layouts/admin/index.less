@@ -24,37 +24,18 @@ main {
 
     .line {
       @apply bg-blue-600;
-    }
 
-    .line:nth-child(1),
-    .line:nth-child(3) {
-      @apply h-1 ~"w-3.5";
-    }
-    .line:nth-child(2) {
-      @apply transform translate-x-0 h-1 w-7;
-    }
-    .line:nth-child(1) {
-      @apply translate-y-1 ~"translate-x-3.5" rotate-45;
-    }
-    .line:nth-child(3) {
-      @apply -translate-y-1 ~"translate-x-3.5" -rotate-45;
+      &:nth-child(1),
+      &:nth-child(3) { @apply h-1 w-1/2; }
+      &:nth-child(2) { @apply transform translate-x-0 h-1 w-full; }
+      &:nth-child(1) { @apply translate-y-1 ~"translate-x-3.5" rotate-45; }
+      &:nth-child(3) { @apply -translate-y-1 ~"translate-x-3.5" -rotate-45; }
     }
   }
-
-  .line {
-    @apply bg-gray-600 block transition-all duration-300 ease-in-out rounded-sm h-1 ~"my-1.5" ;
-
-    &:nth-child(1),
-    &:nth-child(2) {
-      @apply w-7;
-    }
-    &:nth-child(3) {
-      @apply ~"w-3.5";
-    }
-  }
-
-  &:hover .line {
-    @apply w-7;
+  &:not(.is-active):hover .line {
+    &:nth-child(1) { @apply animate-burger-hover-2; }
+    &:nth-child(2) { @apply animate-burger-hover-4; }
+    &:nth-child(3) { @apply animate-burger-hover-6; }
   }
 }
 
@@ -94,7 +75,7 @@ main {
    .ant-tabs-nav {
     @apply !mx-5;
    }
-  
+
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
       @apply text-xl !text-green-800 font-semibold;

@@ -4,7 +4,7 @@ import { useAppDispatch, useTypedSelector, Action, Slice, State, User } from '@s
 import { CommonEntity, PaginationQuery, Responses } from '@models';
 
 const name = 'UserRole';
-export const action = {
+const action = {
   ...new Action<UserRole>(name),
   getPermission: createAsyncThunk(name + '/permission', async () =>
     API.get<Responses<string[]>>(`${routerLinks(name, 'api')}/permission`),

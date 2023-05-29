@@ -2,7 +2,7 @@ import { keyRefreshToken, keyToken, keyUser, linkApi, routerLinks } from '@utils
 import { Message } from '@core/message';
 import { Responses } from '@models';
 
-const API = {
+export const API = {
   init: () =>
     ({
       mode: 'cors',
@@ -77,4 +77,3 @@ const API = {
     }
   },
 };
-export default API;
