@@ -12,6 +12,7 @@ import { GlobalFacade } from '@store';
 import { Check, Times } from '@svgs';
 import { Chips, SelectTag, Select, TreeSelect, TableTransfer, Password, Mask, Addable, DatePicker, Tab } from './input';
 import ReactNode from 'react';
+import { DefaultTFuncReturn } from 'i18next';
 
 export const Form = ({
   className,
@@ -411,15 +412,19 @@ export const Form = ({
               case 'phone':
                 rules.push(() => ({
                   validator(_: any, value: any) {
-                    if (
-                      !value?.trim() ||
-                      (value?.trim().length >= rule.min &&
-                        value?.trim().length <= rule.max &&
-                        /^\+?\d+[-\s]?[0-9]+[-\s]?[0-9]+$/.test(value))
-                    ) {
-                      return Promise.resolve();
+                    if (!value) {
+                      return Promise.reject();
+                    } else if (/^\d+$/.test(value)) {
+                      if (value?.trim().length < 8) {
+                        return Promise.reject(t('components.form.ruleMinNumberLength'));
+                      } else if (value?.trim().length > 12) {
+                        return Promise.reject(t('components.form.ruleMaxNumberLength'));
+                      } else {
+                        return Promise.resolve();
+                      }
+                    } else {
+                      return Promise.reject(t('components.form.only number'));
                     }
-                    return Promise.reject(t('components.form.rulePhone'));
                   },
                 }));
                 break;
@@ -708,12 +713,13 @@ export const Form = ({
       </div>
 
       <div
-        className={classNames('mt-9 gap-2 flex absolute sm:block', {
+        className={classNames('gap-2 flex absolute sm:block', {
           'justify-center': !extendButton && !handCancel,
+          '!mt-9': handCancel && handSubmit,
           'md:inline-flex w-full justify-between md:float-right': handCancel,
-          'md:inline-flex w-full justify-between': handSubmit,
-          'w-full md:w-auto md:inline-flex md:float-right right-0 sm:text-center items-center mt-8': handSubmit && extendButton,
-          'w-full md:w-auto md:inline-flex md:float-right right-0 justify-between top-[300px] sm:text-center items-center': extendButtonChangePassword,
+          'md:inline-flex w-full justify-between relative': handSubmit,
+          'w-full md:w-auto md:inline-flex md:float-right top-0 right-0 text-center items-center': handSubmit && extendButton,
+          'w-full md:w-auto md:inline-flex md:float-right -bottom-1/3 right-0 justify-between sm:text-center items-center': extendButtonChangePassword && extendButton,
         })}
       >
         {handCancel && (
@@ -755,7 +761,7 @@ export const Form = ({
 type Type = {
   className?: string;
   columns: FormModel[];
-  textSubmit?: string;
+  textSubmit?: string ;
   textCancel?: string;
   handSubmit?: (values: any) => void;
   handCancel?: () => void;

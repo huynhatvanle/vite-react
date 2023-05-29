@@ -34,7 +34,7 @@ const Page = () => {
         <Spin spinning={isLoading} >
           <Form
             values={{ ...data }}
-            className="intro-x form-login space-y-8"
+            className="intro-x form-login"
             columns={[
               {
                 name: 'username',
@@ -59,7 +59,7 @@ const Page = () => {
             disableSubmit={isLoading}
           />
         </Spin>
-        <div className="absolute right-6 top-2/3 sm:right-0 text-right">
+        <div className="absolute right-6 top-1/2 sm:right-0 text-right">
           <button className={'text-teal-900 font-normal underline hover:no-underline'} onClick={() => navigate(routerLinks('ForgetPassword'))}>
             {t('routes.auth.login.Forgot Password')}
           </button>

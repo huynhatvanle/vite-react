@@ -20,13 +20,13 @@
       "ruleUsername": "Tên người dùng không chứa các ký tự đặc biệt, chỉ bao gồm chữ cái và chữ số!",
       "ruleMinLength": "Vui lòng nhập ít nhất {{min}} ký tự!",
       "ruleMaxLength": "Vui lòng nhập tối đa phải có {{max}} ký tự!",
-      "ruleMinNumberLength": "Vui lòng nhập ít hơn {{min}} ký tự số!",
-      "ruleMaxNumberLength": "Vui lòng nhập tối đa phải có {{max}} ký tự số!",
+      "ruleMinNumberLength": "Vui lòng nhập tối thiểu 8 ký tự số!",
+      "ruleMaxNumberLength": "Vui lòng nhập tối đa phải có 12 ký tự số!",
       "ruleMin": "Vui lòng nhập số {{min}} tối thiểu!",
       "ruleMax": "Vui lòng nhập số {{max}} đối đa!",
       "ruleMaxSize": "Bạn chỉ có thể tải lên tối đa {{max}}mb!",
       "only text": "Vui lòng nhập chỉ nhập chữ!",
-      "only number": "Vui lòng chỉ nhập số và tối đa 999999999!",
+      "only number": "Vui lòng chỉ nhập số",
       "rulePassword": "Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt",
       "rulePhone": "Số điện thoại không hợp lệ",
       "confirm": "Xác nhận",
@@ -141,7 +141,9 @@
         "Enter new password": "Nhập mật khẩu mới",
         "Confirm Password": "Xác nhận mật khẩu",
         "Password": "Mật khẩu hiện tại",
-        "newPassword": "Mật khẩu mới"
+        "newPassword": "Mật khẩu mới",
+        "Forgot Password":"Quên Mật Khẩu",
+        "Change Password":"Đổi mật khẩu"
       },
       "register": {
         "firstName": "Tên",
@@ -155,7 +157,8 @@
       "placeholder": {
         "Confirm Password": "Xác nhận mật khẩu",
         "Password": "Nhập mật khẩu",
-        "newPassword": "Nhập mật khẩu mới"
+        "newPassword": "Nhập mật khẩu mới",
+        "subConfirm":"Hai mật khẩu không giống nhau!"
       }
     }
   },
@@ -178,12 +181,16 @@
       },
       "reset-password": {
         "Recovery Email": "Email khôi phục",
-        "Enter Recovery Email": "Email khôi phục",
-        "title": "Quên Mật Khẩu",
         "Submit": "Gửi đi",
-        "Back To Login": "Quay trở lại Đăng nhập",
         "subTitle": "Vui lòng nhập e-mail của bạn. Mã xác minh OTP sẽ được gửi cho bạn",
-        "OTP": "Lấy Mã OTP"
+        "subEmail":"Vui lòng nhập mã OTP đã gửi đến email của bạn",
+        "subReset":"Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường,",
+        "subReset1":"1 chữ số và 1 kí tự đặc biệt.",
+        "OTP": "Lấy Mã OTP",
+        "Go back to login":"Quay trở lại đăng nhập",
+        "Code OTP":"Mã OTP",
+        "Send code":"Gửi mã OTP",
+        "Reset Password":"Đặt lại mật khẩu"
       }
     },
     "admin": {
@@ -229,6 +236,7 @@
     }
   },
   "supplier": {
+    "Supplier Address":"Địa chỉ nhà cung cấp",
     "Code": "Mã NCC",
     "SupplierCode": "Mã nhà cung cấp",
     "Name": "Tên nhà cung cấp",
@@ -285,6 +293,7 @@
     "Since":"Từ ngày",
     "To date":"đến ngày",
     "Barcode":"Mã vạch",
+    "Active":"Đang hoặt động",
     "Inventory management": {
       "Product code": "Mã sản phẩm",
       "Barcode (Supplier)": "Mã vạch (NCC)",
@@ -320,8 +329,7 @@
     "Price": "Giá bán lẻ (VND)",
     "Status": "Tình trạng",
     "Barcode": "Mã vạch",
-    "Revenue":"Doanh thu",
-    "Revenue": "Doanh thu"
+    "Revenue":"Doanh thu"
   },
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",

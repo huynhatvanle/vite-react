@@ -20,13 +20,13 @@
       "ruleUsername": "Username contains no special characters, only letters and numbers!",
       "ruleMinLength": "Please enter at least {{min}} characters!",
       "ruleMaxLength": "Please enter maximum {{max}} characters!",
-      "ruleMinNumberLength": "Please enter at least {{min}} number characters!",
-      "ruleMaxNumberLength": "Please enter maximum {{max}} number characters!",
+      "ruleMinNumberLength": "Please enter at least 8 number characters!",
+      "ruleMaxNumberLength": "Please enter maximum 12 number characters!",
       "ruleMin": "Please enter minimum {{min}} number!",
       "ruleMax": "Please enter maximum {{max}} number!",
       "ruleMaxSize": "You can only upload up to {{max}}mb!",
       "only text": "Please enter only text!",
-      "only number": "Please enter only number and maximum 999999999 number!",
+      "only number": "Please enter only number",
       "rulePassword": "Password needs to have at least 8 characters, including at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character",
       "rulePhone": "Phone number is invalid!",
       "confirm": "Confirm",
@@ -141,7 +141,9 @@
         "Enter new password": "Enter new password",
         "Confirm Password": "Confirm Password",
         "Password": "Password",
-        "newPassword": "New Password"
+        "newPassword": "New Password",
+        "Forgot Password": "Forgot Password",
+        "Change Password":"Change Password"
       },
       "register": {
         "firstName": "First Name",
@@ -155,7 +157,8 @@
       "placeholder": {
         "Confirm Password": "Confirm Password",
         "Password": "Enter Password",
-        "newPassword": "Enter New Password"
+        "newPassword": "Enter New Password",
+        "subConfirm":"Two passwords are not the same!"
       }
     }
   },
@@ -166,9 +169,9 @@
     "auth": {
       "login": {
         "title": "Sign In",
-        "subTitle": "Enter your details to login to your account",
+        "subTitle": "Please log in using an account provided by the system administrator",
         "Log In": "Log In",
-        "Forgot Password": "Forgot Password",
+        "Forgot Password": "Forgot Password ?",
         "Confirm Password": "Confirm Password",
         "Reset Password": "Reset Password",
         "New password": "New password",
@@ -183,7 +186,14 @@
         "Submit": "Submit",
         "Back To Login": "Submit",
         "subTitle": "Please enter your email. An OTP verification code will be sent to you.",
-        "OTP": "Get OTP"
+        "subEmail":"Please enter the OTP code that has been sent to your email.",
+        "subReset":"Password requires 8 characters or more, with at least 1 uppercase letter, 1 lowercase letter,",
+        "subReset1":"1 digit and 1 special character.",
+        "OTP": "Get OTP",
+        "Go back to login":"Go back to login",
+        "Code OTP":"Code OTP",
+        "Send code":"Send code OTP",
+        "Reset Password":"Reset Password"
       }
     },
     "admin": {
@@ -229,6 +239,7 @@
     }
   },
   "supplier": {
+    "Supplier Address":"Supplier Address",
     "Code": "ID Supplier",
     "Name": "Name",
     "Address": "Address",
@@ -285,6 +296,7 @@
     "Since": "Since",
     "To date": "to date",
     "Barcode": "Barcode",
+    "Active":"Active",
     "Inventory management": {
       "Product code": "Product code",
       "Barcode (Supplier)": "Supplier barcode",
