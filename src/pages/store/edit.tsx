@@ -472,7 +472,7 @@ const Page = () => {
                               },
                               onChange(value, form) {
                                 form.resetFields(['cap2', 'cap3'])
-                                dataTableRef?.current?.onChange({ id: value });
+                                // dataTableRef?.current?.onChange({page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE',categoryId: value});
                               },
                             },
                           },
