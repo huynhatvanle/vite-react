@@ -19,7 +19,8 @@ import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
 import { DownArrow, Download } from '@svgs';
-import { Avatar, Dropdown, Tabs } from 'antd';
+import { Dropdown, Tabs } from 'antd';
+import dayjs from 'dayjs';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -33,8 +34,7 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const [tab] = useState('tab1');
-  const { user } = GlobalFacade();
+  const { formatDate } = GlobalFacade();
 
   const productFacade = ProductFacade();
   const ordersFacade = OrdersFacade();
@@ -63,19 +63,19 @@ const Page = () => {
 
   const subHeader = [
     {
-      title: 'Doanh thu',
+      title: t('supplier.Sup-Revenue.Revenue'),
       total: a + ' VND',
     },
     {
-      title: 'Tổng số đơn thành công',
+      title: t('supplier.Sup-Revenue.Total number of successful orders'),
       total: inventoryOrders.result?.statistical?.totalOderSuccess,
     },
     {
-      title: 'Tổng số đơn trả',
+      title: t('supplier.Sup-Revenue.Total number of returned orders'),
       total: inventoryOrders.result?.statistical?.totalOderReturn,
     },
     {
-      title: 'Tổng số đơn bị hủy',
+      title: t('supplier.Sup-Revenue.Total number of canceled orders'),
       total: inventoryOrders.result?.statistical?.totalOderCancel,
     },
   ];
@@ -91,9 +91,8 @@ const Page = () => {
         <div className="">
           <Tabs defaultActiveKey="1" type="card" size="large" className="">
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="bg-white rounded-xl rounded-tl-none">
-              <div className="px-5">
+              <div className="">
                 <Form
-                  // provinceId: data?.address?.province?.name, district: data?.address?.district?.name, ward: data?.address?.ward?.name,
                   values={{
                     ...data,
                     street: data?.address?.street,
@@ -149,7 +148,7 @@ const Page = () => {
                         tabIndex: 3,
                         col: 3,
                         type: 'select',
-                        rules: [{ type: 'required', message: 'Xin vui lòng chọn tỉnh/thành phố' }],
+                        rules: [{ type: 'required' }],
                         get: {
                           facade: ProvinceFacade,
                           format: (item: any) => ({
@@ -167,7 +166,7 @@ const Page = () => {
                       name: 'districtId',
                       formItem: {
                         type: 'select',
-                        rules: [{ type: 'required', message: 'Xin vui lòng chọn quận/huyện' }],
+                        rules: [{ type: 'required' }],
                         col: 3,
                         get: {
                           facade: DistrictFacade,
@@ -190,7 +189,7 @@ const Page = () => {
                       name: 'wardId',
                       formItem: {
                         type: 'select',
-                        rules: [{ type: 'required', message: 'Xin vui lòng chọn phường/xã' }],
+                        rules: [{ type: 'required' }],
                         col: 3,
                         get: {
                           facade: WardFacade,
@@ -324,11 +323,11 @@ const Page = () => {
                           render: (text: string, item: any) =>
                             item?.approveStatus === 'APPROVED' ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                Đang bán
+                                {t('supplier.Sup-Status.Selling')}
                               </div>
                             ) : (
                               <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                Ngưng bán
+                                {t('supplier.Sup-Status.Discontinued')}
                               </div>
                             ),
                         },
@@ -342,7 +341,7 @@ const Page = () => {
                             icon={
                               <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
                             }
-                            text={t('Xuất file excel')}
+                            text={t('titles.Export Excel file')}
                             onClick={() => navigate(routerLinks('Supplier/Excel'))}
                           />
                         }
@@ -446,14 +445,14 @@ const Page = () => {
                     }
                     columns={[
                       {
-                        title: t(`Mã đơn hàng`),
+                        title: t(`supplier.Order.Order ID`),
                         name: 'code',
                         tableItem: {
                           width: 280,
                         },
                       },
                       {
-                        title: t(`Tên cửa hàng`),
+                        title: t(`supplier.Order.Store Name`),
                         name: 'name',
                         tableItem: {
                           width: 180,
@@ -461,16 +460,16 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`Người nhận`),
-                        name: 'address',
+                        title: t(`supplier.Order.Recipient`),
+                        name: 'storeAdmin',
                         tableItem: {
                           width: 180,
                           render: (value: any, item: any) => item?.storeAdmin?.name,
                         },
                       },
                       {
-                        title: t(`Địa chỉ nhận hàng`),
-                        name: 'contract',
+                        title: t(`supplier.Order.Delivery Address`),
+                        name: 'Address',
                         tableItem: {
                           width: 300,
                           render: (value: any, item: any) =>
@@ -484,7 +483,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`Tổng tiền (VND)`),
+                        title: t(`supplier.Order.Total Price (VND)`),
                         name: 'total',
                         tableItem: {
                           width: 150,
@@ -492,10 +491,11 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`Ngày đặt`),
+                        title: t(`supplier.Order.Order Date`),
                         name: 'createdAt',
                         tableItem: {
                           width: 150,
+                          render: (text: string) => (text ? dayjs(text).format(formatDate) : ''),
                         },
                       },
                       {
@@ -507,23 +507,23 @@ const Page = () => {
                           render: (value: any, item: any) =>
                             item?.status === 'DELIVERED' ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                Đã giao
+                                {t('supplier.Sup-Status.Shipped')}
                               </div>
                             ) : item?.status === 'WAITING_APPROVED' ? (
                               <div className="bg-yellow-50 text-center p-1 border border-yellow-500 text-yellow-500 rounded">
-                                Chờ xác nhận
+                                {t('supplier.Sup-Status.WAITING APPROVED')}
                               </div>
                             ) : item?.status === 'DELIVERY_RECEIVE' || item?.status === 'DELIVERY_RECEIVING' ? (
                               <div className="bg-blue-100 text-center p-1 border border-blue-500 text-blue-600 rounded">
-                                Đang giao
+                                {t('supplier.Sup-Status.Shipping')}
                               </div>
                             ) : item?.status === 'WAITING_PICKUP' ? (
                               <div className="bg-orange-50 text-center p-1 border border-orange-500 text-orange-500 rounded">
-                                Chờ lấy hàng
+                                {t('supplier.Sup-Status.WAITING PICKUP')}
                               </div>
                             ) : (
                               <div className="bg-red-100 text-center p-1 border border-red-500 text-red-500 rounded">
-                                Đã huỷ
+                                {t('supplier.Sup-Status.Cancelled')}
                               </div>
                             ),
                         },
@@ -666,7 +666,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center">
-                                      <p>Từ Ngày</p>
+                                      <p>{t('store.Since')}</p>
                                     </div>
                                   ),
                                 },
@@ -688,7 +688,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center">
-                                      <p>Đến ngày</p>
+                                      <p>{t('store.To date')}</p>
                                     </div>
                                   ),
                                 },
@@ -708,7 +708,7 @@ const Page = () => {
                           />
                         </div>
                       }
-                      searchPlaceholder="Tìm kiếm theo mã đơn hàng"
+                      searchPlaceholder={t('placeholder.Search by order number')}
                       columns={[
                         {
                           title: `supplier.Order.STT`,
@@ -788,11 +788,11 @@ const Page = () => {
                               // RETURN
                               item?.billType === 'RECIEVED' ? (
                                 <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                  Bán hàng
+                                  {t('supplier.Sup-Status.Sell goods')}
                                 </div>
                               ) : (
                                 <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                  Trả hàng
+                                  {t('supplier.Sup-Status.Return goods')}
                                 </div>
                               ),
                           },
@@ -801,7 +801,7 @@ const Page = () => {
                       footer={() => (
                         <div className="w-full flex sm:justify-end justify-center mt-4">
                           <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                            Xuất báo cáo
+                            {t('titles.Export report')}
                           </button>
                         </div>
                       )}
@@ -977,7 +977,7 @@ const Page = () => {
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 items-center">
-                                        <p>Từ Ngày</p>
+                                        <p>{t('store.Since')}</p>
                                       </div>
                                     ),
                                   },
@@ -999,7 +999,7 @@ const Page = () => {
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 items-center">
-                                        <p>Đến ngày</p>
+                                        <p>{t('store.To date')}</p>
                                       </div>
                                     ),
                                   },
@@ -1019,7 +1019,7 @@ const Page = () => {
                             />
                           </div>
                         }
-                        searchPlaceholder="Tìm kiếm theo mã đơn hàng"
+                        searchPlaceholder={t('placeholder.Search by order number')}
                         columns={[
                           {
                             title: `supplier.Order.STT`,
@@ -1076,11 +1076,11 @@ const Page = () => {
                                 // RETURN
                                 item?.billType === 'RECIEVED' ? (
                                   <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                    Bán hàng
+                                    {t('supplier.Sup-Status.Sell goods')}
                                   </div>
                                 ) : (
                                   <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                    Trả hàng
+                                    {t('supplier.Sup-Status.Return goods')}
                                   </div>
                                 ),
                             },
@@ -1089,7 +1089,7 @@ const Page = () => {
                         footer={() => (
                           <div className="w-full flex sm:justify-end justify-center mt-4">
                             <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                              Xuất báo cáo
+                              {t('titles.Export report')}
                             </button>
                           </div>
                         )}
@@ -1167,45 +1167,32 @@ const Page = () => {
                           render: (text: string) =>
                             text ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                Đã ký
+                                {t('supplier.Sup-Status.Signed')}
                               </div>
                             ) : (
                               <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
-                                Chờ ký
+                                {t('supplier.Sup-Status.Waiting')}
                               </div>
                             ),
                         },
                       },
                     ]}
-                    showSearch={false}
-                    rightHeader={
-                      <div className={'flex h-10 w-36'}>
-                        {user && (
-                          <Button
-                            className="!bg-white flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
-                            icon={<Download className="icon-cud !h-6 !w-6 !fill-gray-600 group-hover:!fill-white" />}
-                            text={t('Xuất file excel')}
-                            onClick={() => navigate(routerLinks('Supplier/Excel'))}
-                          />
-                        )}
-                      </div>
-                    }
+                    showSearch={true}
                     subHeader={() => (
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
                         <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
-                          <h1 className="font-bold mb-3">Chiết khấu cần thanh toán</h1>
+                          <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
                           <span className="text-teal-900 text-xl font-bold mt-auto">0 VND</span>
                         </div>
                       </div>
                     )}
-                  />
-                </div>
-                <div className="flex sm:justify-end justify-center items-center p-5">
-                  <Button
-                    disabled={true}
-                    text={t('Xuất Báo Cáo')}
-                    className={'md:w-[10rem] justify-center out-line'}
-                    onClick={() => {}}
+                    footer={() => (
+                      <div className="w-full flex sm:justify-end justify-center mt-4">
+                        <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                          {t('titles.Export report')}
+                        </button>
+                      </div>
+                    )}
                   />
                 </div>
               </div>

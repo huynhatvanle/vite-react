@@ -47,7 +47,7 @@ const Page = () => {
               formItem: {
                 tabIndex: 2,
                 col: 6,
-                rules: [{ type: 'required', message: 'Xin vui lòng nhập tên nhà cung cấp' }],
+                rules: [{ type: 'required' }],
               },
             },
             {
@@ -64,9 +64,7 @@ const Page = () => {
               formItem: {
                 rules: [{ type: 'required' }],
                 render() {
-                  return (
-                    <h3 className='mb-2.5 text-base '>{t('supplier.Supplier Address')}</h3>
-                  )
+                  return <h3 className="mb-2.5 text-base ">{t('supplier.Supplier Address')}</h3>;
                 },
               },
             },
@@ -77,7 +75,7 @@ const Page = () => {
                 tabIndex: 3,
                 col: 3,
                 type: 'select',
-                rules: [{ type: 'required', message: 'Xin vui lòng chọn tỉnh/thành phố' }],
+                rules: [{ type: 'required' }],
                 get: {
                   facade: ProvinceFacade,
                   format: (item: any) => ({
@@ -95,7 +93,7 @@ const Page = () => {
               name: 'districtId',
               formItem: {
                 type: 'select',
-                rules: [{ type: 'required', message: 'Xin vui lòng chọn quận/huyện' }],
+                rules: [{ type: 'required' }],
                 col: 3,
                 get: {
                   facade: DistrictFacade,
@@ -118,7 +116,7 @@ const Page = () => {
               name: 'wardId',
               formItem: {
                 type: 'select',
-                rules: [{ type: 'required', message: 'Xin vui lòng chọn phường/xã' }],
+                rules: [{ type: 'required' }],
                 col: 3,
                 get: {
                   facade: WardFacade,
@@ -137,7 +135,7 @@ const Page = () => {
               title: 'store.Street',
               name: 'street',
               formItem: {
-                rules: [{ type: 'required', message: 'Xin vui lòng nhập địa chỉ cụ thể' }],
+                rules: [{ type: 'required' }],
                 col: 3,
               },
             },
@@ -147,17 +145,19 @@ const Page = () => {
               formItem: {
                 render() {
                   return (
-                    <div className='text-xl text-teal-900 font-bold mb-2.5'>{t('store.Representative information')}</div>
-                  )
-                }
-              }
+                    <div className="text-xl text-teal-900 font-bold mb-2.5">
+                      {t('store.Representative information')}
+                    </div>
+                  );
+                },
+              },
             },
             {
               title: 'store.ContactName',
               name: 'nameContact',
               formItem: {
                 col: 4,
-                rules: [{ type: 'required', message: 'Xin vui lòng nhập họ và tên đại diện' }],
+                rules: [{ type: 'required' }],
               },
             },
             {
@@ -165,10 +165,7 @@ const Page = () => {
               name: 'phoneNumber',
               formItem: {
                 col: 4,
-                rules: [
-                  { type: 'required', message: 'Xin vui lòng nhập số điện thoại đại diện' },
-                  { type: 'phone', min: 10, max: 12 },
-                ],
+                rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 12 }],
               },
             },
             {
@@ -176,7 +173,7 @@ const Page = () => {
               name: 'emailContact',
               formItem: {
                 col: 4,
-                rules: [{ type: 'required', message: 'Xin vui lòng nhập email đại diện' }],
+                rules: [{ type: 'required' }],
               },
             },
             {

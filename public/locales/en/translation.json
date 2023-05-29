@@ -268,6 +268,28 @@
       "Promotion": "Promotion",
       "Total Amount": "Total Amount",
       "Order Type": "Order Type"
+    },
+    "Sup-Revenue": {
+      "Revenue":"Revenue",
+      "Total number of successful orders":"Total number of successful orders",
+      "Total number of returned orders":"Total number of returned orders",
+      "Total number of canceled orders":"Total number of canceled orders"
+    },
+    "Sup-Discount": {
+      "Discounts to be paid": "Discounts to be paid"
+    },
+    "Sup-Status":{
+      "Signed":"Signed",
+      "Waiting": "Waiting",
+      "Selling": "Selling",
+      "Discontinued": "Discontinued",
+      "Shipped": "Shipped",
+      "WAITING APPROVED": "WAITING",
+      "Shipping": "Shipping",
+      "WAITING PICKUP": "WAITING",
+      "Cancelled": "Cancelled",
+      "Return goods": "Return goods",
+      "Sell goods": "Sell goods"
     }
   },
   "store": {
