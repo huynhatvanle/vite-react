@@ -787,7 +787,7 @@ const Page = () => {
                                 </div>
                               ) : (
                                 <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                  {t('titles.Order.order type.Returns')}
+                                  {t('supplier.Order.order type.Returns')}
                                 </div>
                               ),
                           },
@@ -1200,7 +1200,7 @@ const Page = () => {
                     disabled={true}
                     text={t('Xuất Báo Cáo')}
                     className={'md:w-[10rem] justify-center out-line'}
-                    onClick={() => {}}
+                    onClick={() => { }}
                   />
                 </div>
               </div>
