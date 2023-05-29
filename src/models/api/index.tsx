@@ -1,4 +1,5 @@
 import { District, Province, Ward } from '@store';
+import { IventoryProduct1 } from '@store/store-management/inventory-product';
 
 export class Responses<T> {
   constructor(
@@ -31,6 +32,7 @@ export class Responses<T> {
     public districtId?: string,
     public wardId?: string,
     public street?: string,
+    public inventory?: IventoryProduct1,
   ) {}
 }
 

@@ -11,7 +11,7 @@ const API = {
       headers: {
         'Content-Type': 'application/json',
         authorization: 'Bearer ' + (localStorage.getItem(keyToken) || ''),
-        'Accept-Language': localStorage.getItem('i18nextLng') || '',
+        'X-Localization': localStorage.getItem('i18nextLng') || '',
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',

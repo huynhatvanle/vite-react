@@ -24,10 +24,8 @@ const action = {
     return data || {};
   }),
   putProfile: createAsyncThunk(name + '/putProfile', async (values: User) => {
-    // if (values.avatar && typeof values.avatar === 'object') {
-    //   values.avatar = values.avatar[0].url;
-    // }
-    const { data } = await API.put<User>(`${routerLinks(name, 'api')}`, values);
+    const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}`, values);
+    if (message) await Message.success({ text: message });
     return data || {};
   }),
   login: createAsyncThunk(name + '/sign-in', async (values: { password: string; username: string }) => {
@@ -61,12 +59,6 @@ const action = {
     return data;
   }),
 };
-// interface StatePassword<T = object> {
-//   [selector: string]: any;
-//   data?: T;
-//   isLoading?: boolean;
-//   status?: string;
-// }
 interface verify {
   otp?: string;
   uuid?: string;
@@ -140,10 +132,6 @@ export const globalSlice = createSlice({
           state[key] = action.payload[key];
         }
       })
-      // .addCase(action.logout.pending, (state: State) => {
-      //   state.isLoading = true;
-      //   state.status = 'logout.pending';
-      // })
       .addCase(action.logout.fulfilled, (state) => {
         state.user = {};
         localStorage.removeItem(keyUser);

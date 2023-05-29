@@ -4,6 +4,7 @@ import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 import { CommonEntity, PaginationQuery, Responses } from '@models';
 import { Product } from '@store/product';
 import { API, routerLinks } from '@utils';
+import { Category } from '../../category/index';
 
 const name = 'InventoryProduct';
 
@@ -13,7 +14,9 @@ export const action = {
     name + '/get',
     async (params: PaginationQuery<IventoryProduct>) => {
       const { data } = await API.get(routerLinks(name, 'api'), params);
-      return data;
+      console.log(data)
+      console.log((data as any).inventory[0])
+      return (data as any).inventory[0];
     }
   )
 }
@@ -31,13 +34,21 @@ export const inventoryProductSlice = createSlice(
           state.queryParams = JSON.stringify(action.meta.arg);
           state.isLoading = true;
           state.status = 'get.pending';
-          console.log(state.status)
         },
       )
-      .addCase(action.getInventoryProduct.fulfilled, (state: State<IventoryProduct>, action: PayloadAction<Responses<IventoryProduct[]>>) => {
-        console.log(action.payload.message)
+      // .addCase(action.getInventoryProduct.fulfilled, (state: State<IventoryProduct>, action: PayloadAction<{ data: IventoryProduct; keyState: keyof State<IventoryProduct> }>) => {
+      //   if (action.payload) {
+      //     const { data, keyState } = action.payload;
+      //     if (JSON.stringify(state.data) !== JSON.stringify(data)) state.data = data;
+      //     state[keyState] = true;
+      //     state.status = 'getById.fulfilled';
+      //   } else state.status = 'idle';
+      //   state.isLoading = false;
+      // })
+      .addCase(action.getInventoryProduct.fulfilled, (state: State<IventoryProduct>, action: PayloadAction<Responses<IventoryProduct>>) => {
         if (action.payload.data) {
-          state.result = action.payload;
+          state.data = action.payload.data;
+          console.log(action.payload.data)
           state.status = 'get.fulfilled';
         } else state.status = 'idle';
         state.isLoading = false;
@@ -55,7 +66,7 @@ export const InventoryProductFacade = () => {
 
 export class IventoryProduct extends CommonEntity {
   constructor(
-    public inventory: IventoryProduct1[]
+    public inventory: IventoryProduct1
   ) {
     super();
   }
@@ -78,7 +89,7 @@ export class IventoryProduct1 extends CommonEntity {
       isDefault?: boolean
     },
     public id?: string,
-    public iventory?: Product,
+    public inventory?: Product,
   ) {
     super();
   }

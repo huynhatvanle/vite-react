@@ -51,7 +51,7 @@ const Util = (name: string, type?: string) => {
     ConnectSupplier: '/store-connect-supplier/supplier',
     InventoryProduct: '/inventory-product',
     Suborgcommision: '/sub-org-commision',
-    Invoicekiotviet: '/invoice-kiot-viet/invoice',
+    Invoicekiotviet: '/invoice-kiot-viet',
     InventoryOrders: '/inventory-order/revenue-list',
     SupplierStore: '/sub-organization/store/all-supplier-store',
   }; // 💬 generate api to here

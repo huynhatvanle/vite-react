@@ -1,5 +1,6 @@
 import { CheckboxOptionType, FormInstance } from 'antd';
 import { TableGet } from '../data-table';
+import { DefaultTFuncReturn } from 'i18next';
 
 export class FormModel {
   constructor(public name: string, public title: string = '', public formItem?: FormItem) { }

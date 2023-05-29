@@ -356,7 +356,7 @@ const Page = () => {
                             name: 'cap1',
                             formItem: {
                               tabIndex: 3,
-                              placeholder: 'Danh mục chính',
+                              placeholder: 'placeholder.Main categories',
                               col: 3,
                               type: 'select',
                               get: {
@@ -376,7 +376,7 @@ const Page = () => {
                             title: '',
                             formItem: {
                               disabled: () => true,
-                              placeholder: 'Danh mục cấp 1',
+                              placeholder: 'placeholder.Category level 1',
                               type: 'select',
                               col: 3,
                               get: {
@@ -400,7 +400,7 @@ const Page = () => {
                             title: '',
                             formItem: {
                               disabled: () => true,
-                              placeholder: 'Danh mục cấp 2',
+                              placeholder: 'placeholder.Category level 2',
                               type: 'select',
                               col: 3,
                               get: {
@@ -533,7 +533,7 @@ const Page = () => {
                 </div>
               </div>
               <Button
-                text={t('Trở về')}
+                text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
                   navigate(routerLinks('Supplier'));
@@ -620,7 +620,7 @@ const Page = () => {
                                 name: 'Category',
                                 formItem: {
                                   tabIndex: 3,
-                                  placeholder: 'Chọn loại đơn hàng',
+                                  placeholder: 'placeholder.Select order type',
                                   col: 5,
                                   type: 'select',
                                   get: {
@@ -639,7 +639,7 @@ const Page = () => {
                                 name: 'Store',
                                 title: '',
                                 formItem: {
-                                  placeholder: 'Chọn cửa hàng',
+                                  placeholder: 'placeholder.Choose a store',
                                   type: 'select',
                                   col: 5,
                                   get: {
@@ -703,7 +703,6 @@ const Page = () => {
                                 },
                               },
                             ]}
-                            // handSubmit={handleSubmit}
                             disableSubmit={isLoading}
                           />
                         </div>
@@ -729,7 +728,6 @@ const Page = () => {
                           name: 'storeName',
                           tableItem: {
                             width: 180,
-                            // render: (value: any, item: any) => item?.store?.name,
                           },
                         },
                         {
@@ -737,7 +735,6 @@ const Page = () => {
                           name: 'pickUpDate',
                           tableItem: {
                             width: 135,
-                            // render: (value: any, item: any) => item?.store?.name,
                           },
                         },
                         {
@@ -745,7 +742,6 @@ const Page = () => {
                           name: 'completedDate',
                           tableItem: {
                             width: 150,
-                            // render: (value: any, item: any) => item?.storeAdmin?.name,
                           },
                         },
                         {
@@ -785,7 +781,6 @@ const Page = () => {
                           tableItem: {
                             width: 100,
                             render: (text: string, item: any) =>
-                              // RETURN
                               item?.billType === 'RECIEVED' ? (
                                 <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
                                   {t('supplier.Sup-Status.Sell goods')}
