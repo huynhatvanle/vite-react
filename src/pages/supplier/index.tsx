@@ -80,9 +80,13 @@ const Page = () => {
             align: 'center',
             render: (value: any, item: any) =>
               item?.contract?.[0]?.status === 'SIGNED_CONTRACT' ? (
-                <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">Đã ký</div>
+                <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                  {t('supplier.Sup-Status.Signed')}
+                </div>
               ) : (
-                <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">Chờ ký</div>
+                <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
+                  {t('supplier.Sup-Status.Waiting')}
+                </div>
               ),
           },
         },

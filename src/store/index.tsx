@@ -18,7 +18,7 @@ import { connectSupplierSlice, ConnectSupplierFacade } from './store-connect-sup
 import { OrdersSlice, OrdersFacade  } from './order';
 import { DiscountSlice, DiscountFacade } from './discount';
 import { inventoryProductSlice, InventoryProductFacade } from './store-management/inventory-product';
-import { invoicekiotvietFacade, invoicekiotvietSlice } from './store-management/invoice-kiot-viet';
+import { InvoiceKiotVietFacade, invoiceKiotVietSlice } from './store-management/invoice-kiot-viet';
 import { inventoryOrdersSlice, inventoryOrdersFacade } from './supplier/inventory-order';
 import { SupplierStoreFacade, supplierStoreSlice } from './store-management/all-supplier-store';
 
@@ -38,7 +38,7 @@ const rootReducer = combineReducers({
   [inventoryProductSlice.name]: inventoryProductSlice.reducer,
   [OrdersSlice.name]: OrdersSlice.reducer,
   [DiscountSlice.name]: DiscountSlice.reducer,
-  [invoicekiotvietSlice.name]: invoicekiotvietSlice.reducer,
+  [invoiceKiotVietSlice.name]: invoiceKiotVietSlice.reducer,
   [inventoryOrdersSlice.name]: inventoryOrdersSlice.reducer,
   [supplierStoreSlice.name] : supplierStoreSlice.reducer,
 });
@@ -79,7 +79,7 @@ export {
   InventoryProductFacade,
   OrdersFacade,
   DiscountFacade,
-  invoicekiotvietFacade,
+  InvoiceKiotVietFacade,
   inventoryOrdersFacade,
   SupplierStoreFacade,
 };

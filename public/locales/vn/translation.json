@@ -102,7 +102,7 @@
     "Supplierinformation": "Thông tin nhà cung cấp",
     "Listofgoods": "Danh sách hàng hoá",
     "Listofbranches": "Danh sách chi nhánh",
-    "Manage": "Quản lý NCC",
+    "Manage": "Quản lý Supplier",
     "Revenue": "Doanh thu",
     "Inventory management": "Quản lý kho",
     "Export Excel file": "Xuất file Excel",
@@ -245,6 +245,15 @@
     "Representative": "Người đại diện",
     "Phone Number": "Số điện thoại",
     "Status": "Trạng thái",
+    "status":{
+      "delivered":"Đã giao",
+      "wait for confirmation":"Chờ xác nhận",
+      "delivering":"Đang giao",
+      "waiting for the goods":"Chờ lấy hàng",
+      "canceled":"Đã huỷ",
+      "on sale":"Đang bán",
+      "stop selling":"Ngưng bán"
+    },
     "CodeName": "Mã nhà cung cấp",
     "Order": {
       "STT": "STT",
@@ -265,6 +274,28 @@
       "Promotion": "Khuyến mãi",
       "Total Amount": "Thành tiền",
       "Order Type": "Loại đơn"
+    },
+    "Sup-Revenue": {
+      "Revenue":"Doanh thu",
+      "Total number of successful orders":"Tổng số đơn thành công",
+      "Total number of returned orders":"Tổng số đơn trả",
+      "Total number of canceled orders":"Tổng số đơn bị hủy"
+    },
+    "Sup-Discount": {
+      "Discounts to be paid": "Chiết khấu cần thanh toán"
+    },
+    "Sup-Status":{
+      "Signed":"Đã ký",
+      "Waiting": "Chờ ký",
+      "Selling": "Đang bán",
+      "Discontinued": "Ngưng bán",
+      "Shipped": "Đã giao",
+      "WAITING APPROVED": "Chờ xác nhận",
+      "Shipping": "Đang giao",
+      "WAITING PICKUP": "Chờ lấy hàng",
+      "Cancelled": "Đã huỷ",
+      "Return goods": "Trả hàng",
+      "Sell goods": "Bán hàng"
     }
   },
   "store": {
@@ -291,7 +322,7 @@
     "Connect KiotViet":"Kết nối KiotViet",
     "Get branch DS":"Lấy DS chi nhánh",
     "Since":"Từ ngày",
-    "To date":"đến ngày",
+    "To date":"Đến ngày",
     "Barcode":"Mã vạch",
     "Active":"Đang hoặt động",
     "Inventory management": {
@@ -334,6 +365,7 @@
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",
     "Select order type": "Chọn loại đơn hàng",
+    "Choose a store":"Chọn cửa hàng",
     "Main categories": "Danh mục chính",
     "Category level 1": "Danh mục cấp 1",
     "Category level 2": "Danh mục cấp 2",

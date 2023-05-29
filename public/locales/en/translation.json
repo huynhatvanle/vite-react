@@ -248,6 +248,15 @@
     "Representative": "Representative",
     "Phone Number": "Phone Number",
     "Status": "Status",
+    "status":{
+      "delivered":"Delivered",
+      "wait for confirmation":"Waiting for confirmation",
+      "delivering":"Delivering",
+      "waiting for the goods":"Waiting to pick up goods",
+      "canceled":"Canceled",
+      "on sale":"On sale",
+      "stop selling":"Stop selling"
+    },
     "CodeName": "Code Supplier",
     "Order": {
       "STT": "STT",
@@ -268,6 +277,28 @@
       "Promotion": "Promotion",
       "Total Amount": "Total Amount",
       "Order Type": "Order Type"
+    },
+    "Sup-Revenue": {
+      "Revenue":"Revenue",
+      "Total number of successful orders":"Total number of successful orders",
+      "Total number of returned orders":"Total number of returned orders",
+      "Total number of canceled orders":"Total number of canceled orders"
+    },
+    "Sup-Discount": {
+      "Discounts to be paid": "Discounts to be paid"
+    },
+    "Sup-Status":{
+      "Signed":"Signed",
+      "Waiting": "Waiting",
+      "Selling": "Selling",
+      "Discontinued": "Discontinued",
+      "Shipped": "Shipped",
+      "WAITING APPROVED": "WAITING",
+      "Shipping": "Shipping",
+      "WAITING PICKUP": "WAITING",
+      "Cancelled": "Cancelled",
+      "Return goods": "Return goods",
+      "Sell goods": "Sell goods"
     }
   },
   "store": {
@@ -331,11 +362,12 @@
     "Price": "Retail price (VND)",
     "Status": "Status",
     "Barcode": "Barcode",
-    "Status": "Status"
+    "Revenue":"Revenue"
   },
   "placeholder": {
     "Choose a supplier": "Choose a supplier",
     "Select order type": "Select order type",
+    "Choose a store":"Choose a store",
     "Main categories": "Main categories",
     "Category level 1": "Category level 1",
     "Category level 2": "Category level 2",
