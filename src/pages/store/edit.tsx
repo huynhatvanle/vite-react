@@ -32,8 +32,6 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  // const [supplier, setSupplier] = useState('')
-
   const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRef1 = useRef<TableRefObject>(null);
 
@@ -77,7 +75,7 @@ const Page = () => {
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='5' type='card' size='large'>
+          <Tabs defaultActiveKey='4' type='card' size='large'>
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <Form
                 values={{ ...data, emailContact: data?.userRole?.[0].userAdmin?.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
@@ -344,11 +342,6 @@ const Page = () => {
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
-                // onRow={(data: any) => ({
-                //   onDoubleClick: () => {
-                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                //   },
-                // })}
                 columns={[
                   {
                     title: 'product.Code',
@@ -554,11 +547,6 @@ const Page = () => {
                 defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, supplierType: 'BALANCE' }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
-                // onRow={(data: any) => ({
-                //   onDoubleClick: () => {
-                //     navigate(routerLinks('store/branch/edit') + '/' + data.id);
-                //   },
-                // })}
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -637,10 +625,11 @@ const Page = () => {
                   menu={{
                     items: [
                       {
-                        key: '0',
+                        key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
                           <div onClick={() => {
+                            setType('BALANCE')
                             setIsBalanceClicked(false);
                             dataTableRef1?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'BALANCE' });
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
@@ -649,10 +638,11 @@ const Page = () => {
                         ),
                       },
                       {
-                        key: '1',
+                        key: '2',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
                           <div onClick={() => {
+                            setType('NON_BALANCE')
                             setIsBalanceClicked(true);
                             dataTableRef1?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'NON_BALANCE' });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
@@ -675,7 +665,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef1}
                 facade={connectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, idSuppiler: id, type: type }}
+                defaultRequest={{ page: 1, perPage: 10, idSuppiler: id, type: 'BALANCE' }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 onRow={(data: any) => ({
