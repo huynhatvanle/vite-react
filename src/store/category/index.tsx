@@ -6,7 +6,7 @@ import { API, routerLinks } from '@utils';
 
 const name = 'Category';
 
-export const action = {
+const action = {
     ...new Action<Category>(name),
     getByIdCategory: createAsyncThunk(
       name + '/getById',

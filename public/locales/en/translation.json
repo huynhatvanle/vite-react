@@ -120,11 +120,11 @@
     "User/Edit": "Edit User",
     "store-managerment/create": "Create Store",
     "Đặt Lại Mật Khẩu": "Reset Password",
-    "Sign-in": "Sign-in",
+    "Sign-in": "Sign in",
     "Quên Mật Khẩu": "Forgot Password",
     "Store": "Store",
     "store-managerment/edit": "Edit Store",
-    "MyProfile": "MyProfile",
+    "MyProfile": "My Profile",
     "Supplier": "Supplier",
     "Supplier/Add": "Add new Supplier",
     "Supplier/Edit": "Edit Supplier"
@@ -276,17 +276,29 @@
       "After Tax": "After Tax",
       "Promotion": "Promotion",
       "Total Amount": "Total Amount",
-      "Order Type": "Order Type",
-      "order type":{
-        "Sell":"Sell",
-        "Returns":"Returns"
-      }
+      "Order Type": "Order Type"
     },
-    "titles":{
+    "Sup-Revenue": {
       "Revenue":"Revenue",
-      "Total number of successful applications":"Total number of successful applications",
-      "Total number of payments":"Total number of payments",
+      "Total number of successful orders":"Total number of successful orders",
+      "Total number of returned orders":"Total number of returned orders",
       "Total number of canceled orders":"Total number of canceled orders"
+    },
+    "Sup-Discount": {
+      "Discounts to be paid": "Discounts to be paid"
+    },
+    "Sup-Status":{
+      "Signed":"Signed",
+      "Waiting": "Waiting",
+      "Selling": "Selling",
+      "Discontinued": "Discontinued",
+      "Shipped": "Shipped",
+      "WAITING APPROVED": "WAITING",
+      "Shipping": "Shipping",
+      "WAITING PICKUP": "WAITING",
+      "Cancelled": "Cancelled",
+      "Return goods": "Return goods",
+      "Sell goods": "Sell goods"
     }
   },
   "store": {

@@ -1,5 +1,4 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
-import EditorJS from '@editorjs/editorjs';
 import { v4 } from 'uuid';
 
 import { editorjsConfig } from './config';
@@ -9,28 +8,32 @@ export const Editor = forwardRef(({ value, onChange }: { value?: any; onChange?:
   useEffect(() => {
     setTimeout(() => {
       if (document.getElementById('editorjs' + id.current)) {
-        editorjsConfig.holder = 'editorjs' + id.current;
-        editorjsConfig.onChange = async (api: any) => onChange(await api.saver.save());
-        const editor = new EditorJS(editorjsConfig);
-        if (value) {
-          setTimeout(() => {
-            editor?.blocks.render(
-              value.blocks
-                ? value
-                : {
-                    blocks: [
-                      {
-                        id: 'r3s9SCBudq',
-                        type: 'paragraph',
-                        data: {
-                          text: '',
+        import('@editorjs/editorjs').then(({ default: EditorJS }) => {
+          const editor = new EditorJS({
+            holder: 'editorjs' + id.current,
+            onChange: async (api: any) => onChange(await api.saver.save()),
+            ...editorjsConfig,
+          });
+          if (value) {
+            setTimeout(() => {
+              editor?.blocks.render(
+                value.blocks
+                  ? value
+                  : {
+                      blocks: [
+                        {
+                          id: 'r3s9SCBudq',
+                          type: 'paragraph',
+                          data: {
+                            text: '',
+                          },
                         },
-                      },
-                    ],
-                  },
-            );
-          }, 1000);
-        }
+                      ],
+                    },
+              );
+            }, 1000);
+          }
+        });
       }
     });
   }, []);

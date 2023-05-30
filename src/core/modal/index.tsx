@@ -5,7 +5,6 @@ import { v4 } from 'uuid';
 
 import { Button } from '../button';
 import { Spin } from '../spin';
-import { Spinner } from '@svgs';
 
 export const Modal = forwardRef(
   (
@@ -54,7 +53,7 @@ export const Modal = forwardRef(
                 onClick={handleCancel}
               />
               <Button
-                icon={isLoading ? <Spinner className={'animate-spin h-5 w-5'} /> : ''}
+                isLoading={isLoading}
                 text={t(textSubmit || '') || t('components.form.modal.save')}
                 disabled={!firstChange}
                 onClick={handleOk}

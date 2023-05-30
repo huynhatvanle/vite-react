@@ -46,12 +46,15 @@ const action = {
     return data?.uuid;
   }),
   verifyForgotPassword: createAsyncThunk(name + '/verify-forgot-password', async (values: verify) => {
-    const { data, message } = await API.put<{ email: string; uuid: string }>(`${routerLinks(name, 'api')}/verify-forgot-password`, values);
-    if (message) await Message.success({ text: message })
+    const { data, message } = await API.put<{ email: string; uuid: string }>(
+      `${routerLinks(name, 'api')}/verify-forgot-password`,
+      values,
+    );
+    if (message) await Message.success({ text: message });
     return data;
   }),
   setPassword: createAsyncThunk(name + '/update-password-my-acc', async (values: setPassword) => {
-    const { data, message } = await API.put(`${routerLinks(name, 'api')}/update-password-my-acc`, values,);
+    const { data, message } = await API.put(`${routerLinks(name, 'api')}/update-password-my-acc`, values);
     if (message) await Message.success({ text: message });
     return data;
   }),
@@ -59,7 +62,7 @@ const action = {
 interface verify {
   otp?: string;
   uuid?: string;
-  email?: string
+  email?: string;
 }
 interface setPassword {
   password?: string;
@@ -83,9 +86,9 @@ export class User extends CommonEntity {
     public subOrgId?: number,
     public userRoleId?: number,
     public profileImage?: string,
-    // public subOrgName?: string,
-    // public roleName?: string,
-  ) {
+  ) // public subOrgName?: string,
+  // public roleName?: string,
+  {
     super();
   }
 }
@@ -180,7 +183,7 @@ export const globalSlice = createSlice({
           action: PayloadAction<
             undefined,
             string,
-            { arg: { password?: string; username?: string; }; requestId: string; requestStatus: 'pending' }
+            { arg: { password?: string; username?: string }; requestId: string; requestStatus: 'pending' }
           >,
         ) => {
           state.data = action.meta.arg;
@@ -229,11 +232,7 @@ export const globalSlice = createSlice({
         action.verifyForgotPassword.pending,
         (
           state: State,
-          action: PayloadAction<
-            undefined,
-            string,
-            { arg: verify; requestId: string; requestStatus: 'pending' }
-          >,
+          action: PayloadAction<undefined, string, { arg: verify; requestId: string; requestStatus: 'pending' }>,
         ) => {
           state.data = action.meta.arg;
           state.isLoading = true;
@@ -265,7 +264,7 @@ export const globalSlice = createSlice({
           state.status = 'setPassword.fulfilled';
         } else state.status = 'idle';
         state.isLoading = false;
-      })
+      });
   },
 });
 interface State {
@@ -278,6 +277,7 @@ interface State {
   title?: string;
   language?: 'vn' | 'en' | null;
   locale?: typeof viVN | typeof enUS;
+  formatDate?: string;
 }
 
 const clearTempLocalStorage = () => {
@@ -301,7 +301,8 @@ export const GlobalFacade = () => {
     putProfile: (values: User) => dispatch(action.putProfile(values)),
     login: (values: { password: string; username: string }) => dispatch(action.login(values)),
     forgotPassword: (values: { email: string }) => dispatch(action.forgotPassword(values)),
-    verifyForgotPassword: (values: { email: string, otp: string, uuid: string }) => dispatch(action.verifyForgotPassword(values)),
+    verifyForgotPassword: (values: { email: string; otp: string; uuid: string }) =>
+      dispatch(action.verifyForgotPassword(values)),
     setPassword: (values: setPassword) => dispatch(action.setPassword(values)),
     setLanguage: (value: 'vn' | 'en') => dispatch(globalSlice.actions.setLanguage(value)),
   };

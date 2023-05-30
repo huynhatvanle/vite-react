@@ -1,4 +1,4 @@
-import React, { forwardRef, Fragment, Ref, useEffect, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, Fragment, Ref, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { Checkbox, CheckboxOptionType, DatePicker, Popover, Radio, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { Button } from '../button';
 import { Pagination } from '../pagination';
 import { DataTableModel, PaginationQuery, TableGet, TableRefObject } from '@models';
-import { cleanObjectKeyNull } from '@utils';
+import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
 import { Calendar, CheckCircle, CheckSquare, Down, Download, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
 import { DefaultTFuncReturn } from 'i18next';
@@ -50,8 +50,7 @@ export const DataTable = forwardRef(
       footer,
       defaultRequest = {
         page: 1,
-        perPage: 10,
-        tab: '1',
+        perPage: 1,
         type: '',
         storeId: '',
         supplierType: '',
@@ -71,7 +70,7 @@ export const DataTable = forwardRef(
       yScroll,
       emptyText = 'No Data',
       onRow,
-      pageSizeOptions = [10, 20, 30, 40],
+      pageSizeOptions = [],
       pageSizeRender = (sizePage: number) => sizePage + ' / page',
       pageSizeWidth = '115px',
       paginationDescription = (from: number, to: number, total: number) => from + '-' + to + ' of ' + total + ' items',
@@ -91,49 +90,63 @@ export const DataTable = forwardRef(
     const location = useLocation();
     const navigate = useNavigate();
     const idTable = useRef(idElement);
-    const param = useRef(defaultRequest);
     const timeoutSearch = useRef<ReturnType<typeof setTimeout>>();
     const cols = useRef<DataTableModel[]>();
+    const refPageSizeOptions = useRef<number[]>();
     const { result, isLoading, queryParams, time } = facade;
-    const params =
+    // eslint-disable-next-line prefer-const
+    let [params, setParams] = useState(
       save && location.search && location.search.indexOf('=') > -1
-        ? { ...param.current, ...getQueryStringParams(location.search) }
-        : param.current;
+        ? { ...defaultRequest, ...getQueryStringParams(location.search) }
+        : defaultRequest,
+    );
+
     useEffect(() => {
-      if (facade) {
-        param.current = cleanObjectKeyNull({
+      if (pageSizeOptions?.length === 0) {
+        if (params?.perPage === 1) {
+          params.perPage = getSizePageByHeight();
+        }
+        refPageSizeOptions.current = [
+          params.perPage || 10,
+          (params.perPage || 10) * 2,
+          (params.perPage || 10) * 3,
+          (params.perPage || 10) * 4,
+          (params.perPage || 10) * 5,
+        ];
+      } else refPageSizeOptions.current = pageSizeOptions;
+      setParams(
+        cleanObjectKeyNull({
           ...params,
           sorts: JSON.stringify(params.sorts),
           filter: JSON.stringify(params.filter),
-        });
-        localStorage.setItem(idTable.current, JSON.stringify(cleanObjectKeyNull(param.current)));
-        if (!result?.data || new Date().getTime() > time || JSON.stringify(param.current) != queryParams)
-          onChange(param.current);
+        }),
+      );
+      if (facade) {
+        localStorage.setItem(idTable.current, JSON.stringify(cleanObjectKeyNull(params)));
+        if (!result?.data || new Date().getTime() > time || JSON.stringify(params) != queryParams)
+          onChange(params, false);
       }
       return () => {
         localStorage.removeItem(idTable.current);
       };
     }, []);
 
-    const onChange = (request?: PaginationQuery) => {
+    const onChange = (request?: PaginationQuery, changeNavigate = true) => {
       if (request) {
         localStorage.setItem(idTable.current, JSON.stringify(request));
-        param.current = { ...request };
+        params = { ...request };
         if (save) {
-          if (request.sorts && typeof request.sorts === 'object') {
-            request.sorts = JSON.stringify(request.sorts);
-          }
-          if (request.filter && typeof request.filter === 'object') {
-            request.filter = JSON.stringify(request.filter);
-          }
-          navigate(location.pathname + '?' + new URLSearchParams(request as Record<string, string>).toString());
+          if (request.sorts && typeof request.sorts === 'object') request.sorts = JSON.stringify(request.sorts);
+          if (request.filter && typeof request.filter === 'object') request.filter = JSON.stringify(request.filter);
+          changeNavigate &&
+            navigate(location.pathname + '?' + new URLSearchParams(request as Record<string, string>).toString());
         }
-      } else if (localStorage.getItem(idTable.current)) {
-        param.current = JSON.parse(localStorage.getItem(idTable.current) || '{}');
-      }
+      } else if (localStorage.getItem(idTable.current))
+        params = JSON.parse(localStorage.getItem(idTable.current) || '{}');
+      setParams(params);
 
       if (showList && facade?.get) {
-        facade?.get(cleanObjectKeyNull({ ...param.current }));
+        facade?.get(cleanObjectKeyNull({ ...request }));
       }
     };
 
@@ -394,6 +407,10 @@ export const DataTable = forwardRef(
       onChange && onChange(tempParams);
     };
     if (!data) data = result?.data;
+    const loopData = (array?: any[]): any[] =>
+      array
+        ? array.map((item) => ({ ...item, key: item.id || v4(), children: item.children && loopData(item.children) }))
+        : [];
     return (
       <div className={classNames(className, 'intro-x')}>
         <div className="lg:flex justify-between mb-2.5">
@@ -471,10 +488,7 @@ export const DataTable = forwardRef(
               loading={isLoading}
               columns={cols.current}
               pagination={false}
-              dataSource={data?.map((item: any) => ({
-                ...item,
-                key: item.id || v4(),
-              }))}
+              dataSource={loopData(data)}
               onChange={(pagination, filters, sorts) =>
                 handleTableChange(undefined, filters, sorts as SorterResult<any>, params.fullTextSearch)
               }
@@ -483,12 +497,12 @@ export const DataTable = forwardRef(
               size="small"
               {...prop}
             />
-            {showPagination && (
+            {refPageSizeOptions.current && showPagination && (
               <Pagination
                 total={result?.pagination?.total}
                 page={+params!.page!}
                 perPage={+params!.perPage!}
-                pageSizeOptions={pageSizeOptions}
+                pageSizeOptions={refPageSizeOptions.current}
                 pageSizeRender={pageSizeRender}
                 pageSizeWidth={pageSizeWidth}
                 queryParams={(pagination: { page?: number; perPage?: number }) =>

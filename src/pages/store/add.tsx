@@ -65,6 +65,7 @@ const Page = () => {
               formItem: {
                 tabIndex: 2,
                 col: 6,
+                rules: [{ type: 'fax', min: 8 , max: 12 }],
               },
             },
             {

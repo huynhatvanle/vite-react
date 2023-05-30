@@ -8,11 +8,12 @@ import { Spin } from '@core/spin';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
 import { routerLinks } from '@utils';
-import { User, UserSolid } from '@svgs';
+import { User } from '@svgs';
 
 const Page = () => {
   const { t } = useTranslation();
-  const { user, isLoading, putProfile, setPassword, profile } = GlobalFacade();
+  const { user, isLoading, putProfile, setPassword, profile, status } = GlobalFacade();
+  const globalFacade = GlobalFacade();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,11 +42,7 @@ const Page = () => {
                   name: 'name',
                   formItem: {
                     render: (form, values) => {
-                      return (
-                        <div className=''>
-                          {values.name}
-                        </div>
-                      )
+                      return (values.name)
                     }
                   },
                 },
@@ -53,25 +50,25 @@ const Page = () => {
                   title: 'user.role',
                   name: 'userRole',
                   formItem: {
-                    render: (text: any, item: any) => {
-                      if (text = item.userRole[0].mtRole.code === "ADMIN") {
+                    render: (item: any, values: any, reRender) => {
+                      if (values.userRole[0].mtRole.code === "ADMIN") {
                         return (
                           <div className='flex w-full flex-row justify-center pt-2 font-normal'>
-                            <div><User className='w-5 h-5 mr-2 fill-slate-500' /></div>
+                            <User className='w-5 h-5 mr-2 fill-slate-500' />
                             <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
                           </div>
                         )
-                      } else if (text = item.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
+                      } else if (values.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
                         return (
-                          <div className='flex w-full flex-row justify-center'>
-                            <div><User className='w-5 h-5 mr-2' /></div>
+                          <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                            <User className='w-5 h-5 mr-2 fill-slate-500' />
                             <div className='text-base text-gray-500'>{t('user.RoleUser.SUPPLIER')}</div>
                           </div>
                         )
                       } else {
                         return (
-                          <div className='flex w-full flex-row justify-center'>
-                            <div><User className='w-5 h-5 mr-2' /></div>
+                          <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                            <User className='w-5 h-5 mr-2 fill-slate-500' />
                             <div className='text-base text-gray-500'>{t('user.RoleUser.STORE')}</div>
                           </div>
                         )
@@ -91,7 +88,8 @@ const Page = () => {
             <Tabs defaultActiveKey="1" size="large" className='profile'>
               <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className='mt-5'>
                 <Form
-                className='relative'
+                  values={{ ...user }}
+                  className='relative'
                   columns={[
                     {
                       title: 'user.Fullname',
@@ -138,13 +136,14 @@ const Page = () => {
                       }}
                     />
                   )}
-                  values={{ ...user }}
+
                 />
               </Tabs.TabPane>
 
               <Tabs.TabPane tab={t('routes.admin.Layout.Change Password')} key="2" className='mt-5'>
                 <Form
-                className='relative'
+                  values={{ ...user }}
+                  className='relative'
                   columns={[
                     {
                       title: 'columns.auth.login.Password',
@@ -202,7 +201,6 @@ const Page = () => {
                     />
                   )}
                   extendButtonChangePassword={setPassword}
-                  values={{ ...user }}
                 />
               </Tabs.TabPane>
             </Tabs>

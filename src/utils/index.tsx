@@ -1,25 +1,50 @@
-import withClearCache from './init/clear-cache';
-import reportWebVitals from './init/reportWebVitals';
-import API from './api';
-import routerLinks from '../router-links';
-import { keyRole, keyToken, keyUser, linkApi, keyRefreshToken, listStyle } from './variable';
+import { CheckboxOptionType } from 'antd';
 
-import convertFormValue from './convertFormValue';
-import cleanObjectKeyNull from './cleanObjectKeyNull';
-import covertChild from './covertChild';
+export * from './init/reportWebVitals';
+export * from './api';
+export * from './variable';
+export * from '../router-links';
+export * from './convertFormValue';
 
-export {
-  withClearCache,
-  reportWebVitals,
-  routerLinks,
-  keyRole,
-  keyToken,
-  keyUser,
-  linkApi,
-  keyRefreshToken,
-  listStyle,
-  convertFormValue,
-  cleanObjectKeyNull,
-  covertChild,
-  API,
+export const cleanObjectKeyNull = (obj: { [selector: string]: any }) => {
+  for (const propName in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, propName)) {
+      if (
+        obj[propName] === null ||
+        obj[propName] === undefined ||
+        (typeof obj[propName] === 'object' && Object.keys(obj[propName]).length === 0)
+      ) {
+        delete obj[propName];
+      } else if (typeof obj[propName] === 'object') {
+        const keys = Object.keys(obj[propName]);
+        let check = true;
+        keys.forEach((key: string) => {
+          if (check && obj[propName][key] !== undefined) {
+            check = false;
+          }
+        });
+        if (check) {
+          delete obj[propName];
+        }
+      }
+    }
+  }
+  return obj;
 };
+
+export const getSizePageByHeight = (height = 39, minusNumber = 3) =>
+  Math.floor(
+    (document.body.getBoundingClientRect().height -
+      document.getElementsByTagName('tbody')[0].getBoundingClientRect().top) /
+      height,
+  ) - minusNumber;
+
+export const loopMapSelect = (array?: any[], label = 'name', value = 'id'): CheckboxOptionType[] =>
+  array?.length
+    ? array.map((item) => ({
+        label: item[label],
+        value: item[value],
+        isLeaf: !item.children,
+        children: item.children && loopMapSelect(item.children, label, value),
+      }))
+    : [];
