@@ -8,7 +8,7 @@ import { Category } from '../../category/index';
 
 const name = 'InventoryProduct';
 
-export const action = {
+const action = {
   ...new Action<IventoryProduct>(name),
   getInventoryProduct: createAsyncThunk(
     name + '/get',

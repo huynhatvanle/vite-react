@@ -277,7 +277,7 @@ interface State {
   title?: string;
   language?: 'vn' | 'en' | null;
   locale?: typeof viVN | typeof enUS;
-  formatDate: string;
+  formatDate?: string;
 }
 
 const clearTempLocalStorage = () => {

@@ -11,7 +11,7 @@ import { Province } from '../address/province';
 import { Ward } from '../address/ward';
 
 const name = 'Organization';
-export const action = {
+const action = {
   ...new Action<Supplier>(name),
   getByIdSupplier: createAsyncThunk(
     name + '/getById',
@@ -45,7 +45,7 @@ export const action = {
     delete(rs.districtId)
     delete(rs.wardId)
     console.log("rssssssssss",rs);
-    
+
     const { statusCode, message } = await API.put<Supplier>(`${routerLinks(name, 'api')}/${id}`, rs);
     if (message) await Message.success({ text: message });
     return statusCode;

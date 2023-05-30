@@ -6,9 +6,8 @@ import { initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { ConfigProvider } from 'antd';
 
-import { Spin } from '@core/spin';
 import { GlobalFacade, setupStore } from '@store';
-import { reportWebVitals } from '@utils';
+import { reportWebVitals, language, languages } from '@utils';
 import Router from './router';
 
 const fallbackLng = localStorage.getItem('i18nextLng');
@@ -33,13 +32,14 @@ let container: HTMLElement;
 const Styling = lazy(() => import('./utils/init/styling'));
 
 const Context = () => {
-  const { locale } = GlobalFacade();
+  const { locale, setLanguage } = GlobalFacade();
   useEffect(() => {
     for (let i = 0; i < localStorage.length; i++) {
       if (localStorage.key(i)?.indexOf('temp-') === 0) {
         localStorage.removeItem(localStorage.key(i) || '');
       }
     }
+    setLanguage(languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language);
   }, []);
 
   return (
@@ -69,9 +69,40 @@ document.addEventListener(
       root.render(
         <Suspense
           fallback={
-            <Spin>
-              <div className="w-screen h-screen" />
-            </Spin>
+            <div id="handle-preloader">
+              <div className="animation-preloader">
+                <div className="spinner"></div>
+                <div className="txt-loading">
+                  <span data-text-preloader="L" className="letters-loading">
+                    L
+                  </span>
+                  <span data-text-preloader="o" className="letters-loading">
+                    o
+                  </span>
+                  <span data-text-preloader="a" className="letters-loading">
+                    a
+                  </span>
+                  <span data-text-preloader="d" className="letters-loading">
+                    d
+                  </span>
+                  <span data-text-preloader="i" className="letters-loading">
+                    i
+                  </span>
+                  <span data-text-preloader="n" className="letters-loading">
+                    n
+                  </span>
+                  <span data-text-preloader="g" className="letters-loading">
+                    g
+                  </span>
+                  <span data-text-preloader="." className="letters-loading">
+                    .
+                  </span>
+                  <span data-text-preloader="." className="letters-loading">
+                    .
+                  </span>
+                </div>
+              </div>
+            </div>
           }
         >
           <Provider store={store}>

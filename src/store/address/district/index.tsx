@@ -6,7 +6,7 @@ import { CommonEntity, PaginationQuery } from '@models';
 
 
 const name = 'District';
-export const action = {
+const action = {
   ...new Action<District>(name),
   getDistrict: createAsyncThunk(
     name + '/get',

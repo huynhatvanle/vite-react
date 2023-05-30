@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { FormModel } from '@models';
 
-const Util = (columns: FormModel[], values: { [selector: string]: any }, exportData = true) => {
+export const convertFormValue = (columns: FormModel[], values: { [selector: string]: any }, exportData = true) => {
   columns
     .filter((item) => !!item && !!item.formItem)
     .map((item) => {
@@ -94,4 +94,3 @@ const Util = (columns: FormModel[], values: { [selector: string]: any }, exportD
     });
   return values;
 };
-export default Util;

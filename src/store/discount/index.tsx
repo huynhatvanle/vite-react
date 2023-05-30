@@ -6,7 +6,7 @@ import { API, routerLinks } from '@utils';
 
 const name = 'Suborgcommision';
 
-export const action = {
+const action = {
   ...new Action<Discount>(name),
   getByIdDiscount: createAsyncThunk(
     name + '/getById',

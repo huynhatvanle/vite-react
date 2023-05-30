@@ -6,7 +6,7 @@ import { Product } from '@store/product';
 
 const name = 'InventoryOrders';
 
-export const action = new Action<InventoryOrders>(name);
+const action = new Action<InventoryOrders>(name);
 
 export const inventoryOrdersSlice = createSlice(new Slice<InventoryOrders>(action));
 
