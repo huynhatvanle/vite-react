@@ -17,13 +17,13 @@ const Page = () => {
   const param = JSON.parse(queryParams || '{}');
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
-  // useEffect(() => {
-  //   if (!result?.data) storeFace.get({ page: 1, perPage: 10, filter: {type: 'STORE'}, })
+  useEffect(() => {
+    if (!result?.data) storeFace.get({ page: 1, perPage: 10, filter: {type: 'STORE'}, })
 
-  //   return () => {
-  //     isReload.current && storeFace.get(param);
-  //   };
-  // }, [result?.data]);
+    return () => {
+      isReload.current && storeFace.get(param);
+    };
+  }, [result?.data]);
 
   return (
     <DataTable
