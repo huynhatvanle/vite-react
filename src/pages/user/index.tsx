@@ -51,7 +51,6 @@ const Page = () => {
           name: 'name',
           tableItem: {
             width: 150,
-            filter: { type: 'search' },
             onCell: () => ({
               style: { paddingTop: '0.25rem', paddingBottom: 0 },
               onClick: async () => null,
@@ -64,7 +63,6 @@ const Page = () => {
           name: 'email',
           tableItem: {
             width: 300,
-            filter: { type: 'search' },
           },
         },
         {
