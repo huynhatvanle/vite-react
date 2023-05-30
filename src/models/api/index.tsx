@@ -60,5 +60,6 @@ export class PaginationQuery<T = object> {
       dateFrom?: string;
       dateTo?: string;
     },
+    public tab?: string
   ) {}
 }

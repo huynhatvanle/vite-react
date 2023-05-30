@@ -51,6 +51,7 @@ export const DataTable = forwardRef(
       defaultRequest = {
         page: 1,
         perPage: 10,
+        tab: '1',
         type: '',
         storeId: '',
         supplierType: '',

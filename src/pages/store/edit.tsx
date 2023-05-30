@@ -23,7 +23,7 @@ const Page = () => {
   const connectSupplierFacade = ConnectSupplierFacade()
   const inventoryProductFacade = InventoryProductFacade()
   const invoiceKiotVietFacade = InvoiceKiotVietFacade()
-  const provinceFacade = ProvinceFacade()
+  const provinceFacade = ProvinceFacade()   
   const districtFacade = DistrictFacade()
   const wardFacade = WardFacade()
 
@@ -77,7 +77,7 @@ const Page = () => {
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='5' type='card' size='large'>
+          <Tabs defaultActiveKey='1' type='card' size='large'>
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               <Form
                 values={{ ...data, emailContact: data?.userRole?.[0].userAdmin?.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
@@ -228,7 +228,6 @@ const Page = () => {
                     },
                   },
                 ]}
-
                 extendFormSwitch=
                 {<div className='flex items-center justify-between mb-2.5 '>
                   <div className='flex'>
@@ -239,7 +238,6 @@ const Page = () => {
                     <Button className='!font-normal' text={t('store.Get branch DS')} />
                   )}
                 </div>}
-
                 extendForm=
                 {isChecked ? (values: any) => (
                   <Form
@@ -803,49 +801,48 @@ const Page = () => {
                           // render: (value: any, item: any) => item.supplier?.code,
                         },
                       },
-                      // {
-                      //   title: 'store.Inventory management.Product code',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier?.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Inventory management.Product name',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Barcode',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'titles.Revenue',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'product.Revenue',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'product.Status',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      //   },
-                      // },
-
+                      {
+                        title: 'store.Inventory management.Product code',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Inventory management.Product name',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                        },
+                      },
+                      {
+                        title: 'store.Barcode',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        },
+                      },
+                      {
+                        title: 'titles.Revenue',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'product.Revenue',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'product.Status',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
@@ -1027,67 +1024,67 @@ const Page = () => {
                     facade={invoiceKiotVietFacade}
                     defaultRequest={{ page: 1, perPage: 10, idStore: id }}
                     xScroll='1440px'
-                    onRow={(data: any) => ({
-                      onDoubleClick: () => {
-                        navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                      },
-                    })}
+                    // onRow={(data: any) => ({
+                    //   onDoubleClick: () => {
+                    //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                    //   },
+                    // })}
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
                       t('routes.admin.Layout.PaginationSupplier', { from, to, total })
                     }
                     columns={[
-                      // {
-                      //   title: 'store.Revenue.Serial number',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     width: 150,
-                      //     render: (value: any, item: any) => item.supplier?.code,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Order code',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier?.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Sale date',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier?.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Value (VND)',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier?.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Discount (VND)',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Total amount (VND)',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Order type',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      //   },
-                      // },
+                      {
+                        title: 'store.Revenue.Serial number',
+                        name: 'supplier',
+                        tableItem: {
+                          width: 150,
+                          // render: (value: any, item: any) => item.supplier?.code,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Order code',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Sale date',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Value (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Discount (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Total amount (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Order type',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
