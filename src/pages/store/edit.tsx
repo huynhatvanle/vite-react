@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Input, Select, Switch, Tabs, Dropdown } from 'antd';
 
-import { routerLinks } from '@utils';
+import { language, languages, routerLinks } from '@utils';
 import { Form } from '@core/form';
 import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, InvoiceKiotVietFacade } from '@store';
 import { DataTable } from '@core/data-table';
@@ -32,10 +32,11 @@ const Page = () => {
 
   const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRef1 = useRef<TableRefObject>(null);
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (status === 'put.fulfilled')
-      navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString())
+      navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`)
   }, [status]);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const Page = () => {
   //   productFacede.get({page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'}})
   // },[]);
 
-  const handleBack = () => navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString());
+  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: StoreManagement) => {
     storeFacade.put({ ...values, id });
   };
@@ -301,7 +302,6 @@ const Page = () => {
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
                         <div onClick={() => {
-                          setType('BALANCE')
                           setIsBalanceClicked(false);
                           dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'} });
                         }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
@@ -314,7 +314,6 @@ const Page = () => {
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
                         <div onClick={() => {
-                          setType('NON_BALANCE')
                           setIsBalanceClicked(true);
                           dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'NON_BALANCE'} });
                         }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
@@ -407,7 +406,6 @@ const Page = () => {
                     },
                   },
                 ]}
-
                 showSearch={false}
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
@@ -941,82 +939,82 @@ const Page = () => {
                         />
                       </div>
                     }
-                    bottomHeader={
-                      <div>
-                        <Form
-                          className="intro-x rounded-lg flex form-store"
-                          columns={
-                            [
-                              {
-                                title: '',
-                                name: 'cap1',
-                                formItem: {
-                                  tabIndex: 3,
-                                  placeholder: 'placeholder.Main categories',
-                                  type: 'select',
-                                  col: 3,
-                                  get: {
-                                    facade: CategoryFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                  },
-                                  onChange(value, form) {
-                                    form.resetFields(['cap2', 'cap3'])
-                                  },
-                                },
-                              },
-                              {
-                                name: 'cap2',
-                                title: '',
-                                formItem: {
-                                  placeholder: 'placeholder.Category level 1',
-                                  type: 'select',
-                                  col: 3,
-                                  get: {
-                                    facade: CategoryFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                    params: (fullTextSearch, value) => ({
-                                      fullTextSearch,
-                                      id: value().cap1,
-                                    }),
-                                  },
-                                  onChange(value, form) {
-                                    form.resetFields(['cap3'])
-                                  },
-                                },
-                              },
-                              {
-                                name: 'cap3',
-                                title: '',
-                                formItem: {
-                                  placeholder: 'placeholder.Category level 2',
-                                  type: 'select',
-                                  col: 3,
-                                  get: {
-                                    facade: CategoryFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                    params: (fullTextSearch, value) => ({
-                                      fullTextSearch,
-                                      id: value().cap2,
-                                    })
-                                  }
-                                },
-                              },
+                    // bottomHeader={
+                    //   <div>
+                    //     <Form
+                    //       className="intro-x rounded-lg flex form-store"
+                    //       columns={
+                    //         [
+                    //           {
+                    //             title: '',
+                    //             name: 'cap1',
+                    //             formItem: {
+                    //               tabIndex: 3,
+                    //               placeholder: 'placeholder.Main categories',
+                    //               type: 'select',
+                    //               col: 3,
+                    //               get: {
+                    //                 facade: CategoryFacade,
+                    //                 format: (item: any) => ({
+                    //                   label: item.name,
+                    //                   value: item.id,
+                    //                 }),
+                    //               },
+                    //               onChange(value, form) {
+                    //                 form.resetFields(['cap2', 'cap3'])
+                    //               },
+                    //             },
+                    //           },
+                    //           {
+                    //             name: 'cap2',
+                    //             title: '',
+                    //             formItem: {
+                    //               placeholder: 'placeholder.Category level 1',
+                    //               type: 'select',
+                    //               col: 3,
+                    //               get: {
+                    //                 facade: CategoryFacade,
+                    //                 format: (item: any) => ({
+                    //                   label: item.name,
+                    //                   value: item.id,
+                    //                 }),
+                    //                 params: (fullTextSearch, value) => ({
+                    //                   fullTextSearch,
+                    //                   id: value().cap1,
+                    //                 }),
+                    //               },
+                    //               onChange(value, form) {
+                    //                 form.resetFields(['cap3'])
+                    //               },
+                    //             },
+                    //           },
+                    //           {
+                    //             name: 'cap3',
+                    //             title: '',
+                    //             formItem: {
+                    //               placeholder: 'placeholder.Category level 2',
+                    //               type: 'select',
+                    //               col: 3,
+                    //               get: {
+                    //                 facade: CategoryFacade,
+                    //                 format: (item: any) => ({
+                    //                   label: item.name,
+                    //                   value: item.id,
+                    //                 }),
+                    //                 params: (fullTextSearch, value) => ({
+                    //                   fullTextSearch,
+                    //                   id: value().cap2,
+                    //                 })
+                    //               }
+                    //             },
+                    //           },
 
-                            ]
-                          }
-                          disableSubmit={isLoading}
-                        />
-                      </div>
-                    }
+                    //         ]
+                    //       }
+                    //       disableSubmit={isLoading}
+                    //     />
+                    //   </div>
+                    // }
                   />
                   :
                   <DataTable

@@ -5,16 +5,18 @@ import { Spin } from '@core/spin';
 import { Form } from '@core/form'
 import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
+import { language, languages } from '@utils';
 
 const Page = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const globalFacade = GlobalFacade();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   const { isLoading, status, data, forgotPassword } = globalFacade;
   useEffect(() => {
     if (status === 'forgotPassword.fulfilled') {
-      navigate(routerLinks('VerifyForotPassword'));
+      navigate(`/${lang}${routerLinks('VerifyForotPassword')}`);
     }
   }, [status]);
 
@@ -47,7 +49,7 @@ const Page = () => {
           />
         </Spin>
         <div className="text-center mt-3">
-          <button className={'text-sky-600 font-normal underline hover:no-underline hover:text-sky-500'} onClick={() => navigate(routerLinks('Login'))}>
+          <button className={'text-sky-600 font-normal underline hover:no-underline hover:text-sky-500'} onClick={() => navigate(`/${lang}${routerLinks('Login')}`)}>
             {' '}
             {t('routes.auth.reset-password.Go back to login')}
           </button>

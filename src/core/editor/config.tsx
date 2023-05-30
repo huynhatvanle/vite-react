@@ -63,7 +63,7 @@ export const editorjsConfig: any = {
             const bodyFormData = new FormData();
             bodyFormData.append('file', file);
             const { data } = await API.responsible(
-              `/auth/upload`,
+              `/util/upload`,
               {},
               {
                 ...API.init(),

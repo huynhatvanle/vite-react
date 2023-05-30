@@ -2,7 +2,7 @@ import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
 import { Spin } from '@core/spin';
-import { keyUser, routerLinks } from '@utils';
+import { keyUser, language, languages, routerLinks } from '@utils';
 import { useTranslation } from 'react-i18next';
 import { GlobalFacade } from '@store';
 
@@ -57,7 +57,7 @@ const pages = [
       },
       {
         path: routerLinks('User/List'),
-        component: React.lazy(() => import('@pages/user')),
+        component: React.lazy(() => import('@pages/user/index')),
         title: 'User/List',
       },
       {
@@ -111,6 +111,7 @@ const Layout = ({
   layout: React.LazyExoticComponent<({ children }: { children?: React.ReactNode }) => JSX.Element>;
   isPublic: boolean;
 }) => {
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const { user } = GlobalFacade();
   if (isPublic || !!user?.email || !!JSON.parse(localStorage.getItem(keyUser) || '{}')?.email)
     return (
@@ -118,7 +119,7 @@ const Layout = ({
         <Outlet />
       </Layout>
     );
-  return <Navigate to={routerLinks('Login')} />;
+  return <Navigate to={`/${lang}${routerLinks('Login')}`} />;
 };
 
 const Page = ({
@@ -133,40 +134,47 @@ const Page = ({
 
   useEffect(() => {
     document.title = t('pages.' + title || '');
-    globalFacade.set({ title });
+    globalFacade.set({ title, formatDate: globalFacade.formatDate });
   }, [title]);
   return <Comp />;
 };
-const Pages = () => (
-  <BrowserRouter>
-    <Routes>
-      {pages.map(({ layout, isPublic, child }, index) => (
-        <Route key={index} element={<Layout layout={layout} isPublic={isPublic} />}>
-          {child.map(({ path = '', title = '', component }, subIndex: number) => (
-            <Route
-              key={path + subIndex}
-              path={path}
-              element={
-                <Suspense
-                  fallback={
-                    <Spin>
-                      <div className="w-screen h-screen" />
-                    </Spin>
+const Pages = () => {
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path={'/:lang'}>
+          {pages.map(({ layout, isPublic, child }, index) => (
+            <Route key={index} element={<Layout layout={layout} isPublic={isPublic} />}>
+              {child.map(({ path = '', title = '', component }, subIndex: number) => (
+                <Route
+                  key={path + subIndex}
+                  path={'/:lang' + path}
+                  element={
+                    <Suspense
+                      fallback={
+                        <Spin>
+                          <div className="w-screen h-screen" />
+                        </Spin>
+                      }
+                    >
+                      {typeof component === 'string' ? (
+                        <Navigate to={'/' + lang + component} />
+                      ) : (
+                        <Page title={title} component={component} />
+                      )}
+                    </Suspense>
                   }
-                >
-                  {typeof component === 'string' ? (
-                    <Navigate to={component} />
-                  ) : (
-                    <Page title={title} component={component} />
-                  )}
-                </Suspense>
-              }
-            />
+                />
+              ))}
+            </Route>
           ))}
         </Route>
-      ))}
-    </Routes>
-  </BrowserRouter>
-);
+        <Route path="*" element={<Navigate to={'/' + lang + '/'} />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
 
 export default Pages;

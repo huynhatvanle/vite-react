@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import classNames from 'classnames';
 import { useLocation } from 'react-router-dom';
-import { routerLinks } from '@utils';
 import { Avatar } from '@core/avatar';
 import { GlobalFacade } from '@store';
 import Menu1 from './menu';
 import './index.less';
 import { Chevronleft, LeftArrow, Logo, RightArrow, Menu, ArrowBack, User1, Key, Out, User, UserProfile } from '@svgs';
+import { routerLinks, language, languages } from '@utils';
 import Logo1 from '../../assets/images/logo.png';
 
 const Layout = ({ children }: PropsWithChildren) => {
@@ -22,6 +22,7 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   const [isCollapsed, set_isCollapsed] = useState(window.innerWidth < 1025);
   const [isDesktop, set_isDesktop] = useState(window.innerWidth > 640);
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (window.innerWidth < 1025 && !isCollapsed) {
@@ -69,8 +70,14 @@ const Layout = ({ children }: PropsWithChildren) => {
       set_isCollapsed(true);
     }
   }, [location]);
+  useEffect(() => {
+    if (globalFacade.pathname && globalFacade.pathname !== location.pathname) {
+      globalFacade.setPathname('');
+      navigate(globalFacade.pathname);
+    }
+  }, [globalFacade.pathname]);
 
-  const Header = ({ isCollapsed, isDesktop }: any) => (
+  const Header = ({ isCollapsed, isDesktop }: { isCollapsed: boolean; isDesktop: boolean }) => (
     <header
       className={classNames(
         'bg-white w-full h-20 transition-all duration-300 ease-in-out top-0 block sm:bg-gray-100 z-20 fixed lg:relative',
@@ -83,13 +90,13 @@ const Layout = ({ children }: PropsWithChildren) => {
     >
       <div className="flex items-center justify-end sm:justify-between px-5 h-20">
         <div className="flex items-center gap-5 absolute right-6">
-          <Select value={globalFacade?.language} onChange={(e: 'vn' | 'en') => globalFacade.setLanguage(e)}>
+          <Select aria-hidden="true" value={globalFacade?.language} onChange={(e: string) => globalFacade.setLanguage(e)}>
             <Select.Option value="en">
-              <img src="/assets/svg/us.svg" alt="US" className="mr-1 w-4 inline-block relative -top-0.5" />{' '}
+              <img src="/public/assets/svg/en.svg" alt="US" className="mr-1 w-4 inline-block relative -top-0.5" />{' '}
               {t('routes.admin.Layout.English')}
             </Select.Option>
             <Select.Option value="vn">
-              <img src="/assets/svg/vn.svg" alt="VN" className="mr-1 w-4 inline-block relative -top-0.5" />{' '}
+              <img src="/public/assets/svg/vn.svg" alt="VN" className="mr-1 w-4 inline-block relative -top-0.5" />{' '}
               {t('routes.admin.Layout.Vietnam')}
             </Select.Option>
           </Select>
@@ -114,7 +121,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '1',
                   className: 'h-11',
                   label: (
-                    <div className="flex" onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
+                    <div className="flex" onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}>
                       <div className="flex items-center">
                         <UserProfile className="w-6 h-6 pr-2 text-black" />
                       </div>
@@ -126,7 +133,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '2',
                   className: 'h-11 !border-b-slate-300 border-b !rounded-none',
                   label: (
-                    <div className="flex" onClick={() => navigate(routerLinks('MyProfile'), { replace: true })}>
+                    <div className="flex" onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}>
                       <div className="flex items-center">
                         <Key className="w-6 h-6 pr-2 text-black" />
                       </div>
@@ -138,7 +145,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '3',
                   className: 'h-11',
                   label: (
-                    <div className="flex" onClick={() => navigate(routerLinks('Login'), { replace: true })}>
+                    <div className="flex" onClick={() => navigate(`/${lang}${routerLinks('Login')}`, { replace: true })}>
                       <div className="flex items-center">
                         <Out className="w-6 h-6 pr-2 text-black" />
                       </div>

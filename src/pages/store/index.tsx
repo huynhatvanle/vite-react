@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { Plus } from '@svgs';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-import { routerLinks } from '@utils';
+import { language, languages, routerLinks } from '@utils';
 import { StoreFacade } from '@store';
 
 const Page = () => {
@@ -15,6 +15,7 @@ const Page = () => {
   const storeFace = StoreFacade();
   const { result, queryParams } = storeFace;
   const param = JSON.parse(queryParams || '{}');
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (!result?.data) storeFace.get({ page: 1, perPage: 10, filter: {type: 'STORE'}, })
@@ -32,7 +33,7 @@ const Page = () => {
       className=' bg-white p-5 rounded-lg'
       onRow={(data: any) => ({
         onDoubleClick: () => {
-          navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+          navigate(`/${lang}${routerLinks('store-managerment/edit')}/${data.id}`)
         },
       })}
       pageSizeRender={(sizePage: number) => sizePage}
@@ -89,9 +90,10 @@ const Page = () => {
             className='!bg-teal-900 !rounded-3xl !font-normal'
             icon={<Plus className="icon-cud !h-5 !w-5 !fill-white " />}
             text={t('titles.Store/Add')}
-            onClick={() => navigate(routerLinks('store-managerment/create'))}
+            onClick={() =>  navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
           />
         </div>
+
       }
     />
   );

@@ -4,55 +4,57 @@ import classNames from 'classnames';
 import { useNavigate, useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import { routerLinks } from '@utils';
+import { language, languages, routerLinks } from '@utils';
 import listMenu from '../menus'
 import './index.less';
 import { v4 } from 'uuid';
 
-const Layout = ({ isCollapsed = false, permission = [] }: any) => {
+const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean; permission?: string[] }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-  const refMenu = useRef<any>();
+  const refMenu = useRef<HTMLUListElement>(null);
   const clearTime = useRef<NodeJS.Timeout>();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
-  const [menuActive, set_menuActive] = useState<any>();
+  const [menuActive, set_menuActive] = useState<string[]>();
   useEffect(() => {
     clearTimeout(clearTime.current);
     let linkActive = '';
     listMenu().forEach((item: any) => {
-      if (!linkActive && !!item.child && location.pathname.indexOf(routerLinks(item.name)) > -1) {
-        linkActive = routerLinks(item.name);
+      if (!linkActive && !!item.child && location.pathname.indexOf(`/${lang}${routerLinks(item.name)}`) > -1) {
+        linkActive = `/${lang}${routerLinks(item.name)}`;
       }
     });
     clearTime.current = setTimeout(() => set_menuActive([linkActive]), 200);
   }, [location.pathname]);
 
+
   useEffect(() => {
     if (isCollapsed) {
-      refMenu.current.scrollTop = 0;
+      refMenu!.current!.scrollTop = 0;
     }
   }, [isCollapsed]);
 
-  const subMenu = (child: any[]) => (
+  const subMenu = (child: { name: string; permission: string }[]) => (
     <ul>
       {child
         .filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
         .map((subItem: any, index: number) => (
-          <li
+          <a
             key={index + v4()}
             className={classNames('child-item py-2 cursor-pointer rounded-2xl text-gray-300 font-medium text-base', {
-              'bg-teal-700 text-white !fill-gray-300': location.pathname.indexOf(routerLinks(subItem.name)) > -1,
+              'bg-teal-700 text-white !fill-gray-300': location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
             })}
-            onClick={() => navigate(routerLinks(subItem.name))}
+            onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
           >
             {t(`titles.${subItem.name}`)}
-          </li>
+          </a>
         ))}
     </ul>
   );
 
-  const subMenu1 = (child: any[]) => (
+  const subMenu1 = (child: { name: string; permission: string }[]) => (
     <ul className='px-1 mx-2'>
       {child
         .filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
@@ -60,9 +62,9 @@ const Layout = ({ isCollapsed = false, permission = [] }: any) => {
           <li
             key={index + v4()}
             className={classNames('child-item py-2 px-3 cursor-pointer rounded-2xl text-black font-medium text-base', {
-              'bg-teal-700 text-white !fill-gray-300 justify-center flex': location.pathname.indexOf(routerLinks(subItem.name)) > -1,
+              'bg-teal-700 text-white !fill-gray-300 justify-center flex': location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
             })}
-            onClick={() => navigate(routerLinks(subItem.name))}
+            onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
           >
             {t(`titles.${subItem.name}`)}
           </li>
@@ -75,25 +77,22 @@ const Layout = ({ isCollapsed = false, permission = [] }: any) => {
       {!!menuActive &&
         listMenu()
           .filter((item: any) => {
-            if (!item.permission || permission?.includes(item.permission)) {
               return (
                 !item.child ||
                 item.child.filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
                   .length > 0
               );
-            }
-            return false;
           })
           .map((item: any, index: number) => {
             if (!item.child) {
               return (
                 <li
                   className={classNames('flex items-center text-gray-300 h-11 m-3 px-2 relative cursor-pointer py-1', {
-                    'bg-teal-700 text-white !fill-gray-300 rounded-2xl opacity-100': location.pathname === routerLinks(item.name),
-                    'fill-gray-300': location.pathname !== routerLinks(item.name),
+                    'bg-teal-700 text-white !fill-gray-300 rounded-2xl opacity-100': location.pathname === `/${lang}${routerLinks(item.name)}`,
+                    'fill-gray-300': location.pathname !== `/${lang}${routerLinks(item.name)}`,
                     'justify-center': isCollapsed,
                   })}
-                  onClick={() => navigate(routerLinks(item.name))}
+                  onClick={() => navigate(`/${lang}${routerLinks(item.name)}`)}
                   key={index}
                 >
                   {/* <img src={item.icon} className='h-8  w-8 block text-slate-700 fill-red-700'/> */}
@@ -123,12 +122,12 @@ const Layout = ({ isCollapsed = false, permission = [] }: any) => {
                     accordion
                     bordered={false}
                     className={classNames('bg-teal-900', {
-                      'active-menu': location.pathname.indexOf(routerLinks(item.name)) > -1,
+                      'active-menu': location.pathname.indexOf(`/${lang}${routerLinks(item.name)}`) > -1,
                     })}
                     defaultActiveKey={menuActive}
                   >
                     <Collapse.Panel
-                      key={routerLinks(item.name)}
+                        key={`/${lang}${routerLinks(item.name)}`}
                       showArrow={!isCollapsed}
                       header={
                         <div
