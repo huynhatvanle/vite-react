@@ -93,12 +93,12 @@ export class User extends CommonEntity {
   }
 }
 
-const checkLanguage = (language: 'vn' | 'en') => {
+const checkLanguage = (language: string) => {
   const formatDate = language === 'vn' ? 'DD-MM-YYYY' : 'DD-MM-YYYY';
   const locale = language === 'vn' ? viVN : enUS;
   dayjs.locale(language === 'vn' ? 'vi' : language);
   localStorage.setItem('i18nextLng', language);
-  return { language, formatDate, locale };
+  return { language: language, formatDate, locale };
 };
 const initialState: State = {
   data: {},
@@ -107,21 +107,27 @@ const initialState: State = {
   isVisible: false,
   status: 'idle',
   title: '',
-  ...checkLanguage(JSON.parse(JSON.stringify(localStorage.getItem('i18nextLng') || 'en'))),
+  pathname: '',
+  ...checkLanguage(
+    location.pathname.split('/')[1] || JSON.parse(JSON.stringify(localStorage.getItem('i18nextLng') || 'en')),
+  ),
 };
 export const globalSlice = createSlice({
   name: action.name,
   initialState,
   reducers: {
-    setLanguage: (state: State, action: PayloadAction<'vn' | 'en'>) => {
+    setLanguage: (state: State, action: PayloadAction<string>) => {
       if (action.payload !== state.language) {
         const { language, formatDate, locale } = checkLanguage(action.payload);
-        i18n.changeLanguage(language).then(() => {
-          state.language = language;
-          state.formatDate = formatDate;
-          state.locale = locale;
-        });
+        i18n.changeLanguage(language);
+        state.formatDate = formatDate;
+        state.locale = locale;
+        state.pathname = location.pathname.replace('/' + state.language + '/', '/' + action.payload + '/');
+        state.language = language;
       }
+    },
+    setPathname: (state: State, action: PayloadAction<string>) => {
+      state.pathname = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -274,8 +280,9 @@ interface State {
   isLoading?: boolean;
   isVisible?: boolean;
   status?: string;
+  pathname?: string;
   title?: string;
-  language?: 'vn' | 'en' | null;
+  language?: string;
   locale?: typeof viVN | typeof enUS;
   formatDate?: string;
 }
@@ -304,6 +311,7 @@ export const GlobalFacade = () => {
     verifyForgotPassword: (values: { email: string; otp: string; uuid: string }) =>
       dispatch(action.verifyForgotPassword(values)),
     setPassword: (values: setPassword) => dispatch(action.setPassword(values)),
-    setLanguage: (value: 'vn' | 'en') => dispatch(globalSlice.actions.setLanguage(value)),
+    setLanguage: (value: string) => dispatch(globalSlice.actions.setLanguage(value)),
+    setPathname: (value: string) => dispatch(globalSlice.actions.setPathname(value)),
   };
 };

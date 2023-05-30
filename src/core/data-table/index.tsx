@@ -10,9 +10,8 @@ import { Button } from '../button';
 import { Pagination } from '../pagination';
 import { DataTableModel, PaginationQuery, TableGet, TableItem, TableRefObject } from '@models';
 import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
-import { Calendar, CheckCircle, CheckSquare, Down, Download, Search, Times } from '@svgs';
+import { Calendar, CheckCircle, CheckSquare, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
-import { DefaultTFuncReturn } from 'i18next';
 
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
@@ -50,12 +49,11 @@ export const DataTable = forwardRef(
       footer,
       defaultRequest = {
         page: 1,
-        perPage: 1,
+        perPage: 10,
       },
       showPagination = true,
       leftHeader,
       rightHeader,
-      bottomHeader,
       showSearch = true,
       save = true,
       searchPlaceholder,
@@ -72,7 +70,6 @@ export const DataTable = forwardRef(
       className = 'data-table',
       facade = {},
       data,
-      row,
       ...prop
     }: Type,
     ref: Ref<TableRefObject>,
@@ -132,7 +129,7 @@ export const DataTable = forwardRef(
         params = { ...request };
         if (save) {
           if (request.sorts && typeof request.sorts === 'object') request.sorts = JSON.stringify(request.sorts);
-          if (request.filter && typeof request.filter === 'object') request.filter = JSON.stringify(request.filter);
+          // if (request.filter && typeof request.filter === 'object') request.filter = JSON.stringify(request.filter);
           changeNavigate &&
             navigate(location.pathname + '?' + new URLSearchParams(request as Record<string, string>).toString());
         }
@@ -282,9 +279,9 @@ export const DataTable = forwardRef(
           {groupButton(confirm, clearFilters, key, selectedKeys)}
         </div>
       ),
-      // filterIcon: (filtered: boolean) => (
-      //   <Search className={classNames('h-4 w-4', { 'fill-[#3699FF]': filtered, 'fill-gray-600': !filtered })} />
-      // ),
+      filterIcon: (filtered: boolean) => (
+        <Search className={classNames('h-4 w-4', { 'fill-[#3699FF]': filtered, 'fill-gray-600': !filtered })} />
+      ),
       onFilterDropdownOpenChange: (visible: boolean) => {
         if (visible) {
           setTimeout(
@@ -350,7 +347,7 @@ export const DataTable = forwardRef(
               item = { ...item, ...getColumnSearchDate(item.filter.name || col.name) };
               break;
             default:
-            //  item = { ...item, ...getColumnSearchInput(item?.filter?.name || col.name) };
+              item = { ...item, ...getColumnSearchInput(item?.filter?.name || col.name) };
           }
           delete item.filter;
         }
@@ -408,12 +405,12 @@ export const DataTable = forwardRef(
         : [];
     return (
       <div className={classNames(className, 'intro-x')}>
-        <div className="lg:flex justify-between mb-2.5">
+        <div className="sm:flex justify-between mb-2.5">
           {showSearch ? (
             <div className="relative">
               <input
                 id={idTable.current + '_input_search'}
-                className="w-full sm:w-80 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-200 pr-9 pl-9"
+                className="w-full sm:w-52 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4"
                 defaultValue={params.fullTextSearch}
                 type="text"
                 placeholder={searchPlaceholder || (t('components.datatable.pleaseEnterValueToSearch') as string)}
@@ -441,7 +438,7 @@ export const DataTable = forwardRef(
               />
               {!params.fullTextSearch ? (
                 <Search
-                  className="w-4 h-4 my-1 fill-gray-500 text-lg absolute top-2 left-2.5 z-10"
+                  className="w-5 h-5 my-1 fill-gray-600 text-lg las absolute top-1.5 right-3 z-10"
                   onClick={() => {
                     if (params.fullTextSearch) {
                       (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';
@@ -452,7 +449,7 @@ export const DataTable = forwardRef(
               ) : (
                 !!params.fullTextSearch && (
                   <Times
-                    className="w-4 h-4 my-1 fill-gray-500 text-lg las absolute top-2 right-3 z-10 "
+                    className="w-5 h-5 my-1 fill-gray-600 text-lg las absolute top-1.5 right-3 z-10"
                     onClick={() => {
                       if (params.fullTextSearch) {
                         (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';
@@ -464,12 +461,11 @@ export const DataTable = forwardRef(
               )}
             </div>
           ) : (
-            <div className="hidden"></div>
+            <div />
           )}
           {!!leftHeader && <div className={'mt-2 sm:mt-0'}>{leftHeader}</div>}
           {!!rightHeader && <div className={'mt-2 sm:mt-0'}>{rightHeader}</div>}
         </div>
-        {!!bottomHeader && <div className={'mt-2 sm:mt-0'}>{bottomHeader}</div>}
         {subHeader && subHeader(result?.count)}
         {!!showList && (
           <Fragment>
@@ -484,7 +480,7 @@ export const DataTable = forwardRef(
               columns={cols.current}
               pagination={false}
               dataSource={loopData(data)}
-              onChange={(pagination, filters, sorts) =>
+              onChange={(pagination: any, filters: any, sorts: any) =>
                 handleTableChange(undefined, filters, sorts as SorterResult<any>, params.fullTextSearch)
               }
               showSorterTooltip={false}
@@ -524,10 +520,9 @@ type Type = {
   showPagination?: boolean;
   leftHeader?: JSX.Element;
   rightHeader?: JSX.Element;
-  bottomHeader?: JSX.Element;
   showSearch?: boolean;
   save?: boolean;
-  searchPlaceholder?: string | DefaultTFuncReturn;
+  searchPlaceholder?: string;
   subHeader?: (count: number) => any;
   xScroll?: string | number | true;
   yScroll?: string | number;

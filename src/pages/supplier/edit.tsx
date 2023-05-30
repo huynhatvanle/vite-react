@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import { Supplier, SupplierFacade } from '@store/supplier';
 import { DistrictFacade } from '@store/address/district';
 import { WardFacade } from '@store/address/ward';
-import { routerLinks } from '@utils';
+import { language, languages, routerLinks } from '@utils';
 import {
   CategoryFacade,
   GlobalFacade,
@@ -40,6 +40,7 @@ const Page = () => {
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
   const [test, setTest] = useState('1');
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (id) supplierFacade.getById({ id });
@@ -51,7 +52,7 @@ const Page = () => {
   useEffect(() => {
     switch (status) {
       case 'put.fulfilled':
-        navigate(routerLinks('Supplier'));
+        navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`)
         break;
     }
   }, [status]);
@@ -77,7 +78,7 @@ const Page = () => {
     },
   ];
 
-  const handleBack = () => navigate(routerLinks('Supplier') + '?' + new URLSearchParams(param).toString());
+  const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: Supplier) => {
     supplierFacade.put({ ...values, id });
   };

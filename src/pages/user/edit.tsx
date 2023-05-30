@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
 import { UserRoleFacade, UserFacade, User } from '@store';
-import { routerLinks } from '@utils';
+import { language, languages, routerLinks } from '@utils';
 import { Form } from '@core/form';
 
 import { Select } from 'antd';
@@ -18,6 +18,7 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (!result?.data) get({});
@@ -42,7 +43,7 @@ const Page = () => {
     }
   }, [status]);
 
-  const handleBack = () => navigate(routerLinks('User/List') + '?' + new URLSearchParams(param).toString());
+  const handleBack = () => navigate(`/${lang}${routerLinks('User/List')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: User) => {
     userFacade.put({ ...values, id });
   };
@@ -56,7 +57,8 @@ const Page = () => {
             <Form
               values={{ ...data }}
               className="intro-x"
-              columns={[{
+              columns={[
+                {
                 title: 'user.UserId',
                 name: 'code',
                 formItem: {

@@ -150,7 +150,6 @@ export const Pagination: any = ({
                 ))}
               </Select>
             )}
-            <Arrow className={'w-4 h-4 absolute top-1/3 rotate-90 left-10'} />
           </label>
           {showTotal && <span className="ml-3 text-black">{paginationDescription(ranges[0], ranges[1], total)}</span>}
         </div>

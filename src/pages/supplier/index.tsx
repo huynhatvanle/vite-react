@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router';
 
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-import { routerLinks } from '@utils';
+import { language, languages, routerLinks } from '@utils';
 import { SupplierFacade } from '@store';
 import { Plus } from '@svgs';
 
 const Page = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   const supplierFacade = SupplierFacade();
 
@@ -20,7 +21,7 @@ const Page = () => {
       defaultRequest={{ page: 1, perPage: 10, filter: { type: 'SUPPLIER' } }}
       xScroll="1380px"
       className=" bg-white p-5 rounded-lg"
-      onRow={(data: any) => ({ onDoubleClick: () => navigate(routerLinks('Supplier/Edit') + '/' + data.id) })}
+      onRow={(data: any) => ({ onDoubleClick: () => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${data.id}`) })}
       pageSizeRender={(sizePage: number) => sizePage}
       pageSizeWidth={'50px'}
       paginationDescription={(from: number, to: number, total: number) =>
@@ -96,7 +97,7 @@ const Page = () => {
           <Button
             icon={<Plus className="icon-cud !h-5 !w-5" />}
             text={t('titles.Supplier/Add')}
-            onClick={() => navigate(routerLinks('Supplier/Add'))}
+            onClick={() => navigate(`/${lang}${routerLinks('Supplier/Add')}`)}
             className="!rounded-xl !font-normal"
           />
         </div>
