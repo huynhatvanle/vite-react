@@ -51,7 +51,8 @@ const Page = () => {
   //   productFacede.get({page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'}})
   // },[]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`);
+  //navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: StoreManagement) => {
     storeFacade.put({ ...values, id });
   };
@@ -538,7 +539,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Store'))
+                  navigate(`/${lang}${routerLinks('Store')}`)
                 }}
               />
             </Tabs.TabPane>
@@ -610,7 +611,7 @@ const Page = () => {
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-0 lg:w-full'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
-                        onClick={() => navigate(routerLinks('store-managerment/create'))}
+                        onClick={() =>navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
                       />
                     }
                   </div>
@@ -620,7 +621,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Store'))
+                  navigate(`/${lang}${routerLinks('Store')}`)
                 }}
               />
             </Tabs.TabPane>
@@ -726,7 +727,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Store'))
+                  navigate(`/${lang}${routerLinks('Store')}`)
                 }}
               />
             </Tabs.TabPane>
@@ -887,7 +888,7 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className='intro-x rounded-lg w-full flex justify-between form-store'
+                          className='intro-x rounded-lg w-full flex justify-between form-store '
                           columns={[
                             {
                               title: '',
@@ -1119,7 +1120,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className='flex h-10 items-center !w-full'>
+                                  <div className='lg:flex h-10 items-center !w-full'>
                                     <p className='text-sm'>{t('store.Since')}</p>
                                   </div>
                                 )
@@ -1178,7 +1179,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Supplier'))
+                  navigate(`/${lang}${routerLinks('Supplier')}`)
                 }}
               />
             </Tabs.TabPane>
@@ -1281,7 +1282,7 @@ const Page = () => {
                       <Button
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group'
                         text={t('titles.synchronized')}
-                        onClick={() => navigate(routerLinks('Supplier/Excel'))}
+                        onClick={() => navigate(`/${lang}${routerLinks('Supplier/Excel')}`)}
                       />
                     }
                   </div>
@@ -1321,7 +1322,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Store'))
+                  navigate(`/${lang}${routerLinks('Store')}`)
                 }}
               />
             </Tabs.TabPane>

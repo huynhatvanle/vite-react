@@ -343,7 +343,7 @@ const Page = () => {
                               <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
                             }
                             text={t('titles.Export Excel file')}
-                            onClick={() => navigate(routerLinks('Supplier/Excel'))}
+                            onClick={() =>  navigate(`/${lang}${routerLinks('Supplier/Exce')}`)}
                           />
                         }
                       </div>
@@ -537,7 +537,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Supplier'));
+                  navigate(`/${lang}${routerLinks('Supplier')}`)
                 }}
               />
             </Tabs.TabPane>
@@ -1196,7 +1196,7 @@ const Page = () => {
                 text={t('Trở về')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Supplier'));
+                  navigate(`/${lang}${routerLinks('Supplier')}`)
                 }}
               />
             </Tabs.TabPane>

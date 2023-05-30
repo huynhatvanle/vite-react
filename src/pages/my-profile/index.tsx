@@ -7,7 +7,7 @@ import { Form } from '@core/form';
 import { Spin } from '@core/spin';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
-import { routerLinks } from '@utils';
+import { routerLinks, languages, language } from '@utils';
 import { User } from '@svgs';
 
 const Page = () => {
@@ -15,6 +15,7 @@ const Page = () => {
   const { user, isLoading, putProfile, setPassword, profile, status } = GlobalFacade();
   const globalFacade = GlobalFacade();
   const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     profile();
@@ -132,7 +133,7 @@ const Page = () => {
                       text={t('components.button.Cancel')}
                       className={'md:w-32 justify-center out-line sm:w-80 w-60 '}
                       onClick={() => {
-                        navigate(routerLinks('User/List'))
+                        navigate(`/${lang}${routerLinks('User/List')}`)
                       }}
                     />
                   )}
@@ -197,7 +198,7 @@ const Page = () => {
                       text={t('components.button.Cancel')}
                       className={'md:min-w-[8rem] justify-center out-line'}
                       onClick={() => {
-                        navigate(routerLinks('User/List'))
+                        navigate(`/${lang}${routerLinks('User/List')}`)
                       }}
                     />
                   )}
