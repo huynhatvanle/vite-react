@@ -21,6 +21,14 @@ const Page = () => {
     profile();
   }, []);
 
+  useEffect(() => {
+    switch (status) {
+      case 'putProfile.fulfilled':
+        profile();
+        break;
+    }
+  }, [status]);
+
   return (
     <Fragment>
       <div className='lg:grid lg:grid-cols-3 gap-5 w-full'>

@@ -304,7 +304,7 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(false);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'} });
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE', supplierId: ''} });
                         }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                           BALANCE
                         </div>
@@ -316,7 +316,7 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(true);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'NON_BALANCE'} });
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'NON_BALANCE', supplierId: ''} });
                         }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                           Non - BALANCE
                         </div>
@@ -338,7 +338,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef}
                 facade={productFacede}
-                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'} }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE', supplierId: ''} }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
                 // onRow={(data: any) => ({
@@ -1201,7 +1201,7 @@ const Page = () => {
                     name: 'productCode',
                     tableItem: {
                       width: 120,
-                      render: (text: string, item: any) => item.inventory[0].productCode
+                      render: (text: string, item: any) => item.productCode
                     },
                   },
                   // {
