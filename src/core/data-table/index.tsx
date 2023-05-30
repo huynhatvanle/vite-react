@@ -49,7 +49,7 @@ export const DataTable = forwardRef(
       footer,
       defaultRequest = {
         page: 1,
-        perPage: 1,
+        perPage: 10,
       },
       showPagination = true,
       leftHeader,
@@ -129,7 +129,7 @@ export const DataTable = forwardRef(
         params = { ...request };
         if (save) {
           if (request.sorts && typeof request.sorts === 'object') request.sorts = JSON.stringify(request.sorts);
-          if (request.filter && typeof request.filter === 'object') request.filter = JSON.stringify(request.filter);
+          // if (request.filter && typeof request.filter === 'object') request.filter = JSON.stringify(request.filter);
           changeNavigate &&
             navigate(location.pathname + '?' + new URLSearchParams(request as Record<string, string>).toString());
         }
