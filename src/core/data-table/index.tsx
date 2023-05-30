@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import { Button } from '../button';
 import { Pagination } from '../pagination';
-import { DataTableModel, PaginationQuery, TableGet, TableRefObject } from '@models';
+import { DataTableModel, PaginationQuery, TableGet, TableItem, TableRefObject } from '@models';
 import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
 import { Calendar, CheckCircle, CheckSquare, Down, Download, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
@@ -51,12 +51,6 @@ export const DataTable = forwardRef(
       defaultRequest = {
         page: 1,
         perPage: 1,
-        type: '',
-        storeId: '',
-        supplierType: '',
-        idSuppiler: '',
-        idStore: '',
-        filterDate: {},
       },
       showPagination = true,
       leftHeader,
@@ -547,5 +541,4 @@ type Type = {
   className?: string;
   facade?: any;
   data?: any[];
-  row?: any;
 };

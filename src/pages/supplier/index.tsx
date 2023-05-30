@@ -17,7 +17,7 @@ const Page = () => {
   return (
     <DataTable
       facade={supplierFacade}
-      defaultRequest={{ page: 1, perPage: 10, type: 'SUPPLIER' }}
+      defaultRequest={{ page: 1, perPage: 10, filter: { type: 'SUPPLIER' } }}
       xScroll="1380px"
       className=" bg-white p-5 rounded-lg"
       onRow={(data: any) => ({ onDoubleClick: () => navigate(routerLinks('Supplier/Edit') + '/' + data.id) })}
