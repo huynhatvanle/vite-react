@@ -4,7 +4,6 @@ import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 import { CommonEntity, PaginationQuery, Responses } from '@models';
 import { Product } from '@store/product';
 import { API, routerLinks } from '@utils';
-import { Category } from '../../category/index';
 
 const name = 'InventoryProduct';
 
@@ -17,7 +16,7 @@ const action = {
       const { data } = await API.get(routerLinks(name, 'api'), {page, perPage, idStore: filterInventoryProduct.idStore});
       console.log(data)
       console.log((data as any).inventory[0])
-      return (data as any).inventory[0];
+      return data ;
     }
   )
 }

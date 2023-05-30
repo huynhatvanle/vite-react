@@ -32,7 +32,8 @@ const Page = () => {
     navigate(`/${lang}${routerLinks('Store')}`)
   }, [status]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () =>  navigate(`/${lang}${routerLinks('Store')}`)
+ // navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
     storeFace.post(values);
   };

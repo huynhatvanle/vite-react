@@ -13,38 +13,58 @@ import { Ward } from '../address/ward';
 const name = 'Organization';
 const action = {
   ...new Action<Supplier>(name),
+  getSup: createAsyncThunk(
+    name + '/get',
+    async ({ page, perPage, filter }: { page: number; perPage: number; filter: { type?: string } }) => {
+      console.log('filter', filter);
+      return await API.get(routerLinks(name, 'api'), { page, perPage, type: filter.type });
+    },
+  ),
   getByIdSupplier: createAsyncThunk(
     name + '/getById',
     async ({ id, keyState = 'isVisible' }: { id: string; keyState: keyof State<Supplier> }) => {
-      const data = await API.get<Supplier>(`${routerLinks(name, 'api')}/detail/${id}`);
+      let data = await API.get<Supplier>(`${routerLinks(name, 'api')}/detail/${id}`);
+      data = {
+        ...data,
+        provinceId: data?.address?.province?.id + '|' + data?.address?.province?.code,
+        districtId: data?.address?.district?.id + '|' + data?.address?.district?.code,
+        wardId: data?.address?.ward?.id,
+      };
+      console.log('data', data);
+
       return { data, keyState };
     },
   ),
   postSup: createAsyncThunk(name + '/post', async (values: Supplier) => {
-    const provinceId = values.provinceId?.slice(0, values.provinceId.indexOf('|'))
-    const districtId = values.districtId?.slice(0, values.districtId.indexOf('|'))
-    const wardId = values.wardId
-    const street = values.street
-    const supplierType = 'BALANCE'
-    const type = 'SUPPLIER'
-    const address = { provinceId, districtId, wardId, street }
-    const { statusCode, message } = await API.post<Supplier>(routerLinks(name, 'api'), { ...values, address, supplierType, type });
+    const provinceId = values.provinceId?.slice(0, values.provinceId.indexOf('|'));
+    const districtId = values.districtId?.slice(0, values.districtId.indexOf('|'));
+    const wardId = values.wardId;
+    const street = values.street;
+    const supplierType = 'BALANCE';
+    const type = 'SUPPLIER';
+    const address = { provinceId, districtId, wardId, street };
+    const { statusCode, message } = await API.post<Supplier>(routerLinks(name, 'api'), {
+      ...values,
+      address,
+      supplierType,
+      type,
+    });
     if (message) await Message.success({ text: message });
     return statusCode;
   }),
   putSup: createAsyncThunk(name + '/put', async ({ id, ...values }: Supplier) => {
-    const provinceId = values.provinceId?.slice(0, values.provinceId.indexOf('|'))
-    const districtId = values.districtId?.slice(0, values.districtId.indexOf('|'))
-    const wardId = values.wardId
-    const street = values.street
-    const supplierType = 'BALANCE'
-    const type = 'SUPPLIER'
-    const address = { provinceId, districtId, wardId, street }
-    const rs = {...values, address, supplierType, type }
-    delete(rs.provinceId)
-    delete(rs.districtId)
-    delete(rs.wardId)
-    console.log("rssssssssss",rs);
+    const provinceId = values.provinceId?.slice(0, values.provinceId.indexOf('|'));
+    const districtId = values.districtId?.slice(0, values.districtId.indexOf('|'));
+    const wardId = values.wardId;
+    const street = values.street;
+    const supplierType = 'BALANCE';
+    const type = 'SUPPLIER';
+    const address = { provinceId, districtId, wardId, street };
+    const rs = { ...values, address, supplierType, type };
+    delete rs.provinceId;
+    delete rs.districtId;
+    delete rs.wardId;
+    console.log('rssssssssss', rs);
 
     const { statusCode, message } = await API.put<Supplier>(`${routerLinks(name, 'api')}/${id}`, rs);
     if (message) await Message.success({ text: message });
@@ -58,15 +78,18 @@ export const supplierSlice = createSlice(
         state.isLoading = true;
         state.status = 'getById.pending';
       })
-      .addCase(action.getByIdSupplier.fulfilled, (state: State<Supplier>, action: PayloadAction<{ data: Supplier; keyState: keyof State<Supplier> }>) => {
-        if (action.payload) {
-          const { data, keyState } = action.payload;
-          if (JSON.stringify(state.data) !== JSON.stringify(data)) state.data = data;
-          state[keyState] = true;
-          state.status = 'getById.fulfilled';
-        } else state.status = 'idle';
-        state.isLoading = false;
-      })
+      .addCase(
+        action.getByIdSupplier.fulfilled,
+        (state: State<Supplier>, action: PayloadAction<{ data: Supplier; keyState: keyof State<Supplier> }>) => {
+          if (action.payload) {
+            const { data, keyState } = action.payload;
+            if (JSON.stringify(state.data) !== JSON.stringify(data)) state.data = data;
+            state[keyState] = true;
+            state.status = 'getById.fulfilled';
+          } else state.status = 'idle';
+          state.isLoading = false;
+        },
+      )
       .addCase(
         action.post.pending,
         (
@@ -94,27 +117,27 @@ export const supplierSlice = createSlice(
           state.data = action.meta.arg;
           state.isLoading = true;
           state.status = 'put.pending';
-          console.log("state.status",state.status)
+          console.log('state.status', state.status);
         },
       )
       .addCase(action.put.fulfilled, (state: State<Supplier>, action: PayloadAction<Supplier>) => {
         if (action.payload.toString() === '200') {
-          console.log("action.payload",action.payload);
+          console.log('action.payload', action.payload);
           state.isVisible = false;
           state.status = 'put.fulfilled';
         } else state.status = 'idle';
         state.isLoading = false;
-      })
+      });
   }),
 );
-
 
 export const SupplierFacade = () => {
   const dispatch = useAppDispatch();
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<Supplier>),
     set: (values: State<Supplier>) => dispatch(action.set(values)),
-    get: (params: PaginationQuery<Supplier>) => dispatch(action.get(params)),
+    get: ({ page, perPage, filter }: { page: number; perPage: number; filter: { type?: string } }) =>
+      dispatch(action.getSup({ page, perPage, filter })),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Supplier> }) =>
       dispatch(action.getByIdSupplier({ id, keyState })),
     post: (values: Supplier) => dispatch(action.postSup(values)),
@@ -122,7 +145,6 @@ export const SupplierFacade = () => {
     delete: (id: string) => dispatch(action.delete(id)),
   };
 };
-
 
 export class Supplier extends CommonEntity {
   constructor(
@@ -143,8 +165,8 @@ export class Supplier extends CommonEntity {
     public address?: {
       id?: number;
       street?: string;
-      district?: District
-      province?: Province
+      district?: District;
+      province?: Province;
       ward?: Ward;
     },
     public userRole?: {
@@ -160,8 +182,8 @@ export class Supplier extends CommonEntity {
           email: string;
           name: string;
           phoneNumber: string;
-        }
-      }
+        };
+      };
     },
   ) {
     super();
