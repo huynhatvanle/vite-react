@@ -15,7 +15,10 @@ const action = {
   ...new Action<Supplier>(name),
   getSup: createAsyncThunk(
     name + '/get',
-    async (params: PaginationQuery<Supplier>) => await API.get(routerLinks(name, 'api'), params),
+    async ({ page, perPage, filter }: { page: number; perPage: number; filter: { type?: string } }) => {
+      console.log('filter', filter);
+      return await API.get(routerLinks(name, 'api'), { page, perPage, type: filter.type });
+    },
   ),
   getByIdSupplier: createAsyncThunk(
     name + '/getById',
@@ -133,7 +136,8 @@ export const SupplierFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<Supplier>),
     set: (values: State<Supplier>) => dispatch(action.set(values)),
-    get: (params: PaginationQuery<Supplier>) => dispatch(action.getSup(params)),
+    get: ({ page, perPage, filter }: { page: number; perPage: number; filter: { type?: string } }) =>
+      dispatch(action.getSup({ page, perPage, filter })),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Supplier> }) =>
       dispatch(action.getByIdSupplier({ id, keyState })),
     post: (values: Supplier) => dispatch(action.postSup(values)),

@@ -52,7 +52,7 @@ const Page = () => {
   useEffect(() => {
     switch (status) {
       case 'put.fulfilled':
-        navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`)
+        navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
         break;
     }
   }, [status]);
@@ -272,7 +272,7 @@ const Page = () => {
                 <div className="px-5 pb-4">
                   <DataTable
                     facade={productFacade}
-                    defaultRequest={{ page: 1, perPage: 10, supplierId: id, type: 'BALANCE' }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { supplierId: id, type: 'BALANCE', storeId: '' } }}
                     xScroll="895px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
