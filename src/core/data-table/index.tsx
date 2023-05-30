@@ -61,7 +61,6 @@ export const DataTable = forwardRef(
       showPagination = true,
       leftHeader,
       rightHeader,
-      bottomHeader,
       showSearch = true,
       save = true,
       searchPlaceholder,
@@ -474,7 +473,6 @@ export const DataTable = forwardRef(
           {!!leftHeader && <div className={'mt-2 sm:mt-0'}>{leftHeader}</div>}
           {!!rightHeader && <div className={'mt-2 sm:mt-0'}>{rightHeader}</div>}
         </div>
-        {!!bottomHeader && <div className={'mt-2 sm:mt-0'}>{bottomHeader}</div>}
         {subHeader && subHeader(result?.count)}
         {!!showList && (
           <Fragment>
@@ -489,7 +487,7 @@ export const DataTable = forwardRef(
               columns={cols.current}
               pagination={false}
               dataSource={loopData(data)}
-              onChange={(pagination, filters, sorts) =>
+              onChange={(pagination: any, filters: any, sorts : any) =>
                 handleTableChange(undefined, filters, sorts as SorterResult<any>, params.fullTextSearch)
               }
               showSorterTooltip={false}
@@ -529,7 +527,6 @@ type Type = {
   showPagination?: boolean;
   leftHeader?: JSX.Element;
   rightHeader?: JSX.Element;
-  bottomHeader?: JSX.Element;
   showSearch?: boolean;
   save?: boolean;
   searchPlaceholder?: string | DefaultTFuncReturn;

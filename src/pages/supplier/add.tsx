@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 
 import { Supplier, SupplierFacade } from '@store/supplier';
 import { Form } from '@core/form';
-import { routerLinks } from '@utils';
+import { language, languages, routerLinks } from '@utils';
 import { ProvinceFacade } from '@store/address/province';
 import { DistrictFacade } from '@store/address/district';
 import { WardFacade } from '@store/address/ward';
@@ -16,6 +16,9 @@ const Page = () => {
   const { isLoading, queryParams, status } = supplierFace;
   const param = JSON.parse(queryParams || '{}');
 
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+
+
   console.log('statusSupplier', status);
 
   const data = Supplier;
@@ -23,12 +26,12 @@ const Page = () => {
   useEffect(() => {
     switch (status) {
       case 'post.fulfilled':
-        navigate(routerLinks('Supplier'));
+        navigate(`/${lang}${routerLinks('Supplier')}`)
         break;
     }
   }, [status]);
 
-  const handleBack = () => navigate(routerLinks('Supplier') + '?' + new URLSearchParams(param).toString());
+  const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
     supplierFace.post(values);
   };

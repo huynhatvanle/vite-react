@@ -6,6 +6,7 @@ import { Form } from '@core/form'
 import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
 import { t } from 'i18next';
+import { language, languages } from '@utils';
 
 const Page = () => {
   // const isReload = useRef(false);
@@ -13,11 +14,12 @@ const Page = () => {
   const navigate = useNavigate();
   const globalFacade = GlobalFacade();
   const { isLoading, status, data, verifyForgotPassword } = globalFacade;
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     console.log(status)
     if (status === 'verifyForgotPassword.fulfilled') {
-      navigate(routerLinks('SetPassword'));
+      navigate(`/${lang}${routerLinks('SetPassword')}`)
     }
   }, [status]);
 
@@ -66,7 +68,7 @@ const Page = () => {
           />
         </Spin>
         <div className="mt-3 text-center">
-          <button className={'text-sky-600 font-normal underline hover:no-underline hover:text-sky-500'} onClick={() => navigate(routerLinks('Login'))}>
+          <button className={'text-sky-600 font-normal underline hover:no-underline hover:text-sky-500'} onClick={() => navigate(`/${lang}${routerLinks('Login')}`)}>
             {' '}
             {t('routes.auth.reset-password.Go back to login')}
           </button>
