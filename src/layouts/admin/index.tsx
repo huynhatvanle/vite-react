@@ -157,7 +157,7 @@ const Layout = ({ children }: PropsWithChildren) => {
             }}
             placement="bottomRight"
           >
-            <section className="flex items-center" id={'dropdown-profile'}>
+            <section className="flex items-center !rounded-full" id={'dropdown-profile'}>
               <Avatar src={user?.profileImage} size={10} />
             </section>
           </Dropdown>

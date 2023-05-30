@@ -939,82 +939,82 @@ const Page = () => {
                         />
                       </div>
                     }
-                    // bottomHeader={
-                    //   <div>
-                    //     <Form
-                    //       className="intro-x rounded-lg flex form-store"
-                    //       columns={
-                    //         [
-                    //           {
-                    //             title: '',
-                    //             name: 'cap1',
-                    //             formItem: {
-                    //               tabIndex: 3,
-                    //               placeholder: 'placeholder.Main categories',
-                    //               type: 'select',
-                    //               col: 3,
-                    //               get: {
-                    //                 facade: CategoryFacade,
-                    //                 format: (item: any) => ({
-                    //                   label: item.name,
-                    //                   value: item.id,
-                    //                 }),
-                    //               },
-                    //               onChange(value, form) {
-                    //                 form.resetFields(['cap2', 'cap3'])
-                    //               },
-                    //             },
-                    //           },
-                    //           {
-                    //             name: 'cap2',
-                    //             title: '',
-                    //             formItem: {
-                    //               placeholder: 'placeholder.Category level 1',
-                    //               type: 'select',
-                    //               col: 3,
-                    //               get: {
-                    //                 facade: CategoryFacade,
-                    //                 format: (item: any) => ({
-                    //                   label: item.name,
-                    //                   value: item.id,
-                    //                 }),
-                    //                 params: (fullTextSearch, value) => ({
-                    //                   fullTextSearch,
-                    //                   id: value().cap1,
-                    //                 }),
-                    //               },
-                    //               onChange(value, form) {
-                    //                 form.resetFields(['cap3'])
-                    //               },
-                    //             },
-                    //           },
-                    //           {
-                    //             name: 'cap3',
-                    //             title: '',
-                    //             formItem: {
-                    //               placeholder: 'placeholder.Category level 2',
-                    //               type: 'select',
-                    //               col: 3,
-                    //               get: {
-                    //                 facade: CategoryFacade,
-                    //                 format: (item: any) => ({
-                    //                   label: item.name,
-                    //                   value: item.id,
-                    //                 }),
-                    //                 params: (fullTextSearch, value) => ({
-                    //                   fullTextSearch,
-                    //                   id: value().cap2,
-                    //                 })
-                    //               }
-                    //             },
-                    //           },
+                    subHeader={() => (
+                      <div>
+                        <Form
+                          className="intro-x rounded-lg flex form-store"
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'cap1',
+                                formItem: {
+                                  tabIndex: 3,
+                                  placeholder: 'placeholder.Main categories',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap2', 'cap3'])
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap2',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'placeholder.Category level 1',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap1,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap3'])
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap3',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'placeholder.Category level 2',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap2,
+                                    })
+                                  }
+                                },
+                              },
 
-                    //         ]
-                    //       }
-                    //       disableSubmit={isLoading}
-                    //     />
-                    //   </div>
-                    // }
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                      </div>
+                    )}
                   />
                   :
                   <DataTable
