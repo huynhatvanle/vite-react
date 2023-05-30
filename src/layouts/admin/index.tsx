@@ -85,7 +85,7 @@ const Layout = ({ children }: PropsWithChildren) => {
         <div className="flex items-center gap-5 absolute right-6">
           <Select value={globalFacade?.language} onChange={(e: 'vn' | 'en') => globalFacade.setLanguage(e)}>
             <Select.Option value="en">
-              <img src="/assets/svg/us.svg" alt="US" className="mr-1 w-4 inline-block relative -top-0.5" />{' '}
+              <img src="/assets/svg/en.svg" alt="US" className="mr-1 w-4 inline-block relative -top-0.5" />{' '}
               {t('routes.admin.Layout.English')}
             </Select.Option>
             <Select.Option value="vn">

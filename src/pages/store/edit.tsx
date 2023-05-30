@@ -381,6 +381,7 @@ const Page = () => {
                     title: 'product.SupplierName',
                     name: 'supplierName',
                     tableItem: {
+                      render: (value: any, item: any) => item?.subOrg?.name
                     },
                   },
                   {
@@ -659,7 +660,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef1}
                 facade={connectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, idSuppiler: id, type: 'BALANCE' }}
+                defaultRequest={{ page: 1, perPage: 10, idSuppiler: id, supplierType: 'BALANCE' }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 onRow={(data: any) => ({
@@ -929,7 +930,7 @@ const Page = () => {
                         />
                       </div>
                     }
-                    bottomHeader={
+                    subHeader={() => (
                       <div>
                         <Form
                           className="intro-x rounded-lg flex form-store"
@@ -1004,7 +1005,7 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                       </div>
-                    }
+                    )}
                   />
                   :
                   <DataTable

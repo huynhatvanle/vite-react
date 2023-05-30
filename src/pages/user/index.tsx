@@ -67,9 +67,9 @@ const Page = () => {
       tableItem: {
         width: 150,
         render: (item: any) => {
-          if (item.userRole[0].mtRole.code === "ADMIN") {
+          if (item[0].mtRole.code === "ADMIN") {
             return <div>{t('user.RoleUser.ADMIN')}</div>;
-          } else if (item.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
+          } else if (item[0].mtRole.code === "OWNER_SUPPLIER") {
             return <div>{t('user.RoleUser.SUPPLIER')}</div>;
           } else {
             return <div>{t('user.RoleUser.STORE')}</div>;
