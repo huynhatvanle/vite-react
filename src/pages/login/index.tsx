@@ -6,18 +6,19 @@ import { Spin } from '@core/spin';
 import { Form } from '@core/form'
 import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
-
+import { language, languages } from '@utils';
 
 const Page = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const globalFacade = GlobalFacade();
   const { isLoading, status, user, data, login, profile } = globalFacade;
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (status === 'login.fulfilled' && user && Object.keys(user).length > 0) {
       // navigate(routerLinks('Dashboard'));
-      navigate('/', { replace: true });
+      navigate('/' + lang + '/', { replace: true });
       profile();
     }
   }, [status]);
@@ -60,7 +61,7 @@ const Page = () => {
           />
         </Spin>
         <div className="absolute right-6 top-1/2 sm:right-0 text-right">
-          <button className={'text-teal-900 font-normal underline hover:no-underline'} onClick={() => navigate(routerLinks('ForgetPassword'))}>
+          <button className={'text-teal-900 font-normal underline hover:no-underline'} onClick={() => navigate(`/${lang}${routerLinks('ForgetPassword')}`)}>
             {t('routes.auth.login.Forgot Password')}
           </button>
         </div>

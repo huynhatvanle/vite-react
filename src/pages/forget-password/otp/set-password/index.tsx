@@ -5,15 +5,17 @@ import { Form } from '@core/form'
 import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
 import { t } from 'i18next';
+import { language, languages } from '@utils';
 
 const Page = () => {
   const navigate = useNavigate();
   const globalFacade = GlobalFacade();
   const { isLoading, status, data, setPassword } = globalFacade;
+    const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (status === 'setPassword.fulfilled') {
-      navigate(routerLinks('Sign-in'));
+      navigate(`/${lang}${routerLinks('Sign-in')}`)
     }
   }, [status]);
 

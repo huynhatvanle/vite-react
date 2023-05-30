@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { API, routerLinks } from '@utils';
 import { Message } from '@core/message';
-// import Action from '../action';
-// import Slice, { State } from '../slice';
 import { Action, Slice, State, useAppDispatch, useTypedSelector } from '@store';
 import { User } from '../global';
 import { PaginationQuery } from '@models';
@@ -11,7 +9,6 @@ const name = 'User';
 export const action = {
   ...new Action<User>(name),
   post: createAsyncThunk(name + '/post', async (values: User) => {
-    // if (values.avatar) values.avatar = values.avatar[0].url;
     const addressDto = {city:null, country:null, district:null, postCode:null, street:'dien bien phu'}
     const subOrgId = null;
     const orgId = null;
@@ -21,7 +18,6 @@ export const action = {
     return data;
   }),
   put: createAsyncThunk(name + '/put', async ({ id, ...values }: User) => {
-    // if (values.avatar) values.avatar = values.avatar[0].url;
     const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}/${id}`, values);
     if (message) await Message.success({ text: message });
     return data;

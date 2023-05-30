@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Input, Select, Switch, Tabs, Dropdown } from 'antd';
 
-import { routerLinks } from '@utils';
+import { language, languages, routerLinks } from '@utils';
 import { Form } from '@core/form';
 import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, InvoiceKiotVietFacade } from '@store';
 import { DataTable } from '@core/data-table';
@@ -30,10 +30,11 @@ const Page = () => {
   const { id } = useParams();
   const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRef1 = useRef<TableRefObject>(null);
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (status === 'put.fulfilled')
-      navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString())
+      navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`)
   }, [status]);
 
   useEffect(() => {
@@ -44,8 +45,11 @@ const Page = () => {
       isReload.current && storeFacade.get(param);
     };
   }, [id]);
+  // useEffect(() => {
+  //   productFacede.get({page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'}})
+  // },[]);
 
-  const handleBack = () => navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString());
+  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: StoreManagement) => {
     storeFacade.put({ ...values, id });
   };
@@ -296,9 +300,8 @@ const Page = () => {
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
                         <div onClick={() => {
-                          setType('BALANCE')
                           setIsBalanceClicked(false);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' });
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: { storeId: id, type: 'BALANCE' } });
                         }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                           BALANCE
                         </div>
@@ -309,9 +312,8 @@ const Page = () => {
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
                         <div onClick={() => {
-                          setType('NON_BALANCE')
                           setIsBalanceClicked(true);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'NON_BALANCE' });
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: { storeId: id, type: 'NON_BALANCE' } });
                         }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                           Non - BALANCE
                         </div>
@@ -333,7 +335,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef}
                 facade={productFacede}
-                defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' }}
+                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, type: 'BALANCE' } }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
                 columns={[
@@ -398,7 +400,6 @@ const Page = () => {
                     },
                   },
                 ]}
-
                 showSearch={false}
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
@@ -539,7 +540,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
-                defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, supplierType: 'BALANCE' }}
+                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, supplierType: 'BALANCE' } }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
                 pageSizeRender={(sizePage: number) => sizePage}
@@ -626,7 +627,7 @@ const Page = () => {
                           <div onClick={() => {
                             setType('BALANCE')
                             setIsBalanceClicked(false);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'BALANCE' });
+                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: 'BALANCE' } });
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             BALANCE
                           </div>
@@ -639,7 +640,7 @@ const Page = () => {
                           <div onClick={() => {
                             setType('NON_BALANCE')
                             setIsBalanceClicked(true);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'NON_BALANCE' });
+                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: 'NON_BALANCE' } });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
@@ -660,7 +661,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef1}
                 facade={connectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, idSuppiler: id, supplierType: 'BALANCE' }}
+                defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: type } }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 onRow={(data: any) => ({
@@ -788,49 +789,48 @@ const Page = () => {
                           // render: (value: any, item: any) => item.supplier?.code,
                         },
                       },
-                      // {
-                      //   title: 'store.Inventory management.Product code',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier?.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Inventory management.Product name',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Barcode',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'titles.Revenue',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'product.Revenue',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'product.Status',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      //   },
-                      // },
-
+                      {
+                        title: 'store.Inventory management.Product code',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Inventory management.Product name',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                        },
+                      },
+                      {
+                        title: 'store.Barcode',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        },
+                      },
+                      {
+                        title: 'titles.Revenue',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'product.Revenue',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'product.Status',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
@@ -1012,67 +1012,67 @@ const Page = () => {
                     facade={invoiceKiotVietFacade}
                     defaultRequest={{ page: 1, perPage: 10, idStore: id }}
                     xScroll='1440px'
-                    onRow={(data: any) => ({
-                      onDoubleClick: () => {
-                        navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                      },
-                    })}
+                    // onRow={(data: any) => ({
+                    //   onDoubleClick: () => {
+                    //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                    //   },
+                    // })}
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
                       t('routes.admin.Layout.PaginationSupplier', { from, to, total })
                     }
                     columns={[
-                      // {
-                      //   title: 'store.Revenue.Serial number',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     width: 150,
-                      //     render: (value: any, item: any) => item.supplier?.code,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Order code',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier?.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Sale date',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier?.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Value (VND)',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier?.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Discount (VND)',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Total amount (VND)',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      //   },
-                      // },
-                      // {
-                      //   title: 'store.Revenue.Order type',
-                      //   name: 'supplier',
-                      //   tableItem: {
-                      //     render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                      //   },
-                      // },
+                      {
+                        title: 'store.Revenue.Serial number',
+                        name: 'supplier',
+                        tableItem: {
+                          width: 150,
+                          // render: (value: any, item: any) => item.supplier?.code,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Order code',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Sale date',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Value (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Discount (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Total amount (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Order type',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={

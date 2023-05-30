@@ -20,7 +20,7 @@ export const Upload = ({
   maxSize = 40,
   multiple = true,
   right = false,
-  action = linkApi + '/auth/upload',
+  action =  '/util/upload',
   keyImage = 'url',
   accept = 'image/*',
   validation = async () => true,

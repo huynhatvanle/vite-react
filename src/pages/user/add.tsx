@@ -2,7 +2,7 @@ import React, { Fragment, Profiler, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import { UserRoleFacade, UserFacade, User } from '@store';
-import { routerLinks } from '@utils';
+import { language, languages, routerLinks } from '@utils';
 import { Form } from '@core/form';
 import { useTranslation } from 'react-i18next';
 
@@ -16,6 +16,7 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (!result?.data) get({});
@@ -31,12 +32,12 @@ const Page = () => {
     console.log(status)
     switch (status) {
       case 'post.fulfilled':
-        navigate(routerLinks('User/List'));
+        navigate(routerLinks(`/${lang}${routerLinks('User/List')}`));
         break;
     }
   }, [status]);
 
-  const handleBack = () => navigate(routerLinks('User/List') + '?' + new URLSearchParams(param).toString());
+  const handleBack = () => navigate(`/${lang}${routerLinks('User/List')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: User) => {
     userFacade.post(values);
   };
@@ -85,14 +86,6 @@ const Page = () => {
                     type: 'textarea',
                   },
                 },
-                // {
-                //   title: 'fdfdf',
-                //   name: 'roleId',
-                //   formItem: {
-                //      type: 'hidden',
-
-                //   },
-                // },
               ]}
               handSubmit={handleSubmit}
               disableSubmit={isLoading}

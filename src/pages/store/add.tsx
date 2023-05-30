@@ -7,6 +7,7 @@ import { routerLinks } from '@utils';
 import { DistrictFacade, ProvinceFacade, StoreFacade, WardFacade } from '@store';
 import { Switch } from 'antd';
 import { Button } from '@core/button';
+import { language, languages } from '@utils';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ const Page = () => {
   const storeFace = StoreFacade();
   const { isLoading, queryParams, status, data } = storeFace;
   const param = JSON.parse(queryParams || '{}');
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     storeFace.set({ data: undefined });
@@ -27,11 +29,10 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'post.fulfilled')
-      navigate(routerLinks('Store'))
+    navigate(`/${lang}${routerLinks('Store')}`)
   }, [status]);
 
-  const handleBack = () => navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString());
-
+  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
     storeFace.post(values);
   };
