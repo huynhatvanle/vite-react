@@ -273,17 +273,29 @@
       "After Tax": "Sau thuế",
       "Promotion": "Khuyến mãi",
       "Total Amount": "Thành tiền",
-      "Order Type": "Loại đơn",
-      "order type":{
-        "Sell":"Bán hàng",
-        "Returns":"Trả hàng"
-      }
+      "Order Type": "Loại đơn"
     },
-    "titles":{
+    "Sup-Revenue": {
       "Revenue":"Doanh thu",
-      "Total number of successful applications":"Tổng số đơn thành công",
-      "Total number of payments":"Tổng số đơn trả",
-      "Total number of canceled orders":"Tổng số đơn bị huỷ"
+      "Total number of successful orders":"Tổng số đơn thành công",
+      "Total number of returned orders":"Tổng số đơn trả",
+      "Total number of canceled orders":"Tổng số đơn bị hủy"
+    },
+    "Sup-Discount": {
+      "Discounts to be paid": "Chiết khấu cần thanh toán"
+    },
+    "Sup-Status":{
+      "Signed":"Đã ký",
+      "Waiting": "Chờ ký",
+      "Selling": "Đang bán",
+      "Discontinued": "Ngưng bán",
+      "Shipped": "Đã giao",
+      "WAITING APPROVED": "Chờ xác nhận",
+      "Shipping": "Đang giao",
+      "WAITING PICKUP": "Chờ lấy hàng",
+      "Cancelled": "Đã huỷ",
+      "Return goods": "Trả hàng",
+      "Sell goods": "Bán hàng"
     }
   },
   "store": {

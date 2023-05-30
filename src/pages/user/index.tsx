@@ -66,14 +66,13 @@ const Page = () => {
       name: 'userRole',
       tableItem: {
         width: 150,
-        filter: { type: 'search' },
-        render: (text: any, item: any) => {
-          if (text = item.userRole[0].mtRole.code === "ADMIN") {
+        render: (item: any) => {
+          if (item.userRole[0].mtRole.code === "ADMIN") {
             return <div>{t('user.RoleUser.ADMIN')}</div>;
-          } else if (text = item.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
-            return <div>{t('user.RoleUser.SUPPLIER')}</div>;;
+          } else if (item.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
+            return <div>{t('user.RoleUser.SUPPLIER')}</div>;
           } else {
-            return <div>{t('user.RoleUser.STORE')}</div>;;
+            return <div>{t('user.RoleUser.STORE')}</div>;
           }
         }
       },

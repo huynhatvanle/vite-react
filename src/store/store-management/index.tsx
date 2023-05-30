@@ -8,7 +8,7 @@ import { District, Province, Ward } from '@store';
 
 const name = 'Organization';
 
-export const action = {
+const action = {
   ...new Action<StoreManagement>(name),
   getByIdStore: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id: string; keyState: keyof State<StoreManagement> }) => {
     let data = (await API.get<StoreManagement>(`${routerLinks(name, 'api')}/detail/${id}`));

@@ -19,7 +19,8 @@ import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
 import { DownArrow, Download } from '@svgs';
-import { Avatar, Dropdown, Tabs } from 'antd';
+import { Dropdown, Tabs } from 'antd';
+import dayjs from 'dayjs';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -33,8 +34,7 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const [tab] = useState('tab1');
-  const { user } = GlobalFacade();
+  const { formatDate } = GlobalFacade();
 
   const productFacade = ProductFacade();
   const ordersFacade = OrdersFacade();
@@ -63,19 +63,19 @@ const Page = () => {
 
   const subHeader = [
     {
-      title: t('supplier.titles.Revenue'),
+      title: t('supplier.Sup-Revenue.Revenue'),
       total: a + ' VND',
     },
     {
-      title: t('supplier.titles.Total number of successful applications'),
+      title: t('supplier.Sup-Revenue.Total number of successful orders'),
       total: inventoryOrders.result?.statistical?.totalOderSuccess,
     },
     {
-      title: t('supplier.titles.Total number of payments'),
+      title: t('supplier.Sup-Revenue.Total number of returned orders'),
       total: inventoryOrders.result?.statistical?.totalOderReturn,
     },
     {
-      title: t('supplier.titles.Total number of canceled orders'),
+      title: t('supplier.Sup-Revenue.Total number of canceled orders'),
       total: inventoryOrders.result?.statistical?.totalOderCancel,
     },
   ];
@@ -91,9 +91,8 @@ const Page = () => {
         <div className="">
           <Tabs defaultActiveKey="1" type="card" size="large" className="">
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="bg-white rounded-xl rounded-tl-none">
-              <div className="px-5">
+              <div className="">
                 <Form
-                  // provinceId: data?.address?.province?.name, district: data?.address?.district?.name, ward: data?.address?.ward?.name,
                   values={{
                     ...data,
                     street: data?.address?.street,
@@ -324,11 +323,11 @@ const Page = () => {
                           render: (text: string, item: any) =>
                             item?.approveStatus === 'APPROVED' ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                {t('supplier.status.on sale')}
+                                {t('supplier.Sup-Status.Selling')}
                               </div>
                             ) : (
                               <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                {t('supplier.status.stop selling')}
+                                {t('supplier.Sup-Status.Discontinued')}
                               </div>
                             ),
                         },
@@ -446,14 +445,14 @@ const Page = () => {
                     }
                     columns={[
                       {
-                        title: 'supplier.Order.Order ID',
+                        title: t(`supplier.Order.Order ID`),
                         name: 'code',
                         tableItem: {
                           width: 280,
                         },
                       },
                       {
-                        title: 'supplier.Order.Store Name',
+                        title: t(`supplier.Order.Store Name`),
                         name: 'name',
                         tableItem: {
                           width: 180,
@@ -461,16 +460,16 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.Order.Recipient',
-                        name: 'address',
+                        title: t(`supplier.Order.Recipient`),
+                        name: 'storeAdmin',
                         tableItem: {
                           width: 180,
                           render: (value: any, item: any) => item?.storeAdmin?.name,
                         },
                       },
                       {
-                        title: 'supplier.Order.Delivery Address',
-                        name: 'contract',
+                        title: t(`supplier.Order.Delivery Address`),
+                        name: 'Address',
                         tableItem: {
                           width: 300,
                           render: (value: any, item: any) =>
@@ -484,7 +483,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.Order.Total Price (VND)',
+                        title: t(`supplier.Order.Total Price (VND)`),
                         name: 'total',
                         tableItem: {
                           width: 150,
@@ -492,10 +491,11 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'supplier.Order.Order Date',
+                        title: t(`supplier.Order.Order Date`),
                         name: 'createdAt',
                         tableItem: {
                           width: 150,
+                          render: (text: string) => (text ? dayjs(text).format(formatDate) : ''),
                         },
                       },
                       {
@@ -507,23 +507,23 @@ const Page = () => {
                           render: (value: any, item: any) =>
                             item?.status === 'DELIVERED' ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                {t('supplier.status.delivered')}
+                                {t('supplier.Sup-Status.Shipped')}
                               </div>
                             ) : item?.status === 'WAITING_APPROVED' ? (
                               <div className="bg-yellow-50 text-center p-1 border border-yellow-500 text-yellow-500 rounded">
-                                {t('supplier.status.wait for confirmation')}
+                                {t('supplier.Sup-Status.WAITING APPROVED')}
                               </div>
                             ) : item?.status === 'DELIVERY_RECEIVE' || item?.status === 'DELIVERY_RECEIVING' ? (
                               <div className="bg-blue-100 text-center p-1 border border-blue-500 text-blue-600 rounded">
-                                {t('supplier.status.delivering')}
+                                {t('supplier.Sup-Status.Shipping')}
                               </div>
                             ) : item?.status === 'WAITING_PICKUP' ? (
                               <div className="bg-orange-50 text-center p-1 border border-orange-500 text-orange-500 rounded">
-                                {t('supplier.status.waiting for the goods')}
+                                {t('supplier.Sup-Status.WAITING PICKUP')}
                               </div>
                             ) : (
                               <div className="bg-red-100 text-center p-1 border border-red-500 text-red-500 rounded">
-                                {t('supplier.status.canceled')}
+                                {t('supplier.Sup-Status.Cancelled')}
                               </div>
                             ),
                         },
@@ -707,7 +707,7 @@ const Page = () => {
                           />
                         </div>
                       }
-                      searchPlaceholder={t("placeholder.Search by order number")}
+                      searchPlaceholder={t('placeholder.Search by order number')}
                       columns={[
                         {
                           title: `supplier.Order.STT`,
@@ -783,11 +783,11 @@ const Page = () => {
                             render: (text: string, item: any) =>
                               item?.billType === 'RECIEVED' ? (
                                 <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                  {t('supplier.Order.order type.Sell')}
+                                  {t('supplier.Sup-Status.Sell goods')}
                                 </div>
                               ) : (
                                 <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                  {t('supplier.Order.order type.Returns')}
+                                  {t('supplier.Sup-Status.Return goods')}
                                 </div>
                               ),
                           },
@@ -972,7 +972,7 @@ const Page = () => {
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 items-center">
-                                        <p>Từ Ngày</p>
+                                        <p>{t('store.Since')}</p>
                                       </div>
                                     ),
                                   },
@@ -994,7 +994,7 @@ const Page = () => {
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 items-center">
-                                        <p>Đến ngày</p>
+                                        <p>{t('store.To date')}</p>
                                       </div>
                                     ),
                                   },
@@ -1014,7 +1014,7 @@ const Page = () => {
                             />
                           </div>
                         }
-                        searchPlaceholder="Tìm kiếm theo mã đơn hàng"
+                        searchPlaceholder={t('placeholder.Search by order number')}
                         columns={[
                           {
                             title: `supplier.Order.STT`,
@@ -1071,11 +1071,11 @@ const Page = () => {
                                 // RETURN
                                 item?.billType === 'RECIEVED' ? (
                                   <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                    Bán hàng
+                                    {t('supplier.Sup-Status.Sell goods')}
                                   </div>
                                 ) : (
                                   <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                    Trả hàng
+                                    {t('supplier.Sup-Status.Return goods')}
                                   </div>
                                 ),
                             },
@@ -1084,7 +1084,7 @@ const Page = () => {
                         footer={() => (
                           <div className="w-full flex sm:justify-end justify-center mt-4">
                             <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                              Xuất báo cáo
+                              {t('titles.Export report')}
                             </button>
                           </div>
                         )}
@@ -1162,45 +1162,32 @@ const Page = () => {
                           render: (text: string) =>
                             text ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                Đã ký
+                                {t('supplier.Sup-Status.Signed')}
                               </div>
                             ) : (
                               <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
-                                Chờ ký
+                                {t('supplier.Sup-Status.Waiting')}
                               </div>
                             ),
                         },
                       },
                     ]}
-                    showSearch={false}
-                    rightHeader={
-                      <div className={'flex h-10 w-36'}>
-                        {user && (
-                          <Button
-                            className="!bg-white flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
-                            icon={<Download className="icon-cud !h-6 !w-6 !fill-gray-600 group-hover:!fill-white" />}
-                            text={t('Xuất file excel')}
-                            onClick={() => navigate(routerLinks('Supplier/Excel'))}
-                          />
-                        )}
-                      </div>
-                    }
+                    showSearch={true}
                     subHeader={() => (
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
                         <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
-                          <h1 className="font-bold mb-3">Chiết khấu cần thanh toán</h1>
+                          <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
                           <span className="text-teal-900 text-xl font-bold mt-auto">0 VND</span>
                         </div>
                       </div>
                     )}
-                  />
-                </div>
-                <div className="flex sm:justify-end justify-center items-center p-5">
-                  <Button
-                    disabled={true}
-                    text={t('Xuất Báo Cáo')}
-                    className={'md:w-[10rem] justify-center out-line'}
-                    onClick={() => { }}
+                    footer={() => (
+                      <div className="w-full flex sm:justify-end justify-center mt-4">
+                        <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                          {t('titles.Export report')}
+                        </button>
+                      </div>
+                    )}
                   />
                 </div>
               </div>

@@ -5,7 +5,7 @@ import { CommonEntity, PaginationQuery } from '@models';
 
 const name = 'Orders';
 
-export const action = new Action<Orders>(name);
+const action = new Action<Orders>(name);
 
 export const OrdersSlice = createSlice(new Slice<Orders>(action));
 

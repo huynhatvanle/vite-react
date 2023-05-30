@@ -6,7 +6,7 @@ import { Supplier } from '@store/supplier';
 
 const name = 'ConnectSupplier';
 
-export const action = new Action<StoreConnectSupplier>(name);
+const action = new Action<StoreConnectSupplier>(name);
 
 export const connectSupplierSlice = createSlice(new Slice<StoreConnectSupplier>(action));
 
