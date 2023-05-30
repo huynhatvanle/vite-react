@@ -392,6 +392,7 @@ export const Form = ({
                     } else if (value?.trim().length > 12) {
                       return Promise.reject(t('components.form.ruleMaxNumberLength', { max: 12 }));
                     }
+                    return Promise.resolve();
                   },
                 }));
                 break;
