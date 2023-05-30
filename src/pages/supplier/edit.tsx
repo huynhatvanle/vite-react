@@ -21,12 +21,11 @@ import { ProvinceFacade } from '@store/address/province';
 import { DownArrow, Download } from '@svgs';
 import { Dropdown, Tabs } from 'antd';
 import dayjs from 'dayjs';
+import { render } from 'react-dom';
 
 const Page = () => {
   const { t } = useTranslation();
 
-  const provinceFacade = ProvinceFacade();
-  const { result } = provinceFacade;
   const supplierFacade = SupplierFacade();
   const { data, isLoading, queryParams, status } = supplierFacade;
   const navigate = useNavigate();
@@ -44,18 +43,16 @@ const Page = () => {
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
-    if (!result?.data) provinceFacade.get({});
-
     if (id) supplierFacade.getById({ id });
 
     return () => {
       isReload.current && supplierFacade.get(param);
     };
-  }, [id, data]);
+  }, [id]);
   useEffect(() => {
     switch (status) {
       case 'put.fulfilled':
-        navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`)
+        navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
         break;
     }
   }, [status]);
@@ -92,14 +89,11 @@ const Page = () => {
         <div className="">
           <Tabs defaultActiveKey="1" type="card" size="large" className="">
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="bg-white rounded-xl rounded-tl-none">
-              <div className="">
+              {!isLoading && (
                 <Form
                   values={{
                     ...data,
                     street: data?.address?.street,
-                    provinceId: data?.address?.province?.name,
-                    districtId: data?.address?.district?.name,
-                    wardId: data?.address?.ward?.name,
                     nameContact: data?.userRole?.[0].userAdmin.name,
                     emailContact: data?.userRole?.[0].userAdmin.email,
                     phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
@@ -146,10 +140,11 @@ const Page = () => {
                       title: 'store.Province',
                       name: 'provinceId',
                       formItem: {
+                        firstLoad: () => ({}),
                         tabIndex: 3,
                         col: 3,
+                        rules: [{ type: 'requiredSelect' }],
                         type: 'select',
-                        rules: [{ type: 'required' }],
                         get: {
                           facade: ProvinceFacade,
                           format: (item: any) => ({
@@ -166,8 +161,9 @@ const Page = () => {
                       title: 'store.District',
                       name: 'districtId',
                       formItem: {
+                        firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
                         type: 'select',
-                        rules: [{ type: 'required' }],
+                        rules: [{ type: 'requiredSelect' }],
                         col: 3,
                         get: {
                           facade: DistrictFacade,
@@ -189,8 +185,9 @@ const Page = () => {
                       title: 'store.Ward',
                       name: 'wardId',
                       formItem: {
+                        firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
                         type: 'select',
-                        rules: [{ type: 'required' }],
+                        rules: [{ type: 'requiredSelect' }],
                         col: 3,
                         get: {
                           facade: WardFacade,
@@ -268,14 +265,14 @@ const Page = () => {
                   disableSubmit={isLoading}
                   handCancel={handleBack}
                 />
-              </div>
+              )}
             </Tabs.TabPane>
             <Tabs.TabPane tab={t('titles.Listofgoods')} key="2" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pb-4">
                   <DataTable
                     facade={productFacade}
-                    defaultRequest={{ page: 1, perPage: 10, supplierId: id, type: 'BALANCE' }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { supplierId: id, type: 'BALANCE', storeId: '' } }}
                     xScroll="895px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
@@ -736,6 +733,7 @@ const Page = () => {
                           name: 'pickUpDate',
                           tableItem: {
                             width: 135,
+                            render: (text: string) => (text ? dayjs(text).format(formatDate) : ''),
                           },
                         },
                         {
@@ -743,6 +741,7 @@ const Page = () => {
                           name: 'completedDate',
                           tableItem: {
                             width: 150,
+                            render: (text: string) => (text ? dayjs(text).format(formatDate) : ''),
                           },
                         },
                         {

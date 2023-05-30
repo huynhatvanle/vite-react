@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import { Button } from '../button';
 import { Pagination } from '../pagination';
-import { DataTableModel, PaginationQuery, TableGet, TableRefObject } from '@models';
+import { DataTableModel, PaginationQuery, TableGet, TableItem, TableRefObject } from '@models';
 import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
 import { Calendar, CheckCircle, CheckSquare, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
@@ -481,7 +481,7 @@ export const DataTable = forwardRef(
               columns={cols.current}
               pagination={false}
               dataSource={loopData(data)}
-              onChange={(pagination: any, filters: any, sorts : any) =>
+              onChange={(pagination: any, filters: any, sorts: any) =>
                 handleTableChange(undefined, filters, sorts as SorterResult<any>, params.fullTextSearch)
               }
               showSorterTooltip={false}
