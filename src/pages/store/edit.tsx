@@ -48,7 +48,7 @@ const Page = () => {
     };
   }, [id]);
   // useEffect(() => {
-  //   productFacede.get({page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'}})
+  //   productFacede.get({page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'}})
   // },[]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
@@ -57,7 +57,7 @@ const Page = () => {
   };
 
   const [isChecked, setIsChecked] = useState(false);
-  const [type, setType] = useState('');
+  // const [type, setType] = useState('');
 
   const handleClick = () => {
     setIsChecked(!isChecked);
@@ -303,7 +303,7 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(false);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'} });
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'} });
                         }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                           BALANCE
                         </div>
@@ -451,7 +451,6 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                console.log(type)
                                 dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: value });
                               },
                             },
@@ -670,14 +669,14 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef1}
                 facade={connectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: {idSuppiler: id, supplierType: type} }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {idSuppiler: data?.id, supplierType: ''} }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
-                onRow={(data: any) => ({
-                  onDoubleClick: () => {
-                    navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                  },
-                })}
+                // onRow={(data: any) => ({
+                //   onDoubleClick: () => {
+                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                //   },
+                // })}
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -777,7 +776,7 @@ const Page = () => {
                 {isBalanceClicked ?
                   <DataTable
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, idStore: id }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: {idStore: data?.id} }}
                     xScroll='1440px'
                     onRow={(data: any) => ({
                       onDoubleClick: () => {
@@ -1019,7 +1018,7 @@ const Page = () => {
                   :
                   <DataTable
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, idStore: id }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: {idStore: id} }}
                     xScroll='1440px'
                     // onRow={(data: any) => ({
                     //   onDoubleClick: () => {
@@ -1186,7 +1185,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
                 facade={inventoryProductFacade}
-                defaultRequest={{ page: 1, perPage: 10, idStore: id }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {idStore: data?.id} }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}

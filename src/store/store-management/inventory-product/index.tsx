@@ -12,8 +12,9 @@ const action = {
   ...new Action<IventoryProduct>(name),
   getInventoryProduct: createAsyncThunk(
     name + '/get',
-    async (params: PaginationQuery<IventoryProduct>) => {
-      const { data } = await API.get(routerLinks(name, 'api'), params);
+    async ({page, perPage, filter} : {page: number, perPage: number, filter: {idStore?: string}}) => {
+      const filterInventoryProduct = JSON.parse( filter.toString() || '{}' )
+      const { data } = await API.get(routerLinks(name, 'api'), {page, perPage, idStore: filterInventoryProduct.idStore});
       console.log(data)
       console.log((data as any).inventory[0])
       return (data as any).inventory[0];
@@ -60,7 +61,7 @@ export const InventoryProductFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<IventoryProduct>),
     set: (values: State<IventoryProduct>) => dispatch(action.set(values)),
-    get: (params: PaginationQuery<IventoryProduct>) => dispatch(action.getInventoryProduct(params)),
+    get: ({page, perPage, filter} : {page: number, perPage: number, filter: {idStore?: string}}) => dispatch(action.getInventoryProduct({page,perPage,filter})),
   };
 };
 

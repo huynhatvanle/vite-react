@@ -17,18 +17,18 @@ const Page = () => {
   const param = JSON.parse(queryParams || '{}');
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
-  useEffect(() => {
-    if (!result?.data) storeFace.get({ page: 1, perPage: 10, filter: {type: 'STORE'}, })
+  // useEffect(() => {
+  //   if (!result?.data) storeFace.get({ page: 1, perPage: 10, filter: {type: 'STORE'}, })
 
-    return () => {
-      isReload.current && storeFace.get(param);
-    };
-  }, [result?.data]);
+  //   return () => {
+  //     isReload.current && storeFace.get(param);
+  //   };
+  // }, [result?.data]);
 
   return (
     <DataTable
       facade={storeFace}
-      defaultRequest={{ page: 1, perPage: 10, filter: {type: 'STORE'}, }}
+      defaultRequest={{ page: 1, perPage: 10, filter: {type: 'STORE'}, fullTextSearch: ''}}
       xScroll='1440px'
       className=' bg-white p-5 rounded-lg'
       onRow={(data: any) => ({

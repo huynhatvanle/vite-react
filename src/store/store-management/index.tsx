@@ -12,9 +12,9 @@ const action = {
   ...new Action<StoreManagement>(name),
   getStore: createAsyncThunk(
     name + '/get',
-    async ({page, perPage, filter} : {page: number, perPage: number, filter: {type?: string}}) => {
-      console.log(filter)
-     return await API.get(routerLinks(name, 'api'), {page, perPage, type: filter.type})
+    async ({page, perPage, filter, fullTextSearch} : {page: number, perPage: number, filter: {type?: string}, fullTextSearch: string}) => {
+      const filterStore = JSON.parse(filter.toString() || '{}');
+     return await API.get(routerLinks(name, 'api'), {page, perPage, type: filterStore.type, fullTextSearch: fullTextSearch})
     }
   ),
   getByIdStore: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id: string; keyState: keyof State<StoreManagement> }) => {
@@ -137,7 +137,7 @@ export const StoreFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<StoreManagement>),
     set: (values: State<StoreManagement>) => dispatch(action.set(values)),
-    get: ({page, perPage, filter} : {page: number, perPage: number, filter: {type?: string}}) => dispatch(action.getStore({page,perPage,filter})),
+    get: ({page, perPage, filter, fullTextSearch} : {page: number, perPage: number, filter: {type?: string}, fullTextSearch: string}) => dispatch(action.getStore({page,perPage,filter, fullTextSearch})),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<StoreManagement> }) =>
       dispatch(action.getByIdStore({ id, keyState })),
     post: (values: StoreManagement) => dispatch(action.postStore(values)),

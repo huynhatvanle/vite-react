@@ -11,7 +11,11 @@ const action = {
     ...new Action<StoreConnectSupplier>(name),
     getStoreConnectSupplier: createAsyncThunk(
         name + '/get',
-        async ({page, perPage, filter} : {page: number, perPage: number, filter: {idSuppiler: number, supplierType: string}}) => await API.get(routerLinks(name, 'api'), {page, perPage, idSupplier: filter.idSuppiler, supplierType: filter.supplierType}),
+        async ({page, perPage, filter} : {page: number, perPage: number, filter: {idSuppiler: number, supplierType: string}}) => {
+            const filterStoreConnectSupplier = JSON.parse(filter.toString() || '{}')
+            console.log(filterStoreConnectSupplier)
+            return await API.get(routerLinks(name, 'api'), {page, perPage, idSuppiler: filterStoreConnectSupplier.idSuppiler, supplierType: filterStoreConnectSupplier.supplierType})
+        }
       ),
 }
 
