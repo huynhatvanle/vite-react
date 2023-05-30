@@ -78,6 +78,7 @@ export const DataTable = forwardRef(
       className = 'data-table',
       facade = {},
       data,
+      row,
       ...prop
     }: Type,
     ref: Ref<TableRefObject>,
@@ -531,4 +532,5 @@ type Type = {
   className?: string;
   facade?: any;
   data?: any[];
+  row?: any;
 };

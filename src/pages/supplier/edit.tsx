@@ -42,6 +42,8 @@ const Page = () => {
   const inventoryOrders = inventoryOrdersFacade();
   const [test, setTest] = useState('1');
 
+  // console.log('aaaaaaaaaaaaaaaaaa', discountFacade.getById({ id },{param}));
+
   useEffect(() => {
     if (!result?.data) provinceFacade.get({});
 
@@ -529,6 +531,7 @@ const Page = () => {
                         },
                       },
                     ]}
+                    row={<div>222222222222222222222</div>}
                   />
                 </div>
               </div>
