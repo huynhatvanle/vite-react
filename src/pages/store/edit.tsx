@@ -46,6 +46,9 @@ const Page = () => {
       isReload.current && storeFacade.get(param);
     };
   }, [id]);
+  // useEffect(() => {
+  //   productFacede.get({page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'}})
+  // },[]);
 
   const handleBack = () => navigate(routerLinks('Store') + '?' + new URLSearchParams(param).toString());
   const handleSubmit = (values: StoreManagement) => {
@@ -300,7 +303,7 @@ const Page = () => {
                         <div onClick={() => {
                           setType('BALANCE')
                           setIsBalanceClicked(false);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' });
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'} });
                         }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                           BALANCE
                         </div>
@@ -313,7 +316,7 @@ const Page = () => {
                         <div onClick={() => {
                           setType('NON_BALANCE')
                           setIsBalanceClicked(true);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'NON_BALANCE' });
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'NON_BALANCE'} });
                         }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                           Non - BALANCE
                         </div>
@@ -335,7 +338,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef}
                 facade={productFacede}
-                defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE' }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'} }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
                 // onRow={(data: any) => ({
@@ -545,7 +548,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
-                defaultRequest={{ page: 1, perPage: 10, storeId: data?.id, supplierType: 'BALANCE' }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, supplierType: 'BALANCE'} }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
                 // onRow={(data: any) => ({
@@ -636,7 +639,7 @@ const Page = () => {
                         label: (
                           <div onClick={() => {
                             setIsBalanceClicked(false);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'BALANCE' });
+                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: {idSuppiler: id, supplierType: 'BALANCE'} });
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             BALANCE
                           </div>
@@ -648,7 +651,7 @@ const Page = () => {
                         label: (
                           <div onClick={() => {
                             setIsBalanceClicked(true);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, idSuppiler: id, supplierType: 'NON_BALANCE' });
+                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: {idSuppiler: id, supplierType: 'NON_BALANCE'} });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
@@ -669,7 +672,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef1}
                 facade={connectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, idSuppiler: id, type: type }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {idSuppiler: id, supplierType: type} }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 onRow={(data: any) => ({

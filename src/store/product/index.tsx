@@ -1,11 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 import { CommonEntity, PaginationQuery } from '@models';
+import { API, routerLinks } from '@utils';
 
 const name = 'Product';
 
-const action = new Action<Product>(name);
+const action = {
+    ...new Action<Product>(name),
+    getProduct: createAsyncThunk(
+        name + '/get',
+        async ({page, perPage, filter} : {page: number, perPage: number, filter: {storeId?: string, type: string}}) => {
+            console.log(page, perPage,filter, filter.type, filter.storeId)
+            const data = await API.get(routerLinks(name, 'api'), {page, perPage,storeId: filter.storeId, type: filter.type})
+            return data
+        }
+      ),
+}
 
 export const productSlice = createSlice(new Slice<Product>(action));
 
@@ -14,7 +25,11 @@ export const ProductFacade = () => {
     return {
         ...(useTypedSelector((state) => state[action.name]) as State<Product>),
         set: (values: State<Product>) => dispatch(action.set(values)),
-        get: (params: PaginationQuery<Product>) => dispatch(action.get(params)),
+        // get: (params: PaginationQuery<Product>) => dispatch(action.get(params)),
+        get: ({page, perPage, filter} : {page: number, perPage: number, filter: {storeId?: string, type: string}}) => {
+            console.log(page, perPage, filter)
+            return dispatch(action.getProduct({page,perPage,filter}))
+        },
         getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Product> }) =>
             dispatch(action.getById({ id, keyState })),
         post: (values: Product) => dispatch(action.post(values)),

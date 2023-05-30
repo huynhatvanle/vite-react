@@ -17,7 +17,7 @@ const Page = () => {
   const param = JSON.parse(queryParams || '{}');
 
   useEffect(() => {
-    if (!result?.data) storeFace.get({ page: 1, perPage: 10, type: 'STORE' })
+    if (!result?.data) storeFace.get({ page: 1, perPage: 10, filter: {type: 'STORE'}, })
 
     return () => {
       isReload.current && storeFace.get(param);
@@ -27,7 +27,7 @@ const Page = () => {
   return (
     <DataTable
       facade={storeFace}
-      defaultRequest={{ page: 1, perPage: 10, type: 'STORE' }}
+      // defaultRequest={{ page: 1, perPage: 10, filter: {type: 'STORE'}, }}
       xScroll='1440px'
       className=' bg-white p-5 rounded-lg'
       onRow={(data: any) => ({
