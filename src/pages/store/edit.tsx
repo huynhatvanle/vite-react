@@ -406,7 +406,6 @@ const Page = () => {
                 paginationDescription={(from: number, to: number, total: number) =>
                   t('routes.admin.Layout.PaginationProduct', { from, to, total })
                 }
-
                 rightHeader={
                   <div className={'flex h-10 w-36'}>
                     {
@@ -454,7 +453,7 @@ const Page = () => {
                       }
                     />
                     <Form
-                      className="intro-x rounded-lg w-full form-store "
+                      className="intro-x rounded-lg w-full form-store"
                       columns={
                         [
                           {
@@ -528,13 +527,15 @@ const Page = () => {
                   </>
                 }
               />
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line absolute mt-4'}
-                onClick={() => {
-                  navigate(routerLinks('Store'))
-                }}
-              />
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={() => {
+                    navigate(routerLinks('Store'))
+                  }}
+                />
+              </div>
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
@@ -605,13 +606,15 @@ const Page = () => {
                   </div>
                 }
               />
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line absolute mt-4'}
-                onClick={() => {
-                  navigate(routerLinks('Store'))
-                }}
-              />
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={() => {
+                    navigate(routerLinks('Store'))
+                  }}
+                />
+              </div>
             </Tabs.TabPane>
 
             <Tabs.TabPane
@@ -713,13 +716,15 @@ const Page = () => {
                   },
                 ]}
               />
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line absolute mt-4'}
-                onClick={() => {
-                  navigate(routerLinks('Store'))
-                }}
-              />
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={() => {
+                    navigate(routerLinks('Store'))
+                  }}
+                />
+              </div>
             </Tabs.TabPane>
 
             <Tabs.TabPane
@@ -1076,9 +1081,9 @@ const Page = () => {
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
-                      <div className='flex justify-end w-full text-left flex-col'>
+                      <div className='flex sm:justify-end w-full text-left flex-col'>
                         <Form
-                          className="intro-x flex justify-start mt-4 lg:justify-end lg:mt-0 form-store"
+                          className="intro-x flex mt-4 sm:justify-end lg:mt-0 form-store"
                           columns={
                             [
                               {
@@ -1160,18 +1165,20 @@ const Page = () => {
                   <Button
                     disabled={true}
                     text={t('titles.Export report')}
-                    className={'md:w-[10rem] justify-center !bg-teal-800'}
+                    className={'sm:w-[10rem] justify-center !bg-teal-800 flex '}
                     onClick={() => null}
                   />
                 </div>
               </div>
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line absolute mt-4'}
-                onClick={() => {
-                  navigate(routerLinks('Supplier'))
-                }}
-              />
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={() => {
+                    navigate(routerLinks('Store'))
+                  }}
+                />
+              </div>
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
@@ -1308,13 +1315,15 @@ const Page = () => {
                   />
                 }
               />
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line absolute mt-4'}
-                onClick={() => {
-                  navigate(routerLinks('Store'))
-                }}
-              />
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={() => {
+                    navigate(routerLinks('Store'))
+                  }}
+                />
+              </div>
             </Tabs.TabPane>
           </Tabs>
         </div>

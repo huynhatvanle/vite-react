@@ -461,7 +461,7 @@ export const DataTable = forwardRef(
               )}
             </div>
           ) : (
-            <div />
+            <div className="hidden"></div>
           )}
           {!!leftHeader && <div className={'mt-2 sm:mt-0'}>{leftHeader}</div>}
           {!!rightHeader && <div className={'mt-2 sm:mt-0'}>{rightHeader}</div>}
@@ -480,7 +480,7 @@ export const DataTable = forwardRef(
               columns={cols.current}
               pagination={false}
               dataSource={loopData(data)}
-              onChange={(pagination: any, filters: any, sorts : any) =>
+              onChange={(pagination: any, filters: any, sorts: any) =>
                 handleTableChange(undefined, filters, sorts as SorterResult<any>, params.fullTextSearch)
               }
               showSorterTooltip={false}
