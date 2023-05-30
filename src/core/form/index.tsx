@@ -326,16 +326,20 @@ export const Form = ({
           .map((rule: any) => {
             switch (rule.type) {
               case 'required':
-                if (!rule.message) rule.message = t('components.form.ruleRequired', { title: t(item.title).toLowerCase() });
-                rules.push({
-                  required: true,
-                  message: rule.message,
-                });
-                if (!item.formItem.type) {
-                  rules.push({
-                    whitespace: true,
-                    message: t('components.form.ruleRequired'),
-                  });
+                switch (item.formItem.type) {
+                  case 'select':
+                  case 'tree_select':
+                    rules.push({
+                      required: true,
+                      message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+                    });
+                    break;
+                  default:
+                    rules.push({
+                      whitespace: true,
+                      message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
+                    });
+                    break;
                 }
                 break;
               case 'email':
@@ -544,7 +548,7 @@ export const Form = ({
                 let min = 8;
                 rules.forEach((item: any) => item.min && (min = item.min));
                 if (value.trim().length < min) {
-                  return Promise.reject(t('components.form.Form Password.Lenght Password'));
+                  return Promise.reject(t('components.form.ruleMinNumberLength', { min }));
                 }
                 if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value)) {
                   return Promise.resolve();

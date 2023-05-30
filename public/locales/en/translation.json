@@ -13,7 +13,8 @@
       "No Data": "No Data"
     },
     "form": {
-      "ruleRequired": "This is a required field!",
+      "ruleRequired": "Please enter {{title}}",
+      "ruleRequiredSelect": "Please enter {{title}}",
       "ruleEmail": "Please enter a valid email address!",
       "ruleUsername": "Username contains no special characters, only letters and numbers!",
       "ruleMinLength": "Please enter at least {{min}} characters!",
@@ -31,6 +32,7 @@
       "ruleConfirmPassword": "Two passwords that you enter is inconsistent!",
       "incorrectPathFormat": "Incorrect path format",
       "Enter": "Enter",
+      "Choose": "Choose",
       "Upload": "Upload",
       "modal": {
         "save": "Save",
