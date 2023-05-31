@@ -339,6 +339,7 @@ export const Form = ({
     }
     if (item.formItem) {
       const rules: any = [];
+      if (!item.formItem.type) item.formItem.type = 'text';
 
       if (item.formItem.rules) {
         item.formItem.rules
@@ -347,11 +348,15 @@ export const Form = ({
             switch (rule.type) {
               case 'required':
                 switch (item.formItem.type) {
-                  case 'select':
-                  case 'tree_select':
+                  case 'text':
+                  case 'number':
+                  case 'hidden':
+                  case 'password':
+                  case 'textarea':
                     rules.push({
                       required: true,
-                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
+                      whitespace: true,
+                      message: t(rule.message || 'components.form.ruleRequired', {
                         title: t(item.title).toLowerCase(),
                       }),
                     });
@@ -359,8 +364,7 @@ export const Form = ({
                   default:
                     rules.push({
                       required: true,
-                      whitespace: true,
-                      message: t(rule.message || 'components.form.ruleRequired', {
+                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
                         title: t(item.title).toLowerCase(),
                       }),
                     });
