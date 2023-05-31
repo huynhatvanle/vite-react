@@ -10,11 +10,23 @@ const action = {
   ...new Action<Orders>(name),
   getOrder: createAsyncThunk(
     name + '/get',
-    async ({ page, perPage, filter }: { page: number; perPage: number; filter: { filterSupplier?: string } }) => {
+    async ({
+      page,
+      perPage,
+      filter,
+      fullTextSearch,
+    }: {
+      page: number;
+      perPage: number;
+      filter: { filterSupplier?: string };
+      fullTextSearch: string;
+    }) => {
+      const filterOrder = JSON.parse(filter.toString() || '{}');
       const data = await API.get(routerLinks(name, 'api'), {
         page,
         perPage,
-        filterSupplier: filter.filterSupplier,
+        filterSupplier: filterOrder.filterSupplier,
+        fullTextSearch: fullTextSearch,
       });
       return data;
     },
@@ -28,8 +40,17 @@ export const OrdersFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<Orders>),
     set: (values: State<Orders>) => dispatch(action.set(values)),
-    get: ({ page, perPage, filter }: { page: number; perPage: number; filter: { filterSupplier?: string } }) =>
-      dispatch(action.getOrder({ page, perPage, filter })),
+    get: ({
+      page,
+      perPage,
+      filter,
+      fullTextSearch,
+    }: {
+      page: number;
+      perPage: number;
+      filter: { filterSupplier?: string };
+      fullTextSearch: string;
+    }) => dispatch(action.getOrder({ page, perPage, filter, fullTextSearch })),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Orders> }) =>
       dispatch(action.getById({ id, keyState })),
     post: (values: Orders) => dispatch(action.post(values)),

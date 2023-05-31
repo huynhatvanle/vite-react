@@ -18,7 +18,6 @@ const Page = () => {
 
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
-
   console.log('statusSupplier', status);
 
   const data = Supplier;
@@ -26,7 +25,7 @@ const Page = () => {
   useEffect(() => {
     switch (status) {
       case 'post.fulfilled':
-        navigate(`/${lang}${routerLinks('Supplier')}`)
+        navigate(`/${lang}${routerLinks('Supplier')}`);
         break;
     }
   }, [status]);
@@ -48,9 +47,9 @@ const Page = () => {
               title: 'supplier.Name',
               name: 'name',
               formItem: {
+                rules: [{ type: 'required' }],
                 tabIndex: 2,
                 col: 6,
-                rules: [{ type: 'required' }],
               },
             },
             {

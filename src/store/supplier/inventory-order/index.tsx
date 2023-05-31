@@ -15,16 +15,20 @@ const action = {
       page,
       perPage,
       filter,
+      fullTextSearch,
     }: {
       page: number;
       perPage: number;
       filter: { idSuppiler?: string; filterDate?: any };
+      fullTextSearch: string;
     }) => {
+      const filterInven = JSON.parse(filter.toString() || '{}');
       const data = await API.get(routerLinks(name, 'api'), {
         page,
         perPage,
-        idSuppiler: filter.idSuppiler,
-        filterDate: filter.filterDate,
+        idSuppiler: filterInven.idSuppiler,
+        filterDate: filterInven.filterDate,
+        fullTextSearch: fullTextSearch,
       });
       return data;
     },
@@ -42,11 +46,13 @@ export const inventoryOrdersFacade = () => {
       page,
       perPage,
       filter,
+      fullTextSearch,
     }: {
       page: number;
       perPage: number;
       filter: { idSuppiler?: string; filterDate?: any };
-    }) => dispatch(action.getOrder({ page, perPage, filter })),
+      fullTextSearch: string;
+    }) => dispatch(action.getOrder({ page, perPage, filter, fullTextSearch })),
   };
 };
 

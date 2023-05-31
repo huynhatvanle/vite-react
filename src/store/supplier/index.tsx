@@ -23,7 +23,7 @@ const action = {
     }: {
       page: number;
       perPage: number;
-      filter: { type?: string; fullTextSearch?: string };
+      filter: { type?: string };
       fullTextSearch: string;
     }) => {
       const filterSup = JSON.parse(filter.toString() || '{}');
@@ -159,7 +159,7 @@ export const SupplierFacade = () => {
     }: {
       page: number;
       perPage: number;
-      filter: { type?: string; fullTextSearch?: string };
+      filter: { type?: string };
       fullTextSearch: string;
     }) => dispatch(action.getSup({ page, perPage, filter, fullTextSearch })),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Supplier> }) =>

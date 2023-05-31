@@ -272,7 +272,11 @@ const Page = () => {
                 <div className="px-5 pb-4">
                   <DataTable
                     facade={productFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { supplierId: id, type: 'BALANCE', storeId: '' } }}
+                    defaultRequest={{
+                      page: 1,
+                      perPage: 10,
+                      filter: { supplierId: data?.id, type: 'BALANCE', storeId: '' },
+                    }}
                     xScroll="895px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
@@ -340,7 +344,7 @@ const Page = () => {
                               <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
                             }
                             text={t('titles.Export Excel file')}
-                            onClick={() =>  navigate(`/${lang}${routerLinks('Supplier/Exce')}`)}
+                            onClick={() => navigate(`/${lang}${routerLinks('Supplier/Exce')}`)}
                           />
                         }
                       </div>
@@ -434,7 +438,7 @@ const Page = () => {
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
                     facade={ordersFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { filterSupplier: id } }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { filterSupplier: data?.id }, fullTextSearch: '' }}
                     xScroll="1400px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
@@ -534,7 +538,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(`/${lang}${routerLinks('Supplier')}`)
+                  navigate(`/${lang}${routerLinks('Supplier')}`);
                 }}
               />
             </Tabs.TabPane>
@@ -589,6 +593,7 @@ const Page = () => {
                           idSuppiler: id,
                           filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
                         },
+                        fullTextSearch: '',
                       }}
                       xScroll="1400px"
                       pageSizeRender={(sizePage: number) => sizePage}
@@ -819,76 +824,6 @@ const Page = () => {
                 test === '2' && (
                   <div className={'w-full mx-auto bg-white rounded-xl'}>
                     <div className="px-5 pt-6 pb-4">
-                      <Form
-                        className="intro-x pt-6 rounded-lg w-full "
-                        columns={[
-                          {
-                            title: '',
-                            name: 'cap1',
-                            formItem: {
-                              tabIndex: 3,
-                              placeholder: 'Danh mục chính',
-                              col: 3,
-                              type: 'select',
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                              },
-                              onChange(value, form) {
-                                form.resetFields(['cap2', 'cap3']);
-                              },
-                            },
-                          },
-                          {
-                            name: 'cap2',
-                            title: '',
-                            formItem: {
-                              disabled: () => true,
-                              placeholder: 'Danh mục cấp 1',
-                              type: 'select',
-                              col: 3,
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                                params: (fullTextSearch, value) => ({
-                                  fullTextSearch,
-                                  id: value().cap1,
-                                }),
-                              },
-                              onChange(value, form) {
-                                form.resetFields(['cap3']);
-                              },
-                            },
-                          },
-                          {
-                            name: 'cap3',
-                            title: '',
-                            formItem: {
-                              disabled: () => true,
-                              placeholder: 'Danh mục cấp 2',
-                              type: 'select',
-                              col: 3,
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                                params: (fullTextSearch, value) => ({
-                                  fullTextSearch,
-                                  id: value().cap2,
-                                }),
-                              },
-                            },
-                          },
-                        ]}
-                      />
                       <DataTable
                         facade={inventoryOrders}
                         defaultRequest={{
@@ -898,6 +833,7 @@ const Page = () => {
                             idSuppiler: id,
                             filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
                           },
+                          fullTextSearch: '',
                         }}
                         xScroll="1400px"
                         pageSizeRender={(sizePage: number) => sizePage}
@@ -905,6 +841,78 @@ const Page = () => {
                         paginationDescription={(from: number, to: number, total: number) =>
                           t('routes.admin.Layout.Pagination', { from, to, total })
                         }
+                        subHeader={() => (
+                          <Form
+                            className="intro-x -mt-5 rounded-lg w-full "
+                            columns={[
+                              {
+                                title: '',
+                                name: 'cap1',
+                                formItem: {
+                                  tabIndex: 3,
+                                  placeholder: 'Danh mục chính',
+                                  col: 3,
+                                  type: 'select',
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap2', 'cap3']);
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap2',
+                                title: '',
+                                formItem: {
+                                  disabled: () => true,
+                                  placeholder: 'Danh mục cấp 1',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap1,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap3']);
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap3',
+                                title: '',
+                                formItem: {
+                                  disabled: () => true,
+                                  placeholder: 'Danh mục cấp 2',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap2,
+                                    }),
+                                  },
+                                },
+                              },
+                            ]}
+                          />
+                        )}
                         rightHeader={
                           <div className="flex items-end justify-between">
                             <Form
@@ -1199,7 +1207,7 @@ const Page = () => {
                 text={t('Trở về')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(`/${lang}${routerLinks('Supplier')}`)
+                  navigate(`/${lang}${routerLinks('Supplier')}`);
                 }}
               />
             </Tabs.TabPane>
