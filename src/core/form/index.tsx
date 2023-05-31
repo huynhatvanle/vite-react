@@ -25,7 +25,6 @@ export const Form = ({
   widthLabel,
   checkHidden = false,
   extendForm,
-  extendFormSwitch,
   extendButton,
   idSubmit = 'idSubmit',
   disableSubmit = false,
@@ -320,6 +319,7 @@ export const Form = ({
     }
     if (item.formItem) {
       const rules: any = [];
+      if (!item.formItem.type) item.formItem.type = 'text';
 
       if (item.formItem.rules) {
         item.formItem.rules
@@ -329,11 +329,15 @@ export const Form = ({
               case 'required':
                 // console.log(item.fo)
                 switch (item.formItem.type) {
-                  case 'select':
-                  case 'tree_select':
+                  case 'text':
+                  case 'number':
+                  case 'hidden':
+                  case 'password':
+                  case 'textarea':
                     rules.push({
                       required: true,
-                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
+                      whitespace: true,
+                      message: t(rule.message || 'components.form.ruleRequired', {
                         title: t(item.title).toLowerCase(),
                       }),
                     });
@@ -341,8 +345,7 @@ export const Form = ({
                   default:
                     rules.push({
                       required: true,
-                      whitespace: true,
-                      message: t(rule.message || 'components.form.ruleRequired', {
+                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
                         title: t(item.title).toLowerCase(),
                       }),
                     });
@@ -659,7 +662,6 @@ export const Form = ({
               ),
           )}
         </div>
-        {extendFormSwitch}
         {extendForm && extendForm(values)}
       </div>
 
@@ -707,8 +709,7 @@ type Type = {
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?: (values: any) => JSX.Element;
-  extendFormSwitch?: JSX.Element;
+  extendForm?: (values: any) => JSX.Element ;
   extendButton?: (values: any) => JSX.Element;
   idSubmit?: string;
   disableSubmit?: boolean;
