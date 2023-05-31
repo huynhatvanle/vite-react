@@ -29,11 +29,11 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'post.fulfilled')
-    navigate(`/${lang}${routerLinks('Store')}`)
+      navigate(`/${lang}${routerLinks('Store')}`)
   }, [status]);
 
-  const handleBack = () =>  navigate(`/${lang}${routerLinks('Store')}`)
- // navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`)
+  // navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
     storeFace.post(values);
   };
@@ -67,7 +67,7 @@ const Page = () => {
               formItem: {
                 tabIndex: 2,
                 col: 6,
-                rules: [{ type: 'phone', min: 8 , max: 12 }],
+                rules: [{ type: 'phone', min: 8, max: 12 }],
               },
             },
             {
@@ -177,7 +177,7 @@ const Page = () => {
               title: 'store.Contact Phone Number',
               formItem: {
                 col: 4,
-                rules: [{ type: 'required' },{ type: 'phone', min: 8 , max: 12 }],
+                rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
               },
             },
             {
@@ -185,7 +185,7 @@ const Page = () => {
               title: 'store.Contact Email',
               formItem: {
                 col: 4,
-                rules: [{ type: 'required' },{ type: 'email' }],
+                rules: [{ type: 'required' }, { type: 'email' }],
               },
             },
             {
@@ -199,57 +199,59 @@ const Page = () => {
 
           extendForm=
           {(values) => (
-          <div className='items-center justify-between mb-2.5 '>
-            <div className='flex'>
-              <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
-              <Switch onClick={handleClick} />
-            </div>
-            {isChecked && (
-              <Button className='!font-normal' text={t('store.Get branch DS')} />
-            )}
-            {isChecked && (
-              <Form
-              values={{ ...data }}
-              columns={[
-                {
-                  title: 'client_id',
-                  name: 'clientid',
-                  formItem: {
-                    tabIndex: 1,
-                    col: 6,
-                    rules: [{ type: 'required' },],
-                  },
-                },
-                {
-                  title: 'client_secret',
-                  name: 'clientsecret',
-                  formItem: {
-                    tabIndex: 2,
-                    col: 6,
-                    rules: [{ type: 'required' },],
-                  },
-                },
-                {
-                  title: 'retailer',
-                  name: 'retailer',
-                  formItem: {
-                    tabIndex: 1,
-                    col: 6,
-                    rules: [{ type: 'required' },],
-                  },
-                },
-                {
-                  title: 'branchId',
-                  name: 'branchid',
-                  formItem: {
-                    tabIndex: 2,
-                    col: 6,
-                    rules: [{ type: 'required' },],
-                  },
-                },
-              ]}/>
-            )}
-          </div>
+            <>
+              <div className='flex items-center justify-between mb-2.5'>
+                <div className='flex'>
+                  <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
+                  <Switch onClick={handleClick} />
+                </div>
+                {isChecked && (
+                  <Button className='!font-normal' text={t('store.Get branch DS')} />
+                )}
+              </div>
+              {isChecked && (
+                <Form
+                  values={{ ...data }}
+                  columns={[
+                    {
+                      title: 'client_id',
+                      name: 'clientid',
+                      formItem: {
+                        tabIndex: 1,
+                        col: 6,
+                        rules: [{ type: 'required' },],
+                      },
+                    },
+                    {
+                      title: 'client_secret',
+                      name: 'clientsecret',
+                      formItem: {
+                        tabIndex: 2,
+                        col: 6,
+                        rules: [{ type: 'required' },],
+                      },
+                    },
+                    {
+                      title: 'retailer',
+                      name: 'retailer',
+                      formItem: {
+                        tabIndex: 1,
+                        col: 6,
+                        rules: [{ type: 'required' },],
+                      },
+                    },
+                    {
+                      title: 'branchId',
+                      name: 'branchid',
+                      formItem: {
+                        tabIndex: 2,
+                        col: 6,
+                        rules: [{ type: 'required' },],
+                      },
+                    },
+                  ]} />
+              )}
+            </>
           )}
 
           handSubmit={handleSubmit}

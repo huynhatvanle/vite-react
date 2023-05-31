@@ -227,65 +227,62 @@ const Page = () => {
                     },
                   ]}
 
-                  extendFormSwitch=
-                  {<div className='flex items-center justify-between mb-2.5 '>
-                    <div className='flex'>
-                      <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
-                      <Switch onClick={handleClick} />
-                    </div>
-                    {isChecked && (
-                      <Button className='!font-normal' text={t('store.Get branch DS')} />
-                    )}
-                  </div>}
-
                   extendForm=
-                  {isChecked ? (values: any) => (
-                    <Form
-                      values={{ ...data }}
-                      className='form-store'
-                      columns={[
-                        {
-                          title: 'client_id',
-                          name: 'clientid',
-                          formItem: {
-                            tabIndex: 1,
-                            col: 6,
-                            rules: [{ type: 'required' },],
-                          },
-                        },
-                        {
-                          title: 'client_secret',
-                          name: 'clientsecret',
-                          formItem: {
-                            tabIndex: 2,
-                            col: 6,
-                            rules: [{ type: 'required' },],
-                          },
-                        },
-                        {
-                          title: 'retailer',
-                          name: 'retailer',
-                          formItem: {
-                            tabIndex: 1,
-                            col: 6,
-                            rules: [{ type: 'required' },],
-                          },
-                        },
-                        {
-                          title: 'branchId',
-                          name: 'branchid',
-                          formItem: {
-                            tabIndex: 2,
-                            col: 6,
-                            rules: [{ type: 'required' }],
-                          },
-                        },
-                      ]}
-                    />
-                  )
-                    :
-                    undefined
-                  }
+                  {(values) => (
+                    <>
+                      <div className='flex items-center justify-between mb-2.5'>
+                        <div className='flex'>
+                          <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
+                          <Switch onClick={handleClick} />
+                        </div>
+                        {isChecked && (
+                          <Button className='!font-normal' text={t('store.Get branch DS')} />
+                        )}
+                      </div>
+                      {isChecked && (
+                        <Form
+                          values={{ ...data }}
+                          columns={[
+                            {
+                              title: 'client_id',
+                              name: 'clientid',
+                              formItem: {
+                                tabIndex: 1,
+                                col: 6,
+                                rules: [{ type: 'required' },],
+                              },
+                            },
+                            {
+                              title: 'client_secret',
+                              name: 'clientsecret',
+                              formItem: {
+                                tabIndex: 2,
+                                col: 6,
+                                rules: [{ type: 'required' },],
+                              },
+                            },
+                            {
+                              title: 'retailer',
+                              name: 'retailer',
+                              formItem: {
+                                tabIndex: 1,
+                                col: 6,
+                                rules: [{ type: 'required' },],
+                              },
+                            },
+                            {
+                              title: 'branchId',
+                              name: 'branchid',
+                              formItem: {
+                                tabIndex: 2,
+                                col: 6,
+                                rules: [{ type: 'required' },],
+                              },
+                            },
+                          ]} />
+                      )}
+                    </>
+                  )}
                   handSubmit={handleSubmit}
                   disableSubmit={isLoading}
                   handCancel={handleBack}
