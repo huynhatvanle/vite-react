@@ -70,7 +70,7 @@ const Page = () => {
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='6' type='card' size='large'>
+          <Tabs defaultActiveKey='1' type='card' size='large'>
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               {!isLoading && (
                 <Form
@@ -227,65 +227,62 @@ const Page = () => {
                     },
                   ]}
 
-                  extendFormSwitch=
-                  {<div className='flex items-center justify-between mb-2.5 '>
-                    <div className='flex'>
-                      <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
-                      <Switch onClick={handleClick} />
-                    </div>
-                    {isChecked && (
-                      <Button className='!font-normal' text={t('store.Get branch DS')} />
-                    )}
-                  </div>}
-
                   extendForm=
-                  {isChecked ? (values: any) => (
-                    <Form
-                      values={{ ...data }}
-                      className='form-store'
-                      columns={[
-                        {
-                          title: 'client_id',
-                          name: 'clientid',
-                          formItem: {
-                            tabIndex: 1,
-                            col: 6,
-                            rules: [{ type: 'required' },],
-                          },
-                        },
-                        {
-                          title: 'client_secret',
-                          name: 'clientsecret',
-                          formItem: {
-                            tabIndex: 2,
-                            col: 6,
-                            rules: [{ type: 'required' },],
-                          },
-                        },
-                        {
-                          title: 'retailer',
-                          name: 'retailer',
-                          formItem: {
-                            tabIndex: 1,
-                            col: 6,
-                            rules: [{ type: 'required' },],
-                          },
-                        },
-                        {
-                          title: 'branchId',
-                          name: 'branchid',
-                          formItem: {
-                            tabIndex: 2,
-                            col: 6,
-                            rules: [{ type: 'required' }],
-                          },
-                        },
-                      ]}
-                    />
-                  )
-                    :
-                    undefined
-                  }
+                  {(values) => (
+                    <>
+                      <div className='flex items-center justify-between mb-2.5'>
+                        <div className='flex'>
+                          <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
+                          <Switch onClick={handleClick} />
+                        </div>
+                        {isChecked && (
+                          <Button className='!font-normal' text={t('store.Get branch DS')} />
+                        )}
+                      </div>
+                      {isChecked && (
+                        <Form
+                          values={{ ...data }}
+                          columns={[
+                            {
+                              title: 'client_id',
+                              name: 'clientid',
+                              formItem: {
+                                tabIndex: 1,
+                                col: 6,
+                                rules: [{ type: 'required' },],
+                              },
+                            },
+                            {
+                              title: 'client_secret',
+                              name: 'clientsecret',
+                              formItem: {
+                                tabIndex: 2,
+                                col: 6,
+                                rules: [{ type: 'required' },],
+                              },
+                            },
+                            {
+                              title: 'retailer',
+                              name: 'retailer',
+                              formItem: {
+                                tabIndex: 1,
+                                col: 6,
+                                rules: [{ type: 'required' },],
+                              },
+                            },
+                            {
+                              title: 'branchId',
+                              name: 'branchid',
+                              formItem: {
+                                tabIndex: 2,
+                                col: 6,
+                                rules: [{ type: 'required' },],
+                              },
+                            },
+                          ]} />
+                      )}
+                    </>
+                  )}
                   handSubmit={handleSubmit}
                   disableSubmit={isLoading}
                   handCancel={handleBack}
@@ -351,7 +348,7 @@ const Page = () => {
                   perPage: 10,
                   filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: '' }
                 }}
-                xScroll='1440px'
+                xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 columns={[
                   {
@@ -561,8 +558,8 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, supplierType: 'BALANCE' } }}
-                xScroll='1440px'
+                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, supplierType: 'BALANCE'} }}
+                xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
@@ -793,8 +790,8 @@ const Page = () => {
                 {isBalanceClicked ?
                   <DataTable
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: data?.id } }}
-                    xScroll='1440px'
+                    defaultRequest={{ page: 1, perPage: 10, filter: {idStore: data?.id} }}
+                    xScroll='1270px'
                     onRow={(data: any) => ({
                       onDoubleClick: () => {
                         navigate(routerLinks('store-managerment/edit') + '/' + data.id);
@@ -1201,7 +1198,7 @@ const Page = () => {
                 ref={dataTableRefInventory}
                 facade={inventoryProductFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id, supplierId: '' } }}
-                xScroll='1440px'
+                xScroll='1270px'
                 className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
@@ -1213,23 +1210,31 @@ const Page = () => {
                     title: 'store.Inventory management.Product code',
                     name: 'productCode',
                     tableItem: {
+                      sorter: true,
+                      filter: {type: 'search'},
                       width: 120,
                     },
                   },
                   {
                     title: 'store.Inventory management.Barcode (Supplier)',
                     name: 'supplierBarcode',
+                    tableItem: {
+                      filter: {type: 'search'},
+                    }
                   },
                   {
                     title: 'store.Inventory management.Barcode (Product)',
                     name: 'storeBarcode',
                     tableItem: {
+                      filter: {type: 'search'},
                     },
                   },
                   {
                     title: 'store.Inventory management.Product name',
                     name: 'productName',
                     tableItem: {
+                      sorter: true,
+                      filter: {type: 'search'},
                     },
                   },
                   {
@@ -1250,10 +1255,10 @@ const Page = () => {
                     tableItem: {
                       render(text, item) {
                           return(
-                            <Select value={item?.units[0]?.name}>
+                            <Select value={item?.units[0]?.name} className='w-24'>
                               {item?.units.forEach( (unit: any) => {
                                 return(
-                                  <>{unit.name}</>
+                                  <>{unit?.name}</>
                                 )
                               })}
                             </Select>
@@ -1265,19 +1270,25 @@ const Page = () => {
                     title: 'store.Inventory management.Quantity on KiotViet',
                     name: 'numberInKiot',
                     tableItem: {
+                      // width: 120,
+                      align: 'right'
                     },
                   },
                   {
                     title: 'store.Inventory management.Quantity on BALANCE',
                     name: 'numberInBal',
                     tableItem: {
-                      render: (value: any, item: any) => parseInt(item?.numberInBal).toLocaleString()
+                      // width: 120,
+                      align: 'right',
+                      render: (value: any, item: any) => parseFloat(item?.numberInBal).toLocaleString()
                     },
                   },
                   {
                     title: 'store.Inventory management.Warehouse price',
                     name: 'inventoryPrice',
                     tableItem: {
+                      // width: 70,
+                      align: 'right',
                       render: (value: any, item: any) => parseInt(item?.inventoryPrice).toLocaleString()
                     },
                   },
@@ -1285,6 +1296,8 @@ const Page = () => {
                     title: 'store.Inventory management.Total amount',
                     name: 'inventoryPrice',
                     tableItem: {
+                      // width: 70,
+                      align:'right',
                       render: (value: any, item: any) => parseInt(`${item?.numberInBal * item?.inventoryPrice}`).toLocaleString()
                     },
                   },
@@ -1311,7 +1324,6 @@ const Page = () => {
                           name: 'supplierName',
                           formItem: {
                             placeholder: 'placeholder.Choose a supplier',
-                            col: 7,
                             type: 'select',
                             get: {
                               facade: SupplierStoreFacade,

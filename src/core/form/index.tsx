@@ -25,7 +25,6 @@ export const Form = ({
   widthLabel,
   checkHidden = false,
   extendForm,
-  extendFormSwitch,
   extendButton,
   idSubmit = 'idSubmit',
   disableSubmit = false,
@@ -113,26 +112,6 @@ export const Form = ({
       case 'table_transfer':
         return <TableTransfer formItem={formItem} form={form} />;
       case 'password':
-        return (
-          <Password
-            tabIndex={formItem.tabIndex || index}
-            placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
-            }
-            disabled={!!formItem.disabled && formItem.disabled(values, form)}
-          />
-        );
-      case 'changepassword':
-        return (
-          <Password
-            tabIndex={formItem.tabIndex || index}
-            placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
-            }
-            disabled={!!formItem.disabled && formItem.disabled(values, form)}
-          />
-        );
-      case 'passConfirm':
         return (
           <Password
             tabIndex={formItem.tabIndex || index}
@@ -340,6 +319,7 @@ export const Form = ({
     }
     if (item.formItem) {
       const rules: any = [];
+      if (!item.formItem.type) item.formItem.type = 'text';
 
       if (item.formItem.rules) {
         item.formItem.rules
@@ -347,17 +327,13 @@ export const Form = ({
           .map((rule: any) => {
             switch (rule.type) {
               case 'required':
+                // console.log(item.fo)
                 switch (item.formItem.type) {
-                  case 'select':
-                  case 'tree_select':
-                    rules.push({
-                      required: true,
-                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
-                        title: t(item.title).toLowerCase(),
-                      }),
-                    });
-                    break;
-                  default:
+                  case 'text':
+                  case 'number':
+                  case 'hidden':
+                  case 'password':
+                  case 'textarea':
                     rules.push({
                       required: true,
                       whitespace: true,
@@ -366,21 +342,14 @@ export const Form = ({
                       }),
                     });
                     break;
-                }
-                break;
-              case 'requiredPassword':
-                if (!rule.message) {
-                  rule.message = t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() });
-                }
-                rules.push({
-                  required: true,
-                  message: rule.message,
-                });
-                if (!item.formItem.type) {
-                  rules.push({
-                    whitespace: true,
-                    message: t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() }),
-                  });
+                  default:
+                    rules.push({
+                      required: true,
+                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
+                        title: t(item.title).toLowerCase(),
+                      }),
+                    });
+                    break;
                 }
                 break;
               case 'email':
@@ -544,6 +513,7 @@ export const Form = ({
                 rules.push(rule.validator);
                 break;
               default:
+                
             }
             return rule;
           });
@@ -588,12 +558,6 @@ export const Form = ({
               }
             },
           }));
-          break;
-        case 'chagepassword':
-          rules.push(() => ({}));
-          break;
-        case 'passConfirm':
-          rules.push(() => ({}));
           break;
         case 'only_number':
           rules.push(() => ({
@@ -698,7 +662,6 @@ export const Form = ({
               ),
           )}
         </div>
-        {extendFormSwitch}
         {extendForm && extendForm(values)}
       </div>
 
@@ -746,8 +709,7 @@ type Type = {
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?: (values: any) => JSX.Element;
-  extendFormSwitch?: JSX.Element;
+  extendForm?: (values: any) => JSX.Element ;
   extendButton?: (values: any) => JSX.Element;
   idSubmit?: string;
   disableSubmit?: boolean;

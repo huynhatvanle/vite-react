@@ -12,6 +12,7 @@ import { DataTableModel, PaginationQuery, TableGet, TableRefObject } from '@mode
 import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
 import { Calendar, CheckCircle, CheckSquare, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
+import { DefaultTFuncReturn } from 'i18next';
 
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
@@ -449,7 +450,7 @@ export const DataTable = forwardRef(
               ) : (
                 !!params.fullTextSearch && (
                   <Times
-                    className="w-5 h-5 my-1 fill-gray-600 text-lg las absolute top-1.5 right-3 z-10"
+                    className="w-4 h-4 my-1 fill-gray-500 text-lg las absolute top-2 right-3 z-10"
                     onClick={() => {
                       if (params.fullTextSearch) {
                         (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';
@@ -522,7 +523,7 @@ type Type = {
   rightHeader?: JSX.Element;
   showSearch?: boolean;
   save?: boolean;
-  searchPlaceholder?: string;
+  searchPlaceholder?: string | DefaultTFuncReturn;
   subHeader?: (count: number) => any;
   xScroll?: string | number | true;
   yScroll?: string | number;

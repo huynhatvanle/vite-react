@@ -157,8 +157,8 @@ const Page = () => {
                       name: 'password',
                       formItem: {
                         col: 12,
-                        type: 'passConfirm',
-                        rules: [{ type: 'requiredPassword' }],
+                        type: 'password',
+                        rules: [{type: 'required', message: ('components.form.ruleRequiredPassword')}],
                         placeholder: t('columns.auth.placeholder.Password').toString(),
                       },
                     },
@@ -169,7 +169,7 @@ const Page = () => {
                         col: 12,
                         type: 'password',
                         condition: (value: string, form, index: number, values: any) => !values?.id,
-                        rules: [{ type: 'requiredPassword' }],
+                        rules: [{type: 'required', message: ('components.form.ruleRequiredPassword')}],
                         placeholder: t('columns.auth.placeholder.newPassword').toString(),
                       },
                     },
@@ -178,7 +178,7 @@ const Page = () => {
                       name: 'passwordComfirm',
                       formItem: {
                         col: 12,
-                        type: 'passConfirm',
+                        type: 'password',
                         rules: [
                           {
                             type: 'custom',
