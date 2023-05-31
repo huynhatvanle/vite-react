@@ -48,16 +48,17 @@ const Page = () => {
     };
   }, [id]);
   // useEffect(() => {
-  //   productFacede.get({page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'}})
+  //   productFacede.get({page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'}})
   // },[]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`);
+  //navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: StoreManagement) => {
     storeFacade.put({ ...values, id });
   };
 
   const [isChecked, setIsChecked] = useState(false);
-  const [type, setType] = useState('');
+  // const [type, setType] = useState('');
 
   const handleClick = () => {
     setIsChecked(!isChecked);
@@ -303,7 +304,7 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(false);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'BALANCE'} });
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE', supplierId: ''} });
                         }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                           BALANCE
                         </div>
@@ -315,7 +316,7 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(true);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'NON_BALANCE'} });
+                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'NON_BALANCE', supplierId: ''} });
                         }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                           Non - BALANCE
                         </div>
@@ -337,7 +338,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef}
                 facade={productFacede}
-                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'} }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE', supplierId: ''} }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
                 // onRow={(data: any) => ({
@@ -451,7 +452,6 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                console.log(type)
                                 dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: value });
                               },
                             },
@@ -538,7 +538,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Store'))
+                  navigate(`/${lang}${routerLinks('Store')}`)
                 }}
               />
             </Tabs.TabPane>
@@ -610,7 +610,7 @@ const Page = () => {
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-0 lg:w-full'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
-                        onClick={() => navigate(routerLinks('store-managerment/create'))}
+                        onClick={() =>navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
                       />
                     }
                   </div>
@@ -620,7 +620,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Store'))
+                  navigate(`/${lang}${routerLinks('Store')}`)
                 }}
               />
             </Tabs.TabPane>
@@ -670,14 +670,14 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef1}
                 facade={connectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: {idSuppiler: id, supplierType: type} }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {idSuppiler: data?.id, supplierType: ''} }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
-                onRow={(data: any) => ({
-                  onDoubleClick: () => {
-                    navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                  },
-                })}
+                // onRow={(data: any) => ({
+                //   onDoubleClick: () => {
+                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                //   },
+                // })}
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -726,7 +726,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Store'))
+                  navigate(`/${lang}${routerLinks('Store')}`)
                 }}
               />
             </Tabs.TabPane>
@@ -777,7 +777,7 @@ const Page = () => {
                 {isBalanceClicked ?
                   <DataTable
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, idStore: id }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: {idStore: data?.id} }}
                     xScroll='1440px'
                     onRow={(data: any) => ({
                       onDoubleClick: () => {
@@ -887,7 +887,7 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className='intro-x rounded-lg w-full flex justify-between form-store'
+                          className='intro-x rounded-lg w-full flex justify-between form-store '
                           columns={[
                             {
                               title: '',
@@ -1019,7 +1019,7 @@ const Page = () => {
                   :
                   <DataTable
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, idStore: id }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: {idStore: id} }}
                     xScroll='1440px'
                     // onRow={(data: any) => ({
                     //   onDoubleClick: () => {
@@ -1119,7 +1119,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className='flex h-10 items-center !w-full'>
+                                  <div className='lg:flex h-10 items-center !w-full'>
                                     <p className='text-sm'>{t('store.Since')}</p>
                                   </div>
                                 )
@@ -1178,7 +1178,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Supplier'))
+                  navigate(`/${lang}${routerLinks('Supplier')}`)
                 }}
               />
             </Tabs.TabPane>
@@ -1186,7 +1186,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
                 facade={inventoryProductFacade}
-                defaultRequest={{ page: 1, perPage: 10, idStore: id }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {idStore: data?.id} }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}
@@ -1200,7 +1200,7 @@ const Page = () => {
                     name: 'productCode',
                     tableItem: {
                       width: 120,
-                      render: (text: string, item: any) => item.inventory[0].productCode
+                      render: (text: string, item: any) => item.productCode
                     },
                   },
                   // {
@@ -1281,7 +1281,7 @@ const Page = () => {
                       <Button
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group'
                         text={t('titles.synchronized')}
-                        onClick={() => navigate(routerLinks('Supplier/Excel'))}
+                        onClick={() => navigate(`/${lang}${routerLinks('Supplier/Excel')}`)}
                       />
                     }
                   </div>
@@ -1321,7 +1321,7 @@ const Page = () => {
                 text={t('components.form.modal.cancel')}
                 className={'md:w-32 justify-center out-line absolute mt-4'}
                 onClick={() => {
-                  navigate(routerLinks('Store'))
+                  navigate(`/${lang}${routerLinks('Store')}`)
                 }}
               />
             </Tabs.TabPane>

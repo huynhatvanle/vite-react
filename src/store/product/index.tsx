@@ -7,30 +7,19 @@ import { API, routerLinks } from '@utils';
 const name = 'Product';
 
 const action = {
-  ...new Action<Product>(name),
-  getProduct: createAsyncThunk(
-    name + '/get',
-    async ({
-      page,
-      perPage,
-      filter,
-    }: {
-      page: number;
-      perPage: number;
-      filter: { supplierId?: string; storeId?: string; type: string };
-    }) => {
-      console.log(page, perPage, filter, filter.type, filter.storeId);
-      const data = await API.get(routerLinks(name, 'api'), {
-        page,
-        perPage,
-        storeId: filter.storeId,
-        type: filter.type,
-        supplierId: filter.supplierId,
-      });
-      return data;
-    },
-  ),
-};
+    ...new Action<Product>(name),
+    getProduct: createAsyncThunk(
+        name + '/get',
+        async ({page, perPage, filter} : {page: number, perPage: number, filter: {storeId?: string, type: string}}) => {
+            // console.log(filter.toString().slice(filter.toString().indexOf(':') + 2,filter.toString().lastIndexOf('"')))
+            // console.log(filter.toString().JSON.)
+            const filterProduct = JSON.parse(filter.toString() || '{}');
+            // console.log(filter1)
+            const data = await API.get(routerLinks(name, 'api'), {page, perPage,storeId: filterProduct.storeId, type: filterProduct.type})
+            return data
+        }
+      ),
+}
 
 export const productSlice = createSlice(new Slice<Product>(action));
 

@@ -10,8 +10,9 @@ const action = {
     ...new Action<InvoiceKiotViet>(name),
     getInvoiceKiotViet: createAsyncThunk(
         name + '/get',
-        async (params: PaginationQuery<InvoiceKiotViet>) => {
-          const  data  = await API.get(routerLinks(name, 'api'), params);
+        async ({page, perPage, filter} : {page: number, perPage: number, filter: {idStore?: string}}) => {
+          const filterInvoiceKiotViet = JSON.parse( filter.toString() || '{}' )
+          const  data  = await API.get(routerLinks(name, 'api'), {page, perPage, idStore: filterInvoiceKiotViet.idStore});
           console.log(data.total)
           return data.data;
         }
@@ -47,7 +48,8 @@ export const InvoiceKiotVietFacade = () => {
     return {
         ...(useTypedSelector((state) => state[action.name]) as State<InvoiceKiotViet>),
         set: (values: State<InvoiceKiotViet>) => dispatch(action.set(values)),
-        get: (params: PaginationQuery<InvoiceKiotViet>) => dispatch(action.getInvoiceKiotViet(params)),
+        // get: (params: PaginationQuery<InvoiceKiotViet>) => dispatch(action.getInvoiceKiotViet(params)),
+        get: ({page, perPage, filter} : {page: number, perPage: number, filter: {idStore?: string}}) => dispatch(action.getInvoiceKiotViet({page,perPage,filter})),
     };
 };
 
