@@ -88,7 +88,7 @@ const Page = () => {
                 tabIndex: 3,
                 col: 3,
                 type: 'select',
-                rules: [{ type: 'requiredSelect' }],
+                rules: [{ type: 'required' }],
                 get: {
                   facade: ProvinceFacade,
                   format: (item: any) => ({
@@ -106,7 +106,7 @@ const Page = () => {
               title: 'store.District',
               formItem: {
                 type: 'select',
-                rules: [{ type: 'requiredSelect' }],
+                rules: [{ type: 'required' }],
                 col: 3,
                 get: {
                   facade: DistrictFacade,
@@ -129,7 +129,7 @@ const Page = () => {
               title: 'store.Ward',
               formItem: {
                 type: 'select',
-                rules: [{ type: 'requiredSelect' }],
+                rules: [{ type: 'required' }],
                 col: 3,
                 get: {
                   facade: WardFacade,
