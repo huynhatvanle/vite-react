@@ -350,6 +350,20 @@ export const Form = ({
               case 'required':
                 switch (item.formItem.type) {
                   case 'select':
+                    if (!rule.message) {
+                      rule.message = t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() });
+                    }
+                    rules.push({
+                      required: true,
+                      message: rule.message,
+                    });
+                    if (!item.formItem.type) {
+                      rules.push({
+                        whitespace: true,
+                        message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+                      });
+                    }
+                    break;
                   case 'tree_select':
                     rules.push({
                       required: true,
@@ -377,21 +391,21 @@ export const Form = ({
                     break;
                 }
                 break;
-              case 'requiredSelect':
-                if (!rule.message) {
-                  rule.message = t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() });
-                }
-                rules.push({
-                  required: true,
-                  message: rule.message,
-                });
-                if (!item.formItem.type) {
-                  rules.push({
-                    whitespace: true,
-                    message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
-                  });
-                }
-                break;
+              // case 'requiredSelect':
+              //   if (!rule.message) {
+              //     rule.message = t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() });
+              //   }
+              //   rules.push({
+              //     required: true,
+              //     message: rule.message,
+              //   });
+              //   if (!item.formItem.type) {
+              //     rules.push({
+              //       whitespace: true,
+              //       message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+              //     });
+              //   }
+              //   break;
               case 'requiredPassword':
                 if (!rule.message) {
                   rule.message = t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() });
@@ -432,7 +446,7 @@ export const Form = ({
                 rules.push(() => ({
                   validator(_: any, value: any) {
                     if (!value) {
-                      return Promise.reject();
+                      return Promise.resolve();
                     } else if (/^\d+$/.test(value)) {
                       if (value?.trim().length < 8) {
                         return Promise.reject(t('components.form.ruleMinNumberLength', { min: 8 }));
@@ -447,20 +461,20 @@ export const Form = ({
                   },
                 }));
                 break;
-              case 'fax':
-                rules.push(() => ({
-                  validator(_: any, value: any) {
-                    if(!value) {
-                    } else if (!/^\d+$/.test(value)) {
-                      return Promise.reject(t('components.form.only number'));
-                    } else if (value?.trim().length < 8) {
-                      return Promise.reject(t('components.form.ruleMinNumberLength'));
-                    } else if (value?.trim().length > 12) {
-                      return Promise.reject(t('components.form.ruleMaxNumberLength'));
-                    }
-                  },
-                }));
-                break;
+              // case 'fax':
+              //   rules.push(() => ({
+              //     validator(_: any, value: any) {
+              //       if(!value) {
+              //       } else if (!/^\d+$/.test(value)) {
+              //         return Promise.reject(t('components.form.only number'));
+              //       } else if (value?.trim().length < 8) {
+              //         return Promise.reject(t('components.form.ruleMinNumberLength'));
+              //       } else if (value?.trim().length > 12) {
+              //         return Promise.reject(t('components.form.ruleMaxNumberLength'));
+              //       }
+              //     },
+              //   }));
+              //   break;
               case 'min':
                 if (!rule.message) {
                   switch (item.formItem.type) {
@@ -746,7 +760,7 @@ export const Form = ({
       </div>
 
       <div
-        className={classNames('gap-2 flex absolute sm:block', {
+        className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
           '!mt-9': handCancel && handSubmit,
           'md:inline-flex w-full justify-between md:float-right': handCancel,
