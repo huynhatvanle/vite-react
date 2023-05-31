@@ -15,7 +15,7 @@ export const convertFormValue = (columns: FormModel[], values: { [selector: stri
           case 'upload':
             if (values[item.name] && typeof values[item.name] === 'object' && exportData) {
               if (item.formItem?.onlyImage && values[item.name].length > 0)
-                values[item.name] = values[item.name][0].url;
+                values[item.name] = values[item.name][1]?.[0];
               else if (values[item.name].length > 1) {
                 values[item.name] = values[item.name].filter((_item: any) => _item.status === 'done' || !_item.status);
               }

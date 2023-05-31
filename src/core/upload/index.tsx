@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { v4 } from 'uuid';
 
-import { API, linkApi } from '@utils';
+import { API, linkApi, keyToken } from '@utils';
 import { Button } from '../button';
 import { Spin } from '../spin';
 import { Message } from '../message';
@@ -129,37 +129,33 @@ export const Upload = ({
         set_isLoading(true);
         if (typeof action === 'string') {
           const bodyFormData = new FormData();
-          bodyFormData.append('file', file);
-
-          try {
-            const data = await API.responsible<any>(action, {}, { ...API.init(), method, body: bodyFormData });
-            // const { data } = await axios({
-            //   method,
-            //   url: action,
-            //   data: bodyFormData,
-            //   onUploadProgress: (event: any) => {
-            //     set_listFiles(
-            //       listFiles.map((item: any) => {
-            //         if (item.id === dataFile.id) {
-            //           item.percent = (event.loaded / event.total) * 100;
-            //           item.status = item.percent === 100 ? 'done' : 'uploading';
-            //         }
-            //         return item;
-            //       }),
-            //     );
-            //   },
-            // });
+          bodyFormData.append('files', file);
+          bodyFormData.append('type', 'USER');
+          const { data } = await API.responsible<any>(
+            action,
+            {},
+            {
+              ...API.init(),
+              method,
+              body: bodyFormData,
+              headers: {
+                authorization: 'Bearer ' + (localStorage.getItem(keyToken) || ''),
+                'Accept-Language': localStorage.getItem('i18nextLng') || '',
+              },
+            },
+          );
+          if (data) {
             const files = multiple
               ? listFiles.map((item: any) => {
-                if (item.id === dataFile.id) {
-                  item = { ...item, ...data.data, status: 'done' };
-                }
-                return item;
-              })
-              : [{ ...data.data, status: 'done' }];
+                  if (item.id === dataFile.id) {
+                    item = { ...item, ...data, status: 'done' };
+                  }
+                  return item;
+                })
+              : [{ ...data, status: 'done' }];
             set_listFiles(files);
             onChange && (await onChange(files));
-          } catch (e: any) {
+          } else {
             set_listFiles(listFiles.filter((_item: any) => _item.id !== dataFile.id));
           }
         } else {
@@ -179,11 +175,11 @@ export const Upload = ({
             });
             const files = multiple
               ? listFiles.map((item: any) => {
-                if (item.id === dataFile.id) {
-                  item = { ...item, ...data.data, status: 'done' };
-                }
-                return item;
-              })
+                  if (item.id === dataFile.id) {
+                    item = { ...item, ...data.data, status: 'done' };
+                  }
+                  return item;
+                })
               : [{ ...data.data, status: 'done' }];
             set_listFiles(files);
             onChange && (await onChange(files));
@@ -201,15 +197,15 @@ export const Upload = ({
     ref.current.value = '';
   };
 
-  const copy = (text: string) => {
-    const input = document.createElement('textarea');
-    input.innerHTML = text;
-    document.body.appendChild(input);
-    input.select();
-    const result = document.execCommand('copy');
-    document.body.removeChild(input);
-    return result;
-  };
+  // const copy = (text: string) => {
+  //   const input = document.createElement('textarea');
+  //   input.innerHTML = text;
+  //   document.body.appendChild(input);
+  //   input.select();
+  //   const result = document.execCommand('copy');
+  //   document.body.removeChild(input);
+  //   return result;
+  // };
   return (
     <Spin spinning={isLoading}>
       {showBtnUpload ? (
@@ -241,15 +237,16 @@ export const Upload = ({
                           })}
                         >
                           <div className={'relative'}>
-                            <a href={file[keyImage] ? file[keyImage] : file} className="glightbox las la-camera text-white text-xl">
+                            <a href={file[keyImage] ? file[keyImage] : file} className="">
                               <img
                                 //  className={classNames({ 'object-cover object-center h-20 w-20': !viewGrid })}
                                 //  src={file[keyImage] ? file[keyImage] : file}
-                                className='las la-camera text-white text-xl'
+                                className='w-full h-full'
+                                src={`https://api.stag.balance.ari.com.vn/api/v1/supermarket/util/download?key=supermarket-service/user/libf5s2y/` + file.name}
                                 alt={file.name}
                               />
                             </a>
-                            <div className={'flex gap-5 absolute bottom-0 justify-center w-full'}>
+                            {/* <div className={'flex gap-5 absolute bottom-0 justify-center w-full'}>
                               {listFiles?.length > 0 && (
                                 <Copy
                                   className={'h-5 w-5 cursor-pointer'}
@@ -273,7 +270,7 @@ export const Upload = ({
                                   }
                                 }}
                               />
-                            </div>
+                            </div> */}
                             {showBtnDelete(file) && (
                               // <Popconfirm
                               //   placement="left"
