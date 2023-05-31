@@ -349,21 +349,6 @@ export const Form = ({
                     break;
                 }
                 break;
-              case 'requiredPassword':
-                if (!rule.message) {
-                  rule.message = t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() });
-                }
-                rules.push({
-                  required: true,
-                  message: rule.message,
-                });
-                if (!item.formItem.type) {
-                  rules.push({
-                    whitespace: true,
-                    message: t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() }),
-                  });
-                }
-                break;
               case 'email':
                 if (!rule.message) {
                   rule.message = t('components.form.ruleEmail');
@@ -570,12 +555,6 @@ export const Form = ({
               }
             },
           }));
-          break;
-        case 'chagepassword':
-          rules.push(() => ({}));
-          break;
-        case 'passConfirm':
-          rules.push(() => ({}));
           break;
         case 'only_number':
           rules.push(() => ({

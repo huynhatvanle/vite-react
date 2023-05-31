@@ -42,7 +42,7 @@ const Page = () => {
                 title: t('columns.auth.login.Username'),
                 formItem: {
                   placeholder: 'columns.auth.login.Enter Username',
-                  rules: [{ type: 'requiredPassword' }, { type: 'email' }],
+                  rules: [{type: 'required', message: ('components.form.ruleRequiredPassword')}, { type: 'email' }],
                 },
               },
               {
@@ -51,7 +51,9 @@ const Page = () => {
                 formItem: {
                   placeholder: 'columns.auth.login.Enter Password',
                   type: 'password',
-                  rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }]
+                  rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') },
+                    
+                ]
                 },
               },
             ]}
