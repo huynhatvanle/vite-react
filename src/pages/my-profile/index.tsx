@@ -139,7 +139,7 @@ const Page = () => {
                   extendButton={(form) => (
                     <Button
                       text={t('components.button.Cancel')}
-                      className={'md:w-32 justify-center out-line sm:w-80 w-60 '}
+                      className={'md:w-32 justify-center out-line sm:w-80 w-60'}
                       onClick={() => {
                         navigate(`/${lang}${routerLinks('User/List')}`)
                       }}

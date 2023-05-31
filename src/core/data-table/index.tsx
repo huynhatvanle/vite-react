@@ -33,12 +33,12 @@ const checkTextToShort = (text: string) => {
 const getQueryStringParams = (query: string) => {
   return query
     ? (/^[?#]/.test(query) ? query.slice(1) : query)
-        .split('&')
-        .reduce((params: { [selector: string]: string }, param: string) => {
-          const [key, value] = param.split('=');
-          params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-          return params;
-        }, {})
+      .split('&')
+      .reduce((params: { [selector: string]: string }, param: string) => {
+        const [key, value] = param.split('=');
+        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+        return params;
+      }, {})
     : {}; // Trim - from end of text
 };
 
@@ -87,7 +87,6 @@ export const DataTable = forwardRef(
     const cols = useRef<DataTableModel[]>();
     const refPageSizeOptions = useRef<number[]>();
     const { result, isLoading, queryParams, time } = facade;
-    // eslint-disable-next-line prefer-const
     let [params, setParams] = useState(
       save && location.search && location.search.indexOf('=') > -1
         ? { ...defaultRequest, ...getQueryStringParams(location.search) }
@@ -380,11 +379,11 @@ export const DataTable = forwardRef(
       const tempSort =
         sorts && sorts?.field && sorts?.order
           ? {
-              [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
-            }
+            [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
+          }
           : sorts?.field
-          ? null
-          : sorts;
+            ? null
+            : sorts;
 
       if (tempFullTextSearch !== params.fullTextSearch) {
         tempPageIndex = 1;
@@ -462,7 +461,7 @@ export const DataTable = forwardRef(
               )}
             </div>
           ) : (
-            <div className='hidden' />
+            <div className="hidden"></div>
           )}
           {!!leftHeader && <div className={'mt-2 sm:mt-0'}>{leftHeader}</div>}
           {!!rightHeader && <div className={'mt-2 sm:mt-0'}>{rightHeader}</div>}
