@@ -67,14 +67,13 @@ const Page = () => {
               formItem: {
                 tabIndex: 2,
                 col: 6,
-                rules: [{ type: 'fax', min: 8 , max: 12 }],
+                rules: [{ type: 'phone', min: 8 , max: 12 }],
               },
             },
             {
               title: '',
               name: 'address',
               formItem: {
-                // rules: [{ type: 'required' }],
                 render() {
                   return (
                     <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>

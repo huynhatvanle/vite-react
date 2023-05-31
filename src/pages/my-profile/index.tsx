@@ -209,7 +209,8 @@ const Page = () => {
                       }}
                     />
                   )}
-                //  formAnt={setPassword}
+                  textSubmit='routes.admin.Layout.Change Password'
+                  handSubmit={setPassword}
                 />
               </Tabs.TabPane>
             </Tabs>

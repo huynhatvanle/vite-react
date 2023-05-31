@@ -446,20 +446,6 @@ export const Form = ({
                   },
                 }));
                 break;
-              case 'fax':
-                rules.push(() => ({
-                  validator(_: any, value: any) {
-                    if(!value) {
-                    } else if (!/^\d+$/.test(value)) {
-                      return Promise.reject(t('components.form.only number'));
-                    } else if (value?.trim().length < 8) {
-                      return Promise.reject(t('components.form.ruleMinNumberLength'));
-                    } else if (value?.trim().length > 12) {
-                      return Promise.reject(t('components.form.ruleMaxNumberLength'));
-                    }
-                  },
-                }));
-                break;
               case 'min':
                 if (!rule.message) {
                   switch (item.formItem.type) {
@@ -756,7 +742,7 @@ export const Form = ({
         {handCancel && (
           <Button
             text={t(textCancel)}
-            className={'w-32 justify-center out-line !border-black max-sm:w-3/5'}
+            className={'min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
             onClick={handCancel}
           />
         )}
@@ -767,7 +753,7 @@ export const Form = ({
             id={idSubmit}
             onClick={() => form && form.submit()}
             disabled={disableSubmit}
-            className={'w-32 justify-center max-sm:w-3/5'}
+            className={'min-w-[8rem] justify-center max-sm:w-3/5'}
             type={'submit'}
           />
         )}
@@ -781,7 +767,7 @@ type Type = {
   textSubmit?: string;
   textCancel?: string;
   handSubmit?: (values: any) => void;
-  handCancel?: () => void;
+  handCancel?: () => void ;
   values?: any;
   formAnt?: FormInstance;
   onFirstChange?: () => void;
