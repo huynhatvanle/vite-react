@@ -14,6 +14,7 @@ const action = {
     name + '/get',
     async ({page, perPage, filter, fullTextSearch} : {page: number, perPage: number, filter: {type?: string}, fullTextSearch: string}) => {
       const filterStore = JSON.parse(filter.toString() || '{}');
+      console.log('121')
      return await API.get(routerLinks(name, 'api'), {page, perPage, type: filterStore.type, fullTextSearch: fullTextSearch})
     }
   ),
@@ -66,6 +67,7 @@ export const storeSlice = createSlice(
         state: State<StoreManagement>,
         action: PayloadAction<undefined, string, { arg: StoreManagement; requestId: string; requestStatus: 'pending' }>,
       ) => {
+        console.log('21')
         state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
         state.queryParams = JSON.stringify(action.meta.arg);
         state.isLoading = true;
