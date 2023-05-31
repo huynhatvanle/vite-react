@@ -35,7 +35,7 @@ export class Responses<T> {
 }
 
 export class CommonEntity {
-  constructor(public id?: string, public created_at?: string, public updated_at?: string, public isDeleted?: string) {}
+  constructor(public id?: string, public created_at?: string, public updated_at?: string, public isDeleted?: string) { }
 }
 
 export class PaginationQuery<T = object> {
@@ -59,5 +59,5 @@ export class PaginationQuery<T = object> {
     //   dateTo?: string;
     // },
     // public tab?: string
-  ) {}
+  ) { }
 }

@@ -330,34 +330,21 @@ export const Form = ({
                 // console.log(item.fo)
                 switch (item.formItem.type) {
                   case 'select':
-                    if (!rule.message) {
-                      rule.message = t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() });
-                    }
-                    rules.push({
-                      required: true,
-                      message: rule.message,
-                    });
-                    if (!item.formItem.type) {
-                      rules.push({
-                        whitespace: true,
-                        message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
-                      });
-                    }
-                    break;
                   case 'tree_select':
                     rules.push({
                       required: true,
-                      message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
+                        title: t(item.title).toLowerCase(),
+                      }),
                     });
                     break;
                   default:
                     rules.push({
                       required: true,
-                      message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
-                    });
-                    rules.push({
                       whitespace: true,
-                      message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
+                      message: t(rule.message || 'components.form.ruleRequired', {
+                        title: t(item.title).toLowerCase(),
+                      }),
                     });
                     break;
                 }
@@ -700,18 +687,17 @@ export const Form = ({
       <div
         className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
-          '!mt-9 sm:flex-row flex-col items-center': handCancel && handSubmit,
-          'sm:inline-flex w-full justify-between sm:float-right': handCancel,
+          '!mt-9 items-center max-sm:flex-col md:flex-row sm:inline-flex sm:float-right !absolute':
+            handCancel && handSubmit,
+          // 'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
-          'w-full md:w-auto md:inline-flex md:float-right top-0 right-0 text-center items-center':
-            handSubmit && extendButton,
-          // 'w-full md:w-auto md:inline-flex md:float-right -bottom-1/3 right-0 justify-between sm:text-center items-center': extendButtonChangePassword && extendButton,
+          'md:w-auto right-0 text-center items-center !absolute -bottom-1/4': handSubmit && extendButton,
         })}
       >
         {handCancel && (
           <Button
             text={t(textCancel)}
-            className={'min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
+            className={'sm:min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
             onClick={handCancel}
           />
         )}
