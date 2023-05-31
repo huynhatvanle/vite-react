@@ -462,7 +462,7 @@ export const DataTable = forwardRef(
               )}
             </div>
           ) : (
-            <div />
+            <div className='hidden' />
           )}
           {!!leftHeader && <div className={'mt-2 sm:mt-0'}>{leftHeader}</div>}
           {!!rightHeader && <div className={'mt-2 sm:mt-0'}>{rightHeader}</div>}
