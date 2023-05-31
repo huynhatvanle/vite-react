@@ -209,7 +209,7 @@ const Page = () => {
                       }}
                     />
                   )}
-                  extendButtonChangePassword={setPassword}
+                //  formAnt={setPassword}
                 />
               </Tabs.TabPane>
             </Tabs>

@@ -27,7 +27,6 @@ export const Form = ({
   extendForm,
   extendFormSwitch,
   extendButton,
-  extendButtonChangePassword,
   idSubmit = 'idSubmit',
   disableSubmit = false,
   formAnt,
@@ -587,7 +586,6 @@ export const Form = ({
         case 'name':
           rules.push(() => ({
             validator(_: any, value: any) {
-              console.log(value)
               if (!value || /^[a-zA-Z]+$/.test(value)) {
                 return Promise.resolve();
               }
@@ -674,7 +672,7 @@ export const Form = ({
 
   const handFinish = (values: any) => {
     values = convertFormValue(columns, values);
-    (handSubmit && handSubmit(values)) || (extendButtonChangePassword && extendButtonChangePassword(values));
+    (handSubmit && handSubmit(values))
   };
 
   return (
@@ -730,7 +728,6 @@ export const Form = ({
         </div>
         {extendFormSwitch}
         {extendForm && extendForm(values)}
-
       </div>
 
       <div
@@ -740,7 +737,7 @@ export const Form = ({
           'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
           'w-full md:w-auto md:inline-flex md:float-right top-0 right-0 text-center items-center': handSubmit && extendButton,
-          'w-full md:w-auto md:inline-flex md:float-right -bottom-1/3 right-0 justify-between sm:text-center items-center': extendButtonChangePassword && extendButton,
+          // 'w-full md:w-auto md:inline-flex md:float-right -bottom-1/3 right-0 justify-between sm:text-center items-center': extendButtonChangePassword && extendButton,
         })}
       >
         {handCancel && (
@@ -758,20 +755,6 @@ export const Form = ({
             onClick={() => form && form.submit()}
             disabled={disableSubmit}
             className={'w-32 justify-center max-sm:w-3/5'}
-            type={'submit'}
-          />
-        )}
-        {extendButtonChangePassword && (
-          <Button
-            text={t('routes.admin.Layout.Change Password')}
-            id={idSubmit}
-            onClick={() => {
-              if (form) {
-                form.submit();
-              }
-            }}
-            disabled={disableSubmit}
-            className={'md:min-w-[8rem] w-full justify-center'}
             type={'submit'}
           />
         )}
@@ -794,7 +777,6 @@ type Type = {
   extendForm?: ((values: any) => JSX.Element);
   extendFormSwitch?: JSX.Element;
   extendButton?: (values: any) => JSX.Element;
-  extendButtonChangePassword?: (values: any) => void;
   idSubmit?: string;
   disableSubmit?: boolean;
 };
