@@ -331,13 +331,18 @@ export const Form = ({
                   case 'tree_select':
                     rules.push({
                       required: true,
-                      message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
+                        title: t(item.title).toLowerCase(),
+                      }),
                     });
                     break;
                   default:
                     rules.push({
+                      required: true,
                       whitespace: true,
-                      message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
+                      message: t(rule.message || 'components.form.ruleRequired', {
+                        title: t(item.title).toLowerCase(),
+                      }),
                     });
                     break;
                 }
@@ -367,7 +372,7 @@ export const Form = ({
                 rules.push(() => ({
                   validator(_: any, value: any) {
                     if (!value) {
-                      return Promise.reject();
+                      return Promise.resolve();
                     } else if (/^\d+$/.test(value)) {
                       if (value?.trim().length < 8) {
                         return Promise.reject(t('components.form.ruleMinNumberLength', { min: 8 }));
