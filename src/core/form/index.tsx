@@ -600,6 +600,7 @@ export const Form = ({
         case 'name':
           rules.push(() => ({
             validator(_: any, value: any) {
+              console.log(value)
               if (!value || /^[a-zA-Z]+$/.test(value)) {
                 return Promise.resolve();
               }
