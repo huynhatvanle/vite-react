@@ -45,7 +45,6 @@ const action = {
         districtId: data?.address?.district?.id + '|' + data?.address?.district?.code,
         wardId: data?.address?.ward?.id,
       };
-      console.log('data', data);
 
       return { data, keyState };
     },
@@ -79,7 +78,6 @@ const action = {
     delete rs.provinceId;
     delete rs.districtId;
     delete rs.wardId;
-    console.log('rssssssssss', rs);
 
     const { statusCode, message } = await API.put<Supplier>(`${routerLinks(name, 'api')}/${id}`, rs);
     if (message) await Message.success({ text: message });
@@ -132,12 +130,10 @@ export const supplierSlice = createSlice(
           state.data = action.meta.arg;
           state.isLoading = true;
           state.status = 'put.pending';
-          console.log('state.status', state.status);
         },
       )
       .addCase(action.put.fulfilled, (state: State<Supplier>, action: PayloadAction<Supplier>) => {
         if (action.payload.toString() === '200') {
-          console.log('action.payload', action.payload);
           state.isVisible = false;
           state.status = 'put.fulfilled';
         } else state.status = 'idle';

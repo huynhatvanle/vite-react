@@ -74,7 +74,6 @@ const Page = () => {
               title: '',
               name: 'address',
               formItem: {
-                // rules: [{ type: 'required' }],
                 render() {
                   return (
                     <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Tabs } from 'antd';
 
+import { Form as AntForm} from 'antd';
 import { Form } from '@core/form';
 import { Spin } from '@core/spin';
 import { Button } from '@core/button';
@@ -85,6 +86,7 @@ const Page = () => {
                   },
                 },
               ]}
+              handSubmit={putProfile}
               disableSubmit={isLoading}
               values={{ ...user }}
             />
@@ -207,7 +209,8 @@ const Page = () => {
                       }}
                     />
                   )}
-                  extendButtonChangePassword={setPassword}
+                  textSubmit='routes.admin.Layout.Change Password'
+                  handSubmit={setPassword}
                 />
               </Tabs.TabPane>
             </Tabs>

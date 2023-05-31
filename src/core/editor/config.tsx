@@ -81,7 +81,6 @@ export const editorjsConfig: any = {
               file: {
                 url: data.url,
               },
-              type: 'USER'
             };
           },
         },

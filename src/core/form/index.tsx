@@ -27,7 +27,6 @@ export const Form = ({
   extendForm,
   extendFormSwitch,
   extendButton,
-  extendButtonChangePassword,
   idSubmit = 'idSubmit',
   disableSubmit = false,
   formAnt,
@@ -461,20 +460,6 @@ export const Form = ({
                   },
                 }));
                 break;
-              // case 'fax':
-              //   rules.push(() => ({
-              //     validator(_: any, value: any) {
-              //       if(!value) {
-              //       } else if (!/^\d+$/.test(value)) {
-              //         return Promise.reject(t('components.form.only number'));
-              //       } else if (value?.trim().length < 8) {
-              //         return Promise.reject(t('components.form.ruleMinNumberLength'));
-              //       } else if (value?.trim().length > 12) {
-              //         return Promise.reject(t('components.form.ruleMaxNumberLength'));
-              //       }
-              //     },
-              //   }));
-              //   break;
               case 'min':
                 if (!rule.message) {
                   switch (item.formItem.type) {
@@ -633,9 +618,7 @@ export const Form = ({
                 if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value)) {
                   return Promise.resolve();
                 } else {
-                  return Promise.reject(
-                    t('components.form.rulePassword')
-                  );
+                  return Promise.reject(t('components.form.rulePassword'));
                 }
               } else {
                 return Promise.resolve();
@@ -644,9 +627,7 @@ export const Form = ({
           }));
           break;
         case 'chagepassword':
-          rules.push(() => ({
-          }),
-          );
+          rules.push(() => ({}));
           break;
         case 'passConfirm':
           rules.push(() => ({}));
@@ -700,7 +681,7 @@ export const Form = ({
 
   const handFinish = (values: any) => {
     values = convertFormValue(columns, values);
-    (handSubmit && handSubmit(values)) || (extendButtonChangePassword && extendButtonChangePassword(values));
+    handSubmit && handSubmit(values);
   };
 
   return (
@@ -739,13 +720,13 @@ export const Form = ({
                   className={classNames(
                     column?.formItem?.classItem,
                     'col-span-12' +
-                    (' sm:col-span-' +
-                      (column?.formItem?.colTablet
-                        ? column?.formItem?.colTablet
-                        : column?.formItem?.col
+                      (' sm:col-span-' +
+                        (column?.formItem?.colTablet
+                          ? column?.formItem?.colTablet
+                          : column?.formItem?.col
                           ? column?.formItem?.col
                           : 12)) +
-                    (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
+                      (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
                   )}
                   key={index}
                 >
@@ -756,23 +737,23 @@ export const Form = ({
         </div>
         {extendFormSwitch}
         {extendForm && extendForm(values)}
-
       </div>
 
       <div
         className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
-          '!mt-9': handCancel && handSubmit,
-          'md:inline-flex w-full justify-between md:float-right': handCancel,
+          '!mt-9 sm:flex-row flex-col items-center': handCancel && handSubmit,
+          'sm:inline-flex w-full justify-between sm:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
-          'w-full md:w-auto md:inline-flex md:float-right top-0 right-0 text-center items-center': handSubmit && extendButton,
-          'w-full md:w-auto md:inline-flex md:float-right -bottom-1/3 right-0 justify-between sm:text-center items-center': extendButtonChangePassword && extendButton,
+          'w-full md:w-auto md:inline-flex md:float-right top-0 right-0 text-center items-center':
+            handSubmit && extendButton,
+          // 'w-full md:w-auto md:inline-flex md:float-right -bottom-1/3 right-0 justify-between sm:text-center items-center': extendButtonChangePassword && extendButton,
         })}
       >
         {handCancel && (
           <Button
             text={t(textCancel)}
-            className={'w-32 justify-center out-line !border-black max-sm:w-3/5'}
+            className={'min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
             onClick={handCancel}
           />
         )}
@@ -783,21 +764,7 @@ export const Form = ({
             id={idSubmit}
             onClick={() => form && form.submit()}
             disabled={disableSubmit}
-            className={'w-32 justify-center max-sm:w-3/5'}
-            type={'submit'}
-          />
-        )}
-        {extendButtonChangePassword && (
-          <Button
-            text={t('routes.admin.Layout.Change Password')}
-            id={idSubmit}
-            onClick={() => {
-              if (form) {
-                form.submit();
-              }
-            }}
-            disabled={disableSubmit}
-            className={'md:min-w-[8rem] w-full justify-center'}
+            className={'min-w-[8rem] justify-center max-sm:w-3/5'}
             type={'submit'}
           />
         )}
@@ -817,10 +784,9 @@ type Type = {
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?: ((values: any) => JSX.Element);
+  extendForm?: (values: any) => JSX.Element;
   extendFormSwitch?: JSX.Element;
   extendButton?: (values: any) => JSX.Element;
-  extendButtonChangePassword?: (values: any) => void;
   idSubmit?: string;
   disableSubmit?: boolean;
 };

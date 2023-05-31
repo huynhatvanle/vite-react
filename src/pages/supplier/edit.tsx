@@ -35,11 +35,14 @@ const Page = () => {
   const { id } = useParams();
   const { formatDate } = GlobalFacade();
 
+  const dataTableRef = useRef<TableRefObject>(null);
+
   const productFacade = ProductFacade();
   const ordersFacade = OrdersFacade();
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
   const [test, setTest] = useState('1');
+  const [cap1, setcap1] = useState(true);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
@@ -82,6 +85,7 @@ const Page = () => {
   const handleSubmit = (values: Supplier) => {
     supplierFacade.put({ ...values, id });
   };
+  let i = 1;
 
   return (
     <div className={'w-full'}>
@@ -272,10 +276,11 @@ const Page = () => {
                 <div className="px-5 pb-4">
                   <DataTable
                     facade={productFacade}
+                    ref={dataTableRef}
                     defaultRequest={{
                       page: 1,
                       perPage: 10,
-                      filter: { supplierId: data?.id, type: 'BALANCE', storeId: '' },
+                      filter: { supplierId: data?.id, type: 'BALANCE', storeId: '', categoryId: '' },
                     }}
                     xScroll="895px"
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -369,6 +374,14 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
+                                console.log('valueeeeeeeeee', value);
+
+                                value ? setcap1(false) : setcap1(true);
+                                dataTableRef?.current?.onChange({
+                                  page: 1,
+                                  perPage: 10,
+                                  filter: { supplierId: data?.id, type: 'BALANCE', storeId: '', categoryId: value },
+                                });
                                 form.resetFields(['cap2', 'cap3']);
                               },
                             },
@@ -719,6 +732,7 @@ const Page = () => {
                           name: 'id',
                           tableItem: {
                             width: 70,
+                            render: (value: any, item: any) => i++,
                           },
                         },
                         {
@@ -1033,6 +1047,7 @@ const Page = () => {
                             name: 'id',
                             tableItem: {
                               width: 70,
+                              render: (value: any, item: any) => i++,
                             },
                           },
                           {
