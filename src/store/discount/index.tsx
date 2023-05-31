@@ -8,11 +8,26 @@ const name = 'Suborgcommision';
 
 const action = {
   ...new Action<Discount>(name),
+  getDiscount: createAsyncThunk(
+    name + '/get',
+    async ({ filter, page, perPage }: { filter: { id?: string }; page?: number; perPage?: number }) => {
+      const filterDis = JSON.parse(filter.toString() || '{}');
+      const data = await API.get<Discount>(`${routerLinks(name, 'api')}/${filterDis.id}`, {
+        page,
+        perPage,
+      });
+      console.log('datadata', data);
+      const dataDiscount = Object.entries(data.data as Object)[0]?.[1];
+      data.data = dataDiscount;
+
+      return data;
+    },
+  ),
   getByIdDiscount: createAsyncThunk(
     name + '/getById',
-    async ({ id, keyState = 'isVisible' }: { id?: string; keyState: keyof State<Discount> }) => {
-      const data = await API.get<Discount>(`${routerLinks(name, 'api')}/${id}`);
-      return { data, keyState };
+    async ({ id, page, perPage }: { id?: string; page?: number; perPage?: number }) => {
+      const data = await API.get<Discount>(`${routerLinks(name, 'api')}/${id}`, { page, perPage });
+      return { data };
     },
   ),
 };
@@ -24,9 +39,10 @@ export const DiscountFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<Discount>),
     set: (values: State<Discount>) => dispatch(action.set(values)),
-    get: (params: PaginationQuery<Discount>) => dispatch(action.get(params)),
-    getById: ({ id, keyState = 'isVisible' }: { id?: string; keyState?: keyof State<Discount> }) =>
-      dispatch(action.getByIdDiscount({ id, keyState })),
+    get: ({ filter, page, perPage }: { filter: { id?: string }; page?: number; perPage?: number }) =>
+      dispatch(action.getDiscount({ perPage, page, filter })),
+    getById: ({ id, page, perPage }: { id?: string; page?: number; perPage?: number }) =>
+      dispatch(action.getByIdDiscount({ id, page, perPage })),
     post: (values: Discount) => dispatch(action.post(values)),
     put: (values: Discount) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),
