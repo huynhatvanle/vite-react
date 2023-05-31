@@ -17,7 +17,7 @@ const action = {
     }: {
       page: number;
       perPage: number;
-      filter: { storeId?: string; type: string; supplierId?: string };
+      filter: { storeId?: string; type: string; supplierId?: string; categoryId?: string };
     }) => {
       // console.log(filter.toString().slice(filter.toString().indexOf(':') + 2,filter.toString().lastIndexOf('"')))
       // console.log(filter.toString().JSON.)
@@ -29,6 +29,7 @@ const action = {
         storeId: filterProduct.storeId,
         type: filterProduct.type,
         supplierId: filterProduct.supplierId,
+        categoryId: filterProduct.categoryId,
       });
       return data;
     },
@@ -50,9 +51,8 @@ export const ProductFacade = () => {
     }: {
       page: number;
       perPage: number;
-      filter: { supplierId?: string; storeId?: string; type: string };
+      filter: { supplierId?: string; storeId?: string; type: string; categoryId: string };
     }) => {
-      console.log(page, perPage, filter);
       return dispatch(action.getProduct({ page, perPage, filter }));
     },
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Product> }) =>
