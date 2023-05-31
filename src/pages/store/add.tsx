@@ -197,8 +197,9 @@ const Page = () => {
             },
           ]}
 
-          extendFormSwitch=
-          {<div className='flex items-center justify-between mb-2.5 '>
+          extendForm=
+          {(values) => (
+          <div className='items-center justify-between mb-2.5 '>
             <div className='flex'>
               <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
               <Switch onClick={handleClick} />
@@ -206,11 +207,8 @@ const Page = () => {
             {isChecked && (
               <Button className='!font-normal' text={t('store.Get branch DS')} />
             )}
-          </div>}
-
-          extendForm=
-          {isChecked ? () => (
-            <Form
+            {isChecked && (
+              <Form
               values={{ ...data }}
               columns={[
                 {
@@ -249,13 +247,10 @@ const Page = () => {
                     rules: [{ type: 'required' },],
                   },
                 },
-              ]}
-
-            />
-          )
-            :
-            undefined
-          }
+              ]}/>
+            )}
+          </div>
+          )}
 
           handSubmit={handleSubmit}
           disableSubmit={isLoading}
