@@ -762,8 +762,8 @@ export const Form = ({
       <div
         className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
-          '!mt-9': handCancel && handSubmit,
-          'md:inline-flex w-full justify-between md:float-right': handCancel,
+          '!mt-9 items-center max-sm:flex-col md:flex-row sm:inline-flex sm:float-right !absolute': handCancel && handSubmit,
+          // 'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
           'md:w-auto right-0 text-center items-center !absolute -bottom-1/4': handSubmit && extendButton,
           'md:w-auto md:inline-flex -bottom-1/2 right-0 justify-between sm:text-center items-center !absolute': extendButtonChangePassword && extendButton,
@@ -772,7 +772,7 @@ export const Form = ({
         {handCancel && (
           <Button
             text={t(textCancel)}
-            className={'w-32 justify-center out-line !border-black max-sm:w-3/5'}
+            className={'sm:min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
             onClick={handCancel}
           />
         )}
@@ -783,7 +783,7 @@ export const Form = ({
             id={idSubmit}
             onClick={() => form && form.submit()}
             disabled={disableSubmit}
-            className={'w-32 justify-center max-sm:w-3/5'}
+            className={'sm:min-w-[8rem] justify-center max-sm:w-3/5'}
             type={'submit'}
           />
         )}

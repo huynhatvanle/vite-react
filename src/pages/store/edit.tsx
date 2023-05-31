@@ -1033,11 +1033,6 @@ const Page = () => {
                     facade={invoiceKiotVietFacade}
                     defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
                     xScroll='1440px'
-                    // onRow={(data: any) => ({
-                    //   onDoubleClick: () => {
-                    //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                    //   },
-                    // })}
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
@@ -1181,7 +1176,7 @@ const Page = () => {
                   <Button
                     disabled={true}
                     text={t('titles.Export report')}
-                    className={'sm:w-[10rem] justify-center !bg-teal-800 flex '}
+                    className={'flex bg-teal-900 text-white sm:w-[10rem] rounded-xl items-center justify-center disabled:opacity-50'}
                     onClick={() => null}
                   />
                 </div>
