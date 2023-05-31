@@ -367,7 +367,7 @@ export const Form = ({
                 rules.push(() => ({
                   validator(_: any, value: any) {
                     if (!value) {
-                      return Promise.reject();
+                      return Promise.resolve();
                     } else if (/^\d+$/.test(value)) {
                       if (value?.trim().length < 8) {
                         return Promise.reject(t('components.form.ruleMinNumberLength', { min: 8 }));
