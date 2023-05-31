@@ -89,15 +89,14 @@ const Page = () => {
               values={{ ...user }}
             />
           </Spin>
-
         </div>
-        <div className='col-span-2 lg:border lg:rounded-xl bg-white'>
+        <div className='col-span-2 lg:border lg:rounded-xl bg-white relative'>
           <Spin spinning={isLoading}>
             <Tabs defaultActiveKey="1" size="large" className='profile'>
               <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className='mt-5'>
                 <Form
                   values={{ ...user }}
-                  className='relative'
+                  className=''
                   columns={[
                     {
                       title: 'user.Fullname',
@@ -144,7 +143,6 @@ const Page = () => {
                       }}
                     />
                   )}
-
                 />
               </Tabs.TabPane>
 
@@ -209,7 +207,8 @@ const Page = () => {
                       }}
                     />
                   )}
-                  extendButtonChangePassword={setPassword}
+                  textSubmit='routes.admin.Layout.Change Password'
+                  handSubmit={setPassword}
                 />
               </Tabs.TabPane>
             </Tabs>

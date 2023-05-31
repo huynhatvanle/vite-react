@@ -304,7 +304,11 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(false);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE', supplierId: ''} });
+                          dataTableRef?.current?.onChange({ 
+                            page: 1, 
+                            perPage: 10, 
+                            filter: {storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: ''} 
+                          });
                         }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                           BALANCE
                         </div>
@@ -316,7 +320,11 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(true);
-                          dataTableRef?.current?.onChange({ page: 1, perPage: 10, filter: {storeId: id, type: 'NON_BALANCE', supplierId: ''} });
+                          dataTableRef?.current?.onChange({ 
+                            page: 1, 
+                            perPage: 10, 
+                            filter: {storeId: id, type: 'NON_BALANCE', supplierId: '', categoryId: ''} 
+                          });
                         }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                           Non - BALANCE
                         </div>
@@ -338,7 +346,11 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef}
                 facade={productFacede}
-                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE', supplierId: ''} }}
+                defaultRequest={{ 
+                  page: 1, 
+                  perPage: 10, 
+                  filter: {storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: ''} 
+                }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg'
                 // onRow={(data: any) => ({
@@ -452,7 +464,11 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: data?.id, type: 'BALANCE', supplierId: value });
+                                dataTableRef?.current?.onChange({ 
+                                  page: 1, 
+                                  perPage: 10, 
+                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: value, categoryId: '' } 
+                                });
                               },
                             },
                           },
@@ -480,7 +496,11 @@ const Page = () => {
                               },
                               onChange(value, form) {
                                 form.resetFields(['categoryId2', 'categoryId3'])
-                                dataTableRef?.current?.onChange({ page: 1, perPage: 10, storeId: id, type: 'BALANCE', categoryId: value });
+                                dataTableRef?.current?.onChange({ 
+                                  page: 1, 
+                                  perPage: 10, 
+                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value } 
+                                });
                               },
                             },
                           },
