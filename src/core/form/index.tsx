@@ -311,12 +311,8 @@ export const Form = ({
     }
   };
   const generateForm = (item: any, index: number, showLabel = true, name?: string) => {
-    if (!!item?.formItem?.condition && !item?.formItem?.condition(values[item.name], form, index, values)) {
-      return;
-    }
-    if (item?.formItem?.render) {
-      return item?.formItem?.render(form, values, generateForm, index, reRender);
-    }
+    if (!!item?.formItem?.condition && !item?.formItem?.condition(values[item.name], form, index, values)) return;
+    if (item?.formItem?.render) return item?.formItem?.render(form, values, generateForm, index, reRender);
     if (item.formItem) {
       const rules: any = [];
       if (!item.formItem.type) item.formItem.type = 'text';
@@ -327,7 +323,6 @@ export const Form = ({
           .map((rule: any) => {
             switch (rule.type) {
               case 'required':
-                // console.log(item.fo)
                 switch (item.formItem.type) {
                   case 'text':
                   case 'number':
@@ -353,159 +348,121 @@ export const Form = ({
                 }
                 break;
               case 'email':
-                if (!rule.message) {
-                  rule.message = t('components.form.ruleEmail');
-                }
                 rules.push(() => ({
                   validator(_: any, value: any) {
                     const regexEmail =
                       /^(([^<>()[\]\\.,;:$%^&*\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                    if (!value || (typeof value === 'string' && regexEmail.test(value.trim()))) {
+                    if (!value || (typeof value === 'string' && regexEmail.test(value.trim())))
                       return Promise.resolve();
-                    } else if (
+                    else if (
                       typeof value === 'object' &&
                       value.length > 0 &&
                       value.filter((item: any) => !regexEmail.test(item)).length === 0
-                    ) {
+                    )
                       return Promise.resolve();
-                    }
-                    return Promise.reject(new Error(rule.message));
+                    return Promise.reject(t(rule.message || 'components.form.ruleEmail'));
                   },
                 }));
                 break;
               case 'phone':
                 rules.push(() => ({
                   validator(_: any, value: any) {
-                    if (!value) {
-                      return Promise.resolve();
-                    } else if (/^\d+$/.test(value)) {
-                      if (value?.trim().length < 8) {
+                    if (!value) return Promise.resolve();
+                    else if (/^\d+$/.test(value)) {
+                      if (value?.trim().length < 8)
                         return Promise.reject(t('components.form.ruleMinNumberLength', { min: 8 }));
-                      } else if (value?.trim().length > 12) {
+                      else if (value?.trim().length > 12)
                         return Promise.reject(t('components.form.ruleMaxNumberLength', { max: 12 }));
-                      } else {
-                        return Promise.resolve();
-                      }
-                    } else {
-                      return Promise.reject(t('components.form.only number'));
-                    }
+                      else return Promise.resolve();
+                    } else return Promise.reject(t('components.form.only number'));
                   },
                 }));
                 break;
               case 'min':
-                if (!rule.message) {
-                  switch (item.formItem.type) {
-                    case 'number':
-                      rule.message = t('components.form.ruleMin', {
-                        min: rule.value,
-                      });
-                      break;
-                    case 'only_number':
-                      rule.message = t('components.form.ruleMinNumberLength', {
-                        min: rule.value,
-                      });
-                      break;
-                    default:
-                      rule.message = t('components.form.ruleMinLength', {
-                        min: rule.value,
-                      });
-                  }
-                }
-                if (item.formItem.type === 'number') {
+                if (item.formItem.type === 'number')
                   rules.push(() => ({
                     validator(_: any, value: any) {
                       if (!value || /^0$|^-?[1-9]\d*(\.\d+)?$/.test(value)) {
                         if (/^0$|^-?[1-9]\d*(\.\d+)?$/.test(value)) {
                           if (parseFloat(value) < rule.value) {
-                            return Promise.reject(new Error(rule.message));
+                            return Promise.reject(t(rule.message || 'components.form.ruleMin', { min: rule.value }));
                           }
                         }
                       }
                       return Promise.resolve();
                     },
                   }));
-                } else {
+                else {
+                  if (!rule.message) {
+                    switch (item.formItem.type) {
+                      case 'only_number':
+                        rule.message = t('components.form.ruleMinNumberLength', { min: rule.value });
+                        break;
+                      default:
+                        rule.message = t('components.form.ruleMinLength', { min: rule.value });
+                    }
+                  }
                   rules.push({
                     type: item.formItem.type === 'number' ? 'number' : 'string',
                     min: rule.value,
                     message: rule.message,
                   });
                 }
-
                 break;
               case 'max':
-                if (!rule.message) {
-                  switch (item.formItem.type) {
-                    case 'number':
-                      rule.message = t('components.form.ruleMax', {
-                        max: rule.value,
-                      });
-                      break;
-                    case 'only_number':
-                      rule.message = t('components.form.ruleMaxNumberLength', {
-                        max: rule.value,
-                      });
-                      break;
-                    default:
-                      rule.message = t('components.form.ruleMaxLength', {
-                        max: rule.value,
-                      });
-                  }
-                }
-                if (item.formItem.type === 'number') {
+                if (item.formItem.type === 'number')
                   rules.push(() => ({
                     validator(_: any, value: any) {
                       if (!value || /^0$|^-?[1-9]\d*(\.\d+)?$/.test(value)) {
                         if (/^0$|^-?[1-9]\d*(\.\d+)?$/.test(value)) {
                           if (parseFloat(value) > rule.value) {
-                            return Promise.reject(new Error(rule.message));
+                            return Promise.reject(
+                              t(rule.message || 'components.form.ruleMax', {
+                                max: rule.value,
+                              }),
+                            );
                           }
                         }
                       }
                       return Promise.resolve();
                     },
                   }));
-                } else {
+                else {
+                  if (!rule.message) {
+                    switch (item.formItem.type) {
+                      case 'only_number':
+                        rule.message = t('components.form.ruleMaxNumberLength', { max: rule.value });
+                        break;
+                      default:
+                        rule.message = t('components.form.ruleMaxLength', { max: rule.value });
+                    }
+                  }
                   rules.push({
                     type: item.formItem.type === 'number' ? 'number' : 'string',
                     max: rule.value,
                     message: rule.message,
                   });
                 }
-
                 break;
               case 'url':
-                if (!rule.message) {
-                  rule.message = t('components.form.incorrectPathFormat');
-                }
                 rules.push({
                   type: 'url',
-                  message: rule.message,
+                  message: t(rule.message || 'components.form.incorrectPathFormat'),
                 });
                 break;
               case 'only_text':
-                if (!rule.message) {
-                  rule.message = t('components.form.only text');
-                }
                 rules.push(() => ({
                   validator(_: any, value: any) {
-                    if (!value || /^[A-Za-z]+$/.test(value)) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error(rule.message));
+                    if (!value || /^[A-Za-z]+$/.test(value)) return Promise.resolve();
+                    return Promise.reject(t(rule.message || 'components.form.only text'));
                   },
                 }));
                 break;
               case 'only_text_space':
-                if (!rule.message) {
-                  rule.message = t('components.form.only text');
-                }
                 rules.push(() => ({
                   validator(_: any, value: any) {
-                    if (!value || /^[a-zA-Z ]+$/.test(value)) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error(rule.message));
+                    if (!value || /^[a-zA-Z ]+$/.test(value)) return Promise.resolve();
+                    return Promise.reject(t(rule.message || 'components.form.only text'));
                   },
                 }));
                 break;
@@ -513,7 +470,6 @@ export const Form = ({
                 rules.push(rule.validator);
                 break;
               default:
-                
             }
             return rule;
           });
@@ -522,9 +478,8 @@ export const Form = ({
         case 'number':
           rules.push(() => ({
             validator(_: any, value: any) {
-              if (!value || (/^-?[1-9]*\d+(\.\d{1,2})?$/.test(value) && parseInt(value) < 1000000000)) {
+              if (!value || (/^-?[1-9]*\d+(\.\d{1,2})?$/.test(value) && parseInt(value) < 1000000000))
                 return Promise.resolve();
-              }
               return Promise.reject(t('components.form.only number'));
             },
           }));
@@ -532,9 +487,7 @@ export const Form = ({
         case 'name':
           rules.push(() => ({
             validator(_: any, value: any) {
-              if (!value || /^[a-zA-Z]+$/.test(value)) {
-                return Promise.resolve();
-              }
+              if (!value || /^[a-zA-Z]+$/.test(value)) return Promise.resolve();
               return Promise.reject(t('components.form.only text'));
             },
           }));
@@ -545,26 +498,18 @@ export const Form = ({
               if (value) {
                 let min = 8;
                 rules.forEach((item: any) => item.min && (min = item.min));
-                if (value.trim().length < min) {
-                  return Promise.reject(t('components.form.Form Password.Lenght Password'));
-                }
-                if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value)) {
+                if (value.trim().length < min) return Promise.reject(t('components.form.Form Password.Lenght Password'));
+                if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value))
                   return Promise.resolve();
-                } else {
-                  return Promise.reject(t('components.form.rulePassword'));
-                }
-              } else {
-                return Promise.resolve();
-              }
+                else return Promise.reject(t('components.form.rulePassword'));
+              } else return Promise.resolve();
             },
           }));
           break;
         case 'only_number':
           rules.push(() => ({
             validator(_: any, value: any) {
-              if (!value || /^[0-9]+$/.test(value)) {
-                return Promise.resolve();
-              }
+              if (!value || /^[0-9]+$/.test(value)) return Promise.resolve();
               return Promise.reject(t('components.form.only number'));
             },
           }));
@@ -578,21 +523,22 @@ export const Form = ({
         labelAlign: 'left',
         validateTrigger: 'onBlur',
       };
-      if (rules.length) {
-        otherProps.rules = rules;
-      }
-      if (widthLabel) {
-        otherProps.labelCol = { flex: widthLabel };
-      }
+      if (rules.length) otherProps.rules = rules;
+      if (widthLabel) otherProps.labelCol = { flex: widthLabel };
 
-      if (item.formItem.type === 'switch' || item.formItem.type === 'checkbox') {
-        otherProps.valuePropName = 'checked';
-      }
-      if (item.formItem.type === 'hidden') {
-        otherProps.hidden = true;
-      }
-      if (item.formItem.type === 'select' || item.formItem.type === 'upload') {
-        otherProps.validateTrigger = 'onChange';
+      switch (item.formItem.type) {
+        case 'switch':
+        case 'checkbox':
+          otherProps.valuePropName = 'checked';
+          break;
+        case 'hidden':
+          otherProps.hidden = true;
+          break;
+        case 'select':
+        case 'upload':
+          otherProps.validateTrigger = 'onChange';
+          break;
+        default:
       }
 
       return item.formItem.type !== 'addable' ? (
@@ -626,9 +572,8 @@ export const Form = ({
           clearTimeout(timeout.current);
           timeout.current = setTimeout(async () => {
             for (const key in objValue) {
-              if (Object.prototype.hasOwnProperty.call(objValue, key)) {
+              if (Object.prototype.hasOwnProperty.call(objValue, key))
                 columns.filter((_item: any) => _item.name === key);
-              }
             }
             refLoad.current = false;
             set_columns(columns);
@@ -709,7 +654,7 @@ type Type = {
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?: (values: any) => JSX.Element ;
+  extendForm?: (values: any) => JSX.Element;
   extendButton?: (values: any) => JSX.Element;
   idSubmit?: string;
   disableSubmit?: boolean;
