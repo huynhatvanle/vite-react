@@ -618,9 +618,7 @@ export const Form = ({
                 if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value)) {
                   return Promise.resolve();
                 } else {
-                  return Promise.reject(
-                    t('components.form.rulePassword')
-                  );
+                  return Promise.reject(t('components.form.rulePassword'));
                 }
               } else {
                 return Promise.resolve();
@@ -629,9 +627,7 @@ export const Form = ({
           }));
           break;
         case 'chagepassword':
-          rules.push(() => ({
-          }),
-          );
+          rules.push(() => ({}));
           break;
         case 'passConfirm':
           rules.push(() => ({}));
@@ -685,7 +681,7 @@ export const Form = ({
 
   const handFinish = (values: any) => {
     values = convertFormValue(columns, values);
-    (handSubmit && handSubmit(values))
+    handSubmit && handSubmit(values);
   };
 
   return (
@@ -724,13 +720,13 @@ export const Form = ({
                   className={classNames(
                     column?.formItem?.classItem,
                     'col-span-12' +
-                    (' sm:col-span-' +
-                      (column?.formItem?.colTablet
-                        ? column?.formItem?.colTablet
-                        : column?.formItem?.col
+                      (' sm:col-span-' +
+                        (column?.formItem?.colTablet
+                          ? column?.formItem?.colTablet
+                          : column?.formItem?.col
                           ? column?.formItem?.col
                           : 12)) +
-                    (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
+                      (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
                   )}
                   key={index}
                 >
@@ -746,10 +742,11 @@ export const Form = ({
       <div
         className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
-          '!mt-9': handCancel && handSubmit,
-          'md:inline-flex w-full justify-between md:float-right': handCancel,
+          '!mt-9 sm:flex-row flex-col items-center': handCancel && handSubmit,
+          'sm:inline-flex w-full justify-between sm:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
-          'w-full md:w-auto md:inline-flex md:float-right top-0 right-0 text-center items-center': handSubmit && extendButton,
+          'w-full md:w-auto md:inline-flex md:float-right top-0 right-0 text-center items-center':
+            handSubmit && extendButton,
           // 'w-full md:w-auto md:inline-flex md:float-right -bottom-1/3 right-0 justify-between sm:text-center items-center': extendButtonChangePassword && extendButton,
         })}
       >
@@ -781,13 +778,13 @@ type Type = {
   textSubmit?: string;
   textCancel?: string;
   handSubmit?: (values: any) => void;
-  handCancel?: () => void ;
+  handCancel?: () => void;
   values?: any;
   formAnt?: FormInstance;
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?: ((values: any) => JSX.Element);
+  extendForm?: (values: any) => JSX.Element;
   extendFormSwitch?: JSX.Element;
   extendButton?: (values: any) => JSX.Element;
   idSubmit?: string;
