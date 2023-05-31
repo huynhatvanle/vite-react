@@ -30,6 +30,7 @@ const Page = () => {
   const { id } = useParams();
   const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRef1 = useRef<TableRefObject>(null);
+  const dataTableRefInventory = useRef<TableRefObject>(null);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
@@ -45,9 +46,6 @@ const Page = () => {
       isReload.current && storeFacade.get(param);
     };
   }, [id]);
-  // useEffect(() => {
-  //   productFacede.get({page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'}})
-  // },[]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`);
   //navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
@@ -72,7 +70,7 @@ const Page = () => {
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='1' type='card' size='large'>
+          <Tabs defaultActiveKey='6' type='card' size='large'>
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               {!isLoading && (
                 <Form
@@ -1200,8 +1198,9 @@ const Page = () => {
 
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
+                ref={dataTableRefInventory}
                 facade={inventoryProductFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: { idStore: data?.id } }}
+                defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id, supplierId: '' } }}
                 xScroll='1440px'
                 className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}
@@ -1215,79 +1214,80 @@ const Page = () => {
                     name: 'productCode',
                     tableItem: {
                       width: 120,
-                      render: (text: string, item: any) => item.productCode
                     },
                   },
-                  // {
-                  //   title: 'store.Inventory management.Barcode (Supplier)',
-                  //   name: 'supplierBarcode',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.supplierBarcode,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Barcode (Product)',
-                  //   name: 'storeBarcode',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.storeBarcode,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Product name',
-                  //   name: 'productName',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.productName,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Category',
-                  //   name: 'category',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Supplier',
-                  //   name: 'supplierName',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Unit',
-                  //   name: 'name',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Quantity on KiotViet',
-                  //   name: 'numberInKiot',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Quantity on BALANCE',
-                  //   name: 'numberInBal',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Warehouse price',
-                  //   name: 'inventoryPrice',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Total amount',
-                  //   name: 'inventoryPrice',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
+                  {
+                    title: 'store.Inventory management.Barcode (Supplier)',
+                    name: 'supplierBarcode',
+                  },
+                  {
+                    title: 'store.Inventory management.Barcode (Product)',
+                    name: 'storeBarcode',
+                    tableItem: {
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Product name',
+                    name: 'productName',
+                    tableItem: {
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Category',
+                    name: 'category',
+                    tableItem: {
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Supplier',
+                    name: 'supplierName',
+                    tableItem: {
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Unit',
+                    name: 'units',
+                    tableItem: {
+                      render(text, item) {
+                          return(
+                            <Select value={item?.units[0]?.name}>
+                              {item?.units.forEach( (unit: any) => {
+                                return(
+                                  <>{unit.name}</>
+                                )
+                              })}
+                            </Select>
+                          )
+                      },
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Quantity on KiotViet',
+                    name: 'numberInKiot',
+                    tableItem: {
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Quantity on BALANCE',
+                    name: 'numberInBal',
+                    tableItem: {
+                      render: (value: any, item: any) => parseInt(item?.numberInBal).toLocaleString()
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Warehouse price',
+                    name: 'inventoryPrice',
+                    tableItem: {
+                      render: (value: any, item: any) => parseInt(item?.inventoryPrice).toLocaleString()
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Total amount',
+                    name: 'inventoryPrice',
+                    tableItem: {
+                      render: (value: any, item: any) => parseInt(`${item?.numberInBal * item?.inventoryPrice}`).toLocaleString()
+                    },
+                  },
                 ]}
                 showSearch={false}
                 rightHeader={
@@ -1296,7 +1296,7 @@ const Page = () => {
                       <Button
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group'
                         text={t('titles.synchronized')}
-                        onClick={() => navigate(`/${lang}${routerLinks('Supplier/Excel')}`)}
+                        // onClick={() => navigate(`/${lang}${routerLinks('Supplier/Excel')}`)}
                       />
                     }
                   </div>
@@ -1323,7 +1323,14 @@ const Page = () => {
                                 type: 'BALANCE',
                                 storeId: id
                               }),
-                            }
+                            },
+                            onChange(value, form) {
+                              dataTableRefInventory?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: { idStore: id, supplierId: value, }
+                              });
+                            },
                           },
                         },
                       ]
