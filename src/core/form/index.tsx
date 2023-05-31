@@ -122,26 +122,6 @@ export const Form = ({
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
           />
         );
-      case 'changepassword':
-        return (
-          <Password
-            tabIndex={formItem.tabIndex || index}
-            placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
-            }
-            disabled={!!formItem.disabled && formItem.disabled(values, form)}
-          />
-        );
-      case 'passConfirm':
-        return (
-          <Password
-            tabIndex={formItem.tabIndex || index}
-            placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
-            }
-            disabled={!!formItem.disabled && formItem.disabled(values, form)}
-          />
-        );
       case 'textarea':
         return (
           <textarea
@@ -347,6 +327,7 @@ export const Form = ({
           .map((rule: any) => {
             switch (rule.type) {
               case 'required':
+                // console.log(item.fo)
                 switch (item.formItem.type) {
                   case 'select':
                     if (!rule.message) {
@@ -370,41 +351,17 @@ export const Form = ({
                     });
                     break;
                   default:
-                    if (!rule.message) {
-                      rule.message = t('components.form.ruleRequired', { title: t(item.title).toLowerCase() });
-                    }
                     rules.push({
                       required: true,
-                      message: rule.message,
+                      message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
                     });
-                    if (!item.formItem.type) {
-                      rules.push({
-                        whitespace: true,
-                        message: t('components.form.ruleRequired'),
-                      });
-                    }
-                    // rules.push({
-                    //   whitespace: true,
-                    //   message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
-                    // });
+                    rules.push({
+                      whitespace: true,
+                      message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
+                    });
                     break;
                 }
                 break;
-              // case 'requiredSelect':
-              //   if (!rule.message) {
-              //     rule.message = t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() });
-              //   }
-              //   rules.push({
-              //     required: true,
-              //     message: rule.message,
-              //   });
-              //   if (!item.formItem.type) {
-              //     rules.push({
-              //       whitespace: true,
-              //       message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
-              //     });
-              //   }
-              //   break;
               case 'requiredPassword':
                 if (!rule.message) {
                   rule.message = t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() });
@@ -581,6 +538,7 @@ export const Form = ({
                 rules.push(rule.validator);
                 break;
               default:
+                
             }
             return rule;
           });

@@ -50,8 +50,8 @@ const Page = () => {
                 title: t('columns.auth.login.password'),
                 formItem: {
                   placeholder: 'columns.auth.login.Enter Password',
-                  type: 'passConfirm',
-                  rules: [{ type: 'requiredPassword' }],
+                  type: 'password',
+                  rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }]
                 },
               },
             ]}
