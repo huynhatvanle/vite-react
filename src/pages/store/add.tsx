@@ -74,7 +74,7 @@ const Page = () => {
               title: '',
               name: 'address',
               formItem: {
-                rules: [{ type: 'required' }],
+                // rules: [{ type: 'required' }],
                 render() {
                   return (
                     <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>
@@ -169,7 +169,7 @@ const Page = () => {
               title: 'store.ContactName',
               formItem: {
                 col: 4,
-                rules: [{ type: 'required' },{ type: 'name' }],
+                rules: [{ type: 'required' }, {type: 'name'}],
               },
             },
             {

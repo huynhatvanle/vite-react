@@ -31,7 +31,7 @@ const Page = () => {
         </h1>
         <h5 className="intro-x font-normal text-teal-900 ">{t('routes.auth.login.subTitle')}</h5>
       </div>
-      <div className='mx-auto w-3/4 relative pb-[6.5rem]'>
+      <div className='mx-auto w-3/4 relative'>
         <Spin spinning={isLoading} >
           <Form
             values={{ ...data }}
@@ -60,8 +60,8 @@ const Page = () => {
             disableSubmit={isLoading}
           />
         </Spin>
-        <div className="absolute right-6 top-1/2 sm:right-0 text-right">
-          <button className={'text-teal-900 font-normal underline hover:no-underline'} onClick={() => navigate(`/${lang}${routerLinks('ForgetPassword')}`)}>
+        <div className="absolute right-6 top-2/3 sm:right-0 text-right">
+          <button className={'text-teal-900 font-normal underline hover:no-underline mt-2'} onClick={() => navigate(`/${lang}${routerLinks('ForgetPassword')}`)}>
             {t('routes.auth.login.Forgot Password')}
           </button>
         </div>
