@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { ModalForm } from '@core/modal/form';
-import {keyRole, routerLinks} from '@utils';
+import { keyRole } from '@utils';
 import { GlobalFacade, DataTypeFacade, DataFacade } from '@store';
-import {Edit, Plus, Trash} from '@svgs';
+import { Edit, Plus, Trash } from '@svgs';
 import { FormModalRefObject, TableRefObject } from '@models';
-import {Popconfirm, Tooltip} from 'antd';
+import { Popconfirm, Tooltip } from 'antd';
 import slug from 'slug';
 
 const Page = () => {
@@ -98,7 +98,7 @@ const Page = () => {
                         title={t('routes.admin.Layout.Edit') || ''}
                         onClick={() => modalFormRef?.current?.handleEdit!(data)}
                       >
-                        <Edit className="icon-cud bg-blue-600 hover:bg-blue-400"/>
+                        <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                       </button>
                     </Tooltip>
                   )}

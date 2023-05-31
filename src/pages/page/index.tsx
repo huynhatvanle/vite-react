@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {Popconfirm, Tooltip} from 'antd';
+import { Popconfirm, Tooltip } from 'antd';
 import slug from 'slug';
 
 import { Button } from '@core/button';
@@ -8,7 +8,7 @@ import { DataTable } from '@core/data-table';
 import { ModalForm } from '@core/modal/form';
 import { FormModalRefObject, TableRefObject } from '@models';
 import { GlobalFacade, PageFacade } from '@store';
-import {Edit, Plus, Trash} from '@svgs';
+import { Edit, Plus, Trash } from '@svgs';
 import { keyRole, listStyle, loopMapSelect } from '@utils';
 
 const Page = () => {
@@ -77,7 +77,7 @@ const Page = () => {
                         title={t('routes.admin.Layout.Edit') || ''}
                         onClick={() => modalFormRef?.current?.handleEdit!(data)}
                       >
-                        <Edit className="icon-cud bg-blue-600 hover:bg-blue-400"/>
+                        <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                       </button>
                     </Tooltip>
                   )}
