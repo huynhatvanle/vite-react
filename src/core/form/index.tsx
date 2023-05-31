@@ -25,7 +25,6 @@ export const Form = ({
   widthLabel,
   checkHidden = false,
   extendForm,
-  extendFormSwitch,
   extendButton,
   idSubmit = 'idSubmit',
   disableSubmit = false,
@@ -113,26 +112,6 @@ export const Form = ({
       case 'table_transfer':
         return <TableTransfer formItem={formItem} form={form} />;
       case 'password':
-        return (
-          <Password
-            tabIndex={formItem.tabIndex || index}
-            placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
-            }
-            disabled={!!formItem.disabled && formItem.disabled(values, form)}
-          />
-        );
-      case 'changepassword':
-        return (
-          <Password
-            tabIndex={formItem.tabIndex || index}
-            placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
-            }
-            disabled={!!formItem.disabled && formItem.disabled(values, form)}
-          />
-        );
-      case 'passConfirm':
         return (
           <Password
             tabIndex={formItem.tabIndex || index}
@@ -340,6 +319,7 @@ export const Form = ({
     }
     if (item.formItem) {
       const rules: any = [];
+      if (!item.formItem.type) item.formItem.type = 'text';
 
       if (item.formItem.rules) {
         item.formItem.rules
@@ -347,77 +327,29 @@ export const Form = ({
           .map((rule: any) => {
             switch (rule.type) {
               case 'required':
+                // console.log(item.fo)
                 switch (item.formItem.type) {
-                  case 'select':
-                    if (!rule.message) {
-                      rule.message = t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() });
-                    }
+                  case 'text':
+                  case 'number':
+                  case 'hidden':
+                  case 'password':
+                  case 'textarea':
                     rules.push({
                       required: true,
-                      message: rule.message,
-                    });
-                    if (!item.formItem.type) {
-                      rules.push({
-                        whitespace: true,
-                        message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
-                      });
-                    }
-                    break;
-                  case 'tree_select':
-                    rules.push({
-                      required: true,
-                      message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+                      whitespace: true,
+                      message: t(rule.message || 'components.form.ruleRequired', {
+                        title: t(item.title).toLowerCase(),
+                      }),
                     });
                     break;
                   default:
-                    if (!rule.message) {
-                      rule.message = t('components.form.ruleRequired', { title: t(item.title).toLowerCase() });
-                    }
                     rules.push({
                       required: true,
-                      message: rule.message,
+                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
+                        title: t(item.title).toLowerCase(),
+                      }),
                     });
-                    if (!item.formItem.type) {
-                      rules.push({
-                        whitespace: true,
-                        message: t('components.form.ruleRequired'),
-                      });
-                    }
-                    // rules.push({
-                    //   whitespace: true,
-                    //   message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
-                    // });
                     break;
-                }
-                break;
-              // case 'requiredSelect':
-              //   if (!rule.message) {
-              //     rule.message = t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() });
-              //   }
-              //   rules.push({
-              //     required: true,
-              //     message: rule.message,
-              //   });
-              //   if (!item.formItem.type) {
-              //     rules.push({
-              //       whitespace: true,
-              //       message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
-              //     });
-              //   }
-              //   break;
-              case 'requiredPassword':
-                if (!rule.message) {
-                  rule.message = t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() });
-                }
-                rules.push({
-                  required: true,
-                  message: rule.message,
-                });
-                if (!item.formItem.type) {
-                  rules.push({
-                    whitespace: true,
-                    message: t('components.form.ruleRequiredPassword', { title: t(item.title).toLowerCase() }),
-                  });
                 }
                 break;
               case 'email':
@@ -581,6 +513,7 @@ export const Form = ({
                 rules.push(rule.validator);
                 break;
               default:
+                
             }
             return rule;
           });
@@ -625,12 +558,6 @@ export const Form = ({
               }
             },
           }));
-          break;
-        case 'chagepassword':
-          rules.push(() => ({}));
-          break;
-        case 'passConfirm':
-          rules.push(() => ({}));
           break;
         case 'only_number':
           rules.push(() => ({
@@ -735,25 +662,23 @@ export const Form = ({
               ),
           )}
         </div>
-        {extendFormSwitch}
         {extendForm && extendForm(values)}
       </div>
 
       <div
         className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
-          '!mt-9 sm:flex-row flex-col items-center': handCancel && handSubmit,
-          'sm:inline-flex w-full justify-between sm:float-right': handCancel,
+          '!mt-9 items-center max-sm:flex-col md:flex-row sm:inline-flex sm:float-right !absolute':
+            handCancel && handSubmit,
+          // 'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
-          'w-full md:w-auto md:inline-flex md:float-right top-0 right-0 text-center items-center':
-            handSubmit && extendButton,
-          // 'w-full md:w-auto md:inline-flex md:float-right -bottom-1/3 right-0 justify-between sm:text-center items-center': extendButtonChangePassword && extendButton,
+          'md:w-auto right-0 text-center items-center !absolute -bottom-1/4': handSubmit && extendButton,
         })}
       >
         {handCancel && (
           <Button
             text={t(textCancel)}
-            className={'min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
+            className={'sm:min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
             onClick={handCancel}
           />
         )}
@@ -784,8 +709,7 @@ type Type = {
   onFirstChange?: () => void;
   widthLabel?: string;
   checkHidden?: boolean;
-  extendForm?: (values: any) => JSX.Element;
-  extendFormSwitch?: JSX.Element;
+  extendForm?: (values: any) => JSX.Element ;
   extendButton?: (values: any) => JSX.Element;
   idSubmit?: string;
   disableSubmit?: boolean;

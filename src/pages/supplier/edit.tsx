@@ -1136,6 +1136,13 @@ const Page = () => {
                   </div>
                 )
               )}
+              <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={handleBack}
+                />
+              </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab={t('titles.Discount')} key="5" className="rounded-xl">
               {/* lấy về đc data/ tạo 1 cái data mới /lấy 1 cái key tạo 1 row mới trong table */}

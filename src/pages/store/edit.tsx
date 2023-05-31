@@ -28,10 +28,9 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  // const [supplier, setSupplier] = useState('')
-
   const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRef1 = useRef<TableRefObject>(null);
+  const dataTableRefInventory = useRef<TableRefObject>(null);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
@@ -47,9 +46,6 @@ const Page = () => {
       isReload.current && storeFacade.get(param);
     };
   }, [id]);
-  // useEffect(() => {
-  //   productFacede.get({page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'}})
-  // },[]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`);
   //navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
@@ -65,6 +61,10 @@ const Page = () => {
   };
 
   const [isBalanceClicked, setIsBalanceClicked] = useState<boolean>(false);
+
+  function setType(arg0: string) {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <div className={'w-full'}>
@@ -227,22 +227,21 @@ const Page = () => {
                     },
                   ]}
 
-                  extendFormSwitch=
-                    {<div className='flex items-center justify-between mb-2.5 '>
-                      <div className='flex'>
-                        <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
-                        <Switch onClick={handleClick} />
+                  extendForm=
+                  {(values) => (
+                    <>
+                      <div className='flex items-center justify-between mb-2.5'>
+                        <div className='flex'>
+                          <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
+                          <Switch onClick={handleClick} />
+                        </div>
+                        {isChecked && (
+                          <Button className='!font-normal' text={t('store.Get branch DS')} />
+                        )}
                       </div>
                       {isChecked && (
-                        <Button className='!font-normal' text={t('store.Get branch DS')} />
-                      )}
-                    </div>}
-
-                  extendForm=
-                    {isChecked ? (values: any) => (
                         <Form
                           values={{ ...data }}
-                          className='form-store'
                           columns={[
                             {
                               title: 'client_id',
@@ -277,15 +276,13 @@ const Page = () => {
                               formItem: {
                                 tabIndex: 2,
                                 col: 6,
-                                rules: [{ type: 'required' }],
+                                rules: [{ type: 'required' },],
                               },
                             },
-                          ]}
-                        />
-                      )
-                      :
-                      undefined
-                    }
+                          ]} />
+                      )}
+                    </>
+                  )}
                   handSubmit={handleSubmit}
                   disableSubmit={isLoading}
                   handCancel={handleBack}
@@ -304,10 +301,10 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(false);
-                          dataTableRef?.current?.onChange({ 
-                            page: 1, 
-                            perPage: 10, 
-                            filter: {storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: ''} 
+                          dataTableRef?.current?.onChange({
+                            page: 1,
+                            perPage: 10,
+                            filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: '' }
                           });
                         }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                           BALANCE
@@ -320,10 +317,10 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(true);
-                          dataTableRef?.current?.onChange({ 
-                            page: 1, 
-                            perPage: 10, 
-                            filter: {storeId: id, type: 'NON_BALANCE', supplierId: '', categoryId: ''} 
+                          dataTableRef?.current?.onChange({
+                            page: 1,
+                            perPage: 10,
+                            filter: { storeId: id, type: 'NON_BALANCE', supplierId: '', categoryId: '' }
                           });
                         }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                           Non - BALANCE
@@ -346,24 +343,19 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef}
                 facade={productFacede}
-                defaultRequest={{ 
-                  page: 1, 
-                  perPage: 10, 
-                  filter: {storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: ''} 
+                defaultRequest={{
+                  page: 1,
+                  perPage: 10,
+                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: '' }
                 }}
-                xScroll='1440px'
+                xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
-                // onRow={(data: any) => ({
-                //   onDoubleClick: () => {
-                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                //   },
-                // })}
                 columns={[
                   {
                     title: 'product.Code',
                     name: 'code',
                     tableItem: {
-                      width: 150,
+                      width: 180,
                       sorter: true,
                       filter: { type: 'search' }
                     },
@@ -372,7 +364,6 @@ const Page = () => {
                     title: 'product.StoreCode',
                     name: 'storeBarcode',
                     tableItem: {
-                      sorter: true,
                       filter: { type: 'search' }
                     },
                   },
@@ -380,7 +371,6 @@ const Page = () => {
                     title: 'product.SupplierCode',
                     name: 'barcode',
                     tableItem: {
-                      sorter: true,
                       filter: { type: 'search' }
                     },
                   },
@@ -403,6 +393,7 @@ const Page = () => {
                     title: 'product.SupplierName',
                     name: 'supplierName',
                     tableItem: {
+                      render: (value: any, item: any) => item?.subOrg?.name
                     },
                   },
                   {
@@ -425,7 +416,6 @@ const Page = () => {
                 paginationDescription={(from: number, to: number, total: number) =>
                   t('routes.admin.Layout.PaginationProduct', { from, to, total })
                 }
-
                 rightHeader={
                   <div className={'flex h-10 w-36'}>
                     {
@@ -464,10 +454,10 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                dataTableRef?.current?.onChange({ 
-                                  page: 1, 
-                                  perPage: 10, 
-                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: value, categoryId: '' } 
+                                dataTableRef?.current?.onChange({
+                                  page: 1,
+                                  perPage: 10,
+                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: value, categoryId: '' }
                                 });
                               },
                             },
@@ -476,7 +466,7 @@ const Page = () => {
                       }
                     />
                     <Form
-                      className="intro-x rounded-lg w-full form-store "
+                      className="intro-x rounded-lg w-full form-store"
                       columns={
                         [
                           {
@@ -496,10 +486,10 @@ const Page = () => {
                               },
                               onChange(value, form) {
                                 form.resetFields(['categoryId2', 'categoryId3'])
-                                dataTableRef?.current?.onChange({ 
-                                  page: 1, 
-                                  perPage: 10, 
-                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value } 
+                                dataTableRef?.current?.onChange({
+                                  page: 1,
+                                  perPage: 10,
+                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
                                 });
                               },
                             },
@@ -554,30 +544,27 @@ const Page = () => {
                   </>
                 }
               />
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line absolute mt-4'}
-                onClick={() => {
-                  navigate(`/${lang}${routerLinks('Store')}`)
-                }}
-              />
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={() => {
+                    navigate(routerLinks('Store'))
+                  }}
+                />
+              </div>
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, supplierType: 'BALANCE'} }}
-                xScroll='1440px'
+                xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
-                // onRow={(data: any) => ({
-                //   onDoubleClick: () => {
-                //     navigate(routerLinks('store/branch/edit') + '/' + data.id);
-                //   },
-                // })}
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSubStore', { from, to, total })
+                  t('routes.admin.Layout.PaginationProduct', { from, to, total })
                 }
                 columns={[
                   {
@@ -630,19 +617,21 @@ const Page = () => {
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-0 lg:w-full'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
-                        onClick={() =>navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
+                        onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
                       />
                     }
                   </div>
                 }
               />
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line absolute mt-4'}
-                onClick={() => {
-                  navigate(`/${lang}${routerLinks('Store')}`)
-                }}
-              />
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={() => {
+                    navigate(routerLinks('Store'))
+                  }}
+                />
+              </div>
             </Tabs.TabPane>
 
             <Tabs.TabPane
@@ -652,24 +641,26 @@ const Page = () => {
                   menu={{
                     items: [
                       {
-                        key: '0',
+                        key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
                           <div onClick={() => {
+                            setType('BALANCE')
                             setIsBalanceClicked(false);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: {idSuppiler: id, supplierType: 'BALANCE'} });
+                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: 'BALANCE' } });
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             BALANCE
                           </div>
                         ),
                       },
                       {
-                        key: '1',
+                        key: '2',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
                           <div onClick={() => {
+                            setType('NON_BALANCE')
                             setIsBalanceClicked(true);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: {idSuppiler: id, supplierType: 'NON_BALANCE'} });
+                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: '', storeId: data?.id, supplierType: 'NON_BALANCE' } });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
@@ -690,7 +681,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef1}
                 facade={connectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: {idSuppiler: data?.id, supplierType: ''} }}
+                defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: data?.id, supplierType: '' } }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 // onRow={(data: any) => ({
@@ -742,13 +733,15 @@ const Page = () => {
                   },
                 ]}
               />
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line absolute mt-4'}
-                onClick={() => {
-                  navigate(`/${lang}${routerLinks('Store')}`)
-                }}
-              />
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={() => {
+                    navigate(routerLinks('Store'))
+                  }}
+                />
+              </div>
             </Tabs.TabPane>
 
             <Tabs.TabPane
@@ -798,7 +791,7 @@ const Page = () => {
                   <DataTable
                     facade={invoiceKiotVietFacade}
                     defaultRequest={{ page: 1, perPage: 10, filter: {idStore: data?.id} }}
-                    xScroll='1440px'
+                    xScroll='1270px'
                     onRow={(data: any) => ({
                       onDoubleClick: () => {
                         navigate(routerLinks('store-managerment/edit') + '/' + data.id);
@@ -1039,13 +1032,8 @@ const Page = () => {
                   :
                   <DataTable
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: {idStore: id} }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
                     xScroll='1440px'
-                    // onRow={(data: any) => ({
-                    //   onDoubleClick: () => {
-                    //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                    //   },
-                    // })}
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
@@ -1105,9 +1093,9 @@ const Page = () => {
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
-                      <div className='flex justify-end w-full text-left flex-col'>
+                      <div className='flex sm:justify-end w-full text-left flex-col'>
                         <Form
-                          className="intro-x flex justify-start mt-4 lg:justify-end lg:mt-0 form-store"
+                          className="intro-x flex mt-4 sm:justify-end lg:mt-0 form-store"
                           columns={
                             [
                               {
@@ -1189,25 +1177,28 @@ const Page = () => {
                   <Button
                     disabled={true}
                     text={t('titles.Export report')}
-                    className={'md:w-[10rem] justify-center !bg-teal-800'}
+                    className={'flex bg-teal-900 text-white sm:w-[10rem] rounded-xl items-center justify-center disabled:opacity-50'}
                     onClick={() => null}
                   />
                 </div>
               </div>
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line absolute mt-4'}
-                onClick={() => {
-                  navigate(`/${lang}${routerLinks('Supplier')}`)
-                }}
-              />
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={() => {
+                    navigate(routerLinks('Store'))
+                  }}
+                />
+              </div>
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
+                ref={dataTableRefInventory}
                 facade={inventoryProductFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: {idStore: data?.id} }}
-                xScroll='1440px'
+                defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id, supplierId: '' } }}
+                xScroll='1270px'
                 className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
@@ -1219,80 +1210,97 @@ const Page = () => {
                     title: 'store.Inventory management.Product code',
                     name: 'productCode',
                     tableItem: {
+                      sorter: true,
+                      filter: {type: 'search'},
                       width: 120,
-                      render: (text: string, item: any) => item.productCode
                     },
                   },
-                  // {
-                  //   title: 'store.Inventory management.Barcode (Supplier)',
-                  //   name: 'supplierBarcode',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.supplierBarcode,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Barcode (Product)',
-                  //   name: 'storeBarcode',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.storeBarcode,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Product name',
-                  //   name: 'productName',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.productName,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Category',
-                  //   name: 'category',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Supplier',
-                  //   name: 'supplierName',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Unit',
-                  //   name: 'name',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Quantity on KiotViet',
-                  //   name: 'numberInKiot',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Quantity on BALANCE',
-                  //   name: 'numberInBal',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Warehouse price',
-                  //   name: 'inventoryPrice',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
-                  // {
-                  //   title: 'store.Inventory management.Total amount',
-                  //   name: 'inventoryPrice',
-                  //   tableItem: {
-                  //     render: (value: any, item: any) => item.inventory?.category,
-                  //   },
-                  // },
+                  {
+                    title: 'store.Inventory management.Barcode (Supplier)',
+                    name: 'supplierBarcode',
+                    tableItem: {
+                      filter: {type: 'search'},
+                    }
+                  },
+                  {
+                    title: 'store.Inventory management.Barcode (Product)',
+                    name: 'storeBarcode',
+                    tableItem: {
+                      filter: {type: 'search'},
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Product name',
+                    name: 'productName',
+                    tableItem: {
+                      sorter: true,
+                      filter: {type: 'search'},
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Category',
+                    name: 'category',
+                    tableItem: {
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Supplier',
+                    name: 'supplierName',
+                    tableItem: {
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Unit',
+                    name: 'units',
+                    tableItem: {
+                      render(text, item) {
+                          return(
+                            <Select value={item?.units[0]?.name} className='w-24'>
+                              {item?.units.forEach( (unit: any) => {
+                                return(
+                                  <>{unit?.name}</>
+                                )
+                              })}
+                            </Select>
+                          )
+                      },
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Quantity on KiotViet',
+                    name: 'numberInKiot',
+                    tableItem: {
+                      // width: 120,
+                      align: 'right'
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Quantity on BALANCE',
+                    name: 'numberInBal',
+                    tableItem: {
+                      // width: 120,
+                      align: 'right',
+                      render: (value: any, item: any) => parseFloat(item?.numberInBal).toLocaleString()
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Warehouse price',
+                    name: 'inventoryPrice',
+                    tableItem: {
+                      // width: 70,
+                      align: 'right',
+                      render: (value: any, item: any) => parseInt(item?.inventoryPrice).toLocaleString()
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Total amount',
+                    name: 'inventoryPrice',
+                    tableItem: {
+                      // width: 70,
+                      align:'right',
+                      render: (value: any, item: any) => parseInt(`${item?.numberInBal * item?.inventoryPrice}`).toLocaleString()
+                    },
+                  },
                 ]}
                 showSearch={false}
                 rightHeader={
@@ -1301,14 +1309,14 @@ const Page = () => {
                       <Button
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group'
                         text={t('titles.synchronized')}
-                        onClick={() => navigate(`/${lang}${routerLinks('Supplier/Excel')}`)}
+                        // onClick={() => navigate(`/${lang}${routerLinks('Supplier/Excel')}`)}
                       />
                     }
                   </div>
                 }
                 leftHeader={
                   <Form
-                    className="intro-x rounded-lg w-full "
+                    className="intro-x rounded-lg"
                     columns={
                       [
                         {
@@ -1316,7 +1324,6 @@ const Page = () => {
                           name: 'supplierName',
                           formItem: {
                             placeholder: 'placeholder.Choose a supplier',
-                            col: 7,
                             type: 'select',
                             get: {
                               facade: SupplierStoreFacade,
@@ -1328,7 +1335,14 @@ const Page = () => {
                                 type: 'BALANCE',
                                 storeId: id
                               }),
-                            }
+                            },
+                            onChange(value, form) {
+                              dataTableRefInventory?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: { idStore: id, supplierId: value, }
+                              });
+                            },
                           },
                         },
                       ]
@@ -1337,13 +1351,15 @@ const Page = () => {
                   />
                 }
               />
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line absolute mt-4'}
-                onClick={() => {
-                  navigate(`/${lang}${routerLinks('Store')}`)
-                }}
-              />
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  onClick={() => {
+                    navigate(routerLinks('Store'))
+                  }}
+                />
+              </div>
             </Tabs.TabPane>
           </Tabs>
         </div>

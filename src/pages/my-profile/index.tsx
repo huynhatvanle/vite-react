@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Tabs } from 'antd';
 
+import { Form as AntForm} from 'antd';
 import { Form } from '@core/form';
 import { Spin } from '@core/spin';
 import { Button } from '@core/button';
@@ -137,7 +138,7 @@ const Page = () => {
                   extendButton={(form) => (
                     <Button
                       text={t('components.button.Cancel')}
-                      className={'md:w-32 justify-center out-line sm:w-80 w-60 '}
+                      className={'md:w-32 justify-center out-line sm:w-80 w-60'}
                       onClick={() => {
                         navigate(`/${lang}${routerLinks('User/List')}`)
                       }}
@@ -156,8 +157,8 @@ const Page = () => {
                       name: 'password',
                       formItem: {
                         col: 12,
-                        type: 'passConfirm',
-                        rules: [{ type: 'requiredPassword' }],
+                        type: 'password',
+                        rules: [{type: 'required', message: ('components.form.ruleRequiredPassword')}],
                         placeholder: t('columns.auth.placeholder.Password').toString(),
                       },
                     },
@@ -168,7 +169,7 @@ const Page = () => {
                         col: 12,
                         type: 'password',
                         condition: (value: string, form, index: number, values: any) => !values?.id,
-                        rules: [{ type: 'requiredPassword' }],
+                        rules: [{type: 'required', message: ('components.form.ruleRequiredPassword')}],
                         placeholder: t('columns.auth.placeholder.newPassword').toString(),
                       },
                     },
@@ -177,7 +178,7 @@ const Page = () => {
                       name: 'passwordComfirm',
                       formItem: {
                         col: 12,
-                        type: 'passConfirm',
+                        type: 'password',
                         rules: [
                           {
                             type: 'custom',

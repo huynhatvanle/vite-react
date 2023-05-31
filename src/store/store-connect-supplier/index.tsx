@@ -13,7 +13,6 @@ const action = {
         name + '/get',
         async ({page, perPage, filter} : {page: number, perPage: number, filter: {idSuppiler: number, supplierType: string}}) => {
             const filterStoreConnectSupplier = JSON.parse(filter.toString() || '{}')
-            console.log(filterStoreConnectSupplier)
             return await API.get(routerLinks(name, 'api'), {page, perPage, idSuppiler: filterStoreConnectSupplier.idSuppiler, supplierType: filterStoreConnectSupplier.supplierType})
         }
       ),
