@@ -32,7 +32,8 @@ const Page = () => {
     navigate(`/${lang}${routerLinks('Store')}`)
   }, [status]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () =>  navigate(`/${lang}${routerLinks('Store')}`)
+ // navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
     storeFace.post(values);
   };
@@ -57,7 +58,7 @@ const Page = () => {
               formItem: {
                 tabIndex: 1,
                 col: 6,
-                rules: [{ type: 'required' },],
+                rules: [{ type: 'required' }],
               },
             },
             {
@@ -66,14 +67,14 @@ const Page = () => {
               formItem: {
                 tabIndex: 2,
                 col: 6,
-                rules: [{ type: 'fax', min: 8 , max: 12 }],
+                rules: [{ type: 'phone', min: 8 , max: 12 }],
               },
             },
             {
               title: '',
               name: 'address',
               formItem: {
-                rules: [{ type: 'required' }],
+                // rules: [{ type: 'required' }],
                 render() {
                   return (
                     <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>
@@ -88,7 +89,7 @@ const Page = () => {
                 tabIndex: 3,
                 col: 3,
                 type: 'select',
-                rules: [{ type: 'requiredSelect' }],
+                rules: [{ type: 'required' }],
                 get: {
                   facade: ProvinceFacade,
                   format: (item: any) => ({
@@ -106,7 +107,7 @@ const Page = () => {
               title: 'store.District',
               formItem: {
                 type: 'select',
-                rules: [{ type: 'requiredSelect' }],
+                rules: [{ type: 'required' }],
                 col: 3,
                 get: {
                   facade: DistrictFacade,
@@ -129,7 +130,7 @@ const Page = () => {
               title: 'store.Ward',
               formItem: {
                 type: 'select',
-                rules: [{ type: 'requiredSelect' }],
+                rules: [{ type: 'required' }],
                 col: 3,
                 get: {
                   facade: WardFacade,
@@ -168,7 +169,8 @@ const Page = () => {
               title: 'store.ContactName',
               formItem: {
                 col: 4,
-                rules: [{ type: 'required' }],
+                type: 'name',
+                rules: [{ type: 'required' },],
               },
             },
             {

@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import { Button } from '../button';
 import { Pagination } from '../pagination';
-import { DataTableModel, PaginationQuery, TableGet, TableRefObject } from '@models';
+import { DataTableModel, PaginationQuery, TableGet, TableItem, TableRefObject } from '@models';
 import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
 import { Calendar, CheckCircle, CheckSquare, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
@@ -129,7 +129,7 @@ export const DataTable = forwardRef(
         params = { ...request };
         if (save) {
           if (request.sorts && typeof request.sorts === 'object') request.sorts = JSON.stringify(request.sorts);
-          // if (request.filter && typeof request.filter === 'object') request.filter = JSON.stringify(request.filter);
+          if (request.filter && typeof request.filter === 'object') request.filter = JSON.stringify(request.filter);
           changeNavigate &&
             navigate(location.pathname + '?' + new URLSearchParams(request as Record<string, string>).toString());
         }
@@ -405,12 +405,12 @@ export const DataTable = forwardRef(
         : [];
     return (
       <div className={classNames(className, 'intro-x')}>
-        <div className="sm:flex justify-between mb-2.5">
+        <div className="lg:flex justify-between mb-2.5">
           {showSearch ? (
             <div className="relative">
               <input
                 id={idTable.current + '_input_search'}
-                className="w-full sm:w-80 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-200 pr-9 pl-9"
+                className="w-full sm:w-80 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-300 pr-9 pl-9"
                 defaultValue={params.fullTextSearch}
                 type="text"
                 placeholder={searchPlaceholder || (t('components.datatable.pleaseEnterValueToSearch') as string)}

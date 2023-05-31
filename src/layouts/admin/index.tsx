@@ -96,7 +96,7 @@ const Layout = ({ children }: PropsWithChildren) => {
               {t('routes.admin.Layout.English')}
             </Select.Option>
             <Select.Option value="vn">
-              <img src="/public/assets/svg/vn.svg" alt="VN" className="mr-1 w-4 inline-block relative -top-0.5" />{' '}
+              <img src="/assets/svg/vn.svg" alt="VN" className="mr-1 w-4 inline-block relative -top-0.5" />{' '}
               {t('routes.admin.Layout.Vietnam')}
             </Select.Option>
           </Select>

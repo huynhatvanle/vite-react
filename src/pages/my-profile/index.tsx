@@ -7,18 +7,26 @@ import { Form } from '@core/form';
 import { Spin } from '@core/spin';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
-import { routerLinks } from '@utils';
+import { routerLinks, languages, language } from '@utils';
 import { User } from '@svgs';
 
 const Page = () => {
   const { t } = useTranslation();
   const { user, isLoading, putProfile, setPassword, profile, status } = GlobalFacade();
-  const globalFacade = GlobalFacade();
   const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     profile();
   }, []);
+
+  useEffect(() => {
+    switch (status) {
+      case 'putProfile.fulfilled':
+        profile();
+        break;
+    }
+  }, [status]);
 
   return (
     <Fragment>
@@ -82,13 +90,13 @@ const Page = () => {
             />
           </Spin>
         </div>
-        <div className='col-span-2 lg:border lg:rounded-xl bg-white !w-auto'>
+        <div className='col-span-2 lg:border lg:rounded-xl bg-white relative'>
           <Spin spinning={isLoading}>
             <Tabs defaultActiveKey="1" size="large" className='profile'>
               <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className='mt-5'>
                 <Form
                   values={{ ...user }}
-                  className='relative'
+                  className=''
                   columns={[
                     {
                       title: 'user.Fullname',
@@ -131,7 +139,7 @@ const Page = () => {
                       text={t('components.button.Cancel')}
                       className={'md:w-32 justify-center out-line sm:w-80 w-60'}
                       onClick={() => {
-                        navigate(routerLinks('User/List'))
+                        navigate(`/${lang}${routerLinks('User/List')}`)
                       }}
                     />
                   )}
@@ -195,7 +203,7 @@ const Page = () => {
                       text={t('components.button.Cancel')}
                       className={'md:min-w-[8rem] justify-center out-line'}
                       onClick={() => {
-                        navigate(routerLinks('User/List'))
+                        navigate(`/${lang}${routerLinks('User/List')}`)
                       }}
                     />
                   )}
