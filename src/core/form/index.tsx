@@ -260,7 +260,7 @@ export const Form = ({
             maxTagCount={formItem.maxTagCount || 'responsive'}
             onChange={(value: any) => formItem.onChange && formItem.onChange(value, form, reRender)}
             placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+              t(formItem.placeholder || '') || t('components.form.Choose') + ' ' + t(item.title)!.toLowerCase()
             }
             formItem={formItem}
             form={form}
@@ -276,7 +276,7 @@ export const Form = ({
             form={form}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+              t(formItem.placeholder || '') || t('components.form.Choose') + ' ' + t(item.title)!.toLowerCase()
             }
           />
         );
@@ -326,18 +326,20 @@ export const Form = ({
           .map((rule: any) => {
             switch (rule.type) {
               case 'required':
-                if (!rule.message) {
-                  rule.message = t('components.form.ruleRequired');
-                }
-                rules.push({
-                  required: true,
-                  message: rule.message,
-                });
-                if (!item.formItem.type) {
-                  rules.push({
-                    whitespace: true,
-                    message: t('components.form.ruleRequired'),
-                  });
+                switch (item.formItem.type) {
+                  case 'select':
+                  case 'tree_select':
+                    rules.push({
+                      required: true,
+                      message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+                    });
+                    break;
+                  default:
+                    rules.push({
+                      whitespace: true,
+                      message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
+                    });
+                    break;
                 }
                 break;
               case 'email':
@@ -364,15 +366,19 @@ export const Form = ({
               case 'phone':
                 rules.push(() => ({
                   validator(_: any, value: any) {
-                    if (
-                      !value?.trim() ||
-                      (value?.trim().length >= rule.min &&
-                        value?.trim().length <= rule.max &&
-                        /^\+?\d+[-\s]?[0-9]+[-\s]?[0-9]+$/.test(value))
-                    ) {
-                      return Promise.resolve();
+                    if (!value) {
+                      return Promise.reject();
+                    } else if (/^\d+$/.test(value)) {
+                      if (value?.trim().length < 8) {
+                        return Promise.reject(t('components.form.ruleMinNumberLength', { min: 8 }));
+                      } else if (value?.trim().length > 12) {
+                        return Promise.reject(t('components.form.ruleMaxNumberLength', { max: 12 }));
+                      } else {
+                        return Promise.resolve();
+                      }
+                    } else {
+                      return Promise.reject(t('components.form.only number'));
                     }
-                    return Promise.reject(t('components.form.rulePhone'));
                   },
                 }));
                 break;
@@ -512,17 +518,33 @@ export const Form = ({
             },
           }));
           break;
+        case 'name':
+          rules.push(() => ({
+            validator(_: any, value: any) {
+              if (!value || /^[a-zA-Z]+$/.test(value)) {
+                return Promise.resolve();
+              }
+              return Promise.reject(t('components.form.only text'));
+            },
+          }));
+          break;
         case 'password':
           rules.push(() => ({
             validator: async (rule: any, value: any) => {
               if (value) {
-                let min = 0;
+                let min = 8;
                 rules.forEach((item: any) => item.min && (min = item.min));
-                if (value?.trim().length > min) {
-                  if (/^(?!.* )(?=.*\d)(?=.*[A-Z]).*$/.test(value)) return Promise.resolve();
+                if (value.trim().length < min) {
+                  return Promise.reject(t('components.form.ruleMinNumberLength', { min }));
                 }
-                return Promise.reject(t('components.form.rulePassword'));
-              } else return Promise.resolve();
+                if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value)) {
+                  return Promise.resolve();
+                } else {
+                  return Promise.reject(t('components.form.rulePassword'));
+                }
+              } else {
+                return Promise.resolve();
+              }
             },
           }));
           break;

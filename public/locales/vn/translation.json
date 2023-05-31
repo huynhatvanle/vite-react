@@ -13,7 +13,8 @@
       "No Data": "Trống"
     },
     "form": {
-      "ruleRequired": "Đây là trường bắt buộc!",
+      "ruleRequired": "Xin vui lòng nhập {{title}}",
+      "ruleRequiredSelect": "Xin vui lòng chọn {{title}}",
       "ruleEmail": "Vui lòng nhập địa chỉ email hợp lệ!",
       "ruleUsername": "Tên người dùng không chứa các ký tự đặc biệt, chỉ bao gồm chữ cái và chữ số!",
       "ruleMinLength": "Vui lòng nhập ít hơn {{min}} ký tự!",
@@ -24,13 +25,14 @@
       "ruleMax": "Vui lòng nhập số {{max}} đối đa!",
       "ruleMaxSize": "Bạn chỉ có thể tải lên tối đa {{max}}mb!",
       "only text": "Vui lòng nhập chỉ nhập chữ!",
-      "only number": "Vui lòng chỉ nhập số và tối đa 999999999!",
-      "rulePassword": "Mật khẩu phải chứa ít nhất một chữ cái viết hoa và một số!",
+      "only number": "Vui lòng chỉ nhập số",
+      "rulePassword": "Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt",
       "rulePhone": "Số điện thoại không hợp lệ",
       "confirm": "Xác nhận",
       "ruleConfirmPassword": "Hai mật khẩu bạn nhập không nhất quán!",
       "incorrectPathFormat": "Định dạng đường dẫn không đúng",
       "Enter": "Nhập",
+      "Choose": "Chọn",
       "Upload": "Tải lên",
       "modal": {
         "save": "Lưu lại",
@@ -75,11 +77,15 @@
     "User": "Người Dùng",
     "User/List": "Danh sách",
     "User/Add": "Tạo mới",
+    "DayOff/List": "Danh sách",
+    "DayOff/Add": "Tạo mới",
     "MyProfile": "Thông tin cá nhân",
     "Setting": "Thiết lập",
+    "Team": "Nhóm",
     "Code": "Mã",
     "Data": "Dữ liệu",
-    "Page": "Trang"
+    "Page": "Trang",
+    "DayOff": "Nghỉ phép"
   },
   "pages": {
     "Login": "Đăng nhập",
@@ -88,11 +94,17 @@
     "User/List": "Danh sách Người dùng",
     "User/Add": "Tạo mới người dùng",
     "User/Edit": "Chỉnh sửa người dùng",
+    "DayOff/List": "Danh sách nghỉ phép",
+    "DayOff/Add": "Tạo mới ngày nghỉ",
+    "DayOff/Edit": "Chỉnh sửa ngày nghỉ",
+    "DayOff/Detail": "Chi tiết ngày nghỉ",
     "MyProfile": "Thông tin cá nhân",
     "Setting": "Thiết lập",
+    "Team": "Nhóm",
     "Code": "Mã",
     "Data": "Dữ liệu",
-    "Page": "Trang"
+    "Page": "Trang",
+    "DayOff": "Nghỉ phép"
   },
   "columns": {
     "auth": {
@@ -160,12 +172,48 @@
         "Delete": "Xóa",
         "My Profile": "Thông tin cá nhân",
         "No Data": "Trống",
+        "Apply for leave": "Ngày phép còn lại ",
         "Pagination": "Hiển thị {{from}} - {{to}} /Tổng số {{total}} danh mục",
         "DayOff": "Hiển thị {{from}} - {{to}} /Tổng số {{total}} yêu cầu",
         "User": "Hiển thị {{from}} - {{to}} /Tổng số {{total}} người dùng",
         "Day": "Ngày phép"
       }
     }
+  },
+  "dayoff": {
+    "Fullname": "Họ và tên",
+    "Team": "Nhóm",
+    "Manager": "Quản lý",
+    "Type": "Loại phép",
+    "Time": "Thời gian",
+    "Leave Date": "Ngày nghỉ",
+    "Status": "Trạng thái",
+    "Approved Date": "Ngày phê duyệt",
+    "Approved At": "Ngày phê duyệt",
+    "Approved By": "Phê duyệt bởi",
+    "Reason": "Lý do",
+    "Approve": "Duyệt",
+    "Reject": " Từ chối ",
+    "Reason Reject": "Lý do từ chối",
+    "register": {
+      "Leave Type": "Loại phép",
+      "Annual Leave": "Nghỉ phép có lương",
+      "Leave without Pay": "Nghỉ phép không lương",
+      "Remote": "Làm remote",
+      "Time": "Thời gian",
+      "All day": "Cả ngày",
+      "Morning": "Sáng",
+      "Afternoon": "Chiều",
+      "Date": "Ngày",
+      "Start Date": "Ngày bắt đầu",
+      "End Date": "Ngày kết thúc",
+      "Upload screenshot": "Tải ảnh lên"
+    }
+  },
+  "team": {
+    "Name": "Tên Nhóm",
+    "Manager": "Quản lý",
+    "Pagination": "Hiển thị {{from}} - {{to}} /Tổng số {{total}} nhóm"
   },
   "user": {
     "Role": "Vai trò",
@@ -181,7 +229,8 @@
     "Upload avatar": "Tải ảnh lên",
     "Fullname": "Họ và tên",
     "Phone Number": "Số điện thoại",
-    "Action": "Hoạt động"
+    "Action": "Hoạt động",
+    "Leave date cannot exceed": "Ngày nghỉ không được quá {{day}} ngày"
   },
   "Code": {
     "Type": "Loại mã",

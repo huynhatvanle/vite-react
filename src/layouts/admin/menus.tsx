@@ -2,13 +2,9 @@ import React from 'react';
 
 import { keyRole } from '@utils';
 import './index.less';
-import { Chart, Cog, User } from '@svgs';
+import { Cog, User, Coffee, UserSolid } from '@svgs';
 
 const Layout = [
-  {
-    icon: <Chart className="h-8 w-8" />,
-    name: 'Dashboard',
-  },
   {
     icon: <User className="h-8 w-8" />,
     name: 'User',
@@ -22,6 +18,25 @@ const Layout = [
         permission: keyRole.P_DATA_LISTED,
       },
     ],
+  },
+  {
+    icon: <Coffee className="h-8 w-8" />,
+    name: 'DayOff',
+    child: [
+      {
+        name: 'DayOff/List',
+        permission: keyRole.P_DAYOFF_LISTED,
+      },
+      {
+        name: 'DayOff/Add',
+        permission: keyRole.P_DAYOFF_CREATE,
+      },
+    ],
+  },
+  {
+    icon: <UserSolid className="h-8 w-8" />,
+    name: 'Team',
+    permission: keyRole.P_USER_TEAM_LISTED,
   },
   {
     icon: <Cog className="h-8 w-8" />,

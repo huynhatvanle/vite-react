@@ -13,6 +13,11 @@ export const routerLinks = (name: string, type?: string) => {
     Data: '/setting/data',
     Code: '/setting/code',
     Page: '/setting/page',
+    Team: '/team',
+    DayOff: '/dayoff',
+    'DayOff/List': '/dayoff/list',
+    'DayOff/Add': '/dayoff/add',
+    'DayOff/Detail': '/dayoff/detail',
   }; // 💬 generate link to here
 
   const apis: {
@@ -26,6 +31,9 @@ export const routerLinks = (name: string, type?: string) => {
     DataType: '/data-type',
     Data: '/data',
     Page: '/page',
+    UserTeam: '/user-team',
+    DayOff: '/dayoff',
+    UserManager: '/user',
   }; // 💬 generate api to here
 
   switch (type) {

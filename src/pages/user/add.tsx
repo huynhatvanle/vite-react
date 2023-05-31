@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { UserRoleFacade, UserFacade, CodeFacade, User } from '@store';
+import { Avatar } from '@core/avatar';
+import { UserRoleFacade, UserFacade, CodeFacade, User, UserTeamFacade, ManagerFacade } from '@store';
 import { routerLinks, language, languages } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
@@ -170,6 +171,75 @@ const Page = () => {
                   value: item.code,
                 }),
               },
+            },
+          },
+          {
+            title: 'user.Team',
+            name: 'teams',
+            formItem: {
+              col: 6,
+              type: 'select',
+              mode: 'multiple',
+              get: {
+                facade: UserTeamFacade,
+                format: (item: any) => ({
+                  label: item.name,
+                  value: item.id,
+                }),
+                params: (fullTextSearch: string, getFieldValue: any) => ({
+                  fullTextSearch,
+                  extend: { id: getFieldValue('teamId') || undefined },
+                }),
+              },
+            },
+          },
+          {
+            title: 'team.Manager',
+            name: 'managerId',
+            formItem: {
+              col: 6,
+              type: 'select',
+              get: {
+                facade: ManagerFacade,
+                format: (item: any) => ({
+                  label: <Avatar size={5} src={item?.avatar} text={item.name} />,
+                  value: item.id,
+                }),
+                params: (fullTextSearch: string, getFieldValue: any) => ({
+                  fullTextSearch,
+                  filter: { roleCode: 'manager' },
+                  skip: { id: getFieldValue('id') || undefined },
+                }),
+              },
+            },
+          },
+          {
+            name: 'dateLeave',
+            title: 'dayoff.Leave Date',
+            formItem: {
+              condition: (value) => value !== undefined,
+              type: 'number',
+              col: 6,
+              mask: {
+                mask: '9{1,2}[.V{0,1}]',
+                definitions: {
+                  V: {
+                    validator: '[05]',
+                  },
+                },
+              },
+              rules: [
+                { type: 'required' },
+                {
+                  type: 'custom',
+                  validator: () => ({
+                    validator(rule, value: string) {
+                      if (parseFloat(value) < 17) return Promise.resolve();
+                      else return Promise.reject(t('user.Leave date cannot exceed', { day: 17 }));
+                    },
+                  }),
+                },
+              ],
             },
           },
           {

@@ -1,101 +1,76 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { ModalForm } from '@core/modal/form';
-import {keyRole, routerLinks} from '@utils';
-import { GlobalFacade, CodeFacade, CodeTypeFacade } from '@store';
-import {Edit, Plus, Trash} from '@svgs';
-import { FormModalRefObject, TableRefObject } from '@models';
+import { Button } from '@core/button';
+import { GlobalFacade, UserFacade, UserTeamFacade } from '@store';
+
+import { keyRole } from '@utils';
+import {Edit, Plus, Trash} from 'src/assets/svgs';
+import { Avatar } from '@core/avatar';
 import {Popconfirm, Tooltip} from 'antd';
-import slug from 'slug';
+
 const Page = () => {
   const { t } = useTranslation();
   const { user } = GlobalFacade();
-  const { result, get } = CodeTypeFacade();
-  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
-  useEffect(() => {
-    if (!result?.data) get({});
-  }, []);
-
-  const codeFacade = CodeFacade();
-  const { status } = codeFacade;
+  const userTeamFacade = UserTeamFacade();
+  const { status } = userTeamFacade;
   useEffect(() => {
     switch (status) {
       case 'put.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
-        dataTableRef?.current?.onChange!();
+        dataTableRef.current.onChange();
         break;
     }
   }, [status]);
 
-  const dataTableRef = useRef<TableRefObject>(null);
-  const modalFormRef = useRef<FormModalRefObject>(null);
+  const dataTableRef = useRef<any>();
+
+  const modalFormRef = useRef<any>();
   return (
     <Fragment>
       <DataTable
-        facade={codeFacade}
+        facade={userTeamFacade}
         ref={dataTableRef}
         onRow={() => ({
           onDoubleClick: () => null,
         })}
         pageSizeRender={(sizePage: number) => sizePage}
         pageSizeWidth={'50px'}
-        paginationDescription={(from: number, to: number, total: number) =>
-          t('routes.admin.Layout.Pagination', { from, to, total })
-        }
+        paginationDescription={(from: number, to: number, total: number) => t('team.Pagination', { from, to, total })}
         columns={[
           {
-            title: 'titles.Code',
-            name: 'code',
-            tableItem: {
-              width: 100,
-              filter: { type: 'search' },
-              sorter: true,
-            },
-          },
-          {
-            title: 'Code.Name',
+            title: 'team.Name',
             name: 'name',
             tableItem: {
-              filter: { type: 'search' },
               sorter: true,
             },
           },
           {
-            title: 'Code.Type',
-            name: 'type',
+            title: 'dayoff.Manager',
+            name: 'manager',
             tableItem: {
-              filter: {
-                type: 'radio',
-                list: listType || [],
-              },
-              width: 110,
-              sorter: true,
-              render: (text: string) => text && listType.filter((item) => item.value === text)[0]?.label,
+              render: (text: any) => text && <Avatar src={text.avatar} text={text.name} />,
             },
           },
           {
             title: 'user.Description',
             name: 'description',
-            tableItem: {
-              filter: { type: 'search' },
-              sorter: true,
-            },
+            tableItem: {},
           },
           {
             title: 'user.Action',
             tableItem: {
-              width: 100,
+              width: 90,
               align: 'center',
               onCell: () => ({
                 style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' },
               }),
-              render: (text: string, data) => (
+              render: (text: string, data: any) => (
                 <div className={'flex gap-2'}>
-                  {user?.role?.permissions?.includes(keyRole.P_CODE_UPDATE) && (
+                  {user?.role?.permissions?.includes(keyRole.P_USER_TEAM_UPDATE) && (
                     <Tooltip title={t('routes.admin.Layout.Edit')}>
                       <button
                         title={t('routes.admin.Layout.Edit') || ''}
@@ -105,7 +80,8 @@ const Page = () => {
                       </button>
                     </Tooltip>
                   )}
-                  {user?.role?.permissions?.includes(keyRole.P_CODE_DELETE) && (
+
+                  {user?.role?.permissions?.includes(keyRole.P_USER_TEAM_DELETE) && (
                     <Tooltip title={t('routes.admin.Layout.Delete')}>
                       <Popconfirm
                         placement="left"
@@ -127,49 +103,25 @@ const Page = () => {
         ]}
         rightHeader={
           <div className={'flex gap-2'}>
-            {user?.role?.permissions?.includes(keyRole.P_CODE_CREATE) && (
+            {user?.role?.permissions?.includes(keyRole.P_USER_TEAM_CREATE) && (
               <Button
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
-                text={t('routes.admin.Layout.Add')}
-                onClick={() => modalFormRef?.current?.handleEdit!()}
+                text={t('components.button.New')}
+                onClick={() => modalFormRef?.current?.handleEdit()}
               />
             )}
           </div>
         }
       />
       <ModalForm
-        facade={codeFacade}
+        facade={userTeamFacade}
         ref={modalFormRef}
-        title={() => (!codeFacade.data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
+        title={(data: any) => (!data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
         columns={[
           {
-            title: 'Code.Name',
+            title: 'team.Name',
             name: 'name',
             formItem: {
-              col: 4,
-              rules: [{ type: 'required' }],
-              onBlur: (e, form) => {
-                if (e.target.value && !form.getFieldValue('code')) {
-                  form.setFieldValue('code', slug(e.target.value).toUpperCase());
-                }
-              },
-            },
-          },
-          {
-            title: 'Code.Type',
-            name: 'type',
-            formItem: {
-              type: 'select',
-              col: 4,
-              rules: [{ type: 'required' }],
-              list: listType || [],
-            },
-          },
-          {
-            title: 'titles.Code',
-            name: 'code',
-            formItem: {
-              col: 4,
               rules: [{ type: 'required' }],
             },
           },
@@ -178,6 +130,26 @@ const Page = () => {
             name: 'description',
             formItem: {
               type: 'textarea',
+            },
+          },
+          {
+            title: 'dayoff.Manager',
+            name: 'managerId',
+            formItem: {
+              rules: [{ type: 'required' }],
+              type: 'select',
+              get: {
+                facade: UserFacade,
+                params: (fullTextSearch) => ({
+                  fullTextSearch,
+                  filter: { roleCode: 'manager' },
+                  extend: {},
+                }),
+                format: (item: any) => ({
+                  label: item.name,
+                  value: item.id,
+                }),
+              },
             },
           },
         ]}

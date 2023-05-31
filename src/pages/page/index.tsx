@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Popconfirm } from 'antd';
+import {Popconfirm, Tooltip} from 'antd';
 import slug from 'slug';
 
 import { Button } from '@core/button';
@@ -8,7 +8,7 @@ import { DataTable } from '@core/data-table';
 import { ModalForm } from '@core/modal/form';
 import { FormModalRefObject, TableRefObject } from '@models';
 import { GlobalFacade, PageFacade } from '@store';
-import { Plus } from '@svgs';
+import {Edit, Plus, Trash} from '@svgs';
 import { keyRole, listStyle, loopMapSelect } from '@utils';
 
 const Page = () => {
@@ -72,25 +72,29 @@ const Page = () => {
               render: (text: string, data) => (
                 <div className={'flex gap-2'}>
                   {user?.role?.permissions?.includes(keyRole.P_CODE_UPDATE) && (
-                    <Button
-                      className={'!px-1 !py-0.5'}
-                      text={t('routes.admin.Layout.Edit')}
-                      onClick={() => modalFormRef?.current?.handleEdit!(data)}
-                    />
+                    <Tooltip title={t('routes.admin.Layout.Edit')}>
+                      <button
+                        title={t('routes.admin.Layout.Edit') || ''}
+                        onClick={() => modalFormRef?.current?.handleEdit!(data)}
+                      >
+                        <Edit className="icon-cud bg-blue-600 hover:bg-blue-400"/>
+                      </button>
+                    </Tooltip>
                   )}
                   {user?.role?.permissions?.includes(keyRole.P_CODE_DELETE) && (
-                    <Popconfirm
-                      placement="left"
-                      title={t('components.datatable.areYouSureWant')}
-                      onConfirm={() => modalFormRef?.current?.handleDelete!(data.id)}
-                      okText={t('components.datatable.ok')}
-                      cancelText={t('components.datatable.cancel')}
-                    >
-                      <Button
-                        className={'!px-1 !py-0.5 !bg-red-600 hover:!bg-red-500'}
-                        text={t('routes.admin.Layout.Delete')}
-                      />
-                    </Popconfirm>
+                    <Tooltip title={t('routes.admin.Layout.Delete')}>
+                      <Popconfirm
+                        placement="left"
+                        title={t('components.datatable.areYouSureWant')}
+                        onConfirm={() => modalFormRef?.current?.handleDelete!(data.id)}
+                        okText={t('components.datatable.ok')}
+                        cancelText={t('components.datatable.cancel')}
+                      >
+                        <button title={t('routes.admin.Layout.Delete') || ''}>
+                          <Trash className="icon-cud bg-red-600 hover:bg-red-400" />
+                        </button>
+                      </Popconfirm>
+                    </Tooltip>
                   )}
                 </div>
               ),
