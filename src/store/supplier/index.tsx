@@ -15,9 +15,24 @@ const action = {
   ...new Action<Supplier>(name),
   getSup: createAsyncThunk(
     name + '/get',
-    async ({ page, perPage, filter }: { page: number; perPage: number; filter: { type?: string } }) => {
-      console.log('filter', filter);
-      return await API.get(routerLinks(name, 'api'), { page, perPage, type: filter.type });
+    async ({
+      page,
+      perPage,
+      filter,
+      fullTextSearch,
+    }: {
+      page: number;
+      perPage: number;
+      filter: { type?: string };
+      fullTextSearch: string;
+    }) => {
+      const filterSup = JSON.parse(filter.toString() || '{}');
+      return await API.get(routerLinks(name, 'api'), {
+        page,
+        perPage,
+        type: filterSup.type,
+        fullTextSearch: fullTextSearch,
+      });
     },
   ),
   getByIdSupplier: createAsyncThunk(
@@ -136,8 +151,17 @@ export const SupplierFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<Supplier>),
     set: (values: State<Supplier>) => dispatch(action.set(values)),
-    get: ({ page, perPage, filter }: { page: number; perPage: number; filter: { type?: string } }) =>
-      dispatch(action.getSup({ page, perPage, filter })),
+    get: ({
+      page,
+      perPage,
+      filter,
+      fullTextSearch,
+    }: {
+      page: number;
+      perPage: number;
+      filter: { type?: string };
+      fullTextSearch: string;
+    }) => dispatch(action.getSup({ page, perPage, filter, fullTextSearch })),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Supplier> }) =>
       dispatch(action.getByIdSupplier({ id, keyState })),
     post: (values: Supplier) => dispatch(action.postSup(values)),
