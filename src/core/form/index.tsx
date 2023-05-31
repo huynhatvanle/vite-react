@@ -746,7 +746,6 @@ export const Form = ({
           // 'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
           'md:w-auto right-0 text-center items-center !absolute -bottom-1/4': handSubmit && extendButton,
-          // 'md:w-auto md:inline-flex -bottom-1/2 right-0 justify-between sm:text-center items-center !absolute': extendButtonChangePassword && extendButton,
         })}
       >
         {handCancel && (
