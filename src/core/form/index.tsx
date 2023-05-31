@@ -356,10 +356,23 @@ export const Form = ({
                     });
                     break;
                   default:
+                    if (!rule.message) {
+                      rule.message = t('components.form.ruleRequired', { title: t(item.title).toLowerCase() });
+                    }
                     rules.push({
-                      whitespace: true,
-                      message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
+                      required: true,
+                      message: rule.message,
                     });
+                    if (!item.formItem.type) {
+                      rules.push({
+                        whitespace: true,
+                        message: t('components.form.ruleRequired'),
+                      });
+                    }
+                    // rules.push({
+                    //   whitespace: true,
+                    //   message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
+                    // });
                     break;
                 }
                 break;
