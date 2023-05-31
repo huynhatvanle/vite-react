@@ -437,14 +437,14 @@ export const Form = ({
               case 'fax':
                 rules.push(() => ({
                   validator(_: any, value: any) {
-                    if (!/^\d+$/.test(value)) {
+                    if(!value) {
+                    } else if (!/^\d+$/.test(value)) {
                       return Promise.reject(t('components.form.only number'));
                     } else if (value?.trim().length < 8) {
-                      return Promise.reject(t('components.form.ruleMinNumberLength', { min: 8 }));
+                      return Promise.reject(t('components.form.ruleMinNumberLength'));
                     } else if (value?.trim().length > 12) {
-                      return Promise.reject(t('components.form.ruleMaxNumberLength', { max: 12 }));
+                      return Promise.reject(t('components.form.ruleMaxNumberLength'));
                     }
-                    return Promise.resolve();
                   },
                 }));
                 break;
