@@ -86,7 +86,6 @@ const Page = () => {
                   },
                 },
               ]}
-              handSubmit={putProfile}
               disableSubmit={isLoading}
               values={{ ...user }}
             />
