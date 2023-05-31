@@ -434,7 +434,7 @@ const Page = () => {
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
                     facade={ordersFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filterSupplier: id }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { filterSupplier: id } }}
                     xScroll="1400px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
@@ -585,8 +585,10 @@ const Page = () => {
                       defaultRequest={{
                         page: 1,
                         perPage: 10,
-                        idSuppiler: id,
-                        filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                        filter: {
+                          idSuppiler: id,
+                          filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                        },
                       }}
                       xScroll="1400px"
                       pageSizeRender={(sizePage: number) => sizePage}
@@ -892,8 +894,10 @@ const Page = () => {
                         defaultRequest={{
                           page: 1,
                           perPage: 10,
-                          idSuppiler: id,
-                          filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                          filter: {
+                            idSuppiler: id,
+                            filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                          },
                         }}
                         xScroll="1400px"
                         pageSizeRender={(sizePage: number) => sizePage}
