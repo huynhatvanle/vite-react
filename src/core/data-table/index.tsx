@@ -8,11 +8,10 @@ import classNames from 'classnames';
 
 import { Button } from '../button';
 import { Pagination } from '../pagination';
-import { DataTableModel, PaginationQuery, TableGet, TableItem, TableRefObject } from '@models';
+import { DataTableModel, PaginationQuery, TableGet, TableRefObject } from '@models';
 import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
 import { Calendar, CheckCircle, CheckSquare, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
-import { DefaultTFuncReturn } from 'i18next';
 
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
@@ -33,12 +32,12 @@ const checkTextToShort = (text: string) => {
 const getQueryStringParams = (query: string) => {
   return query
     ? (/^[?#]/.test(query) ? query.slice(1) : query)
-      .split('&')
-      .reduce((params: { [selector: string]: string }, param: string) => {
-        const [key, value] = param.split('=');
-        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-        return params;
-      }, {})
+        .split('&')
+        .reduce((params: { [selector: string]: string }, param: string) => {
+          const [key, value] = param.split('=');
+          params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+          return params;
+        }, {})
     : {}; // Trim - from end of text
 };
 
@@ -50,7 +49,7 @@ export const DataTable = forwardRef(
       footer,
       defaultRequest = {
         page: 1,
-        perPage: 10,
+        perPage: 1,
       },
       showPagination = true,
       leftHeader,
@@ -87,6 +86,7 @@ export const DataTable = forwardRef(
     const cols = useRef<DataTableModel[]>();
     const refPageSizeOptions = useRef<number[]>();
     const { result, isLoading, queryParams, time } = facade;
+    // eslint-disable-next-line prefer-const
     let [params, setParams] = useState(
       save && location.search && location.search.indexOf('=') > -1
         ? { ...defaultRequest, ...getQueryStringParams(location.search) }
@@ -379,11 +379,11 @@ export const DataTable = forwardRef(
       const tempSort =
         sorts && sorts?.field && sorts?.order
           ? {
-            [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
-          }
+              [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
+            }
           : sorts?.field
-            ? null
-            : sorts;
+          ? null
+          : sorts;
 
       if (tempFullTextSearch !== params.fullTextSearch) {
         tempPageIndex = 1;
@@ -405,12 +405,12 @@ export const DataTable = forwardRef(
         : [];
     return (
       <div className={classNames(className, 'intro-x')}>
-        <div className="lg:flex justify-between mb-2.5">
+        <div className="sm:flex justify-between mb-2.5">
           {showSearch ? (
             <div className="relative">
               <input
                 id={idTable.current + '_input_search'}
-                className="w-full sm:w-80 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-300 pr-9 pl-9"
+                className="w-full sm:w-52 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4"
                 defaultValue={params.fullTextSearch}
                 type="text"
                 placeholder={searchPlaceholder || (t('components.datatable.pleaseEnterValueToSearch') as string)}
@@ -421,7 +421,7 @@ export const DataTable = forwardRef(
                       undefined,
                       params.filter,
                       params.sorts as SorterResult<any>,
-                      (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value.trim(),
+                      (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value,
                     );
                   }, 500);
                 }}
@@ -438,7 +438,7 @@ export const DataTable = forwardRef(
               />
               {!params.fullTextSearch ? (
                 <Search
-                  className="w-4 h-4 my-1 fill-gray-500 text-lg absolute top-2 left-2.5 z-10"
+                  className="w-5 h-5 my-1 fill-gray-600 text-lg las absolute top-1.5 right-3 z-10"
                   onClick={() => {
                     if (params.fullTextSearch) {
                       (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';
@@ -449,7 +449,7 @@ export const DataTable = forwardRef(
               ) : (
                 !!params.fullTextSearch && (
                   <Times
-                    className="w-4 h-4 my-1 fill-gray-500 text-lg las absolute top-2 right-3 z-10"
+                    className="w-5 h-5 my-1 fill-gray-600 text-lg las absolute top-1.5 right-3 z-10"
                     onClick={() => {
                       if (params.fullTextSearch) {
                         (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';
@@ -461,7 +461,7 @@ export const DataTable = forwardRef(
               )}
             </div>
           ) : (
-            <div className="hidden"></div>
+            <div />
           )}
           {!!leftHeader && <div className={'mt-2 sm:mt-0'}>{leftHeader}</div>}
           {!!rightHeader && <div className={'mt-2 sm:mt-0'}>{rightHeader}</div>}
@@ -480,7 +480,7 @@ export const DataTable = forwardRef(
               columns={cols.current}
               pagination={false}
               dataSource={loopData(data)}
-              onChange={(pagination: any, filters: any, sorts: any) =>
+              onChange={(pagination, filters, sorts) =>
                 handleTableChange(undefined, filters, sorts as SorterResult<any>, params.fullTextSearch)
               }
               showSorterTooltip={false}
@@ -490,7 +490,7 @@ export const DataTable = forwardRef(
             />
             {refPageSizeOptions.current && showPagination && (
               <Pagination
-                total={result?.pagination?.total}
+                total={result?.count}
                 page={+params!.page!}
                 perPage={+params!.perPage!}
                 pageSizeOptions={refPageSizeOptions.current}
@@ -522,7 +522,7 @@ type Type = {
   rightHeader?: JSX.Element;
   showSearch?: boolean;
   save?: boolean;
-  searchPlaceholder?: string | DefaultTFuncReturn;
+  searchPlaceholder?: string;
   subHeader?: (count: number) => any;
   xScroll?: string | number | true;
   yScroll?: string | number;
