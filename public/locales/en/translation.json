@@ -14,7 +14,7 @@
     },
     "form": {
       "ruleRequired": "Please enter {{title}}",
-      "ruleRequiredSelect": "Please enter {{title}}",
+      "ruleRequiredSelect": "Please choose {{title}}",
       "ruleEmail": "Please enter a valid email address!",
       "ruleUsername": "Username contains no special characters, only letters and numbers!",
       "ruleMinLength": "Please enter at least {{min}} characters!",
