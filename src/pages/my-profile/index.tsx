@@ -13,7 +13,6 @@ import { User } from '@svgs';
 const Page = () => {
   const { t } = useTranslation();
   const { user, isLoading, putProfile, setPassword, profile, status } = GlobalFacade();
-  const globalFacade = GlobalFacade();
   const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 

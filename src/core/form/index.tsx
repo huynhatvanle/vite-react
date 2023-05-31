@@ -350,12 +350,12 @@ export const Form = ({
               case 'required':
                 switch (item.formItem.type) {
                   case 'select':
-                  // case 'tree_select':
-                  //   rules.push({
-                  //     required: true,
-                  //     message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
-                  //   });
-                  //   break;
+                  case 'tree_select':
+                    rules.push({
+                      required: true,
+                      message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+                    });
+                    break;
                   default:
                     if (!rule.message) {
                       rule.message = t('components.form.ruleRequired', { title: t(item.title).toLowerCase() });
@@ -450,14 +450,14 @@ export const Form = ({
               case 'fax':
                 rules.push(() => ({
                   validator(_: any, value: any) {
-                    if (!/^\d+$/.test(value)) {
+                    if(!value) {
+                    } else if (!/^\d+$/.test(value)) {
                       return Promise.reject(t('components.form.only number'));
                     } else if (value?.trim().length < 8) {
-                      return Promise.reject(t('components.form.ruleMinNumberLength', { min: 8 }));
+                      return Promise.reject(t('components.form.ruleMinNumberLength'));
                     } else if (value?.trim().length > 12) {
-                      return Promise.reject(t('components.form.ruleMaxNumberLength', { max: 12 }));
+                      return Promise.reject(t('components.form.ruleMaxNumberLength'));
                     }
-                    return Promise.resolve();
                   },
                 }));
                 break;
