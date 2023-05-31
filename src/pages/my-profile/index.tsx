@@ -81,9 +81,8 @@ const Page = () => {
               values={{ ...user }}
             />
           </Spin>
-
         </div>
-        <div className='col-span-2 lg:border lg:rounded-xl bg-white'>
+        <div className='col-span-2 lg:border lg:rounded-xl bg-white !w-auto'>
           <Spin spinning={isLoading}>
             <Tabs defaultActiveKey="1" size="large" className='profile'>
               <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className='mt-5'>
@@ -130,13 +129,12 @@ const Page = () => {
                   extendButton={(form) => (
                     <Button
                       text={t('components.button.Cancel')}
-                      className={'md:w-32 justify-center out-line sm:w-80 w-60 '}
+                      className={'md:w-32 justify-center out-line sm:w-80 w-60'}
                       onClick={() => {
                         navigate(routerLinks('User/List'))
                       }}
                     />
                   )}
-
                 />
               </Tabs.TabPane>
 

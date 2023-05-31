@@ -438,10 +438,10 @@ export const Form = ({
                     if (!/^\d+$/.test(value)) {
                       return Promise.reject(t('components.form.only number'));
                     } else if (value?.trim().length < 8) {
-                        return Promise.reject(t('components.form.ruleMinNumberLength'));
-                      } else if (value?.trim().length > 12) {
-                        return Promise.reject(t('components.form.ruleMaxNumberLength'));
-                      }
+                      return Promise.reject(t('components.form.ruleMinNumberLength'));
+                    } else if (value?.trim().length > 12) {
+                      return Promise.reject(t('components.form.ruleMaxNumberLength'));
+                    }
                   },
                 }));
                 break;
@@ -730,13 +730,13 @@ export const Form = ({
       </div>
 
       <div
-        className={classNames('gap-2 flex absolute sm:block', {
+        className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
           '!mt-9': handCancel && handSubmit,
           'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
-          'w-full md:w-auto md:inline-flex md:float-right top-0 right-0 text-center items-center': handSubmit && extendButton,
-          'w-full md:w-auto md:inline-flex md:float-right -bottom-1/3 right-0 justify-between sm:text-center items-center': extendButtonChangePassword && extendButton,
+          'md:w-auto right-0 text-center items-center !absolute -bottom-1/4': handSubmit && extendButton,
+          'md:w-auto md:inline-flex -bottom-1/2 right-0 justify-between sm:text-center items-center !absolute': extendButtonChangePassword && extendButton,
         })}
       >
         {handCancel && (

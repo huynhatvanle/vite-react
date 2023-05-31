@@ -343,7 +343,7 @@ const Page = () => {
                     title: 'product.Code',
                     name: 'code',
                     tableItem: {
-                      width: 150,
+                      width: 180,
                       sorter: true,
                       filter: { type: 'search' }
                     },
@@ -352,7 +352,6 @@ const Page = () => {
                     title: 'product.StoreCode',
                     name: 'storeBarcode',
                     tableItem: {
-                      sorter: true,
                       filter: { type: 'search' }
                     },
                   },
@@ -360,7 +359,6 @@ const Page = () => {
                     title: 'product.SupplierCode',
                     name: 'barcode',
                     tableItem: {
-                      sorter: true,
                       filter: { type: 'search' }
                     },
                   },
@@ -547,7 +545,7 @@ const Page = () => {
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSubStore', { from, to, total })
+                  t('routes.admin.Layout.PaginationProduct', { from, to, total })
                 }
                 columns={[
                   {
@@ -643,7 +641,7 @@ const Page = () => {
                           <div onClick={() => {
                             setType('NON_BALANCE')
                             setIsBalanceClicked(true);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: 'NON_BALANCE' } });
+                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: '', storeId: data?.id, supplierType: 'NON_BALANCE' } });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
@@ -664,7 +662,7 @@ const Page = () => {
               <DataTable
                 ref={dataTableRef1}
                 facade={connectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: type } }}
+                defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: "BALANCE", storeId: data?.id } }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 onRow={(data: any) => ({
