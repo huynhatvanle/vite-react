@@ -319,6 +319,7 @@ export const Form = ({
     }
     if (item.formItem) {
       const rules: any = [];
+      if (!item.formItem.type) item.formItem.type = 'text';
 
       if (item.formItem.rules) {
         item.formItem.rules
@@ -327,17 +328,25 @@ export const Form = ({
             switch (rule.type) {
               case 'required':
                 switch (item.formItem.type) {
-                  case 'select':
-                  case 'tree_select':
+                  case 'text':
+                  case 'number':
+                  case 'hidden':
+                  case 'password':
+                  case 'textarea':
                     rules.push({
                       required: true,
-                      message: t('components.form.ruleRequiredSelect', { title: t(item.title).toLowerCase() }),
+                      whitespace: true,
+                      message: t(rule.message || 'components.form.ruleRequired', {
+                        title: t(item.title).toLowerCase(),
+                      }),
                     });
                     break;
                   default:
                     rules.push({
-                      whitespace: true,
-                      message: t('components.form.ruleRequired', { title: t(item.title).toLowerCase() }),
+                      required: true,
+                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
+                        title: t(item.title).toLowerCase(),
+                      }),
                     });
                     break;
                 }
@@ -367,7 +376,7 @@ export const Form = ({
                 rules.push(() => ({
                   validator(_: any, value: any) {
                     if (!value) {
-                      return Promise.reject();
+                      return Promise.resolve();
                     } else if (/^\d+$/.test(value)) {
                       if (value?.trim().length < 8) {
                         return Promise.reject(t('components.form.ruleMinNumberLength', { min: 8 }));
