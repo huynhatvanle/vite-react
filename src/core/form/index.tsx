@@ -593,13 +593,13 @@ export const Form = ({
                   className={classNames(
                     column?.formItem?.classItem,
                     'col-span-12' +
-                      (' sm:col-span-' +
-                        (column?.formItem?.colTablet
-                          ? column?.formItem?.colTablet
-                          : column?.formItem?.col
+                    (' sm:col-span-' +
+                      (column?.formItem?.colTablet
+                        ? column?.formItem?.colTablet
+                        : column?.formItem?.col
                           ? column?.formItem?.col
                           : 12)) +
-                      (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
+                    (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
                   )}
                   key={index}
                 >
@@ -614,17 +614,17 @@ export const Form = ({
       <div
         className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
-          '!mt-9 items-center max-sm:flex-col md:flex-row sm:inline-flex sm:float-right !absolute':
+          '!mt-9 items-center flex-col-reverse sm:flex-row sm:inline-flex sm:float-right':
             handCancel && handSubmit,
           // 'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
-          'md:w-auto right-0 text-center items-center !absolute -bottom-1/4': handSubmit && extendButton,
+          'sm:w-auto sm:inline-flex right-0 text-center items-center !absolute -bottom-1/4 sm:flex-row flex-col sm:mt-5': handSubmit && extendButton,
         })}
       >
         {handCancel && (
           <Button
             text={t(textCancel)}
-            className={'sm:min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
+            className={'sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
             onClick={handCancel}
           />
         )}
@@ -635,7 +635,7 @@ export const Form = ({
             id={idSubmit}
             onClick={() => form && form.submit()}
             disabled={disableSubmit}
-            className={'min-w-[8rem] justify-center max-sm:w-3/5'}
+            className={'min-w-[8rem] justify-center w-3/5 sm:w-auto '}
             type={'submit'}
           />
         )}
