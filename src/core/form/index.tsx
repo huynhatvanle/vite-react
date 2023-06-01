@@ -327,7 +327,6 @@ export const Form = ({
           .map((rule: any) => {
             switch (rule.type) {
               case 'required':
-                // console.log(item.fo)
                 switch (item.formItem.type) {
                   case 'text':
                   case 'number':
@@ -513,7 +512,6 @@ export const Form = ({
                 rules.push(rule.validator);
                 break;
               default:
-                
             }
             return rule;
           });
