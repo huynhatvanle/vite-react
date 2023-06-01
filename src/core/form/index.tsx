@@ -498,7 +498,8 @@ export const Form = ({
               if (value) {
                 let min = 8;
                 rules.forEach((item: any) => item.min && (min = item.min));
-                if (value.trim().length < min) return Promise.reject(t('components.form.Form Password.Lenght Password'));
+                if (value.trim().length < min)
+                  return Promise.reject(t('components.form.Form Password.Lenght Password'));
                 if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value))
                   return Promise.resolve();
                 else return Promise.reject(t('components.form.rulePassword'));
