@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { Select } from 'antd';
 import classNames from 'classnames';
-import { Arrow, DoubleArrow, DownArrow } from '@svgs';
+import { Arrow, DoubleArrow } from '@svgs';
 
 export const Pagination: any = ({
   total = 4,
@@ -106,13 +106,13 @@ export const Pagination: any = ({
         let listOfRange: { index: number; type: string; disabled: boolean }[];
         const prevFiveItem = {
           type: 'prev_5',
-          index: 0,
-          disabled: true,
+          index: -1,
+          disabled: false,
         };
         const nextFiveItem = {
           type: 'next_5',
-          index: 0,
-          disabled: true,
+          index: -1,
+          disabled: false,
         };
         const firstPageItem = generatePage(1, 1);
         const lastPageItem = generatePage(lastIndex, lastIndex);
@@ -162,16 +162,12 @@ export const Pagination: any = ({
                 disabled={item.disabled}
                 key={index}
                 id={idElement + '_' + item.type}
-                className={classNames(
-                  'text-center p-1 text-sm font-medium leading-normal relative mx-1',
-                  {
-                    'text-teal-900':
-                      page !== item.index && !['next_5', 'prev_5'].includes(item.type),
-                    'bg-teal-900 rounded-full text-white !px-2.5 mx-1': page === item.index,
-                    'text-zinc-300': item.disabled,
-                    'text-gray-600 text-xs': ['next_5', 'prev_5'].includes(item.type),
-                  },
-                )}
+                className={classNames('text-center p-1 text-sm font-medium leading-normal relative mx-1', {
+                  'text-teal-900': page !== item.index && !['next_5', 'prev_5'].includes(item.type),
+                  'bg-teal-900 rounded-full text-white !px-2.5 mx-1': page === item.index,
+                  'text-zinc-300': item.disabled,
+                  'text-gray-600 text-xs': ['next_5', 'prev_5'].includes(item.type),
+                })}
                 onClick={() => onPageIndexChange(item)}
                 aria-label={item.type}
               >

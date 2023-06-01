@@ -86,13 +86,13 @@ export const Avatar = ({
         c1 && c1 != 'c'
           ? pSBCr(c1)
           : P
-            ? {
+          ? {
               r: 0,
               g: 0,
               b: 0,
               a: -1,
             }
-            : { r: 255, g: 255, b: 255, a: -1 }),
+          : { r: 255, g: 255, b: 255, a: -1 }),
       (p = P ? p * -1 : p),
       (P = 1 - p);
     if (!f || !t) return '';
@@ -280,7 +280,7 @@ export const Avatar = ({
   }
 };
 type Type = {
-  src: string | undefined;
+  src: string;
   text?: string | { [selector: string]: string }[];
   onClick?: MouseEventHandler<HTMLDivElement>;
   size?: number;

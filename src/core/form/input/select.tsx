@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormInstance, Select } from 'antd';
 
 import { TableGet } from '@models';
@@ -39,7 +39,7 @@ const Component = ({
   };
   useEffect(() => {
     if (formItem.firstLoad) {
-      facade.get(formItem.firstLoad())
+      facade.get(formItem.firstLoad());
     }
   }, []);
 
