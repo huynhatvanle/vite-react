@@ -12,6 +12,7 @@ import { DataTableModel, PaginationQuery, TableGet, TableRefObject } from '@mode
 import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
 import { Calendar, CheckCircle, CheckSquare, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
+import { DefaultTFuncReturn } from 'i18next';
 
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
@@ -436,7 +437,7 @@ export const DataTable = forwardRef(
               )}
             </div>
           ) : (
-            <div />
+            <div className="hidden"></div>
           )}
           {!!leftHeader && <div className={'mt-2 sm:mt-0'}>{leftHeader}</div>}
           {!!rightHeader && <div className={'mt-2 sm:mt-0'}>{rightHeader}</div>}
@@ -497,7 +498,7 @@ type Type = {
   rightHeader?: JSX.Element;
   showSearch?: boolean;
   save?: boolean;
-  searchPlaceholder?: string;
+  searchPlaceholder?: string | DefaultTFuncReturn;
   subHeader?: (count: number) => any;
   xScroll?: string | number | true;
   yScroll?: string | number;
