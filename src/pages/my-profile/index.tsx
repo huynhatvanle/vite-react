@@ -35,7 +35,6 @@ const Page = () => {
   }, [status]);
 
   const handleSubmit = (values: any) => {
-    console.log(values)
     globalFacade.putProfile(values);
   }
 
@@ -69,28 +68,34 @@ const Page = () => {
                 name: 'userRole',
                 formItem: {
                   render: (item: any, values: any, reRender) => {
-                    if (values.userRole[0].mtRole.code === "ADMIN") {
-                      return (
-                        <div className='flex w-full flex-row justify-center pt-2 font-normal'>
-                          <User className='w-5 h-5 mr-2 fill-slate-500' />
-                          <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
-                        </div>
-                      )
-                    } else if (values.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
-                      return (
-                        <div className='flex w-full flex-row justify-center pt-2 font-normal'>
-                          <User className='w-5 h-5 mr-2 fill-slate-500' />
-                          <div className='text-base text-gray-500'>{t('user.RoleUser.SUPPLIER')}</div>
-                        </div>
-                      )
-                    } else {
-                      return (
-                        <div className='flex w-full flex-row justify-center pt-2 font-normal'>
-                          <User className='w-5 h-5 mr-2 fill-slate-500' />
-                          <div className='text-base text-gray-500'>{t('user.RoleUser.STORE')}</div>
-                        </div>
-                      )
-                    }
+                    return (
+                      <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                        <User className='w-5 h-5 mr-2 fill-slate-500' />
+                        <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
+                      </div>
+                    )
+                    // if (values.userRole[0].mtRole.code === "ADMIN") {
+                    //   return (
+                    //     <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                    //       <User className='w-5 h-5 mr-2 fill-slate-500' />
+                    //       <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
+                    //     </div>
+                    //   )
+                    // } else if (values.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
+                    //   return (
+                    //     <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                    //       <User className='w-5 h-5 mr-2 fill-slate-500' />
+                    //       <div className='text-base text-gray-500'>{t('user.RoleUser.SUPPLIER')}</div>
+                    //     </div>
+                    //   )
+                    // } else {
+                    //   return (
+                    //     <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                    //       <User className='w-5 h-5 mr-2 fill-slate-500' />
+                    //       <div className='text-base text-gray-500'>{t('user.RoleUser.STORE')}</div>
+                    //     </div>
+                    //   )
+                    // }
                   }
                 },
               },
