@@ -20,7 +20,6 @@ const Page = () => {
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   const [form] = AntForm.useForm();
-  const [formValues, setFormValues] = useState({});
 
   useEffect(() => {
     profile();
@@ -41,7 +40,10 @@ const Page = () => {
   return (
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
-        <div className='flex-initial lg:w-[400px] bg-white mr-8 lg:rounded-xl w-full'>
+        <div className='flex-initial lg:w-[300px] bg-white mr-8 lg:rounded-xl w-full'>
+          <form>
+
+          </form>
           <Form
             className="text-center items-centers text-xl font-bold text-slate-700"
             columns={[
@@ -111,6 +113,15 @@ const Page = () => {
                 className=''
                 columns={[
                   {
+                    title: '',
+                    name: 'profileImage',
+                    formItem: {
+                      type: 'upload' && 'hidden',
+                      mode: 'multiple',
+                      onlyImage: true,
+                    },
+                  },
+                  {
                     title: 'user.Fullname',
                     name: 'name',
                     formItem: {
@@ -145,7 +156,7 @@ const Page = () => {
                   },
                 ]}
                 disableSubmit={isLoading}
-                handSubmit={putProfile}
+                handSubmit={handleSubmit}
                 extendButton={(form) => (
                   <Button
                     text={t('components.button.Cancel')}
@@ -178,7 +189,6 @@ const Page = () => {
                     formItem: {
                       col: 12,
                       type: 'password',
-                      condition: (value: string, form, index: number, values: any) => !values?.id,
                       rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }],
                       placeholder: t('columns.auth.placeholder.newPassword').toString(),
                     },
@@ -202,7 +212,7 @@ const Page = () => {
                             },
                           }),
                         },
-                        { type: 'requiredPassword' }, { type: 'min', value: 1 },
+                        { type: 'required',message: ('components.form.ruleRequiredPassword') }
                       ],
                       placeholder: t('columns.auth.placeholder.Confirm Password').toString(),
                     },
