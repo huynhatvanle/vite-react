@@ -10,7 +10,6 @@ import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
 import { routerLinks, languages, language, convertFormValue } from '@utils';
 import { User } from '@svgs';
-import { FormModel } from '@models';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -18,6 +17,8 @@ const Page = () => {
   const globalFacade = GlobalFacade();
   const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+
+  const [form] = AntForm.useForm();
 
   useEffect(() => {
     profile();
@@ -32,15 +33,22 @@ const Page = () => {
   }, [status]);
 
   const handleSubmit = (values: any) => {
-    console.log(values)
     globalFacade.putProfile(values);
   }
+
+  // const UserForm = ({ onSubmit }: any) => (
+  //   <AntForm onFinish={onSubmit}>
+  //     <AntForm.Item>
+  //     </AntForm.Item>
+  //   </AntForm>
+  // );
 
   return (
     <Fragment>
       <div className='lg:grid lg:grid-cols-3 gap-5 w-full'>
         <div className='col-span-1 lg:border lg:rounded-xl bg-white font-normal'>
           <Spin spinning={isLoading}>
+            {/* <UserForm onSubmit={handleSubmit} /> */}
             <Form
               values={{ ...user }}
               className="text-center items-centers text-xl font-bold text-slate-700"
@@ -86,7 +94,7 @@ const Page = () => {
                         return (
                           <div className='flex w-full flex-row justify-center pt-2 font-normal'>
                             <User className='w-5 h-5 mr-2 fill-slate-500' />
-                            <div className='text-base text-gray-500'>{t('user.RoleUser.STORE')}</div>
+                            <div className='text-base text-gray-500'>{t('user.RoleUser.STORE')} </div>
                           </div>
                         )
                       }
@@ -98,6 +106,7 @@ const Page = () => {
             />
           </Spin>
         </div>
+
         <div className='col-span-2 lg:border lg:rounded-xl bg-white relative'>
           <Spin spinning={isLoading}>
             <Tabs defaultActiveKey="1" size="large" className='profile'>
