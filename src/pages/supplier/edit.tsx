@@ -21,7 +21,6 @@ import { ProvinceFacade } from '@store/address/province';
 import { DownArrow, Download } from '@svgs';
 import { Dropdown, Tabs } from 'antd';
 import dayjs from 'dayjs';
-import { render } from 'react-dom';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -61,6 +60,9 @@ const Page = () => {
   }, [status]);
 
   const a = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
+  console.log('inventoryOrders', discountFacade);
+
+  // const Distotal = discountFacade.data?.totalCommissionSupplier?.toLocaleString();
 
   const subHeader = [
     {
@@ -356,7 +358,7 @@ const Page = () => {
                     }
                     leftHeader={
                       <Form
-                        className="intro-x pt-1 rounded-lg w-full "
+                        className="intro-x pt-1 -mx-5 rounded-lg w-full "
                         columns={[
                           {
                             title: '',
@@ -547,13 +549,13 @@ const Page = () => {
                   />
                 </div>
               </div>
-              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
-                <Button
-                  text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                  onClick={handleBack}
-                />
-              </div>
+              <Button
+                text={t('components.form.modal.cancel')}
+                className={'md:w-32 justify-center out-line mt-4'}
+                onClick={() => {
+                  navigate(`/${lang}${routerLinks('Supplier')}`);
+                }}
+              />
             </Tabs.TabPane>
             <Tabs.TabPane
               tab={
@@ -595,8 +597,8 @@ const Page = () => {
               className="rounded-xl"
             >
               {test === '1' ? (
-                <div className={'w-full mx-auto bg-white rounded-xl'}>
-                  <div className="px-5 pt-6 pb-4">
+                <div className={'w-full mx-auto '}>
+                  <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
                       facade={inventoryOrders}
                       defaultRequest={{
@@ -833,11 +835,18 @@ const Page = () => {
                       )}
                     />
                   </div>
+                  <Button
+                    text={t('components.form.modal.cancel')}
+                    className={'md:w-32 justify-center out-line mt-4'}
+                    onClick={() => {
+                      navigate(`/${lang}${routerLinks('Supplier')}`);
+                    }}
+                  />
                 </div>
               ) : (
                 test === '2' && (
-                  <div className={'w-full mx-auto bg-white rounded-xl'}>
-                    <div className="px-5 pt-6 pb-4">
+                  <div className={'w-full mx-auto '}>
+                    <div className="px-5 pt-6 pb-4 bg-white rounded-xl">
                       <DataTable
                         facade={inventoryOrders}
                         defaultRequest={{
@@ -1117,10 +1126,17 @@ const Page = () => {
                         )}
                       />
                     </div>
+                    <Button
+                      text={t('components.form.modal.cancel')}
+                      className={'md:w-32 justify-center out-line mt-4'}
+                      onClick={() => {
+                        navigate(`/${lang}${routerLinks('Supplier')}`);
+                      }}
+                    />
                   </div>
                 )
               )}
-              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+              <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
                   className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
@@ -1131,10 +1147,17 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Discount')} key="5" className="rounded-xl">
               {/* lấy về đc data/ tạo 1 cái data mới /lấy 1 cái key tạo 1 row mới trong table */}
               <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className="px-5 pt-6 pb-4">
+                <div className="px-5 pt-3 pb-4">
                   <DataTable
                     facade={discountFacade}
-                    defaultRequest={{ page: 1, perPage: 10 }}
+                    defaultRequest={{
+                      page: 1,
+                      perPage: 10,
+                      filter: {
+                        id: data?.id,
+                        // filter: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                      },
+                    }}
                     xScroll="1370px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
@@ -1144,74 +1167,154 @@ const Page = () => {
                     columns={[
                       {
                         title: `supplier.Order.STT`,
-                        name: 'code',
+                        name: 'stt',
                         tableItem: {
                           width: 110,
+                          render: (value: any, item: any) => `${i++}`,
                         },
                       },
                       {
                         title: `supplier.Order.Time`,
-                        name: 'name',
+                        name: 'time',
                         tableItem: {
                           width: 300,
+                          render: (value: any, item: any) => item?.datefrom + '-' + item?.dateto,
                         },
                       },
                       {
                         title: `supplier.Order.Discount`,
-                        name: 'address',
+                        name: 'noPay',
+                        tableItem: {
+                          width: 245,
+                          render: (value: any, item: any) => item?.noPay.toLocaleString(),
+                        },
+                      },
+                      {
+                        title: t(`supplier.Order.Paid`) + ' (VND)',
+                        name: 'paid',
                         tableItem: {
                           width: 245,
                           render: (value: any, item: any) =>
-                            item?.address?.street +
-                            ', ' +
-                            item?.address?.ward?.name +
-                            ', ' +
-                            item?.address?.district?.name +
-                            ', ' +
-                            item?.address?.province?.name,
+                            item?.status === 'NOT_PAID' ? 0 : item?.noPay - item?.paid,
                         },
                       },
                       {
-                        title: `supplier.Order.Paid`,
-                        name: 'contract',
+                        title: t(`supplier.Order.Unpaid`) + ' (VND)',
+                        name: 'noPay',
                         tableItem: {
                           width: 245,
-                          render: (value: any, item: any) => item?.contract[0].name,
-                        },
-                      },
-                      {
-                        title: `supplier.Order.Unpaid`,
-                        name: 'userRole',
-                        tableItem: {
-                          width: 245,
-                          render: (value: any, item: any) => item?.userRole[0].userAdmin.phoneNumber,
+                          render: (value: any, item: any) => item?.noPay.toLocaleString(),
                         },
                       },
                       {
                         title: `supplier.Status`,
-                        name: 'isActive',
+                        name: 'status',
                         tableItem: {
                           width: 240,
                           align: 'center',
                           render: (text: string) =>
-                            text ? (
+                            text !== 'NOT_PAID' ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                {t('supplier.Sup-Status.Signed')}
+                                {t('supplier.Order.Paid')}
                               </div>
                             ) : (
                               <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
-                                {t('supplier.Sup-Status.Waiting')}
+                                {t('supplier.Order.Unpaid')}
                               </div>
                             ),
                         },
                       },
                     ]}
-                    showSearch={true}
+                    showSearch={false}
                     subHeader={() => (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
-                        <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
-                          <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
-                          <span className="text-teal-900 text-xl font-bold mt-auto">0 VND</span>
+                      <div className="">
+                        <div className="">
+                          <div className="flex">
+                            <Form
+                              values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
+                              className="intro-x items-end rounded-lg w-full flex justify-between"
+                              columns={[
+                                {
+                                  title: '',
+                                  name: '',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 2,
+                                    render: () => (
+                                      <div className="flex h-10 text-xs whitespace-nowrap items-center">
+                                        <p>{t('Kỳ hạn từ')}</p>
+                                      </div>
+                                    ),
+                                  },
+                                },
+                                {
+                                  title: '',
+                                  name: 'dateFrom',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 4,
+                                    type: 'date',
+                                  },
+                                },
+                                {
+                                  title: '',
+                                  name: '',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 2,
+                                    render: () => (
+                                      <div className="flex h-10 text-xs items-center">
+                                        <p>{t('đến')}</p>
+                                      </div>
+                                    ),
+                                  },
+                                },
+                                {
+                                  title: '',
+                                  name: 'dateTo',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 4,
+                                    type: 'date',
+                                  },
+                                },
+                              ]}
+                              disableSubmit={isLoading}
+                            />
+                            <div className="flex justify-end w-full">
+                              <div className="">
+                                <Form
+                                  values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
+                                  columns={[
+                                    {
+                                      title: '',
+                                      name: 'Category',
+                                      formItem: {
+                                        tabIndex: 3,
+                                        placeholder: 'placeholder.Select order type',
+                                        col: 12,
+                                        type: 'select',
+                                        get: {
+                                          facade: CategoryFacade,
+                                          format: (item: any) => ({
+                                            label: item.name,
+                                            value: item.id,
+                                          }),
+                                        },
+                                      },
+                                    },
+                                  ]}
+                                  disableSubmit={isLoading}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
+                          <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
+                            <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
+                            <span className="text-teal-900 text-xl font-bold mt-auto"> VND</span>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -1225,13 +1328,13 @@ const Page = () => {
                   />
                 </div>
               </div>
-              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
-                <Button
-                  text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                  onClick={handleBack}
-                />
-              </div>
+              <Button
+                text={t('Trở về')}
+                className={'md:w-32 justify-center out-line mt-4'}
+                onClick={() => {
+                  navigate(`/${lang}${routerLinks('Supplier')}`);
+                }}
+              />
             </Tabs.TabPane>
             <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
