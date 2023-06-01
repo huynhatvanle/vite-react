@@ -28,7 +28,7 @@ const Page = () => {
   return (
     <DataTable
       facade={storeFace}
-      defaultRequest={{ page: 1, perPage: 10, filter: {type: 'STORE'}, fullTextSearch: ''}}
+      defaultRequest={{ page: 1, perPage: 10, filter: { type: 'STORE' }, fullTextSearch: '' }}
       xScroll='1440px'
       className=' bg-white p-5 rounded-lg'
       onRow={(data: any) => ({
@@ -90,7 +90,7 @@ const Page = () => {
             className='!bg-teal-900 !rounded-3xl !font-normal'
             icon={<Plus className="icon-cud !h-5 !w-5 !fill-white " />}
             text={t('titles.Store/Add')}
-            onClick={() =>  navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
+            onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
           />
         </div>
 
