@@ -466,7 +466,7 @@ export const DataTable = forwardRef(
             />
             {refPageSizeOptions.current && showPagination && (
               <Pagination
-                total={result?.count}
+                total={result?.pagination?.total}
                 page={+params!.page!}
                 perPage={+params!.perPage!}
                 pageSizeOptions={refPageSizeOptions.current}

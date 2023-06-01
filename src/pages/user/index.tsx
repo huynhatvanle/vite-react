@@ -29,6 +29,7 @@ const Page = () => {
   return (
     <DataTable
       facade={userFacade}
+      defaultRequest={{ page: 1, perPage: 10}}
       ref={dataTableRef}
       onRow={(data: any) => ({ onDoubleClick: () => navigate(`/${lang}${routerLinks('User/Edit')}/${data.id}`) })}
       xScroll={'1400px'}
