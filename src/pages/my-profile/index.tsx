@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Tabs } from 'antd';
@@ -19,6 +19,7 @@ const Page = () => {
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   const [form] = AntForm.useForm();
+  const [formValues, setFormValues] = useState({});
 
   useEffect(() => {
     profile();
@@ -69,28 +70,34 @@ const Page = () => {
                     name: 'userRole',
                     formItem: {
                       render: (item: any, values: any, reRender) => {
-                        if (values.userRole[0].mtRole.code === "ADMIN") {
-                          return (
-                            <div className='flex w-full flex-row justify-center pt-2 font-normal'>
-                              <User className='w-5 h-5 mr-2 fill-slate-500' />
-                              <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
-                            </div>
-                          )
-                        } else if (values.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
-                          return (
-                            <div className='flex w-full flex-row justify-center pt-2 font-normal'>
-                              <User className='w-5 h-5 mr-2 fill-slate-500' />
-                              <div className='text-base text-gray-500'>{t('user.RoleUser.SUPPLIER')}</div>
-                            </div>
-                          )
-                        } else {
-                          return (
-                            <div className='flex w-full flex-row justify-center pt-2 font-normal'>
-                              <User className='w-5 h-5 mr-2 fill-slate-500' />
-                              <div className='text-base text-gray-500'>{t('user.RoleUser.STORE')} </div>
-                            </div>
-                          )
-                        }
+                        return (
+                          <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                            <User className='w-5 h-5 mr-2 fill-slate-500' />
+                            <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
+                          </div>
+                        )
+                        // if (values.userRole[0].mtRole.code === "ADMIN") {
+                        //   return (
+                        //     <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                        //       <User className='w-5 h-5 mr-2 fill-slate-500' />
+                        //       <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
+                        //     </div>
+                        //   )
+                        // } else if (values.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
+                        //   return (
+                        //     <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                        //       <User className='w-5 h-5 mr-2 fill-slate-500' />
+                        //       <div className='text-base text-gray-500'>{t('user.RoleUser.SUPPLIER')}</div>
+                        //     </div>
+                        //   )
+                        // } else {
+                        //   return (
+                        //     <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                        //       <User className='w-5 h-5 mr-2 fill-slate-500' />
+                        //       <div className='text-base text-gray-500'>{t('user.RoleUser.STORE')} </div>
+                        //     </div>
+                        //   )
+                        // }
                       }
                     },
                   },
@@ -144,7 +151,7 @@ const Page = () => {
                     },
                   ]}
                   disableSubmit={isLoading}
-                  handSubmit={() => handleSubmit}
+                  handSubmit={handleSubmit}
                   extendButton={(form) => (
                     <Button
                       text={t('components.button.Cancel')}
