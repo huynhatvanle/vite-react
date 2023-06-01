@@ -1,7 +1,8 @@
-import React, { Fragment, Ref, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Select, Switch, Tabs, Dropdown } from 'antd';
+import { Option } from 'antd/es/mentions';
 import { useNavigate, useParams } from 'react-router';
-import { Input, Select, Switch, Tabs, Dropdown } from 'antd';
 
 import { language, languages, routerLinks } from '@utils';
 import { Form } from '@core/form';
@@ -28,8 +29,8 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const dataTableRef = useRef<TableRefObject>(null);
-  const dataTableRef1 = useRef<TableRefObject>(null);
+  const dataTableRefProduct = useRef<TableRefObject>(null);
+  const dataTableRefSupplier = useRef<TableRefObject>(null);
   const dataTableRefInventory = useRef<TableRefObject>(null);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
@@ -62,15 +63,11 @@ const Page = () => {
 
   const [isBalanceClicked, setIsBalanceClicked] = useState<boolean>(false);
 
-  function setType(arg0: string) {
-    throw new Error('Function not implemented.');
-  }
-
   return (
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='1' type='card' size='large'>
+          <Tabs defaultActiveKey='1' type='card' size='large' >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               {!isLoading && (
                 <Form
@@ -121,7 +118,7 @@ const Page = () => {
                       name: 'provinceId',
                       formItem: {
                         firstLoad: () => ({}),
-                        tabIndex: 3,
+                        tabIndex: 4,
                         col: 3,
                         rules: [{ type: 'requiredSelect' }],
                         type: 'select',
@@ -144,6 +141,7 @@ const Page = () => {
                         firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
                         type: 'select',
                         rules: [{ type: 'requiredSelect' }],
+                        tabIndex: 5,
                         col: 3,
                         get: {
                           facade: DistrictFacade,
@@ -168,6 +166,7 @@ const Page = () => {
                         firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
                         type: 'select',
                         rules: [{ type: 'requiredSelect' }],
+                        tabIndex: 6,
                         col: 3,
                         get: {
                           facade: WardFacade,
@@ -187,6 +186,7 @@ const Page = () => {
                       name: 'street',
                       formItem: {
                         rules: [{ type: 'required' }],
+                        tabIndex: 7,
                         col: 3,
                       },
                     },
@@ -205,6 +205,7 @@ const Page = () => {
                       title: 'store.ContactName',
                       name: 'nameContact',
                       formItem: {
+                        tabIndex: 8,
                         col: 4,
                         rules: [{ type: 'required' }],
                       },
@@ -213,6 +214,7 @@ const Page = () => {
                       title: 'store.Contact Phone Number',
                       name: 'phoneNumber',
                       formItem: {
+                        tabIndex: 9,
                         col: 4,
                         rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
                       },
@@ -221,8 +223,17 @@ const Page = () => {
                       title: 'store.Contact Email',
                       name: 'emailContact',
                       formItem: {
+                        tabIndex: 10,
                         col: 4,
                         rules: [{ type: 'required' }, { type: 'email' }],
+                      },
+                    },
+                    {
+                      name: 'note',
+                      title: 'store.Note',
+                      formItem: {
+                        tabIndex: 11,
+                        type: 'textarea',
                       },
                     },
                   ]}
@@ -301,7 +312,7 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(false);
-                          dataTableRef?.current?.onChange({
+                          dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: '' }
@@ -317,7 +328,7 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(true);
-                          dataTableRef?.current?.onChange({
+                          dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: { storeId: id, type: 'NON_BALANCE', supplierId: '', categoryId: '' }
@@ -341,7 +352,7 @@ const Page = () => {
               key='2' className='rounded-xl'>
 
               <DataTable
-                ref={dataTableRef}
+                ref={dataTableRefProduct}
                 facade={productFacede}
                 defaultRequest={{
                   page: 1,
@@ -454,7 +465,7 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                dataTableRef?.current?.onChange({
+                                dataTableRefProduct?.current?.onChange({
                                   page: 1,
                                   perPage: 10,
                                   filter: { storeId: data?.id, type: 'BALANCE', supplierId: value, categoryId: '' }
@@ -486,7 +497,7 @@ const Page = () => {
                               },
                               onChange(value, form) {
                                 form.resetFields(['categoryId2', 'categoryId3'])
-                                dataTableRef?.current?.onChange({
+                                dataTableRefProduct?.current?.onChange({
                                   page: 1,
                                   perPage: 10,
                                   filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
@@ -514,6 +525,11 @@ const Page = () => {
                               },
                               onChange(value, form) {
                                 form.resetFields(['categoryId3'])
+                                dataTableRefProduct?.current?.onChange({
+                                  page: 1,
+                                  perPage: 10,
+                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                                });
                               },
                             },
                           },
@@ -534,7 +550,14 @@ const Page = () => {
                                   fullTextSearch,
                                   id: value().categoryId2,
                                 })
-                              }
+                              },
+                              onChange(value, form) {
+                                dataTableRefProduct?.current?.onChange({
+                                  page: 1,
+                                  perPage: 10,
+                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                                });
+                              },
                             },
                           },
                         ]
@@ -558,7 +581,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, supplierType: 'BALANCE'} }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'} }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 pageSizeRender={(sizePage: number) => sizePage}
@@ -614,10 +637,10 @@ const Page = () => {
                   <div className={'flex gap-2 pb-2'}>
                     {
                       <Button
-                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-0 lg:w-full'
+                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:w-full'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
-                        onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
+                        // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
                       />
                     }
                   </div>
@@ -645,9 +668,13 @@ const Page = () => {
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
                           <div onClick={() => {
-                            setType('BALANCE')
+                            // setType('BALANCE')
                             setIsBalanceClicked(false);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: 'BALANCE' } });
+                            dataTableRefSupplier?.current?.onChange({
+                               page: 1, 
+                               perPage: 10, 
+                               filter: { idSuppiler: id, supplierType: 'BALANCE' } 
+                            });
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             BALANCE
                           </div>
@@ -658,9 +685,9 @@ const Page = () => {
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
                           <div onClick={() => {
-                            setType('NON_BALANCE')
+                            // setType('NON_BALANCE')
                             setIsBalanceClicked(true);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: '', storeId: data?.id, supplierType: 'NON_BALANCE' } });
+                            dataTableRefSupplier?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: '', storeId: data?.id, supplierType: 'NON_BALANCE' } });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
@@ -679,7 +706,7 @@ const Page = () => {
               }
               key='4' className='rounded-xl'>
               <DataTable
-                ref={dataTableRef1}
+                ref={dataTableRefSupplier}
                 facade={connectSupplierFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: data?.id, supplierType: '' } }}
                 xScroll='1270px'
@@ -756,7 +783,7 @@ const Page = () => {
                         label: (
                           <div onClick={() => {
                             setIsBalanceClicked(false);
-                            dataTableRef?.current?.onChange();
+                            // dataTableRef?.current?.onChange();
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             {t('store.Revenue by order')}
                           </div>
@@ -768,7 +795,7 @@ const Page = () => {
                         label: (
                           <div onClick={() => {
                             setIsBalanceClicked(true);
-                            dataTableRef?.current?.onChange();
+                            // dataTableRef?.current?.onChange();
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             {t('store.Revenue by product')}
                           </div>
@@ -1095,7 +1122,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex sm:justify-end w-full text-left flex-col'>
                         <Form
-                          className="intro-x flex mt-4 sm:justify-end lg:mt-0 form-store"
+                          className="intro-x flex sm:justify-end lg:mt-0 form-store"
                           columns={
                             [
                               {
@@ -1255,12 +1282,12 @@ const Page = () => {
                     tableItem: {
                       render(text, item) {
                           return(
-                            <Select value={item?.units[0]?.name} className='w-24'>
-                              {item?.units.forEach( (unit: any) => {
-                                return(
-                                  <>{unit?.name}</>
-                                )
-                              })}
+                            <Select value={item?.units[0]?.name} className='w-24' showSearch= {true}>
+                              {item?.units.map((unit: any) => (
+                                <Select.Option value={unit.value}>
+                                  {unit.name}
+                                </Select.Option>
+                              ))}
                             </Select>
                           )
                       },

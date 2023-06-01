@@ -10,10 +10,10 @@ const action = {
   ...new Action<SubStore>(name),
   getSubStore: createAsyncThunk(
     name + '/get',
-    async ({ page, perPage, filter }: { page: number, perPage: number, filter: { storeId?: string, supplierType: string } }) => {
+    async ({ page, perPage, filter }: { page: number, perPage: number, filter: { storeId?: string, type: string } }) => {
       // console.log(page, perPage,filter, filter.supplierType, filter.storeId)
       const filterSubStore = JSON.parse(filter.toString() || '{}')
-      const data = await API.get(routerLinks(name, 'api'), { page, perPage, storeId: filterSubStore.storeId, type: filterSubStore.supplierType })
+      const data = await API.get(routerLinks(name, 'api'), { page, perPage, storeId: filterSubStore.storeId, type: filterSubStore.type })
       return data
     }
   ),
@@ -27,7 +27,7 @@ export const SubStoreFacade = () => {
     ...(useTypedSelector((state) => state[action.name]) as State<SubStore>),
     set: (values: State<SubStore>) => dispatch(action.set(values)),
     // get: (params: PaginationQuery<SubStore>) => dispatch(action.get(params)),
-    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { storeId?: string, supplierType: string } }) => {
+    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { storeId?: string, type: string } }) => {
       console.log(page, perPage, filter)
       return dispatch(action.getSubStore({ page, perPage, filter }))
     },
