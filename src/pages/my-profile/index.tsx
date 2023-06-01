@@ -36,74 +36,68 @@ const Page = () => {
     globalFacade.putProfile(values);
   }
 
-  // const UserForm = ({ onSubmit }: any) => (
-  //   <AntForm onFinish={onSubmit}>
-  //     <AntForm.Item>
-  //     </AntForm.Item>
-  //   </AntForm>
-  // );
-
   return (
     <Fragment>
       <div className='lg:grid lg:grid-cols-3 gap-5 w-full'>
         <div className='col-span-1 lg:border lg:rounded-xl bg-white font-normal'>
           <Spin spinning={isLoading}>
-            {/* <UserForm onSubmit={handleSubmit} /> */}
-            <Form
-              values={{ ...user }}
-              className="text-center items-centers text-xl font-bold text-slate-700"
-              columns={[
-                {
-                  title: '',
-                  name: 'profileImage',
-                  formItem: {
-                    type: 'upload',
-                    mode: 'multiple',
-                    onlyImage: true,
+            <form onSubmit={handleSubmit}>
+              <Form
+                values={{ ...user }}
+                className="text-center items-centers text-xl font-bold text-slate-700"
+                columns={[
+                  {
+                    title: '',
+                    name: 'profileImage',
+                    formItem: {
+                      type: 'upload',
+                      mode: 'multiple',
+                      onlyImage: true,
+                    },
                   },
-                },
-                {
-                  title: 'user.Fullname',
-                  name: 'name',
-                  formItem: {
-                    render: (form, values) => {
-                      return (values.name)
-                    }
-                  },
-                },
-                {
-                  title: 'user.role',
-                  name: 'userRole',
-                  formItem: {
-                    render: (item: any, values: any, reRender) => {
-                      if (values.userRole[0].mtRole.code === "ADMIN") {
-                        return (
-                          <div className='flex w-full flex-row justify-center pt-2 font-normal'>
-                            <User className='w-5 h-5 mr-2 fill-slate-500' />
-                            <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
-                          </div>
-                        )
-                      } else if (values.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
-                        return (
-                          <div className='flex w-full flex-row justify-center pt-2 font-normal'>
-                            <User className='w-5 h-5 mr-2 fill-slate-500' />
-                            <div className='text-base text-gray-500'>{t('user.RoleUser.SUPPLIER')}</div>
-                          </div>
-                        )
-                      } else {
-                        return (
-                          <div className='flex w-full flex-row justify-center pt-2 font-normal'>
-                            <User className='w-5 h-5 mr-2 fill-slate-500' />
-                            <div className='text-base text-gray-500'>{t('user.RoleUser.STORE')} </div>
-                          </div>
-                        )
+                  {
+                    title: 'user.Fullname',
+                    name: 'name',
+                    formItem: {
+                      render: (form, values) => {
+                        return (values.name)
                       }
-                    }
+                    },
                   },
-                },
-              ]}
-              disableSubmit={isLoading}
-            />
+                  {
+                    title: 'user.role',
+                    name: 'userRole',
+                    formItem: {
+                      render: (item: any, values: any, reRender) => {
+                        if (values.userRole[0].mtRole.code === "ADMIN") {
+                          return (
+                            <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                              <User className='w-5 h-5 mr-2 fill-slate-500' />
+                              <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
+                            </div>
+                          )
+                        } else if (values.userRole[0].mtRole.code === "OWNER_SUPPLIER") {
+                          return (
+                            <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                              <User className='w-5 h-5 mr-2 fill-slate-500' />
+                              <div className='text-base text-gray-500'>{t('user.RoleUser.SUPPLIER')}</div>
+                            </div>
+                          )
+                        } else {
+                          return (
+                            <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                              <User className='w-5 h-5 mr-2 fill-slate-500' />
+                              <div className='text-base text-gray-500'>{t('user.RoleUser.STORE')} </div>
+                            </div>
+                          )
+                        }
+                      }
+                    },
+                  },
+                ]}
+                disableSubmit={isLoading}
+              />
+            </form>
           </Spin>
         </div>
 
@@ -150,7 +144,7 @@ const Page = () => {
                     },
                   ]}
                   disableSubmit={isLoading}
-                  handSubmit={handleSubmit}
+                  handSubmit={() => handleSubmit}
                   extendButton={(form) => (
                     <Button
                       text={t('components.button.Cancel')}
@@ -228,6 +222,7 @@ const Page = () => {
                   handSubmit={setPassword}
                 />
               </Tabs.TabPane>
+
             </Tabs>
           </Spin>
         </div>
