@@ -885,7 +885,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex justify-end text-left flex-col w-full '>
                         <Form
-                          className="intro-x flex justify-start mt-4 lg:justify-end lg:mt-0 form-store"
+                          className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:mt-0 form-store"
                           columns={
                             [
                               {
@@ -927,7 +927,7 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className='intro-x rounded-lg w-full flex justify-between form-store '
+                          className='intro-x rounded-lg w-full sm:flex justify-between form-store '
                           columns={[
                             {
                               title: '',
@@ -982,7 +982,7 @@ const Page = () => {
                     subHeader={() => (
                       <div>
                         <Form
-                          className="intro-x rounded-lg flex form-store"
+                          className="intro-x rounded-lg sm:flex form-store"
                           columns={
                             [
                               {
@@ -1122,7 +1122,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex sm:justify-end w-full text-left flex-col'>
                         <Form
-                          className="intro-x flex sm:justify-end lg:mt-0 form-store"
+                          className="intro-x sm:flex sm:justify-end lg:mt-0 form-store"
                           columns={
                             [
                               {
@@ -1145,7 +1145,7 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className='intro-x rounded-lg w-full flex justify-between form-store'
+                          className='intro-x rounded-lg w-full sm:flex justify-between form-store'
                           columns={[
                             {
                               title: '',
