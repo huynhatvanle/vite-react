@@ -28,8 +28,8 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const dataTableRef = useRef<TableRefObject>(null);
-  const dataTableRef1 = useRef<TableRefObject>(null);
+  const dataTableRefProduct = useRef<TableRefObject>(null);
+  const dataTableRefSupplier = useRef<TableRefObject>(null);
   const dataTableRefInventory = useRef<TableRefObject>(null);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
@@ -62,15 +62,11 @@ const Page = () => {
 
   const [isBalanceClicked, setIsBalanceClicked] = useState<boolean>(false);
 
-  function setType(arg0: string) {
-    throw new Error('Function not implemented.');
-  }
-
   return (
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='1' type='card' size='large'>
+          <Tabs defaultActiveKey='1' type='card' size='large' >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               {!isLoading && (
                 <Form
@@ -301,7 +297,7 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(false);
-                          dataTableRef?.current?.onChange({
+                          dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: '' }
@@ -317,7 +313,7 @@ const Page = () => {
                       label: (
                         <div onClick={() => {
                           setIsBalanceClicked(true);
-                          dataTableRef?.current?.onChange({
+                          dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: { storeId: id, type: 'NON_BALANCE', supplierId: '', categoryId: '' }
@@ -341,7 +337,7 @@ const Page = () => {
               key='2' className='rounded-xl'>
 
               <DataTable
-                ref={dataTableRef}
+                ref={dataTableRefProduct}
                 facade={productFacede}
                 defaultRequest={{
                   page: 1,
@@ -454,7 +450,7 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                dataTableRef?.current?.onChange({
+                                dataTableRefProduct?.current?.onChange({
                                   page: 1,
                                   perPage: 10,
                                   filter: { storeId: data?.id, type: 'BALANCE', supplierId: value, categoryId: '' }
@@ -486,7 +482,7 @@ const Page = () => {
                               },
                               onChange(value, form) {
                                 form.resetFields(['categoryId2', 'categoryId3'])
-                                dataTableRef?.current?.onChange({
+                                dataTableRefProduct?.current?.onChange({
                                   page: 1,
                                   perPage: 10,
                                   filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
@@ -514,6 +510,11 @@ const Page = () => {
                               },
                               onChange(value, form) {
                                 form.resetFields(['categoryId3'])
+                                dataTableRefProduct?.current?.onChange({
+                                  page: 1,
+                                  perPage: 10,
+                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                                });
                               },
                             },
                           },
@@ -534,7 +535,14 @@ const Page = () => {
                                   fullTextSearch,
                                   id: value().categoryId2,
                                 })
-                              }
+                              },
+                              onChange(value, form) {
+                                dataTableRefProduct?.current?.onChange({
+                                  page: 1,
+                                  perPage: 10,
+                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                                });
+                              },
                             },
                           },
                         ]
@@ -558,7 +566,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, supplierType: 'BALANCE'} }}
+                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'} }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 pageSizeRender={(sizePage: number) => sizePage}
@@ -645,9 +653,13 @@ const Page = () => {
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
                           <div onClick={() => {
-                            setType('BALANCE')
+                            // setType('BALANCE')
                             setIsBalanceClicked(false);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: 'BALANCE' } });
+                            dataTableRefSupplier?.current?.onChange({
+                               page: 1, 
+                               perPage: 10, 
+                               filter: { idSuppiler: id, supplierType: 'BALANCE' } 
+                            });
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             BALANCE
                           </div>
@@ -658,9 +670,9 @@ const Page = () => {
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
                           <div onClick={() => {
-                            setType('NON_BALANCE')
+                            // setType('NON_BALANCE')
                             setIsBalanceClicked(true);
-                            dataTableRef1?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: '', storeId: data?.id, supplierType: 'NON_BALANCE' } });
+                            dataTableRefSupplier?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: '', storeId: data?.id, supplierType: 'NON_BALANCE' } });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
@@ -679,7 +691,7 @@ const Page = () => {
               }
               key='4' className='rounded-xl'>
               <DataTable
-                ref={dataTableRef1}
+                ref={dataTableRefSupplier}
                 facade={connectSupplierFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: data?.id, supplierType: '' } }}
                 xScroll='1270px'
@@ -756,7 +768,7 @@ const Page = () => {
                         label: (
                           <div onClick={() => {
                             setIsBalanceClicked(false);
-                            dataTableRef?.current?.onChange();
+                            // dataTableRef?.current?.onChange();
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             {t('store.Revenue by order')}
                           </div>
@@ -768,7 +780,7 @@ const Page = () => {
                         label: (
                           <div onClick={() => {
                             setIsBalanceClicked(true);
-                            dataTableRef?.current?.onChange();
+                            // dataTableRef?.current?.onChange();
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             {t('store.Revenue by product')}
                           </div>

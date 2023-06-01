@@ -12,8 +12,8 @@ const action = {
         name + '/get',
         async ({page, perPage, filter} : {page: number, perPage: number, filter: {idStore?: string}}) => {
           const filterInvoiceKiotViet = JSON.parse( filter.toString() || '{}' )
-          const  data  = await API.get(routerLinks(name, 'api'), {page, perPage, idStore: filterInvoiceKiotViet.idStore});
-          console.log(data.total)
+          let  data  = await API.get(routerLinks(name, 'api'), {page, perPage, idStore: filterInvoiceKiotViet.idStore});
+          data.data = Object.entries(data.data as Object)[0]?.[1]
           return data.data;
         }
       )
