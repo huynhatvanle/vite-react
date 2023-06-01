@@ -1122,7 +1122,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex sm:justify-end text-left flex-col'>
                         <Form
-                          className="intro-x sm:flex lg:justify-end lg:mt-0 form-store"
+                          className="intro-x sm:flex lg:justify-end mt-2 lg:mt-0 form-store"
                           columns={
                             [
                               {
