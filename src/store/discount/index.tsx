@@ -16,11 +16,12 @@ const action = {
         page,
         perPage,
       });
-      console.log('datadata', data);
-      const dataDiscount = Object.entries(data.data as Object)[0]?.[1];
+      let dataDiscount = Object.entries(data.data as Object)[0]?.[1];
+      const totalCommissionSupplier = data.data?.totalCommissionSupplier;
       data.data = dataDiscount;
+      const dataTemp = { ...data, totalCommissionSupplier };
 
-      return data;
+      return dataTemp;
     },
   ),
   getByIdDiscount: createAsyncThunk(
@@ -50,7 +51,7 @@ export const DiscountFacade = () => {
 };
 
 export class Discount extends CommonEntity {
-  constructor(public id?: string, public name?: string, public code?: string) {
+  constructor(public id?: string, public name?: string, public code?: string, public totalCommissionSupplier?: number) {
     super();
   }
 }

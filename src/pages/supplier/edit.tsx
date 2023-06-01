@@ -59,15 +59,13 @@ const Page = () => {
     }
   }, [status]);
 
-  const a = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
-  console.log('inventoryOrders', discountFacade);
-
-  // const Distotal = discountFacade.data?.totalCommissionSupplier?.toLocaleString();
+  const revenueTotal = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
+  const discountTotal = discountFacade.result?.totalCommissionSupplier?.toLocaleString();
 
   const subHeader = [
     {
       title: t('supplier.Sup-Revenue.Revenue'),
-      total: a + ' VND',
+      total: revenueTotal + ' VND',
     },
     {
       title: t('supplier.Sup-Revenue.Total number of successful orders'),
@@ -605,7 +603,7 @@ const Page = () => {
                         page: 1,
                         perPage: 10,
                         filter: {
-                          idSuppiler: id,
+                          idSupplier: id,
                           filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
                         },
                         fullTextSearch: '',
@@ -835,13 +833,6 @@ const Page = () => {
                       )}
                     />
                   </div>
-                  <Button
-                    text={t('components.form.modal.cancel')}
-                    className={'md:w-32 justify-center out-line mt-4'}
-                    onClick={() => {
-                      navigate(`/${lang}${routerLinks('Supplier')}`);
-                    }}
-                  />
                 </div>
               ) : (
                 test === '2' && (
@@ -1126,20 +1117,13 @@ const Page = () => {
                         )}
                       />
                     </div>
-                    <Button
-                      text={t('components.form.modal.cancel')}
-                      className={'md:w-32 justify-center out-line mt-4'}
-                      onClick={() => {
-                        navigate(`/${lang}${routerLinks('Supplier')}`);
-                      }}
-                    />
                   </div>
                 )
               )}
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4 flex '}
                   onClick={handleBack}
                 />
               </div>
@@ -1313,7 +1297,7 @@ const Page = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
                           <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
                             <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
-                            <span className="text-teal-900 text-xl font-bold mt-auto"> VND</span>
+                            <span className="text-teal-900 text-xl font-bold mt-auto">{discountTotal} VND</span>
                           </div>
                         </div>
                       </div>

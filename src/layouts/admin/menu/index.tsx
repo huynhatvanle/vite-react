@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
 import { language, languages, routerLinks } from '@utils';
-import listMenu from '../menus'
+import listMenu from '../menus';
 import './index.less';
 import { v4 } from 'uuid';
 
@@ -29,7 +29,6 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
     clearTime.current = setTimeout(() => set_menuActive([linkActive]), 200);
   }, [location.pathname]);
 
-
   useEffect(() => {
     if (isCollapsed) {
       refMenu!.current!.scrollTop = 0;
@@ -44,7 +43,8 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
           <a
             key={index + v4()}
             className={classNames('child-item py-2 cursor-pointer rounded-2xl text-gray-300 font-medium text-base', {
-              'bg-teal-700 text-white !fill-gray-300': location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
+              'bg-teal-700 text-white !fill-gray-300':
+                location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
             })}
             onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
           >
@@ -55,14 +55,15 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
   );
 
   const subMenu1 = (child: { name: string; permission: string }[]) => (
-    <ul className='px-1 mx-2'>
+    <ul className="px-1 mx-2">
       {child
         .filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
         .map((subItem: any, index: number) => (
           <li
             key={index + v4()}
             className={classNames('child-item py-2 px-3 cursor-pointer rounded-2xl text-black font-medium text-base', {
-              'bg-teal-700 text-white !fill-gray-300 justify-center flex': location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
+              'bg-teal-700 text-white !fill-gray-300 justify-center flex':
+                location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
             })}
             onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
           >
@@ -77,18 +78,19 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
       {!!menuActive &&
         listMenu()
           .filter((item: any) => {
-              return (
-                !item.child ||
-                item.child.filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
-                  .length > 0
-              );
+            return (
+              !item.child ||
+              item.child.filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
+                .length > 0
+            );
           })
           .map((item: any, index: number) => {
             if (!item.child) {
               return (
                 <li
-                  className={classNames('flex items-center text-gray-300 h-11 m-3 px-2 relative cursor-pointer py-1', {
-                    'bg-teal-700 text-white !fill-gray-300 rounded-2xl opacity-100': location.pathname === `/${lang}${routerLinks(item.name)}`,
+                  className={classNames('flex items-center text-gray-300 h-12 m-3 relative cursor-pointer py-1', {
+                    'bg-teal-700 text-white !fill-gray-300 rounded-2xl opacity-100':
+                      location.pathname === `/${lang}${routerLinks(item.name)}`,
                     'fill-gray-300': location.pathname !== `/${lang}${routerLinks(item.name)}`,
                     'justify-center': isCollapsed,
                   })}
@@ -97,7 +99,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                 >
                   {/* <img src={item.icon} className='h-8  w-8 block text-slate-700 fill-red-700'/> */}
                   {/* {item.icon} */}
-                  <div className={classNames({'absolute': isCollapsed })}>{item.icon}</div>
+                  <div className={classNames({ absolute: isCollapsed })}>{item.icon}</div>
                   <span
                     className={classNames('ml-2.5 transition-all duration-300 ease-in-out font-medium text-base !h-8 flex items-center', {
                       'opacity-100': !isCollapsed,
@@ -110,7 +112,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
               );
             } else {
               return isCollapsed ? (
-                <Popover key={index} placement="rightTop" trigger={'hover'} content={subMenu1(item.child)} >
+                <Popover key={index} placement="rightTop" trigger={'hover'} content={subMenu1(item.child)}>
                   <li className="flex items-center justify-center h-11 m-3 px-2 text-gray-300 fill-gray-300 ">
                     {/* <img src={item.icon} className={classNames('h-8  w-8 block !fill-red-700', { 'ml-1': !isCollapsed})}/> */}
                     <div className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</div>
@@ -127,7 +129,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                     defaultActiveKey={menuActive}
                   >
                     <Collapse.Panel
-                        key={`/${lang}${routerLinks(item.name)}`}
+                      key={`/${lang}${routerLinks(item.name)}`}
                       showArrow={!isCollapsed}
                       header={
                         <div
@@ -138,10 +140,13 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                           {/* <img src={item.icon} className={classNames('h-8 w-8 block !fill-red-700', { 'ml-1': !isCollapsed})}/> */}
                           <div className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</div>
                           <span
-                            className={classNames('pl-2.5 transition-all duration-300 ease-in-out font-medium text-base text-gray-300', {
-                              'opacity-100': !isCollapsed,
-                              'opacity-0 text-[0]': isCollapsed,
-                            })}
+                            className={classNames(
+                              'pl-2.5 transition-all duration-300 ease-in-out font-medium text-base text-gray-300',
+                              {
+                                'opacity-100': !isCollapsed,
+                                'opacity-0 text-[0]': isCollapsed,
+                              },
+                            )}
                           >
                             {t(`titles.${item.name}`)}
                           </span>

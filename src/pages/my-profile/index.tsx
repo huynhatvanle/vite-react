@@ -1,19 +1,21 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Tabs } from 'antd';
 
-import { Form as AntForm} from 'antd';
+import { Form as AntForm } from 'antd';
 import { Form } from '@core/form';
 import { Spin } from '@core/spin';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
-import { routerLinks, languages, language } from '@utils';
+import { routerLinks, languages, language, convertFormValue } from '@utils';
 import { User } from '@svgs';
+import { FormModel } from '@models';
 
 const Page = () => {
   const { t } = useTranslation();
   const { user, isLoading, putProfile, setPassword, profile, status } = GlobalFacade();
+  const globalFacade = GlobalFacade();
   const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
@@ -29,12 +31,18 @@ const Page = () => {
     }
   }, [status]);
 
+  const handleSubmit = (values: any) => {
+    console.log(values)
+    globalFacade.putProfile(values);
+  }
+
   return (
     <Fragment>
       <div className='lg:grid lg:grid-cols-3 gap-5 w-full'>
         <div className='col-span-1 lg:border lg:rounded-xl bg-white font-normal'>
           <Spin spinning={isLoading}>
             <Form
+              values={{ ...user }}
               className="text-center items-centers text-xl font-bold text-slate-700"
               columns={[
                 {
@@ -87,7 +95,6 @@ const Page = () => {
                 },
               ]}
               disableSubmit={isLoading}
-              values={{ ...user }}
             />
           </Spin>
         </div>
@@ -134,7 +141,7 @@ const Page = () => {
                     },
                   ]}
                   disableSubmit={isLoading}
-                  handSubmit={putProfile}
+                  handSubmit={handleSubmit}
                   extendButton={(form) => (
                     <Button
                       text={t('components.button.Cancel')}
@@ -158,7 +165,7 @@ const Page = () => {
                       formItem: {
                         col: 12,
                         type: 'password',
-                        rules: [{type: 'required', message: ('components.form.ruleRequiredPassword')}],
+                        rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }],
                         placeholder: t('columns.auth.placeholder.Password').toString(),
                       },
                     },
@@ -169,7 +176,7 @@ const Page = () => {
                         col: 12,
                         type: 'password',
                         condition: (value: string, form, index: number, values: any) => !values?.id,
-                        rules: [{type: 'required', message: ('components.form.ruleRequiredPassword')}],
+                        rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }],
                         placeholder: t('columns.auth.placeholder.newPassword').toString(),
                       },
                     },
