@@ -93,7 +93,7 @@ const Page = () => {
         },
       ]}
       rightHeader={
-        <div className={'flex gap-2 mt-0 max-lg:mt-2.5'}>
+        <div className={'flex gap-2 mt-2.5 lg:mt-0'}>
           <Button
             icon={<Plus className="icon-cud !h-5 !w-5" />}
             text={t('titles.Supplier/Add')}

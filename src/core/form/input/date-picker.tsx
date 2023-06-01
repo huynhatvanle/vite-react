@@ -50,7 +50,7 @@ type Type = {
   placeholder?: string;
   id?: string;
   onChange: (selectDate: any, value: any) => void;
-  format: string;
+  format?: string;
   disabledDate: (current: any) => boolean;
   showTime: boolean;
   picker: 'time' | 'date' | 'week' | 'month' | 'quarter' | 'year' | undefined;

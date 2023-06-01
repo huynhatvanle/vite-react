@@ -1,7 +1,8 @@
-import React, { Fragment, Ref, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Select, Switch, Tabs, Dropdown } from 'antd';
+import { Option } from 'antd/es/mentions';
 import { useNavigate, useParams } from 'react-router';
-import { Input, Select, Switch, Tabs, Dropdown } from 'antd';
 
 import { language, languages, routerLinks } from '@utils';
 import { Form } from '@core/form';
@@ -117,7 +118,7 @@ const Page = () => {
                       name: 'provinceId',
                       formItem: {
                         firstLoad: () => ({}),
-                        tabIndex: 3,
+                        tabIndex: 4,
                         col: 3,
                         rules: [{ type: 'requiredSelect' }],
                         type: 'select',
@@ -140,6 +141,7 @@ const Page = () => {
                         firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
                         type: 'select',
                         rules: [{ type: 'requiredSelect' }],
+                        tabIndex: 5,
                         col: 3,
                         get: {
                           facade: DistrictFacade,
@@ -164,6 +166,7 @@ const Page = () => {
                         firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
                         type: 'select',
                         rules: [{ type: 'requiredSelect' }],
+                        tabIndex: 6,
                         col: 3,
                         get: {
                           facade: WardFacade,
@@ -183,6 +186,7 @@ const Page = () => {
                       name: 'street',
                       formItem: {
                         rules: [{ type: 'required' }],
+                        tabIndex: 7,
                         col: 3,
                       },
                     },
@@ -201,6 +205,7 @@ const Page = () => {
                       title: 'store.ContactName',
                       name: 'nameContact',
                       formItem: {
+                        tabIndex: 8,
                         col: 4,
                         rules: [{ type: 'required' }],
                       },
@@ -209,6 +214,7 @@ const Page = () => {
                       title: 'store.Contact Phone Number',
                       name: 'phoneNumber',
                       formItem: {
+                        tabIndex: 9,
                         col: 4,
                         rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
                       },
@@ -217,8 +223,17 @@ const Page = () => {
                       title: 'store.Contact Email',
                       name: 'emailContact',
                       formItem: {
+                        tabIndex: 10,
                         col: 4,
                         rules: [{ type: 'required' }, { type: 'email' }],
+                      },
+                    },
+                    {
+                      name: 'note',
+                      title: 'store.Note',
+                      formItem: {
+                        tabIndex: 11,
+                        type: 'textarea',
                       },
                     },
                   ]}
@@ -622,10 +637,10 @@ const Page = () => {
                   <div className={'flex gap-2 pb-2'}>
                     {
                       <Button
-                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-0 lg:w-full'
+                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:w-full'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
-                        onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
+                        // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
                       />
                     }
                   </div>
@@ -1107,7 +1122,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex sm:justify-end w-full text-left flex-col'>
                         <Form
-                          className="intro-x flex mt-4 sm:justify-end lg:mt-0 form-store"
+                          className="intro-x flex sm:justify-end lg:mt-0 form-store"
                           columns={
                             [
                               {
@@ -1267,12 +1282,12 @@ const Page = () => {
                     tableItem: {
                       render(text, item) {
                           return(
-                            <Select value={item?.units[0]?.name} className='w-24'>
-                              {item?.units.forEach( (unit: any) => {
-                                return(
-                                  <>{unit?.name}</>
-                                )
-                              })}
+                            <Select value={item?.units[0]?.name} className='w-24' showSearch= {true}>
+                              {item?.units.map((unit: any) => (
+                                <Select.Option value={unit.value}>
+                                  {unit.name}
+                                </Select.Option>
+                              ))}
                             </Select>
                           )
                       },

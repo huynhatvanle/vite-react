@@ -192,7 +192,7 @@ const Page = () => {
                               },
                             }),
                           },
-                          { type: 'requiredPassword' }, { type: 'min', value: 1 },
+                          { type: 'required' }, { type: 'min', value: 1 },
                         ],
                         placeholder: t('columns.auth.placeholder.Confirm Password').toString(),
                       },
