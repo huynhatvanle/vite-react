@@ -70,7 +70,7 @@ const Page = () => {
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='1' type='card' size='large'>
+          <Tabs defaultActiveKey='6' type='card' size='large'>
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               {!isLoading && (
                 <Form
@@ -558,7 +558,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, supplierType: 'BALANCE'} }}
+                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, supplierType: 'BALANCE' } }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
                 pageSizeRender={(sizePage: number) => sizePage}
@@ -790,7 +790,7 @@ const Page = () => {
                 {isBalanceClicked ?
                   <DataTable
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: {idStore: data?.id} }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: data?.id } }}
                     xScroll='1270px'
                     onRow={(data: any) => ({
                       onDoubleClick: () => {
@@ -858,7 +858,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex justify-end text-left flex-col w-full '>
                         <Form
-                          className="intro-x flex justify-start mt-4 lg:justify-end lg:mt-0 form-store"
+                          className="intro-x md:flex justify-start mt-2 lg:justify-end lg:mt-0 form-store"
                           columns={
                             [
                               {
@@ -909,7 +909,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className='flex h-10 items-center !w-full'>
+                                  <div className='h-10 items-center !w-full'>
                                     <p className='text-sm'>{t('store.Since')}</p>
                                   </div>
                                 )
@@ -955,7 +955,7 @@ const Page = () => {
                     subHeader={() => (
                       <div>
                         <Form
-                          className="intro-x rounded-lg flex form-store"
+                          className="intro-x rounded-lg md:flex form-store"
                           columns={
                             [
                               {
@@ -1093,9 +1093,9 @@ const Page = () => {
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
-                      <div className='flex sm:justify-end w-full text-left flex-col'>
+                      <div className='flex sm:justify-end text-left flex-col'>
                         <Form
-                          className="intro-x flex mt-4 sm:justify-end lg:mt-0 form-store"
+                          className="intro-x md:flex mt-2 lg:justify-end lg:mt-0 form-store"
                           columns={
                             [
                               {
@@ -1127,7 +1127,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className='lg:flex h-10 items-center !w-full'>
+                                  <div className='flex h-10 items-center !w-full'>
                                     <p className='text-sm'>{t('store.Since')}</p>
                                   </div>
                                 )
@@ -1211,7 +1211,7 @@ const Page = () => {
                     name: 'productCode',
                     tableItem: {
                       sorter: true,
-                      filter: {type: 'search'},
+                      filter: { type: 'search' },
                       width: 120,
                     },
                   },
@@ -1219,14 +1219,14 @@ const Page = () => {
                     title: 'store.Inventory management.Barcode (Supplier)',
                     name: 'supplierBarcode',
                     tableItem: {
-                      filter: {type: 'search'},
+                      filter: { type: 'search' },
                     }
                   },
                   {
                     title: 'store.Inventory management.Barcode (Product)',
                     name: 'storeBarcode',
                     tableItem: {
-                      filter: {type: 'search'},
+                      filter: { type: 'search' },
                     },
                   },
                   {
@@ -1234,7 +1234,7 @@ const Page = () => {
                     name: 'productName',
                     tableItem: {
                       sorter: true,
-                      filter: {type: 'search'},
+                      filter: { type: 'search' },
                     },
                   },
                   {
@@ -1254,15 +1254,15 @@ const Page = () => {
                     name: 'units',
                     tableItem: {
                       render(text, item) {
-                          return(
-                            <Select value={item?.units[0]?.name} className='w-24'>
-                              {item?.units.forEach( (unit: any) => {
-                                return(
-                                  <>{unit?.name}</>
-                                )
-                              })}
-                            </Select>
-                          )
+                        return (
+                          <Select value={item?.units[0]?.name} className='w-24'>
+                            {item?.units.forEach((unit: any) => {
+                              return (
+                                <>{unit?.name}</>
+                              )
+                            })}
+                          </Select>
+                        )
                       },
                     },
                   },
@@ -1297,7 +1297,7 @@ const Page = () => {
                     name: 'inventoryPrice',
                     tableItem: {
                       // width: 70,
-                      align:'right',
+                      align: 'right',
                       render: (value: any, item: any) => parseInt(`${item?.numberInBal * item?.inventoryPrice}`).toLocaleString()
                     },
                   },
@@ -1309,14 +1309,14 @@ const Page = () => {
                       <Button
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group'
                         text={t('titles.synchronized')}
-                        // onClick={() => navigate(`/${lang}${routerLinks('Supplier/Excel')}`)}
+                      // onClick={() => navigate(`/${lang}${routerLinks('Supplier/Excel')}`)}
                       />
                     }
                   </div>
                 }
                 leftHeader={
                   <Form
-                    className="intro-x rounded-lg"
+                    className="intro-x rounded-lg md:flex"
                     columns={
                       [
                         {
