@@ -11,7 +11,7 @@ const action = {
   ...new Action<StoreConnectSupplier>(name),
   getStoreConnectSupplier: createAsyncThunk(
     name + '/get',
-    async ({ page, perPage, filter }: { page: number, perPage: number, filter: { idSuppiler: number, supplierType: string } }) => {
+    async ({ page, perPage, filter }: { page: number, perPage: number, filter: { idSuppiler: string, supplierType: string } }) => {
       const filterStoreConnectSupplier = JSON.parse(filter.toString() || '{}')
       return await API.get(routerLinks(name, 'api'), { page, perPage, idSuppiler: filterStoreConnectSupplier.idSuppiler, supplierType: filterStoreConnectSupplier.supplierType })
     }
@@ -26,7 +26,7 @@ export const ConnectSupplierFacade = () => {
     ...(useTypedSelector((state) => state[action.name]) as State<StoreConnectSupplier>),
     set: (values: State<StoreConnectSupplier>) => dispatch(action.set(values)),
     // get: (params: PaginationQuery<StoreConnectSupplier>) => dispatch(action.get(params)),
-    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { idSuppiler: number, supplierType: string } }) => dispatch(action.getStoreConnectSupplier({ page, perPage, filter })),
+    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { idSuppiler: string, supplierType: string } }) => dispatch(action.getStoreConnectSupplier({ page, perPage, filter })),
   };
 };
 

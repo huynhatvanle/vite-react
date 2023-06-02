@@ -584,7 +584,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, type: 'BALANCE' } }}
+                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, supplierType: 'BALANCE' } }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}
@@ -921,16 +921,18 @@ const Page = () => {
                               col: 5,
                               type: 'select',
                               get: {
-                                facade: ProductFacade,
+                                facade: ConnectSupplierFacade,
                                 format: (item: any) => ({
                                   label: item?.id,
                                   value: item?.id,
                                 }),
                                 params: () => ({
-                                  storeId: data?.id, 
-                                  type: '', 
-                                  supplierId: '', 
-                                  categoryId: '' 
+                                  page: 1,
+                                  perPage: 10,
+                                  filter: {
+                                  idSupplier: data?.id, 
+                                  supplierType: ''
+                                 }
                                 }),
                               },
                             }
