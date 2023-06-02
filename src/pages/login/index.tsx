@@ -49,7 +49,8 @@ const Page = () => {
               formItem: {
                 placeholder: 'columns.auth.login.Enter Password',
                 type: 'password',
-                rules: [{ type: 'required' }, { type: 'min', value: 6 }],
+                notDefaultValid: true,
+                rules: [{ type: 'required' }],
               },
             },
           ]}
