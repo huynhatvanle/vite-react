@@ -818,387 +818,390 @@ const Page = () => {
               key='5' className='rounded-xl'>
               <div className='bg-white p-5 rounded-lg'>
                 {isBalanceClicked ?
-                  <DataTable
-                    facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: data?.id } }}
-                    xScroll='1270px'
-                    className=''
-                    onRow={(data: any) => ({
-                      onDoubleClick: () => {
-                        navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                      },
-                    })}
-                    pageSizeRender={(sizePage: number) => sizePage}
-                    pageSizeWidth={'50px'}
-                    paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                    }
-                    columns={[
-                      {
-                        title: 'store.Revenue.Serial number',
-                        name: 'supplier',
-                        tableItem: {
-                          width: 150,
-                          // render: (value: any, item: any) => item.supplier?.code,
-                        },
-                      },
-                      {
-                        title: 'store.Inventory management.Product code',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier?.name,
-                        },
-                      },
-                      {
-                        title: 'store.Inventory management.Product name',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
-                        },
-                      },
-                      {
-                        title: 'store.Barcode',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                        },
-                      },
-                      {
-                        title: 'titles.Revenue',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
-                      {
-                        title: 'product.Revenue',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
-                      {
-                        title: 'product.Status',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
-                    ]}
-                    searchPlaceholder={t('placeholder.Search by order number')}
-                    rightHeader={
-                      <div className='flex justify-end text-left flex-col w-full '>
-                        <Form
-                          className="intro-x sm:flex justify-start sm:mt-2 lg:justify-end lg:mt-0 form-store "
-                          columns={
-                            [
-                              {
-                                title: '',
-                                name: 'status',
-                                formItem: {
-                                  placeholder: 'placeholder.Select status',
-                                  type: 'select',
-                                  tabIndex: 3,
-                                  col: 6,
-                                  get: {
-                                    facade: ConnectSupplierFacade,
-                                    format: (item: any) => ({
-                                      label: item.supplier?.name,
-                                      value: item.supplier?.id,
-                                    })
-                                  }
-                                }
-                              },
-                              {
-                                title: '',
-                                name: 'supplierName',
-                                formItem: {
-                                  placeholder: 'placeholder.Choose a supplier',
-                                  type: 'select',
-                                  tabIndex: 3,
-                                  col: 6,
-                                  get: {
-                                    facade: ConnectSupplierFacade,
-                                    format: (item: any) => ({
-                                      label: item.supplier?.name,
-                                      value: item.supplier?.id,
-                                    })
-                                  }
-                                }
-                              },
-                            ]
-                          }
-                          disableSubmit={isLoading}
-                        />
-                        <Form
-                          className='intro-x rounded-lg w-full sm:flex justify-end form-store '
-                          columns={[
-                            {
-                              title: '',
-                              name: '',
-                              formItem: {
-                                tabIndex: 3,
-                                render: () => (
-                                  <div className='flex items-center '>
-                                    <p className='text-sm'>{t('store.Since')}</p>
-                                  </div>                     
-                                )
-                              },
-                            },
-                            {
-                              title: '',
-                              name: 'StartDate',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                                placeholder: 'placeholder.Choose a time',
-                              },
-                            },
-                            {
-                              title: '',
-                              name: '',
-                              formItem: {
-                                tabIndex: 3,
-                                render: () => ( 
-                                  <div className='flex items-center '>
-                                    <p className='text-sm'>{t('store.To date')}</p>
-                                    </div>
-                                )
-                              },
-                            },
-                            {
-                              title: '',
-                              name: 'EndDate',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                                placeholder: 'placeholder.Choose a time',
-                              },
-                            },
-                          ]}
-                        />
-                      </div>
-                    }
-                    subHeader={() => (
-                      <div>
-                        <Form
-                          className="intro-x rounded-lg form-store form-header-category"
-                          columns={
-                            [
-                              {
-                                title: '',
-                                name: 'cap1',
-                                formItem: {
-                                  tabIndex: 3,
-                                  placeholder: 'placeholder.Main categories',
-                                  type: 'select',
-                                  col: 3,
-                                  get: {
-                                    facade: CategoryFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                  },
-                                  onChange(value, form) {
-                                    form.resetFields(['cap2', 'cap3'])
-                                  },
-                                },
-                              },
-                              {
-                                name: 'cap2',
-                                title: '',
-                                formItem: {
-                                  placeholder: 'placeholder.Category level 1',
-                                  type: 'select',
-                                  col: 3,
-                                  get: {
-                                    facade: CategoryFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                    params: (fullTextSearch, value) => ({
-                                      fullTextSearch,
-                                      id: value().cap1,
-                                    }),
-                                  },
-                                  onChange(value, form) {
-                                    form.resetFields(['cap3'])
-                                  },
-                                },
-                              },
-                              {
-                                name: 'cap3',
-                                title: '',
-                                formItem: {
-                                  placeholder: 'placeholder.Category level 2',
-                                  type: 'select',
-                                  col: 3,
-                                  get: {
-                                    facade: CategoryFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                    params: (fullTextSearch, value) => ({
-                                      fullTextSearch,
-                                      id: value().cap2,
-                                    })
-                                  }
-                                },
-                              },
-
-                            ]
-                          }
-                          disableSubmit={isLoading}
-                        />
-                      </div>
-                    )}
-                  />
-                  :
-                  <DataTable
-                    facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
-                    xScroll='1440px'
-                    pageSizeRender={(sizePage: number) => sizePage}
-                    pageSizeWidth={'50px'}
-                    paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                    }
-                    columns={[
-                      {
-                        title: 'store.Revenue.Serial number',
-                        name: 'supplier',
-                        tableItem: {
-                          width: 150,
-                          // render: (value: any, item: any) => item.supplier?.code,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Order code',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier?.name,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Sale date',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier?.name,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Value (VND)',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier?.name,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Discount (VND)',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Total amount (VND)',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
-                      {
-                        title: 'store.Revenue.Order type',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                        },
-                      },
-                    ]}
-                    searchPlaceholder={t('placeholder.Search by order number')}
-                    rightHeader={
-                      <div className='flex sm:justify-end text-left flex-col'>
-                        <Form
-                          className="intro-x sm:flex lg:justify-end mt-2 lg:mt-0 form-store"
-                          columns={
-                            [
-                              {
-                                title: '',
-                                name: 'supplierName',
-                                formItem: {
-                                  placeholder: 'placeholder.Select order type',
-                                  type: 'select',
-                                  get: {
-                                    facade: ConnectSupplierFacade,
-                                    format: (item: any) => ({
-                                      label: item.supplier?.name,
-                                      value: item.supplier?.id,
-                                    })
-                                  }
-                                }
-                              },
-                            ]
-                          }
-                          disableSubmit={isLoading}
-                        />
-                        <Form
-                          className='intro-x rounded-lg w-full items-end flex justify-between form-store'
-                          columns={[
-                            {
-                              title: '',
-                              name: '',
-                              formItem: {
-                                tabIndex: 3,
-                                render: () => (
-                                  <div className='flex h-10 items-center '>
-                                    <p className='text-sm'>{t('store.Since')}</p>
-                                    </div>
-                                )
-                              },
-                            },
-                            {
-                              title: '',
-                              name: 'StartDate',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                                placeholder: 'placeholder.Choose a time',
-                              },
-                            },
-                            {
-                              title: '',
-                              name: '',
-                              formItem: {
-                                tabIndex: 3,
-                                render: () => (
-                                  <div className='flex items-center '>
-                                    <p className='text-sm'>{t('store.To date')}</p>
-                                    </div>
-                                )
-                              },
-                            },
-                            {
-                              title: '',
-                              name: 'EndDate',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                                placeholder: 'placeholder.Choose a time',
-                              },
-                            },
-                          ]}
-                        />
-                      </div>
-                    }
-                  />
+                <DataTable
+                facade={invoiceKiotVietFacade}
+                defaultRequest={{ page: 1, perPage: 10, filter: { idStore: data?.id } }}
+                xScroll='1270px'
+                // onRow={(data: any) => ({
+                //   onDoubleClick: () => {
+                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                //   },
+                // })}
+                pageSizeRender={(sizePage: number) => sizePage}
+                pageSizeWidth={'50px'}
+                paginationDescription={(from: number, to: number, total: number) =>
+                  t('routes.admin.Layout.PaginationSupplier', { from, to, total })
                 }
+                columns={[
+                  {
+                    title: 'store.Revenue.Serial number',
+                    name: 'supplier',
+                    tableItem: {
+                      width: 150,
+                      // render: (value: any, item: any) => item.supplier?.code,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Product code',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier?.name,
+                    },
+                  },
+                  {
+                    title: 'store.Inventory management.Product name',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                    },
+                  },
+                  {
+                    title: 'store.Barcode',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                    },
+                  },
+                  {
+                    title: 'titles.Revenue',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                    },
+                  },
+                  {
+                    title: 'product.Revenue',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                    },
+                  },
+                  {
+                    title: 'product.Status',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                    },
+                  },
+                ]}
+                searchPlaceholder={t('placeholder.Search by order number')}
+                rightHeader={
+                  <div className='flex justify-end text-left flex-col w-full '>
+                    <Form
+                      className="intro-x sm:flex justify-start sm:mt-2 lg:justify-end lg:mt-0 form-store"
+                      columns={
+                        [
+                          {
+                            title: '',
+                            name: 'status',
+                            formItem: {
+                              placeholder: 'placeholder.Select status',
+                              type: 'select',
+                              tabIndex: 3,
+                              col: 6,
+                              get: {
+                                facade: ConnectSupplierFacade,
+                                format: (item: any) => ({
+                                  label: item.supplier?.name,
+                                  value: item.supplier?.id,
+                                })
+                              }
+                            }
+                          },
+                          {
+                            title: '',
+                            name: 'supplierName',
+                            formItem: {
+                              placeholder: 'placeholder.Choose a supplier',
+                              type: 'select',
+                              tabIndex: 3,
+                              col: 6,
+                              get: {
+                                facade: ConnectSupplierFacade,
+                                format: (item: any) => ({
+                                  label: item.supplier?.name,
+                                  value: item.supplier?.id,
+                                })
+                              }
+                            }
+                          },
+                        ]
+                      }
+                      disableSubmit={isLoading}
+                    />
+                    <Form
+                      className='intro-x rounded-lg w-full sm:flex justify-between form-store '
+                      columns={[
+                        {
+                          title: '',
+                          name: '',
+                          formItem: {
+                            tabIndex: 3,
+                            col: 2,
+                            render: () => (
+                              <div className='h-10 items-center !w-full'>
+                                <p className='text-sm'>{t('store.Since')}</p>
+                              </div>
+                            )
+                          },
+                        },
+                        {
+                          title: '',
+                          name: 'StartDate',
+                          formItem: {
+                            tabIndex: 3,
+                            col: 4,
+                            type: 'date',
+                            placeholder: 'placeholder.Choose a time',
+                          },
+                        },
+                        {
+                          title: '',
+                          name: '',
+                          formItem: {
+                            tabIndex: 3,
+                            col: 2,
+                            render: () => (
+                              <div className='flex h-10 items-center !w-full'>
+                                <p className='text-sm'>{t('store.To date')}</p>
+                              </div>
+                            )
+                          },
+                        },
+                        {
+                          title: '',
+                          name: 'EndDate',
+                          formItem: {
+                            tabIndex: 3,
+                            col: 4,
+                            type: 'date',
+                            placeholder: 'placeholder.Choose a time',
+                          },
+                        },
+                      ]}
+                    />
+                  </div>
+                }
+                subHeader={() => (
+                  <div>
+                    <Form
+                      className="intro-x rounded-lg form-store form-header-category"
+                      columns={
+                        [
+                          {
+                            title: '',
+                            name: 'cap1',
+                            formItem: {
+                              tabIndex: 3,
+                              placeholder: 'placeholder.Main categories',
+                              type: 'select',
+                              col: 3,
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                              },
+                              onChange(value, form) {
+                                form.resetFields(['cap2', 'cap3'])
+                              },
+                            },
+                          },
+                          {
+                            name: 'cap2',
+                            title: '',
+                            formItem: {
+                              placeholder: 'placeholder.Category level 1',
+                              type: 'select',
+                              col: 3,
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                                params: (fullTextSearch, value) => ({
+                                  fullTextSearch,
+                                  id: value().cap1,
+                                }),
+                              },
+                              onChange(value, form) {
+                                form.resetFields(['cap3'])
+                              },
+                            },
+                          },
+                          {
+                            name: 'cap3',
+                            title: '',
+                            formItem: {
+                              placeholder: 'placeholder.Category level 2',
+                              type: 'select',
+                              col: 3,
+                              get: {
+                                facade: CategoryFacade,
+                                format: (item: any) => ({
+                                  label: item.name,
+                                  value: item.id,
+                                }),
+                                params: (fullTextSearch, value) => ({
+                                  fullTextSearch,
+                                  id: value().cap2,
+                                })
+                              }
+                            },
+                          },
+
+                        ]
+                      }
+                      disableSubmit={isLoading}
+                    />
+                  </div>
+                )}
+              />
+              :
+              <DataTable
+                facade={invoiceKiotVietFacade}
+                defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
+                xScroll='1440px'
+                pageSizeRender={(sizePage: number) => sizePage}
+                pageSizeWidth={'50px'}
+                paginationDescription={(from: number, to: number, total: number) =>
+                  t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                }
+                columns={[
+                  {
+                    title: 'store.Revenue.Serial number',
+                    name: 'supplier',
+                    tableItem: {
+                      width: 150,
+                      // render: (value: any, item: any) => item.supplier?.code,
+                    },
+                  },
+                  {
+                    title: 'store.Revenue.Order code',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier?.name,
+                    },
+                  },
+                  {
+                    title: 'store.Revenue.Sale date',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier?.name,
+                    },
+                  },
+                  {
+                    title: 'store.Revenue.Value (VND)',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier?.name,
+                    },
+                  },
+                  {
+                    title: 'store.Revenue.Discount (VND)',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                    },
+                  },
+                  {
+                    title: 'store.Revenue.Total amount (VND)',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                    },
+                  },
+                  {
+                    title: 'store.Revenue.Order type',
+                    name: 'supplier',
+                    tableItem: {
+                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                    },
+                  },
+                ]}
+                searchPlaceholder={t('placeholder.Search by order number')}
+                rightHeader={
+                  <div className='flex sm:justify-end text-left flex-col'>
+                    <Form
+                      className="intro-x sm:flex lg:justify-end mt-2 lg:mt-0 form-store"
+                      columns={
+                        [
+                          {
+                            title: '',
+                            name: 'supplierName',
+                            formItem: {
+                              placeholder: 'placeholder.Select order type',
+                              type: 'select',
+                              get: {
+                                facade: ConnectSupplierFacade,
+                                format: (item: any) => ({
+                                  label: item.supplier?.name,
+                                  value: item.supplier?.id,
+                                })
+                              }
+                            }
+                          },
+                        ]
+                      }
+                      disableSubmit={isLoading}
+                    />
+                    <Form
+                      className='intro-x rounded-lg w-full sm:flex justify-between form-store'
+                      columns={[
+                        {
+                          title: '',
+                          name: '',
+                          formItem: {
+                            tabIndex: 3,
+                            col: 2,
+                            render: () => (
+                              <div className='flex h-10 items-center !w-full'>
+                                <p className='text-sm'>{t('store.Since')}</p>
+                              </div>
+                            )
+                          },
+                        },
+                        {
+                          title: '',
+                          name: 'StartDate',
+                          formItem: {
+                            tabIndex: 3,
+                            col: 4,
+                            type: 'date',
+                            placeholder: 'placeholder.Choose a time',
+                          },
+                        },
+                        {
+                          title: '',
+                          name: '',
+                          formItem: {
+                            tabIndex: 3,
+                            col: 2,
+                            render: () => (
+                              <div className='flex h-10 items-center !w-full'>
+                                <p className='text-sm'>{t('store.To date')}</p>
+                              </div>
+                            )
+                          },
+                        },
+                        {
+                          title: '',
+                          name: 'EndDate',
+                          formItem: {
+                            tabIndex: 3,
+                            col: 4,
+                            type: 'date',
+                            placeholder: 'placeholder.Choose a time',
+                          },
+                        },
+                      ]}
+                    />
+                  </div>
+                }
+              />
+              }
 
                 <div className='flex sm:justify-end justify-center items-center p-5'>
                   <Button
