@@ -1,11 +1,10 @@
-import React, { Fragment, Profiler, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router';
-
-import { UserRoleFacade, UserFacade, User } from '@store';
-import { language, languages, routerLinks } from '@utils';
-import { Form } from '@core/form';
 import { useTranslation } from 'react-i18next';
 
+import { Form } from '@core/form';
+import { UserRoleFacade, UserFacade, User } from '@store';
+import { language, languages, routerLinks } from '@utils';
 
 const Page = () => {
   const { t } = useTranslation();

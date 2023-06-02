@@ -1,16 +1,16 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Select, Switch, Tabs, Dropdown } from 'antd';
-import { Option } from 'antd/es/mentions';
 import { useNavigate, useParams } from 'react-router';
 
-import { language, languages, routerLinks } from '@utils';
-import { Form } from '@core/form';
-import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, InvoiceKiotVietFacade } from '@store';
-import { DataTable } from '@core/data-table';
-import { Button } from '@core/button';
-import { Arrow, Download, Plus } from '@svgs';
 import { TableRefObject } from '@models';
+import { Form } from '@core/form';
+import { Button } from '@core/button';
+import { DataTable } from '@core/data-table';
+import { Arrow, Download, Plus } from '@svgs';
+import { language, languages, routerLinks } from '@utils';
+import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, InvoiceKiotVietFacade } from '@store';
+
 
 
 const Page = () => {
@@ -68,7 +68,7 @@ const Page = () => {
       <Fragment>
         <div className='tab-wrapper'>
           <Tabs defaultActiveKey='5' type='card' size='large'
-          onTabClick={(activeKey: any) =>navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)}
+            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)}
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               {!isLoading && (
@@ -308,7 +308,7 @@ const Page = () => {
                 className='!rounded-xl'
                 menu={{
                   className: '!mt-3',
-                  items: [ 
+                  items: [
                     {
                       key: '1',
                       className: '!font-semibold !text-base !text-teal-900',
@@ -443,131 +443,131 @@ const Page = () => {
                   </div>
                 }
                 leftHeader={
-                    <Form
-                      className="intro-x rounded-lg w-full form-store"
-                      columns={
-                        [
-                          {
-                            title: '',
-                            name: 'supplierName',
-                            formItem: {
-                              placeholder: 'placeholder.Choose a supplier',
-                              col: 5,
-                              type: 'select',
-                              get: {
-                                facade: SupplierStoreFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                                params: (fullTextSearch) => ({
-                                  fullTextSearch,
-                                  storeId: id,
-                                  type: 'BALANCE',
-                                }),
-                              },
-                              onChange(value, form) {
-                                dataTableRefProduct?.current?.onChange({
-                                  page: 1,
-                                  perPage: 10,
-                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: value, categoryId: '' }
-                                });
-                              },
+                  <Form
+                    className="intro-x rounded-lg w-full form-store"
+                    columns={
+                      [
+                        {
+                          title: '',
+                          name: 'supplierName',
+                          formItem: {
+                            placeholder: 'placeholder.Choose a supplier',
+                            col: 5,
+                            type: 'select',
+                            get: {
+                              facade: SupplierStoreFacade,
+                              format: (item: any) => ({
+                                label: item.name,
+                                value: item.id,
+                              }),
+                              params: (fullTextSearch) => ({
+                                fullTextSearch,
+                                storeId: id,
+                                type: 'BALANCE',
+                              }),
+                            },
+                            onChange(value, form) {
+                              dataTableRefProduct?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: value, categoryId: '' }
+                              });
                             },
                           },
-                        ]
-                      }
-                    />
+                        },
+                      ]
+                    }
+                  />
                 }
-                subHeader={ () => 
+                subHeader={() =>
                   <Form
-                  className="intro-x rounded-lg w-full form-store"
-                  columns={
-                    [
-                      {
-                        title: '',
-                        name: 'categoryId1',
-                        formItem: {
-                          tabIndex: 3,
-                          placeholder: 'placeholder.Main categories',
-                          col: 3,
-                          type: 'select',
-                          get: {
-                            facade: CategoryFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                          },
-                          onChange(value, form) {
-                            form.resetFields(['categoryId2', 'categoryId3'])
-                            dataTableRefProduct?.current?.onChange({
-                              page: 1,
-                              perPage: 10,
-                              filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
-                            });
-                          },
-                        },
-                      },
-                      {
-                        name: 'categoryId2',
-                        title: '',
-                        formItem: {
-                          placeholder: 'placeholder.Category level 1',
-                          type: 'select',
-                          col: 3,
-                          get: {
-                            facade: CategoryFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch, value) => ({
-                              fullTextSearch,
-                              id: value().categoryId1,
-                            }),
-                          },
-                          onChange(value, form) {
-                            form.resetFields(['categoryId3'])
-                            dataTableRefProduct?.current?.onChange({
-                              page: 1,
-                              perPage: 10,
-                              filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
-                            });
+                    className="intro-x rounded-lg w-full form-store"
+                    columns={
+                      [
+                        {
+                          title: '',
+                          name: 'categoryId1',
+                          formItem: {
+                            tabIndex: 3,
+                            placeholder: 'placeholder.Main categories',
+                            col: 3,
+                            type: 'select',
+                            get: {
+                              facade: CategoryFacade,
+                              format: (item: any) => ({
+                                label: item.name,
+                                value: item.id,
+                              }),
+                            },
+                            onChange(value, form) {
+                              form.resetFields(['categoryId2', 'categoryId3'])
+                              dataTableRefProduct?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                              });
+                            },
                           },
                         },
-                      },
-                      {
-                        name: 'categoryId3',
-                        title: '',
-                        formItem: {
-                          placeholder: 'placeholder.Category level 2',
-                          type: 'select',
-                          col: 3,
-                          get: {
-                            facade: CategoryFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch, value) => ({
-                              fullTextSearch,
-                              id: value().categoryId2,
-                            })
-                          },
-                          onChange(value, form) {
-                            dataTableRefProduct?.current?.onChange({
-                              page: 1,
-                              perPage: 10,
-                              filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
-                            });
+                        {
+                          name: 'categoryId2',
+                          title: '',
+                          formItem: {
+                            placeholder: 'placeholder.Category level 1',
+                            type: 'select',
+                            col: 3,
+                            get: {
+                              facade: CategoryFacade,
+                              format: (item: any) => ({
+                                label: item.name,
+                                value: item.id,
+                              }),
+                              params: (fullTextSearch, value) => ({
+                                fullTextSearch,
+                                id: value().categoryId1,
+                              }),
+                            },
+                            onChange(value, form) {
+                              form.resetFields(['categoryId3'])
+                              dataTableRefProduct?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                              });
+                            },
                           },
                         },
-                      },
-                    ]
-                  }
-                  disableSubmit={isLoading}
-                />
+                        {
+                          name: 'categoryId3',
+                          title: '',
+                          formItem: {
+                            placeholder: 'placeholder.Category level 2',
+                            type: 'select',
+                            col: 3,
+                            get: {
+                              facade: CategoryFacade,
+                              format: (item: any) => ({
+                                label: item.name,
+                                value: item.id,
+                              }),
+                              params: (fullTextSearch, value) => ({
+                                fullTextSearch,
+                                id: value().categoryId2,
+                              })
+                            },
+                            onChange(value, form) {
+                              dataTableRefProduct?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                              });
+                            },
+                          },
+                        },
+                      ]
+                    }
+                    disableSubmit={isLoading}
+                  />
                 }
               />
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
@@ -584,7 +584,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'} }}
+                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, type: 'BALANCE' } }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}
@@ -643,7 +643,7 @@ const Page = () => {
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
-                        // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
+                      // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
                       />
                     }
                   </div>
@@ -674,9 +674,9 @@ const Page = () => {
                             // setType('BALANCE')
                             setIsBalanceClicked(false);
                             dataTableRefSupplier?.current?.onChange({
-                               page: 1,
-                               perPage: 10,
-                               filter: { idSuppiler: id, supplierType: 'BALANCE' }
+                              page: 1,
+                              perPage: 10,
+                              filter: { idSuppiler: id, supplierType: 'BALANCE' }
                             });
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             BALANCE
@@ -955,269 +955,263 @@ const Page = () => {
                             )
                           },
                         },
-                        {
-                          title: '',
-                          name: 'StartDate',
-                          formItem: {
-                            tabIndex: 3,
-                            col: 4,
-                            type: 'date',
-                            placeholder: 'placeholder.Choose a time',
-                          },
-                        },
-                        {
-                          title: '',
-                          name: '',
-                          formItem: {
-                            tabIndex: 3,
-                            col: 2,
-                            render: () => (
-                              <div className='flex h-10 items-center !w-full'>
-                                <p className='text-sm'>{t('store.To date')}</p>
-                              </div>
-                            )
-                          },
-                        },
-                        {
-                          title: '',
-                          name: 'EndDate',
-                          formItem: {
-                            tabIndex: 3,
-                            col: 4,
-                            type: 'date',
-                            placeholder: 'placeholder.Choose a time',
-                          },
-                        },
-                      ]}
-                    />
-                  </div>
-                }
-                subHeader={() => (
-                  <div>
-                    <Form
-                      className="intro-x rounded-lg form-store form-header-category"
-                      columns={
-                        [
-                          {
-                            title: '',
-                            name: 'cap1',
-                            formItem: {
-                              tabIndex: 3,
-                              placeholder: 'placeholder.Main categories',
-                              type: 'select',
-                              col: 3,
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                              },
-                              onChange(value, form) {
-                                form.resetFields(['cap2', 'cap3'])
+                            {
+                              title: '',
+                              name: 'StartDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'placeholder.Choose a time',
                               },
                             },
-                          },
-                          {
-                            name: 'cap2',
-                            title: '',
-                            formItem: {
-                              placeholder: 'placeholder.Category level 1',
-                              type: 'select',
-                              col: 3,
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                                params: (fullTextSearch, value) => ({
-                                  fullTextSearch,
-                                  id: value().cap1,
-                                }),
-                              },
-                              onChange(value, form) {
-                                form.resetFields(['cap3'])
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>{t('store.To date')}</p>
+                                  </div>
+                                )
                               },
                             },
-                          },
-                          {
-                            name: 'cap3',
-                            title: '',
-                            formItem: {
-                              placeholder: 'placeholder.Category level 2',
-                              type: 'select',
-                              col: 3,
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                                params: (fullTextSearch, value) => ({
-                                  fullTextSearch,
-                                  id: value().cap2,
-                                })
-                              }
+                            {
+                              title: '',
+                              name: 'EndDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'placeholder.Choose a time',
+                              },
                             },
-                          },
+                          ]}
+                        />
+                      </div>
+                    }
+                    subHeader={() => (
+                      <div>
+                        <Form
+                          className="intro-x rounded-lg form-store form-header-category"
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'cap1',
+                                formItem: {
+                                  tabIndex: 3,
+                                  placeholder: 'placeholder.Main categories',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap2', 'cap3'])
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap2',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'placeholder.Category level 1',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap1,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['cap3'])
+                                  },
+                                },
+                              },
+                              {
+                                name: 'cap3',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'placeholder.Category level 2',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap2,
+                                    })
+                                  }
+                                },
+                              },
 
-                        ]
-                      }
-                      disableSubmit={isLoading}
-                    />
-                  </div>
-                )}
-              />
-              :
-              <DataTable
-                facade={invoiceKiotVietFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
-                xScroll='1440px'
-                pageSizeRender={(sizePage: number) => sizePage}
-                pageSizeWidth={'50px'}
-                paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                      </div>
+                    )}
+                  />
+                  :
+                  <DataTable
+                    facade={invoiceKiotVietFacade}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
+                    xScroll='1440px'
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                    }
+                    columns={[
+                      {
+                        title: 'store.Revenue.Serial number',
+                        name: 'supplier',
+                        tableItem: {
+                          width: 150,
+                          // render: (value: any, item: any) => item.supplier?.code,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Order code',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Sale date',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Value (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Discount (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Total amount (VND)',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'store.Revenue.Order type',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                    ]}
+                    searchPlaceholder={t('placeholder.Search by order number')}
+                    rightHeader={
+                      <div className='flex sm:justify-end text-left flex-col'>
+                        <Form
+                          className="intro-x sm:flex lg:justify-end mt-2 lg:mt-0 form-store"
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'supplierName',
+                                formItem: {
+                                  placeholder: 'placeholder.Select order type',
+                                  type: 'select',
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.supplier?.name,
+                                      value: item.supplier?.id,
+                                    })
+                                  }
+                                }
+                              },
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                        <Form
+                          className='intro-x rounded-lg w-full sm:flex justify-between form-store'
+                          columns={[
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>{t('store.Since')}</p>
+                                  </div>
+                                )
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'StartDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'placeholder.Choose a time',
+                              },
+                            },
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>{t('store.To date')}</p>
+                                  </div>
+                                )
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'EndDate',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'date',
+                                placeholder: 'placeholder.Choose a time',
+                              },
+                            },
+                          ]}
+                        />
+                      </div>
+                    }
+                  />
                 }
-                columns={[
-                  {
-                    title: 'store.Revenue.Serial number',
-                    name: 'supplier',
-                    tableItem: {
-                      width: 150,
-                      // render: (value: any, item: any) => item.supplier?.code,
-                    },
-                  },
-                  {
-                    title: 'store.Revenue.Order code',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier?.name,
-                    },
-                  },
-                  {
-                    title: 'store.Revenue.Sale date',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier?.name,
-                    },
-                  },
-                  {
-                    title: 'store.Revenue.Value (VND)',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier?.name,
-                    },
-                  },
-                  {
-                    title: 'store.Revenue.Discount (VND)',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                    },
-                  },
-                  {
-                    title: 'store.Revenue.Total amount (VND)',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                    },
-                  },
-                  {
-                    title: 'store.Revenue.Order type',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                    },
-                  },
-                ]}
-                searchPlaceholder={t('placeholder.Search by order number')}
-                rightHeader={
-                  <div className='flex sm:justify-end text-left flex-col'>
-                    <Form
-                      className="intro-x sm:flex lg:justify-end mt-4 lg:mt-0 form-store"
-                      columns={
-                        [
-                          {
-                            title: '',
-                            name: 'supplierName',
-                            formItem: {
-                              placeholder: 'placeholder.Select order type',
-                              type: 'select',
-                              // get: {
-                              //   facade: ConnectSupplierFacade,
-                              //   format: (item: any) => ({
-                              //     label: item.supplier?.name,
-                              //     value: item.supplier?.id,
-                              //   }),
-                              //   params: () => ({
-                              //     page: 1, 
-                              //     perPage: 10, 
-                              //     filter: { idSuppiler: data?.id, supplierType: '' }
-                              //   }),
-                              // },
-                            }
-                          },
-                        ]
-                      }
-                      disableSubmit={isLoading}
-                    />
-                    <Form
-                      className='intro-x rounded-lg w-full sm:flex justify-between form-store'
-                      columns={[
-                        {
-                          title: '',
-                          name: '',
-                          formItem: {
-                            tabIndex: 3,
-                            col: 2,
-                            render: () => (
-                              <div className='flex h-10 items-center !w-full'>
-                                <p className='text-sm'>{t('store.Since')}</p>
-                              </div>
-                            )
-                          },
-                        },
-                        {
-                          title: '',
-                          name: 'StartDate',
-                          formItem: {
-                            tabIndex: 3,
-                            col: 4,
-                            type: 'date',
-                            placeholder: 'placeholder.Choose a time',
-                          },
-                        },
-                        {
-                          title: '',
-                          name: '',
-                          formItem: {
-                            tabIndex: 3,
-                            col: 2,
-                            render: () => (
-                              <div className='flex h-10 items-center !w-full'>
-                                <p className='text-sm'>{t('store.To date')}</p>
-                              </div>
-                            )
-                          },
-                        },
-                        {
-                          title: '',
-                          name: 'EndDate',
-                          formItem: {
-                            tabIndex: 3,
-                            col: 4,
-                            type: 'date',
-                            placeholder: 'placeholder.Choose a time',
-                          },
-                        },
-                      ]}
-                    />
-                  </div>
-                }
-              />
-              }
-
                 <div className='flex sm:justify-end justify-center items-center p-5'>
                   <Button
                     disabled={true}
@@ -1299,15 +1293,15 @@ const Page = () => {
                     name: 'units',
                     tableItem: {
                       render(text, item) {
-                          return(
-                            <Select value={item?.units[0]?.name} className='w-24' showSearch= {true}>
-                              {item?.units.map((unit: any) => (
-                                <Select.Option value={unit.value}>
-                                  {unit.name}
-                                </Select.Option>
-                              ))}
-                            </Select>
-                          )
+                        return (
+                          <Select value={item?.units[0]?.name} className='w-24' showSearch={true}>
+                            {item?.units.map((unit: any) => (
+                              <Select.Option value={unit.value}>
+                                {unit.name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        )
                       },
                     },
                   },

@@ -1,17 +1,14 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { Tabs } from 'antd';
-import { Upload } from '../../core/upload'
+import { Form as AntForm, Tabs } from 'antd';
 
-import { Form as AntForm } from 'antd';
+import { User } from '@svgs';
 import { Form } from '@core/form';
-import { Spin } from '@core/spin';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
-import { routerLinks, languages, language, convertFormValue } from '@utils';
-import { User } from '@svgs';
-import { FormItem, FormModel } from '@models';
+import { routerLinks, languages, language } from '@utils';
+
 
 const Page = () => {
   const { t } = useTranslation();
@@ -19,9 +16,6 @@ const Page = () => {
   const globalFacade = GlobalFacade();
   const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-  const formItem = FormItem;
-
-  const [form] = AntForm.useForm();
 
   useEffect(() => {
     profile();
@@ -43,10 +37,6 @@ const Page = () => {
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
         <div className='flex-initial lg:w-[300px] bg-white mr-8 lg:rounded-xl w-full'>
-          <form>
-            <AntForm.Item >
-            </AntForm.Item>
-          </form>
           <Form
             className="text-center items-centers text-xl font-bold text-slate-700"
             columns={[
@@ -106,7 +96,8 @@ const Page = () => {
               },
             ]}
             disableSubmit={isLoading}
-            values={{ ...user }} />
+            values={{ ...user }}
+          />
         </div>
         <div className='flex-1 bg-white lg:rounded-xl w-auto'>
           <Tabs defaultActiveKey="1" size="large" className='profile'>

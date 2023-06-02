@@ -2,11 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { Plus } from '@svgs';
+import { Infor, Plus } from '@svgs';
+import { StoreFacade } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { language, languages, routerLinks } from '@utils';
-import { StoreFacade } from '@store';
+import { Tooltip } from 'antd';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -61,6 +62,9 @@ const Page = () => {
           tableItem: {
             render: (value: any, item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
           },
+          //   <Tooltip placement="bottom" title={"Hii, I am sample tooltip."}>
+          //   <Button>Over me to see tooltip information!</Button>
+          // </Tooltip>
         },
         {
           title: 'store.Type',
@@ -93,7 +97,6 @@ const Page = () => {
             onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
           />
         </div>
-
       }
     />
   );

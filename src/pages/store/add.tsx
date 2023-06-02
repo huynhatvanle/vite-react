@@ -1,13 +1,12 @@
 import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { Switch } from 'antd';
 
 import { Form } from '@core/form';
-import { routerLinks } from '@utils';
-import { DistrictFacade, ProvinceFacade, StoreFacade, WardFacade } from '@store';
-import { Switch } from 'antd';
 import { Button } from '@core/button';
-import { language, languages } from '@utils';
+import { routerLinks, language, languages } from '@utils';
+import { DistrictFacade, ProvinceFacade, StoreFacade, WardFacade } from '@store';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -253,7 +252,6 @@ const Page = () => {
               )}
             </>
           )}
-
           handSubmit={handleSubmit}
           disableSubmit={isLoading}
           handCancel={handleBack}

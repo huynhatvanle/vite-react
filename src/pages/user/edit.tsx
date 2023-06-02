@@ -1,12 +1,11 @@
 import React, { Fragment, useEffect, useRef } from 'react';
+import { Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
+import { Form } from '@core/form';
 import { UserRoleFacade, UserFacade, User } from '@store';
 import { language, languages, routerLinks } from '@utils';
-import { Form } from '@core/form';
-
-import { Select } from 'antd';
 
 const Page = () => {
   const { t } = useTranslation();
