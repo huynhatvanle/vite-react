@@ -280,7 +280,7 @@ Rule: Bad paths
       When Enter "words" in textarea "Mô tả" with "_RANDOM_"
       When Select file in "Tải ảnh lên" with "image.jpg"
       When Click "Lưu lại" button
-      Then Required message "Ngày bắt đầu đi làm" displayed under "Xin vui lòng chọn ngày đầu đi làm" field
+      Then Required message "Ngày đầu đi làm" displayed under "Xin vui lòng chọn ngày đầu đi làm" field
       When Click "Huỷ bỏ" button
 
       
