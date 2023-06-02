@@ -10,7 +10,7 @@ Feature: Login
       When Click "Người Dùng" menu
       When Click "Tạo mới" sub menu to "/vn/user/add"
       
-    Scenario: U-00 Verify that login successfully with valid Email and Password
+    Scenario: U-29 Verify that login successfully with valid Email and Password
       When Enter "text" in "Họ và tên" with "_RANDOM_"
       When Enter "email" in "Email" with "_RANDOM_"
       When Enter "text" in "Mật khẩu" with "Password1!"
