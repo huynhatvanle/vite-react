@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-
-
 import { User } from '../global';
 import { Message } from '@core/message';
 import { API, routerLinks } from '@utils';
@@ -12,11 +10,11 @@ const name = 'User';
 export const action = {
   ...new Action<User>(name),
   post: createAsyncThunk(name + '/post', async (values: User) => {
-    const addressDto = {city:null, country:null, district:null, postCode:null, street:'dien bien phu'}
+    const addressDto = { city: null, country: null, district: null, postCode: null, street: 'dien bien phu' }
     const subOrgId = null;
     const orgId = null;
     const roleId = 1;
-    const { data, message } = await API.post<User>(`${routerLinks(name, 'api')}/register`,{ ...values,addressDto,subOrgId,orgId,roleId});
+    const { data, message } = await API.post<User>(`${routerLinks(name, 'api')}/register`, { ...values, addressDto, subOrgId, orgId, roleId });
     if (message) await Message.success({ text: message });
     return data;
   }),

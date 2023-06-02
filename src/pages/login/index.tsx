@@ -40,7 +40,7 @@ const Page = () => {
                 title: t('columns.auth.login.Username'),
                 formItem: {
                   placeholder: 'columns.auth.login.Enter Username',
-                  rules: [{type: 'required', message: ('components.form.ruleRequiredPassword')}, { type: 'email' }],
+                  rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }, { type: 'email' }],
                 },
               },
               {

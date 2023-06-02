@@ -13,14 +13,14 @@ const action = {
   ...new Action<StoreManagement>(name),
   getStore: createAsyncThunk(
     name + '/get',
-    async ({page, perPage, filter, fullTextSearch} : {page: number, perPage: number, filter: {type?: string}, fullTextSearch: string}) => {
+    async ({ page, perPage, filter, fullTextSearch }: { page: number, perPage: number, filter: { type?: string }, fullTextSearch: string }) => {
       const filterStore = JSON.parse(filter.toString() || '{}');
-     return await API.get(routerLinks(name, 'api'), {page, perPage, type: filterStore.type, fullTextSearch: fullTextSearch})
+      return await API.get(routerLinks(name, 'api'), { page, perPage, type: filterStore.type, fullTextSearch: fullTextSearch })
     }
   ),
   getByIdStore: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id: string; keyState: keyof State<StoreManagement> }) => {
     let data = (await API.get<StoreManagement>(`${routerLinks(name, 'api')}/detail/${id}`));
-    data = { ...data, provinceId: data?.address?.province?.id + '|' +  data?.address?.province?.code, districtId: data?.address?.district?.id + '|' +  data?.address?.district?.code, wardId: data?.address?.ward?.id, street: data.address?.street }
+    data = { ...data, provinceId: data?.address?.province?.id + '|' + data?.address?.province?.code, districtId: data?.address?.district?.id + '|' + data?.address?.district?.code, wardId: data?.address?.ward?.id, street: data.address?.street }
     // delete data.address
     return { data, keyState };
   }),
@@ -60,26 +60,26 @@ const action = {
 export const storeSlice = createSlice(
   new Slice<StoreManagement>(action, (builder: any) => {
     builder
-    .addCase(
-      action.getStore.pending,
-      (
-        state: State<StoreManagement>,
-        action: PayloadAction<undefined, string, { arg: StoreManagement; requestId: string; requestStatus: 'pending' }>,
-      ) => {
-        console.log('21')
-        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-        state.queryParams = JSON.stringify(action.meta.arg);
-        state.isLoading = true;
-        state.status = 'get.pending';
-      },
-    )
-    .addCase(action.getStore.fulfilled, (state: State<StoreManagement>, action: PayloadAction<Responses<StoreManagement[]>>) => {
-      if (action.payload.data) {
-        state.result = action.payload;
-        state.status = 'get.fulfilled';
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
+      .addCase(
+        action.getStore.pending,
+        (
+          state: State<StoreManagement>,
+          action: PayloadAction<undefined, string, { arg: StoreManagement; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          console.log('21')
+          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+          state.queryParams = JSON.stringify(action.meta.arg);
+          state.isLoading = true;
+          state.status = 'get.pending';
+        },
+      )
+      .addCase(action.getStore.fulfilled, (state: State<StoreManagement>, action: PayloadAction<Responses<StoreManagement[]>>) => {
+        if (action.payload.data) {
+          state.result = action.payload;
+          state.status = 'get.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
       .addCase(action.getByIdStore.pending, (state: State<StoreManagement>) => {
         state.isLoading = true;
         state.status = 'getById.pending';
@@ -138,7 +138,7 @@ export const StoreFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<StoreManagement>),
     set: (values: State<StoreManagement>) => dispatch(action.set(values)),
-    get: ({page, perPage, filter, fullTextSearch} : {page: number, perPage: number, filter: {type?: string}, fullTextSearch: string}) => dispatch(action.getStore({page,perPage,filter, fullTextSearch})),
+    get: ({ page, perPage, filter, fullTextSearch }: { page: number, perPage: number, filter: { type?: string }, fullTextSearch: string }) => dispatch(action.getStore({ page, perPage, filter, fullTextSearch })),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<StoreManagement> }) =>
       dispatch(action.getByIdStore({ id, keyState })),
     post: (values: StoreManagement) => dispatch(action.postStore(values)),

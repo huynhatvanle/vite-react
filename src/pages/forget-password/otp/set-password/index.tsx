@@ -11,7 +11,7 @@ const Page = () => {
   const navigate = useNavigate();
   const globalFacade = GlobalFacade();
   const { isLoading, status, data, setPassword } = globalFacade;
-    const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (status === 'setPassword.fulfilled') {
