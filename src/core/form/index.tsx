@@ -474,49 +474,51 @@ export const Form = ({
             return rule;
           });
       }
-      switch (item.formItem.type) {
-        case 'number':
-          rules.push(() => ({
-            validator(_: any, value: any) {
-              if (!value || (/^-?[1-9]*\d+(\.\d{1,2})?$/.test(value) && parseInt(value) < 1000000000))
-                return Promise.resolve();
-              return Promise.reject(t('components.form.only number'));
-            },
-          }));
-          break;
-        case 'name':
-          rules.push(() => ({
-            validator(_: any, value: any) {
-              if (!value || /^[a-zA-Z]+$/.test(value)) return Promise.resolve();
-              return Promise.reject(t('components.form.only text'));
-            },
-          }));
-          break;
-        case 'password':
-          rules.push(() => ({
-            validator: async (rule: any, value: any) => {
-              if (value) {
-                let min = 8;
-                rules.forEach((item: any) => item.min && (min = item.min));
-                if (value.trim().length < min)
-                  return Promise.reject(t('components.form.Form Password.Lenght Password'));
-                if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value))
+      if (!item.formItem.notDefaultValid)
+        switch (item.formItem.type) {
+          case 'number':
+            rules.push(() => ({
+              validator(_: any, value: any) {
+                if (!value || (/^-?[1-9]*\d+(\.\d{1,2})?$/.test(value) && parseInt(value) < 1000000000))
                   return Promise.resolve();
-                else return Promise.reject(t('components.form.rulePassword'));
-              } else return Promise.resolve();
-            },
-          }));
-          break;
-        case 'only_number':
-          rules.push(() => ({
-            validator(_: any, value: any) {
-              if (!value || /^[0-9]+$/.test(value)) return Promise.resolve();
-              return Promise.reject(t('components.form.only number'));
-            },
-          }));
-          break;
-        default:
-      }
+                return Promise.reject(t('components.form.only number'));
+              },
+            }));
+            break;
+          case 'name':
+            rules.push(() => ({
+              validator(_: any, value: any) {
+                if (!value || /^[a-zA-Z]+$/.test(value)) return Promise.resolve();
+                return Promise.reject(t('components.form.only text'));
+              },
+            }));
+            break;
+          case 'password':
+            rules.push(() => ({
+              validator: async (rule: any, value: any) => {
+                if (value) {
+                  let min = 8;
+                  rules.forEach((item: any) => item.min && (min = item.min));
+                  if (value.trim().length < min)
+                    return Promise.reject(t('components.form.ruleMinNumberLength', { min }));
+                  if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value))
+                    return Promise.resolve();
+                  else return Promise.reject(t('components.form.rulePassword'));
+                } else return Promise.resolve();
+              },
+            }));
+            break;
+          case 'only_number':
+            rules.push(() => ({
+              validator(_: any, value: any) {
+                if (!value || /^[0-9]+$/.test(value)) return Promise.resolve();
+                return Promise.reject(t('components.form.only number'));
+              },
+            }));
+            break;
+          default:
+        }
+
       const otherProps: any = {
         key: index,
         label: showLabel && t(item.title),
