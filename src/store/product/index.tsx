@@ -19,8 +19,6 @@ const action = {
       perPage: number;
       filter: { storeId?: string; type: string; supplierId?: string; categoryId?: string };
     }) => {
-      // console.log(filter.toString().slice(filter.toString().indexOf(':') + 2,filter.toString().lastIndexOf('"')))
-      // console.log(filter.toString().JSON.)
       const filterProduct = JSON.parse(filter.toString() || '{}');
       // console.log(filter1)
       const data = await API.get(routerLinks(name, 'api'), {

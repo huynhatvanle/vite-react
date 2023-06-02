@@ -24,21 +24,16 @@ const Page = () => {
   const connectSupplierFacade = ConnectSupplierFacade()
   const inventoryProductFacade = InventoryProductFacade()
   const invoiceKiotVietFacade = InvoiceKiotVietFacade()
-
+  
   const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const dataTableRefProduct = useRef<TableRefObject>(null);
   const dataTableRefSupplier = useRef<TableRefObject>(null);
   const dataTableRefInventory = useRef<TableRefObject>(null);
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
-  useEffect(() => {
-    if (status === 'put.fulfilled')
-      navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`)
-  }, [status]);
-
+  
   useEffect(() => {
     if (id) {
       storeFacade.getById({ id })
@@ -47,27 +42,34 @@ const Page = () => {
       isReload.current && storeFacade.get(param);
     };
   }, [id]);
+  
+  useEffect(() => {
+    if (status === 'put.fulfilled')
+      navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`)
+  }, [status]);
+
+  const [isBalanceClicked, setIsBalanceClicked] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [type, setType] = useState('BALANCE');
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`);
-  //navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
+
   const handleSubmit = (values: StoreManagement) => {
     storeFacade.put({ ...values, id });
   };
-
-  const [isChecked, setIsChecked] = useState(false);
-  // const [type, setType] = useState('');
 
   const handleClick = () => {
     setIsChecked(!isChecked);
   };
 
-  const [isBalanceClicked, setIsBalanceClicked] = useState<boolean>(false);
 
   return (
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='1' type='card' size='large' >
+          <Tabs defaultActiveKey='1' type='card' size='large'
+          onTabClick={(activeKey: any) =>navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)}
+          >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
               {!isLoading && (
                 <Form
@@ -305,7 +307,7 @@ const Page = () => {
               <Dropdown trigger={['click']}
                 className='!rounded-xl'
                 menu={{
-                  items: [
+                  items: [ 
                     {
                       key: '1',
                       className: '!font-semibold !text-base !text-teal-900',
@@ -566,6 +568,7 @@ const Page = () => {
                     />
                   </>
                 }
+                
               />
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
