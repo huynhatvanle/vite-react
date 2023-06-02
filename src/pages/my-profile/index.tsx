@@ -171,6 +171,7 @@ const Page = () => {
                     title: 'columns.auth.login.Password',
                     name: 'password',
                     formItem: {
+                      notDefaultValid: true,
                       col: 12,
                       type: 'password',
                       rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }],
@@ -191,6 +192,7 @@ const Page = () => {
                     title: 'columns.auth.login.Confirm Password',
                     name: 'passwordComfirm',
                     formItem: {
+                      notDefaultValid: true,
                       col: 12,
                       type: 'password',
                       rules: [

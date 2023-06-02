@@ -586,7 +586,7 @@ export const Form = ({
       }}
     >
       <div className={'group-input p-5'}>
-        <div className={'grid gap-x-5 grid-cols-12'}>
+        <div className={'grid gap-x-5 grid-cols-12 '}>
           {_columns.map(
             (column: any, index: number) =>
               (!column?.formItem?.condition ||
