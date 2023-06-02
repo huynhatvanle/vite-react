@@ -640,7 +640,7 @@ const Page = () => {
                   <div className={'flex gap-2'}>
                     {
                       <Button
-                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-1 lg:w-full'
+                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
                         // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
@@ -888,7 +888,7 @@ const Page = () => {
                 rightHeader={
                   <div className='flex justify-end text-left flex-col w-full '>
                     <Form
-                      className="intro-x sm:flex justify-start sm:mt-2 lg:justify-end lg:mt-0 form-store"
+                      className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:mt-0 form-store"
                       columns={
                         [
                           {
@@ -899,32 +899,42 @@ const Page = () => {
                               type: 'select',
                               tabIndex: 3,
                               col: 6,
-                              get: {
-                                facade: ConnectSupplierFacade,
-                                format: (item: any) => ({
-                                  label: item.supplier?.name,
-                                  value: item.supplier?.id,
-                                })
-                              }
+                              // get: {
+                              //   facade: ConnectSupplierFacade,
+                              //   format: (item: any) => ({
+                              //     label: item?.supplier?.name,
+                              //     value: item?.supplier?.id,
+                              //   }),
+                              //   params: () => ({
+                              //     page: 1, 
+                              //     perPage: 10, 
+                              //     filter: { idSuppiler: data?.id, supplierType: '' }
+                              //   }),
+                              // }
                             }
                           },
                           {
                             title: '',
-                            name: 'supplierName',
+                            name: 'id',
                             formItem: {
                               placeholder: 'placeholder.Choose a supplier',
+                              col: 5,
                               type: 'select',
-                              tabIndex: 3,
-                              col: 6,
                               get: {
-                                facade: ConnectSupplierFacade,
+                                facade: ProductFacade,
                                 format: (item: any) => ({
-                                  label: item.supplier?.name,
-                                  value: item.supplier?.id,
-                                })
-                              }
+                                  label: item?.id,
+                                  value: item?.id,
+                                }),
+                                params: () => ({
+                                  storeId: data?.id, 
+                                  type: '', 
+                                  supplierId: '', 
+                                  categoryId: '' 
+                                }),
+                              },
                             }
-                          },
+                          }
                         ]
                       }
                       disableSubmit={isLoading}
@@ -1125,7 +1135,7 @@ const Page = () => {
                 rightHeader={
                   <div className='flex sm:justify-end text-left flex-col'>
                     <Form
-                      className="intro-x sm:flex lg:justify-end mt-2 lg:mt-0 form-store"
+                      className="intro-x sm:flex lg:justify-end mt-4 lg:mt-0 form-store"
                       columns={
                         [
                           {
@@ -1134,13 +1144,18 @@ const Page = () => {
                             formItem: {
                               placeholder: 'placeholder.Select order type',
                               type: 'select',
-                              get: {
-                                facade: ConnectSupplierFacade,
-                                format: (item: any) => ({
-                                  label: item.supplier?.name,
-                                  value: item.supplier?.id,
-                                })
-                              }
+                              // get: {
+                              //   facade: ConnectSupplierFacade,
+                              //   format: (item: any) => ({
+                              //     label: item.supplier?.name,
+                              //     value: item.supplier?.id,
+                              //   }),
+                              //   params: () => ({
+                              //     page: 1, 
+                              //     perPage: 10, 
+                              //     filter: { idSuppiler: data?.id, supplierType: '' }
+                              //   }),
+                              // },
                             }
                           },
                         ]
