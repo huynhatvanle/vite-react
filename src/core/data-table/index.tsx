@@ -380,7 +380,7 @@ export const DataTable = forwardRef(
         : [];
     return (
       <div className={classNames(className, 'intro-x')}>
-        <div className="lg:flex justify-between mb-2.5 responsive-header">
+        <div className="lg:flex justify-between mb-2.5">
           {showSearch ? (
             <div className="relative">
               <input
