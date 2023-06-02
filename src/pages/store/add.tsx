@@ -200,13 +200,13 @@ const Page = () => {
           extendForm=
           {(values) => (
             <>
-              <div className='flex items-center justify-between mb-2.5'>
+              <div className='sm:flex block items-center justify-between mb-2.5'>
                 <div className='flex'>
                   <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
-                  <Switch onClick={handleClick} />
+                  <Switch className='mt-1' onClick={handleClick} />
                 </div>
                 {isChecked && (
-                  <Button className='!font-normal' text={t('store.Get branch DS')} />
+                  <Button className='!font-normal mt-2 sm:mt-0' text={t('store.Get branch DS')} />
                 )}
               </div>
               {isChecked && (

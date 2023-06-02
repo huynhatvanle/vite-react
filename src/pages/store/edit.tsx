@@ -24,7 +24,7 @@ const Page = () => {
   const connectSupplierFacade = ConnectSupplierFacade()
   const inventoryProductFacade = InventoryProductFacade()
   const invoiceKiotVietFacade = InvoiceKiotVietFacade()
-  
+
   const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
@@ -33,7 +33,7 @@ const Page = () => {
   const dataTableRefProduct = useRef<TableRefObject>(null);
   const dataTableRefSupplier = useRef<TableRefObject>(null);
   const dataTableRefInventory = useRef<TableRefObject>(null);
-  
+
   useEffect(() => {
     if (id) {
       storeFacade.getById({ id })
@@ -42,7 +42,7 @@ const Page = () => {
       isReload.current && storeFacade.get(param);
     };
   }, [id]);
-  
+
   useEffect(() => {
     if (status === 'put.fulfilled')
       navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`)
@@ -243,13 +243,13 @@ const Page = () => {
                   extendForm=
                   {(values) => (
                     <>
-                      <div className='flex items-center justify-between mb-2.5'>
+                      <div className='sm:flex block items-center justify-between mb-2.5'>
                         <div className='flex'>
                           <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
-                          <Switch onClick={handleClick} />
+                          <Switch className='mt-1' onClick={handleClick} />
                         </div>
                         {isChecked && (
-                          <Button className='!font-normal' text={t('store.Get branch DS')} />
+                          <Button className='!font-normal mt-2 sm:mt-0' text={t('store.Get branch DS')} />
                         )}
                       </div>
                       {isChecked && (
@@ -674,9 +674,9 @@ const Page = () => {
                             // setType('BALANCE')
                             setIsBalanceClicked(false);
                             dataTableRefSupplier?.current?.onChange({
-                               page: 1, 
-                               perPage: 10, 
-                               filter: { idSuppiler: id, supplierType: 'BALANCE' } 
+                               page: 1,
+                               perPage: 10,
+                               filter: { idSuppiler: id, supplierType: 'BALANCE' }
                             });
                           }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
                             BALANCE
