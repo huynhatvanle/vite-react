@@ -67,7 +67,7 @@ const Page = () => {
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='1' type='card' size='large'
+          <Tabs defaultActiveKey='5' type='card' size='large'
           onTabClick={(activeKey: any) =>navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)}
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
@@ -307,7 +307,8 @@ const Page = () => {
               <Dropdown trigger={['click']}
                 className='!rounded-xl'
                 menu={{
-                  items: [
+                  className: '!mt-3',
+                  items: [ 
                     {
                       key: '1',
                       className: '!font-semibold !text-base !text-teal-900',
@@ -362,7 +363,7 @@ const Page = () => {
                   filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: '' }
                 }}
                 xScroll='1270px'
-                className=' bg-white p-5 rounded-lg'
+                className=' bg-white p-5 rounded-lg form-store form-header-category'
                 columns={[
                   {
                     title: 'product.Code',
@@ -430,10 +431,10 @@ const Page = () => {
                   t('routes.admin.Layout.PaginationProduct', { from, to, total })
                 }
                 rightHeader={
-                  <div className={'flex h-10 w-36'}>
+                  <div className={'flex h-10 w-36 mb-2 sm:mb-0'}>
                     {
                       <Button
-                        className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0'
+                        className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0 !rounded-xl'
                         icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
                         text={t('titles.Export Excel file')}
                       // onClick={() => navigate(routerLinks(''))}
@@ -442,7 +443,6 @@ const Page = () => {
                   </div>
                 }
                 leftHeader={
-                  <>
                     <Form
                       className="intro-x rounded-lg w-full form-store"
                       columns={
@@ -478,97 +478,97 @@ const Page = () => {
                         ]
                       }
                     />
-                    <Form
-                      className="intro-x rounded-lg w-full form-store"
-                      columns={
-                        [
-                          {
-                            title: '',
-                            name: 'categoryId1',
-                            formItem: {
-                              tabIndex: 3,
-                              placeholder: 'placeholder.Main categories',
-                              col: 3,
-                              type: 'select',
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                              },
-                              onChange(value, form) {
-                                form.resetFields(['categoryId2', 'categoryId3'])
-                                dataTableRefProduct?.current?.onChange({
-                                  page: 1,
-                                  perPage: 10,
-                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
-                                });
-                              },
-                            },
-                          },
-                          {
-                            name: 'categoryId2',
-                            title: '',
-                            formItem: {
-                              placeholder: 'placeholder.Category level 1',
-                              type: 'select',
-                              col: 3,
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                                params: (fullTextSearch, value) => ({
-                                  fullTextSearch,
-                                  id: value().categoryId1,
-                                }),
-                              },
-                              onChange(value, form) {
-                                form.resetFields(['categoryId3'])
-                                dataTableRefProduct?.current?.onChange({
-                                  page: 1,
-                                  perPage: 10,
-                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
-                                });
-                              },
-                            },
-                          },
-                          {
-                            name: 'categoryId3',
-                            title: '',
-                            formItem: {
-                              placeholder: 'placeholder.Category level 2',
-                              type: 'select',
-                              col: 3,
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                                params: (fullTextSearch, value) => ({
-                                  fullTextSearch,
-                                  id: value().categoryId2,
-                                })
-                              },
-                              onChange(value, form) {
-                                dataTableRefProduct?.current?.onChange({
-                                  page: 1,
-                                  perPage: 10,
-                                  filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
-                                });
-                              },
-                            },
-                          },
-                        ]
-                      }
-                      disableSubmit={isLoading}
-                    />
-                  </>
                 }
-
+                subHeader={ () => 
+                  <Form
+                  className="intro-x rounded-lg w-full form-store"
+                  columns={
+                    [
+                      {
+                        title: '',
+                        name: 'categoryId1',
+                        formItem: {
+                          tabIndex: 3,
+                          placeholder: 'placeholder.Main categories',
+                          col: 3,
+                          type: 'select',
+                          get: {
+                            facade: CategoryFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id,
+                            }),
+                          },
+                          onChange(value, form) {
+                            form.resetFields(['categoryId2', 'categoryId3'])
+                            dataTableRefProduct?.current?.onChange({
+                              page: 1,
+                              perPage: 10,
+                              filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                            });
+                          },
+                        },
+                      },
+                      {
+                        name: 'categoryId2',
+                        title: '',
+                        formItem: {
+                          placeholder: 'placeholder.Category level 1',
+                          type: 'select',
+                          col: 3,
+                          get: {
+                            facade: CategoryFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id,
+                            }),
+                            params: (fullTextSearch, value) => ({
+                              fullTextSearch,
+                              id: value().categoryId1,
+                            }),
+                          },
+                          onChange(value, form) {
+                            form.resetFields(['categoryId3'])
+                            dataTableRefProduct?.current?.onChange({
+                              page: 1,
+                              perPage: 10,
+                              filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                            });
+                          },
+                        },
+                      },
+                      {
+                        name: 'categoryId3',
+                        title: '',
+                        formItem: {
+                          placeholder: 'placeholder.Category level 2',
+                          type: 'select',
+                          col: 3,
+                          get: {
+                            facade: CategoryFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id,
+                            }),
+                            params: (fullTextSearch, value) => ({
+                              fullTextSearch,
+                              id: value().categoryId2,
+                            })
+                          },
+                          onChange(value, form) {
+                            dataTableRefProduct?.current?.onChange({
+                              page: 1,
+                              perPage: 10,
+                              filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                            });
+                          },
+                        },
+                      },
+                    ]
+                  }
+                  disableSubmit={isLoading}
+                />
+                }
               />
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
@@ -586,7 +586,7 @@ const Page = () => {
                 facade={subStoreFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: {storeId: data?.id, type: 'BALANCE'} }}
                 xScroll='1270px'
-                className=' bg-white p-5 rounded-lg'
+                className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -637,10 +637,10 @@ const Page = () => {
                   },
                 ]}
                 rightHeader={
-                  <div className={'flex gap-2 pb-2'}>
+                  <div className={'flex gap-2'}>
                     {
                       <Button
-                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:w-full'
+                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-1 lg:w-full'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
                         // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
@@ -690,7 +690,7 @@ const Page = () => {
                           <div onClick={() => {
                             // setType('NON_BALANCE')
                             setIsBalanceClicked(true);
-                            dataTableRefSupplier?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: '', storeId: data?.id, supplierType: 'NON_BALANCE' } });
+                            dataTableRefSupplier?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: 'NON_BALANCE' } });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
@@ -816,12 +816,13 @@ const Page = () => {
                 </Dropdown>
               }
               key='5' className='rounded-xl'>
-              <div className='px-5 pt-6 pb-4 bg-white p-5 rounded-lg'>
+              <div className='bg-white p-5 rounded-lg'>
                 {isBalanceClicked ?
                   <DataTable
                     facade={invoiceKiotVietFacade}
                     defaultRequest={{ page: 1, perPage: 10, filter: { idStore: data?.id } }}
                     xScroll='1270px'
+                    className=''
                     onRow={(data: any) => ({
                       onDoubleClick: () => {
                         navigate(routerLinks('store-managerment/edit') + '/' + data.id);
@@ -888,7 +889,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex justify-end text-left flex-col w-full '>
                         <Form
-                          className="intro-x sm:flex justify-start sm:mt-2 lg:justify-end lg:mt-0 form-store"
+                          className="intro-x sm:flex justify-start sm:mt-2 lg:justify-end lg:mt-0 form-store "
                           columns={
                             [
                               {
@@ -930,18 +931,17 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className='intro-x rounded-lg w-full sm:flex justify-between form-store '
+                          className='intro-x rounded-lg w-full sm:flex justify-end form-store '
                           columns={[
                             {
                               title: '',
                               name: '',
                               formItem: {
                                 tabIndex: 3,
-                                col: 2,
                                 render: () => (
-                                  <div className='h-10 items-center !w-full'>
+                                  <div className='flex items-center '>
                                     <p className='text-sm'>{t('store.Since')}</p>
-                                  </div>
+                                  </div>                     
                                 )
                               },
                             },
@@ -960,11 +960,10 @@ const Page = () => {
                               name: '',
                               formItem: {
                                 tabIndex: 3,
-                                col: 2,
-                                render: () => (
-                                  <div className='flex h-10 items-center !w-full'>
+                                render: () => ( 
+                                  <div className='flex items-center '>
                                     <p className='text-sm'>{t('store.To date')}</p>
-                                  </div>
+                                    </div>
                                 )
                               },
                             },
@@ -985,7 +984,7 @@ const Page = () => {
                     subHeader={() => (
                       <div>
                         <Form
-                          className="intro-x rounded-lg sm:flex form-store"
+                          className="intro-x rounded-lg form-store form-header-category"
                           columns={
                             [
                               {
@@ -1148,18 +1147,17 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className='intro-x rounded-lg w-full sm:flex justify-between form-store'
+                          className='intro-x rounded-lg w-full items-end flex justify-between form-store'
                           columns={[
                             {
                               title: '',
                               name: '',
                               formItem: {
                                 tabIndex: 3,
-                                col: 2,
                                 render: () => (
-                                  <div className='flex h-10 items-center !w-full'>
+                                  <div className='flex h-10 items-center '>
                                     <p className='text-sm'>{t('store.Since')}</p>
-                                  </div>
+                                    </div>
                                 )
                               },
                             },
@@ -1178,11 +1176,10 @@ const Page = () => {
                               name: '',
                               formItem: {
                                 tabIndex: 3,
-                                col: 2,
                                 render: () => (
-                                  <div className='flex h-10 items-center !w-full'>
+                                  <div className='flex items-center '>
                                     <p className='text-sm'>{t('store.To date')}</p>
-                                  </div>
+                                    </div>
                                 )
                               },
                             },
