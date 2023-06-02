@@ -8,7 +8,7 @@ import { Form } from '@core/form';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { Arrow, Download, Plus } from '@svgs';
-import { language, languages, routerLinks } from '@utils';
+import {getFilter, language, languages, routerLinks} from '@utils';
 import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, InvoiceKiotVietFacade } from '@store';
 
 
@@ -33,7 +33,6 @@ const Page = () => {
   const dataTableRefProduct = useRef<TableRefObject>(null);
   const dataTableRefSupplier = useRef<TableRefObject>(null);
   const dataTableRefInventory = useRef<TableRefObject>(null);
-
   useEffect(() => {
     if (id) {
       storeFacade.getById({ id })
@@ -445,6 +444,7 @@ const Page = () => {
                 leftHeader={
                   <Form
                     className="intro-x rounded-lg w-full form-store"
+                    values={{'supplierName': getFilter(productFacede.queryParams, 'supplierId')}}
                     columns={
                       [
                         {
@@ -906,8 +906,8 @@ const Page = () => {
                               //     value: item?.supplier?.id,
                               //   }),
                               //   params: () => ({
-                              //     page: 1, 
-                              //     perPage: 10, 
+                              //     page: 1,
+                              //     perPage: 10,
                               //     filter: { idSuppiler: data?.id, supplierType: '' }
                               //   }),
                               // }
@@ -930,7 +930,7 @@ const Page = () => {
                                   page: 1,
                                   perPage: 10,
                                   filter: {
-                                  idSupplier: data?.id, 
+                                  idSupplier: data?.id,
                                   supplierType: ''
                                  }
                                 }),
