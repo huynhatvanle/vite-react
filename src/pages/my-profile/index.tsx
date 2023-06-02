@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { Tabs } from 'antd';
+import { Tabs, Upload } from 'antd';
 
 import { Form as AntForm } from 'antd';
 import { Form } from '@core/form';
@@ -42,7 +42,9 @@ const Page = () => {
       <div className='flex lg:flex-row flex-col w-full'>
         <div className='flex-initial lg:w-[300px] bg-white mr-8 lg:rounded-xl w-full'>
           <form>
-
+              <AntForm.Item >
+                  <Upload />
+              </AntForm.Item>
           </form>
           <Form
             className="text-center items-centers text-xl font-bold text-slate-700"
@@ -112,15 +114,6 @@ const Page = () => {
                 values={{ ...user }}
                 className=''
                 columns={[
-                  {
-                    title: '',
-                    name: 'profileImage',
-                    formItem: {
-                      type: 'upload' && 'hidden',
-                      mode: 'multiple',
-                      onlyImage: true,
-                    },
-                  },
                   {
                     title: 'user.Fullname',
                     name: 'name',
