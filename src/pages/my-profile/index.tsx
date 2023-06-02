@@ -2,16 +2,13 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Tabs } from 'antd';
-import { Upload } from '../../core/upload'
 
 import { Form as AntForm } from 'antd';
 import { Form } from '@core/form';
-import { Spin } from '@core/spin';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
 import { routerLinks, languages, language, convertFormValue } from '@utils';
 import { User } from '@svgs';
-import { FormItem, FormModel } from '@models';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -19,13 +16,6 @@ const Page = () => {
   const globalFacade = GlobalFacade();
   const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-  const formItem = FormItem;
-
-  const [form] = AntForm.useForm();
-
-  useEffect(() => {
-    profile();
-  }, []);
 
   useEffect(() => {
     switch (status) {
