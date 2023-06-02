@@ -51,6 +51,7 @@ const Page = () => {
                 formItem: {
                   placeholder: 'columns.auth.login.Enter Password',
                   type: 'password',
+                  notDefaultValid: true,
                   rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }]
                 },
               },
