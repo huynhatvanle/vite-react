@@ -1,9 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
+import { CommonEntity } from '@models';
 import { API, routerLinks } from '@utils';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
-import { CommonEntity, PaginationQuery } from '@models';
-
 
 const name = 'District';
 const action = {

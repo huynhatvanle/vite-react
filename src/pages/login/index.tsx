@@ -4,9 +4,8 @@ import { useNavigate } from 'react-router';
 
 import { Spin } from '@core/spin';
 import { Form } from '@core/form'
-import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
-import { language, languages } from '@utils';
+import { routerLinks, language, languages } from '@utils';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -17,7 +16,6 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'login.fulfilled' && user && Object.keys(user).length > 0) {
-      // navigate(routerLinks('Dashboard'));
       navigate('/' + lang + '/', { replace: true });
       profile();
     }

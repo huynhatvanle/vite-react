@@ -1,28 +1,20 @@
-import React, { useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
+import { Plus } from '@svgs';
+import { UserFacade } from '@store';
+import { TableRefObject } from '@models';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-
 import { routerLinks, languages, language } from '@utils';
-import { UserFacade } from '@store';
-import { Plus } from '@svgs';
-import { TableRefObject } from '@models';
+
 
 const Page = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const userFacade = UserFacade();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
-  useEffect(() => {
-    switch (userFacade.status) {
-      case 'delete.fulfilled':
-        dataTableRef?.current?.onChange!();
-        break;
-    }
-  }, [userFacade.status]);
 
   const dataTableRef = useRef<TableRefObject>(null);
 

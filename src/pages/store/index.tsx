@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { Plus } from '@svgs';
+import { StoreFacade } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { language, languages, routerLinks } from '@utils';
-import { StoreFacade } from '@store';
 
 const Page = () => {
   const { t } = useTranslation();

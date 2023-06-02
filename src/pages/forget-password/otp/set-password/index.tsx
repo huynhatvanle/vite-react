@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { t } from 'i18next';
+
 import { Spin } from '@core/spin';
 import { Form } from '@core/form'
-import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
-import { t } from 'i18next';
-import { language, languages } from '@utils';
+import { routerLinks, language, languages } from '@utils';
 
 const Page = () => {
   const navigate = useNavigate();

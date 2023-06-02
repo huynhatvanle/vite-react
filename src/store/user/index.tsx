@@ -1,9 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { API, routerLinks } from '@utils';
-import { Message } from '@core/message';
-import { Action, Slice, State, useAppDispatch, useTypedSelector } from '@store';
+
+
+
 import { User } from '../global';
+import { Message } from '@core/message';
+import { API, routerLinks } from '@utils';
 import { PaginationQuery } from '@models';
+import { Action, Slice, State, useAppDispatch, useTypedSelector } from '@store';
 
 const name = 'User';
 export const action = {

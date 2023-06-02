@@ -1,10 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { API, routerLinks } from '@utils';
+
 import { Message } from '@core/message';
-import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
-import { CommonEntity, PaginationQuery, Responses } from '@models';
+import { API, routerLinks } from '@utils';
 import { District, Province, Ward } from '@store';
+import { CommonEntity, Responses } from '@models';
+import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
 const name = 'Organization';
 
@@ -14,7 +15,6 @@ const action = {
     name + '/get',
     async ({page, perPage, filter, fullTextSearch} : {page: number, perPage: number, filter: {type?: string}, fullTextSearch: string}) => {
       const filterStore = JSON.parse(filter.toString() || '{}');
-      console.log('121')
      return await API.get(routerLinks(name, 'api'), {page, perPage, type: filterStore.type, fullTextSearch: fullTextSearch})
     }
   ),
@@ -52,7 +52,6 @@ const action = {
     delete (rs.provinceId)
     delete (rs.districtId)
     delete (rs.wardId)
-    console.log(rs)
     const { statusCode, message } = await API.put<StoreManagement>(`${routerLinks(name, 'api')}/${id}`, rs);
     if (message) await Message.success({ text: message });
     return statusCode;
