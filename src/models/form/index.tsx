@@ -75,6 +75,7 @@ export class FormItem {
   tabIndex?: number;
   onlyImage?: boolean;
   firstLoad?: (data: any) => void;
+  notDefaultValid?: boolean;
   render?: (form: FormInstance, values: any, generateForm: void, index: number, reRender: void) => JSX.Element;
 }
 export class FormItemList {
