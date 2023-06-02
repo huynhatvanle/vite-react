@@ -307,6 +307,7 @@ const Page = () => {
               <Dropdown trigger={['click']}
                 className='!rounded-xl'
                 menu={{
+                  className: '!mt-3',
                   items: [ 
                     {
                       key: '1',
