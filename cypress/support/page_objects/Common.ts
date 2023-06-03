@@ -11,7 +11,6 @@ export default class Common {
       this.elements.tableByName(val).parents('tr').find(`button[title="${text}"]`).should('be.visible'),
     buttonConfirmPopover: () => cy.get('.ant-popover .ant-btn-primary').should('be.visible'),
     messageSwal2: () => cy.get('div#swal2-html-container').should('be.visible'),
-    spin: () => cy.get('.ant-spin-spinning').should('not.exist'),
 
     forItemByName: (name: string) =>
       cy.contains('.ant-form-item-label > label', name).parent().parent().should('be.visible'),
@@ -44,16 +43,25 @@ export default class Common {
   };
   getTag = async (name: string): Promise<string> =>
     new Promise((resolve) => cy.get(`@${slug(name)}`).then((val) => resolve(val.toString())));
+  spin = () =>
+    cy
+      .wait(0)
+      .then(
+        () =>
+          cy.$$('.ant-spin-spinning').length && cy.get('.ant-spin-spinning').should('not.exist', { timeout: 10000 }),
+      );
   clickSubmitPopover = () =>
     cy
       .wait(0)
       .then(() => cy.$$('.ant-popover .ant-btn-primary').length && this.elements.buttonConfirmPopover().click());
 
   clickTextButton = (text: string) => {
+    cy.wait(0);
     this.elements.textButton(text).click();
     this.clickSubmitPopover();
   };
   clickIconButton = (text: string) => {
+    cy.wait(0);
     this.elements.iconButton(text).click();
     this.clickSubmitPopover();
   };
@@ -64,7 +72,7 @@ export default class Common {
   };
   clickTextTabBtn = (text: string) => this.elements.textTabBtn(text).click();
   clickButtonTableByName = (text: string, name: string) => {
-    this.elements.spin();
+    this.spin();
     const hand = async () => {
       const val = await this.getTag(name);
       this.elements.buttonTableByName(val, text).click();
@@ -143,7 +151,7 @@ export default class Common {
     cy.wait(0);
   };
   clickTreeByName = (name: string) => {
-    this.elements.spin();
+    this.spin();
     const hand = async () => {
       const val = await this.getTag(name);
       this.elements.treeByName(val.toString()).click();
@@ -152,7 +160,7 @@ export default class Common {
     cy.wait(0);
   };
   clickRemoveTreeByName = (name: string) => {
-    this.elements.spin();
+    this.spin();
     const hand = async () => {
       const val = await this.getTag(name);
       this.elements.removeTreeByName(val).click({ force: true });
