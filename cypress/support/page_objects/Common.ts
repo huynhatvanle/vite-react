@@ -43,13 +43,11 @@ export default class Common {
   };
   getTag = async (name: string): Promise<string> =>
     new Promise((resolve) => cy.get(`@${slug(name)}`).then((val) => resolve(val.toString())));
-  spin = () =>
-    cy
-      .wait(0)
-      .then(
-        () =>
-          cy.$$('.ant-spin-spinning').length && cy.get('.ant-spin-spinning').should('not.exist', { timeout: 10000 }),
-      );
+  spin = () => {
+    cy.wait(200);
+    cy.log('spin', cy.$$('.ant-spin-spinning').length);
+    cy.$$('.ant-spin-spinning').length && cy.get('.ant-spin-spinning').should('not.exist', {timeout: 10000});
+  };
   clickSubmitPopover = () =>
     cy
       .wait(0)
@@ -67,6 +65,7 @@ export default class Common {
   };
   clickTextMenu = (text: string) => this.elements.textMenu(text).click();
   clickTextSubMenu = (text: string, url: string) => {
+    this.spin();
     this.elements.textSubMenu(text).click();
     cy.url().should('include', url);
   };
