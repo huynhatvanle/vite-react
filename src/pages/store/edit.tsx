@@ -19,11 +19,12 @@ const Page = () => {
 
   const storeFacade = StoreFacade()
   const { data, isLoading, queryParams, status } = storeFacade;
-  const productFacede = ProductFacade()
+  const productFacade = ProductFacade()
   const subStoreFacade = SubStoreFacade()
   const connectSupplierFacade = ConnectSupplierFacade()
   const inventoryProductFacade = InventoryProductFacade()
   const invoiceKiotVietFacade = InvoiceKiotVietFacade()
+  const categoryFacade = CategoryFacade()
 
   const isBack = useRef(true);
   const isReload = useRef(false);
@@ -66,7 +67,7 @@ const Page = () => {
     <div className={'w-full'}>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='5' type='card' size='large'
+          <Tabs defaultActiveKey='1' type='card' size='large'
             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)}
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
@@ -355,7 +356,7 @@ const Page = () => {
 
               <DataTable
                 ref={dataTableRefProduct}
-                facade={productFacede}
+                facade={productFacade}
                 defaultRequest={{
                   page: 1,
                   perPage: 10,
@@ -444,7 +445,7 @@ const Page = () => {
                 leftHeader={
                   <Form
                     className="intro-x rounded-lg w-full form-store"
-                    values={{'supplierName': getFilter(productFacede.queryParams, 'supplierId')}}
+                    values={{'supplierName': getFilter(productFacade.queryParams, 'supplierId')}}
                     columns={
                       [
                         {
@@ -470,7 +471,7 @@ const Page = () => {
                               dataTableRefProduct?.current?.onChange({
                                 page: 1,
                                 perPage: 10,
-                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: value, categoryId: '' }
+                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: value ? value : '', categoryId: '' }
                               });
                             },
                           },
@@ -482,13 +483,13 @@ const Page = () => {
                 subHeader={() =>
                   <Form
                     className="intro-x rounded-lg w-full form-store"
+                    values={{'categoryId1': getFilter(productFacade.queryParams, 'categoryId'), 'categoryId2': getFilter(productFacade.queryParams, 'categoryId'), 'categoryId3': getFilter(productFacade.queryParams, 'categoryId')}}
                     columns={
                       [
                         {
                           title: '',
                           name: 'categoryId1',
                           formItem: {
-                            tabIndex: 3,
                             placeholder: 'placeholder.Main categories',
                             col: 3,
                             type: 'select',
@@ -504,7 +505,7 @@ const Page = () => {
                               dataTableRefProduct?.current?.onChange({
                                 page: 1,
                                 perPage: 10,
-                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value ? value : '' }
                               });
                             },
                           },
@@ -532,7 +533,7 @@ const Page = () => {
                               dataTableRefProduct?.current?.onChange({
                                 page: 1,
                                 perPage: 10,
-                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value ? value : '' }
                               });
                             },
                           },
@@ -559,7 +560,7 @@ const Page = () => {
                               dataTableRefProduct?.current?.onChange({
                                 page: 1,
                                 perPage: 10,
-                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value }
+                                filter: { storeId: data?.id, type: 'BALANCE', supplierId: '', categoryId: value ? value : '' }
                               });
                             },
                           },
