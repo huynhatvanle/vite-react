@@ -60,14 +60,14 @@ const Page = () => {
             className="intro-x"
             columns={[
                 {
-                  title: 'Name',
+                  title: 'user.Name',
                   name: 'name',
                   formItem: {
                     col: 6,
                   },
                 },
                 {
-                  title: 'Style',
+                  title: 'Page.Style',
                   name: 'style',
                   formItem: {
                     type: 'select',
@@ -84,7 +84,7 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'ParentId',
+                  title: 'Page.ParentId',
                   name: 'parentId',
                   formItem: {
                     col: 6,
@@ -107,7 +107,7 @@ const Page = () => {
                     ],
                     column: [
                       {
-                        title: 'Title',
+                        title: 'Page.Title',
                         name: 'title',
                         formItem: {
                           col: 6,
@@ -120,14 +120,14 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'Slug',
+                        title: 'Page.Slug',
                         name: 'slug',
                         formItem: {
                           col: 6,
                         },
                       },
                       {
-                        title: 'Description',
+                        title: 'user.Description',
                         name: 'description',
                         formItem: {
                           col: 8,
@@ -135,7 +135,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'Image',
+                        title: 'Data.Image',
                         name: 'image',
                         formItem: {
                           col: 4,
@@ -143,7 +143,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'Content',
+                        title: 'Page.Content',
                         name: 'content',
                         formItem: {
                           type: 'layout',

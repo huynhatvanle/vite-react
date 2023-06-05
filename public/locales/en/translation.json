@@ -107,7 +107,11 @@
     "Data": "Data",
     "Data/Add": "Add new Data",
     "Page": "Page",
-    "DayOff": "Day Off"
+    "DayOff": "Day Off",
+    "Page/Add": "Add new Page",
+    "Page/Edit": "Edit Page",
+    "Team/Add": "Add new Team",
+    "Team/Edit": "Edit Team"
   },
   "columns": {
     "auth": {
@@ -249,6 +253,14 @@
     "Page": "Page",
     "Image": "Image",
     "Created At": "Created At"
+  },
+  "Page": {
+    "Style" : "Style",
+    "Order": "Order",
+    "ParentId": "ParentId",
+    "Title": "Title",
+    "Slug": "Slug",
+    "Content": "Content"
   },
   "dashboard":{
     "Active Profile Report":"Active Profile Report",

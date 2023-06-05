@@ -44,7 +44,7 @@ const Page = () => {
         }
         columns={[
           {
-            title: 'Name',
+            title: 'user.Name',
             name: 'name',
             tableItem: {
               filter: { type: 'search' },

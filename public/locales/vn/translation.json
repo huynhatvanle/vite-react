@@ -107,7 +107,11 @@
     "Data": "Dữ liệu",
     "Data/Add": "Tạo mới dữ liệu",
     "Page": "Trang",
-    "DayOff": "Nghỉ phép"
+    "DayOff": "Nghỉ phép",
+    "Page/Add": "Thêm mới trang",
+    "Page/Edit": "Chỉnh sửa trang",
+    "Team/Add": "Thêm mới nhóm",
+    "Team/Edit": "Chỉnh sửa nhóm"
   },
   "columns": {
     "auth": {
@@ -249,6 +253,14 @@
     "Page": "Trang",
     "Image": "Ảnh",
     "Created At": "Ngày tạo"
+  },
+  "Page": {
+    "Style" : "Kiểu",
+    "Order": "Order",
+    "ParentId": "ParentId",
+    "Title": "Tiêu đề",
+    "Slug": "Slug",
+    "Content": "Nội dung"
   },
   "dashboard":{
     "Active Profile Report":"Báo cáo hồ sơ đang hoạt động",
