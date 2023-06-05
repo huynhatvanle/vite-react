@@ -50,6 +50,7 @@ export const routerLinks = (name: string, type?: string) => {
     Invoicekiotviet: '/invoice-kiot-viet',
     InventoryOrders: '/inventory-order/revenue-list',
     SupplierStore: '/sub-organization/store/all-supplier-store',
+    InventorySupplier: '/inventory-order/store-by-suppier',
   }; // 💬 generate api to here
 
   switch (type) {

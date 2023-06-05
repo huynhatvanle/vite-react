@@ -12,6 +12,7 @@ import {
   OrdersFacade,
   DiscountFacade,
   inventoryOrdersFacade,
+  InventorySupplierFacade,
 } from '@store';
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
@@ -19,8 +20,9 @@ import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
 import { DownArrow, Download } from '@svgs';
-import { Dropdown, Tabs } from 'antd';
+import { Dropdown, Select, Tabs } from 'antd';
 import dayjs from 'dayjs';
+import { format } from 'echarts';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -40,6 +42,7 @@ const Page = () => {
   const ordersFacade = OrdersFacade();
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
+  const inventorySupplier = InventorySupplierFacade();
   const [test, setTest] = useState('1');
   const [cap1, setcap1] = useState(true);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
@@ -272,7 +275,7 @@ const Page = () => {
                 />
               )}
             </Tabs.TabPane>
-            <Tabs.TabPane tab={t('titles.Listofgoods')} key="2" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Listofgoods')} key="2" className="max-lg:-mt-3">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pb-4">
                   <DataTable
@@ -341,98 +344,110 @@ const Page = () => {
                         },
                       },
                     ]}
-                    rightHeader={
-                      <div className={'flex h-10 w-36 mt-6'}>
-                        {
-                          <Button
-                            className="!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
-                            icon={
-                              <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
-                            }
-                            text={t('titles.Export Excel file')}
-                            onClick={() => navigate(`/${lang}${routerLinks('Supplier/Exce')}`)}
-                          />
-                        }
+                    subHeader={() => (
+                      <div className="flex flex-col lg:flex-row">
+                        <div className={'flex h-10 w-36 mt-6 lg:hidden'}>
+                          {
+                            <Button
+                              className="!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
+                              icon={
+                                <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
+                              }
+                              text={t('titles.Export Excel file')}
+                              onClick={() => navigate(`/${lang}${routerLinks('Supplier/Exce')}`)}
+                            />
+                          }
+                        </div>
+                        <Form
+                          className="intro-x rounded-lg w-full form-store form-header-category col-supplier mt-5"
+                          columns={[
+                            {
+                              title: '',
+                              name: 'cap1',
+                              formItem: {
+                                tabIndex: 3,
+                                placeholder: 'placeholder.Main categories',
+                                col: 3,
+                                type: 'select',
+                                get: {
+                                  facade: CategoryFacade,
+                                  format: (item: any) => ({
+                                    label: item.name,
+                                    value: item.id,
+                                  }),
+                                },
+                                onChange(value, form) {
+                                  value ? setcap1(false) : setcap1(true);
+                                  dataTableRef?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: { supplierId: data?.id, type: 'BALANCE', storeId: '', categoryId: value },
+                                  });
+                                  form.resetFields(['cap2', 'cap3']);
+                                },
+                              },
+                            },
+                            {
+                              name: 'cap2',
+                              title: '',
+                              formItem: {
+                                disabled: () => true,
+                                placeholder: 'placeholder.Category level 1',
+                                type: 'select',
+                                col: 3,
+                                get: {
+                                  facade: CategoryFacade,
+                                  format: (item: any) => ({
+                                    label: item.name,
+                                    value: item.id,
+                                  }),
+                                  params: (fullTextSearch, value) => ({
+                                    fullTextSearch,
+                                    id: value().cap1,
+                                  }),
+                                },
+                                onChange(value, form) {
+                                  form.resetFields(['cap3']);
+                                },
+                              },
+                            },
+                            {
+                              name: 'cap3',
+                              title: '',
+                              formItem: {
+                                disabled: () => true,
+                                placeholder: 'placeholder.Category level 2',
+                                type: 'select',
+                                col: 3,
+                                get: {
+                                  facade: CategoryFacade,
+                                  format: (item: any) => ({
+                                    label: item.name,
+                                    value: item.id,
+                                  }),
+                                  params: (fullTextSearch, value) => ({
+                                    fullTextSearch,
+                                    id: value().cap2,
+                                  }),
+                                },
+                              },
+                            },
+                          ]}
+                        />
+                        <div className={'h-10 w-36 mt-6 lg:flex hidden'}>
+                          {
+                            <Button
+                              className="!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
+                              icon={
+                                <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
+                              }
+                              text={t('titles.Export Excel file')}
+                              onClick={() => navigate(`/${lang}${routerLinks('Supplier/Exce')}`)}
+                            />
+                          }
+                        </div>
                       </div>
-                    }
-                    leftHeader={
-                      <Form
-                        className="intro-x pt-1 -mx-5 rounded-lg w-full "
-                        columns={[
-                          {
-                            title: '',
-                            name: 'cap1',
-                            formItem: {
-                              tabIndex: 3,
-                              placeholder: 'placeholder.Main categories',
-                              col: 3,
-                              type: 'select',
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                              },
-                              onChange(value, form) {
-                                value ? setcap1(false) : setcap1(true);
-                                dataTableRef?.current?.onChange({
-                                  page: 1,
-                                  perPage: 10,
-                                  filter: { supplierId: data?.id, type: 'BALANCE', storeId: '', categoryId: value },
-                                });
-                                form.resetFields(['cap2', 'cap3']);
-                              },
-                            },
-                          },
-                          {
-                            name: 'cap2',
-                            title: '',
-                            formItem: {
-                              disabled: () => true,
-                              placeholder: 'placeholder.Category level 1',
-                              type: 'select',
-                              col: 3,
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                                params: (fullTextSearch, value) => ({
-                                  fullTextSearch,
-                                  id: value().cap1,
-                                }),
-                              },
-                              onChange(value, form) {
-                                form.resetFields(['cap3']);
-                              },
-                            },
-                          },
-                          {
-                            name: 'cap3',
-                            title: '',
-                            formItem: {
-                              disabled: () => true,
-                              placeholder: 'placeholder.Category level 2',
-                              type: 'select',
-                              col: 3,
-                              get: {
-                                facade: CategoryFacade,
-                                format: (item: any) => ({
-                                  label: item.name,
-                                  value: item.id,
-                                }),
-                                params: (fullTextSearch, value) => ({
-                                  fullTextSearch,
-                                  id: value().cap2,
-                                }),
-                              },
-                            },
-                          },
-                        ]}
-                      />
-                    }
+                    )}
                     showSearch={false}
                   />
                 </div>
@@ -621,24 +636,10 @@ const Page = () => {
                         t('routes.admin.Layout.Pagination', { from, to, total })
                       }
                       rightHeader={
-                        <div className="flex items-end justify-between">
+                        <div className="flex justify-end text-left flex-col w-full">
                           <Form
-                            values={{ dateFrom: `${dateFrom}`, dateTo: `${dateTo}` }}
-                            className="intro-x items-end rounded-lg w-full flex justify-between"
+                            className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:-mr-20 lg:mt-0 form-store"
                             columns={[
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 2,
-                                  render: () => (
-                                    <div className="flex h-10 items-center">
-                                      <p></p>
-                                    </div>
-                                  ),
-                                },
-                              },
                               {
                                 title: '',
                                 name: 'Category',
@@ -647,15 +648,17 @@ const Page = () => {
                                   placeholder: 'placeholder.Select order type',
                                   col: 5,
                                   type: 'select',
-                                  get: {
-                                    facade: CategoryFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                  },
-                                  onChange(value, form) {
-                                    form.resetFields(['cap2', 'cap3']);
+                                  render() {
+                                    return (
+                                      <Select
+                                        className="w-48"
+                                        showSearch={true}
+                                        placeholder={t('placeholder.Select order type')}
+                                      >
+                                        <Select.Option>Bán hàng</Select.Option>
+                                        <Select.Option>Trả hàng</Select.Option>
+                                      </Select>
+                                    );
                                   },
                                 },
                               },
@@ -667,7 +670,7 @@ const Page = () => {
                                   type: 'select',
                                   col: 5,
                                   get: {
-                                    facade: CategoryFacade,
+                                    // facade: inventorySupplier.getById({ id }),
                                     format: (item: any) => ({
                                       label: item.name,
                                       value: item.id,
@@ -682,6 +685,13 @@ const Page = () => {
                                   },
                                 },
                               },
+                            ]}
+                            disableSubmit={isLoading}
+                          />
+                          <Form
+                            values={{ dateFrom: `${dateFrom}`, dateTo: `${dateTo}` }}
+                            className="intro-x rounded-lg w-full sm:flex justify-between form-store"
+                            columns={[
                               {
                                 title: '',
                                 name: '',
@@ -1250,119 +1260,120 @@ const Page = () => {
                     showSearch={false}
                     subHeader={() => (
                       <div className="">
-                        <div className="">
-                          <div className="flex">
-                            <Form
-                              values={{ dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` }}
-                              className="intro-x items-end rounded-lg w-full flex justify-between"
-                              columns={[
-                                {
-                                  title: '',
-                                  name: '',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 2,
-                                    render: () => (
-                                      <div className="flex h-10 text-xs whitespace-nowrap items-center">
-                                        <p>{t('Kỳ hạn từ')}</p>
-                                      </div>
-                                    ),
-                                  },
+                        <div className="flex my-5 flex-col lg:flex-row">
+                          <Form
+                            values={{ dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` }}
+                            className="intro-x items-end rounded-lg w-full flex justify-between form-store"
+                            columns={[
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 text-xs whitespace-nowrap items-center">
+                                      <p>{t('Kỳ hạn từ')}</p>
+                                    </div>
+                                  ),
                                 },
-                                {
-                                  title: '',
-                                  name: 'dateFrom',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 4,
-                                    type: 'date',
-                                    onChange(value, form) {
-                                      setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
-                                      dataTableRef?.current?.onChange({
-                                        page: 1,
-                                        perPage: 10,
+                              },
+                              {
+                                title: '',
+                                name: 'dateFrom',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                  onChange(value, form) {
+                                    setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    dataTableRef?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        id: id,
                                         filter: {
-                                          id: id,
-                                          filter: {
-                                            dateFrom: `${dayjs(value)
-                                              .format('MM/DD/YYYY')
-                                              .replace(/-/g, '/')} 00:00:00`,
-                                            dateTo: `${dateTo} 23:59:59`,
-                                          },
-                                        },
-                                      });
-                                    },
-                                  },
-                                },
-                                {
-                                  title: '',
-                                  name: '',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 2,
-                                    render: () => (
-                                      <div className="flex h-10 text-xs items-center">
-                                        <p>{t('đến')}</p>
-                                      </div>
-                                    ),
-                                  },
-                                },
-                                {
-                                  title: '',
-                                  name: 'dateTo',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 4,
-                                    type: 'date',
-                                    onChange(value, form) {
-                                      setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
-                                      dataTableRef?.current?.onChange({
-                                        page: 1,
-                                        perPage: 10,
-                                        filter: {
-                                          id: id,
-                                          filter: {
-                                            dateFrom: `${dateFrom} 00:00:00`,
-                                            dateTo: `$${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 23:59:59`,
-                                          },
-                                        },
-                                      });
-                                    },
-                                  },
-                                },
-                              ]}
-                              disableSubmit={isLoading}
-                            />
-                            <div className="flex justify-end w-full">
-                              <div className="">
-                                <Form
-                                  values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
-                                  columns={[
-                                    {
-                                      title: '',
-                                      name: 'Category',
-                                      formItem: {
-                                        tabIndex: 3,
-                                        placeholder: 'placeholder.Select order type',
-                                        col: 12,
-                                        type: 'select',
-                                        get: {
-                                          facade: CategoryFacade,
-                                          format: (item: any) => ({
-                                            label: item.name,
-                                            value: item.id,
-                                          }),
+                                          dateFrom: `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 00:00:00`,
+                                          dateTo: `${dateTo} 23:59:59`,
                                         },
                                       },
+                                    });
+                                  },
+                                },
+                              },
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 text-xs items-center">
+                                      <p>{t('đến')}</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateTo',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                  onChange(value, form) {
+                                    setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    dataTableRef?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        id: id,
+                                        filter: {
+                                          dateFrom: `${dateFrom} 00:00:00`,
+                                          dateTo: `$${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 23:59:59`,
+                                        },
+                                      },
+                                    });
+                                  },
+                                },
+                              },
+                            ]}
+                            disableSubmit={isLoading}
+                          />
+                          <div className="flex justify-start lg:justify-end w-full">
+                            <div className=" flex justify-end">
+                              <Form
+                                className="form-store"
+                                columns={[
+                                  {
+                                    title: '',
+                                    name: 'Category',
+                                    formItem: {
+                                      tabIndex: 3,
+                                      col: 12,
+                                      type: 'select',
+                                      render() {
+                                        return (
+                                          <Select
+                                            className="w-48"
+                                            showSearch={true}
+                                            placeholder={t('placeholder.Select order type')}
+                                          >
+                                            <Select.Option>Đã thanh toán</Select.Option>
+                                            <Select.Option>Chưa thanh toán</Select.Option>
+                                            <Select.Option>Đã hoàn tất</Select.Option>
+                                          </Select>
+                                        );
+                                      },
                                     },
-                                  ]}
-                                  disableSubmit={isLoading}
-                                />
-                              </div>
+                                  },
+                                ]}
+                                disableSubmit={isLoading}
+                              />
                             </div>
                           </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
+                        <div className="grid grid-cols-1 sm:w-64 sm:gap-4 mt-10 sm:mb-3 mb-4">
                           <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
                             <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
                             <span className="text-teal-900 text-xl font-bold mt-auto">{discountTotal} VND</span>
