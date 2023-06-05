@@ -33,10 +33,17 @@ const Page = () => {
     globalFacade.putProfile(values);
   }
 
+  const [forms] = AntForm.useForm();
+
   return (
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
         <div className='flex-initial lg:w-[270px] mr-5 lg:rounded-xl w-full'>
+          {/* <AntForm initialValues={{ ...user }}>
+              <AntForm.Item name={'name'}>
+
+              </AntForm.Item>
+          </AntForm> */}
           <Form
             className="text-center items-centers !rounded-t-2xl text-xl font-bold text-slate-700"
             columns={[
@@ -104,7 +111,6 @@ const Page = () => {
             <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className=''>
               <Form
                 values={{ ...user }}
-                className=''
                 columns={[
                   {
                     title: 'user.Fullname',
