@@ -42,9 +42,29 @@ const pages = [
         title: 'Code',
       },
       {
+        path: routerLinks('Code/Add'),
+        component: React.lazy(() => import('@pages/code/add')),
+        title: 'Code/Add',
+      },
+      {
+        path: routerLinks('Code') + '/:id',
+        component: React.lazy(() => import('@pages/code/add')),
+        title: 'Code/Edit',
+      },
+      {
         path: routerLinks('Data'),
         component: React.lazy(() => import('@pages/data')),
         title: 'Data',
+      },
+      {
+        path: routerLinks('Data/Add'),
+        component: React.lazy(() => import('@pages/data/add')),
+        title: 'Data/Add',
+      },
+      {
+        path: routerLinks('Data') + '/:id',
+        component: React.lazy(() => import('@pages/data/add')),
+        title: 'Data/Edit',
       },
       {
         path: routerLinks('Page'),
@@ -85,6 +105,16 @@ const pages = [
         path: routerLinks('Team'),
         component: React.lazy(() => import('@pages/team')),
         title: 'Team',
+      },
+      {
+        path: routerLinks('Team/Add'),
+        component: React.lazy(() => import('@pages/team/add')),
+        title: 'Team/Add',
+      },
+      {
+        path: routerLinks('Team') + '/:id',
+        component: React.lazy(() => import('@pages/team/add')),
+        title: 'Team/Edit',
       },
       {
         path: routerLinks('DayOff') + '/:id',

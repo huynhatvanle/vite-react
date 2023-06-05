@@ -96,6 +96,8 @@
     "DayOff/Edit": "Edit Dayoff",
     "DayOff/Detail": "Detail Dayoff",
     "MyProfile": "My Profile",
+    "Code/Add":"Add new Code",
+    "Code/Edit":"Edit Code",
     "Login": "Login",
     "Dashboard": "Dashboard",
     "User": "User",
@@ -103,6 +105,7 @@
     "Team": "Team",
     "Code": "Code",
     "Data": "Data",
+    "Data/Add": "Add new Data",
     "Page": "Page",
     "DayOff": "Day Off"
   },
@@ -245,7 +248,7 @@
     "Order": "Order",
     "Page": "Page",
     "Image": "Image",
-    "Create At": "Create At"
+    "Created At": "Created At"
   },
   "dashboard":{
     "Active Profile Report":"Active Profile Report",

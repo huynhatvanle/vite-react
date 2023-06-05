@@ -6,20 +6,21 @@ import { ModalForm } from '@core/modal/form';
 import { Button } from '@core/button';
 import { GlobalFacade, UserFacade, UserTeamFacade } from '@store';
 
-import { keyRole } from '@utils';
-import {Edit, Plus, Trash} from 'src/assets/svgs';
+import { keyRole, language, languages, routerLinks } from '@utils';
+import { Edit, Plus, Trash } from 'src/assets/svgs';
 import { Avatar } from '@core/avatar';
-import {Popconfirm, Tooltip} from 'antd';
+import { Popconfirm, Tooltip } from 'antd';
+import { useNavigate } from 'react-router';
 
 const Page = () => {
   const { t } = useTranslation();
   const { user } = GlobalFacade();
   const userTeamFacade = UserTeamFacade();
+  const navigate = useNavigate();
   const { status } = userTeamFacade;
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   useEffect(() => {
     switch (status) {
-      case 'put.fulfilled':
-      case 'post.fulfilled':
       case 'delete.fulfilled':
         dataTableRef.current.onChange();
         break;
@@ -28,7 +29,6 @@ const Page = () => {
 
   const dataTableRef = useRef<any>();
 
-  const modalFormRef = useRef<any>();
   return (
     <Fragment>
       <DataTable
@@ -74,9 +74,9 @@ const Page = () => {
                     <Tooltip title={t('routes.admin.Layout.Edit')}>
                       <button
                         title={t('routes.admin.Layout.Edit') || ''}
-                        onClick={() => modalFormRef?.current?.handleEdit!(data)}
+                        onClick={() => navigate(`/${lang}${routerLinks('Team')}/${data.id}`)}
                       >
-                        <Edit className="icon-cud bg-blue-600 hover:bg-blue-400"/>
+                        <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                       </button>
                     </Tooltip>
                   )}
@@ -86,7 +86,7 @@ const Page = () => {
                       <Popconfirm
                         placement="left"
                         title={t('components.datatable.areYouSureWant')}
-                        onConfirm={() => modalFormRef?.current?.handleDelete!(data.id)}
+                        onConfirm={() => dataTableRef?.current?.handleDelete!(data.id)}
                         okText={t('components.datatable.ok')}
                         cancelText={t('components.datatable.cancel')}
                       >
@@ -107,54 +107,11 @@ const Page = () => {
               <Button
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
                 text={t('components.button.New')}
-                onClick={() => modalFormRef?.current?.handleEdit()}
+                onClick={() => navigate(`/${lang}${routerLinks('Team/Add')}`)}
               />
             )}
           </div>
         }
-      />
-      <ModalForm
-        facade={userTeamFacade}
-        ref={modalFormRef}
-        title={(data: any) => (!data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
-        columns={[
-          {
-            title: 'team.Name',
-            name: 'name',
-            formItem: {
-              rules: [{ type: 'required' }],
-            },
-          },
-          {
-            title: 'user.Description',
-            name: 'description',
-            formItem: {
-              type: 'textarea',
-            },
-          },
-          {
-            title: 'dayoff.Manager',
-            name: 'managerId',
-            formItem: {
-              rules: [{ type: 'required' }],
-              type: 'select',
-              get: {
-                facade: UserFacade,
-                params: (fullTextSearch) => ({
-                  fullTextSearch,
-                  filter: { roleCode: 'manager' },
-                  extend: {},
-                }),
-                format: (item: any) => ({
-                  label: item.name,
-                  value: item.id,
-                }),
-              },
-            },
-          },
-        ]}
-        widthModal={600}
-        idElement={'user'}
       />
     </Fragment>
   );

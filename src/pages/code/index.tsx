@@ -3,17 +3,19 @@ import { useTranslation } from 'react-i18next';
 
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-import { ModalForm } from '@core/modal/form';
-import { keyRole } from '@utils';
+import { keyRole, language, languages, routerLinks } from '@utils';
 import { GlobalFacade, CodeFacade, CodeTypeFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
-import { FormModalRefObject, TableRefObject } from '@models';
+import { TableRefObject } from '@models';
 import { Popconfirm, Tooltip } from 'antd';
-import slug from 'slug';
+import { useNavigate } from 'react-router';
+
 const Page = () => {
   const { t } = useTranslation();
   const { user } = GlobalFacade();
   const { result, get } = CodeTypeFacade();
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
   useEffect(() => {
     if (!result?.data) get({});
@@ -32,14 +34,15 @@ const Page = () => {
   }, [status]);
 
   const dataTableRef = useRef<TableRefObject>(null);
-  const modalFormRef = useRef<FormModalRefObject>(null);
   return (
     <Fragment>
       <DataTable
         facade={codeFacade}
         ref={dataTableRef}
-        onRow={() => ({
-          onDoubleClick: () => null,
+        onRow={(data: any) => ({
+          onDoubleClick: () => {
+            null
+          },
         })}
         pageSizeRender={(sizePage: number) => sizePage}
         pageSizeWidth={'50px'}
@@ -99,7 +102,7 @@ const Page = () => {
                     <Tooltip title={t('routes.admin.Layout.Edit')}>
                       <button
                         title={t('routes.admin.Layout.Edit') || ''}
-                        onClick={() => modalFormRef?.current?.handleEdit!(data)}
+                        onClick={() => navigate(`/${lang}${routerLinks('Code')}/${data.id}`)}
                       >
                         <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                       </button>
@@ -110,7 +113,7 @@ const Page = () => {
                       <Popconfirm
                         placement="left"
                         title={t('components.datatable.areYouSureWant')}
-                        onConfirm={() => modalFormRef?.current?.handleDelete!(data.id)}
+                        onConfirm={() => dataTableRef?.current?.handleDelete!(data.id)}
                         okText={t('components.datatable.ok')}
                         cancelText={t('components.datatable.cancel')}
                       >
@@ -131,13 +134,14 @@ const Page = () => {
               <Button
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
                 text={t('routes.admin.Layout.Add')}
-                onClick={() => modalFormRef?.current?.handleEdit!()}
+                onClick={() => navigate(`/${lang}${routerLinks('Code/Add')}`)}
+              // onClick={() => modalFormRef?.current?.handleEdit!()}
               />
             )}
           </div>
         }
       />
-      <ModalForm
+      {/* <ModalForm
         facade={codeFacade}
         ref={modalFormRef}
         title={() => (!codeFacade.data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
@@ -183,7 +187,7 @@ const Page = () => {
         ]}
         widthModal={600}
         idElement={'user'}
-      />
+      /> */}
     </Fragment>
   );
 };
