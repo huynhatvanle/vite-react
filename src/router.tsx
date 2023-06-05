@@ -42,6 +42,16 @@ const pages = [
         title: 'Code',
       },
       {
+        path: routerLinks('Code/Add'),
+        component: React.lazy(() => import('@pages/code/add')),
+        title: 'Code/Add',
+      },
+      {
+        path: routerLinks('Code') + '/:id',
+        component: React.lazy(() => import('@pages/code/add')),
+        title: 'Code/Edit',
+      },
+      {
         path: routerLinks('Data'),
         component: React.lazy(() => import('@pages/data')),
         title: 'Data',
