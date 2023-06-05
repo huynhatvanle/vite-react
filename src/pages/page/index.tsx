@@ -4,7 +4,7 @@ import { Popconfirm, Tooltip } from 'antd';
 
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-import { FormModalRefObject, TableRefObject } from '@models';
+import { TableRefObject } from '@models';
 import { GlobalFacade, PageFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { keyRole, language, languages, routerLinks } from '@utils';
@@ -16,7 +16,7 @@ const Page = () => {
   const navigate = useNavigate();
   
   const pageFacade = PageFacade();
-  const { status, data } = pageFacade;
+  const { status } = pageFacade;
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   useEffect(() => {
     switch (status) {
