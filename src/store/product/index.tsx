@@ -16,16 +16,19 @@ const action = {
     }: {
       page: number;
       perPage: number;
-      filter: { storeId?: string; type: string; supplierId?: string; categoryId?: string };
+      filter: { storeId?: string; type: string; supplierId?: string; categoryId1?: string, categoryId2?: string, categoryId3?: string };
     }) => {
       const filterProduct = JSON.parse(filter.toString() || '{}');
       const data = await API.get(routerLinks(name, 'api'), {
         page,
         perPage,
         storeId: filterProduct.storeId,
-        type: filterProduct.type,
-        supplierId: filterProduct.supplierId,
-        categoryId: filterProduct.categoryId,
+        type: filterProduct.type ? filterProduct.type : '',
+        supplierId: filterProduct.supplierId ? filterProduct.supplierId : '',
+        categoryId: filterProduct.categoryId3 ? filterProduct.categoryId3 : filterProduct.categoryId2 ? filterProduct.categoryId2 : filterProduct.categoryId1 ? filterProduct.categoryId1 : '',
+        categoryId1: filterProduct.categoryId1 ? filterProduct.categoryId1 : '',
+        categoryId2: filterProduct.categoryId2 ? filterProduct.categoryId2 : '',
+        categoryId3: filterProduct.categoryId3 ? filterProduct.categoryId3 : '',
       });
       return data;
     },
@@ -47,7 +50,7 @@ export const ProductFacade = () => {
     }: {
       page: number;
       perPage: number;
-      filter: { supplierId?: string; storeId?: string; type: string; categoryId: string };
+      filter: { supplierId?: string; storeId?: string; type: string; categoryId1: string; categoryId2: string; categoryId3: string; };
     }) => {
       return dispatch(action.getProduct({ page, perPage, filter }));
     },

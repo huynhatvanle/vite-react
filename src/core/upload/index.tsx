@@ -386,7 +386,7 @@ export const Upload = ({
   );
 };
 type Type = PropsWithChildren<{
-  value?: any[];
+  value?: any[] | string;
   onChange?: (values: any[]) => void;
   deleteFile?: any;
   showBtnUpload?: boolean;
