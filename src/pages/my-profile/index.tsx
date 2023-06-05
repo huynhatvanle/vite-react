@@ -36,7 +36,7 @@ const Page = () => {
   return (
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
-        <div className='flex-initial lg:w-[300px] mr-5 lg:rounded-xl w-full'>
+        <div className='flex-initial lg:w-[270px] mr-5 lg:rounded-xl w-full'>
           <Form
             className="text-center items-centers !rounded-t-2xl text-xl font-bold text-slate-700"
             columns={[
