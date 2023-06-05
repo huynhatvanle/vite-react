@@ -92,6 +92,16 @@ const pages = [
         title: 'Team',
       },
       {
+        path: routerLinks('Team/Add'),
+        component: React.lazy(() => import('@pages/team/add')),
+        title: 'Team/Add',
+      },
+      {
+        path: routerLinks('Team') + '/:id',
+        component: React.lazy(() => import('@pages/team/add')),
+        title: 'Team/Edit',
+      },
+      {
         path: routerLinks('DayOff') + '/:id',
         component: React.lazy(() => import('@pages/dayoff/add')),
         title: 'DayOff/Edit',
