@@ -30,6 +30,7 @@ export * from './store-management/inventory-product';
 export * from './store-management/invoice-kiot-viet';
 export * from './supplier/inventory-order';
 export * from './store-management/all-supplier-store';
+export * from './supplier/inventory-supplier';
 import {
   globalSlice,
   userSlice,
@@ -49,6 +50,7 @@ import {
   invoiceKiotVietSlice,
   inventoryOrdersSlice,
   supplierStoreSlice,
+  InventorySupplierSlice,
 } from './';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
@@ -68,5 +70,6 @@ const rootReducer = combineReducers({
   [DiscountSlice.name]: DiscountSlice.reducer,
   [invoiceKiotVietSlice.name]: invoiceKiotVietSlice.reducer,
   [inventoryOrdersSlice.name]: inventoryOrdersSlice.reducer,
-  [supplierStoreSlice.name] : supplierStoreSlice.reducer,
+  [supplierStoreSlice.name]: supplierStoreSlice.reducer,
+  [InventorySupplierSlice.name]: InventorySupplierSlice.reducer,
 });
