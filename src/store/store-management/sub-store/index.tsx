@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
-import { CommonEntity, PaginationQuery } from '@models';
+import { CommonEntity } from '@models';
 import { API, routerLinks } from '@utils';
+import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
 const name = 'SubStore';
 
@@ -11,9 +11,8 @@ const action = {
   getSubStore: createAsyncThunk(
     name + '/get',
     async ({ page, perPage, filter }: { page: number, perPage: number, filter: { storeId?: string, supplierType: string } }) => {
-      // console.log(page, perPage,filter, filter.supplierType, filter.storeId)
       const filterSubStore = JSON.parse(filter.toString() || '{}')
-      const data = await API.get(routerLinks(name, 'api'), { page, perPage, storeId: filterSubStore.storeId, type: filterSubStore.supplierType })
+      const data = await API.get(routerLinks(name, 'api'), { page, perPage, storeId: filterSubStore.storeId, supplierType: filterSubStore.supplierType })
       return data
     }
   ),

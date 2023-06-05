@@ -2,11 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { Plus } from '@svgs';
+import { Infor, Plus } from '@svgs';
+import { StoreFacade } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { language, languages, routerLinks } from '@utils';
-import { StoreFacade } from '@store';
+import { Tooltip } from 'antd';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ const Page = () => {
   return (
     <DataTable
       facade={storeFace}
-      defaultRequest={{ page: 1, perPage: 10, filter: {type: 'STORE'}, fullTextSearch: ''}}
+      defaultRequest={{ page: 1, perPage: 10, filter: { type: 'STORE' }, fullTextSearch: '' }}
       xScroll='1440px'
       className=' bg-white p-5 rounded-lg'
       onRow={(data: any) => ({
@@ -61,6 +62,9 @@ const Page = () => {
           tableItem: {
             render: (value: any, item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
           },
+          //   <Tooltip placement="bottom" title={"Hii, I am sample tooltip."}>
+          //   <Button>Over me to see tooltip information!</Button>
+          // </Tooltip>
         },
         {
           title: 'store.Type',
@@ -85,15 +89,14 @@ const Page = () => {
         },
       ]}
       rightHeader={
-        <div className={'flex gap-2 !bg-teal-900 !rounded-xl mt-0 max-lg:mt-2.5 max-lg:w-48'}>
+        <div className={'flex gap-2 !bg-teal-900 !rounded-xl mt-2.5 lg:mt-0 w-48 lg:w-full'}>
           <Button
             className='!bg-teal-900 !rounded-3xl !font-normal'
             icon={<Plus className="icon-cud !h-5 !w-5 !fill-white " />}
             text={t('titles.Store/Add')}
-            onClick={() =>  navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
+            onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
           />
         </div>
-
       }
     />
   );

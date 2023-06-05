@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+
 import { Spin } from '@core/spin';
 import { Form } from '@core/form'
-import { routerLinks } from '@utils';
 import { GlobalFacade } from '@store';
-import { language, languages } from '@utils';
+import { routerLinks, language, languages } from '@utils';
 
 const Page = () => {
   const { t } = useTranslation();

@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
-import { CommonEntity, PaginationQuery } from '@models';
+import { CommonEntity } from '@models';
 import { Product } from '@store/product';
 import { API, routerLinks } from '@utils';
+import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
 const name = 'InventoryOrders';
 

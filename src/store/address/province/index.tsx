@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 import { CommonEntity, PaginationQuery } from '@models';
-
+import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
 const name = 'Province';
 const action = {

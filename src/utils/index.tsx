@@ -38,6 +38,7 @@ export const getSizePageByHeight = (height = 39, minusNumber = 3) =>
       document.getElementsByTagName('tbody')[0].getBoundingClientRect().top) /
       height,
   ) - minusNumber;
+export const getFilter = (queryParams = '{}', key = 'id') => JSON.parse(JSON.parse(queryParams || '{}').filter || '{}')[key] || null;
 
 export const loopMapSelect = (array?: any[], label = 'name', value = 'id'): CheckboxOptionType[] =>
   array?.length

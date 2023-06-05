@@ -196,7 +196,7 @@ const Layout = ({ children }: PropsWithChildren) => {
             {isCollapsed && !isDesktop && <Menu className="w-7 text-black select-none" />}
             {!isCollapsed && !isDesktop && <ArrowBack className="w-8 text-black select-none" />}
           </div>
-          <a href="/dashboard" className="flex items-center">
+          <a href="/vn/dashboard" className="flex items-center">
             <img
               src={Logo1}
               className={classNames('w-12 mr-3 rounded ', {

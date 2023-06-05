@@ -1,13 +1,12 @@
 import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { Switch } from 'antd';
 
 import { Form } from '@core/form';
-import { routerLinks } from '@utils';
-import { DistrictFacade, ProvinceFacade, StoreFacade, WardFacade } from '@store';
-import { Switch } from 'antd';
 import { Button } from '@core/button';
-import { language, languages } from '@utils';
+import { routerLinks, language, languages } from '@utils';
+import { DistrictFacade, ProvinceFacade, StoreFacade, WardFacade } from '@store';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -200,13 +199,13 @@ const Page = () => {
           extendForm=
           {(values) => (
             <>
-              <div className='flex items-center justify-between mb-2.5'>
+              <div className='sm:flex block items-center justify-between mb-2.5'>
                 <div className='flex'>
                   <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
-                  <Switch onClick={handleClick} />
+                  <Switch className='mt-1' onClick={handleClick} />
                 </div>
                 {isChecked && (
-                  <Button className='!font-normal' text={t('store.Get branch DS')} />
+                  <Button className='!font-normal mt-2 sm:mt-0' text={t('store.Get branch DS')} />
                 )}
               </div>
               {isChecked && (
@@ -253,7 +252,6 @@ const Page = () => {
               )}
             </>
           )}
-
           handSubmit={handleSubmit}
           disableSubmit={isLoading}
           handCancel={handleBack}

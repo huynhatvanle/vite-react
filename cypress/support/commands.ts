@@ -29,7 +29,7 @@ Cypress.Commands.add('typeRandom', { prevSubject: 'element' }, (element, text, t
           text = text.replace(random, faker.internet.email().toLowerCase());
           break;
         case 'phone':
-          text = text.replace(random, faker.helpers.replaceCreditCardSymbols('#{10,15}'));
+          text = text.replace(random, faker.helpers.replaceCreditCardSymbols('#{8,12}'));
           break;
         case 'color':
           text = text.replace(random, faker.color.rgb({ casing: 'upper' }));

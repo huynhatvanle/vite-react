@@ -4,11 +4,12 @@ import enUS from 'antd/lib/locale/en_US';
 import dayjs from 'dayjs';
 import i18n from 'i18next';
 
-import { API, keyRefreshToken, keyToken, keyUser, routerLinks } from '@utils';
+import { CommonEntity } from '@models';
 import { Message } from '@core/message';
 import { useAppDispatch, useTypedSelector } from '@store';
-import { CommonEntity, Responses } from '@models';
-// import Slice, { State } from '../slice';
+import { API, keyRefreshToken, keyToken, keyUser, routerLinks } from '@utils';
+
+
 const name = 'User-admin';
 const action = {
   name,
@@ -25,9 +26,9 @@ const action = {
   }),
   putProfile: createAsyncThunk(name + '/putProfile', async (values: User) => {
     const image = values.profileImage;
-  //  delete values.profileImage;
+    //  delete values.profileImage;
     console.log(image);
-    const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}`, {...values, image});
+    const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}`, { ...values, image });
     if (message) await Message.success({ text: message });
     return data || {};
   }),

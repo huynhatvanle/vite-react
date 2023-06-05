@@ -1,12 +1,12 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
+import { Plus } from '@svgs';
+import { SupplierFacade } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { language, languages, routerLinks } from '@utils';
-import { SupplierFacade } from '@store';
-import { Plus } from '@svgs';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -93,7 +93,7 @@ const Page = () => {
         },
       ]}
       rightHeader={
-        <div className={'flex gap-2 mt-0 max-lg:mt-2.5'}>
+        <div className={'flex gap-2 mt-2.5 lg:mt-0'}>
           <Button
             icon={<Plus className="icon-cud !h-5 !w-5" />}
             text={t('titles.Supplier/Add')}

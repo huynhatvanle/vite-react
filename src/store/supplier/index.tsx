@@ -1,14 +1,12 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { API, routerLinks } from '@utils';
-import { Message } from '@core/message';
-// import Action from '../action';
-// import Slice, { State } from '../slice';
-// import { useAppDispatch, useTypedSelector } from '@reducers';
-import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
-import { CommonEntity, PaginationQuery } from '@models';
+
+import { Ward } from '../address/ward';
 import { District } from '../address/district';
 import { Province } from '../address/province';
-import { Ward } from '../address/ward';
+import { Message } from '@core/message';
+import { API, routerLinks } from '@utils';
+import { CommonEntity, PaginationQuery } from '@models';
+import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
 const name = 'Organization';
 const action = {

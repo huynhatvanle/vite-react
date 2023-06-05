@@ -474,49 +474,51 @@ export const Form = ({
             return rule;
           });
       }
-      switch (item.formItem.type) {
-        case 'number':
-          rules.push(() => ({
-            validator(_: any, value: any) {
-              if (!value || (/^-?[1-9]*\d+(\.\d{1,2})?$/.test(value) && parseInt(value) < 1000000000))
-                return Promise.resolve();
-              return Promise.reject(t('components.form.only number'));
-            },
-          }));
-          break;
-        case 'name':
-          rules.push(() => ({
-            validator(_: any, value: any) {
-              if (!value || /^[a-zA-Z]+$/.test(value)) return Promise.resolve();
-              return Promise.reject(t('components.form.only text'));
-            },
-          }));
-          break;
-        case 'password':
-          rules.push(() => ({
-            validator: async (rule: any, value: any) => {
-              if (value) {
-                let min = 8;
-                rules.forEach((item: any) => item.min && (min = item.min));
-                if (value.trim().length < min)
-                  return Promise.reject(t('components.form.Form Password.Lenght Password'));
-                if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value))
+      if (!item.formItem.notDefaultValid)
+        switch (item.formItem.type) {
+          case 'number':
+            rules.push(() => ({
+              validator(_: any, value: any) {
+                if (!value || (/^-?[1-9]*\d+(\.\d{1,2})?$/.test(value) && parseInt(value) < 1000000000))
                   return Promise.resolve();
-                else return Promise.reject(t('components.form.rulePassword'));
-              } else return Promise.resolve();
-            },
-          }));
-          break;
-        case 'only_number':
-          rules.push(() => ({
-            validator(_: any, value: any) {
-              if (!value || /^[0-9]+$/.test(value)) return Promise.resolve();
-              return Promise.reject(t('components.form.only number'));
-            },
-          }));
-          break;
-        default:
-      }
+                return Promise.reject(t('components.form.only number'));
+              },
+            }));
+            break;
+          case 'name':
+            rules.push(() => ({
+              validator(_: any, value: any) {
+                if (!value || /^[a-zA-Z]+$/.test(value)) return Promise.resolve();
+                return Promise.reject(t('components.form.only text'));
+              },
+            }));
+            break;
+          case 'password':
+            rules.push(() => ({
+              validator: async (rule: any, value: any) => {
+                if (value) {
+                  let min = 8;
+                  rules.forEach((item: any) => item.min && (min = item.min));
+                  if (value.trim().length < min)
+                    return Promise.reject(t('components.form.ruleMinNumberLength', { min }));
+                  if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value))
+                    return Promise.resolve();
+                  else return Promise.reject(t('components.form.rulePassword'));
+                } else return Promise.resolve();
+              },
+            }));
+            break;
+          case 'only_number':
+            rules.push(() => ({
+              validator(_: any, value: any) {
+                if (!value || /^[0-9]+$/.test(value)) return Promise.resolve();
+                return Promise.reject(t('components.form.only number'));
+              },
+            }));
+            break;
+          default:
+        }
+
       const otherProps: any = {
         key: index,
         label: showLabel && t(item.title),
@@ -584,7 +586,7 @@ export const Form = ({
       }}
     >
       <div className={'group-input p-5'}>
-        <div className={'grid gap-x-5 grid-cols-12'}>
+        <div className={'grid gap-x-5 grid-cols-12 '}>
           {_columns.map(
             (column: any, index: number) =>
               (!column?.formItem?.condition ||
@@ -592,14 +594,14 @@ export const Form = ({
                 <div
                   className={classNames(
                     column?.formItem?.classItem,
-                    'col-span-12' +
-                      (' sm:col-span-' +
-                        (column?.formItem?.colTablet
-                          ? column?.formItem?.colTablet
-                          : column?.formItem?.col
+                    'col-span-12 col-store' +
+                    (' sm:col-span-' +
+                      (column?.formItem?.colTablet
+                        ? column?.formItem?.colTablet
+                        : column?.formItem?.col
                           ? column?.formItem?.col
                           : 12)) +
-                      (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
+                    (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
                   )}
                   key={index}
                 >
@@ -614,17 +616,17 @@ export const Form = ({
       <div
         className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
-          '!mt-9 items-center max-sm:flex-col md:flex-row sm:inline-flex sm:float-right !absolute':
+          '!mt-9 items-center flex-col-reverse sm:flex-row sm:inline-flex sm:float-right':
             handCancel && handSubmit,
           // 'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
-          'md:w-auto right-0 text-center items-center !absolute -bottom-1/4': handSubmit && extendButton,
+          'sm:w-auto sm:inline-flex right-0 text-center items-center !absolute -bottom-1/4 sm:flex-row flex-col sm:mt-5': handSubmit && extendButton,
         })}
       >
         {handCancel && (
           <Button
             text={t(textCancel)}
-            className={'sm:min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
+            className={'sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
             onClick={handCancel}
           />
         )}
@@ -635,7 +637,7 @@ export const Form = ({
             id={idSubmit}
             onClick={() => form && form.submit()}
             disabled={disableSubmit}
-            className={'min-w-[8rem] justify-center max-sm:w-3/5'}
+            className={'min-w-[8rem] justify-center w-3/5 sm:w-auto '}
             type={'submit'}
           />
         )}

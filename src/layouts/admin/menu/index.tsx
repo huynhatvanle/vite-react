@@ -101,13 +101,10 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                   {/* {item.icon} */}
                   <div className={classNames({ absolute: isCollapsed })}>{item.icon}</div>
                   <span
-                    className={classNames(
-                      'ml-2.5 transition-all duration-300 ease-in-out font-medium text-base !h-8 flex items-center',
-                      {
-                        'opacity-100': !isCollapsed,
-                        hidden: isCollapsed,
-                      },
-                    )}
+                    className={classNames('ml-2.5 transition-all duration-300 ease-in-out font-medium text-base !h-8 flex items-center', {
+                      'opacity-100': !isCollapsed,
+                      'hidden': isCollapsed,
+                    })}
                   >
                     {t(`titles.${item.name}`)}
                   </span>

@@ -1,9 +1,10 @@
 import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { API, routerLinks } from '@utils';
-import { Message } from '@core/message';
-import { CommonEntity, PaginationQuery, Responses } from '@models';
 import { State } from '@store';
+import { Message } from '@core/message';
+import { API, routerLinks } from '@utils';
+import { CommonEntity, PaginationQuery, Responses } from '@models';
+
 
 export class Action<T extends CommonEntity> {
   public name: string;

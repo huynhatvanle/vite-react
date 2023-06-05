@@ -2,12 +2,13 @@ import slug from 'slug';
 export default class Common {
   elements = {
     textButton: (text: string) => cy.get('button').contains(text).should('be.visible').should('not.be.disabled'),
+    iconButton: (text: string) => cy.get(`button[title="${text}"]`).should('be.visible').should('not.be.disabled'),
     textMenu: (text: string) => cy.get('li.menu').contains(text).should('be.visible'),
     textSubMenu: (text: string) => cy.get('a.sub-menu').contains(text).should('be.visible'),
     textTabBtn: (text: string) => cy.get('.ant-tabs-tab-btn').contains(text).should('be.visible'),
-    tableByName: (val: string) => cy.get('.ant-table-cell').contains(val),
+    tableByName: (val: string) => cy.get('.ant-table-cell').contains(val).should('be.visible'),
     buttonTableByName: (val: string, text: string) =>
-      this.elements.tableByName(val).parents('tr').find(`button[title="${text}"]`),
+      this.elements.tableByName(val).parents('tr').find(`button[title="${text}"]`).should('be.visible'),
     buttonConfirmPopover: () => cy.get('.ant-popover .ant-btn-primary').should('be.visible'),
     messageSwal2: () => cy.get('div#swal2-html-container').should('be.visible'),
 
@@ -42,24 +43,41 @@ export default class Common {
   };
   getTag = async (name: string): Promise<string> =>
     new Promise((resolve) => cy.get(`@${slug(name)}`).then((val) => resolve(val.toString())));
+  spin = () => {
+    cy.wait(200);
+    cy.log('spin', cy.$$('.ant-spin-spinning').length);
+    cy.$$('.ant-spin-spinning').length && cy.get('.ant-spin-spinning').should('not.exist', {timeout: 10000});
+  };
+  clickSubmitPopover = () =>
+    cy
+      .wait(0)
+      .then(() => cy.$$('.ant-popover .ant-btn-primary').length && this.elements.buttonConfirmPopover().click());
 
-  clickTextButton = (text: string) => this.elements.textButton(text).click();
+  clickTextButton = (text: string) => {
+    cy.wait(0);
+    this.elements.textButton(text).click();
+    this.clickSubmitPopover();
+  };
+  clickIconButton = (text: string) => {
+    cy.wait(0);
+    this.elements.iconButton(text).click();
+    this.clickSubmitPopover();
+  };
   clickTextMenu = (text: string) => this.elements.textMenu(text).click();
   clickTextSubMenu = (text: string, url: string) => {
+    this.spin();
     this.elements.textSubMenu(text).click();
     cy.url().should('include', url);
   };
   clickTextTabBtn = (text: string) => this.elements.textTabBtn(text).click();
   clickButtonTableByName = (text: string, name: string) => {
+    this.spin();
     const hand = async () => {
       const val = await this.getTag(name);
-      this.elements.buttonTableByName(val, text).click({ force: true });
-      cy.wait(0).then(
-        () =>
-          cy.$$('.ant-popover .ant-btn-primary').length && this.elements.buttonConfirmPopover().click({ force: true }),
-      );
+      this.elements.buttonTableByName(val, text).click();
     };
     hand().then();
+    this.clickSubmitPopover();
   };
   verifyMessageSwal2 = (message: string) => {
     if (message.indexOf('_@') > -1 && message.indexOf('@_') > -1) {
@@ -71,6 +89,7 @@ export default class Common {
       });
     } else this.elements.messageSwal2().should('have.text', message);
     cy.get('.swal2-confirm').then((button) => !!button && button.click());
+    cy.wait(0);
   };
 
   typeInputByName = (type: inputType, name: string, text: string) => {
@@ -108,6 +127,7 @@ export default class Common {
     if (text.indexOf('_@') > -1 && text.indexOf('@_') > -1)
       handle(this.getTag(text.replace('_@', '').replace('@_', ''))).then();
     else handle(text).then();
+    cy.wait(0);
   };
   verifyErrorByName = (name: string, text: string) => this.elements.errorByName(name).should('have.text', text);
 
@@ -127,16 +147,26 @@ export default class Common {
     if (text.indexOf('_@') > -1 && text.indexOf('@_') > -1)
       handle(this.getTag(text.replace('_@', '').replace('@_', ''))).then();
     else handle(text).then();
+    cy.wait(0);
   };
-  clickTreeByName = (name: string) =>
-    cy.get(`@${slug(name)}`).then((val) => this.elements.treeByName(val.toString()).click());
+  clickTreeByName = (name: string) => {
+    this.spin();
+    const hand = async () => {
+      const val = await this.getTag(name);
+      this.elements.treeByName(val.toString()).click();
+    };
+    hand().then();
+    cy.wait(0);
+  };
   clickRemoveTreeByName = (name: string) => {
+    this.spin();
     const hand = async () => {
       const val = await this.getTag(name);
       this.elements.removeTreeByName(val).click({ force: true });
-      this.elements.buttonConfirmPopover().click({ force: true });
     };
     hand().then();
+    this.clickSubmitPopover();
+    cy.wait(0);
   };
 }
 type inputType = 'text' | 'words' | 'number' | 'email' | 'percentage' | 'color' | 'phone';
