@@ -46,7 +46,7 @@ const Page = () => {
   return (
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
-        <div className='flex-initial lg:w-[270px] mr-5 w-full h-full lg:rounded-xl bg-white lg:h-[432px]'>
+        {/* <div className='flex-initial lg:w-[270px] mr-5 w-full h-full lg:rounded-xl bg-white lg:h-[432px]'>
           <AntForm initialValues={{ ...user }}>
             <AntForm.Item name='profileImage' className='lg:px-5 px-32 pt-5 text-center'>
               <Upload value={'profileImage'} onChange={(file) => {
@@ -88,8 +88,8 @@ const Page = () => {
               values={{ ...user }}
             />
           </AntForm>
-        </div>
-        {/* <div className='flex-initial lg:w-[270px] mr-5 lg:rounded-xl w-full bg-white h-[25px]'>
+        </div> */}
+        <div className='flex-initial lg:w-[270px] mr-5 lg:rounded-xl w-full bg-white h-[25px]'>
           <Form
             className="text-center items-centers text-xl font-bold text-slate-700 form-profile"
             columns={[
@@ -151,7 +151,7 @@ const Page = () => {
             disableSubmit={isLoading}
             values={{ ...user }}
           />
-        </div> */}
+        </div>
         <div className='flex-1 lg:rounded-xl w-auto'>
           <Tabs defaultActiveKey="1" size="large" className='profile'>
             <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className=''>
