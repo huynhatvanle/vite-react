@@ -574,9 +574,7 @@ const Page = () => {
               <Button
                 text={t('components.form.modal.cancel')}
                 className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                onClick={() => {
-                  navigate(routerLinks('Store'))
-                }}
+                onClick={handleBack}
               />
             </div>
           </Tabs.TabPane>
@@ -653,9 +651,7 @@ const Page = () => {
               <Button
                 text={t('components.form.modal.cancel')}
                 className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                onClick={() => {
-                  navigate(routerLinks('Store'))
-                }}
+                onClick={handleBack}
               />
             </div>
           </Tabs.TabPane>
@@ -767,9 +763,7 @@ const Page = () => {
               <Button
                 text={t('components.form.modal.cancel')}
                 className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                onClick={() => {
-                  navigate(routerLinks('Store'))
-                }}
+                onClick={handleBack}
               />
             </div>
           </Tabs.TabPane>
@@ -1227,9 +1221,7 @@ const Page = () => {
               <Button
                 text={t('components.form.modal.cancel')}
                 className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                onClick={() => {
-                  navigate(routerLinks('Store'))
-                }}
+                onClick={handleBack}
               />
             </div>
           </Tabs.TabPane>
