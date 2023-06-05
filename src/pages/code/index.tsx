@@ -135,59 +135,11 @@ const Page = () => {
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
                 text={t('routes.admin.Layout.Add')}
                 onClick={() => navigate(`/${lang}${routerLinks('Code/Add')}`)}
-              // onClick={() => modalFormRef?.current?.handleEdit!()}
               />
             )}
           </div>
         }
       />
-      {/* <ModalForm
-        facade={codeFacade}
-        ref={modalFormRef}
-        title={() => (!codeFacade.data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
-        columns={[
-          {
-            title: 'Code.Name',
-            name: 'name',
-            formItem: {
-              col: 4,
-              rules: [{ type: 'required' }],
-              onBlur: (e, form) => {
-                if (e.target.value && !form.getFieldValue('code')) {
-                  form.setFieldValue('code', slug(e.target.value).toUpperCase());
-                }
-              },
-            },
-          },
-          {
-            title: 'Code.Type',
-            name: 'type',
-            formItem: {
-              type: 'select',
-              col: 4,
-              rules: [{ type: 'required' }],
-              list: listType || [],
-            },
-          },
-          {
-            title: 'titles.Code',
-            name: 'code',
-            formItem: {
-              col: 4,
-              rules: [{ type: 'required' }],
-            },
-          },
-          {
-            title: 'user.Description',
-            name: 'description',
-            formItem: {
-              type: 'textarea',
-            },
-          },
-        ]}
-        widthModal={600}
-        idElement={'user'}
-      /> */}
     </Fragment>
   );
 };

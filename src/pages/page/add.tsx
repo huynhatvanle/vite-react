@@ -172,7 +172,6 @@ const Page = () => {
             )}
             handSubmit={handleSubmit}
             disableSubmit={isLoading}
-            // handCancel={handleBack}
           />
     </div>
   );
