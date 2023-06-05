@@ -585,7 +585,7 @@ export const Form = ({
         }
       }}
     >
-      <div className={'group-input p-5'}>
+      <div className={'group-input p-5 bg-white lg:!rounded-b-2xl'}>
         <div className={'grid gap-x-5 grid-cols-12 '}>
           {_columns.map(
             (column: any, index: number) =>
@@ -620,7 +620,7 @@ export const Form = ({
             handCancel && handSubmit,
           // 'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
-          'sm:w-auto sm:inline-flex right-0 text-center items-center !absolute -bottom-1/4 sm:flex-row flex-col sm:mt-5': handSubmit && extendButton,
+          'sm:w-auto sm:inline-flex float-right text-center items-center sm:flex-row flex-col mt-5': handSubmit && extendButton,
         })}
       >
         {handCancel && (
