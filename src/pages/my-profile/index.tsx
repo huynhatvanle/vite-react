@@ -36,9 +36,9 @@ const Page = () => {
   return (
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
-        <div className='flex-initial lg:w-[300px] bg-white mr-8 lg:rounded-xl w-full'>
+        <div className='flex-initial lg:w-[270px] mr-5 lg:rounded-xl w-full'>
           <Form
-            className="text-center items-centers text-xl font-bold text-slate-700"
+            className="text-center items-centers !rounded-t-2xl text-xl font-bold text-slate-700"
             columns={[
               {
                 title: '',
@@ -99,9 +99,9 @@ const Page = () => {
             values={{ ...user }}
           />
         </div>
-        <div className='flex-1 bg-white lg:rounded-xl w-auto'>
+        <div className='flex-1 lg:rounded-xl w-auto'>
           <Tabs defaultActiveKey="1" size="large" className='profile'>
-            <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className='mt-2'>
+            <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className=''>
               <Form
                 values={{ ...user }}
                 className=''
@@ -153,10 +153,10 @@ const Page = () => {
                 )}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab={t('routes.admin.Layout.Change Password')} key="2" className='mt-2'>
+            <Tabs.TabPane tab={t('routes.admin.Layout.Change Password')} key="2" className=''>
               <Form
                 values={{ ...user }}
-                className='pb-20'
+                className=''
                 columns={[
                   {
                     title: 'columns.auth.login.Password',

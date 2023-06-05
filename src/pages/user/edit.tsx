@@ -48,94 +48,92 @@ const Page = () => {
   };
 
   return (
-    <div className={'w-full'}>
-      <Fragment>
-        <div className='bg-white rounded-2xl' >
-          <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5'}>{t('titles.Userinformation')}</div>
-          {!!result?.data && (
-            <Form
-              values={{ ...data }}
-              className="intro-x"
-              columns={[
-                {
-                  title: 'user.UserId',
-                  name: 'code',
-                  formItem: {
-                    disabled: () => true,
-                    tabIndex: 1,
-                    col: 6,
+    <Fragment>
+      <div className='' >
+        <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Userinformation')}</div>
+        {!!result?.data && (
+          <Form
+            values={{ ...data }}
+            className="intro-x"
+            columns={[
+              {
+                title: 'user.UserId',
+                name: 'code',
+                formItem: {
+                  disabled: () => true,
+                  tabIndex: 1,
+                  col: 6,
+                },
+              },
+              {
+                title: 'user.Fullname',
+                name: 'name',
+                formItem: {
+                  tabIndex: 1,
+                  col: 6,
+                  rules: [{ type: 'required' }],
+                },
+              },
+              {
+                title: 'Email',
+                name: 'email',
+                formItem: {
+                  disabled: () => true,
+                  tabIndex: 1,
+                  col: 6,
+                },
+              },
+              {
+                title: 'user.Phone Number',
+                name: 'phoneNumber',
+                formItem: {
+                  col: 6,
+                  rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 15 }],
+                },
+              },
+              {
+                title: 'user.Role',
+                name: 'roleCode',
+                formItem: {
+                  col: 12,
+                  type: 'select',
+                  render: (form, values) => {
+                    const roleCode = values.roleCode;
+                    return (
+                      <div>
+                        {t('user.Role')}
+                        <Select value={roleCode} disabled={true} className="py-2" style={{ width: "100%" }}>
+                          <Select.Option value="ADMIN">
+                            {t('user.RoleUser.ADMIN')}
+                          </Select.Option>
+                          <Select.Option value="OWNER_SUPPLIER">
+                            {t('user.RoleUser.OWNER_SUPPLIER')}
+                          </Select.Option>
+                          <Select.Option value="OWNER_STORE">
+                            {t('user.RoleUser.OWNER_STORE')}
+                          </Select.Option>
+                        </Select>
+                      </div>
+                    );
                   },
                 },
-                {
-                  title: 'user.Fullname',
-                  name: 'name',
-                  formItem: {
-                    tabIndex: 1,
-                    col: 6,
-                    rules: [{ type: 'required' }],
-                  },
+              },
+              {
+                title: 'user.Note',
+                name: 'note',
+                formItem: {
+                  col: 12,
+                  type: 'textarea',
                 },
-                {
-                  title: 'Email',
-                  name: 'email',
-                  formItem: {
-                    disabled: () => true,
-                    tabIndex: 1,
-                    col: 6,
-                  },
-                },
-                {
-                  title: 'user.Phone Number',
-                  name: 'phoneNumber',
-                  formItem: {
-                    col: 6,
-                    rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 15 }],
-                  },
-                },
-                {
-                  title: 'user.Role',
-                  name: 'roleCode',
-                  formItem: {
-                    col: 12,
-                    type: 'select',
-                    render: (form, values) => {
-                      const roleCode = values.roleCode;
-                      return (
-                        <div>
-                          {t('user.Role')}
-                          <Select value={roleCode} disabled={true} className="py-2" style={{ width: "100%" }}>
-                            <Select.Option value="ADMIN">
-                              {t('user.RoleUser.ADMIN')}
-                            </Select.Option>
-                            <Select.Option value="OWNER_SUPPLIER">
-                              {t('user.RoleUser.OWNER_SUPPLIER')}
-                            </Select.Option>
-                            <Select.Option value="OWNER_STORE">
-                              {t('user.RoleUser.OWNER_STORE')}
-                            </Select.Option>
-                          </Select>
-                        </div>
-                      );
-                    },
-                  },
-                },
-                {
-                  title: 'user.Note',
-                  name: 'note',
-                  formItem: {
-                    col: 12,
-                    type: 'textarea',
-                  },
-                },
-              ]}
-              handSubmit={handleSubmit}
-              disableSubmit={isLoading}
-              handCancel={handleBack}
-            />
-          )}
-        </div>
-      </Fragment>
-    </div>
+              },
+            ]}
+            handSubmit={handleSubmit}
+            disableSubmit={isLoading}
+            handCancel={handleBack}
+          />
+        )}
+      </div>
+    </Fragment>
   );
 };
 export default Page;

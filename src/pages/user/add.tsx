@@ -42,58 +42,56 @@ const Page = () => {
   };
 
   return (
-    <div className={'w-full'}>
-      <Fragment>
-        <div className='bg-white rounded-xl'>
-          <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5'}>{t('titles.Userinformation')}</div>
-          {!!result?.data && (
-            <Form
-              values={{ ...data }}
-              className="intro-x"
-              columns={[
-                {
-                  title: 'user.Fullname',
-                  name: 'name',
-                  formItem: {
-                    tabIndex: 1,
-                    col: 6,
-                    rules: [{ type: 'required' }],
-                  },
+    <Fragment>
+      <div className=''>
+        <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Userinformation')}</div>
+        {!!result?.data && (
+          <Form
+            values={{ ...data }}
+            className="intro-x"
+            columns={[
+              {
+                title: 'user.Fullname',
+                name: 'name',
+                formItem: {
+                  tabIndex: 1,
+                  col: 6,
+                  rules: [{ type: 'required' }],
                 },
-                {
-                  title: 'Email',
-                  name: 'email',
-                  formItem: {
-                    tabIndex: 1,
-                    col: 6,
-                    rules: [{ type: 'required' }, { type: 'email' }, { type: 'min', value: 6 }],
-                  },
+              },
+              {
+                title: 'Email',
+                name: 'email',
+                formItem: {
+                  tabIndex: 1,
+                  col: 6,
+                  rules: [{ type: 'required' }, { type: 'email' }, { type: 'min', value: 6 }],
                 },
-                {
-                  title: 'user.Phone Number',
-                  name: 'phoneNumber',
-                  formItem: {
-                    col: 6,
-                    rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 15 }],
-                  },
+              },
+              {
+                title: 'user.Phone Number',
+                name: 'phoneNumber',
+                formItem: {
+                  col: 6,
+                  rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 15 }],
                 },
-                {
-                  title: 'user.Note',
-                  name: 'note',
-                  formItem: {
-                    col: 12,
-                    type: 'textarea',
-                  },
+              },
+              {
+                title: 'user.Note',
+                name: 'note',
+                formItem: {
+                  col: 12,
+                  type: 'textarea',
                 },
-              ]}
-              handSubmit={handleSubmit}
-              disableSubmit={isLoading}
-              handCancel={handleBack}
-            />
-          )}
-        </div>
-      </Fragment>
-    </div>
+              },
+            ]}
+            handSubmit={handleSubmit}
+            disableSubmit={isLoading}
+            handCancel={handleBack}
+          />
+        )}
+      </div>
+    </Fragment>
   );
 };
 export default Page;
