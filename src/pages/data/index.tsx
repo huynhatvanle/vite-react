@@ -3,23 +3,26 @@ import { useTranslation } from 'react-i18next';
 
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-import { ModalForm } from '@core/modal/form';
-import { keyRole } from '@utils';
+import { keyRole, routerLinks, language, languages } from '@utils';
 import { GlobalFacade, DataTypeFacade, DataFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { FormModalRefObject, TableRefObject } from '@models';
 import { Popconfirm, Tooltip } from 'antd';
-import slug from 'slug';
+import { useNavigate } from 'react-router';
 
 const Page = () => {
   const { t } = useTranslation();
   const { user } = GlobalFacade();
+
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   const { result, get } = DataTypeFacade();
   useEffect(() => {
     if (!result?.data) get({});
   }, []);
   const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
+
 
   const dataFacade = DataFacade();
   const { status } = dataFacade;
@@ -96,7 +99,7 @@ const Page = () => {
                     <Tooltip title={t('routes.admin.Layout.Edit')}>
                       <button
                         title={t('routes.admin.Layout.Edit') || ''}
-                        onClick={() => modalFormRef?.current?.handleEdit!(data)}
+                        onClick={() => navigate(`/${lang}${routerLinks('Data')}/${data.id}`)}
                       >
                         <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                       </button>
@@ -128,13 +131,14 @@ const Page = () => {
               <Button
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
                 text={t('components.button.New')}
-                onClick={() => modalFormRef?.current?.handleEdit!()}
+                onClick={() => navigate(`/${lang}${routerLinks('Data/Add')}`)}
+
               />
             )}
           </div>
         }
       />
-      <ModalForm
+      {/* <ModalForm
         facade={dataFacade}
         ref={modalFormRef}
         title={() => (!dataFacade.data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
@@ -242,7 +246,7 @@ const Page = () => {
         ]}
         widthModal={600}
         idElement={'user'}
-      />
+      /> */}
     </Fragment>
   );
 };
