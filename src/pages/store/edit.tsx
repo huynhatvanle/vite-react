@@ -1357,7 +1357,7 @@ const Page = () => {
               }
               leftHeader={
                 <Form
-                  className="intro-x rounded-lg md:flex"
+                  className="intro-x rounded-lg sm:flex"
                   columns={
                     [
                       {
