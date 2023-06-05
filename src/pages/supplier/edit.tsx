@@ -36,13 +36,15 @@ const Page = () => {
   const { id } = useParams();
   const { formatDate } = GlobalFacade();
 
-  const dataTableRef = useRef<TableRefObject>(null);
+  const dataTableRefProduct = useRef<TableRefObject>(null);
+  const dataTableRefDiscount = useRef<TableRefObject>(null);
+  const dataTableRefRevenue = useRef<TableRefObject>(null);
 
   const productFacade = ProductFacade();
   const ordersFacade = OrdersFacade();
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
-  const inventorySupplier = InventorySupplierFacade();
+  // const inventorySupplier = InventorySupplierFacade();
   const [test, setTest] = useState('1');
   const [cap1, setcap1] = useState(true);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
@@ -95,7 +97,12 @@ const Page = () => {
     <div className={'w-full'}>
       <Fragment>
         <div className="">
-          <Tabs defaultActiveKey="1" type="card" size="large" className="">
+          <Tabs
+            defaultActiveKey="1"
+            type="card"
+            size="large"
+            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('supplier/edit')}/${id}?tab=${activeKey}`)}
+          >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="bg-white rounded-xl rounded-tl-none">
               {!isLoading && (
                 <Form
@@ -280,7 +287,7 @@ const Page = () => {
                 <div className="px-5 pb-4">
                   <DataTable
                     facade={productFacade}
-                    ref={dataTableRef}
+                    ref={dataTableRefProduct}
                     defaultRequest={{
                       page: 1,
                       perPage: 10,
@@ -378,7 +385,7 @@ const Page = () => {
                                 },
                                 onChange(value, form) {
                                   value ? setcap1(false) : setcap1(true);
-                                  dataTableRef?.current?.onChange({
+                                  dataTableRefProduct?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
                                     filter: { supplierId: data?.id, type: 'BALANCE', storeId: '', categoryId: value },
@@ -618,7 +625,7 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
-                      ref={dataTableRef}
+                      ref={dataTableRefRevenue}
                       facade={inventoryOrders}
                       defaultRequest={{
                         page: 1,
@@ -670,18 +677,27 @@ const Page = () => {
                                   type: 'select',
                                   col: 5,
                                   get: {
-                                    // facade: inventorySupplier.getById({ id }),
+                                    facade: InventorySupplierFacade,
                                     format: (item: any) => ({
                                       label: item.name,
                                       value: item.id,
                                     }),
                                     params: (fullTextSearch, value) => ({
-                                      fullTextSearch,
-                                      code: value().id,
+                                      id: id,
                                     }),
                                   },
                                   onChange(value, form) {
-                                    form.resetFields(['cap2']);
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        id: id,
+                                        filter: {
+                                          dateFrom: `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 00:00:00`,
+                                          dateTo: `${dateTo} 23:59:59`,
+                                        },
+                                      },
+                                    });
                                   },
                                 },
                               },
@@ -714,7 +730,7 @@ const Page = () => {
                                   type: 'date',
                                   onChange(value, form) {
                                     setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
-                                    dataTableRef?.current?.onChange({
+                                    dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
@@ -751,7 +767,7 @@ const Page = () => {
                                   type: 'date',
                                   onChange(value, form) {
                                     setDateTo(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
-                                    dataTableRef?.current?.onChange({
+                                    dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
@@ -1180,7 +1196,7 @@ const Page = () => {
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-3 pb-4">
                   <DataTable
-                    ref={dataTableRef}
+                    ref={dataTableRefDiscount}
                     facade={discountFacade}
                     defaultRequest={{
                       page: 1,
@@ -1287,7 +1303,7 @@ const Page = () => {
                                   type: 'date',
                                   onChange(value, form) {
                                     setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
-                                    dataTableRef?.current?.onChange({
+                                    dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
@@ -1323,7 +1339,7 @@ const Page = () => {
                                   type: 'date',
                                   onChange(value, form) {
                                     setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
-                                    dataTableRef?.current?.onChange({
+                                    dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
