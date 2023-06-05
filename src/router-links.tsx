@@ -12,6 +12,7 @@ export const routerLinks = (name: string, type?: string) => {
     Setting: '/setting',
     Data: '/setting/data',
     Code: '/setting/code',
+    'Code/Add': '/setting/code/add',
     Page: '/setting/page',
     Team: '/team',
     DayOff: '/dayoff',
