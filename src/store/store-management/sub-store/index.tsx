@@ -12,7 +12,12 @@ const action = {
     name + '/get',
     async ({ page, perPage, filter }: { page: number, perPage: number, filter: { storeId?: string, supplierType: string } }) => {
       const filterSubStore = JSON.parse(filter.toString() || '{}')
-      const data = await API.get(routerLinks(name, 'api'), { page, perPage, storeId: filterSubStore.storeId, supplierType: filterSubStore.supplierType })
+      const data = await API.get(routerLinks(name, 'api'), { 
+      page, 
+      perPage, 
+      storeId: filterSubStore.storeId, 
+      supplierType: filterSubStore.supplierType ? filterSubStore.supplierType : ''
+     })
       return data
     }
   ),

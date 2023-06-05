@@ -16,7 +16,7 @@ const action = {
         page,
         perPage,
         idStore: filterInventoryProduct.idStore,
-        supplierId: filterInventoryProduct.supplierId
+        supplierId: filterInventoryProduct.supplierId ? filterInventoryProduct.supplierId : ''
       });
 
       const inventory = Object.entries(data.data as Object)[0]?.[1]

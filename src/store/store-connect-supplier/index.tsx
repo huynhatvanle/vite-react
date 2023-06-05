@@ -13,7 +13,12 @@ const action = {
     name + '/get',
     async ({ page, perPage, filter }: { page: number, perPage: number, filter: { idSuppiler: string, supplierType: string } }) => {
       const filterStoreConnectSupplier = JSON.parse(filter.toString() || '{}')
-      return await API.get(routerLinks(name, 'api'), { page, perPage, idSuppiler: filterStoreConnectSupplier.idSuppiler, supplierType: filterStoreConnectSupplier.supplierType })
+      return await API.get(routerLinks(name, 'api'), { 
+        page, 
+        perPage, 
+        idSuppiler: filterStoreConnectSupplier.idSuppiler, 
+        supplierType: filterStoreConnectSupplier.supplierType ? filterStoreConnectSupplier.supplierType : ''
+      })
     }
   ),
 }

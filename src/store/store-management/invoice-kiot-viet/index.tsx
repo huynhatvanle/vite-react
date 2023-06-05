@@ -12,9 +12,19 @@ const action = {
   ...new Action<InvoiceKiotViet>(name),
   getInvoiceKiotViet: createAsyncThunk(
     name + '/get',
-    async ({ page, perPage, filter }: { page: number, perPage: number, filter: { idStore?: string } }) => {
+    async ({ page, perPage, filter }: {
+      page: number,
+      perPage: number, 
+      filter: { idStore?: string, supplierId?: string, status?: string, categoryId?: string } }) => {
       const filterInvoiceKiotViet = JSON.parse(filter.toString() || '{}')
-      let data = await API.get(routerLinks(name, 'api'), { page, perPage, idStore: filterInvoiceKiotViet.idStore });
+      let data = await API.get(routerLinks(name, 'api'), { 
+        page, 
+        perPage, 
+        idStore: filterInvoiceKiotViet.idStore,
+        status: filterInvoiceKiotViet.status ? filterInvoiceKiotViet.status : '',
+        supplierId: filterInvoiceKiotViet.supplierId ? filterInvoiceKiotViet.supplierId : '',
+        categoryId: filterInvoiceKiotViet.categoryId ? filterInvoiceKiotViet.categoryId : ''
+      });
       data.data = Object.entries(data.data as Object)[0]?.[1]
       return data.data;
     }
@@ -51,7 +61,7 @@ export const InvoiceKiotVietFacade = () => {
     ...(useTypedSelector((state) => state[action.name]) as State<InvoiceKiotViet>),
     set: (values: State<InvoiceKiotViet>) => dispatch(action.set(values)),
     // get: (params: PaginationQuery<InvoiceKiotViet>) => dispatch(action.getInvoiceKiotViet(params)),
-    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { idStore?: string } }) => dispatch(action.getInvoiceKiotViet({ page, perPage, filter })),
+    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { idStore?: string, supplierId?: string, status?: string, categoryId?: string } }) => dispatch(action.getInvoiceKiotViet({ page, perPage, filter })),
   };
 };
 
