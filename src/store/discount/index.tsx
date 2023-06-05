@@ -10,11 +10,20 @@ const action = {
   ...new Action<Discount>(name),
   getDiscount: createAsyncThunk(
     name + '/get',
-    async ({ filter, page, perPage }: { filter: { id?: string }; page?: number; perPage?: number }) => {
+    async ({
+      filter,
+      page,
+      perPage,
+    }: {
+      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string } };
+      page?: number;
+      perPage?: number;
+    }) => {
       const filterDis = JSON.parse(filter.toString() || '{}');
       const data = await API.get<Discount>(`${routerLinks(name, 'api')}/${filterDis.id}`, {
         page,
         perPage,
+        filter: { dateFrom: filterDis.filter.dateFrom, dateTo: filterDis.filter.dateTo },
       });
       let dataDiscount = Object.entries(data.data as Object)[0]?.[1];
       const totalCommissionSupplier = data.data?.totalCommissionSupplier;
@@ -24,13 +33,13 @@ const action = {
       return dataTemp;
     },
   ),
-  getByIdDiscount: createAsyncThunk(
-    name + '/getById',
-    async ({ id, page, perPage }: { id?: string; page?: number; perPage?: number }) => {
-      const data = await API.get<Discount>(`${routerLinks(name, 'api')}/${id}`, { page, perPage });
-      return { data };
-    },
-  ),
+  // getByIdDiscount: createAsyncThunk(
+  //   name + '/getById',
+  //   async ({ id, page, perPage }: { id?: string; page?: number; perPage?: number }) => {
+  //     const data = await API.get<Discount>(`${routerLinks(name, 'api')}/${id}`, { page, perPage });
+  //     return { data };
+  //   },
+  // ),
 };
 
 export const DiscountSlice = createSlice(new Slice<Discount>(action));
@@ -40,10 +49,17 @@ export const DiscountFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<Discount>),
     set: (values: State<Discount>) => dispatch(action.set(values)),
-    get: ({ filter, page, perPage }: { filter: { id?: string }; page?: number; perPage?: number }) =>
-      dispatch(action.getDiscount({ perPage, page, filter })),
-    getById: ({ id, page, perPage }: { id?: string; page?: number; perPage?: number }) =>
-      dispatch(action.getByIdDiscount({ id, page, perPage })),
+    get: ({
+      filter,
+      page,
+      perPage,
+    }: {
+      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string } };
+      page?: number;
+      perPage?: number;
+    }) => dispatch(action.getDiscount({ perPage, page, filter })),
+    // getById: ({ id, page, perPage }: { id?: string; page?: number; perPage?: number }) =>
+    //   dispatch(action.getByIdDiscount({ id, page, perPage })),
     post: (values: Discount) => dispatch(action.post(values)),
     put: (values: Discount) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),

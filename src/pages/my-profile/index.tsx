@@ -1,13 +1,14 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { Form as AntForm, Tabs } from 'antd';
+import { Form as AntForm, Image, Input, Tabs, Typography } from 'antd';
 
 import { User } from '@svgs';
 import { Form } from '@core/form';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
 import { routerLinks, languages, language } from '@utils';
+import { Upload } from '@core/upload';
 
 
 const Page = () => {
@@ -16,6 +17,8 @@ const Page = () => {
   const globalFacade = GlobalFacade();
   const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+
+  const { Text } = Typography;
 
   useEffect(() => {
     profile();
@@ -33,12 +36,62 @@ const Page = () => {
     globalFacade.putProfile(values);
   }
 
+  const [forms] = AntForm.useForm();
+
+  const [profileImage, setProfileImage] = useState<File | undefined>(undefined);
+
+  console.log(profileImage);
+  console.log(setProfileImage)
+
   return (
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
-        <div className='flex-initial lg:w-[300px] bg-white mr-8 lg:rounded-xl w-full'>
-          <Form
-            className="text-center items-centers text-xl font-bold text-slate-700"
+        <div className='flex-initial lg:w-[270px] mr-5 lg:rounded-xl w-full h-full bg-white lg:h-[432px]'>
+          <AntForm initialValues={{ ...user }}>
+            <AntForm.Item name='profileImage' className='lg:px-5 px-32 pt-5 text-center'>
+              <Upload value={'profileImage'} onChange={(file) => {
+                if (Array.isArray(file)) {
+                  setProfileImage(undefined);
+                } else {
+                  setProfileImage(file);
+                }
+              }} />
+            </AntForm.Item>
+            <Form
+              className="text-center items-centers !rounded-t-2xl text-xl font-bold text-slate-700 form-store form-profile"
+              columns={[
+                {
+                  title: 'user.Fullname',
+                  name: 'name',
+                  formItem: {
+                    render: (form, values) => {
+                      return (values.name)
+                    }
+                  },
+                },
+                {
+                  title: 'user.role',
+                  name: 'userRole',
+                  formItem: {
+                    render: (item: any, values: any, reRender) => {
+                      return (
+                        <div className='flex w-full flex-row justify-center pt-2 font-normal'>
+                          <User className='w-5 h-5 mr-2 fill-slate-500' />
+                          <div className='text-base text-gray-500'>{t('user.RoleUser.ADMIN')}</div>
+                        </div>
+                      )
+                    }
+                  },
+                },
+              ]}
+              disableSubmit={isLoading}
+              values={{ ...user }}
+              handSubmit={putProfile}
+            />
+          </AntForm>
+
+          {/* <Form
+            className="text-center items-centers !rounded-t-2xl text-xl font-bold text-slate-700"
             columns={[
               {
                 title: '',
@@ -97,14 +150,13 @@ const Page = () => {
             ]}
             disableSubmit={isLoading}
             values={{ ...user }}
-          />
+          /> */}
         </div>
-        <div className='flex-1 bg-white lg:rounded-xl w-auto'>
+        <div className='flex-1 lg:rounded-xl w-auto'>
           <Tabs defaultActiveKey="1" size="large" className='profile'>
-            <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className='mt-2'>
+            <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1" className=''>
               <Form
                 values={{ ...user }}
-                className=''
                 columns={[
                   {
                     title: 'user.Fullname',
@@ -141,7 +193,7 @@ const Page = () => {
                   },
                 ]}
                 disableSubmit={isLoading}
-                handSubmit={handleSubmit}
+                handSubmit={(values) => putProfile({ ...values, profileImage })}
                 extendButton={(form) => (
                   <Button
                     text={t('components.button.Cancel')}
@@ -153,10 +205,10 @@ const Page = () => {
                 )}
               />
             </Tabs.TabPane>
-            <Tabs.TabPane tab={t('routes.admin.Layout.Change Password')} key="2" className='mt-2'>
+            <Tabs.TabPane tab={t('routes.admin.Layout.Change Password')} key="2" className=''>
               <Form
                 values={{ ...user }}
-                className='pb-20'
+                className=''
                 columns={[
                   {
                     title: 'columns.auth.login.Password',
