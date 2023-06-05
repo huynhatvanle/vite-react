@@ -101,7 +101,7 @@ const Page = () => {
             defaultActiveKey="1"
             type="card"
             size="large"
-            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('supplier/edit')}/${id}?tab=${activeKey}`)}
+            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)}
           >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="bg-white rounded-xl rounded-tl-none">
               {!isLoading && (
@@ -633,6 +633,7 @@ const Page = () => {
                         filter: {
                           idSupplier: id,
                           filterDate: { dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` },
+                          idStore: '',
                         },
                         fullTextSearch: '',
                       }}
@@ -691,12 +692,11 @@ const Page = () => {
                                       page: 1,
                                       perPage: 10,
                                       filter: {
-                                        id: id,
-                                        filter: {
-                                          dateFrom: `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 00:00:00`,
-                                          dateTo: `${dateTo} 23:59:59`,
-                                        },
+                                        idSupplier: id,
+                                        idStore: value,
+                                        filterDate: { dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` },
                                       },
+                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -705,7 +705,7 @@ const Page = () => {
                             disableSubmit={isLoading}
                           />
                           <Form
-                            values={{ dateFrom: `${dateFrom}`, dateTo: `${dateTo}` }}
+                            // values={{ dateFrom: `${dateFrom}`, dateTo: `${dateTo}` }}
                             className="intro-x rounded-lg w-full sm:flex justify-between form-store"
                             columns={[
                               {
@@ -739,6 +739,7 @@ const Page = () => {
                                           dateFrom: `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 00:00:00`,
                                           dateTo: `${dateTo} 23:59:59`,
                                         },
+                                        idStore: '',
                                       },
                                       fullTextSearch: '',
                                     });
@@ -776,6 +777,7 @@ const Page = () => {
                                           dateFrom: `${dateFrom} 00:00:00`,
                                           dateTo: `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 23:59:59`,
                                         },
+                                        idStore: '',
                                       },
                                       fullTextSearch: '',
                                     });

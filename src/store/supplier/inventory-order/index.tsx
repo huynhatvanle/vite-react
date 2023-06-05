@@ -19,7 +19,7 @@ const action = {
     }: {
       page: number;
       perPage: number;
-      filter: { idSupplier?: string; filterDate?: any };
+      filter: { idSupplier?: string; filterDate?: any; idStore?: string };
       fullTextSearch: string;
     }) => {
       const filterInven = JSON.parse(filter.toString() || '{}');
@@ -27,6 +27,7 @@ const action = {
         page,
         perPage,
         idSupplier: filterInven.idSupplier,
+        idStore: filterInven.idStore,
         filterDate: filterInven.filterDate,
         fullTextSearch: fullTextSearch,
       });
@@ -51,7 +52,7 @@ export const inventoryOrdersFacade = () => {
     }: {
       page: number;
       perPage: number;
-      filter: { idSupplier?: string; filterDate?: any };
+      filter: { idSupplier?: string; filterDate?: any; idStore?: string };
       fullTextSearch: string;
     }) => dispatch(action.getOrder({ page, perPage, filter, fullTextSearch })),
   };
