@@ -86,7 +86,6 @@ const Page = () => {
               ]}
               disableSubmit={isLoading}
               values={{ ...user }}
-              handSubmit={putProfile}
             />
           </AntForm>
 
