@@ -30,6 +30,7 @@ const action = {
         filterDate: filterInven.filterDate,
         fullTextSearch: fullTextSearch,
       });
+
       return data;
     },
   ),

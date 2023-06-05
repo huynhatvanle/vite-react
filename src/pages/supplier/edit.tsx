@@ -43,7 +43,8 @@ const Page = () => {
   const [test, setTest] = useState('1');
   const [cap1, setcap1] = useState(true);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
+  const [dateFrom, setDateFrom] = useState('05/01/2023');
+  const [dateTo, setDateTo] = useState('06/01/2023');
   useEffect(() => {
     if (id) supplierFacade.getById({ id });
 
@@ -374,8 +375,6 @@ const Page = () => {
                                 }),
                               },
                               onChange(value, form) {
-                                console.log('valueeeeeeeeee', value);
-
                                 value ? setcap1(false) : setcap1(true);
                                 dataTableRef?.current?.onChange({
                                   page: 1,
@@ -565,18 +564,24 @@ const Page = () => {
                     items: [
                       {
                         key: '0',
-                        className: 'hover:!bg-white !py-2 !px-2.5',
+                        className: 'hover:!bg-white !p-0 !text-base !font-semibold !text-gray-400',
                         label: (
-                          <div className="text-base text-gray-400" onClick={() => setTest('1')}>
+                          <div
+                            onClick={() => setTest('1')}
+                            className={`${test === '1' ? 'text-gray-800 bg-gray-100 p-2 rounded-2xl' : 'p-2'}`}
+                          >
                             {t('store.Revenue by order')}
                           </div>
                         ),
                       },
                       {
                         key: '1',
-                        className: 'hover:!bg-white !py-2 !px-2.5',
+                        className: 'hover:!bg-white !p-0 !text-base !font-semibold !text-gray-400',
                         label: (
-                          <div className="text-base text-gray-400" onClick={() => setTest('2')}>
+                          <div
+                            onClick={() => setTest('2')}
+                            className={`${test === '2' ? 'text-gray-800 bg-gray-100 p-2 rounded-2xl' : 'p-2'}`}
+                          >
                             {t('store.Revenue by product')}
                           </div>
                         ),
@@ -598,13 +603,14 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
+                      ref={dataTableRef}
                       facade={inventoryOrders}
                       defaultRequest={{
                         page: 1,
                         perPage: 10,
                         filter: {
                           idSupplier: id,
-                          filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                          filterDate: { dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` },
                         },
                         fullTextSearch: '',
                       }}
@@ -617,7 +623,7 @@ const Page = () => {
                       rightHeader={
                         <div className="flex items-end justify-between">
                           <Form
-                            values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
+                            values={{ dateFrom: `${dateFrom}`, dateTo: `${dateTo}` }}
                             className="intro-x items-end rounded-lg w-full flex justify-between"
                             columns={[
                               {
@@ -696,6 +702,21 @@ const Page = () => {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
+                                  onChange(value, form) {
+                                    setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    dataTableRef?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idSupplier: id,
+                                        filterDate: {
+                                          dateFrom: `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 00:00:00`,
+                                          dateTo: `${dateTo} 23:59:59`,
+                                        },
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
                                 },
                               },
                               {
@@ -718,6 +739,21 @@ const Page = () => {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
+                                  onChange(value, form) {
+                                    setDateTo(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    dataTableRef?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idSupplier: id,
+                                        filterDate: {
+                                          dateFrom: `${dateFrom} 00:00:00`,
+                                          dateTo: `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 23:59:59`,
+                                        },
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
                                 },
                               },
                             ]}
@@ -754,7 +790,7 @@ const Page = () => {
                           name: 'pickUpDate',
                           tableItem: {
                             width: 135,
-                            render: (text: string) => (text ? dayjs(text).format(formatDate) : ''),
+                            render: (text: string) => (text ? dayjs(text).format(formatDate).replace(/-/g, '/') : ''),
                           },
                         },
                         {
@@ -762,7 +798,7 @@ const Page = () => {
                           name: 'completedDate',
                           tableItem: {
                             width: 150,
-                            render: (text: string) => (text ? dayjs(text).format(formatDate) : ''),
+                            render: (text: string) => (text ? dayjs(text).format(formatDate).replace(/-/g, '/') : ''),
                           },
                         },
                         {
@@ -786,6 +822,7 @@ const Page = () => {
                           name: 'voucherAmount',
                           tableItem: {
                             width: 160,
+                            render: (value: any, item: any) => item?.voucherAmount?.toLocaleString(),
                           },
                         },
                         {
@@ -1133,13 +1170,14 @@ const Page = () => {
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-3 pb-4">
                   <DataTable
+                    ref={dataTableRef}
                     facade={discountFacade}
                     defaultRequest={{
                       page: 1,
                       perPage: 10,
                       filter: {
                         id: data?.id,
-                        // filter: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                        filter: { dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` },
                       },
                     }}
                     xScroll="1370px"
@@ -1215,7 +1253,7 @@ const Page = () => {
                         <div className="">
                           <div className="flex">
                             <Form
-                              values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
+                              values={{ dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` }}
                               className="intro-x items-end rounded-lg w-full flex justify-between"
                               columns={[
                                 {
@@ -1238,6 +1276,22 @@ const Page = () => {
                                     tabIndex: 3,
                                     col: 4,
                                     type: 'date',
+                                    onChange(value, form) {
+                                      setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                      dataTableRef?.current?.onChange({
+                                        page: 1,
+                                        perPage: 10,
+                                        filter: {
+                                          id: id,
+                                          filter: {
+                                            dateFrom: `${dayjs(value)
+                                              .format('MM/DD/YYYY')
+                                              .replace(/-/g, '/')} 00:00:00`,
+                                            dateTo: `${dateTo} 23:59:59`,
+                                          },
+                                        },
+                                      });
+                                    },
                                   },
                                 },
                                 {
@@ -1260,6 +1314,20 @@ const Page = () => {
                                     tabIndex: 3,
                                     col: 4,
                                     type: 'date',
+                                    onChange(value, form) {
+                                      setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                      dataTableRef?.current?.onChange({
+                                        page: 1,
+                                        perPage: 10,
+                                        filter: {
+                                          id: id,
+                                          filter: {
+                                            dateFrom: `${dateFrom} 00:00:00`,
+                                            dateTo: `$${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 23:59:59`,
+                                          },
+                                        },
+                                      });
+                                    },
                                   },
                                 },
                               ]}
@@ -1322,36 +1390,34 @@ const Page = () => {
             </Tabs.TabPane>
             <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className="">
-                  <div className={'text-xl text-teal-900 font-bold block pb-5'}>Chi tiết hợp đồng</div>
-                  <div className="grid grid-cols-3 w-full gap-4">
-                    <div className="col-span-1 flex flex-row mt-5 gap-3">
-                      <div className={' text-teal-900 font-semibold block '}>Mã hợp đồng:</div>
-                      <div>HD00329</div>
-                    </div>
-                    <div className="col-span-1 flex flex-row mt-5 gap-3 ">
-                      <div className={' text-teal-900 font-semibold block '}>Ngày tạo:</div>
-                      <div>16/05/2023 - 17:29</div>
-                    </div>
-                    <div className="col-span-1 flex mt-5 gap-3 items-center bg-red-200">
-                      <div className={' text-teal-900 font-semibold block '}>Trạng thái:</div>
-                      <div className=" bg-blue-300 items-center flex justify-center">
+                <div className="p-6 font-semibold">
+                  <div className="flex items-left">
+                    <p className="sm:text-xl text-base text-teal-900 pb-4 pt-0 mr-5">Chi tiết hợp đồng</p>
+                  </div>
+                  <div className="mb-1 text-base">
+                    <div className="lg:flex lg:items-center justify-between text-teal-900">
+                      <div className="flex flex-row mb-5 gap-5">
+                        <div>Mã hợp đồng:</div>
+                        <div>HD00261</div>
+                      </div>
+                      <div className=" flex flex-row mb-5 gap-5">
+                        <div>Ngày tạo:</div>
+                        <div>12/01/2023 - 15:27</div>
+                      </div>
+                      <div className=" flex flex-row mb-5 gap-5">
+                        <div>Trạng thái</div>
                         <Form
-                          className=""
+                          className="intro-x pt-1 -mx-5 rounded-lg w-full "
                           columns={[
                             {
                               title: '',
-                              name: '',
+                              name: 'Status',
                               formItem: {
-                                placeholder: 'Chờ kí',
+                                disabled: () => true,
+                                tabIndex: 3,
+                                placeholder: 'Đã ký',
+                                col: 12,
                                 type: 'select',
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                },
                               },
                             },
                           ]}
