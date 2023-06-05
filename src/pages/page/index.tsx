@@ -1,26 +1,25 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Popconfirm, Tooltip } from 'antd';
-import slug from 'slug';
 
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-import { ModalForm } from '@core/modal/form';
 import { FormModalRefObject, TableRefObject } from '@models';
 import { GlobalFacade, PageFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
-import { keyRole, listStyle, loopMapSelect } from '@utils';
+import { keyRole, language, languages, routerLinks } from '@utils';
+import { useNavigate } from 'react-router';
 
 const Page = () => {
   const { t } = useTranslation();
   const { user } = GlobalFacade();
-
+  const navigate = useNavigate();
+  
   const pageFacade = PageFacade();
-  const { status } = pageFacade;
+  const { status, data } = pageFacade;
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   useEffect(() => {
     switch (status) {
-      case 'put.fulfilled':
-      case 'post.fulfilled':
       case 'delete.fulfilled':
         pageTableRef?.current?.onChange!();
         break;
@@ -28,7 +27,6 @@ const Page = () => {
   }, [status]);
 
   const pageTableRef = useRef<TableRefObject>(null);
-  const modalFormRef = useRef<FormModalRefObject>(null);
 
   return (
     <Fragment>
@@ -75,7 +73,7 @@ const Page = () => {
                     <Tooltip title={t('routes.admin.Layout.Edit')}>
                       <button
                         title={t('routes.admin.Layout.Edit') || ''}
-                        onClick={() => modalFormRef?.current?.handleEdit!(data)}
+                        onClick={() => navigate(`/${lang}${routerLinks('Page')}/${data.id}`)}
                       >
                         <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                       </button>
@@ -86,7 +84,7 @@ const Page = () => {
                       <Popconfirm
                         placement="left"
                         title={t('components.datatable.areYouSureWant')}
-                        onConfirm={() => modalFormRef?.current?.handleDelete!(data.id)}
+                        onConfirm={() => pageTableRef?.current?.handleDelete!(data.id)}
                         okText={t('components.datatable.ok')}
                         cancelText={t('components.datatable.cancel')}
                       >
@@ -107,113 +105,11 @@ const Page = () => {
               <Button
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
                 text={t('components.button.New')}
-                onClick={() => modalFormRef?.current?.handleEdit!()}
+                onClick={() => navigate(`/${lang}${routerLinks('Page/Add')}`)}
               />
             )}
           </div>
         }
-      />
-      <ModalForm
-        facade={pageFacade}
-        ref={modalFormRef}
-        title={() => (!pageFacade.data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
-        columns={[
-          {
-            title: 'Name',
-            name: 'name',
-            formItem: {
-              col: 6,
-            },
-          },
-          {
-            title: 'Style',
-            name: 'style',
-            formItem: {
-              type: 'select',
-              col: 6,
-              list: listStyle,
-            },
-          },
-          {
-            title: 'Data.Order',
-            name: 'order',
-            formItem: {
-              col: 6,
-              type: 'number',
-            },
-          },
-          {
-            title: 'ParentId',
-            name: 'parentId',
-            formItem: {
-              col: 6,
-              type: 'tree_select',
-              list: loopMapSelect(pageFacade?.result?.data),
-            },
-          },
-          {
-            name: 'translations',
-            title: '',
-            formItem: {
-              type: 'tab',
-              tab: {
-                label: 'language',
-                value: 'language',
-              },
-              list: [
-                { label: 'English', value: 'en' },
-                { label: 'Vietnam', value: 'vn' },
-              ],
-              column: [
-                {
-                  title: 'Title',
-                  name: 'title',
-                  formItem: {
-                    col: 6,
-                    rules: [{ type: 'required' }],
-                    onBlur: (e, form, name) => {
-                      if (e.target.value && !form.getFieldValue(['translations', name[0], 'slug'])) {
-                        form.setFieldValue(['translations', name[0], 'slug'], slug(e.target.value));
-                      }
-                    },
-                  },
-                },
-                {
-                  title: 'Slug',
-                  name: 'slug',
-                  formItem: {
-                    col: 6,
-                  },
-                },
-                {
-                  title: 'Description',
-                  name: 'description',
-                  formItem: {
-                    col: 8,
-                    type: 'textarea',
-                  },
-                },
-                {
-                  title: 'Image',
-                  name: 'image',
-                  formItem: {
-                    col: 4,
-                    type: 'upload',
-                  },
-                },
-                // {
-                //   title: 'Content',
-                //   name: 'content',
-                //   formItem: {
-                //     type: 'layout',
-                //   },
-                // },
-              ],
-            },
-          },
-        ]}
-        widthModal={600}
-        idElement={'user'}
       />
     </Fragment>
   );
