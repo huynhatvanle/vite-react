@@ -63,6 +63,11 @@ interface resetPassword {
   retypedPassword: string;
   token: string;
 }
+interface Breadcrumb {
+  title: string;
+  link: string;
+}
+
 export class User extends CommonEntity {
   constructor(
     public name?: string,
@@ -94,6 +99,7 @@ const initialState: State = {
   status: 'idle',
   title: '',
   pathname: '',
+  breadcrumbs: [],
   ...checkLanguage(
     location.pathname.split('/')[1] || JSON.parse(JSON.stringify(localStorage.getItem('i18nextLng') || 'en')),
   ),
@@ -114,6 +120,9 @@ export const globalSlice = createSlice({
     },
     setPathname: (state: State, action: PayloadAction<string>) => {
       state.pathname = action.payload;
+    },
+    setBreadcrumbs: (state: State, action: PayloadAction<Breadcrumb[]>) => {
+      state.breadcrumbs = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -260,8 +269,9 @@ interface State {
   status?: string;
   title?: string;
   pathname?: string;
-  formatDate: string;
+  formatDate?: string;
   language?: string;
+  breadcrumbs?: Breadcrumb[];
   locale?: typeof viVN | typeof enUS;
 }
 export const GlobalFacade = () => {
@@ -277,5 +287,6 @@ export const GlobalFacade = () => {
     resetPassword: (values: resetPassword) => dispatch(action.resetPassword(values)),
     setLanguage: (value: string) => dispatch(globalSlice.actions.setLanguage(value)),
     setPathname: (value: string) => dispatch(globalSlice.actions.setPathname(value)),
+    setBreadcrumbs: (value: Breadcrumb[]) => dispatch(globalSlice.actions.setBreadcrumbs(value)),
   };
 };

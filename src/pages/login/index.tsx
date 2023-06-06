@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { Spin } from '@core/spin';
+import { Spin } from 'antd';
+
 import { Form } from '@core/form';
 import { ModalForm } from '@core/modal/form';
-
 import { GlobalFacade } from '@store';
 import { FormModalRefObject } from '@models';
 import { language, languages } from '@utils';

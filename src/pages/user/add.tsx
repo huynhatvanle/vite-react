@@ -2,22 +2,24 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { UserRoleFacade, UserFacade, CodeFacade, User } from '@store';
+import { UserRoleFacade, UserFacade, CodeFacade, User, GlobalFacade } from '@store';
 import { routerLinks, language, languages } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const userFacade = UserFacade();
-  const { data, isLoading, queryParams, status } = userFacade;
-  const navigate = useNavigate();
-  const isBack = useRef(true);
-  const isReload = useRef(false);
-  const param = JSON.parse(queryParams || '{}');
-  const { id } = useParams();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const { setBreadcrumbs } = GlobalFacade();
+  useEffect(() => {
+    setBreadcrumbs([
+      { title: 'titles.User', link: '' },
+      { title: 'titles.User/Add', link: '' },
+    ]);
+  }, []);
 
+  const userFacade = UserFacade();
+  const param = JSON.parse(userFacade.queryParams || '{}');
+  const { id } = useParams();
+  const isReload = useRef(false);
   useEffect(() => {
     if (id) userFacade.getById({ id });
     else userFacade.set({ data: undefined });
@@ -27,10 +29,13 @@ const Page = () => {
     };
   }, [id]);
 
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const navigate = useNavigate();
+  const isBack = useRef(true);
   useEffect(() => {
-    switch (status) {
+    switch (userFacade.status) {
       case 'post.fulfilled':
-        navigate(`/${lang}${routerLinks('User')}/${data?.id}`);
+        navigate(`/${lang}${routerLinks('User')}/${userFacade.data?.id}`);
         break;
       case 'put.fulfilled':
         if (Object.keys(param).length > 0) isReload.current = true;
@@ -38,11 +43,11 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          if (status === 'put.fulfilled') navigate(`/${lang}${routerLinks('User/Add')}`);
+          navigate(`/${lang}${routerLinks('User/Add')}`);
         }
         break;
     }
-  }, [status]);
+  }, [userFacade.status]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('User/List')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: User) => {
@@ -50,10 +55,11 @@ const Page = () => {
     else userFacade.post(values);
   };
 
+  const { t } = useTranslation();
   return (
     <div className={'max-w-4xl mx-auto'}>
       <Form
-        values={{ ...data }}
+        values={{ ...userFacade.data }}
         className="intro-x"
         columns={[
           {
@@ -200,7 +206,7 @@ const Page = () => {
           />
         )}
         handSubmit={handleSubmit}
-        disableSubmit={isLoading}
+        disableSubmit={userFacade.isLoading}
         handCancel={handleBack}
       />
     </div>

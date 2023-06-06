@@ -3,42 +3,44 @@ import { useTranslation } from 'react-i18next';
 
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-import { ModalForm } from '@core/modal/form';
-import { keyRole } from '@utils';
+import { keyRole, routerLinks, language, languages } from '@utils';
 import { GlobalFacade, DataTypeFacade, DataFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
-import { FormModalRefObject, TableRefObject } from '@models';
+import { TableRefObject } from '@models';
 import { Popconfirm, Tooltip } from 'antd';
-import slug from 'slug';
+import { useNavigate } from 'react-router';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const { user } = GlobalFacade();
-
+  const { user, setBreadcrumbs } = GlobalFacade();
   const { result, get } = DataTypeFacade();
+  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
   useEffect(() => {
     if (!result?.data) get({});
+    setBreadcrumbs([
+      { title: 'titles.Setting', link: '' },
+      { title: 'titles.Data', link: '' },
+    ]);
   }, []);
-  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
 
   const dataFacade = DataFacade();
-  const { status } = dataFacade;
   useEffect(() => {
-    switch (status) {
+    switch (dataFacade.status) {
       case 'put.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
         dataTableRef?.current?.onChange!();
         break;
     }
-  }, [status]);
+  }, [dataFacade.status]);
 
   const dataTableRef = useRef<TableRefObject>(null);
-  const modalFormRef = useRef<FormModalRefObject>(null);
-
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   return (
     <Fragment>
       <DataTable
+        className={'container mx-auto'}
         facade={dataFacade}
         showSearch={false}
         ref={dataTableRef}
@@ -96,7 +98,7 @@ const Page = () => {
                     <Tooltip title={t('routes.admin.Layout.Edit')}>
                       <button
                         title={t('routes.admin.Layout.Edit') || ''}
-                        onClick={() => modalFormRef?.current?.handleEdit!(data)}
+                        onClick={() => navigate(`/${lang}${routerLinks('Data')}/${data.id}`)}
                       >
                         <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                       </button>
@@ -107,7 +109,7 @@ const Page = () => {
                       <Popconfirm
                         placement="left"
                         title={t('components.datatable.areYouSureWant')}
-                        onConfirm={() => modalFormRef?.current?.handleDelete!(data.id)}
+                        onConfirm={() => dataTableRef?.current?.handleDelete!(data.id)}
                         okText={t('components.datatable.ok')}
                         cancelText={t('components.datatable.cancel')}
                       >
@@ -128,120 +130,11 @@ const Page = () => {
               <Button
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
                 text={t('components.button.New')}
-                onClick={() => modalFormRef?.current?.handleEdit!()}
+                onClick={() => navigate(`/${lang}${routerLinks('Data/Add')}`)}
               />
             )}
           </div>
         }
-      />
-      <ModalForm
-        facade={dataFacade}
-        ref={modalFormRef}
-        title={() => (!dataFacade.data?.id ? t('routes.admin.Layout.Add') : t('routes.admin.Layout.Edit'))}
-        columns={[
-          {
-            title: 'Data.Type',
-            name: 'type',
-            formItem: {
-              type: 'select',
-              col: 4,
-              rules: [{ type: 'required' }],
-              list: listType || [],
-            },
-          },
-          {
-            title: 'Data.Order',
-            name: 'order',
-            formItem: {
-              col: 4,
-              type: 'number',
-            },
-          },
-          {
-            title: 'Data.Created At',
-            name: 'createdAt',
-            formItem: {
-              col: 4,
-              type: 'date',
-            },
-          },
-          {
-            title: 'Data.Image',
-            name: 'image',
-            formItem: {
-              type: 'upload',
-              mode: 'multiple',
-            },
-          },
-          {
-            name: 'translations',
-            title: '',
-            formItem: {
-              type: 'tab',
-              tab: {
-                label: 'language',
-                value: 'language',
-              },
-              list: [
-                { label: 'English', value: 'en' },
-                { label: 'Vietnam', value: 'vn' },
-              ],
-              column: [
-                {
-                  title: 'Name',
-                  name: 'name',
-                  formItem: {
-                    col: 6,
-                    rules: [{ type: 'required' }],
-                    onBlur: (e, form, name) => {
-                      if (e.target.value && !form.getFieldValue(['translations', name[0], 'slug'])) {
-                        form.setFieldValue(['translations', name[0], 'slug'], slug(e.target.value));
-                      }
-                    },
-                  },
-                },
-                {
-                  title: 'Slug',
-                  name: 'slug',
-                  formItem: {
-                    col: 6,
-                  },
-                },
-                {
-                  title: 'Description',
-                  name: 'description',
-                  formItem: {
-                    type: 'textarea',
-                  },
-                },
-                {
-                  name: 'seoTitle',
-                  title: 'SEO Title',
-                  formItem: {
-                    col: 6,
-                  },
-                },
-                {
-                  name: 'seoDescription',
-                  title: 'SEO Description',
-                  formItem: {
-                    col: 6,
-                  },
-                },
-
-                {
-                  title: 'Content',
-                  name: 'content',
-                  formItem: {
-                    type: 'editor',
-                  },
-                },
-              ],
-            },
-          },
-        ]}
-        widthModal={600}
-        idElement={'user'}
       />
     </Fragment>
   );

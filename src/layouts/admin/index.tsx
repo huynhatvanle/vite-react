@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, { Fragment, PropsWithChildren, useEffect, useState } from 'react';
 import { Dropdown, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -12,12 +12,12 @@ import { GlobalFacade } from '@store';
 import Menu from './menu';
 // import { firebaseConfig } from 'variable';
 import './index.less';
-import { Logo } from '@svgs';
+import { Logo, Arrow } from '@svgs';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();
   const globalFacade = GlobalFacade();
-  const { user, title } = globalFacade;
+  const { user, title, breadcrumbs } = globalFacade;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -84,14 +84,25 @@ const Layout = ({ children }: PropsWithChildren) => {
       className={classNames(
         'bg-blue-50 w-full header h-20 transition-all duration-300 ease-in-out sticky top-0 block z-10',
         {
-          'pl-52': !isCollapsed && isDesktop,
+          'pl-60': !isCollapsed && isDesktop,
           'pl-32': isCollapsed && isDesktop,
           'pl-28': !isDesktop,
         },
       )}
     >
       <div className="flex items-center justify-end sm:justify-between px-5 h-20">
-        <h1 className={'text-xl font-bold hidden sm:block'}>{t('pages.' + title)}</h1>
+        <div>
+          <h1 className={'text-xl font-bold hidden sm:block'}>{t('pages.' + title)}</h1>
+
+          <div className={'hidden sm:flex items-center text-xs mt-0.5'}>
+            {breadcrumbs?.map((item, i) => (
+              <Fragment key={i}>
+                <span className={classNames({ 'text-gray-400': i < breadcrumbs.length - 1 })}>{t(item.title)}</span>{' '}
+                {i < breadcrumbs.length - 1 && <Arrow className={'w-2.5 h-2.5 mx-1.5'} />}
+              </Fragment>
+            ))}
+          </div>
+        </div>
 
         <div className="flex items-center gap-5">
           <label>
@@ -167,7 +178,7 @@ const Layout = ({ children }: PropsWithChildren) => {
         className={classNames(
           'flex items-center justify-between text-gray-800 hover:text-gray-600 h-20 fixed top-0 left-0 px-5 font-bold transition-all duration-300 ease-in-out z-10',
           {
-            'w-52': !isCollapsed && isDesktop,
+            'w-60': !isCollapsed && isDesktop,
             'w-20': isCollapsed,
             'bg-blue-100': isDesktop,
             'bg-blue-50': !isDesktop,
@@ -223,7 +234,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           document.body.style.paddingRight = '';
         }}
         className={classNames('fixed z-20 top-20 left-0 h-screen bg-blue-100 transition-all duration-300 ease-in-out', {
-          'w-52': !isCollapsed,
+          'w-60': !isCollapsed,
           'w-20': isCollapsed,
           '!-left-20': isCollapsed && !isDesktop,
         })}
@@ -234,12 +245,20 @@ const Layout = ({ children }: PropsWithChildren) => {
       <section
         id={'main'}
         className={classNames('px-5 transition-all duration-300 ease-in-out z-10 h-[calc(100vh-5rem)] relative', {
-          'ml-52': !isCollapsed && isDesktop,
+          'ml-60': !isCollapsed && isDesktop,
           'ml-20': isCollapsed && isDesktop,
         })}
       >
         <div className={'h-[calc(100vh-8rem)] overflow-y-auto lg:overflow-x-hidden'}>
-          <h1 className={'text-xl font-bold block sm:hidden pb-5'}>{t('pages.' + title)}</h1>
+          <h1 className={'text-xl font-bold block sm:hidden'}>{t('pages.' + title)}</h1>
+          <div className={'flex items-center text-xs mt-0.5 pb-5 sm:hidden'}>
+            {breadcrumbs?.map((item, i) => (
+              <Fragment key={i}>
+                <span className={classNames({ 'text-gray-400': i < breadcrumbs.length - 1 })}>{t(item.title)}</span>{' '}
+                {i < breadcrumbs.length - 1 && <Arrow className={'w-2.5 h-2.5 mx-1.5'} />}
+              </Fragment>
+            ))}
+          </div>
           {children}
         </div>
 

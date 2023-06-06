@@ -11,8 +11,11 @@ export const routerLinks = (name: string, type?: string) => {
     'User/Add': '/user/add',
     Setting: '/setting',
     Data: '/setting/data',
+    'Data/Add': '/setting/data/add',
     Code: '/setting/code',
+    'Code/Add': '/setting/code/add',
     Page: '/setting/page',
+    'Page/Add': '/setting/page/add',
   }; // 💬 generate link to here
 
   const apis: {

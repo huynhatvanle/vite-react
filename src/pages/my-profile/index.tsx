@@ -1,18 +1,20 @@
 import React, { Fragment, useEffect, useRef } from 'react';
+import { Spin } from 'antd';
 
 import { Form } from '@core/form';
-import { Spin } from '@core/spin';
 import { GlobalFacade } from '@store';
 
 const Page = () => {
-  const { user, isLoading, putProfile, profile } = GlobalFacade();
+  const { user, isLoading, putProfile, profile, setBreadcrumbs } = GlobalFacade();
   const listPosition = useRef([]);
   useEffect(() => {
     profile();
+    setBreadcrumbs([]);
   }, []);
+
   return (
     <Fragment>
-      <Spin className="intro-x" spinning={isLoading}>
+      <Spin spinning={isLoading}>
         <Form
           className="intro-x w-[550px] mx-auto"
           columns={[
