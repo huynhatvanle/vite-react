@@ -8,7 +8,7 @@ import { Form } from '@core/form';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { Arrow, Download, Plus } from '@svgs';
-import {getFilter, language, languages, routerLinks} from '@utils';
+import { getFilter, language, languages, routerLinks } from '@utils';
 import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, InvoiceKiotVietFacade } from '@store';
 
 const Page = () => {
@@ -32,6 +32,7 @@ const Page = () => {
   const dataTableRefSupplier = useRef<TableRefObject>(null);
   const dataTableRefInventory = useRef<TableRefObject>(null);
   const dataTableRefRevenue = useRef<TableRefObject>(null);
+  const dataTableRefsubStore = useRef<TableRefObject>(null);
   const listStatus = [
     {
       label: 'Bán hàng',
@@ -91,11 +92,11 @@ const Page = () => {
           <Tabs defaultActiveKey='1' type='card' size='large'
             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)}
           >
-            <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className='bg-white rounded-xl rounded-tl-none'>
+            <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className=''>
               {!isLoading && (
                 <Form
                   values={{ ...data, emailContact: data?.userRole?.[0].userAdmin?.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
-                  className="intro-x rounded-lg w-full"
+                  className="intro-x form-responsive"
                   columns={[
                     {
                       title: 'store.Code',
@@ -466,7 +467,7 @@ const Page = () => {
                 leftHeader={
                   <Form
                     className="intro-x rounded-lg w-full form-store"
-                    values={{'supplierName': getFilter(productFacade.queryParams, 'supplierId'), 'categoryId1': getFilter(productFacade.queryParams, 'categoryId1'), 'categoryId2': getFilter(productFacade.queryParams, 'categoryId2'), 'categoryId3': getFilter(productFacade.queryParams, 'categoryId3')}}
+                    values={{ 'supplierName': getFilter(productFacade.queryParams, 'supplierId'), 'categoryId1': getFilter(productFacade.queryParams, 'categoryId1'), 'categoryId2': getFilter(productFacade.queryParams, 'categoryId2'), 'categoryId3': getFilter(productFacade.queryParams, 'categoryId3') }}
                     columns={
                       [
                         {
@@ -493,12 +494,12 @@ const Page = () => {
                               dataTableRefProduct?.current?.onChange({
                                 page: 1,
                                 perPage: 10,
-                                filter: { 
-                                  storeId: data?.id, 
-                                  type: 'BALANCE', 
-                                  supplierId: value ? value : '', 
+                                filter: {
+                                  storeId: data?.id,
+                                  type: 'BALANCE',
+                                  supplierId: value ? value : '',
                                   // categoryId: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '' ,
-                                  categoryId1: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '', 
+                                  categoryId1: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '',
                                   categoryId2: form.getFieldValue('categoryId2') ? form.getFieldValue('categoryId2') : '',
                                   categoryId3: form.getFieldValue('categoryId3') ? form.getFieldValue('categoryId3') : '',
                                 }
@@ -513,7 +514,7 @@ const Page = () => {
                 subHeader={() =>
                   <Form
                     className="intro-x rounded-lg w-full form-store"
-                    values={{'categoryId1': getFilter(productFacade.queryParams, 'categoryId1'), 'categoryId2': getFilter(productFacade.queryParams, 'categoryId2'), 'categoryId3': getFilter(productFacade.queryParams, 'categoryId3'), 'supplierName': getFilter(productFacade.queryParams, 'supplierId')}}
+                    values={{ 'categoryId1': getFilter(productFacade.queryParams, 'categoryId1'), 'categoryId2': getFilter(productFacade.queryParams, 'categoryId2'), 'categoryId3': getFilter(productFacade.queryParams, 'categoryId3'), 'supplierName': getFilter(productFacade.queryParams, 'supplierId') }}
                     columns={
                       [
                         {
@@ -530,17 +531,17 @@ const Page = () => {
                                 label: item.name,
                                 value: item.id,
                               }),
-                            },
+                             },
                             onChange(value, form) {
                               form.resetFields(['categoryId2', 'categoryId3'])
                               dataTableRefProduct?.current?.onChange({
                                 page: 1,
                                 perPage: 10,
-                                filter: { 
-                                  storeId: data?.id, 
-                                  type: 'BALANCE', 
-                                  supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '', 
-                                  categoryId1: value ? value : '' 
+                                filter: {
+                                  storeId: data?.id,
+                                  type: 'BALANCE',
+                                  supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '',
+                                  categoryId1: value ? value : ''
                                 }
                               });
                             },
@@ -554,7 +555,6 @@ const Page = () => {
                             type: 'select',
                             col: 3,
                             // disabled: (values: any, form: any) => values.categoryId2 ? false : true,
-                            firstLoad: () => ({}),
                             get: {
                               facade: CategoryFacade,
                               format: (item: any) => ({
@@ -571,13 +571,13 @@ const Page = () => {
                               dataTableRefProduct?.current?.onChange({
                                 page: 1,
                                 perPage: 10,
-                                filter: { 
-                                  storeId: data?.id, 
-                                  type: 'BALANCE', 
-                                  supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '', 
-                                  categoryId2: value ? value : '' ,
+                                filter: {
+                                  storeId: data?.id,
+                                  type: 'BALANCE',
+                                  supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '',
+                                  categoryId2: value ? value : '',
                                   categoryId1: form.getFieldValue('categoryId1')
-                              }
+                                }
                               });
                             },
                           },
@@ -590,7 +590,6 @@ const Page = () => {
                             type: 'select',
                             col: 3,
                             // disabled: (values: any, form: any) => values.categoryId3 ? false : true,
-                            firstLoad: () => ({}),
                             get: {
                               facade: CategoryFacade,
                               format: (item: any) => ({
@@ -607,12 +606,12 @@ const Page = () => {
                                 page: 1,
                                 perPage: 10,
                                 filter: {
-                                   storeId: data?.id, 
-                                   type: 'BALANCE', 
-                                   supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '', 
-                                   categoryId3: value ? value : '',
-                                   categoryId1: form.getFieldValue('categoryId1'),
-                                   categoryId2: form.getFieldValue('categoryId2')
+                                  storeId: data?.id,
+                                  type: 'BALANCE',
+                                  supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '',
+                                  categoryId3: value ? value : '',
+                                  categoryId1: form.getFieldValue('categoryId1'),
+                                  categoryId2: form.getFieldValue('categoryId2')
                                 }
                               });
                             },
@@ -744,7 +743,7 @@ const Page = () => {
                           <div onClick={() => {
                             // setType('NON_BALANCE')
                             setIsBalanceClicked(true);
-                            dataTableRefSupplier?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: 'NON_BALANCE' } });
+                            dataTableRefsubStore?.current?.onChange({ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'NON_BALANCE' } });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
@@ -762,61 +761,119 @@ const Page = () => {
                 </Dropdown>
               }
               key='4' className='rounded-xl'>
+              {isBalanceClicked ?
+                 <DataTable
+                 ref={dataTableRefsubStore}
+                 facade={ subStoreFacade }
+                 defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, supplierType: 'NON_BALANCE' } }}
+                 xScroll='1270px'
+                 className=' bg-white p-5 rounded-lg'
+                 // onRow={(data: any) => ({
+                 //   onDoubleClick: () => {
+                 //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                 //   },
+                 // })}
+                 pageSizeRender={(sizePage: number) => sizePage}
+                 pageSizeWidth={'50px'}
+                 paginationDescription={(from: number, to: number, total: number) =>
+                   t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                 }
+                 columns={[
+                   {
+                     title: 'supplier.CodeName',
+                     name: 'code',
+                     tableItem: {
+                       width: 150,
+                      //  render: (value: any, item: any) => item.supplier?.code,
+                     },
+                   },
+                   {
+                     title: 'supplier.Name',
+                     name: 'name',
+                     tableItem: {
+                      //  render: (value: any, item: any) => item.supplier?.name,
+                     },
+                   },
+                   {
+                     title: 'store.Address',
+                     name: 'address',
+                     tableItem: {
+                       render: (value: any, item: any) => item.address?.street + ', ' + item.address?.wardName + ', ' + item.address?.districtName + ', ' + item.address?.provinceName,
+                     },
+                   },
+                   {
+                     title: 'store.Name management',
+                     name: 'peopleContact',
+                     tableItem: {
+                       render: (value: any, item: any) => item.peopleContact?.name,
+                     },
+                   },
+                   {
+                     title: 'store.Phone Number',
+                     name: 'peopleContact',
+                     tableItem: {
+                       render: (value: any, item: any) => item.peopleContact?.phoneNumber,
+                     },
+                   },
+                 ]}
+               />
+              :
               <DataTable
-                ref={dataTableRefSupplier}
-                facade={connectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: data?.id } }}
-                xScroll='1270px'
-                className=' bg-white p-5 rounded-lg'
-                // onRow={(data: any) => ({
-                //   onDoubleClick: () => {
-                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                //   },
-                // })}
-                pageSizeRender={(sizePage: number) => sizePage}
-                pageSizeWidth={'50px'}
-                paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                }
-                columns={[
-                  {
-                    title: 'supplier.CodeName',
-                    name: 'supplier',
-                    tableItem: {
-                      width: 150,
-                      render: (value: any, item: any) => item.supplier?.code,
-                    },
+              ref={dataTableRefSupplier}
+              facade={ connectSupplierFacade }
+              defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: data?.id } }}
+              xScroll='1270px'
+              className=' bg-white p-5 rounded-lg'
+              // onRow={(data: any) => ({
+              //   onDoubleClick: () => {
+              //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+              //   },
+              // })}
+              pageSizeRender={(sizePage: number) => sizePage}
+              pageSizeWidth={'50px'}
+              paginationDescription={(from: number, to: number, total: number) =>
+                t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+              }
+              columns={[
+                {
+                  title: 'supplier.CodeName',
+                  name: 'supplier',
+                  tableItem: {
+                    width: 150,
+                    render: (value: any, item: any) => item.supplier?.code,
                   },
-                  {
-                    title: 'supplier.Name',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier?.name,
-                    },
+                },
+                {
+                  title: 'supplier.Name',
+                  name: 'supplier',
+                  tableItem: {
+                    render: (value: any, item: any) => item.supplier?.name,
                   },
-                  {
-                    title: 'store.Address',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
-                    },
+                },
+                {
+                  title: 'store.Address',
+                  name: 'supplier',
+                  tableItem: {
+                    render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
                   },
-                  {
-                    title: 'store.Name management',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                    },
+                },
+                {
+                  title: 'store.Name management',
+                  name: 'supplier',
+                  tableItem: {
+                    render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
                   },
-                  {
-                    title: 'store.Phone Number',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                    },
+                },
+                {
+                  title: 'store.Phone Number',
+                  name: 'supplier',
+                  tableItem: {
+                    render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                   },
-                ]}
-              />
+                },
+              ]}
+            />
+              }
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
@@ -872,145 +929,146 @@ const Page = () => {
               key='5' className='rounded-xl'>
               <div className='bg-white p-5 rounded-lg'>
                 {isBalanceClicked ?
-                <DataTable
-                ref = {dataTableRefRevenue}
-                facade={invoiceKiotVietFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: { idStore: data?.id } }}
-                xScroll='1270px'
-                // onRow={(data: any) => ({
-                //   onDoubleClick: () => {
-                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                //   },
-                // })}
-                pageSizeRender={(sizePage: number) => sizePage}
-                pageSizeWidth={'50px'}
-                paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                }
-                columns={[
-                  {
-                    title: 'store.Revenue.Serial number',
-                    name: 'supplier',
-                    tableItem: {
-                      width: 150,
-                      // render: (value: any, item: any) => item.supplier?.code,
-                    },
-                  },
-                  {
-                    title: 'store.Inventory management.Product code',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier?.name,
-                    },
-                  },
-                  {
-                    title: 'store.Inventory management.Product name',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
-                    },
-                  },
-                  {
-                    title: 'store.Barcode',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                    },
-                  },
-                  {
-                    title: 'titles.Revenue',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                    },
-                  },
-                  {
-                    title: 'product.Revenue',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                    },
-                  },
-                  {
-                    title: 'product.Status',
-                    name: 'supplier',
-                    tableItem: {
-                      // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                    },
-                  },
-                ]}
-                searchPlaceholder={t('placeholder.Search by order number')}
-                rightHeader={
-                  <div className='flex justify-end text-left flex-col w-full '>
-                    <Form
-                      className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:mt-0 form-store"
-                      columns={
-                        [
-                          {
-                            title: '',
-                            name: 'status',
-                            formItem: {
-                              placeholder: 'placeholder.Select status',
-                              type: 'select',
-                              tabIndex: 3,
-                              col: 6,
-                              list: listStatusProduct,
-                              onChange(value, form) {
-                                  dataTableRefRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: { 
-                                      storeId: data?.id, 
-                                      status: value, 
-                                    }
-                                  });
-                              },
-                            }
-                          },
-                          {
-                            title: '',
-                            name: 'id',
-                            formItem: {
-                              placeholder: 'placeholder.Choose a supplier',
-                              col: 5,
-                              type: 'select',
-                              get: {
-                                facade: ConnectSupplierFacade,
-                                format: (item: any) => ({
-                                  label: item?.id,
-                                  value: item?.id,
-                                }),
-                                params: () => ({
-                                  page: 1,
-                                  perPage: 10,
-                                  filter: {
-                                  idSupplier: data?.id,
-                                  supplierType: ''
-                                 }
-                                }),
-                              },
-                            }
-                          }
-                        ]
-                      }
-                      disableSubmit={isLoading}
-                    />
-                    <Form
-                      className='intro-x rounded-lg w-full sm:flex justify-between form-store '
-                      columns={[
-                        {
-                          title: '',
-                          name: '',
-                          formItem: {
-                            tabIndex: 3,
-                            col: 2,
-                            render: () => (
-                              <div className='h-10 items-center !w-full'>
-                                <p className='text-sm'>{t('store.Since')}</p>
-                              </div>
-                            )
-                          },
+                  <DataTable
+                    ref={dataTableRefRevenue}
+                    facade={invoiceKiotVietFacade}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: data?.id } }}
+                    xScroll='1270px'
+                    // onRow={(data: any) => ({
+                    //   onDoubleClick: () => {
+                    //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                    //   },
+                    // })}
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                    }
+                    columns={[
+                      {
+                        title: 'store.Revenue.Serial number',
+                        name: 'supplier',
+                        tableItem: {
+                          width: 150,
+                          // render: (value: any, item: any) => item.supplier?.code,
                         },
+                      },
+                      {
+                        title: 'store.Inventory management.Product code',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier?.name,
+                        },
+                      },
+                      {
+                        title: 'store.Inventory management.Product name',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
+                        },
+                      },
+                      {
+                        title: 'store.Barcode',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        },
+                      },
+                      {
+                        title: 'titles.Revenue',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'product.Revenue',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                      {
+                        title: 'product.Status',
+                        name: 'supplier',
+                        tableItem: {
+                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        },
+                      },
+                    ]}
+                    searchPlaceholder={t('placeholder.Search by order number')}
+                    rightHeader={
+                      <div className='flex justify-end text-left flex-col w-full '>
+                        <Form
+                          className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:mt-0 form-store"
+                          values={{ 'status': getFilter(invoiceKiotVietFacade.queryParams, 'status') }}
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'status',
+                                formItem: {
+                                  placeholder: 'placeholder.Select status',
+                                  type: 'select',
+                                  tabIndex: 3,
+                                  col: 6,
+                                  list: listStatusProduct,
+                                  onChange(value, form) {
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idStore: id,
+                                        status: value,
+                                      }
+                                    });
+                                  },
+                                }
+                              },
+                              {
+                                title: '',
+                                name: 'name',
+                                formItem: {
+                                  placeholder: 'placeholder.Choose a supplier',
+                                  col: 5,
+                                  type: 'select',
+                                  firstLoad: () => ({ page: 1, perPage: 100000, filter: { idSuppiler: '832' } }),
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: () => ({
+                                      page: 1,
+                                      perPage: 100000,
+                                      filter: {
+                                        idSuppiler: '832',
+                                      }
+                                    }),
+                                  },
+                                }
+                              },
+                            ]
+                          }
+                          disableSubmit={isLoading}
+                        />
+                        <Form
+                          className='intro-x rounded-lg w-full sm:flex justify-between form-store '
+                          columns={[
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className='h-10 items-center !w-full'>
+                                    <p className='text-sm'>{t('store.Since')}</p>
+                                  </div>
+                                )
+                              },
+                            },
                             {
                               title: '',
                               name: 'StartDate',
@@ -1053,7 +1111,7 @@ const Page = () => {
                         <Form
                           className="intro-x rounded-lg form-store form-header-category"
                           values={{
-                            'categoryId1': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId'), 
+                            'categoryId1': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId'),
                             'categoryId2': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId'),
                             'categoryId3': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId')
                           }}
@@ -1131,7 +1189,14 @@ const Page = () => {
                                       fullTextSearch,
                                       id: value().cap2,
                                     })
-                                  }
+                                  },
+                                  onChange(value, form) {
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: { idStore: data?.id, categoryId: value ? value : '' }
+                                    });
+                                  },
                                 },
                               },
 
@@ -1144,6 +1209,7 @@ const Page = () => {
                   />
                   :
                   <DataTable
+                    ref={dataTableRefRevenue}
                     facade={invoiceKiotVietFacade}
                     defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
                     xScroll='1440px'
@@ -1209,6 +1275,7 @@ const Page = () => {
                       <div className='flex sm:justify-end text-left flex-col'>
                         <Form
                           className="intro-x sm:flex lg:justify-end mt-2 lg:mt-0 form-store"
+                          values={{ 'type': getFilter(invoiceKiotVietFacade.queryParams, 'status') }}
                           columns={
                             [
                               {
@@ -1217,8 +1284,18 @@ const Page = () => {
                                 formItem: {
                                   placeholder: 'placeholder.Select order type',
                                   type: 'select',
-                                  list:  listStatus
-                                },    
+                                  list: listStatus,
+                                  onChange(value, form) {
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idStore: id,
+                                        status: value,
+                                      }
+                                    });
+                                  },
+                                },
                               },
                             ]
                           }
@@ -1298,6 +1375,7 @@ const Page = () => {
                 />
               </div>
             </Tabs.TabPane>
+
 
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
@@ -1423,7 +1501,7 @@ const Page = () => {
                 leftHeader={
                   <Form
                     className="intro-x rounded-lg md:flex"
-                    values={{'supplierName': getFilter(inventoryProductFacade.queryParams, 'supplierId')}}
+                    values={{ 'supplierName': getFilter(inventoryProductFacade.queryParams, 'supplierId') }}
                     columns={
                       [
                         {
@@ -1463,7 +1541,7 @@ const Page = () => {
                   text={t('components.form.modal.cancel')}
                   className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
                   onClick={() => {
-                    navigate(routerLinks('Store'))
+                    handleBack()
                   }}
                 />
               </div>

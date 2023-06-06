@@ -25,10 +25,9 @@ const action = {
     return data || {};
   }),
   putProfile: createAsyncThunk(name + '/putProfile', async (values: User) => {
-    const image = values.profileImage;
-    //  delete values.profileImage;
-    console.log(image);
-    const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}`, { ...values, image });
+    //const profileImage = values?.profileImage;
+    // delete values.profileImage;
+    const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}`, { ...values });
     if (message) await Message.success({ text: message });
     return data || {};
   }),
@@ -89,7 +88,7 @@ export class User extends CommonEntity {
     public status?: string,
     public subOrgId?: number,
     public userRoleId?: number,
-    public profileImage?: string,
+    public profileImage?: [] | undefined,
   ) // public subOrgName?: string,
   // public roleName?: string,
   {

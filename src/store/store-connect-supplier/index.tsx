@@ -38,7 +38,13 @@ export const ConnectSupplierFacade = () => {
 export class StoreConnectSupplier extends CommonEntity {
   constructor(
     public id?: string,
-    public supplier?: Supplier,
+    public supplier?: {
+      id: string,
+      code: string,
+      fax: string,
+      name: string,
+      address: {}
+    },
   ) {
     super();
   }

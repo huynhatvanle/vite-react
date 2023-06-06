@@ -15,7 +15,7 @@ const action = {
     async ({ page, perPage, filter }: {
       page: number,
       perPage: number, 
-      filter: { idStore?: string, supplierId?: string, status?: string, categoryId?: string } }) => {
+      filter: { idStore: string, supplierId?: string, status?: string, categoryId?: string } }) => {
       const filterInvoiceKiotViet = JSON.parse(filter.toString() || '{}')
       let data = await API.get(routerLinks(name, 'api'), { 
         page, 
@@ -61,7 +61,7 @@ export const InvoiceKiotVietFacade = () => {
     ...(useTypedSelector((state) => state[action.name]) as State<InvoiceKiotViet>),
     set: (values: State<InvoiceKiotViet>) => dispatch(action.set(values)),
     // get: (params: PaginationQuery<InvoiceKiotViet>) => dispatch(action.getInvoiceKiotViet(params)),
-    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { idStore?: string, supplierId?: string, status?: string, categoryId?: string } }) => dispatch(action.getInvoiceKiotViet({ page, perPage, filter })),
+    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { idStore: string, supplierId?: string, status?: string, categoryId?: string } }) => dispatch(action.getInvoiceKiotViet({ page, perPage, filter })),
   };
 };
 
