@@ -488,7 +488,7 @@ export const Form = ({
           case 'name':
             rules.push(() => ({
               validator(_: any, value: any) {
-                if (!value || /^[a-zA-Z]+$/.test(value)) return Promise.resolve();
+                if (!value || /^[A-Za-zÀ-Ỹà-ỹ]+[A-Za-zÀ-Ỹà-ỹ\s-]*$/u.test(value)) return Promise.resolve();
                 return Promise.reject(t('components.form.only text'));
               },
             }));
@@ -616,9 +616,7 @@ export const Form = ({
       <div
         className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
-          '!mt-5 items-center flex-col-reverse sm:flex-row sm:inline-flex':
-            //   handCancel && handSubmit,
-            handCancel && handSubmit,
+          '!mt-5 items-center flex-col-reverse sm:flex-row sm:inline-flex': handCancel && handSubmit,
           //'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
           'sm:w-auto sm:inline-flex float-right text-center items-center sm:flex-row flex-col mt-5': handSubmit && extendButton,
