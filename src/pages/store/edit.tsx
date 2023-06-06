@@ -19,7 +19,7 @@ const Page = () => {
   const { data, isLoading, queryParams, status } = storeFacade;
   const productFacade = ProductFacade()
   const subStoreFacade = SubStoreFacade()
-  const connectSupplierFacade = ConnectSupplierFacade()
+  // const connectSupplierFacade = ConnectSupplierFacade()
   const inventoryProductFacade = InventoryProductFacade()
   const invoiceKiotVietFacade = InvoiceKiotVietFacade()
 
@@ -714,7 +714,7 @@ const Page = () => {
               </div>
             </Tabs.TabPane>
 
-            <Tabs.TabPane
+            {/* <Tabs.TabPane
               tab={
                 <Dropdown trigger={['click']}
                   className='rounded-xl'
@@ -826,7 +826,7 @@ const Page = () => {
                   }}
                 />
               </div>
-            </Tabs.TabPane>
+            </Tabs.TabPane> */}
 
             <Tabs.TabPane
               tab={
@@ -944,6 +944,7 @@ const Page = () => {
                   <div className='flex justify-end text-left flex-col w-full '>
                     <Form
                       className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:mt-0 form-store"
+                      values={{'status': getFilter(invoiceKiotVietFacade.queryParams, 'status')}}
                       columns={
                         [
                           {
@@ -960,7 +961,7 @@ const Page = () => {
                                     page: 1,
                                     perPage: 10,
                                     filter: { 
-                                      storeId: data?.id, 
+                                      idStore: id, 
                                       status: value, 
                                     }
                                   });
@@ -969,28 +970,28 @@ const Page = () => {
                           },
                           {
                             title: '',
-                            name: 'id',
+                            name: 'name',
                             formItem: {
                               placeholder: 'placeholder.Choose a supplier',
                               col: 5,
                               type: 'select',
+                              firstLoad: () => ({page: 1, perPage: 100000, filter: {idSuppiler: '832'}}),
                               get: {
                                 facade: ConnectSupplierFacade,
                                 format: (item: any) => ({
-                                  label: item?.id,
-                                  value: item?.id,
+                                  label: item.name,
+                                  value: item.id,
                                 }),
                                 params: () => ({
                                   page: 1,
-                                  perPage: 10,
+                                  perPage: 100000,
                                   filter: {
-                                  idSupplier: data?.id,
-                                  supplierType: ''
+                                  idSuppiler: '832',
                                  }
                                 }),
                               },
                             }
-                          }
+                          },
                         ]
                       }
                       disableSubmit={isLoading}
@@ -1131,7 +1132,14 @@ const Page = () => {
                                       fullTextSearch,
                                       id: value().cap2,
                                     })
-                                  }
+                                  },
+                                  onChange(value, form) {
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: { idStore: data?.id, categoryId: value ? value : '' }
+                                    });
+                                  },
                                 },
                               },
 
@@ -1144,6 +1152,7 @@ const Page = () => {
                   />
                   :
                   <DataTable
+                    ref={dataTableRefRevenue}
                     facade={invoiceKiotVietFacade}
                     defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
                     xScroll='1440px'
@@ -1209,6 +1218,7 @@ const Page = () => {
                       <div className='flex sm:justify-end text-left flex-col'>
                         <Form
                           className="intro-x sm:flex lg:justify-end mt-2 lg:mt-0 form-store"
+                          values={{'type': getFilter(invoiceKiotVietFacade.queryParams, 'status')}}
                           columns={
                             [
                               {
@@ -1217,7 +1227,17 @@ const Page = () => {
                                 formItem: {
                                   placeholder: 'placeholder.Select order type',
                                   type: 'select',
-                                  list:  listStatus
+                                  list:  listStatus,
+                                  onChange(value, form) {
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: { 
+                                        idStore: id, 
+                                        status: value, 
+                                      }
+                                    });
+                                },
                                 },    
                               },
                             ]
