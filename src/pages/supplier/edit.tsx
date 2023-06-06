@@ -23,6 +23,7 @@ import { DownArrow, Download } from '@svgs';
 import { Dropdown, Select, Tabs } from 'antd';
 import dayjs from 'dayjs';
 import { format } from 'echarts';
+import { DraggableLayout } from '@core/draggable/layout';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -1481,13 +1482,13 @@ const Page = () => {
                         </div>
                       </div>
                     )}
-                    // footer={() => (
-                    //   <div className="w-full flex sm:justify-end justify-center mt-4">
-                    //     <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                    //       {t('titles.Export report')}
-                    //     </button>
-                    //   </div>
-                    // )}
+                  // footer={() => (
+                  //   <div className="w-full flex sm:justify-end justify-center mt-4">
+                  //     <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                  //       {t('titles.Export report')}
+                  //     </button>
+                  //   </div>
+                  // )}
                   />
                   <div className="flex sm:justify-end justify-center items-center p-5">
                     <Button
@@ -1510,7 +1511,7 @@ const Page = () => {
               </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
-              <div className={'w-full mx-auto bg-white rounded-xl'}>
+              {/* <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="p-6 font-semibold">
                   <div className="flex items-left">
                     <p className="sm:text-xl text-base text-teal-900 pb-4 pt-0 mr-5">Chi tiết hợp đồng</p>
@@ -1547,7 +1548,7 @@ const Page = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="sm:flex sm:mt-7 mt-2">
                 <div className="flex flex-col items-center mt-2" onClick={handleBack}>
                   <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
