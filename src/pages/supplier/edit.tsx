@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import { Supplier, SupplierFacade } from '@store/supplier';
 import { DistrictFacade } from '@store/address/district';
 import { WardFacade } from '@store/address/ward';
-import { language, languages, routerLinks } from '@utils';
+import { getFilter, language, languages, routerLinks } from '@utils';
 import {
   CategoryFacade,
   GlobalFacade,
@@ -306,7 +306,7 @@ const Page = () => {
                     defaultRequest={{
                       page: 1,
                       perPage: 10,
-                      filter: { supplierId: data?.id, type: 'BALANCE', storeId: '', categoryId: '' },
+                      filter: { supplierId: data?.id, type: 'BALANCE', storeId: '' },
                     }}
                     xScroll="895px"
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -382,15 +382,20 @@ const Page = () => {
                         </div>
                         <Form
                           className="intro-x rounded-lg w-full form-store form-header-category col-supplier mt-5"
+                          values={{
+                            categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
+                            categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
+                            categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
+                          }}
                           columns={[
                             {
                               title: '',
-                              name: 'cap1',
+                              name: 'categoryId1',
                               formItem: {
-                                tabIndex: 3,
                                 placeholder: 'placeholder.Main categories',
                                 col: 3,
                                 type: 'select',
+                                firstLoad: () => ({}),
                                 get: {
                                   facade: CategoryFacade,
                                   format: (item: any) => ({
@@ -399,24 +404,28 @@ const Page = () => {
                                   }),
                                 },
                                 onChange(value, form) {
-                                  value ? setcap1(false) : setcap1(true);
+                                  form.resetFields(['categoryId2', 'categoryId3']);
                                   dataTableRefProduct?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
-                                    filter: { supplierId: data?.id, type: 'BALANCE', storeId: '', categoryId: value },
+                                    filter: {
+                                      storeId: '',
+                                      type: 'BALANCE',
+                                      categoryId1: value ? value : '',
+                                      supplierId: data?.id,
+                                    },
                                   });
-                                  form.resetFields(['cap2', 'cap3']);
                                 },
                               },
                             },
                             {
-                              name: 'cap2',
+                              name: 'categoryId2',
                               title: '',
                               formItem: {
-                                disabled: () => true,
                                 placeholder: 'placeholder.Category level 1',
                                 type: 'select',
                                 col: 3,
+                                // disabled: (values: any, form: any) => values.categoryId2 ? false : true,
                                 get: {
                                   facade: CategoryFacade,
                                   format: (item: any) => ({
@@ -425,22 +434,33 @@ const Page = () => {
                                   }),
                                   params: (fullTextSearch, value) => ({
                                     fullTextSearch,
-                                    id: value().cap1,
+                                    id: value().categoryId1,
                                   }),
                                 },
                                 onChange(value, form) {
-                                  form.resetFields(['cap3']);
+                                  form.resetFields(['categoryId3']);
+                                  dataTableRefProduct?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      storeId: '',
+                                      supplierId: data?.id,
+                                      type: 'BALANCE',
+                                      categoryId2: value ? value : '',
+                                      categoryId1: form.getFieldValue('categoryId1'),
+                                    },
+                                  });
                                 },
                               },
                             },
                             {
-                              name: 'cap3',
+                              name: 'categoryId3',
                               title: '',
                               formItem: {
-                                disabled: () => true,
                                 placeholder: 'placeholder.Category level 2',
                                 type: 'select',
                                 col: 3,
+                                // disabled: (values: any, form: any) => values.categoryId3 ? false : true,
                                 get: {
                                   facade: CategoryFacade,
                                   format: (item: any) => ({
@@ -449,8 +469,22 @@ const Page = () => {
                                   }),
                                   params: (fullTextSearch, value) => ({
                                     fullTextSearch,
-                                    id: value().cap2,
+                                    id: value().categoryId2,
                                   }),
+                                },
+                                onChange(value, form) {
+                                  dataTableRefProduct?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      storeId: '',
+                                      supplierId: data?.id,
+                                      type: 'BALANCE',
+                                      categoryId3: value ? value : '',
+                                      categoryId1: form.getFieldValue('categoryId1'),
+                                      categoryId2: form.getFieldValue('categoryId2'),
+                                    },
+                                  });
                                 },
                               },
                             },
