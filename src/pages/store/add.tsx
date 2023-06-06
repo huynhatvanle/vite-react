@@ -1,7 +1,7 @@
 import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { Switch } from 'antd';
+import { Form as AntForm, Switch } from 'antd';
 
 import { Form } from '@core/form';
 import { Button } from '@core/button';
@@ -34,6 +34,7 @@ const Page = () => {
   const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`)
   // navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
+    const kiot = forms.getFieldsValue()
     storeFace.post(values);
   };
 
@@ -43,11 +44,14 @@ const Page = () => {
     setIsChecked(!isChecked);
   };
 
+  const [forms] = AntForm.useForm();
+
   return (
     <Fragment>
       <div className=''>
         <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Storeinformation')}</div>
         <Form
+          formAnt={forms}
           values={{ ...data }}
           className="intro-x form-responsive"
           columns={[
@@ -210,6 +214,7 @@ const Page = () => {
               </div>
               {isChecked && (
                 <Form
+
                   values={{ ...data }}
                   columns={[
                     {
