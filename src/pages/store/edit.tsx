@@ -88,7 +88,7 @@ const Page = () => {
     <div className='w-full'>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='6' type='card' size='large'
+          <Tabs defaultActiveKey='' type='card' size='large'
             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)}
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className=''>
