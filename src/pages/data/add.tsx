@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { DataTypeFacade, Data, DataFacade } from '@store';
+import {DataTypeFacade, Data, DataFacade, GlobalFacade} from '@store';
 import { routerLinks, language, languages } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
@@ -11,12 +11,17 @@ import slug from 'slug';
 const Page = () => {
   const { id } = useParams();
   const dataFacade = DataFacade();
+  const { setBreadcrumbs } = GlobalFacade();
   const isReload = useRef(false);
   const param = JSON.parse(dataFacade.queryParams || '{}');
   useEffect(() => {
     if (id) dataFacade.getById({ id });
     else dataFacade.set({ data: undefined });
-
+    setBreadcrumbs([
+      { title: 'titles.Setting', link: '' },
+      { title: 'titles.Data', link: '' },
+      { title: id ? 'pages.Data/Edit' : 'pages.Data/Add', link: '' },
+    ]);
     return () => {
       isReload.current && dataFacade.get(param);
     };

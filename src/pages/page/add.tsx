@@ -5,20 +5,23 @@ import slug from 'slug';
 
 import { Button } from '@core/button';
 import { Form } from '@core/form';
-import { PageFacade } from '@store';
-import { routerLinks } from '@utils';
-import { language, languages } from '../../utils/variable';
-import { listStyle, loopMapSelect } from '@utils';
+import {GlobalFacade, PageFacade} from '@store';
+import { routerLinks, language, languages, listStyle, loopMapSelect } from '@utils';
 
 const Page = () => {
   const { id } = useParams();
   const pageFacade = PageFacade();
+  const { setBreadcrumbs } = GlobalFacade();
   const isReload = useRef(false);
   const param = JSON.parse(pageFacade.queryParams || '{}');
   useEffect(() => {
     if (id) pageFacade.getById({ id });
     else pageFacade.set({ data: undefined });
-
+    setBreadcrumbs([
+      { title: 'titles.Setting', link: '' },
+      { title: 'titles.Page', link: '' },
+      { title: id ? 'pages.Page/Edit' : 'pages.Page/Add', link: '' },
+    ]);
     return () => {
       isReload.current && pageFacade.get(param);
     };

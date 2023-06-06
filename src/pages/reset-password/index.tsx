@@ -8,19 +8,17 @@ import { routerLinks, language, languages } from '@utils';
 import { GlobalFacade } from '@store';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { search } = useLocation();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
   const { isLoading, status, resetPassword } = GlobalFacade();
-
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   useEffect(() => {
     if (status === 'resetPassword.fulfilled') {
       navigate(`/${lang}${routerLinks('Login')}`, { replace: true });
     }
   }, [status]);
 
+  const { t } = useTranslation();
+  const { search } = useLocation();
   return (
     <Fragment>
       <div className="mb-8">

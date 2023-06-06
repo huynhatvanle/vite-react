@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import slug from 'slug';
 
-import { CodeFacade, Code, CodeTypeFacade } from '@store';
+import {CodeFacade, Code, CodeTypeFacade, GlobalFacade} from '@store';
 import { routerLinks, language, languages } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
@@ -11,12 +11,17 @@ import { Form } from '@core/form';
 const Page = () => {
   const { id } = useParams();
   const codeFacade = CodeFacade();
-  const param = JSON.parse(codeFacade.queryParams || '{}');
+  const { setBreadcrumbs } = GlobalFacade();
   const isReload = useRef(false);
+  const param = JSON.parse(codeFacade.queryParams || '{}');
   useEffect(() => {
     if (id) codeFacade.getById({ id });
     else codeFacade.set({ data: undefined });
-
+    setBreadcrumbs([
+      { title: 'titles.Setting', link: '' },
+      { title: 'titles.Code', link: '' },
+      { title: id ? 'pages.Code/Edit' : 'pages.Code/Add', link: '' },
+    ]);
     return () => {
       isReload.current && codeFacade.get(param);
     };
