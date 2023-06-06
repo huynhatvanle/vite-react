@@ -616,9 +616,10 @@ export const Form = ({
       <div
         className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
-          '!mt-9 items-center flex-col-reverse sm:flex-row sm:inline-flex sm:float-right':
+          '!mt-5 items-center flex-col-reverse sm:flex-row sm:inline-flex':
+            //   handCancel && handSubmit,
             handCancel && handSubmit,
-          // 'md:inline-flex w-full justify-between md:float-right': handCancel,
+          //'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
           'sm:w-auto sm:inline-flex float-right text-center items-center sm:flex-row flex-col mt-5': handSubmit && extendButton,
         })}

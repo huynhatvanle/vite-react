@@ -42,7 +42,7 @@ const Page = () => {
       <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Supplierinformation')}</div>
       <Form
         values={{ ...data }}
-        className="intro-x"
+        className="intro-x form-responsive"
         columns={[
           {
             title: 'supplier.Name',
