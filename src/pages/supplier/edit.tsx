@@ -45,11 +45,26 @@ const Page = () => {
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
   // const inventorySupplier = InventorySupplierFacade();
-  const [test, setTest] = useState('1');
+  const [revenue, setRevenue] = useState(true);
   const [cap1, setcap1] = useState(true);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-  const [dateFrom, setDateFrom] = useState('05/01/2023');
-  const [dateTo, setDateTo] = useState('06/01/2023');
+  // const [dateFrom, setDateFrom] = useState(sessionStorage.getItem('dateFrom') || '05/01/2023');
+  // const [dateTo, setDateTo] = useState(sessionStorage.getItem('dateTo') || '06/01/2023');
+  const [dateFrom, setDateFrom] = useState(() => {
+    const storedDateFrom = sessionStorage.getItem('dateFrom');
+    return storedDateFrom && dayjs(storedDateFrom).isValid() ? storedDateFrom : dayjs().format('MM/DD/YYYY');
+  });
+  const [dateTo, setDateTo] = useState(() => {
+    const storedDateTo = sessionStorage.getItem('dateTo');
+    return storedDateTo && dayjs(storedDateTo).isValid() ? storedDateTo : dayjs().format('MM/DD/YYYY');
+  });
+  // sessionStorage.removeItem('dateFrom');
+  // sessionStorage.removeItem('dateTo');
+  // console.log('dateFrom', dateFrom);
+  // console.log('dateTo', dateTo);
+  // console.log('storedDateFrom', sessionStorage.getItem('dateFrom'));
+  // console.log('storedDateTo', sessionStorage.getItem('dateTo'));
+
   useEffect(() => {
     if (id) supplierFacade.getById({ id });
 
@@ -589,8 +604,8 @@ const Page = () => {
                         className: 'hover:!bg-white !p-0 !text-base !font-semibold !text-gray-400',
                         label: (
                           <div
-                            onClick={() => setTest('1')}
-                            className={`${test === '1' ? 'text-gray-800 bg-gray-100 p-2 rounded-2xl' : 'p-2'}`}
+                            onClick={() => setRevenue(true)}
+                            className={`${revenue ? 'text-gray-800 bg-gray-100 p-2 rounded-2xl' : 'p-2'}`}
                           >
                             {t('store.Revenue by order')}
                           </div>
@@ -601,8 +616,8 @@ const Page = () => {
                         className: 'hover:!bg-white !p-0 !text-base !font-semibold !text-gray-400',
                         label: (
                           <div
-                            onClick={() => setTest('2')}
-                            className={`${test === '2' ? 'text-gray-800 bg-gray-100 p-2 rounded-2xl' : 'p-2'}`}
+                            onClick={() => setRevenue(false)}
+                            className={`${!revenue ? 'text-gray-800 bg-gray-100 p-2 rounded-2xl' : 'p-2'}`}
                           >
                             {t('store.Revenue by product')}
                           </div>
@@ -621,7 +636,7 @@ const Page = () => {
               key="4"
               className="rounded-xl"
             >
-              {test === '1' ? (
+              {revenue ? (
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
@@ -900,37 +915,123 @@ const Page = () => {
                   </div>
                 </div>
               ) : (
-                test === '2' && (
-                  <div className={'w-full mx-auto '}>
-                    <div className="px-5 pt-6 pb-4 bg-white rounded-xl">
-                      <DataTable
-                        facade={inventoryOrders}
-                        defaultRequest={{
-                          page: 1,
-                          perPage: 10,
-                          filter: {
-                            idSuppiler: id,
-                            filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
-                          },
-                          fullTextSearch: '',
-                        }}
-                        xScroll="1400px"
-                        pageSizeRender={(sizePage: number) => sizePage}
-                        pageSizeWidth={'50px'}
-                        paginationDescription={(from: number, to: number, total: number) =>
-                          t('routes.admin.Layout.Pagination', { from, to, total })
-                        }
-                        subHeader={() => (
+                <div className={'w-full mx-auto '}>
+                  <div className="px-5 pt-6 pb-4 bg-white rounded-xl">
+                    <DataTable
+                      facade={inventoryOrders}
+                      defaultRequest={{
+                        page: 1,
+                        perPage: 10,
+                        filter: {
+                          idSuppiler: id,
+                          filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                        },
+                        fullTextSearch: '',
+                      }}
+                      xScroll="1400px"
+                      pageSizeRender={(sizePage: number) => sizePage}
+                      pageSizeWidth={'50px'}
+                      paginationDescription={(from: number, to: number, total: number) =>
+                        t('routes.admin.Layout.Pagination', { from, to, total })
+                      }
+                      subHeader={() => (
+                        <Form
+                          className="intro-x -mt-5 rounded-lg w-full "
+                          columns={[
+                            {
+                              title: '',
+                              name: 'cap1',
+                              formItem: {
+                                tabIndex: 3,
+                                placeholder: 'Danh mục chính',
+                                col: 3,
+                                type: 'select',
+                                get: {
+                                  facade: CategoryFacade,
+                                  format: (item: any) => ({
+                                    label: item.name,
+                                    value: item.id,
+                                  }),
+                                },
+                                onChange(value, form) {
+                                  form.resetFields(['cap2', 'cap3']);
+                                },
+                              },
+                            },
+                            {
+                              name: 'cap2',
+                              title: '',
+                              formItem: {
+                                disabled: () => true,
+                                placeholder: 'Danh mục cấp 1',
+                                type: 'select',
+                                col: 3,
+                                get: {
+                                  facade: CategoryFacade,
+                                  format: (item: any) => ({
+                                    label: item.name,
+                                    value: item.id,
+                                  }),
+                                  params: (fullTextSearch, value) => ({
+                                    fullTextSearch,
+                                    id: value().cap1,
+                                  }),
+                                },
+                                onChange(value, form) {
+                                  form.resetFields(['cap3']);
+                                },
+                              },
+                            },
+                            {
+                              name: 'cap3',
+                              title: '',
+                              formItem: {
+                                disabled: () => true,
+                                placeholder: 'Danh mục cấp 2',
+                                type: 'select',
+                                col: 3,
+                                get: {
+                                  facade: CategoryFacade,
+                                  format: (item: any) => ({
+                                    label: item.name,
+                                    value: item.id,
+                                  }),
+                                  params: (fullTextSearch, value) => ({
+                                    fullTextSearch,
+                                    id: value().cap2,
+                                  }),
+                                },
+                              },
+                            },
+                          ]}
+                        />
+                      )}
+                      rightHeader={
+                        <div className="flex items-end justify-between">
                           <Form
-                            className="intro-x -mt-5 rounded-lg w-full "
+                            values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
+                            className="intro-x items-end rounded-lg w-full flex justify-between"
                             columns={[
                               {
                                 title: '',
-                                name: 'cap1',
+                                name: '',
                                 formItem: {
                                   tabIndex: 3,
-                                  placeholder: 'Danh mục chính',
-                                  col: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center">
+                                      <p></p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'Category',
+                                formItem: {
+                                  tabIndex: 3,
+                                  placeholder: 'Chọn loại đơn hàng',
+                                  col: 5,
                                   type: 'select',
                                   get: {
                                     facade: CategoryFacade,
@@ -945,13 +1046,13 @@ const Page = () => {
                                 },
                               },
                               {
-                                name: 'cap2',
+                                name: 'Store',
                                 title: '',
                                 formItem: {
-                                  disabled: () => true,
-                                  placeholder: 'Danh mục cấp 1',
+                                  // disabled:() => true,
+                                  placeholder: 'Chọn cửa hàng',
                                   type: 'select',
-                                  col: 3,
+                                  col: 5,
                                   get: {
                                     facade: CategoryFacade,
                                     format: (item: any) => ({
@@ -960,230 +1061,142 @@ const Page = () => {
                                     }),
                                     params: (fullTextSearch, value) => ({
                                       fullTextSearch,
-                                      id: value().cap1,
+                                      code: value().id,
                                     }),
                                   },
                                   onChange(value, form) {
-                                    form.resetFields(['cap3']);
+                                    form.resetFields(['cap2']);
                                   },
                                 },
                               },
                               {
-                                name: 'cap3',
                                 title: '',
+                                name: '',
                                 formItem: {
-                                  disabled: () => true,
-                                  placeholder: 'Danh mục cấp 2',
-                                  type: 'select',
-                                  col: 3,
-                                  get: {
-                                    facade: CategoryFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                    params: (fullTextSearch, value) => ({
-                                      fullTextSearch,
-                                      id: value().cap2,
-                                    }),
-                                  },
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center">
+                                      <p>{t('store.Since')}</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateFrom',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                },
+                              },
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center">
+                                      <p>{t('store.To date')}</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateTo',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
                                 },
                               },
                             ]}
+                            // handSubmit={handleSubmit}
+                            disableSubmit={isLoading}
                           />
-                        )}
-                        rightHeader={
-                          <div className="flex items-end justify-between">
-                            <Form
-                              values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
-                              className="intro-x items-end rounded-lg w-full flex justify-between"
-                              columns={[
-                                {
-                                  title: '',
-                                  name: '',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 2,
-                                    render: () => (
-                                      <div className="flex h-10 items-center">
-                                        <p></p>
-                                      </div>
-                                    ),
-                                  },
-                                },
-                                {
-                                  title: '',
-                                  name: 'Category',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    placeholder: 'Chọn loại đơn hàng',
-                                    col: 5,
-                                    type: 'select',
-                                    get: {
-                                      facade: CategoryFacade,
-                                      format: (item: any) => ({
-                                        label: item.name,
-                                        value: item.id,
-                                      }),
-                                    },
-                                    onChange(value, form) {
-                                      form.resetFields(['cap2', 'cap3']);
-                                    },
-                                  },
-                                },
-                                {
-                                  name: 'Store',
-                                  title: '',
-                                  formItem: {
-                                    // disabled:() => true,
-                                    placeholder: 'Chọn cửa hàng',
-                                    type: 'select',
-                                    col: 5,
-                                    get: {
-                                      facade: CategoryFacade,
-                                      format: (item: any) => ({
-                                        label: item.name,
-                                        value: item.id,
-                                      }),
-                                      params: (fullTextSearch, value) => ({
-                                        fullTextSearch,
-                                        code: value().id,
-                                      }),
-                                    },
-                                    onChange(value, form) {
-                                      form.resetFields(['cap2']);
-                                    },
-                                  },
-                                },
-                                {
-                                  title: '',
-                                  name: '',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 2,
-                                    render: () => (
-                                      <div className="flex h-10 items-center">
-                                        <p>{t('store.Since')}</p>
-                                      </div>
-                                    ),
-                                  },
-                                },
-                                {
-                                  title: '',
-                                  name: 'dateFrom',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 4,
-                                    type: 'date',
-                                  },
-                                },
-                                {
-                                  title: '',
-                                  name: '',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 2,
-                                    render: () => (
-                                      <div className="flex h-10 items-center">
-                                        <p>{t('store.To date')}</p>
-                                      </div>
-                                    ),
-                                  },
-                                },
-                                {
-                                  title: '',
-                                  name: 'dateTo',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 4,
-                                    type: 'date',
-                                  },
-                                },
-                              ]}
-                              // handSubmit={handleSubmit}
-                              disableSubmit={isLoading}
-                            />
-                          </div>
-                        }
-                        searchPlaceholder={t('placeholder.Search by order number')}
-                        columns={[
-                          {
-                            title: `supplier.Order.STT`,
-                            name: 'id',
-                            tableItem: {
-                              width: 70,
-                              render: (value: any, item: any) => i++,
-                            },
+                        </div>
+                      }
+                      searchPlaceholder={t('placeholder.Search by order number')}
+                      columns={[
+                        {
+                          title: `supplier.Order.STT`,
+                          name: 'id',
+                          tableItem: {
+                            width: 70,
+                            render: (value: any, item: any) => i++,
                           },
-                          {
-                            title: `product.Code`,
-                            name: 'invoiceCode',
-                            tableItem: {
-                              width: 175,
-                            },
+                        },
+                        {
+                          title: `product.Code`,
+                          name: 'invoiceCode',
+                          tableItem: {
+                            width: 175,
                           },
-                          {
-                            title: `product.Name`,
-                            name: 'storeName',
-                            tableItem: {
-                              width: 180,
-                              // render: (value: any, item: any) => item?.store?.name,
-                            },
+                        },
+                        {
+                          title: `product.Name`,
+                          name: 'storeName',
+                          tableItem: {
+                            width: 180,
+                            // render: (value: any, item: any) => item?.store?.name,
                           },
-                          {
-                            title: `product.Barcode`,
-                            name: 'storeName',
-                            tableItem: {
-                              width: 180,
-                              // render: (value: any, item: any) => item?.store?.name,
-                            },
+                        },
+                        {
+                          title: `product.Barcode`,
+                          name: 'storeName',
+                          tableItem: {
+                            width: 180,
+                            // render: (value: any, item: any) => item?.store?.name,
                           },
-                          {
-                            title: `supplier.Order.Revenue Before Tax`,
-                            name: 'subTotal',
-                            tableItem: {
-                              width: 145,
-                              render: (value: any, item: any) => item?.subTotal?.toLocaleString(),
-                            },
+                        },
+                        {
+                          title: `supplier.Order.Revenue Before Tax`,
+                          name: 'subTotal',
+                          tableItem: {
+                            width: 145,
+                            render: (value: any, item: any) => item?.subTotal?.toLocaleString(),
                           },
-                          {
-                            title: `supplier.Order.After Tax`,
-                            name: 'total',
-                            tableItem: {
-                              width: 130,
-                              render: (value: any, item: any) => item?.total?.toLocaleString(),
-                            },
+                        },
+                        {
+                          title: `supplier.Order.After Tax`,
+                          name: 'total',
+                          tableItem: {
+                            width: 130,
+                            render: (value: any, item: any) => item?.total?.toLocaleString(),
                           },
-                          {
-                            title: `supplier.Status`,
-                            name: 'total',
-                            tableItem: {
-                              width: 100,
-                              render: (text: string, item: any) =>
-                                // RETURN
-                                item?.billType === 'RECIEVED' ? (
-                                  <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                    {t('supplier.Sup-Status.Sell goods')}
-                                  </div>
-                                ) : (
-                                  <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                    {t('supplier.Sup-Status.Return goods')}
-                                  </div>
-                                ),
-                            },
+                        },
+                        {
+                          title: `supplier.Status`,
+                          name: 'total',
+                          tableItem: {
+                            width: 100,
+                            render: (text: string, item: any) =>
+                              // RETURN
+                              item?.billType === 'RECIEVED' ? (
+                                <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                  {t('supplier.Sup-Status.Sell goods')}
+                                </div>
+                              ) : (
+                                <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
+                                  {t('supplier.Sup-Status.Return goods')}
+                                </div>
+                              ),
                           },
-                        ]}
-                        footer={() => (
-                          <div className="w-full flex sm:justify-end justify-center mt-4">
-                            <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                              {t('titles.Export report')}
-                            </button>
-                          </div>
-                        )}
-                      />
-                    </div>
+                        },
+                      ]}
+                      footer={() => (
+                        <div className="w-full flex sm:justify-end justify-center mt-4">
+                          <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                            {t('titles.Export report')}
+                          </button>
+                        </div>
+                      )}
+                    />
                   </div>
-                )
+                </div>
               )}
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
@@ -1205,7 +1218,7 @@ const Page = () => {
                       perPage: 10,
                       filter: {
                         id: data?.id,
-                        filter: { dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` },
+                        filter: { dateFrom: `${dateFrom}`, dateTo: `${dateTo}` },
                       },
                     }}
                     xScroll="1370px"
@@ -1280,7 +1293,10 @@ const Page = () => {
                       <div className="">
                         <div className="flex my-5 flex-col lg:flex-row">
                           <Form
-                            values={{ dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` }}
+                            values={{
+                              dateFrom: dateFrom && dayjs(dateFrom).isValid() ? `${dateFrom} 00:00:00` : '',
+                              dateTo: dateTo && dayjs(dateTo).isValid() ? `${dateTo} 23:59:59` : '',
+                            }}
                             className="intro-x items-end rounded-lg w-full flex justify-between form-store"
                             columns={[
                               {
@@ -1305,14 +1321,21 @@ const Page = () => {
                                   type: 'date',
                                   onChange(value, form) {
                                     setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    sessionStorage.setItem(
+                                      'dateFrom',
+                                      dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'),
+                                    ); // <-- lưu giá trị vào sessionStorage
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         id: id,
                                         filter: {
-                                          dateFrom: `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 00:00:00`,
-                                          dateTo: `${dateTo} 23:59:59`,
+                                          dateFrom:
+                                            value && dayjs(value).isValid()
+                                              ? `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 00:00:00`
+                                              : '',
+                                          dateTo: `${dateTo}`,
                                         },
                                       },
                                     });
@@ -1340,15 +1363,22 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    setDateTo(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    sessionStorage.setItem(
+                                      'dateTo',
+                                      dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'),
+                                    ); // <-- lưu giá trị vào sessionStorage
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         id: id,
                                         filter: {
-                                          dateFrom: `${dateFrom} 00:00:00`,
-                                          dateTo: `$${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 23:59:59`,
+                                          dateFrom: `${dateFrom}`,
+                                          dateTo:
+                                            value && dayjs(value).isValid()
+                                              ? `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 23:59:59`
+                                              : '',
                                         },
                                       },
                                     });
