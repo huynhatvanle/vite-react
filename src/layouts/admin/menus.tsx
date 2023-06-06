@@ -2,7 +2,7 @@ import React from 'react';
 
 import { keyRole } from '@utils';
 import './index.less';
-import { Cog, User, Coffee, UserSolid } from '@svgs';
+import { Cog, User, Coffee } from '@svgs';
 
 const Layout = [
   {
@@ -34,11 +34,6 @@ const Layout = [
     ],
   },
   {
-    icon: <UserSolid className="h-8 w-8" />,
-    name: 'Team',
-    permission: keyRole.P_USER_TEAM_LISTED,
-  },
-  {
     icon: <Cog className="h-8 w-8" />,
     name: 'Setting',
     child: [
@@ -53,6 +48,10 @@ const Layout = [
       {
         name: 'Page',
         permission: keyRole.P_PAGE_LISTED,
+      },
+      {
+        name: 'Team',
+        permission: keyRole.P_USER_TEAM_LISTED,
       },
     ],
   },

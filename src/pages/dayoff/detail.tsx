@@ -8,62 +8,28 @@ import { ModalForm } from '@core/modal/form';
 import { Button } from '@core/button';
 import { Avatar } from '@core/avatar';
 import { GlobalFacade, DayoffFacade } from '@store';
-import { keyRole, routerLinks } from '@utils';
+import { keyRole, routerLinks, language, languages } from '@utils';
 import { CheckCircle, Times } from '@svgs';
-import { language, languages } from '../../utils/variable';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const { formatDate, user } = GlobalFacade();
-  const dayoffFacade = DayoffFacade();
-  const { data, queryParams } = dayoffFacade;
+  const { formatDate, user, setBreadcrumbs } = GlobalFacade();
 
-  const isReload = useRef(false);
-  const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
-  const listType = [
-    {
-      value: 1,
-      label: t('dayoff.register.Annual Leave'),
-      disabled: false,
-    },
-    {
-      value: 2,
-      label: t('dayoff.register.Leave without Pay'),
-    },
-    {
-      value: 3,
-      label: t('dayoff.register.Remote'),
-    },
-  ];
-  const listTime = [
-    {
-      value: 0,
-      label: t('dayoff.register.All day'),
-    },
-    {
-      value: 1,
-      label: t('dayoff.register.Morning'),
-    },
-    {
-      value: 2,
-      label: t('dayoff.register.Afternoon'),
-    },
-  ];
-
-  const modalFormRejectRef: any = useRef();
-
+  const dayoffFacade = DayoffFacade();
+  const isReload = useRef(false);
+  const param = JSON.parse(dayoffFacade.queryParams || '{}');
   useEffect(() => {
     if (id) dayoffFacade.getById({ id });
     else dayoffFacade.set({ data: undefined });
-
+    setBreadcrumbs([
+      { title: 'titles.DayOff', link: '' },
+      { title: 'titles.DayOff/List', link: '' },
+      { title: 'pages.DayOff/Detail', link: '' },
+    ]);
     return () => {
       isReload.current && dayoffFacade.get(param);
     };
-  }, [id, data]);
+  }, [id]);
 
   const showDate = (dateLeaveStart?: Date, dateLeaveEnd?: Date) => {
     if (dateLeaveStart && dateLeaveEnd) {
@@ -73,6 +39,21 @@ const Page = () => {
     }
   };
 
+  const modalFormRejectRef: any = useRef();
+  const { t } = useTranslation();
+  const listType = [
+    { value: 1, label: t('dayoff.register.Annual Leave'), disabled: false },
+    { value: 2, label: t('dayoff.register.Leave without Pay') },
+    { value: 3, label: t('dayoff.register.Remote') },
+  ];
+  const listTime = [
+    { value: 0, label: t('dayoff.register.All day') },
+    { value: 1, label: t('dayoff.register.Morning') },
+    { value: 2, label: t('dayoff.register.Afternoon') },
+  ];
+  const { data } = dayoffFacade;
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   return (
     <Fragment>
       <ModalForm

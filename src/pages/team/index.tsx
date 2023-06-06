@@ -13,22 +13,27 @@ import { Popconfirm, Tooltip } from 'antd';
 import { useNavigate } from 'react-router';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const { user } = GlobalFacade();
-  const userTeamFacade = UserTeamFacade();
-  const navigate = useNavigate();
-  const { status } = userTeamFacade;
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const { user, setBreadcrumbs } = GlobalFacade();
   useEffect(() => {
-    switch (status) {
+    setBreadcrumbs([
+      { title: 'titles.Setting', link: '' },
+      { title: 'titles.Team', link: '' },
+    ]);
+  }, []);
+
+  const userTeamFacade = UserTeamFacade();
+  useEffect(() => {
+    switch (userTeamFacade.status) {
       case 'delete.fulfilled':
         dataTableRef.current.onChange();
         break;
     }
-  }, [status]);
+  }, [userTeamFacade.status]);
 
   const dataTableRef = useRef<any>();
-
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   return (
     <Fragment>
       <DataTable

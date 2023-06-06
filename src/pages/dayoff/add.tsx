@@ -5,72 +5,36 @@ import { useNavigate, useParams } from 'react-router';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 import { GlobalFacade, DayoffFacade } from '@store';
-import { routerLinks } from '@utils';
-import { language, languages } from '../../utils/variable';
+import { routerLinks, language, languages } from '@utils';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const { user, profile } = GlobalFacade();
+  const { id } = useParams();
   const dayoffFacade = DayoffFacade();
-  const { isLoading, status, data, queryParams } = dayoffFacade;
-  const navigate = useNavigate();
+  const { user, profile, setBreadcrumbs } = GlobalFacade();
   const isBack = useRef(true);
   const isReload = useRef(false);
-  const param = JSON.parse(queryParams || '{}');
-  const { id } = useParams();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
-  const listType = [
-    {
-      value: 1,
-      label: t('dayoff.register.Annual Leave'),
-      disabled: user!.dateLeave! - user!.dateOff! <= 0,
-    },
-    {
-      value: 2,
-      label: t('dayoff.register.Leave without Pay'),
-    },
-    {
-      value: 3,
-      label: t('dayoff.register.Remote'),
-    },
-  ];
-  const listTime = [
-    {
-      value: 0,
-      label: t('dayoff.register.All day'),
-      disabled: false,
-    },
-    {
-      value: 1,
-      label: t('dayoff.register.Morning'),
-    },
-    {
-      value: 2,
-      label: t('dayoff.register.Afternoon'),
-    },
-  ];
-
+  const param = JSON.parse(dayoffFacade.queryParams || '{}');
   useEffect(() => {
     if (id) dayoffFacade.getById({ id });
     else dayoffFacade.set({ data: undefined });
-
     profile();
-
+    setBreadcrumbs([
+      { title: 'titles.DayOff', link: '' },
+      { title: 'titles.DayOff/List', link: '' },
+      { title: id ? 'pages.DayOff/Edit' : 'pages.DayOff/Add', link: '' },
+    ]);
     return () => {
       isReload.current && dayoffFacade.get(param);
     };
   }, [id]);
 
-  const navigateToDetail = (data: any) => {
-    navigate(`/${lang}${routerLinks('DayOff/Detail')}/${data.id}`);
-  };
-
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   useEffect(() => {
-    switch (status) {
+    switch (dayoffFacade.status) {
       case 'put.fulfilled':
       case 'post.fulfilled':
-        if (isBack.current) navigateToDetail(data);
+        if (isBack.current) navigate(`/${lang}${routerLinks('DayOff/Detail')}/${dayoffFacade?.data?.id}`);
         else {
           isBack.current = true;
           dayoffFacade.set({ data: undefined });
@@ -78,7 +42,7 @@ const Page = () => {
         profile();
         break;
     }
-  }, [status, data]);
+  }, [dayoffFacade.status]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
@@ -86,12 +50,23 @@ const Page = () => {
     else dayoffFacade.post(values);
   };
 
+  const { t } = useTranslation();
+  const listType = [
+    { value: 1, label: t('dayoff.register.Annual Leave'), disabled: user!.dateLeave! - user!.dateOff! <= 0 },
+    { value: 2, label: t('dayoff.register.Leave without Pay'), },
+    { value: 3, label: t('dayoff.register.Remote') },
+  ];
+  const listTime = [
+    { value: 0, label: t('dayoff.register.All day'), disabled: false },
+    { value: 1, label: t('dayoff.register.Morning') },
+    { value: 2, label: t('dayoff.register.Afternoon') },
+  ];
   return (
     <div className={'max-w-2xl mx-auto'}>
       {!!user && (
         <Fragment>
           <div className="text-xl font-bold hidden sm:block mb-5">
-            {!data?.id
+            {!id
               ? t('routes.admin.Layout.Apply for leave') +
                 ' ( ' +
                 (user!.dateLeave! - user!.dateOff! > 0 ? user!.dateLeave! - user!.dateOff! : 0) +
@@ -101,7 +76,7 @@ const Page = () => {
               : ''}
           </div>
           <Form
-            values={{ ...data }}
+            values={{ ...dayoffFacade.data }}
             className="intro-x"
             columns={[
               {
@@ -265,8 +240,7 @@ const Page = () => {
               </div>
             )}
             handSubmit={handleSubmit}
-            disableSubmit={isLoading}
-            // handCancel={handleBack}
+            disableSubmit={dayoffFacade.isLoading}
           />
         </Fragment>
       )}

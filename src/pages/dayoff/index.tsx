@@ -13,47 +13,17 @@ import {Popconfirm, Tooltip} from 'antd';
 import { language, languages } from '../../utils/variable';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const { formatDate, user } = GlobalFacade();
-  const navigate = useNavigate();
-  const dayoffFacade = DayoffFacade();
-  const { status, queryParams } = DayoffFacade();
-
-  const dataTableRef: any = useRef();
-  const param = JSON.parse(queryParams || '{}');
-  const listType = [
-    {
-      value: 1,
-      label: t('dayoff.register.Annual Leave'),
-      disabled: user!.dateLeave! - user!.dateOff! <= 0,
-    },
-    {
-      value: 2,
-      label: t('dayoff.register.Leave without Pay'),
-    },
-    {
-      value: 3,
-      label: t('dayoff.register.Remote'),
-    },
-  ];
-  const listTime = [
-    {
-      value: 0,
-      label: t('dayoff.register.All day'),
-    },
-    {
-      value: 1,
-      label: t('dayoff.register.Morning'),
-    },
-    {
-      value: 2,
-      label: t('dayoff.register.Afternoon'),
-    },
-  ];
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
+  const { formatDate, user, setBreadcrumbs } = GlobalFacade();
   useEffect(() => {
-    switch (status) {
+    setBreadcrumbs([
+      { title: 'titles.DayOff', link: '' },
+      { title: 'titles.DayOff/List', link: '' },
+    ]);
+  }, []);
+
+  const dayoffFacade = DayoffFacade();
+  useEffect(() => {
+    switch (dayoffFacade.status) {
       case 'put.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
@@ -61,8 +31,23 @@ const Page = () => {
         dataTableRef.current.onChange();
         break;
     }
-  }, [status]);
+  }, [dayoffFacade.status]);
 
+  const dataTableRef: any = useRef();
+  const { t } = useTranslation();
+  const listType = [
+    { value: 1, label: t('dayoff.register.Annual Leave'), disabled: user!.dateLeave! - user!.dateOff! <= 0 },
+    { value: 2, label: t('dayoff.register.Leave without Pay') },
+    { value: 3, label: t('dayoff.register.Remote') },
+  ];
+  const listTime = [
+    { value: 0, label: t('dayoff.register.All day') },
+    { value: 1, label: t('dayoff.register.Morning') },
+    { value: 2, label: t('dayoff.register.Afternoon') },
+  ];
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const param = JSON.parse(dayoffFacade.queryParams || '{}');
   return (
     <Fragment>
       <DataTable
