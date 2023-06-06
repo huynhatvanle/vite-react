@@ -54,7 +54,7 @@ const Page = () => {
         {!!result?.data && (
           <Form
             values={{ ...data }}
-            className="intro-x"
+            className="intro-x form-responsive"
             columns={[
               {
                 title: 'user.UserId',

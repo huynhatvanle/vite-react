@@ -105,7 +105,7 @@ const Page = () => {
                   emailContact: data?.userRole?.[0].userAdmin.email,
                   phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
                 }}
-                className="intro-x"
+                className="intro-x form-responsive"
                 columns={[
                   {
                     title: 'supplier.CodeName',
@@ -434,10 +434,10 @@ const Page = () => {
                           },
                         ]}
                       />
-                      <div className={'h-10 w-36 mt-6 lg:flex hidden'}>
+                      <div className={'h-10 w-36 mt-5 lg:flex hidden'}>
                         {
                           <Button
-                            className="!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
+                            className="!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white"
                             icon={
                               <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
                             }
@@ -1386,13 +1386,21 @@ const Page = () => {
                       </div>
                     </div>
                   )}
-                  footer={() => (
-                    <div className="w-full flex sm:justify-end justify-center mt-4">
-                      <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl disabled:opacity-50">
-                        {t('titles.Export report')}
-                      </button>
-                    </div>
-                  )}
+                // footer={() => (
+                //   <div className="w-full flex sm:justify-end justify-center mt-4">
+                //     <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                //       {t('titles.Export report')}
+                //     </button>
+                //   </div>
+                // )}
+                />
+              </div>
+              <div className='flex sm:justify-end justify-center items-center p-5 '>
+                <Button
+                  disabled={true}
+                  text={t('titles.Export report')}
+                  className={'flex bg-teal-900 text-white sm:w-40 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'}
+                  onClick={() => null}
                 />
               </div>
             </div>
