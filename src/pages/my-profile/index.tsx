@@ -1,14 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { Form as AntForm, Input, Tabs, Typography } from 'antd';
+import { Form as AntForm, Tabs } from 'antd';
 
 import { User } from '@svgs';
 import { Form } from '@core/form';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
 import { languages, language, routerLinks } from '@utils';
-
 
 const Page = () => {
   const { t } = useTranslation();
@@ -32,18 +31,17 @@ const Page = () => {
   }, [status]);
 
   const handleSubmit = (values: any) => {
-    const name = forms.getFieldValue('name');
-    const email = forms.getFieldValue('email');
-    const phoneNumber = forms.getFieldValue('phoneNumber');
-    const note = forms.getFieldValue('note');
-    putProfile({ ...values, name, email, phoneNumber, note });
+    const profileImage = forms.getFieldValue('profileImage');
+    const image = profileImage[1]?.[0];
+    globalFacade.putProfile({ ...values ,image });
   }
 
   return (
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
-        <div className='flex-initial lg:w-[270px] mr-5 lg:rounded-xl w-full bg-white h-[25px]'>
+        <div className='flex-initial lg:w-[270px] mr-5 lg:rounded-xl w-full'>
           <Form
+            formAnt={forms}
             className="text-center items-centers text-xl font-bold text-slate-700 form-profile"
             columns={[
               {
@@ -79,7 +77,6 @@ const Page = () => {
                 },
               },
             ]}
-            handSubmit={handleSubmit}
             disableSubmit={isLoading}
             values={{ ...user }}
           />
@@ -87,24 +84,57 @@ const Page = () => {
         <div className='flex-1 lg:rounded-xl w-auto'>
           <Tabs defaultActiveKey="1" size="large" className='profile'>
             <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1">
-              <AntForm initialValues={{ ...user }} className='bg-white p-5'
-                onFinish={handleSubmit}
-                form={forms}
-              >
-                <AntForm.Item name='name' label='Họ và tên'>
-                  <Input value={'name'} />
-                </AntForm.Item>
-                <AntForm.Item name='email' label='Email'>
-                  <Input value={'email'} />
-                </AntForm.Item>
-                <AntForm.Item name='phoneNumber' label='Số điện thoại'>
-                  <Input value={'phoneNumber'} />
-                </AntForm.Item>
-                <AntForm.Item name='note' label='Ghi chú'>
-                  <Input value={'note'} />
-                </AntForm.Item>
-              </AntForm>
+            <Form
+                values={{ ...user }}
+                columns={[
+                  {
+                    title: 'user.Fullname',
+                    name: 'name',
+                    formItem: {
+                      col: 12,
+                      rules: [{ type: 'required' }],
+                    },
+                  },
+                  {
+                    title: 'Email',
+                    name: 'email',
+                    formItem: {
+                      tabIndex: 1,
+                      col: 6,
+                      rules: [{ type: 'required' }, { type: 'email' }, { type: 'min', value: 6 }],
+                    },
+                  },
+                  {
+                    title: 'user.Phone Number',
+                    name: 'phoneNumber',
+                    formItem: {
+                      tabIndex: 1,
+                      col: 6,
+                      rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 15 }],
+                    },
+                  },
+                  {
+                    title: 'user.Note',
+                    name: 'note',
+                    formItem: {
+                      type: 'textarea',
+                    },
+                  },
+                ]}
+                disableSubmit={isLoading}
+                handSubmit={handleSubmit}
+                extendButton={(form) => (
+                  <Button
+                    text={t('components.button.Cancel')}
+                    className={'md:w-32 justify-center out-line max-sm:w-3/5'}
+                    onClick={() => {
+                      navigate(`/${lang}${routerLinks('User/List')}`)
+                    }}
+                  />
+                )}
+              />
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={t('routes.admin.Layout.Change Password')} key="2" className=''>
               <Form
                 values={{ ...user }}
