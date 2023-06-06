@@ -93,8 +93,13 @@
     "MyProfile": "Thông tin cá nhân",
     "Setting": "Thiết lập",
     "Code": "Mã",
+    "Code/Add":"Thêm mới mã",
+    "Code/Edit":"Chỉnh sửa mã",
     "Data": "Dữ liệu",
-    "Page": "Trang"
+    "Data/Add": "Tạo mới dữ liệu",
+    "Page": "Trang",
+    "Page/Add": "Thêm mới trang",
+    "Page/Edit": "Chỉnh sửa trang"
   },
   "columns": {
     "auth": {

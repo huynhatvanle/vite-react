@@ -9,19 +9,10 @@ import { Form } from '@core/form';
 import slug from 'slug';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const dataFacade = DataFacade();
-  const { data, isLoading, queryParams, status } = dataFacade;
-  const navigate = useNavigate();
-  const isBack = useRef(true);
-  const isReload = useRef(false);
-  const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-  const { result } = DataTypeFacade();
-
-  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
-
+  const dataFacade = DataFacade();
+  const isReload = useRef(false);
+  const param = JSON.parse(dataFacade.queryParams || '{}');
   useEffect(() => {
     if (id) dataFacade.getById({ id });
     else dataFacade.set({ data: undefined });
@@ -31,10 +22,13 @@ const Page = () => {
     };
   }, [id]);
 
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const isBack = useRef(true);
   useEffect(() => {
-    switch (status) {
+    switch (dataFacade.status) {
       case 'post.fulfilled':
-        navigate(`/${lang}${routerLinks('Data')}/${data?.id}`);
+        navigate(`/${lang}${routerLinks('Data')}/${dataFacade.data?.id}`);
         break;
       case 'put.fulfilled':
         if (Object.keys(param).length > 0) isReload.current = true;
@@ -42,11 +36,11 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          if (status === 'put.fulfilled') navigate(`/${lang}${routerLinks('Data/Add')}`);
+          navigate(`/${lang}${routerLinks('Data/Add')}`);
         }
         break;
     }
-  }, [status]);
+  }, [dataFacade.status]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Data')}?${new URLSearchParams(param).toString()}`);
 
@@ -55,10 +49,13 @@ const Page = () => {
     else dataFacade.post(values);
   };
 
+  const { result } = DataTypeFacade();
+  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
+  const { t } = useTranslation();
   return (
     <div className={'max-w-4xl mx-auto'}>
       <Form
-        values={{ ...data }}
+        values={{ ...dataFacade.data }}
         className="intro-x"
         columns={[
           {
@@ -173,7 +170,7 @@ const Page = () => {
           />
         )}
         handSubmit={handleSubmit}
-        disableSubmit={isLoading}
+        disableSubmit={dataFacade.isLoading}
         handCancel={handleBack}
       />
     </div>

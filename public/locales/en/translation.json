@@ -93,8 +93,13 @@
     "User": "User",
     "Setting": "Setting",
     "Code": "Code",
+    "Code/Add":"Add new Code",
+    "Code/Edit":"Edit Code",
     "Data": "Data",
-    "Page": "Page"
+    "Data/Add": "Add new Data",
+    "Page": "Page",
+    "Page/Add": "Add new Page",
+    "Page/Edit": "Edit Page"
   },
   "columns": {
     "auth": {
