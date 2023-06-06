@@ -19,7 +19,7 @@ const Page = () => {
   const { data, isLoading, queryParams, status } = storeFacade;
   const productFacade = ProductFacade()
   const subStoreFacade = SubStoreFacade()
-  // const connectSupplierFacade = ConnectSupplierFacade()
+  const connectSupplierFacade = ConnectSupplierFacade()
   const inventoryProductFacade = InventoryProductFacade()
   const invoiceKiotVietFacade = InvoiceKiotVietFacade()
 
@@ -32,6 +32,7 @@ const Page = () => {
   const dataTableRefSupplier = useRef<TableRefObject>(null);
   const dataTableRefInventory = useRef<TableRefObject>(null);
   const dataTableRefRevenue = useRef<TableRefObject>(null);
+  const dataTableRefsubStore = useRef<TableRefObject>(null)
   const listStatus = [
     {
       label: 'Bán hàng',
@@ -88,7 +89,7 @@ const Page = () => {
     <div className='w-full'>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='6' type='card' size='large'
+          <Tabs defaultActiveKey='1' type='card' size='large'
             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)}
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className=''>
@@ -531,7 +532,7 @@ const Page = () => {
                                 label: item.name,
                                 value: item.id,
                               }),
-                            },
+                             },
                             onChange(value, form) {
                               form.resetFields(['categoryId2', 'categoryId3'])
                               dataTableRefProduct?.current?.onChange({
@@ -555,7 +556,6 @@ const Page = () => {
                             type: 'select',
                             col: 3,
                             // disabled: (values: any, form: any) => values.categoryId2 ? false : true,
-                            firstLoad: () => ({}),
                             get: {
                               facade: CategoryFacade,
                               format: (item: any) => ({
@@ -591,7 +591,6 @@ const Page = () => {
                             type: 'select',
                             col: 3,
                             // disabled: (values: any, form: any) => values.categoryId3 ? false : true,
-                            firstLoad: () => ({}),
                             get: {
                               facade: CategoryFacade,
                               format: (item: any) => ({
@@ -628,8 +627,10 @@ const Page = () => {
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
-                  onClick={handleBack}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  onClick={() => {
+                    handleBack()
+                  }}
                 />
               </div>
             </Tabs.TabPane>
@@ -643,7 +644,7 @@ const Page = () => {
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSubStore', { from, to, total })
+                  t('routes.admin.Layout.PaginationProduct', { from, to, total })
                 }
                 columns={[
                   {
@@ -705,8 +706,10 @@ const Page = () => {
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
-                  onClick={handleBack}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  onClick={() => {
+                    handleBack()
+                  }}
                 />
               </div>
             </Tabs.TabPane>
@@ -741,7 +744,7 @@ const Page = () => {
                           <div onClick={() => {
                             // setType('NON_BALANCE')
                             setIsBalanceClicked(true);
-                            dataTableRefSupplier?.current?.onChange({ page: 1, perPage: 10, filter: { idSuppiler: id, supplierType: 'NON_BALANCE' } });
+                            dataTableRefsubStore?.current?.onChange({ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'NON_BALANCE' } });
                           }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
@@ -759,66 +762,126 @@ const Page = () => {
                 </Dropdown>
               }
               key='4' className='rounded-xl'>
+              {isBalanceClicked ?
+                 <DataTable
+                 ref={dataTableRefsubStore}
+                 facade={ subStoreFacade }
+                 defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, supplierType: 'NON_BALANCE' } }}
+                 xScroll='1270px'
+                 className=' bg-white p-5 rounded-lg'
+                 // onRow={(data: any) => ({
+                 //   onDoubleClick: () => {
+                 //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                 //   },
+                 // })}
+                 pageSizeRender={(sizePage: number) => sizePage}
+                 pageSizeWidth={'50px'}
+                 paginationDescription={(from: number, to: number, total: number) =>
+                   t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                 }
+                 columns={[
+                   {
+                     title: 'supplier.CodeName',
+                     name: 'code',
+                     tableItem: {
+                       width: 150,
+                      //  render: (value: any, item: any) => item.supplier?.code,
+                     },
+                   },
+                   {
+                     title: 'supplier.Name',
+                     name: 'name',
+                     tableItem: {
+                      //  render: (value: any, item: any) => item.supplier?.name,
+                     },
+                   },
+                   {
+                     title: 'store.Address',
+                     name: 'address',
+                     tableItem: {
+                       render: (value: any, item: any) => item.address?.street + ', ' + item.address?.wardName + ', ' + item.address?.districtName + ', ' + item.address?.provinceName,
+                     },
+                   },
+                   {
+                     title: 'store.Name management',
+                     name: 'peopleContact',
+                     tableItem: {
+                       render: (value: any, item: any) => item.peopleContact?.name,
+                     },
+                   },
+                   {
+                     title: 'store.Phone Number',
+                     name: 'peopleContact',
+                     tableItem: {
+                       render: (value: any, item: any) => item.peopleContact?.phoneNumber,
+                     },
+                   },
+                 ]}
+               />
+              :
               <DataTable
-                ref={dataTableRefSupplier}
-                facade={ConnectSupplierFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: data?.id } }}
-                xScroll='1270px'
-                className=' bg-white p-5 rounded-lg'
-                // onRow={(data: any) => ({
-                //   onDoubleClick: () => {
-                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                //   },
-                // })}
-                pageSizeRender={(sizePage: number) => sizePage}
-                pageSizeWidth={'50px'}
-                paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                }
-                columns={[
-                  {
-                    title: 'supplier.CodeName',
-                    name: 'supplier',
-                    tableItem: {
-                      width: 150,
-                      render: (value: any, item: any) => item.supplier?.code,
-                    },
+              ref={dataTableRefSupplier}
+              facade={ connectSupplierFacade }
+              defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: data?.id } }}
+              xScroll='1270px'
+              className=' bg-white p-5 rounded-lg'
+              // onRow={(data: any) => ({
+              //   onDoubleClick: () => {
+              //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+              //   },
+              // })}
+              pageSizeRender={(sizePage: number) => sizePage}
+              pageSizeWidth={'50px'}
+              paginationDescription={(from: number, to: number, total: number) =>
+                t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+              }
+              columns={[
+                {
+                  title: 'supplier.CodeName',
+                  name: 'supplier',
+                  tableItem: {
+                    width: 150,
+                    render: (value: any, item: any) => item.supplier?.code,
                   },
-                  {
-                    title: 'supplier.Name',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier?.name,
-                    },
+                },
+                {
+                  title: 'supplier.Name',
+                  name: 'supplier',
+                  tableItem: {
+                    render: (value: any, item: any) => item.supplier?.name,
                   },
-                  {
-                    title: 'store.Address',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
-                    },
+                },
+                {
+                  title: 'store.Address',
+                  name: 'supplier',
+                  tableItem: {
+                    render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
                   },
-                  {
-                    title: 'store.Name management',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
-                    },
+                },
+                {
+                  title: 'store.Name management',
+                  name: 'supplier',
+                  tableItem: {
+                    render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
                   },
-                  {
-                    title: 'store.Phone Number',
-                    name: 'supplier',
-                    tableItem: {
-                      render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
-                    },
+                },
+                {
+                  title: 'store.Phone Number',
+                  name: 'supplier',
+                  tableItem: {
+                    render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                   },
-                ]}
-              />
+                },
+              ]}
+            />
+              }
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
-                  onClick={handleBack}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  onClick={() => {
+                    handleBack()
+                  }}
                 />
               </div>
             </Tabs.TabPane>
@@ -970,7 +1033,7 @@ const Page = () => {
                                   placeholder: 'placeholder.Choose a supplier',
                                   col: 5,
                                   type: 'select',
-                                  firstLoad: () => ({ page: 1, perPage: 100000, filter: { idSuppiler: '832' } }),
+                                  // firstLoad: () => ({ page: 1, perPage: 100000, filter: { idSuppiler: '832' } }),
                                   get: {
                                     facade: ConnectSupplierFacade,
                                     format: (item: any) => ({
@@ -1306,11 +1369,14 @@ const Page = () => {
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
-                  onClick={handleBack}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  onClick={() => {
+                    handleBack()
+                  }}
                 />
               </div>
             </Tabs.TabPane>
+
 
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
@@ -1322,7 +1388,7 @@ const Page = () => {
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationProduct', { from, to, total })
+                  t('routes.admin.Layout.PaginationSubStore', { from, to, total })
                 }
                 columns={[
                   {
@@ -1471,11 +1537,13 @@ const Page = () => {
                   />
                 }
               />
-              <div className=' flex items-center justify-center mt-5 sm:mt-2 sm:block '>
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
-                  onClick={handleBack}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  onClick={() => {
+                    handleBack()
+                  }}
                 />
               </div>
             </Tabs.TabPane>

@@ -32,8 +32,8 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const profileImage = forms.getFieldValue('profileImage');
-    const image = profileImage[1]?.[0];
-    globalFacade.putProfile({ ...values ,image });
+    const image = profileImage[1]?.[0] == 't' ? profileImage : profileImage[1]?.[0]
+    globalFacade.putProfile({ ...values, image });
   }
 
   return (
@@ -84,7 +84,7 @@ const Page = () => {
         <div className='flex-1 lg:rounded-xl w-auto'>
           <Tabs defaultActiveKey="1" size="large" className='profile'>
             <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1">
-            <Form
+              <Form
                 values={{ ...user }}
                 columns={[
                   {
