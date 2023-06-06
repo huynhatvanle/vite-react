@@ -46,7 +46,8 @@ const Page = () => {
   const inventoryOrders = inventoryOrdersFacade();
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
-  const [cap1, setcap1] = useState(true);
+  const [cap1, setCap1] = useState(true);
+  const [cap2, setCap2] = useState(true);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   // const [dateFrom, setDateFrom] = useState(sessionStorage.getItem('dateFrom') || '05/01/2023');
   // const [dateTo, setDateTo] = useState(sessionStorage.getItem('dateTo') || '06/01/2023');
@@ -405,6 +406,7 @@ const Page = () => {
                                   }),
                                 },
                                 onChange(value, form) {
+                                  value ? setCap1(false) : setCap1(true);
                                   form.resetFields(['categoryId2', 'categoryId3']);
                                   dataTableRefProduct?.current?.onChange({
                                     page: 1,
@@ -427,6 +429,7 @@ const Page = () => {
                                 type: 'select',
                                 col: 3,
                                 // disabled: (values: any, form: any) => values.categoryId2 ? false : true,
+                                disabled: () => cap1,
                                 get: {
                                   facade: CategoryFacade,
                                   format: (item: any) => ({
@@ -439,6 +442,7 @@ const Page = () => {
                                   }),
                                 },
                                 onChange(value, form) {
+                                  value ? setCap2(false) : setCap2(true);
                                   form.resetFields(['categoryId3']);
                                   dataTableRefProduct?.current?.onChange({
                                     page: 1,
@@ -462,6 +466,7 @@ const Page = () => {
                                 type: 'select',
                                 col: 3,
                                 // disabled: (values: any, form: any) => values.categoryId3 ? false : true,
+                                disabled: () => cap2,
                                 get: {
                                   facade: CategoryFacade,
                                   format: (item: any) => ({
@@ -619,7 +624,7 @@ const Page = () => {
                   />
                 </div>
               </div>
-              <div className=' flex items-center justify-center mt-2 sm:mt-2 sm:block'>
+              <div className=" flex items-center justify-center mt-2 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
                   className={'sm:w-32 justify-center out-line w-80 mt-4'}
@@ -949,11 +954,13 @@ const Page = () => {
                         </div>
                       )}
                     />
-                    <div className='flex sm:justify-end justify-center items-center p-5'>
+                    <div className="flex sm:justify-end justify-center items-center p-5">
                       <Button
                         disabled={true}
                         text={t('titles.Export report')}
-                        className={'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'}
+                        className={
+                          'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
+                        }
                         onClick={() => null}
                       />
                     </div>
@@ -1474,19 +1481,21 @@ const Page = () => {
                         </div>
                       </div>
                     )}
-                  // footer={() => (
-                  //   <div className="w-full flex sm:justify-end justify-center mt-4">
-                  //     <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                  //       {t('titles.Export report')}
-                  //     </button>
-                  //   </div>
-                  // )}
+                    // footer={() => (
+                    //   <div className="w-full flex sm:justify-end justify-center mt-4">
+                    //     <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                    //       {t('titles.Export report')}
+                    //     </button>
+                    //   </div>
+                    // )}
                   />
-                  <div className='flex sm:justify-end justify-center items-center p-5'>
+                  <div className="flex sm:justify-end justify-center items-center p-5">
                     <Button
                       disabled={true}
                       text={t('titles.Export report')}
-                      className={'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'}
+                      className={
+                        'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
+                      }
                       onClick={() => null}
                     />
                   </div>
