@@ -103,7 +103,7 @@ const Page = () => {
             size="large"
             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)}
           >
-            <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="bg-white rounded-xl rounded-tl-none">
+            <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
                 <Form
                   values={{
@@ -113,7 +113,7 @@ const Page = () => {
                     emailContact: data?.userRole?.[0].userAdmin.email,
                     phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
                   }}
-                  className="intro-x pt-6 rounded-lg w-full"
+                  className="intro-x form-responsive"
                   columns={[
                     {
                       title: 'supplier.CodeName',
@@ -282,6 +282,7 @@ const Page = () => {
                 />
               )}
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={t('titles.Listofgoods')} key="2" className="max-lg:-mt-3">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pb-4">
@@ -467,6 +468,7 @@ const Page = () => {
                 </div>
               </div>
             </Tabs.TabPane>
+
             <Tabs.TabPane tab={t('titles.Ordermanagement')} key="3" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-6 pb-4">
@@ -568,14 +570,15 @@ const Page = () => {
                   />
                 </div>
               </div>
-              <Button
-                text={t('components.form.modal.cancel')}
-                className={'md:w-32 justify-center out-line mt-4'}
-                onClick={() => {
-                  navigate(`/${lang}${routerLinks('Supplier')}`);
-                }}
-              />
+              <div className=' flex items-center justify-center mt-2 sm:mt-2 sm:block'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
+                  onClick={handleBack}
+                />
+              </div>
             </Tabs.TabPane>
+
             <Tabs.TabPane
               tab={
                 <Dropdown
@@ -879,13 +882,13 @@ const Page = () => {
                           },
                         },
                       ]}
-                      footer={() => (
-                        <div className="w-full flex sm:justify-end justify-center mt-4">
-                          <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                            {t('titles.Export report')}
-                          </button>
-                        </div>
-                      )}
+                      // footer={() => (
+                      //   <div className="w-full flex sm:justify-end justify-center mt-4">
+                      //     <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                      //       {t('titles.Export report')}
+                      //     </button>
+                      //   </div>
+                      // )}
                       subHeader={() => (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
                           {subHeader.map((e) => (
@@ -897,6 +900,14 @@ const Page = () => {
                         </div>
                       )}
                     />
+                    <div className='flex sm:justify-end justify-center items-center p-5'>
+                      <Button
+                        disabled={true}
+                        text={t('titles.Export report')}
+                        className={'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'}
+                        onClick={() => null}
+                      />
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -1173,14 +1184,22 @@ const Page = () => {
                             },
                           },
                         ]}
-                        footer={() => (
-                          <div className="w-full flex sm:justify-end justify-center mt-4">
-                            <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                              {t('titles.Export report')}
-                            </button>
-                          </div>
-                        )}
+                      // footer={() => (
+                      //   <div className="w-full flex sm:justify-end justify-center mt-4">
+                      //     <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                      //       {t('titles.Export report')}
+                      //     </button>
+                      //   </div>
+                      // )}
                       />
+                      <div className='flex sm:justify-end justify-center items-center p-5'>
+                        <Button
+                          disabled={true}
+                          text={t('titles.Export report')}
+                          className={'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'}
+                          onClick={() => null}
+                        />
+                      </div>
                     </div>
                   </div>
                 )
@@ -1399,23 +1418,31 @@ const Page = () => {
                         </div>
                       </div>
                     )}
-                    footer={() => (
-                      <div className="w-full flex sm:justify-end justify-center mt-4">
-                        <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                          {t('titles.Export report')}
-                        </button>
-                      </div>
-                    )}
+                  // footer={() => (
+                  //   <div className="w-full flex sm:justify-end justify-center mt-4">
+                  //     <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                  //       {t('titles.Export report')}
+                  //     </button>
+                  //   </div>
+                  // )}
                   />
+                  <div className='flex sm:justify-end justify-center items-center p-5'>
+                    <Button
+                      disabled={true}
+                      text={t('titles.Export report')}
+                      className={'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'}
+                      onClick={() => null}
+                    />
+                  </div>
                 </div>
               </div>
-              <Button
-                text={t('Trở về')}
-                className={'md:w-32 justify-center out-line mt-4'}
-                onClick={() => {
-                  navigate(`/${lang}${routerLinks('Supplier')}`);
-                }}
-              />
+              <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4 flex '}
+                  onClick={handleBack}
+                />
+              </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>

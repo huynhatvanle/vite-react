@@ -88,7 +88,7 @@ const Page = () => {
     <div className='w-full'>
       <Fragment>
         <div className='tab-wrapper'>
-          <Tabs defaultActiveKey='1' type='card' size='large'
+          <Tabs defaultActiveKey='6' type='card' size='large'
             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)}
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className=''>
@@ -627,10 +627,8 @@ const Page = () => {
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                  onClick={() => {
-                    navigate(routerLinks('Store'))
-                  }}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
+                  onClick={handleBack}
                 />
               </div>
             </Tabs.TabPane>
@@ -644,7 +642,7 @@ const Page = () => {
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationProduct', { from, to, total })
+                  t('routes.admin.Layout.PaginationSubStore', { from, to, total })
                 }
                 columns={[
                   {
@@ -706,15 +704,13 @@ const Page = () => {
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                  onClick={() => {
-                    navigate(routerLinks('Store'))
-                  }}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
+                  onClick={handleBack}
                 />
               </div>
             </Tabs.TabPane>
 
-            {/* <Tabs.TabPane
+            <Tabs.TabPane
               tab={
                 <Dropdown trigger={['click']}
                   className='rounded-xl'
@@ -764,7 +760,7 @@ const Page = () => {
               key='4' className='rounded-xl'>
               <DataTable
                 ref={dataTableRefSupplier}
-                facade={connectSupplierFacade}
+                facade={ConnectSupplierFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: { idSuppiler: data?.id } }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg'
@@ -820,13 +816,11 @@ const Page = () => {
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                  onClick={() => {
-                    navigate(routerLinks('Store'))
-                  }}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
+                  onClick={handleBack}
                 />
               </div>
-            </Tabs.TabPane> */}
+            </Tabs.TabPane>
 
             <Tabs.TabPane
               tab={
@@ -1311,14 +1305,11 @@ const Page = () => {
               <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                  onClick={() => {
-                    navigate(routerLinks('Store'))
-                  }}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
+                  onClick={handleBack}
                 />
               </div>
             </Tabs.TabPane>
-
 
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
@@ -1330,7 +1321,7 @@ const Page = () => {
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSubStore', { from, to, total })
+                  t('routes.admin.Layout.PaginationProduct', { from, to, total })
                 }
                 columns={[
                   {
@@ -1479,13 +1470,11 @@ const Page = () => {
                   />
                 }
               />
-              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
+              <div className=' flex items-center justify-center mt-5 sm:mt-2 sm:block '>
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line absolute w-80 mt-4 flex '}
-                  onClick={() => {
-                    navigate(routerLinks('Store'))
-                  }}
+                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
+                  onClick={handleBack}
                 />
               </div>
             </Tabs.TabPane>
