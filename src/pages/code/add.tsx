@@ -1,39 +1,39 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import slug from 'slug';
 
-import { CodeFacade, Code, CodeTypeFacade } from '@store';
+import {CodeFacade, Code, CodeTypeFacade, GlobalFacade} from '@store';
 import { routerLinks, language, languages } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
-import slug from 'slug';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const codeFacade = CodeFacade();
-  const { data, isLoading, queryParams, status } = codeFacade;
-  const navigate = useNavigate();
-  const isBack = useRef(true);
-  const isReload = useRef(false);
-  const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const { result } = CodeTypeFacade();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
-
+  const codeFacade = CodeFacade();
+  const { setBreadcrumbs } = GlobalFacade();
+  const isReload = useRef(false);
+  const param = JSON.parse(codeFacade.queryParams || '{}');
   useEffect(() => {
     if (id) codeFacade.getById({ id });
     else codeFacade.set({ data: undefined });
-
+    setBreadcrumbs([
+      { title: 'titles.Setting', link: '' },
+      { title: 'titles.Code', link: '' },
+      { title: id ? 'pages.Code/Edit' : 'pages.Code/Add', link: '' },
+    ]);
     return () => {
       isReload.current && codeFacade.get(param);
     };
   }, [id]);
 
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const isBack = useRef(true);
   useEffect(() => {
-    switch (status) {
+    switch (codeFacade.status) {
       case 'post.fulfilled':
-        navigate(`/${lang}${routerLinks('Code')}/${data?.id}`);
+        navigate(`/${lang}${routerLinks('Code')}/${codeFacade.data?.id}`);
         break;
       case 'put.fulfilled':
         if (Object.keys(param).length > 0) isReload.current = true;
@@ -41,21 +41,25 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          if (status === 'put.fulfilled') navigate(`/${lang}${routerLinks('Code/Add')}`);
+          navigate(`/${lang}${routerLinks('Code/Add')}`);
         }
         break;
     }
-  }, [status]);
+  }, [codeFacade.status]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Code')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: Code) => {
     if (id) codeFacade.put({ ...values, id });
     else codeFacade.post(values);
   };
+
+  const { result } = CodeTypeFacade();
+  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
+  const { t } = useTranslation();
   return (
     <div className={'max-w-4xl mx-auto'}>
       <Form
-        values={{ ...data }}
+        values={{ ...codeFacade.data }}
         className="intro-x"
         columns={[
           {
@@ -108,7 +112,7 @@ const Page = () => {
           />
         )}
         handSubmit={handleSubmit}
-        disableSubmit={isLoading}
+        disableSubmit={codeFacade.isLoading}
         handCancel={handleBack}
       />
     </div>

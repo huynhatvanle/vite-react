@@ -47,7 +47,7 @@ const pages = [
         title: 'Code/Add',
       },
       {
-        path: routerLinks('Code') + '/:id',
+        path: routerLinks('Code') + '/:id/edit',
         component: React.lazy(() => import('@pages/code/add')),
         title: 'Code/Edit',
       },
@@ -62,7 +62,7 @@ const pages = [
         title: 'Data/Add',
       },
       {
-        path: routerLinks('Data') + '/:id',
+        path: routerLinks('Data') + '/:id/edit',
         component: React.lazy(() => import('@pages/data/add')),
         title: 'Data/Edit',
       },
@@ -77,7 +77,7 @@ const pages = [
         title: 'Page/Add',
       },
       {
-        path: routerLinks('Page') + '/:id',
+        path: routerLinks('Page') + '/:id/edit',
         component: React.lazy(() => import('@pages/page/add')),
         title: 'Page/Edit',
       },
@@ -92,7 +92,7 @@ const pages = [
         title: 'User/Add',
       },
       {
-        path: routerLinks('User') + '/:id',
+        path: routerLinks('User') + '/:id/edit',
         component: React.lazy(() => import('@pages/user/add')),
         title: 'User/Edit',
       },

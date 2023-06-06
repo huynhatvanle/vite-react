@@ -1,12 +1,17 @@
-import React, { Fragment } from 'react';
+import React, {Fragment, useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 import { Spin } from 'antd';
 
 import { DataTable } from '@core/data-table';
+import { GlobalFacade } from "@store";
 
 const Page = () => {
-  const { t } = useTranslation();
+  const { setBreadcrumbs } = GlobalFacade();
+  useEffect(() => {
+    setBreadcrumbs([]);
+  }, []);
 
+  const { t } = useTranslation();
   return (
     <Fragment>
       <Spin className="grid grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6 gap-5 intro-x" spinning={false}>

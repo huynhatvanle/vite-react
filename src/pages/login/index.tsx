@@ -10,17 +10,16 @@ import { FormModalRefObject } from '@models';
 import { language, languages } from '@utils';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
   const globalFacade = GlobalFacade();
-  const { isLoading, status, user, data, login } = globalFacade;
+  const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
   useEffect(() => {
-    if (status === 'login.fulfilled' && user && Object.keys(user).length > 0) {
+    if (globalFacade.status === 'login.fulfilled' && globalFacade.user && Object.keys(globalFacade.user).length > 0) {
       navigate('/' + lang + '/', { replace: true });
     }
-  }, [status]);
+  }, [globalFacade.status]);
+
+  const { t } = useTranslation();
   const modalFormRef = useRef<FormModalRefObject>(null);
   return (
     <Fragment>
@@ -30,9 +29,9 @@ const Page = () => {
         </h1>
         <h5 className="intro-x font-medium text-gray-300">{t('routes.auth.login.subTitle')}</h5>
       </div>
-      <Spin spinning={isLoading}>
+      <Spin spinning={globalFacade.isLoading}>
         <Form
-          values={{ ...data }}
+          values={{ ...globalFacade.data }}
           className="intro-x"
           columns={[
             {
@@ -55,8 +54,8 @@ const Page = () => {
             },
           ]}
           textSubmit={'routes.auth.login.Log In'}
-          handSubmit={login}
-          disableSubmit={isLoading}
+          handSubmit={globalFacade.login}
+          disableSubmit={globalFacade.isLoading}
         />
       </Spin>
       <div className="mt-3 intro-x">

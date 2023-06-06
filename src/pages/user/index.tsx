@@ -203,7 +203,7 @@ const Page = () => {
                   <Tooltip title={t('routes.admin.Layout.Edit')}>
                     <button
                       title={t('routes.admin.Layout.Edit') || ''}
-                      onClick={() => navigate(`/${lang}${routerLinks('User')}/${data.id}`)}
+                      onClick={() => navigate(`/${lang}${routerLinks('User')}/${data.id}/edit`)}
                     >
                       <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                     </button>
