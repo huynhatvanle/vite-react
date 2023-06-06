@@ -28,10 +28,9 @@ const Page = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log(status)
     switch (status) {
       case 'post.fulfilled':
-        navigate(routerLinks(`/${lang}${routerLinks('User/List')}`));
+        navigate(`/${lang}${routerLinks('User/List')}`);
         break;
     }
   }, [status]);

@@ -110,7 +110,8 @@
     "synchronized": "Đồng bộ",
     "Ordermanagement": "Quản lý đơn hàng",
     "Discount": "Chiết Khấu",
-    "Contract": "Hợp đồng"
+    "Contract": "Hợp đồng",
+    "Upload contract":"Đăng tải hợp đồng"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
