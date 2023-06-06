@@ -14,10 +14,13 @@ import { Edit, Plus, Trash } from '@svgs';
 import { keyRole, routerLinks, language, languages } from '@utils';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const { formatDate, user } = GlobalFacade();
-  const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const { formatDate, user, setBreadcrumbs } = GlobalFacade();
+  useEffect(() => {
+    setBreadcrumbs([
+      { title: 'titles.User', link: '' },
+      { title: 'titles.User/List', link: '' },
+    ]);
+  }, []);
 
   const userFacade = UserFacade();
   useEffect(() => {
@@ -28,9 +31,13 @@ const Page = () => {
     }
   }, [userFacade.status]);
 
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const dataTableRef = useRef<TableRefObject>(null);
   return (
     <DataTable
+      className={'container mx-auto'}
       facade={userFacade}
       ref={dataTableRef}
       onRow={() => ({ onDoubleClick: () => null })}

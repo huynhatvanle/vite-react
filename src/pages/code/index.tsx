@@ -11,38 +11,40 @@ import { Popconfirm, Tooltip } from 'antd';
 import { useNavigate } from 'react-router';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const { user } = GlobalFacade();
+  const { user, setBreadcrumbs } = GlobalFacade();
   const { result, get } = CodeTypeFacade();
-  const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
   useEffect(() => {
     if (!result?.data) get({});
+    setBreadcrumbs([
+      { title: 'titles.Setting', link: '' },
+      { title: 'titles.Code', link: '' },
+    ]);
   }, []);
 
   const codeFacade = CodeFacade();
-  const { status } = codeFacade;
   useEffect(() => {
-    switch (status) {
+    switch (codeFacade.status) {
       case 'put.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
         dataTableRef?.current?.onChange!();
         break;
     }
-  }, [status]);
+  }, [codeFacade.status]);
 
   const dataTableRef = useRef<TableRefObject>(null);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   return (
     <Fragment>
       <DataTable
+        className={'container mx-auto'}
         facade={codeFacade}
         ref={dataTableRef}
-        onRow={(data: any) => ({
-          onDoubleClick: () => {
-            null
-          },
+        onRow={() => ({
+          onDoubleClick: () => null,
         })}
         pageSizeRender={(sizePage: number) => sizePage}
         pageSizeWidth={'50px'}

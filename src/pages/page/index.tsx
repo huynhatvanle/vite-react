@@ -11,26 +11,31 @@ import { keyRole, language, languages, routerLinks } from '@utils';
 import { useNavigate } from 'react-router';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const { user } = GlobalFacade();
-  const navigate = useNavigate();
-  
-  const pageFacade = PageFacade();
-  const { status } = pageFacade;
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const { user, setBreadcrumbs } = GlobalFacade();
   useEffect(() => {
-    switch (status) {
+    setBreadcrumbs([
+      { title: 'titles.Setting', link: '' },
+      { title: 'titles.Page', link: '' },
+    ]);
+  }, []);
+
+  const pageFacade = PageFacade();
+  useEffect(() => {
+    switch (pageFacade.status) {
       case 'delete.fulfilled':
         pageTableRef?.current?.onChange!();
         break;
     }
-  }, [status]);
+  }, [pageFacade.status]);
 
   const pageTableRef = useRef<TableRefObject>(null);
-
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   return (
     <Fragment>
       <DataTable
+        className={'container mx-auto'}
         facade={pageFacade}
         showSearch={false}
         ref={pageTableRef}

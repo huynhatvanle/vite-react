@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
-import { Spin } from '@core/spin';
+import { Spin } from 'antd';
 import { keyUser, routerLinks, language, languages } from '@utils';
 import { useTranslation } from 'react-i18next';
 import { GlobalFacade } from '@store';
@@ -80,11 +80,6 @@ const pages = [
         path: routerLinks('Page') + '/:id',
         component: React.lazy(() => import('@pages/page/add')),
         title: 'Page/Edit',
-      },
-      {
-        path: routerLinks('User') + '/:id',
-        component: React.lazy(() => import('@pages/user/add')),
-        title: 'User/Edit',
       },
       {
         path: routerLinks('User/List'),
@@ -170,7 +165,7 @@ const Page = ({
 
   useEffect(() => {
     document.title = t('pages.' + title || '');
-    globalFacade.set({ title, formatDate: globalFacade.formatDate });
+    globalFacade.set({ title });
   }, [title]);
   return <Comp />;
 };

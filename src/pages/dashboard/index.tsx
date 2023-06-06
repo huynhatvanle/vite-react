@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Spin } from 'antd';
 
-import { Spin } from '@core/spin';
 import { DataTable } from '@core/data-table';
 
 const Page = () => {

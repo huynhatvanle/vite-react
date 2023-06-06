@@ -6,42 +6,41 @@ import { DataTable } from '@core/data-table';
 import { keyRole, routerLinks, language, languages } from '@utils';
 import { GlobalFacade, DataTypeFacade, DataFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
-import { FormModalRefObject, TableRefObject } from '@models';
+import { TableRefObject } from '@models';
 import { Popconfirm, Tooltip } from 'antd';
 import { useNavigate } from 'react-router';
 
 const Page = () => {
-  const { t } = useTranslation();
-  const { user } = GlobalFacade();
-
-  const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
+  const { user, setBreadcrumbs } = GlobalFacade();
   const { result, get } = DataTypeFacade();
+  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
   useEffect(() => {
     if (!result?.data) get({});
+    setBreadcrumbs([
+      { title: 'titles.Setting', link: '' },
+      { title: 'titles.Data', link: '' },
+    ]);
   }, []);
-  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
-
 
   const dataFacade = DataFacade();
-  const { status } = dataFacade;
   useEffect(() => {
-    switch (status) {
+    switch (dataFacade.status) {
       case 'put.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
         dataTableRef?.current?.onChange!();
         break;
     }
-  }, [status]);
+  }, [dataFacade.status]);
 
   const dataTableRef = useRef<TableRefObject>(null);
-  const modalFormRef = useRef<FormModalRefObject>(null);
-
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   return (
     <Fragment>
       <DataTable
+        className={'container mx-auto'}
         facade={dataFacade}
         showSearch={false}
         ref={dataTableRef}
@@ -110,7 +109,7 @@ const Page = () => {
                       <Popconfirm
                         placement="left"
                         title={t('components.datatable.areYouSureWant')}
-                        onConfirm={() => modalFormRef?.current?.handleDelete!(data.id)}
+                        onConfirm={() => dataTableRef?.current?.handleDelete!(data.id)}
                         okText={t('components.datatable.ok')}
                         cancelText={t('components.datatable.cancel')}
                       >
