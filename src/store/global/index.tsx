@@ -25,9 +25,9 @@ const action = {
     return data || {};
   }),
   putProfile: createAsyncThunk(name + '/putProfile', async (values: User) => {
-    const profileImage = values?.profileImage;
-    delete values.profileImage;
-    const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}`, { ...values, profileImage });
+    //const profileImage = values?.profileImage;
+    // delete values.profileImage;
+    const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}`, { ...values });
     if (message) await Message.success({ text: message });
     return data || {};
   }),
