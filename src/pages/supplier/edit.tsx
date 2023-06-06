@@ -1642,8 +1642,102 @@ const Page = () => {
                       },
                     ]}
                   />
+                  <p className="text-base text-teal-900 font-bold pl-3">Thông tin nhà cung cấp</p>
+                  <Form
+                    values={{ ...data }}
+                    className='intro-x'
+                    columns={[
+                      {
+                        title: '',
+                        name: 'code',
+                        formItem: {
+                          col: 6,
+                          render: (form, values) => {
+                            return (
+                              <div className="flex items-center gap-2">
+                                <div className='font-semibold text-teal-900 text-base'>Nhà cung cấp:</div>
+                                <div>{values.name}</div>
+                              </div>
+                            );
+                          }
+                        },
+                      },
+                      {
+                        title: '',
+                        name: 'createdAt',
+                        formItem: {
+                          col: 6,
+                          render: (form, values) => {
+                            return (
+                              <div className="flex items-center gap-2">
+                                <div className='font-semibold text-teal-900 text-base'>Tên chủ quản lý:</div>
+                                <div>{values.name}</div>
+                              </div>
+                            );
+                          }
+                        },
+                      },
+                    ]}
+                  />
+                  <Form
+                    values={{ ...data }}
+                    className='intro-x'
+                    columns={[
+                      {
+                        title: '',
+                        name: 'code',
+                        formItem: {
+                          col: 6,
+                          render: (form, values) => {
+                            return (
+                              <div className="flex items-center gap-2">
+                                <div className='font-semibold text-teal-900 text-base'>Số điện thoại:</div>
+                                <div>{values.name}</div>
+                              </div>
+                            );
+                          }
+                        },
+                      },
+                      {
+                        title: '',
+                        name: 'createdAt',
+                        formItem: {
+                          col: 6,
+                          render: (form, values) => {
+                            return (
+                              <div className="flex items-center gap-2">
+                                <div className='font-semibold text-teal-900 text-base'>Địa chỉ:</div>
+                                <div>{values.name}</div>
+                              </div>
+                            );
+                          }
+                        },
+                      },
+                    ]}
+                  />
+                  <p className='text-base text-teal-900 font-bold pl-3 pt-5'>Tải lên hợp đồng đăng ký:</p>
+                  <div className='text-center border-2 p-[110px] border-dashed rounded-md m-5'></div>
+                  <p className="text-base text-teal-900 font-bold pl-3">Tệp trên hệ thống:</p>
+                  <div className="text-base pl-3">Chưa có hình hợp đồng trên hệ thống.</div>
+                  <div className="sm:flex sm:mt-7 mt-2 justify-between p-4">
+                    <div className="flex flex-col items-center mt-2" onClick={handleBack}>
+                      <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+                        {t('components.form.modal.cancel')}
+                      </button>
+                    </div>
+                    <div className="flex sm:justify-end justify-center items-center p-5">
+                      <Button
+                        disabled={true}
+                        text={t('titles.Upload contract')}
+                        className={
+                          'flex bg-teal-900 text-white sm:w-52 w-[64%] rounded-xl items-center justify-center disabled:opacity-30'
+                        }
+                        onClick={() => null}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <p className="text-base text-teal-900 font-bold pl-3">Thông tin nhà cung cấp</p>
+                {/* <p className="text-base text-teal-900 font-bold pl-3">Thông tin nhà cung cấp</p>
                 <div className='form-supplied-tab6'>
                   <Form
                     values={{ ...data }}
@@ -1717,15 +1811,28 @@ const Page = () => {
                       },
                     ]}
                   />
-                </div>
-                <p className='text-base text-teal-900 font-bold pl-3 pt-5'>Tải lên hợp đồng đăng ký:</p>
-              </div>
-              <div className="sm:flex sm:mt-7 mt-2">
-                <div className="flex flex-col items-center mt-2" onClick={handleBack}>
-                  <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
-                    {t('components.form.modal.cancel')}
-                  </button>
-                </div>
+                </div> */}
+                {/* <p className='text-base text-teal-900 font-bold pl-3 pt-5'>Tải lên hợp đồng đăng ký:</p>
+                <div className='text-center border-2 p-[110px] border-dashed rounded-md m-5'></div>
+                <p className="text-base text-teal-900 font-bold pl-3">Tệp trên hệ thống:</p>
+                <div className="text-base pl-3">Chưa có hình hợp đồng trên hệ thống.</div>
+                <div className="sm:flex sm:mt-7 mt-2 justify-between p-4">
+                  <div className="flex flex-col items-center mt-2" onClick={handleBack}>
+                    <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+                      {t('components.form.modal.cancel')}
+                    </button>
+                  </div>
+                  <div className="flex sm:justify-end justify-center items-center p-5">
+                    <Button
+                      disabled={true}
+                      text={t('titles.Upload contract')}
+                      className={
+                        'flex bg-teal-900 text-white sm:w-52 w-[64%] rounded-xl items-center justify-center disabled:opacity-30'
+                      }
+                      onClick={() => null}
+                    />
+                  </div>
+                </div> */}
               </div>
             </Tabs.TabPane>
           </Tabs>
