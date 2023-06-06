@@ -488,7 +488,7 @@ export const Form = ({
           case 'name':
             rules.push(() => ({
               validator(_: any, value: any) {
-                if (!value || /^[a-zA-Z]+$/.test(value)) return Promise.resolve();
+                if (!value || /^[A-Za-zÀ-Ỹà-ỹ]+[A-Za-zÀ-Ỹà-ỹ\s-]*$/u.test(value)) return Promise.resolve();
                 return Promise.reject(t('components.form.only text'));
               },
             }));

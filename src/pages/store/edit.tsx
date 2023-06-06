@@ -231,6 +231,7 @@ const Page = () => {
                       formItem: {
                         tabIndex: 8,
                         col: 4,
+                        type: 'name',
                         rules: [{ type: 'required' }],
                       },
                     },
