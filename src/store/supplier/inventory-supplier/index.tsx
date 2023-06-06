@@ -9,13 +9,10 @@ const name = 'InventorySupplier';
 
 const action = {
   ...new Action<InventorySupplier>(name),
-  getInventorySupplier: createAsyncThunk(
-    name + '/get',
-    async ({ id, keyState = 'isVisible' }: { id?: string; keyState: keyof State<InventorySupplier> }) => {
-      let data = await API.get<InventorySupplier>(`${routerLinks(name, 'api')}/${id}`);
-      return { data, keyState };
-    },
-  ),
+  getInventorySupplier: createAsyncThunk(name + '/get', async ({ id }: { id?: string }) => {
+    let data = await API.get<InventorySupplier>(`${routerLinks(name, 'api')}/${id}`);
+    return data;
+  }),
 };
 
 export const InventorySupplierSlice = createSlice(new Slice<InventorySupplier>(action));
@@ -25,8 +22,7 @@ export const InventorySupplierFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<InventorySupplier>),
     set: (values: State<InventorySupplier>) => dispatch(action.set(values)),
-    getById: ({ id, keyState = 'isVisible' }: { id?: string; keyState?: keyof State<InventorySupplier> }) =>
-      dispatch(action.getInventorySupplier({ id, keyState })),
+    get: ({ id }: { id?: string }) => dispatch(action.getInventorySupplier({ id })),
   };
 };
 
