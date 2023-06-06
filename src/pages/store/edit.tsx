@@ -1033,7 +1033,7 @@ const Page = () => {
                                   placeholder: 'placeholder.Choose a supplier',
                                   col: 5,
                                   type: 'select',
-                                  firstLoad: () => ({ page: 1, perPage: 100000, filter: { idSuppiler: '832' } }),
+                                  // firstLoad: () => ({ page: 1, perPage: 100000, filter: { idSuppiler: '832' } }),
                                   get: {
                                     facade: ConnectSupplierFacade,
                                     format: (item: any) => ({
