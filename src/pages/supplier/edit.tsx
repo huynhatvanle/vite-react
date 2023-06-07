@@ -58,12 +58,20 @@ const Page = () => {
     const storedDateTo = sessionStorage.getItem('dateTo');
     return storedDateTo && dayjs(storedDateTo).isValid() ? storedDateTo : '';
   });
+  const [dateFrom1, setDateFrom1] = useState(() => {
+    const storedDateFrom1 = sessionStorage.getItem('dateFrom1');
+    return storedDateFrom1 && dayjs(storedDateFrom1).isValid() ? storedDateFrom1 : '';
+  });
+  const [dateTo1, setDateTo1] = useState(() => {
+    const storedDateTo1 = sessionStorage.getItem('dateTo1');
+    return storedDateTo1 && dayjs(storedDateTo1).isValid() ? storedDateTo1 : '';
+  });
   // sessionStorage.removeItem('dateFrom');
   // sessionStorage.removeItem('dateTo');
-  console.log('dateFrom', dateFrom);
-  console.log('dateTo', dateTo);
-  console.log("sessionStorage.getItem('dateFrom')", sessionStorage.getItem('dateFrom'));
-  console.log("sessionStorage.getItem('dateTo')", sessionStorage.getItem('dateTo'));
+  // console.log('dateFrom', dateFrom);
+  // console.log('dateTo', dateTo);
+  // console.log("sessionStorage.getItem('dateFrom')", sessionStorage.getItem('dateFrom'));
+  // console.log("sessionStorage.getItem('dateTo')", sessionStorage.getItem('dateTo'));
 
   useEffect(() => {
     if (id) supplierFacade.getById({ id });
@@ -113,7 +121,8 @@ const Page = () => {
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey="6"
+            defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
+            onChange={(key) => sessionStorage.setItem('activeTab', key)}
             type="card"
             size="large"
             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)}
@@ -307,7 +316,7 @@ const Page = () => {
                     defaultRequest={{
                       page: 1,
                       perPage: 10,
-                      filter: { supplierId: data?.id, type: 'BALANCE', storeId: '' },
+                      filter: { supplierId: id, type: 'BALANCE', storeId: '' },
                     }}
                     xScroll="895px"
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -321,6 +330,7 @@ const Page = () => {
                         name: 'code',
                         tableItem: {
                           width: 170,
+                          sorter: true,
                         },
                       },
                       {
@@ -520,7 +530,7 @@ const Page = () => {
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
                     facade={ordersFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { filterSupplier: data?.id }, fullTextSearch: '' }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { filterSupplier: id }, fullTextSearch: '' }}
                     xScroll="1400px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
@@ -681,7 +691,10 @@ const Page = () => {
                         perPage: 10,
                         filter: {
                           idSupplier: id,
-                          filterDate: { dateFrom: `${dateFrom}`, dateTo: `${dateTo}` },
+                          filterDate: {
+                            dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00')}`,
+                            dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
+                          },
                           idStore: '',
                         },
                         fullTextSearch: '',
@@ -754,7 +767,20 @@ const Page = () => {
                             disableSubmit={isLoading}
                           />
                           <Form
-                            // values={{ dateFrom: `${dateFrom}`, dateTo: `${dateTo}` }}
+                            values={{
+                              dateFrom1:
+                                !sessionStorage.getItem('dateFrom1') || !dateFrom1
+                                  ? `${dayjs().format('MM/DD/YYYY 00:00:00')}`
+                                  : dateFrom1 && dayjs(dateFrom1).isValid()
+                                  ? `${dateFrom1}`
+                                  : '',
+                              dateTo1:
+                                !sessionStorage.getItem('dateTo1') || !dateTo1
+                                  ? `${dayjs().format('MM/DD/YYYY 23:59:59')}`
+                                  : dateTo1 && dayjs(dateTo1).isValid()
+                                  ? `${dateTo1}`
+                                  : '',
+                            }}
                             className="intro-x rounded-lg w-full sm:flex justify-between form-store"
                             columns={[
                               {
@@ -772,21 +798,31 @@ const Page = () => {
                               },
                               {
                                 title: '',
-                                name: 'dateFrom',
+                                name: 'dateFrom1',
                                 formItem: {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateFrom(dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
+                                    setDateFrom1(dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
+                                    sessionStorage.setItem(
+                                      'dateFrom1',
+                                      dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                                    ); // <-- lưu giá trị vào sessionStorage
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
                                         filterDate: {
-                                          dateFrom: `${dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')} `,
-                                          dateTo: `${dateTo}`,
+                                          dateFrom:
+                                            value && dayjs(value).isValid()
+                                              ? `${dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`
+                                              : '',
+                                          dateTo:
+                                            sessionStorage.getItem('dateTo1') === 'Invalid Date'
+                                              ? `${dateTo1}`
+                                              : sessionStorage.getItem('dateTo1'),
                                         },
                                         idStore: '',
                                       },
@@ -810,21 +846,31 @@ const Page = () => {
                               },
                               {
                                 title: '',
-                                name: 'dateTo',
+                                name: 'dateTo1',
                                 formItem: {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateTo(dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'));
+                                    setDateTo1(dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'));
+                                    sessionStorage.setItem(
+                                      'dateTo1',
+                                      dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
+                                    ); // <-- lưu giá trị vào sessionStorage
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
                                         filterDate: {
-                                          dateFrom: `${dateFrom}`,
-                                          dateTo: `${dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`,
+                                          dateFrom:
+                                            sessionStorage.getItem('dateFrom1') === 'Invalid Date'
+                                              ? `${dateFrom1}`
+                                              : sessionStorage.getItem('dateFrom1'),
+                                          dateTo:
+                                            value && dayjs(value).isValid()
+                                              ? `${dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`
+                                              : '',
                                         },
                                         idStore: '',
                                       },
@@ -955,13 +1001,17 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 pt-6 pb-4 bg-white rounded-xl">
                     <DataTable
+                      ref={dataTableRefRevenue}
                       facade={inventoryOrders}
                       defaultRequest={{
                         page: 1,
                         perPage: 10,
                         filter: {
                           idSuppiler: id,
-                          filterDate: { dateFrom: '2023/05/01 00:00:00', dateTo: '2023/05/24 23:59:59' },
+                          filter: {
+                            dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00')}`,
+                            dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
+                          },
                         },
                         fullTextSearch: '',
                       }}
@@ -1046,7 +1096,20 @@ const Page = () => {
                       rightHeader={
                         <div className="flex items-end justify-between">
                           <Form
-                            values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
+                            values={{
+                              dateFrom1:
+                                !sessionStorage.getItem('dateFrom1') || !dateFrom1
+                                  ? `${dayjs().format('MM/DD/YYYY 00:00:00')}`
+                                  : dateFrom1 && dayjs(dateFrom1).isValid()
+                                  ? `${dateFrom1}`
+                                  : '',
+                              dateTo1:
+                                !sessionStorage.getItem('dateTo1') || !dateTo1
+                                  ? `${dayjs().format('MM/DD/YYYY 23:59:59')}`
+                                  : dateTo1 && dayjs(dateTo1).isValid()
+                                  ? `${dateTo1}`
+                                  : '',
+                            }}
                             className="intro-x items-end rounded-lg w-full flex justify-between"
                             columns={[
                               {
@@ -1121,11 +1184,37 @@ const Page = () => {
                               },
                               {
                                 title: '',
-                                name: 'dateFrom',
+                                name: 'dateFrom1',
                                 formItem: {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
+                                  onChange(value, form) {
+                                    setDateFrom1(dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
+                                    sessionStorage.setItem(
+                                      'dateFrom1',
+                                      dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                                    ); // <-- lưu giá trị vào sessionStorage
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idSupplier: id,
+                                        filterDate: {
+                                          dateFrom:
+                                            value && dayjs(value).isValid()
+                                              ? `${dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`
+                                              : '',
+                                          dateTo:
+                                            sessionStorage.getItem('dateTo1') === 'Invalid Date'
+                                              ? `${dateTo1}`
+                                              : sessionStorage.getItem('dateTo1'),
+                                        },
+                                        idStore: '',
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
                                 },
                               },
                               {
@@ -1143,11 +1232,37 @@ const Page = () => {
                               },
                               {
                                 title: '',
-                                name: 'dateTo',
+                                name: 'dateTo1',
                                 formItem: {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
+                                  onChange(value, form) {
+                                    setDateTo1(dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'));
+                                    sessionStorage.setItem(
+                                      'dateTo1',
+                                      dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
+                                    ); // <-- lưu giá trị vào sessionStorage
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idSupplier: id,
+                                        filterDate: {
+                                          dateFrom:
+                                            sessionStorage.getItem('dateFrom1') === 'Invalid Date'
+                                              ? `${dateFrom1}`
+                                              : sessionStorage.getItem('dateFrom1'),
+                                          dateTo:
+                                            value && dayjs(value).isValid()
+                                              ? `${dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`
+                                              : '',
+                                        },
+                                        idStore: '',
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
                                 },
                               },
                             ]}
@@ -1255,7 +1370,7 @@ const Page = () => {
                       page: 1,
                       perPage: 10,
                       filter: {
-                        id: data?.id,
+                        id: id,
                         filter: {
                           dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00')}`,
                           dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
@@ -1549,11 +1664,13 @@ const Page = () => {
                     </div>
                   </div>
                 </div> */}
-                <div className='flex items-left font-bold pl-5 pt-5'><p className="sm:text-xl text-base text-teal-900 pb-4 pt-0 mr-5">Chi tiết hợp đồng</p></div>
-                <div className='form-supplied-tab6'>
+                <div className="flex items-left font-bold pl-5 pt-5">
+                  <p className="sm:text-xl text-base text-teal-900 pb-4 pt-0 mr-5">Chi tiết hợp đồng</p>
+                </div>
+                <div className="form-supplied-tab6">
                   <Form
                     values={{ ...data }}
-                    className='intro-x'
+                    className="intro-x"
                     columns={[
                       {
                         title: '',
@@ -1563,11 +1680,11 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Mã hợp đồng:</div>
+                                <div className="font-semibold text-teal-900 text-base">Mã hợp đồng:</div>
                                 <div>{values.name}</div>
                               </div>
                             );
-                          }
+                          },
                         },
                       },
                       {
@@ -1578,11 +1695,11 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Ngày tạo:</div>
+                                <div className="font-semibold text-teal-900 text-base">Ngày tạo:</div>
                                 <div>{values.name}</div>
                               </div>
                             );
-                          }
+                          },
                         },
                       },
                       {
@@ -1594,21 +1711,21 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex">
-                                <div className='font-semibold text-teal-900 text-base w-[150px]'>Trạng thái:</div>
-                                <Select style={{ width: "100%" }}>
+                                <div className="font-semibold text-teal-900 text-base w-[150px]">Trạng thái:</div>
+                                <Select style={{ width: '100%' }}>
                                   <Select.Option value="PENDING_SIGN_CONTRACT"> Chờ ký</Select.Option>
                                   <Select.Option value="SIGNED_CONTRACT"> Đã ký</Select.Option>
                                 </Select>
                               </div>
                             );
-                          }
+                          },
                         },
                       },
                     ]}
                   />
                   <Form
                     values={{ ...data }}
-                    className='intro-x !border-b-slate-300 border-b !rounded-none'
+                    className="intro-x !border-b-slate-300 border-b !rounded-none"
                     columns={[
                       {
                         title: '',
@@ -1618,11 +1735,11 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Thông tin hợp đồng:</div>
+                                <div className="font-semibold text-teal-900 text-base">Thông tin hợp đồng:</div>
                                 <div>{values.name}</div>
                               </div>
                             );
-                          }
+                          },
                         },
                       },
                       {
@@ -1633,11 +1750,11 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Tệp đã ký:</div>
+                                <div className="font-semibold text-teal-900 text-base">Tệp đã ký:</div>
                                 <div>{values.name}</div>
                               </div>
                             );
-                          }
+                          },
                         },
                       },
                     ]}
@@ -1645,7 +1762,7 @@ const Page = () => {
                   <p className="text-base text-teal-900 font-bold pl-3">Thông tin nhà cung cấp</p>
                   <Form
                     values={{ ...data }}
-                    className='intro-x'
+                    className="intro-x"
                     columns={[
                       {
                         title: '',
@@ -1655,11 +1772,11 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Nhà cung cấp:</div>
+                                <div className="font-semibold text-teal-900 text-base">Nhà cung cấp:</div>
                                 <div>{values.name}</div>
                               </div>
                             );
-                          }
+                          },
                         },
                       },
                       {
@@ -1670,18 +1787,18 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Tên chủ quản lý:</div>
+                                <div className="font-semibold text-teal-900 text-base">Tên chủ quản lý:</div>
                                 <div>{values.name}</div>
                               </div>
                             );
-                          }
+                          },
                         },
                       },
                     ]}
                   />
                   <Form
                     values={{ ...data }}
-                    className='intro-x'
+                    className="intro-x"
                     columns={[
                       {
                         title: '',
@@ -1691,11 +1808,11 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Số điện thoại:</div>
+                                <div className="font-semibold text-teal-900 text-base">Số điện thoại:</div>
                                 <div>{values.name}</div>
                               </div>
                             );
-                          }
+                          },
                         },
                       },
                       {
@@ -1706,17 +1823,17 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Địa chỉ:</div>
+                                <div className="font-semibold text-teal-900 text-base">Địa chỉ:</div>
                                 <div>{values.name}</div>
                               </div>
                             );
-                          }
+                          },
                         },
                       },
                     ]}
                   />
-                  <p className='text-base text-teal-900 font-bold pl-3 pt-5'>Tải lên hợp đồng đăng ký:</p>
-                  <div className='text-center border-2 p-[110px] border-dashed rounded-md m-5'></div>
+                  <p className="text-base text-teal-900 font-bold pl-3 pt-5">Tải lên hợp đồng đăng ký:</p>
+                  <div className="text-center border-2 p-[110px] border-dashed rounded-md m-5"></div>
                   <p className="text-base text-teal-900 font-bold pl-3">Tệp trên hệ thống:</p>
                   <div className="text-base pl-3">Chưa có hình hợp đồng trên hệ thống.</div>
                   <div className="sm:flex sm:mt-7 mt-2 justify-between p-4">
