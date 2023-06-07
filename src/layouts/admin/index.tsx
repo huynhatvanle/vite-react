@@ -267,7 +267,7 @@ const Layout = ({ children }: PropsWithChildren) => {
         </div>
       </section>
       <BackTop visibilityHeight={300} className='right-3'>
-         <Backtop className='w-11 h-11 bg-cyan-200 rounded-3xl animate-bounce' />
+         <Backtop className='w-11 h-11 bg-cyan-200 rounded-3xl animate-bounce hover:animate-none hover:bg-white ' />
        </BackTop>
       <footer
         className={classNames('text-lefts pt-9 z-50 mt-10  bg-white p-4 !mr-0', {
