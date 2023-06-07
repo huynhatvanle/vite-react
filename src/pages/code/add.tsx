@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import slug from 'slug';
 
 import { CodeFacade, Code, CodeTypeFacade, GlobalFacade } from '@store';
-import { routerLinks, getLanguage } from '@utils';
+import { routerLinks, lang } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 
@@ -28,7 +28,6 @@ const Page = () => {
   }, [id]);
 
   const navigate = useNavigate();
-  const lang = getLanguage();
   const isBack = useRef(true);
   useEffect(() => {
     switch (codeFacade.status) {

@@ -52,5 +52,5 @@ export const loopMapSelect = (array?: any[], label = 'name', value = 'id'): Chec
       }))
     : [];
 
-export const getLanguage =
+export const lang =
   languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;

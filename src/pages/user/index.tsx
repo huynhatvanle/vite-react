@@ -11,7 +11,7 @@ import { DataTable } from '@core/data-table';
 import { TableRefObject } from '@models';
 import { UserFacade, GlobalFacade, CodeFacade, UserRoleFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
-import { keyRole, routerLinks, getLanguage } from '@utils';
+import { keyRole, routerLinks, lang } from '@utils';
 
 const Page = () => {
   const { formatDate, user, setBreadcrumbs } = GlobalFacade();
@@ -33,7 +33,6 @@ const Page = () => {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const lang = getLanguage();
   const dataTableRef = useRef<TableRefObject>(null);
   return (
     <DataTable
