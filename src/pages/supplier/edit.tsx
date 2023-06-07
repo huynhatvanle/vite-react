@@ -697,6 +697,7 @@ const Page = () => {
                           },
                           idStore: '',
                         },
+
                         fullTextSearch: '',
                       }}
                       xScroll="1400px"
@@ -768,19 +769,23 @@ const Page = () => {
                           />
                           <Form
                             values={{
-                              dateFrom1:
-                                !sessionStorage.getItem('dateFrom1') || !dateFrom1
-                                  ? `${dayjs().format('MM/DD/YYYY 00:00:00')}`
-                                  : dateFrom1 && dayjs(dateFrom1).isValid()
-                                  ? `${dateFrom1}`
-                                  : '',
-                              dateTo1:
-                                !sessionStorage.getItem('dateTo1') || !dateTo1
-                                  ? `${dayjs().format('MM/DD/YYYY 23:59:59')}`
-                                  : dateTo1 && dayjs(dateTo1).isValid()
-                                  ? `${dateTo1}`
-                                  : '',
+                              dateFrom1: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
+                              dateTo1: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
                             }}
+                            // values={{
+                            //   dateFrom1:
+                            //     !sessionStorage.getItem('dateFrom1') || !dateFrom1
+                            //       ? `${dayjs().format('MM/DD/YYYY 00:00:00')}`
+                            //       : dateFrom1 && dayjs(dateFrom1).isValid()
+                            //       ? `${dateFrom1}`
+                            //       : '',
+                            //   dateTo1:
+                            //     !sessionStorage.getItem('dateTo1') || !dateTo1
+                            //       ? `${dayjs().format('MM/DD/YYYY 23:59:59')}`
+                            //       : dateTo1 && dayjs(dateTo1).isValid()
+                            //       ? `${dateTo1}`
+                            //       : '',
+                            // }}
                             className="intro-x rounded-lg w-full sm:flex justify-between form-store"
                             columns={[
                               {
@@ -803,26 +808,44 @@ const Page = () => {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
+                                  // onChange(value, form) {
+                                  //   setDateFrom1(dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
+                                  //   sessionStorage.setItem(
+                                  //     'dateFrom1',
+                                  //     dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                                  //   ); // <-- lưu giá trị vào sessionStorage
+                                  //   dataTableRefRevenue?.current?.onChange({
+                                  //     page: 1,
+                                  //     perPage: 10,
+                                  //     filter: {
+                                  //       idSupplier: id,
+                                  //       filterDate: {
+                                  //         dateFrom:
+                                  //           value && dayjs(value).isValid()
+                                  //             ? `${dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`
+                                  //             : '',
+                                  //         dateTo:
+                                  //           sessionStorage.getItem('dateTo1') === 'Invalid Date'
+                                  //             ? `${dateTo1}`
+                                  //             : sessionStorage.getItem('dateTo1'),
+                                  //       },
+                                  //       idStore: '',
+                                  //     },
+                                  //     fullTextSearch: '',
+                                  //   });
+                                  // },
                                   onChange(value, form) {
-                                    setDateFrom1(dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
-                                    sessionStorage.setItem(
-                                      'dateFrom1',
-                                      dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
-                                    ); // <-- lưu giá trị vào sessionStorage
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
                                         filterDate: {
-                                          dateFrom:
-                                            value && dayjs(value).isValid()
-                                              ? `${dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`
-                                              : '',
-                                          dateTo:
-                                            sessionStorage.getItem('dateTo1') === 'Invalid Date'
-                                              ? `${dateTo1}`
-                                              : sessionStorage.getItem('dateTo1'),
+                                          dateFrom: value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                                          dateTo: form
+                                            .getFieldValue('dateFrom1')
+                                            .format('MM/DD/YYYY 23:59:59')
+                                            .replace(/-/g, '/'),
                                         },
                                         idStore: '',
                                       },
@@ -851,26 +874,44 @@ const Page = () => {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
+                                  // onChange(value, form) {
+                                  //   setDateTo1(dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'));
+                                  //   sessionStorage.setItem(
+                                  //     'dateTo1',
+                                  //     dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
+                                  //   ); // <-- lưu giá trị vào sessionStorage
+                                  //   dataTableRefRevenue?.current?.onChange({
+                                  //     page: 1,
+                                  //     perPage: 10,
+                                  //     filter: {
+                                  //       idSupplier: id,
+                                  //       filterDate: {
+                                  //         dateFrom:
+                                  //           sessionStorage.getItem('dateFrom1') === 'Invalid Date'
+                                  //             ? `${dateFrom1}`
+                                  //             : sessionStorage.getItem('dateFrom1'),
+                                  //         dateTo:
+                                  //           value && dayjs(value).isValid()
+                                  //             ? `${dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`
+                                  //             : '',
+                                  //       },
+                                  //       idStore: '',
+                                  //     },
+                                  //     fullTextSearch: '',
+                                  //   });
+                                  // },
                                   onChange(value, form) {
-                                    setDateTo1(dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'));
-                                    sessionStorage.setItem(
-                                      'dateTo1',
-                                      dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
-                                    ); // <-- lưu giá trị vào sessionStorage
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
                                         filterDate: {
-                                          dateFrom:
-                                            sessionStorage.getItem('dateFrom1') === 'Invalid Date'
-                                              ? `${dateFrom1}`
-                                              : sessionStorage.getItem('dateFrom1'),
-                                          dateTo:
-                                            value && dayjs(value).isValid()
-                                              ? `${dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`
-                                              : '',
+                                          dateFrom: form
+                                            .getFieldValue('dateTo1')
+                                            .format('MM/DD/YYYY 00:00:00')
+                                            .replace(/-/g, '/'),
+                                          dateTo: value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
                                         },
                                         idStore: '',
                                       },

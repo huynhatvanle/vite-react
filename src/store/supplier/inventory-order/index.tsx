@@ -19,7 +19,7 @@ const action = {
     }: {
       page: number;
       perPage: number;
-      filter: { idSupplier?: string; filterDate?: any; idStore?: string };
+      filter: { idSupplier?: string; filterDate?: { dateFrom?: string; dateTo?: string }; idStore?: string };
       fullTextSearch: string;
     }) => {
       const filterInven = JSON.parse(filter.toString() || '{}');
@@ -28,8 +28,8 @@ const action = {
         perPage,
         idSupplier: filterInven.idSupplier,
         idStore: filterInven.idStore,
-        filterDate: filterInven.filterDate,
         fullTextSearch: fullTextSearch,
+        filterDate: { dateFrom: filterInven.filterDate.dateFrom, dateTo: filterInven.filterDate.dateTo },
       });
 
       return data;
