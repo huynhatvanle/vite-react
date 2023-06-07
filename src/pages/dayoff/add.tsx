@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 import { GlobalFacade, DayoffFacade } from '@store';
-import { routerLinks, getLanguage } from '@utils';
+import { routerLinks, lang } from '@utils';
 
 const Page = () => {
   const { id } = useParams();
@@ -29,7 +29,6 @@ const Page = () => {
   }, [id]);
 
   const navigate = useNavigate();
-  const lang = getLanguage();
   useEffect(() => {
     switch (dayoffFacade.status) {
       case 'put.fulfilled':

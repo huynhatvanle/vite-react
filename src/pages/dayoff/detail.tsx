@@ -4,12 +4,12 @@ import dayjs from 'dayjs';
 import { Popconfirm } from 'antd';
 import { useNavigate, useParams } from 'react-router';
 
-import { ModalForm } from '@core/modal/form';
-import { Button } from '@core/button';
 import { Avatar } from '@core/avatar';
+import { Button } from '@core/button';
+import { ModalForm } from '@core/modal/form';
 import { GlobalFacade, DayoffFacade } from '@store';
-import { keyRole, routerLinks, getLanguage } from '@utils';
 import { CheckCircle, Times } from '@svgs';
+import { keyRole, routerLinks, lang } from '@utils';
 
 const Page = () => {
   const { formatDate, user, setBreadcrumbs } = GlobalFacade();
@@ -53,7 +53,6 @@ const Page = () => {
   ];
   const { data } = dayoffFacade;
   const navigate = useNavigate();
-  const lang = getLanguage();
   return (
     <Fragment>
       <ModalForm

@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { GlobalFacade, UserFacade, UserTeamFacade } from '@store';
-import { routerLinks, getLanguage } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
+import { GlobalFacade, UserFacade, UserTeamFacade } from '@store';
+import { routerLinks, lang } from '@utils';
 
 const Page = () => {
   const { id } = useParams();
@@ -27,7 +27,6 @@ const Page = () => {
   }, [id]);
 
   const navigate = useNavigate();
-  const lang = getLanguage();
   const isBack = useRef(true);
   useEffect(() => {
     switch (userTeamFacade.status) {

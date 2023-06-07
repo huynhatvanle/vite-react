@@ -9,7 +9,7 @@ import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { DayoffFacade, GlobalFacade } from '@store';
 import { CheckCircle, Plus, Times, Trash } from '@svgs';
-import { getLanguage, keyRole, routerLinks } from '@utils';
+import { lang, keyRole, routerLinks } from '@utils';
 
 const Page = () => {
   const { formatDate, user, setBreadcrumbs } = GlobalFacade();
@@ -45,7 +45,6 @@ const Page = () => {
     { value: 2, label: t('dayoff.register.Afternoon') },
   ];
   const navigate = useNavigate();
-  const lang = getLanguage();
   const param = JSON.parse(dayoffFacade.queryParams || '{}');
   return (
     <Fragment>

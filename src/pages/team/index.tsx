@@ -1,15 +1,14 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Popconfirm, Tooltip } from 'antd';
+import { useNavigate } from 'react-router';
 
+import { Avatar } from '@core/avatar';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { GlobalFacade, UserTeamFacade } from '@store';
-
-import { getLanguage, keyRole, routerLinks } from '@utils';
-import { Edit, Plus, Trash } from 'src/assets/svgs';
-import { Avatar } from '@core/avatar';
-import { Popconfirm, Tooltip } from 'antd';
-import { useNavigate } from 'react-router';
+import { Edit, Plus, Trash } from '@svgs';
+import { lang, keyRole, routerLinks } from '@utils';
 
 const Page = () => {
   const { user, setBreadcrumbs } = GlobalFacade();
@@ -32,7 +31,6 @@ const Page = () => {
   const dataTableRef = useRef<any>();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const lang = getLanguage();
   return (
     <Fragment>
       <DataTable
