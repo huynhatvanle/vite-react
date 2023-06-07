@@ -262,6 +262,14 @@
     "Slug": "Slug",
     "Content": "Content"
   },
+  "Page": {
+    "Style" : "Style",
+    "Order": "Order",
+    "ParentId": "ParentId",
+    "Title": "Title",
+    "Slug": "Slug",
+    "Content": "Content"
+  },
   "dashboard":{
     "Active Profile Report":"Active Profile Report",
     "Total Profile": "Total Profile",
