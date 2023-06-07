@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Select, Switch, Tabs, Dropdown } from 'antd';
 import { useNavigate, useParams } from 'react-router';
+import classNames from 'classnames';
+import dayjs from 'dayjs';
 
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
@@ -459,8 +461,11 @@ const Page = () => {
                   <div className={'flex h-10 w-36 mb-2 sm:mb-0'}>
                     {
                       <Button
-                        className='!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0 !rounded-xl'
-                        icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
+                        className={classNames('!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border', {
+                          '!border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group': productFacade.result?.data?.length !== 0 ,
+                          '!border-gray-300 !text-gray-300 cursor-not-allowed': productFacade.result?.data?.length === 0
+                        })}
+                        icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-current group-hover:!fill-white" />}
                         text={t('titles.Export Excel file')}
                         disabled={true}
                       // onClick={() => navigate(routerLinks(''))}
@@ -1226,7 +1231,15 @@ const Page = () => {
                   <DataTable
                     ref={dataTableRefRevenue}
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
+                    defaultRequest={{ 
+                      page: 1, 
+                      perPage: 10, 
+                      filter: { 
+                        idStore: id, 
+                        dateFrom: dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                        dateTo: dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
+                      }, 
+                    }}
                     xScroll='1440px'
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
@@ -1289,7 +1302,7 @@ const Page = () => {
                     rightHeader={
                       <div className='flex sm:justify-end text-left flex-col'>
                         <Form
-                          className="intro-x sm:flex lg:justify-end mt-2 lg:mt-0 form-store"
+                          className="intro-x sm:flex lg:justify-end mt-4 lg:mt-0 form-store"
                           values={{ 'type': getFilter(invoiceKiotVietFacade.queryParams, 'status') }}
                           columns={
                             [
@@ -1318,6 +1331,7 @@ const Page = () => {
                         />
                         <Form
                           className='intro-x rounded-lg w-full sm:flex justify-between form-store'
+                          values={{'type': getFilter(invoiceKiotVietFacade.queryParams, 'type'), 'StartDate': getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'), 'EndDate': getFilter(invoiceKiotVietFacade.queryParams, 'dateTo') }}
                           columns={[
                             {
                               title: '',
@@ -1340,6 +1354,18 @@ const Page = () => {
                                 col: 4,
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
+                                onChange(value, form) {
+                                  dataTableRefRevenue?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      idStore: id,
+                                      status: form.getFieldValue('type'),
+                                      dateFrom: value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                                      dateTo: form.getFieldValue('EndDate').format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
+                                    }
+                                  });
+                                },
                               },
                             },
                             {
@@ -1363,6 +1389,18 @@ const Page = () => {
                                 col: 4,
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
+                                onChange(value, form) {
+                                  dataTableRefRevenue?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      idStore: id,
+                                      status: form.getFieldValue('type'),
+                                      dateFrom: form.getFieldValue('StartDate').format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                                      dateTo: value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
+                                    }
+                                  });
+                                },
                               },
                             },
                           ]}
@@ -1507,7 +1545,7 @@ const Page = () => {
                       <Button
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group'
                         text={t('titles.synchronized')}
-                      // onClick={() => navigate(`/${lang}${routerLinks('Supplier/Excel')}`)}
+                      onClick={() => inventoryProductFacade.put({ ...inventoryProductFacade?.data!, id})}
                       />
                     }
                   </div>
