@@ -1,5 +1,4 @@
 import React, { Fragment, PropsWithChildren, useEffect, useRef, useState } from 'react';
-import { Popconfirm } from 'antd';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { v4 } from 'uuid';
@@ -8,27 +7,25 @@ import { API, linkApi, keyToken } from '@utils';
 import { Button } from '../button';
 import { Spin } from '../spin';
 import { Message } from '../message';
-import { Plus, Copy, Paste, Camera } from '@svgs';
+import { Camera } from '@svgs';
 
 export const Upload = ({
   value = [],
   onChange,
-  deleteFile,
   showBtnUpload = true,
-  showBtnDelete = () => true,
   method = 'post',
   maxSize = 40,
   multiple = true,
   right = false,
-  action =  '/util/upload',
+  action = '/util/upload',
   keyImage = 'url',
   accept = 'image/*',
   validation = async () => true,
   viewGrid = true,
   children,
 }: Type) => {
+
   const { t } = useTranslation();
-  // const { formatDate } = useAuth();
   const [isLoading, set_isLoading] = useState(false);
   const ref = useRef<any>();
   const [listFiles, set_listFiles] = useState(
@@ -44,15 +41,6 @@ export const Upload = ({
         ? [{ [keyImage]: value }]
         : value || [],
   );
-
-  // const handleDownload = async (file: any) => {
-  //   const response = await axios.get(file[keyImage], { responseType: 'blob' });
-  //   const link = document.createElement('a');
-  //   link.href = window.URL.createObjectURL(new Blob([response.data], { type: response.headers['content-type'] }));
-  //   link.target = '_blank';
-  //   link.download = file.fileName || file.name;
-  //   link.click();
-  // };
 
   useEffect(() => {
     const tempData =
@@ -147,11 +135,11 @@ export const Upload = ({
           if (data) {
             const files = multiple
               ? listFiles.map((item: any) => {
-                  if (item.id === dataFile.id) {
-                    item = { ...item, ...data, status: 'done' };
-                  }
-                  return item;
-                })
+                if (item.id === dataFile.id) {
+                  item = { ...item, ...data, status: 'done' };
+                }
+                return item;
+              })
               : [{ ...data, status: 'done' }];
             set_listFiles(files);
             onChange && (await onChange(files));
@@ -175,11 +163,11 @@ export const Upload = ({
             });
             const files = multiple
               ? listFiles.map((item: any) => {
-                  if (item.id === dataFile.id) {
-                    item = { ...item, ...data.data, status: 'done' };
-                  }
-                  return item;
-                })
+                if (item.id === dataFile.id) {
+                  item = { ...item, ...data.data, status: 'done' };
+                }
+                return item;
+              })
               : [{ ...data.data, status: 'done' }];
             set_listFiles(files);
             onChange && (await onChange(files));
@@ -197,15 +185,8 @@ export const Upload = ({
     ref.current.value = '';
   };
 
-  // const copy = (text: string) => {
-  //   const input = document.createElement('textarea');
-  //   input.innerHTML = text;
-  //   document.body.appendChild(input);
-  //   input.select();
-  //   const result = document.execCommand('copy');
-  //   document.body.removeChild(input);
-  //   return result;
-  // };
+  console.log(listFiles);
+
   return (
     <Spin spinning={isLoading}>
       {showBtnUpload ? (
@@ -216,88 +197,24 @@ export const Upload = ({
               {children ? (
                 children
               ) : !listFiles?.length || !listFiles[0][keyImage] ? (
-                <div className="border-dashed border border-gray-300 rounded-2xl w-full h-full flex items-center justify-center">
-                  <Plus className="w-12 h-12" />
-                </div>
+                ''
               ) : (
                 <div className='relative min-h-[80px]'>
-                  {/* text-center justify-center */}
-                  {/* rounded-2xl w-80 h-72 flex object-cover -----aspect-square object-cover rounded-[0.625rem] shadow-md bg-gray-100 cursor-pointer max-h-[500px]*/}
-                  <img alt={'Align'} className={' rounded-[0.625rem] w-auto h-auto flex object-cover bg-gray-100'} src={listFiles[0][keyImage]} />
+                  {listFiles?.length == 1 ?
+                    <img alt={'Align'} className={' rounded-[0.625rem] w-auto max-h-[500px] flex object-cover bg-gray-100 aspect-square'} src={listFiles[(listFiles?.length - 1)][keyImage]} />
+                    :
+                    <img alt={'Align'} className={' rounded-[0.625rem] w-auto max-h-[500px] flex object-cover bg-gray-100 aspect-square'} src={listFiles[(listFiles?.length - 1)][0]} />
+                  }
                   <div
-                    className='w-[45px] h-[35px] bg-teal-600 opacity-80 absolute right-0 bottom-0 rounded-tl-[0.625rem] rounded-br-[0.625rem] flex items-center justify-center'
+                    className='w-[55px] h-[45px] bg-teal-600 opacity-80 absolute right-0 bottom-0 rounded-tl-[0.625rem] rounded-br-[0.625rem] flex items-center justify-center'
                   >
-                    {multiple &&
-                      listFiles.map((file: any, index: number) => (
-                        <div
-                          key={index}
-                          className={classNames({
-                            'bg-yellow-100': file.status === 'error',
-                            'flex items-center py-1 mb-8 sm:mb-1': !viewGrid,
-                          })}
-                        >
-                          <div className={'relative'}>
-                            <a href={file[keyImage] ? file[keyImage] : file} className="">
-                              <img
-                                //  className={classNames({ 'object-cover object-center h-20 w-20': !viewGrid })}
-                                //  src={file[keyImage] ? file[keyImage] : file}
-                                className='w-full h-full'
-                                src={`https://api.stag.balance.ari.com.vn/api/v1/supermarket/util/download?key=supermarket-service/user/libf5s2y/` + file.name}
-                                alt={file.name}
-                              />
-                            </a>
-                            {/* <div className={'flex gap-5 absolute bottom-0 justify-center w-full'}>
-                              {listFiles?.length > 0 && (
-                                <Copy
-                                  className={'h-5 w-5 cursor-pointer'}
-                                // onClick={() => copy(file[keyImage] ? file[keyImage] : file)}
-                                />
-                              )}
-                              <Paste
-                                className={'h-5 w-5 cursor-wait'}
-                                onPaste={async (event) => {
-                                  const text = event.clipboardData.getData('text/plain');
-                                  if (text.indexOf('http') === 0) {
-                                    if (!multiple) {
-                                      const files = [{ [keyImage]: text, status: 'done' }];
-                                      set_listFiles(files);
-                                      onChange && (await onChange(files));
-                                    } else {
-                                      listFiles.push(file[keyImage] ? { [keyImage]: text } : text);
-                                      set_listFiles(listFiles);
-                                      onChange && (await onChange(listFiles));
-                                    }
-                                  }
-                                }}
-                              />
-                            </div> */}
-                            {showBtnDelete(file) && (
-                              // <Popconfirm
-                              //   placement="left"
-                              //   title={t('components.datatable.areYouSureWant')}
-                              //   onConfirm={async () => {
-                              //     if (deleteFile && file?.id) {
-                              //       const data = await deleteFile(file?.id);
-                              //       if (!data) {
-                              //         return false;
-                              //       }
-                              //     }
-                              //     onChange && onChange(listFiles.filter((_item: any) => _item.id !== file.id));
-                              //   }}
-                              //   okText={t('components.datatable.ok')}
-                              //   cancelText={t('components.datatable.cancel')}
-                              // >
-                              <Button
-                                icon={<Camera className={'h-6 w-6'} />}
-                                className={'!bg-teal-600 !border-none mt-2 flex items-center justify-center'}
-                              />
-                              //    </Popconfirm>
-                            )}
-                          </div>
-                        </div>
-                      ))}
+                    <div>
+                      <Button
+                        icon={<Camera className={'h-5 w-5'} />}
+                        className={'!bg-teal-600 !border-none mt-2 flex items-center justify-center'}
+                      />
+                    </div>
                   </div>
-
                 </div>
               )}
             </Fragment>
@@ -306,82 +223,6 @@ export const Upload = ({
       ) : (
         <div />
       )}
-
-      {/* <div
-        className={classNames({
-          'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 gap-4':
-            viewGrid,
-        })}
-      >
-
-        {multiple &&
-          listFiles.map((file: any, index: number) => (
-            <div
-              key={index}
-              className={classNames({
-                'bg-yellow-100': file.status === 'error',
-                'flex items-center py-1 mb-8 sm:mb-1': !viewGrid,
-              })}
-            >
-              <div className={'relative'}>
-                <a href={file[keyImage] ? file[keyImage] : file} className="glightbox">
-                  <img
-                    // className={classNames({ 'object-cover object-center h-20 w-20': !viewGrid })}
-                    // src={file[keyImage] ? file[keyImage] : file}
-                    alt={file.name}
-                  />
-                </a>
-                <div className={'flex gap-5 absolute bottom-0 justify-center w-full'}>
-                  {listFiles?.length > 0 && (
-                    <Copy
-                      className={'h-5 w-5 cursor-pointer'}
-                     // onClick={() => copy(file[keyImage] ? file[keyImage] : file)}
-                    />
-                  )}
-                  <Paste
-                    className={'h-5 w-5 cursor-wait'}
-                    onPaste={async (event) => {
-                      const text = event.clipboardData.getData('text/plain');
-                      if (text.indexOf('http') === 0) {
-                        if (!multiple) {
-                          const files = [{ [keyImage]: text, status: 'done' }];
-                          set_listFiles(files);
-                          onChange && (await onChange(files));
-                        } else {
-                          listFiles.push(file[keyImage] ? { [keyImage]: text } : text);
-                          set_listFiles(listFiles);
-                          onChange && (await onChange(listFiles));
-                        }
-                      }
-                    }}
-                  />
-                </div>
-                {showBtnDelete(file) && (
-                  <Popconfirm
-                    placement="left"
-                    title={t('components.datatable.areYouSureWant')}
-                    onConfirm={async () => {
-                      if (deleteFile && file?.id) {
-                        const data = await deleteFile(file?.id);
-                        if (!data) {
-                          return false;
-                        }
-                      }
-                      onChange && onChange(listFiles.filter((_item: any) => _item.id !== file.id));
-                    }}
-                    okText={t('components.datatable.ok')}
-                    cancelText={t('components.datatable.cancel')}
-                  >
-                    <Button
-                      icon={<Camera className={'h-6 w-6'} />}
-                      className={'!bg-gray-400 !rounded-full flex items-center justify-center'}
-                    />
-                  </Popconfirm>
-                )}
-              </div>
-            </div>
-          ))}
-      </div> */}
     </Spin>
   );
 };

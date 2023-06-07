@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
-import { Dropdown, Select } from 'antd';
+import { BackTop, Dropdown, Image, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import classNames from 'classnames';
@@ -8,7 +8,7 @@ import { Avatar } from '@core/avatar';
 import { GlobalFacade } from '@store';
 import Menu1 from './menu';
 import './index.less';
-import { Chevronleft, LeftArrow, Logo, RightArrow, Menu, ArrowBack, User1, Key, Out, User, UserProfile } from '@svgs';
+import { Chevronleft, LeftArrow, Logo, RightArrow, Menu, ArrowBack, User1, Key, Out, User, UserProfile, Backtop } from '@svgs';
 import { routerLinks, language, languages } from '@utils';
 import Logo1 from '../../assets/images/logo.png';
 
@@ -266,6 +266,9 @@ const Layout = ({ children }: PropsWithChildren) => {
           {children}
         </div>
       </section>
+      <BackTop visibilityHeight={300} className='right-3'>
+         <Backtop className='w-11 h-11 bg-cyan-200 rounded-3xl animate-bounce' />
+       </BackTop>
       <footer
         className={classNames('text-lefts pt-9 z-50 mt-10  bg-white p-4 !mr-0', {
           'ml-64': !isCollapsed && isDesktop,

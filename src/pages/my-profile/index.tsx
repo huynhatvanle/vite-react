@@ -32,7 +32,7 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const profileImage = forms.getFieldValue('profileImage');
-    const image = profileImage[1]?.[0] == 't' ? profileImage : profileImage[1]?.[0]
+    const image = profileImage[(profileImage.length)-1]?.[0] == 't' ? profileImage : profileImage[(profileImage.length)-1]?.[0]
     globalFacade.putProfile({ ...values, image });
   }
 
