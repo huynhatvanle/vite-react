@@ -74,7 +74,7 @@ export const Form = ({
   useEffect(() => {
     if (form && refLoad.current) {
       form.resetFields();
-      form.setFieldsValue(values);
+      form.setFieldsValue(convertFormValue(columns, values, false));
     }
     refLoad.current = true;
   }, [values]);
@@ -569,7 +569,6 @@ export const Form = ({
         failed?.errorFields?.length && form?.scrollToField(failed?.errorFields[0].name, { behavior: 'smooth' })
       }
       onFinish={handFinish}
-      initialValues={convertFormValue(columns, values, false)}
       onValuesChange={async (objValue) => {
         if (form && checkHidden) {
           clearTimeout(timeout.current);

@@ -6,7 +6,7 @@ import slug from 'slug';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 import { GlobalFacade, PageFacade } from '@store';
-import { routerLinks, listStyle, loopMapSelect, lang } from '@utils';
+import { routerLinks, loopMapSelect, lang } from '@utils';
 
 const Page = () => {
   const { id } = useParams();
@@ -66,15 +66,7 @@ const Page = () => {
               col: 6,
             },
           },
-          {
-            title: 'Page.Style',
-            name: 'style',
-            formItem: {
-              type: 'select',
-              col: 6,
-              list: listStyle,
-            },
-          },
+
           {
             title: 'Data.Order',
             name: 'order',

@@ -205,7 +205,7 @@
     "Create At": "Create At"
   },
   "Page": {
-    "Style" : "Style",
+    "Type" : "Type",
     "Order": "Order",
     "ParentId": "ParentId",
     "Title": "Title",
