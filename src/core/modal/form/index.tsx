@@ -39,7 +39,6 @@ export const ModalForm = forwardRef(
       <Modal
         facade={facade}
         keyState={keyState}
-        idElement={idElement}
         widthModal={widthModal}
         textSubmit={textSubmit}
         className={className}
