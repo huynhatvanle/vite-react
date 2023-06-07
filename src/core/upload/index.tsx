@@ -201,16 +201,16 @@ export const Upload = ({
               ) : (
                 <div className='relative min-h-[80px]'>
                   {listFiles?.length == 1 ?
-                    <img alt={'Align'} className={' rounded-[0.625rem] w-auto h-auto flex object-cover bg-gray-100'} src={listFiles[(listFiles?.length - 1)][keyImage]} />
+                    <img alt={'Align'} className={' rounded-[0.625rem] w-auto max-h-[500px] flex object-cover bg-gray-100 aspect-square'} src={listFiles[(listFiles?.length - 1)][keyImage]} />
                     :
-                    <img alt={'Align'} className={' rounded-[0.625rem] w-auto h-auto flex object-cover bg-gray-100'} src={listFiles[(listFiles?.length - 1)][0]} />
+                    <img alt={'Align'} className={' rounded-[0.625rem] w-auto max-h-[500px] flex object-cover bg-gray-100 aspect-square'} src={listFiles[(listFiles?.length - 1)][0]} />
                   }
                   <div
-                    className='w-[45px] h-[35px] bg-teal-600 opacity-80 absolute right-0 bottom-0 rounded-tl-[0.625rem] rounded-br-[0.625rem] flex items-center justify-center'
+                    className='w-[55px] h-[45px] bg-teal-600 opacity-80 absolute right-0 bottom-0 rounded-tl-[0.625rem] rounded-br-[0.625rem] flex items-center justify-center'
                   >
                     <div>
                       <Button
-                        icon={<Camera className={'h-6 w-6'} />}
+                        icon={<Camera className={'h-5 w-5'} />}
                         className={'!bg-teal-600 !border-none mt-2 flex items-center justify-center'}
                       />
                     </div>

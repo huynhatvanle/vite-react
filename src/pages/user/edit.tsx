@@ -132,6 +132,9 @@ const Page = () => {
                 formItem: {
                   col: 12,
                   type: 'textarea',
+                  disabled: (values) => {
+                    return values?.status === 'UNACTIVE';
+                  }
                 },
               },
             ]}
