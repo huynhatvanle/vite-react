@@ -167,8 +167,8 @@ export const Form = ({
             tabIndex={formItem.tabIndex || index}
             format={
               !formItem.picker || formItem.picker === 'date'
-                ? formatDate + (formItem.showTime ? ' HH:mm' : '')
-                : formatDate
+                ? (formatDate || '') + (formItem.showTime ? ' HH:mm' : '')
+                : formatDate || ''
             }
             onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
             disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}

@@ -1,4 +1,5 @@
 import { CheckboxOptionType } from 'antd';
+import { language, languages } from './variable';
 
 export * from './init/reportWebVitals';
 export * from './api';
@@ -38,7 +39,8 @@ export const getSizePageByHeight = (height = 39, minusNumber = 3) =>
       document.getElementsByTagName('tbody')[0].getBoundingClientRect().top) /
       height,
   ) - minusNumber;
-export const getFilter = (queryParams = '{}', key = 'id') => JSON.parse(JSON.parse(queryParams || '{}').filter || '{}')[key] || null;
+export const getFilter = (queryParams = '{}', key = 'id') =>
+  JSON.parse(JSON.parse(queryParams || '{}').filter || '{}')[key] || null;
 
 export const loopMapSelect = (array?: any[], label = 'name', value = 'id'): CheckboxOptionType[] =>
   array?.length
@@ -49,3 +51,6 @@ export const loopMapSelect = (array?: any[], label = 'name', value = 'id'): Chec
         children: item.children && loopMapSelect(item.children, label, value),
       }))
     : [];
+
+export const lang =
+  languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
