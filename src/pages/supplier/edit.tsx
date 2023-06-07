@@ -49,22 +49,20 @@ const Page = () => {
   const [cap1, setCap1] = useState(true);
   const [cap2, setCap2] = useState(true);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-  // const [dateFrom, setDateFrom] = useState(sessionStorage.getItem('dateFrom') || '05/01/2023');
-  // const [dateTo, setDateTo] = useState(sessionStorage.getItem('dateTo') || '06/01/2023');
   const [dateFrom, setDateFrom] = useState(() => {
     const storedDateFrom = sessionStorage.getItem('dateFrom');
-    return storedDateFrom && dayjs(storedDateFrom).isValid() ? storedDateFrom : dayjs().format('MM/DD/YYYY');
+    return storedDateFrom && dayjs(storedDateFrom).isValid() ? storedDateFrom : '';
   });
   const [dateTo, setDateTo] = useState(() => {
     const storedDateTo = sessionStorage.getItem('dateTo');
-    return storedDateTo && dayjs(storedDateTo).isValid() ? storedDateTo : dayjs().format('MM/DD/YYYY');
+    return storedDateTo && dayjs(storedDateTo).isValid() ? storedDateTo : '';
   });
   // sessionStorage.removeItem('dateFrom');
   // sessionStorage.removeItem('dateTo');
-  // console.log('dateFrom', dateFrom);
-  // console.log('dateTo', dateTo);
-  // console.log('storedDateFrom', sessionStorage.getItem('dateFrom'));
-  // console.log('storedDateTo', sessionStorage.getItem('dateTo'));
+  console.log('dateFrom', dateFrom);
+  console.log('dateTo', dateTo);
+  console.log("sessionStorage.getItem('dateFrom')", sessionStorage.getItem('dateFrom'));
+  console.log("sessionStorage.getItem('dateTo')", sessionStorage.getItem('dateTo'));
 
   useEffect(() => {
     if (id) supplierFacade.getById({ id });
@@ -369,19 +367,7 @@ const Page = () => {
                       },
                     ]}
                     subHeader={() => (
-                      <div className="flex flex-col lg:flex-row">
-                        <div className={'flex h-10 w-36 mt-6 lg:hidden'}>
-                          {
-                            <Button
-                              className="!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
-                              icon={
-                                <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
-                              }
-                              text={t('titles.Export Excel file')}
-                              onClick={() => navigate(`/${lang}${routerLinks('Supplier/Exce')}`)}
-                            />
-                          }
-                        </div>
+                      <div className="flex flex-col-reverse lg:flex-row">
                         <Form
                           className="intro-x rounded-lg w-full form-store form-header-category col-supplier mt-5"
                           values={{
@@ -496,14 +482,19 @@ const Page = () => {
                             },
                           ]}
                         />
-                        <div className={'h-10 w-36 mt-6 lg:flex hidden'}>
+                        <div className={'h-10 w-36 mt-6 lg:flex '}>
                           {
                             <Button
-                              className="!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group"
+                              className={
+                                productFacade.result?.data?.length !== 0
+                                  ? '!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group'
+                                  : '!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-300 !text-gray-300 cursor-not-allowed'
+                              }
                               icon={
-                                <Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />
+                                <Download className="icon-cud !p-0 !h-5 !w-5 !fill-current group-hover:!fill-white" />
                               }
                               text={t('titles.Export Excel file')}
+                              disabled={productFacade.result?.data?.length === 0 ? true : false}
                               onClick={() => navigate(`/${lang}${routerLinks('Supplier/Exce')}`)}
                             />
                           }
@@ -689,7 +680,7 @@ const Page = () => {
                         perPage: 10,
                         filter: {
                           idSupplier: id,
-                          filterDate: { dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` },
+                          filterDate: { dateFrom: `${dateFrom}`, dateTo: `${dateTo}` },
                           idStore: '',
                         },
                         fullTextSearch: '',
@@ -751,7 +742,7 @@ const Page = () => {
                                       filter: {
                                         idSupplier: id,
                                         idStore: value,
-                                        filterDate: { dateFrom: `${dateFrom} 00:00:00`, dateTo: `${dateTo} 23:59:59` },
+                                        filterDate: { dateFrom: `${dateFrom}`, dateTo: `${dateTo}` },
                                       },
                                       fullTextSearch: '',
                                     });
@@ -786,15 +777,15 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    setDateFrom(dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
                                         filterDate: {
-                                          dateFrom: `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 00:00:00`,
-                                          dateTo: `${dateTo} 23:59:59`,
+                                          dateFrom: `${dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')} `,
+                                          dateTo: `${dateTo}`,
                                         },
                                         idStore: '',
                                       },
@@ -824,15 +815,15 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateTo(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    setDateTo(dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'));
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
                                         filterDate: {
-                                          dateFrom: `${dateFrom} 00:00:00`,
-                                          dateTo: `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 23:59:59`,
+                                          dateFrom: `${dateFrom}`,
+                                          dateTo: `${dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`,
                                         },
                                         idStore: '',
                                       },
@@ -936,13 +927,6 @@ const Page = () => {
                           },
                         },
                       ]}
-                      // footer={() => (
-                      //   <div className="w-full flex sm:justify-end justify-center mt-4">
-                      //     <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                      //       {t('titles.Export report')}
-                      //     </button>
-                      //   </div>
-                      // )}
                       subHeader={() => (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
                           {subHeader.map((e) => (
@@ -956,7 +940,7 @@ const Page = () => {
                     />
                     <div className="flex sm:justify-end justify-center items-center p-5">
                       <Button
-                        disabled={true}
+                        disabled={inventoryOrders.result?.data?.length === 0 ? true : false}
                         text={t('titles.Export report')}
                         className={
                           'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
@@ -1270,7 +1254,10 @@ const Page = () => {
                       perPage: 10,
                       filter: {
                         id: data?.id,
-                        filter: { dateFrom: `${dateFrom}`, dateTo: `${dateTo}` },
+                        filter: {
+                          dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00')}`,
+                          dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
+                        },
                       },
                     }}
                     xScroll="1370px"
@@ -1293,7 +1280,10 @@ const Page = () => {
                         name: 'time',
                         tableItem: {
                           width: 300,
-                          render: (value: any, item: any) => item?.datefrom + '-' + item?.dateto,
+                          render: (value: any, item: any) =>
+                            dayjs(item?.datefrom, 'YYYY-MM-DDTHH:mm:ss').format('MM/YYYY').replace(/-/g, '/') +
+                            '-' +
+                            dayjs(item?.dateto, 'YYYY-MM-DDTHH:mm:ss').format('MM/YYYY').replace(/-/g, '/'),
                         },
                       },
                       {
@@ -1342,12 +1332,22 @@ const Page = () => {
                     ]}
                     showSearch={false}
                     subHeader={() => (
-                      <div className="">
+                      <>
                         <div className="flex my-5 flex-col lg:flex-row">
                           <Form
                             values={{
-                              dateFrom: dateFrom && dayjs(dateFrom).isValid() ? `${dateFrom} 00:00:00` : '',
-                              dateTo: dateTo && dayjs(dateTo).isValid() ? `${dateTo} 23:59:59` : '',
+                              dateFrom:
+                                !sessionStorage.getItem('dateFrom') || !dateFrom
+                                  ? `${dayjs().format('MM/DD/YYYY 00:00:00')}`
+                                  : dateFrom && dayjs(dateFrom).isValid()
+                                  ? `${dateFrom}`
+                                  : '',
+                              dateTo:
+                                !sessionStorage.getItem('dateTo') || !dateTo
+                                  ? `${dayjs().format('MM/DD/YYYY 23:59:59')}`
+                                  : dateTo && dayjs(dateTo).isValid()
+                                  ? `${dateTo}`
+                                  : '',
                             }}
                             className="intro-x items-end rounded-lg w-full flex justify-between form-store"
                             columns={[
@@ -1372,10 +1372,10 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateFrom(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    setDateFrom(dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
                                     sessionStorage.setItem(
                                       'dateFrom',
-                                      dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'),
+                                      dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
                                     ); // <-- lưu giá trị vào sessionStorage
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
@@ -1385,9 +1385,12 @@ const Page = () => {
                                         filter: {
                                           dateFrom:
                                             value && dayjs(value).isValid()
-                                              ? `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 00:00:00`
+                                              ? `${dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`
                                               : '',
-                                          dateTo: `${dateTo}`,
+                                          dateTo:
+                                            sessionStorage.getItem('dateTo') === 'Invalid Date'
+                                              ? `${dateTo}`
+                                              : sessionStorage.getItem('dateTo'),
                                         },
                                       },
                                     });
@@ -1415,10 +1418,10 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateTo(dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'));
+                                    setDateTo(dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'));
                                     sessionStorage.setItem(
                                       'dateTo',
-                                      dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/'),
+                                      dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
                                     ); // <-- lưu giá trị vào sessionStorage
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
@@ -1426,10 +1429,13 @@ const Page = () => {
                                       filter: {
                                         id: id,
                                         filter: {
-                                          dateFrom: `${dateFrom}`,
+                                          dateFrom:
+                                            sessionStorage.getItem('dateFrom') === 'Invalid Date'
+                                              ? `${dateFrom}`
+                                              : sessionStorage.getItem('dateFrom'),
                                           dateTo:
                                             value && dayjs(value).isValid()
-                                              ? `${dayjs(value).format('MM/DD/YYYY').replace(/-/g, '/')} 23:59:59`
+                                              ? `${dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`
                                               : '',
                                         },
                                       },
@@ -1457,7 +1463,7 @@ const Page = () => {
                                           <Select
                                             className="w-48"
                                             showSearch={true}
-                                            placeholder={t('placeholder.Select order type')}
+                                            placeholder={t('placeholder.Select status')}
                                           >
                                             <Select.Option>Đã thanh toán</Select.Option>
                                             <Select.Option>Chưa thanh toán</Select.Option>
@@ -1479,15 +1485,8 @@ const Page = () => {
                             <span className="text-teal-900 text-xl font-bold mt-auto">{discountTotal} VND</span>
                           </div>
                         </div>
-                      </div>
+                      </>
                     )}
-                    // footer={() => (
-                    //   <div className="w-full flex sm:justify-end justify-center mt-4">
-                    //     <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                    //       {t('titles.Export report')}
-                    //     </button>
-                    //   </div>
-                    // )}
                   />
                   <div className="flex sm:justify-end justify-center items-center p-5">
                     <Button
