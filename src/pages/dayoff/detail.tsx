@@ -8,7 +8,7 @@ import { ModalForm } from '@core/modal/form';
 import { Button } from '@core/button';
 import { Avatar } from '@core/avatar';
 import { GlobalFacade, DayoffFacade } from '@store';
-import { keyRole, routerLinks, language, languages } from '@utils';
+import { keyRole, routerLinks, getLanguage } from '@utils';
 import { CheckCircle, Times } from '@svgs';
 
 const Page = () => {
@@ -53,7 +53,7 @@ const Page = () => {
   ];
   const { data } = dayoffFacade;
   const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const lang = getLanguage();
   return (
     <Fragment>
       <ModalForm

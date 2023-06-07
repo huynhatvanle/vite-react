@@ -2,11 +2,10 @@ import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DataTable } from '@core/data-table';
-import { ModalForm } from '@core/modal/form';
 import { Button } from '@core/button';
-import { GlobalFacade, UserFacade, UserTeamFacade } from '@store';
+import { GlobalFacade, UserTeamFacade } from '@store';
 
-import { keyRole, language, languages, routerLinks } from '@utils';
+import { getLanguage, keyRole, routerLinks } from '@utils';
 import { Edit, Plus, Trash } from 'src/assets/svgs';
 import { Avatar } from '@core/avatar';
 import { Popconfirm, Tooltip } from 'antd';
@@ -33,7 +32,7 @@ const Page = () => {
   const dataTableRef = useRef<any>();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const lang = getLanguage();
   return (
     <Fragment>
       <DataTable

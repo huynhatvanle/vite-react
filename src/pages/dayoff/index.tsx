@@ -1,16 +1,15 @@
 import React, { Fragment, useEffect, useRef } from 'react';
+import { Popconfirm, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-
-import { DataTable } from '@core/data-table';
-import { Button } from '@core/button';
-import { DayoffFacade, GlobalFacade } from '@store';
-import { keyRole, routerLinks } from '@utils';
-import {CheckCircle, Plus, Times, Trash} from '@svgs';
-import { Avatar } from '@core/avatar';
 import dayjs from 'dayjs';
-import {Popconfirm, Tooltip} from 'antd';
-import { language, languages } from '../../utils/variable';
+
+import { Avatar } from '@core/avatar';
+import { Button } from '@core/button';
+import { DataTable } from '@core/data-table';
+import { DayoffFacade, GlobalFacade } from '@store';
+import { CheckCircle, Plus, Times, Trash } from '@svgs';
+import { getLanguage, keyRole, routerLinks } from '@utils';
 
 const Page = () => {
   const { formatDate, user, setBreadcrumbs } = GlobalFacade();
@@ -46,7 +45,7 @@ const Page = () => {
     { value: 2, label: t('dayoff.register.Afternoon') },
   ];
   const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const lang = getLanguage();
   const param = JSON.parse(dayoffFacade.queryParams || '{}');
   return (
     <Fragment>

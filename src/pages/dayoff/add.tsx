@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 import { GlobalFacade, DayoffFacade } from '@store';
-import { routerLinks, language, languages } from '@utils';
+import { routerLinks, getLanguage } from '@utils';
 
 const Page = () => {
   const { id } = useParams();
@@ -29,7 +29,7 @@ const Page = () => {
   }, [id]);
 
   const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const lang = getLanguage();
   useEffect(() => {
     switch (dayoffFacade.status) {
       case 'put.fulfilled':
@@ -53,7 +53,7 @@ const Page = () => {
   const { t } = useTranslation();
   const listType = [
     { value: 1, label: t('dayoff.register.Annual Leave'), disabled: user!.dateLeave! - user!.dateOff! <= 0 },
-    { value: 2, label: t('dayoff.register.Leave without Pay'), },
+    { value: 2, label: t('dayoff.register.Leave without Pay') },
     { value: 3, label: t('dayoff.register.Remote') },
   ];
   const listTime = [
