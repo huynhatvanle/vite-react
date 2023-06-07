@@ -10,13 +10,14 @@ const action = {
   ...new Action<InventoryProduct>(name),
   getInventoryProduct: createAsyncThunk(
     name + '/get',
-    async ({ page, perPage, filter }: { page: number, perPage: number, filter: { idStore?: string; supplierId: string } }) => {
+    async ({ page, perPage, filter }: { page: number, perPage: number, filter: { fullTextSearch: string, idStore?: string; supplierId: string } }) => {
       const filterInventoryProduct = JSON.parse(filter.toString() || '{}')
       let data = await API.get(routerLinks(name, 'api'), {
         page,
         perPage,
         idStore: filterInventoryProduct.idStore,
-        supplierId: filterInventoryProduct.supplierId ? filterInventoryProduct.supplierId : ''
+        supplierId: filterInventoryProduct.supplierId ? filterInventoryProduct.supplierId : '',
+        fullTextSearch: filterInventoryProduct.fullTextSearch ? filterInventoryProduct.fullTextSearch : ''
       });
 
       const inventory = Object.entries(data.data as Object)[0]?.[1]
@@ -57,7 +58,7 @@ export const InventoryProductFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<InventoryProduct>),
     set: (values: State<InventoryProduct>) => dispatch(action.set(values)),
-    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { idStore?: string; supplierId: string } }) => {
+    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { fullTextSearch: string, idStore?: string; supplierId: string } }) => {
       return dispatch(action.getInventoryProduct({ page, perPage, filter }))
     }
   };

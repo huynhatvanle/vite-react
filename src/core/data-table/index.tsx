@@ -50,7 +50,7 @@ export const DataTable = forwardRef(
       footer,
       defaultRequest = {
         page: 1,
-        perPage: 1,
+        perPage: 10,
       },
       showPagination = true,
       leftHeader,
