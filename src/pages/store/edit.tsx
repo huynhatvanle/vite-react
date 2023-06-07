@@ -1086,6 +1086,18 @@ const Page = () => {
                                 col: 4,
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
+                                onChange(value, form) {
+                                  dataTableRefRevenue?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      idStore: id,
+                                      status: form.getFieldValue('type'),
+                                      dateFrom: value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                                      dateTo: form.getFieldValue('EndDate').format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
+                                    }
+                                  });
+                                },
                               },
                             },
                             {
