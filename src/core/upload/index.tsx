@@ -2,10 +2,10 @@ import React, { Fragment, PropsWithChildren, useEffect, useRef, useState } from 
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { v4 } from 'uuid';
+import { Spin } from 'antd';
 
 import { API, linkApi, keyToken } from '@utils';
 import { Button } from '../button';
-import { Spin } from '../spin';
 import { Message } from '../message';
 import { Camera } from '@svgs';
 
@@ -24,37 +24,36 @@ export const Upload = ({
   viewGrid = true,
   children,
 }: Type) => {
-
   const { t } = useTranslation();
   const [isLoading, set_isLoading] = useState(false);
   const ref = useRef<any>();
   const [listFiles, set_listFiles] = useState(
     multiple && value && typeof value === 'object'
       ? value.map((_item: any) => {
-        if (_item.status) return _item;
-        return {
-          ..._item,
-          status: 'done',
-        };
-      })
-      : typeof value === 'string'
-        ? [{ [keyImage]: value }]
-        : value || [],
-  );
-
-  useEffect(() => {
-    const tempData =
-      !multiple && value && typeof value === 'object'
-        ? value.map((_item: any) => {
           if (_item.status) return _item;
           return {
             ..._item,
             status: 'done',
           };
         })
+      : typeof value === 'string'
+      ? [{ [keyImage]: value }]
+      : value || [],
+  );
+
+  useEffect(() => {
+    const tempData =
+      !multiple && value && typeof value === 'object'
+        ? value.map((_item: any) => {
+            if (_item.status) return _item;
+            return {
+              ..._item,
+              status: 'done',
+            };
+          })
         : typeof value === 'string'
-          ? [{ [keyImage]: value }]
-          : value || [];
+        ? [{ [keyImage]: value }]
+        : value || [];
     if (
       JSON.stringify(listFiles) !== JSON.stringify(tempData) &&
       listFiles.filter((item: any) => item.status === 'uploading').length === 0
@@ -135,11 +134,11 @@ export const Upload = ({
           if (data) {
             const files = multiple
               ? listFiles.map((item: any) => {
-                if (item.id === dataFile.id) {
-                  item = { ...item, ...data, status: 'done' };
-                }
-                return item;
-              })
+                  if (item.id === dataFile.id) {
+                    item = { ...item, ...data, status: 'done' };
+                  }
+                  return item;
+                })
               : [{ ...data, status: 'done' }];
             set_listFiles(files);
             onChange && (await onChange(files));
@@ -163,11 +162,11 @@ export const Upload = ({
             });
             const files = multiple
               ? listFiles.map((item: any) => {
-                if (item.id === dataFile.id) {
-                  item = { ...item, ...data.data, status: 'done' };
-                }
-                return item;
-              })
+                  if (item.id === dataFile.id) {
+                    item = { ...item, ...data.data, status: 'done' };
+                  }
+                  return item;
+                })
               : [{ ...data.data, status: 'done' }];
             set_listFiles(files);
             onChange && (await onChange(files));
@@ -199,15 +198,21 @@ export const Upload = ({
               ) : !listFiles?.length || !listFiles[0][keyImage] ? (
                 ''
               ) : (
-                <div className='relative min-h-[80px]'>
-                  {listFiles?.length == 1 ?
-                    <img alt={'Align'} className={' rounded-[0.625rem] w-auto max-h-[500px] flex object-cover bg-gray-100 aspect-square'} src={listFiles[(listFiles?.length - 1)][keyImage]} />
-                    :
-                    <img alt={'Align'} className={' rounded-[0.625rem] w-auto max-h-[500px] flex object-cover bg-gray-100 aspect-square'} src={listFiles[(listFiles?.length - 1)][0]} />
-                  }
-                  <div
-                    className='w-[55px] h-[45px] bg-teal-600 opacity-80 absolute right-0 bottom-0 rounded-tl-[0.625rem] rounded-br-[0.625rem] flex items-center justify-center'
-                  >
+                <div className="relative min-h-[80px]">
+                  {listFiles?.length == 1 ? (
+                    <img
+                      alt={'Align'}
+                      className={' rounded-[0.625rem] w-auto max-h-[500px] flex object-cover bg-gray-100 aspect-square'}
+                      src={listFiles[listFiles?.length - 1][keyImage]}
+                    />
+                  ) : (
+                    <img
+                      alt={'Align'}
+                      className={' rounded-[0.625rem] w-auto max-h-[500px] flex object-cover bg-gray-100 aspect-square'}
+                      src={listFiles[listFiles?.length - 1][0]}
+                    />
+                  )}
+                  <div className="w-[55px] h-[45px] bg-teal-600 opacity-80 absolute right-0 bottom-0 rounded-tl-[0.625rem] rounded-br-[0.625rem] flex items-center justify-center">
                     <div>
                       <Button
                         icon={<Camera className={'h-5 w-5'} />}

@@ -8,7 +8,20 @@ import { Avatar } from '@core/avatar';
 import { GlobalFacade } from '@store';
 import Menu1 from './menu';
 import './index.less';
-import { Chevronleft, LeftArrow, Logo, RightArrow, Menu, ArrowBack, User1, Key, Out, User, UserProfile, Backtop } from '@svgs';
+import {
+  Chevronleft,
+  LeftArrow,
+  Logo,
+  RightArrow,
+  Menu,
+  ArrowBack,
+  User1,
+  Key,
+  Out,
+  User,
+  UserProfile,
+  Backtop,
+} from '@svgs';
 import { routerLinks, language, languages } from '@utils';
 import Logo1 from '../../assets/images/logo.png';
 
@@ -109,7 +122,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                   className: 'hover:!bg-white !border-b-slate-300 border-b !rounded-none',
                   label: (
                     <div className="flex">
-                      <Avatar src={user?.profileImage} size={8} />
+                      <Avatar src={user?.profileImage || ''} size={8} />
                       <div className="text-left leading-none mr-3 hidden sm:block pl-2">
                         <div className="font-semibold text-black text-sm leading-snug mb-0.5">{user?.name}</div>
                         <div className="text-gray-500 text-[10px]">{user?.email}</div>
@@ -121,7 +134,10 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '1',
                   className: 'h-11',
                   label: (
-                    <div className="flex" onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}>
+                    <div
+                      className="flex"
+                      onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}
+                    >
                       <div className="flex items-center">
                         <UserProfile className="w-6 h-6 pr-2 text-black" />
                       </div>
@@ -133,7 +149,10 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '2',
                   className: 'h-11 !border-b-slate-300 border-b !rounded-none',
                   label: (
-                    <div className="flex" onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}>
+                    <div
+                      className="flex"
+                      onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}
+                    >
                       <div className="flex items-center">
                         <Key className="w-6 h-6 pr-2 text-black" />
                       </div>
@@ -145,7 +164,10 @@ const Layout = ({ children }: PropsWithChildren) => {
                   key: '3',
                   className: 'h-11',
                   label: (
-                    <div className="flex" onClick={() => navigate(`/${lang}${routerLinks('Login')}`, { replace: true })}>
+                    <div
+                      className="flex"
+                      onClick={() => navigate(`/${lang}${routerLinks('Login')}`, { replace: true })}
+                    >
                       <div className="flex items-center">
                         <Out className="w-6 h-6 pr-2 text-black" />
                       </div>
@@ -158,7 +180,7 @@ const Layout = ({ children }: PropsWithChildren) => {
             placement="bottomRight"
           >
             <section className="flex items-center !rounded-full" id={'dropdown-profile'}>
-              <Avatar src={user?.profileImage} size={10} />
+              <Avatar src={user?.profileImage || ''} size={10} />
             </section>
           </Dropdown>
         </div>
@@ -266,9 +288,9 @@ const Layout = ({ children }: PropsWithChildren) => {
           {children}
         </div>
       </section>
-      <BackTop visibilityHeight={300} className='right-3'>
-         <Backtop className='w-11 h-11 bg-cyan-200 rounded-3xl animate-bounce hover:animate-none hover:bg-white ' />
-       </BackTop>
+      <BackTop visibilityHeight={300} className="right-3">
+        <Backtop className="w-11 h-11 bg-cyan-200 rounded-3xl animate-bounce hover:animate-none hover:bg-white " />
+      </BackTop>
       <footer
         className={classNames('text-lefts pt-9 z-50 mt-10  bg-white p-4 !mr-0', {
           'ml-64': !isCollapsed && isDesktop,

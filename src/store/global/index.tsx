@@ -9,7 +9,6 @@ import { Message } from '@core/message';
 import { useAppDispatch, useTypedSelector } from '@store';
 import { API, keyRefreshToken, keyToken, keyUser, routerLinks } from '@utils';
 
-
 const name = 'User-admin';
 const action = {
   name,
@@ -86,9 +85,8 @@ export class User extends CommonEntity {
     public status?: string,
     public subOrgId?: number,
     public userRoleId?: number,
-    public profileImage?: [] | undefined,
-  ) // public subOrgName?: string,
-  // public roleName?: string,
+    public profileImage?: string, // public subOrgName?: string,
+  ) // public roleName?: string,
   {
     super();
   }
