@@ -19,15 +19,15 @@ const Component = ({
 }: Type) => {
   const [_list, set_list] = useState(formItem.list ? formItem.list : []);
   const facade = get?.facade() || {};
-  const list = !get ? _list : facade?.result?.data?.map(get.format).filter((item: any) => !!item.value);
+  const list = !get ? _list : facade[get.key || 'result']?.data?.map(get.format).filter((item: any) => !!item.value);
   const loadData = async (fullTextSearch: string) => {
     if (get) {
       const { time, queryParams } = facade;
       const params = cleanObjectKeyNull(
         get.params ? get.params(fullTextSearch, form.getFieldValue) : { fullTextSearch },
       );
-      if (!facade?.result.data || new Date().getTime() > time || JSON.stringify(params) != queryParams)
-        facade.get(params);
+      if (!facade[get.key || 'result'].data || new Date().getTime() > time || JSON.stringify(params) != queryParams)
+        facade[get.method || 'get'](params);
     } else if (formItem.list) {
       set_list(
         formItem.list.filter(
