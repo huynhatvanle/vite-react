@@ -33,7 +33,8 @@ const Page = () => {
   const dataTableRefInventory = useRef<TableRefObject>(null);
   const dataTableRefRevenue = useRef<TableRefObject>(null);
   const dataTableRefsubStore = useRef<TableRefObject>(null)
-  const [isBalanceClicked, setIsBalanceClicked] = useState<boolean>(false);
+  const [isBalance, setIsBalance] = useState<boolean>(false);
+  const [isProduct, setIsProduct] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState(false);
   const [type, setType] = useState('BALANCE');
 
@@ -64,6 +65,7 @@ const Page = () => {
   useEffect(() => {
     if (id) {
       storeFacade.getById({ id })
+      connectSupplierFacade.get({page: 1, perPage: 10, filter: { idSuppiler: '832', supplierType: '' }, fullTextSearch: ''})
     }
     return () => {
       isReload.current && storeFacade.get(param);
@@ -337,13 +339,13 @@ const Page = () => {
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
                         <div onClick={() => {
-                          setIsBalanceClicked(false);
+                          setIsBalance(false);
                           dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
-                            filter: { storeId: data?.id, type: 'BALANCE' }
+                            filter: { storeId: id, type: 'BALANCE' }
                           });
-                        }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
+                        }} className={`${isBalance ? 'text-gray-200' : ''}`}>
                           BALANCE
                         </div>
                       ),
@@ -353,13 +355,13 @@ const Page = () => {
                       className: '!font-semibold !text-base !text-teal-900',
                       label: (
                         <div onClick={() => {
-                          setIsBalanceClicked(true);
+                          setIsBalance(true);
                           dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: { storeId: id, type: 'NON_BALANCE' }
                           });
-                        }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
+                        }} className={`${isBalance ? '' : 'text-gray-200'}`}>
                           Non - BALANCE
                         </div>
                       ),
@@ -383,7 +385,7 @@ const Page = () => {
                 defaultRequest={{
                   page: 1,
                   perPage: 10,
-                  filter: { storeId: data?.id, type: 'BALANCE' }
+                  filter: { storeId: id, type: 'BALANCE' }
                 }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg form-store form-header-category'
@@ -469,7 +471,7 @@ const Page = () => {
                 leftHeader={
                   <Form
                     className="intro-x rounded-lg w-full form-store"
-                    values={{ 'supplierName': getFilter(productFacade.queryParams, 'supplierId'), 'categoryId1': getFilter(productFacade.queryParams, 'categoryId1'), 'categoryId2': getFilter(productFacade.queryParams, 'categoryId2'), 'categoryId3': getFilter(productFacade.queryParams, 'categoryId3') }}
+                    values={{ 'supplierName': getFilter(productFacade.queryParams, 'supplierId'), 'categoryId1': getFilter(productFacade.queryParams, 'categoryId1'), 'categoryId2': getFilter(productFacade.queryParams, 'categoryId2'), 'categoryId3': getFilter(productFacade.queryParams, 'categoryId3'), 'type': getFilter(productFacade.queryParams, 'type') }}
                     columns={
                       [
                         {
@@ -479,17 +481,16 @@ const Page = () => {
                             placeholder: 'placeholder.Choose a supplier',
                             col: 5,
                             type: 'select',
-                            // firstLoad: (value: any) => ({ storeId: data?.id, type: 'BALANCE', supplierId: value ? value : '', categoryId: '' }),
                             get: {
                               facade: SupplierStoreFacade,
                               format: (item: any) => ({
                                 label: item.name,
                                 value: item.id,
                               }),
-                              params: (fullTextSearch) => ({
+                              params: (fullTextSearch, value) => ({
                                 fullTextSearch,
                                 storeId: id,
-                                type: 'BALANCE',
+                                type: value().type,
                               }),
                             },
                             onChange(value, form) {
@@ -497,8 +498,8 @@ const Page = () => {
                                 page: 1,
                                 perPage: 10,
                                 filter: {
-                                  storeId: data?.id,
-                                  type: 'BALANCE',
+                                  storeId: id,
+                                  type: form.getFieldValue('type'),
                                   supplierId: value ? value : '',
                                   // categoryId: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '' ,
                                   categoryId1: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '',
@@ -540,7 +541,7 @@ const Page = () => {
                                 page: 1,
                                 perPage: 10,
                                 filter: {
-                                  storeId: data?.id,
+                                  storeId: id,
                                   type: form.getFieldValue('type'),
                                   supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '',
                                   categoryId1: value ? value : ''
@@ -556,7 +557,7 @@ const Page = () => {
                             placeholder: 'placeholder.Category level 1',
                             type: 'select',
                             col: 3,
-                            // disabled: (values: any, form: any) => {  console.log(form.getFieldValue('categoryId1')); return true},
+                            // disabled: (values: any, form: any) => values, 
                             get: {
                               facade: CategoryFacade,
                               format: (item: any) => ({
@@ -574,7 +575,7 @@ const Page = () => {
                                 page: 1,
                                 perPage: 10,
                                 filter: {
-                                  storeId: data?.id,
+                                  storeId: id,
                                   type: form.getFieldValue('type'),
                                   supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '',
                                   categoryId2: value ? value : '',
@@ -608,7 +609,7 @@ const Page = () => {
                                 page: 1,
                                 perPage: 10,
                                 filter: {
-                                  storeId: data?.id,
+                                  storeId: id,
                                   type: form.getFieldValue('type'),
                                   supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '',
                                   categoryId3: value ? value : '',
@@ -639,7 +640,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, supplierType: 'BALANCE' } }}
+                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'BALANCE' } }}
                 xScroll='1270px'
                 className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}
@@ -727,14 +728,14 @@ const Page = () => {
                         label: (
                           <div onClick={() => {
                             // setType('BALANCE')
-                            setIsBalanceClicked(false);
+                            setIsBalance(false);
                             dataTableRefSupplier?.current?.onChange({
                               page: 1,
                               perPage: 10,
                               fullTextSearch: '',
                               filter: { idSuppiler: id, supplierType: 'BALANCE' }
                             });
-                          }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
+                          }} className={`${isBalance ? 'text-gray-200' : ''}`}>
                             BALANCE
                           </div>
                         ),
@@ -745,9 +746,9 @@ const Page = () => {
                         label: (
                           <div onClick={() => {
                             // setType('NON_BALANCE')
-                            setIsBalanceClicked(true);
+                            setIsBalance(true);
                             dataTableRefsubStore?.current?.onChange({ page: 1, perPage: 10, fullTextSearch: '', filter: { storeId: id, supplierType: 'NON_BALANCE' } });
-                          }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
+                          }} className={`${isBalance ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
                         ),
@@ -764,11 +765,11 @@ const Page = () => {
                 </Dropdown>
               }
               key='4' className='rounded-xl'>
-              {isBalanceClicked ?
+              {isBalance ?
                 <DataTable
                   ref={dataTableRefsubStore}
                   facade={subStoreFacade}
-                  defaultRequest={{ page: 1, perPage: 10, fullTextSearch: '', filter: { storeId: data?.id, supplierType: 'NON_BALANCE' } }}
+                  defaultRequest={{ page: 1, perPage: 10, fullTextSearch: '', filter: { storeId: id, supplierType: 'NON_BALANCE' } }}
                   xScroll='1270px'
                   className=' bg-white p-5 rounded-lg'
                   // onRow={(data: any) => ({
@@ -824,7 +825,7 @@ const Page = () => {
                 <DataTable
                   ref={dataTableRefSupplier}
                   facade={connectSupplierFacade}
-                  defaultRequest={{ page: 1, perPage: 10, fullTextSearch: '', filter: { idSuppiler: data?.id } }}
+                  defaultRequest={{ page: 1, perPage: 10, fullTextSearch: '', filter: { idSuppiler: id } }}
                   xScroll='1270px'
                   className=' bg-white p-5 rounded-lg'
                   // onRow={(data: any) => ({
@@ -890,7 +891,7 @@ const Page = () => {
 
             <Tabs.TabPane
               tab={
-                <Dropdown trigger={['click']}
+                <Dropdown trigger={['click']} 
                   className='rounded-xl'
                   menu={{
                     items: [
@@ -899,9 +900,9 @@ const Page = () => {
                         className: '!font-semibold !text-base !text-teal-900 !w-full',
                         label: (
                           <div onClick={() => {
-                            setIsBalanceClicked(false);
+                            setIsProduct(false);
                             // dataTableRef?.current?.onChange();
-                          }} className={`${isBalanceClicked ? 'text-gray-200' : ''}`}>
+                          }} className={`${isProduct ? 'text-gray-200' : ''}`}>
                             {t('store.Revenue by order')}
                           </div>
                         ),
@@ -911,9 +912,9 @@ const Page = () => {
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
                           <div onClick={() => {
-                            setIsBalanceClicked(true);
+                            setIsProduct(true);
                             // dataTableRef?.current?.onChange();
-                          }} className={`${isBalanceClicked ? '' : 'text-gray-200'}`}>
+                          }} className={`${isProduct ? '' : 'text-gray-200'}`}>
                             {t('store.Revenue by product')}
                           </div>
                         ),
@@ -931,11 +932,11 @@ const Page = () => {
               }
               key='5' className='rounded-xl'>
               <div className='bg-white p-5 rounded-lg'>
-                {isBalanceClicked ?
+                {isProduct ?
                   <DataTable
                     ref={dataTableRefRevenue}
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: data?.id } }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
                     xScroll='1270px'
                     // onRow={(data: any) => ({
                     //   onDoubleClick: () => {
@@ -1030,7 +1031,7 @@ const Page = () => {
                               },
                               {
                                 title: '',
-                                name: 'name',
+                                name: 'supplier',
                                 formItem: {
                                   placeholder: 'placeholder.Choose a supplier',
                                   col: 6,
@@ -1114,9 +1115,9 @@ const Page = () => {
                         <Form
                           className="intro-x rounded-lg form-store form-header-category"
                           values={{
-                            'categoryId1': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId'),
-                            'categoryId2': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId'),
-                            'categoryId3': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId')
+                            'categoryId1': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
+                            'categoryId2': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
+                            'categoryId3': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3')
                           }}
                           columns={
                             [
@@ -1140,7 +1141,9 @@ const Page = () => {
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
-                                      filter: { idStore: data?.id, categoryId: value ? value : '' }
+                                      filter: { 
+                                        idStore: id, 
+                                        categoryId1: value ? value : '' }
                                     });
                                   },
                                 },
@@ -1169,13 +1172,17 @@ const Page = () => {
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
-                                      filter: { idStore: data?.id, categoryId: value ? value : '' }
+                                      filter: { 
+                                        idStore: id, 
+                                        categoryId2: value ? value : '',
+                                        categoryId1: form.getFieldValue('categoryId1')
+                                      }
                                     });
                                   },
                                 },
                               },
                               {
-                                name: 'cap3',
+                                name: 'categoryId3',
                                 title: '',
                                 formItem: {
                                   placeholder: 'placeholder.Category level 2',
@@ -1197,7 +1204,12 @@ const Page = () => {
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
-                                      filter: { idStore: data?.id, categoryId: value ? value : '' }
+                                      filter: { 
+                                        idStore: id, 
+                                        categoryId3: value ? value : '',
+                                        categoryId1: form.getFieldValue('categoryId1'),
+                                        categoryId2: form.getFieldValue('categoryId2')
+                                      }
                                     });
                                   },
                                 },
@@ -1378,7 +1390,6 @@ const Page = () => {
                 />
               </div>
             </Tabs.TabPane>
-
 
             <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
