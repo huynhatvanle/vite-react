@@ -11,32 +11,19 @@ import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { Arrow, Download, Plus } from '@svgs';
 import { getFilter, language, languages, routerLinks } from '@utils';
-import {
-  DistrictFacade,
-  StoreFacade,
-  WardFacade,
-  ProvinceFacade,
-  StoreManagement,
-  SubStoreFacade,
-  ConnectSupplierFacade,
-  ProductFacade,
-  InventoryProductFacade,
-  CategoryFacade,
-  SupplierStoreFacade,
-  InvoiceKiotVietFacade,
-} from '@store';
+import { DistrictFacade, StoreFacade, WardFacade, ProvinceFacade, StoreManagement, SubStoreFacade, ConnectSupplierFacade, ProductFacade, InventoryProductFacade, CategoryFacade, SupplierStoreFacade, InvoiceKiotVietFacade } from '@store';
 
 const Page = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const storeFacade = StoreFacade();
+  const storeFacade = StoreFacade()
   const { data, isLoading, queryParams, status } = storeFacade;
-  const productFacade = ProductFacade();
-  const subStoreFacade = SubStoreFacade();
-  const connectSupplierFacade = ConnectSupplierFacade();
-  const inventoryProductFacade = InventoryProductFacade();
-  const invoiceKiotVietFacade = InvoiceKiotVietFacade();
+  const productFacade = ProductFacade()
+  const subStoreFacade = SubStoreFacade()
+  const connectSupplierFacade = ConnectSupplierFacade()
+  const inventoryProductFacade = InventoryProductFacade()
+  const invoiceKiotVietFacade = InvoiceKiotVietFacade()
 
   const isBack = useRef(true);
   const isReload = useRef(false);
@@ -56,30 +43,31 @@ const Page = () => {
   const listStatus = [
     {
       label: 'Bán hàng',
-      value: 'DELEVERED',
+      value: 'DELEVERED'
     },
     {
       label: 'Trả hàng',
-      value: 'REFUND',
+      value: 'REFUND'
     },
     {
       label: 'Đã hủy',
-      value: 'CANCEL',
-    },
-  ];
+      value: 'CANCEL'
+    }
+  ]
   const listStatusProduct = [
     {
       label: 'Đang bán',
-      value: 'APPROVED',
+      value: 'APPROVED'
     },
     {
       label: 'Ngừng bán',
-      value: 'STOP_SELLING',
+      value: 'STOP_SELLING'
     },
-  ];
+  ]
   useEffect(() => {
     if (id) {
-      storeFacade.getById({ id });
+      storeFacade.getById({ id })
+      connectSupplierFacade.get({page: 1, perPage: 10, filter: { idSuppiler: '832', supplierType: '' }, fullTextSearch: ''})
     }
     return () => {
       isReload.current && storeFacade.get(param);
@@ -88,7 +76,7 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'put.fulfilled')
-      navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
+      navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`)
   }, [status]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`);
@@ -102,26 +90,16 @@ const Page = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className='w-full'>
       <Fragment>
-        <div className="tab-wrapper">
-          <Tabs
-            defaultActiveKey="1"
-            type="card"
-            size="large"
-            onTabClick={(activeKey: any) =>
-              navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)
-            }
+        <div className='tab-wrapper'>
+          <Tabs defaultActiveKey='1' type='card' size='large'
+            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)}
           >
-            <Tabs.TabPane tab={t('titles.store-managerment/edit')} key="1" className="">
+            <Tabs.TabPane tab={t('titles.store-managerment/edit')} key='1' className=''>
               {!isLoading && (
                 <Form
-                  values={{
-                    ...data,
-                    emailContact: data?.userRole?.[0].userAdmin?.email,
-                    phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
-                    nameContact: data?.userRole?.[0].userAdmin.name,
-                  }}
+                  values={{ ...data, emailContact: data?.userRole?.[0].userAdmin?.email, phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber, nameContact: data?.userRole?.[0].userAdmin.name }}
                   className="intro-x form-responsive"
                   columns={[
                     {
@@ -130,7 +108,7 @@ const Page = () => {
                       formItem: {
                         tabIndex: 1,
                         col: 4,
-                        disabled: () => true,
+                        disabled: () => true
                       },
                     },
                     {
@@ -158,10 +136,10 @@ const Page = () => {
                         rules: [{ type: 'required' }],
                         render() {
                           return (
-                            <h3 className="mb-2.5 text-base text-black font-medium">{t('store.Store Address')}</h3>
-                          );
+                            <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>
+                          )
                         },
-                      },
+                      }
                     },
                     {
                       title: 'store.Province',
@@ -180,7 +158,7 @@ const Page = () => {
                           }),
                         },
                         onChange(value, form) {
-                          form.resetFields(['districtId', 'wardId']);
+                          form.resetFields(['districtId', 'wardId'])
                         },
                       },
                     },
@@ -205,7 +183,7 @@ const Page = () => {
                           }),
                         },
                         onChange(value, form) {
-                          form.resetFields(['wardId']);
+                          form.resetFields(['wardId'])
                         },
                       },
                     },
@@ -227,8 +205,8 @@ const Page = () => {
                           params: (fullTextSearch, value) => ({
                             fullTextSearch,
                             code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                          }),
-                        },
+                          })
+                        }
                       },
                     },
                     {
@@ -246,12 +224,10 @@ const Page = () => {
                       formItem: {
                         render() {
                           return (
-                            <div className="text-xl text-teal-900 font-bold mb-2.5">
-                              {t('store.Representative information')}
-                            </div>
-                          );
-                        },
-                      },
+                            <div className='text-xl text-teal-900 font-bold mb-2.5'>{t('store.Representative information')}</div>
+                          )
+                        }
+                      }
                     },
                     {
                       title: 'store.ContactName',
@@ -290,14 +266,18 @@ const Page = () => {
                       },
                     },
                   ]}
-                  extendForm={(values) => (
+
+                  extendForm=
+                  {(values) => (
                     <>
-                      <div className="sm:flex block items-center justify-between mb-2.5">
-                        <div className="flex">
-                          <div className="text-xl text-teal-900 font-bold mr-6">{t('store.Connect KiotViet')}</div>
-                          <Switch className="mt-1" onClick={handleClick} />
+                      <div className='sm:flex block items-center justify-between mb-2.5'>
+                        <div className='flex'>
+                          <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
+                          <Switch className='mt-1' onClick={handleClick} />
                         </div>
-                        {isChecked && <Button className="!font-normal mt-2 sm:mt-0" text={t('store.Get branch DS')} />}
+                        {isChecked && (
+                          <Button className='!font-normal mt-2 sm:mt-0' text={t('store.Get branch DS')} />
+                        )}
                       </div>
                       {isChecked && (
                         <Form
@@ -309,7 +289,7 @@ const Page = () => {
                               formItem: {
                                 tabIndex: 1,
                                 col: 6,
-                                rules: [{ type: 'required' }],
+                                rules: [{ type: 'required' },],
                               },
                             },
                             {
@@ -318,7 +298,7 @@ const Page = () => {
                               formItem: {
                                 tabIndex: 2,
                                 col: 6,
-                                rules: [{ type: 'required' }],
+                                rules: [{ type: 'required' },],
                               },
                             },
                             {
@@ -327,7 +307,7 @@ const Page = () => {
                               formItem: {
                                 tabIndex: 1,
                                 col: 6,
-                                rules: [{ type: 'required' }],
+                                rules: [{ type: 'required' },],
                               },
                             },
                             {
@@ -336,11 +316,10 @@ const Page = () => {
                               formItem: {
                                 tabIndex: 2,
                                 col: 6,
-                                rules: [{ type: 'required' }],
+                                rules: [{ type: 'required' },],
                               },
                             },
-                          ]}
-                        />
+                          ]} />
                       )}
                     </>
                   )}
@@ -410,8 +389,8 @@ const Page = () => {
                   perPage: 10,
                   filter: { storeId: id, type: 'BALANCE' }
                 }}
-                xScroll="1270px"
-                className=" bg-white p-5 rounded-lg form-store form-header-category"
+                xScroll='1270px'
+                className=' bg-white p-5 rounded-lg form-store form-header-category'
                 columns={[
                   {
                     title: 'product.Code',
@@ -419,21 +398,21 @@ const Page = () => {
                     tableItem: {
                       width: 180,
                       sorter: true,
-                      filter: { type: 'search' },
+                      filter: { type: 'search' }
                     },
                   },
                   {
                     title: 'product.StoreCode',
                     name: 'storeBarcode',
                     tableItem: {
-                      filter: { type: 'search' },
+                      filter: { type: 'search' }
                     },
                   },
                   {
                     title: 'product.SupplierCode',
                     name: 'barcode',
                     tableItem: {
-                      filter: { type: 'search' },
+                      filter: { type: 'search' }
                     },
                   },
                   {
@@ -441,34 +420,34 @@ const Page = () => {
                     name: 'name',
                     tableItem: {
                       sorter: true,
-                      filter: { type: 'search' },
+                      filter: { type: 'search' }
                     },
                   },
                   {
                     title: 'product.Category',
                     name: 'category',
                     tableItem: {
-                      render: (value: any, item: any) => item.category?.child?.name,
+                      render: (value: any, item: any) => item.category?.child?.name
                     },
                   },
                   {
                     title: 'product.SupplierName',
                     name: 'supplierName',
                     tableItem: {
-                      render: (value: any, item: any) => item?.subOrg?.name,
+                      render: (value: any, item: any) => item?.subOrg?.name
                     },
                   },
                   {
                     title: 'product.Unit',
                     name: 'basicUnit',
-                    tableItem: {},
+                    tableItem: {
+                    },
                   },
                   {
                     title: 'product.Price',
                     name: 'productPrice',
                     tableItem: {
-                      render: (text, item) =>
-                        parseInt(item.productPrice[0] ? item.productPrice[0]?.price : '0').toLocaleString(),
+                      render: (text, item) => parseInt(item.productPrice[0] ? item.productPrice[0]?.price : '0').toLocaleString()
                     },
                   },
                 ]}
@@ -489,7 +468,7 @@ const Page = () => {
                         icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-current group-hover:!fill-white" />}
                         text={t('titles.Export Excel file')}
                         disabled={true}
-                        // onClick={() => navigate(routerLinks(''))}
+                      // onClick={() => navigate(routerLinks(''))}
                       />
                     }
                   </div>
@@ -536,11 +515,11 @@ const Page = () => {
                             },
                           },
                         },
-                      },
-                    ]}
+                      ]
+                    }
                   />
                 }
-                subHeader={() => (
+                subHeader={() =>
                   <Form
                     className="intro-x rounded-lg w-full form-store"
                     values={{ 'categoryId1': getFilter(productFacade.queryParams, 'categoryId1'), 'categoryId2': getFilter(productFacade.queryParams, 'categoryId2'), 'categoryId3': getFilter(productFacade.queryParams, 'categoryId3'), 'supplierName': getFilter(productFacade.queryParams, 'supplierId'), 'type': getFilter(productFacade.queryParams, 'type') }}
@@ -646,24 +625,24 @@ const Page = () => {
                             },
                           },
                         },
-                      },
-                    ]}
+                      ]
+                    }
                     disableSubmit={isLoading}
                   />
-                )}
+                }
               />
-              <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
                   className={'sm:w-32 justify-center out-line w-80 mt-4 '}
                   onClick={() => {
-                    handleBack();
+                    handleBack()
                   }}
                 />
               </div>
             </Tabs.TabPane>
 
-            <Tabs.TabPane tab={t('titles.Listofbranches')} key="3" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Listofbranches')} key='3' className='rounded-xl'>
               <DataTable
                 facade={subStoreFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'BALANCE' } }}
@@ -685,20 +664,14 @@ const Page = () => {
                   {
                     title: 'store.Name',
                     name: 'name',
-                    tableItem: {},
+                    tableItem: {
+                    },
                   },
                   {
                     title: 'store.Address',
                     name: 'address',
                     tableItem: {
-                      render: (value: any, item: any) =>
-                        item.address?.street +
-                        ', ' +
-                        item.address?.wardName +
-                        ', ' +
-                        item.address?.districtName +
-                        ', ' +
-                        item.address?.provinceName,
+                      render: (value: any, item: any) => item.address?.street + ', ' + item.address?.wardName + ', ' + item.address?.districtName + ', ' + item.address?.provinceName,
                     },
                   },
                   {
@@ -719,14 +692,8 @@ const Page = () => {
                     title: 'supplier.Status',
                     name: 'isActive',
                     tableItem: {
-                      render: (text: string) =>
-                        text ? (
-                          <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                            {t('store.Active')}
-                          </div>
-                        ) : (
-                          <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded"></div>
-                        ),
+                      render: (text: string) => text ? (<div className='bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded'>{t('store.Active')}</div>)
+                        : (<div className='bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded'></div>),
                     },
                   },
                 ]}
@@ -734,21 +701,21 @@ const Page = () => {
                   <div className={'flex gap-2'}>
                     {
                       <Button
-                        className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full"
+                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full'
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
-                        // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
+                      // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
                       />
                     }
                   </div>
                 }
               />
-              <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
                   className={'sm:w-32 justify-center out-line w-80 mt-4 '}
                   onClick={() => {
-                    handleBack();
+                    handleBack()
                   }}
                 />
               </div>
@@ -756,9 +723,8 @@ const Page = () => {
 
             <Tabs.TabPane
               tab={
-                <Dropdown
-                  trigger={['click']}
-                  className="rounded-xl"
+                <Dropdown trigger={['click']}
+                  className='rounded-xl'
                   menu={{
                     items: [
                       {
@@ -792,13 +758,13 @@ const Page = () => {
                           </div>
                         ),
                       },
-                    ],
+                    ]
                   }}
                 >
                   <section className="flex items-center" id={'dropdown-profile'}>
                     <div className="flex">
                       <div>{t('titles.Manage')}</div>
-                      <Arrow className="w-5 h-5 rotate-90 ml-3 mt-1 fill-green" />
+                      <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
                     </div>
                   </section>
                 </Dropdown>
@@ -841,14 +807,7 @@ const Page = () => {
                       title: 'store.Address',
                       name: 'address',
                       tableItem: {
-                        render: (value: any, item: any) =>
-                          item.address?.street +
-                          ', ' +
-                          item.address?.wardName +
-                          ', ' +
-                          item.address?.districtName +
-                          ', ' +
-                          item.address?.provinceName,
+                        render: (value: any, item: any) => item.address?.street + ', ' + item.address?.wardName + ', ' + item.address?.districtName + ', ' + item.address?.provinceName,
                       },
                     },
                     {
@@ -867,7 +826,7 @@ const Page = () => {
                     },
                   ]}
                 />
-              ) : (
+                :
                 <DataTable
                   ref={dataTableRefSupplier}
                   facade={connectSupplierFacade}
@@ -904,14 +863,7 @@ const Page = () => {
                       title: 'store.Address',
                       name: 'supplier',
                       tableItem: {
-                        render: (value: any, item: any) =>
-                          item.supplier.address?.street +
-                          ', ' +
-                          item.supplier.address?.ward.name +
-                          ', ' +
-                          item.supplier.address?.district.name +
-                          ', ' +
-                          item.supplier.address?.province.name,
+                        render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
                       },
                     },
                     {
@@ -930,13 +882,13 @@ const Page = () => {
                     },
                   ]}
                 />
-              )}
-              <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
+              }
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
                   className={'sm:w-32 justify-center out-line w-80 mt-4 '}
                   onClick={() => {
-                    handleBack();
+                    handleBack()
                   }}
                 />
               </div>
@@ -972,13 +924,13 @@ const Page = () => {
                           </div>
                         ),
                       },
-                    ],
+                    ]
                   }}
                 >
                   <section className="flex items-center" id={'dropdown-profile'}>
                     <div className="flex">
                       <div>{t('titles.Revenue')}</div>
-                      <Arrow className="w-5 h-5 rotate-90 ml-3 mt-1 fill-green" />
+                      <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
                     </div>
                   </section>
                 </Dropdown>
@@ -1055,30 +1007,32 @@ const Page = () => {
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
-                      <div className="flex justify-end text-left flex-col w-full ">
+                      <div className='flex justify-end text-left flex-col w-full '>
                         <Form
                           className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:mt-0 form-store"
-                          values={{ status: getFilter(invoiceKiotVietFacade.queryParams, 'status') }}
-                          columns={[
-                            {
-                              title: '',
-                              name: 'status',
-                              formItem: {
-                                placeholder: 'placeholder.Select status',
-                                type: 'select',
-                                tabIndex: 3,
-                                col: 6,
-                                list: listStatusProduct,
-                                onChange(value, form) {
-                                  dataTableRefRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: {
-                                      idStore: id,
-                                      status: value,
-                                    },
-                                  });
-                                },
+                          values={{ 'status': getFilter(invoiceKiotVietFacade.queryParams, 'status') }}
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'status',
+                                formItem: {
+                                  placeholder: 'placeholder.Select status',
+                                  type: 'select',
+                                  tabIndex: 3,
+                                  col: 6,
+                                  list: listStatusProduct,
+                                  onChange(value, form) {
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idStore: id,
+                                        status: value,
+                                      }
+                                    });
+                                  },
+                                }
                               },
                               {
                                 title: '',
@@ -1104,12 +1058,12 @@ const Page = () => {
                                   },
                                 }
                               },
-                            },
-                          ]}
+                            ]
+                          }
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className="intro-x rounded-lg w-full sm:flex justify-between form-store "
+                          className='intro-x rounded-lg w-full sm:flex justify-between form-store '
                           columns={[
                             {
                               title: '',
@@ -1118,10 +1072,10 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className="h-10 items-center !w-full">
-                                    <p className="text-sm">{t('store.Since')}</p>
+                                  <div className='h-10 items-center !w-full'>
+                                    <p className='text-sm'>{t('store.Since')}</p>
                                   </div>
-                                ),
+                                )
                               },
                             },
                             {
@@ -1153,10 +1107,10 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className="flex h-10 items-center !w-full">
-                                    <p className="text-sm">{t('store.To date')}</p>
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>{t('store.To date')}</p>
                                   </div>
-                                ),
+                                )
                               },
                             },
                             {
@@ -1277,14 +1231,15 @@ const Page = () => {
                                   },
                                 },
                               },
-                            },
-                          ]}
+
+                            ]
+                          }
                           disableSubmit={isLoading}
                         />
                       </div>
                     )}
                   />
-                ) : (
+                  :
                   <DataTable
                     ref={dataTableRefRevenue}
                     facade={invoiceKiotVietFacade}
@@ -1357,7 +1312,7 @@ const Page = () => {
                     ]}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
-                      <div className="flex sm:justify-end text-left flex-col">
+                      <div className='flex sm:justify-end text-left flex-col'>
                         <Form
                           className="intro-x sm:flex lg:justify-end mt-4 lg:mt-0 form-store"
                           values={{ 'type': getFilter(invoiceKiotVietFacade.queryParams, 'status') }}
@@ -1382,8 +1337,8 @@ const Page = () => {
                                   },
                                 },
                               },
-                            },
-                          ]}
+                            ]
+                          }
                           disableSubmit={isLoading}
                         />
                         <Form
@@ -1397,10 +1352,10 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className="flex h-10 items-center !w-full">
-                                    <p className="text-sm">{t('store.Since')}</p>
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>{t('store.Since')}</p>
                                   </div>
-                                ),
+                                )
                               },
                             },
                             {
@@ -1432,10 +1387,10 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className="flex h-10 items-center !w-full">
-                                    <p className="text-sm">{t('store.To date')}</p>
+                                  <div className='flex h-10 items-center !w-full'>
+                                    <p className='text-sm'>{t('store.To date')}</p>
                                   </div>
-                                ),
+                                )
                               },
                             },
                             {
@@ -1465,24 +1420,22 @@ const Page = () => {
                       </div>
                     }
                   />
-                )}
-                <div className="flex sm:justify-end justify-center items-center p-5">
+                }
+                <div className='flex sm:justify-end justify-center items-center p-5'>
                   <Button
                     disabled={true}
                     text={t('titles.Export report')}
-                    className={
-                      'flex bg-teal-900 text-white sm:w-[10rem] rounded-xl items-center justify-center disabled:opacity-50'
-                    }
+                    className={'flex bg-teal-900 text-white sm:w-[10rem] rounded-xl items-center justify-center disabled:opacity-50'}
                     onClick={() => null}
                   />
                 </div>
               </div>
-              <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
                   className={'sm:w-32 justify-center out-line w-80 mt-4 '}
                   onClick={() => {
-                    handleBack();
+                    handleBack()
                   }}
                 />
               </div>
@@ -1493,8 +1446,8 @@ const Page = () => {
                 ref={dataTableRefInventory}
                 facade={inventoryProductFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
-                xScroll="1270px"
-                className=" bg-white p-5 rounded-lg form-store"
+                xScroll='1270px'
+                className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -1515,7 +1468,7 @@ const Page = () => {
                     name: 'supplierBarcode',
                     tableItem: {
                       filter: { type: 'search' },
-                    },
+                    }
                   },
                   {
                     title: 'store.Inventory management.Barcode (Product)',
@@ -1535,12 +1488,14 @@ const Page = () => {
                   {
                     title: 'store.Inventory management.Category',
                     name: 'category',
-                    tableItem: {},
+                    tableItem: {
+                    },
                   },
                   {
                     title: 'store.Inventory management.Supplier',
                     name: 'supplierName',
-                    tableItem: {},
+                    tableItem: {
+                    },
                   },
                   {
                     title: 'store.Inventory management.Unit',
@@ -1548,12 +1503,14 @@ const Page = () => {
                     tableItem: {
                       render(text, item) {
                         return (
-                          <Select value={item?.units[0]?.name} className="w-24" showSearch={true}>
+                          <Select value={item?.units[0]?.name} className='w-24' showSearch={true}>
                             {item?.units.map((unit: any) => (
-                              <Select.Option value={unit.value}>{unit.name}</Select.Option>
+                              <Select.Option value={unit.value}>
+                                {unit.name}
+                              </Select.Option>
                             ))}
                           </Select>
-                        );
+                        )
                       },
                     },
                   },
@@ -1562,7 +1519,7 @@ const Page = () => {
                     name: 'numberInKiot',
                     tableItem: {
                       // width: 120,
-                      align: 'right',
+                      align: 'right'
                     },
                   },
                   {
@@ -1571,7 +1528,7 @@ const Page = () => {
                     tableItem: {
                       // width: 120,
                       align: 'right',
-                      render: (value: any, item: any) => parseFloat(item?.numberInBal).toLocaleString(),
+                      render: (value: any, item: any) => parseFloat(item?.numberInBal).toLocaleString()
                     },
                   },
                   {
@@ -1580,7 +1537,7 @@ const Page = () => {
                     tableItem: {
                       // width: 70,
                       align: 'right',
-                      render: (value: any, item: any) => parseInt(item?.inventoryPrice).toLocaleString(),
+                      render: (value: any, item: any) => parseInt(item?.inventoryPrice).toLocaleString()
                     },
                   },
                   {
@@ -1589,8 +1546,7 @@ const Page = () => {
                     tableItem: {
                       // width: 70,
                       align: 'right',
-                      render: (value: any, item: any) =>
-                        parseInt(`${item?.numberInBal * item?.inventoryPrice}`).toLocaleString(),
+                      render: (value: any, item: any) => parseInt(`${item?.numberInBal * item?.inventoryPrice}`).toLocaleString()
                     },
                   },
                 ]}
@@ -1599,7 +1555,7 @@ const Page = () => {
                   <div className={'w-auto'}>
                     {
                       <Button
-                        className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group"
+                        className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group'
                         text={t('titles.synchronized')}
                       onClick={() => inventoryProductFacade.put({ ...inventoryProductFacade?.data!, id})}
                       />
@@ -1609,53 +1565,55 @@ const Page = () => {
                 leftHeader={
                   <Form
                     className="intro-x rounded-lg md:flex"
-                    values={{ supplierName: getFilter(inventoryProductFacade.queryParams, 'supplierId') }}
-                    columns={[
-                      {
-                        title: '',
-                        name: 'supplierName',
-                        formItem: {
-                          placeholder: 'placeholder.Choose a supplier',
-                          type: 'select',
-                          get: {
-                            facade: SupplierStoreFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch: string) => ({
-                              type: 'BALANCE',
-                              storeId: id,
-                            }),
-                          },
-                          onChange(value, form) {
-                            dataTableRefInventory?.current?.onChange({
-                              page: 1,
-                              perPage: 10,
-                              filter: { idStore: id, supplierId: value ? value : '' },
-                            });
+                    values={{ 'supplierName': getFilter(inventoryProductFacade.queryParams, 'supplierId') }}
+                    columns={
+                      [
+                        {
+                          title: '',
+                          name: 'supplierName',
+                          formItem: {
+                            placeholder: 'placeholder.Choose a supplier',
+                            type: 'select',
+                            get: {
+                              facade: SupplierStoreFacade,
+                              format: (item: any) => ({
+                                label: item.name,
+                                value: item.id,
+                              }),
+                              params: (fullTextSearch: string) => ({
+                                type: 'BALANCE',
+                                storeId: id
+                              }),
+                            },
+                            onChange(value, form) {
+                              dataTableRefInventory?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: { idStore: id, supplierId: value ? value : '', }
+                              });
+                            },
                           },
                         },
-                      },
-                    ]}
+                      ]
+                    }
                     disableSubmit={isLoading}
                   />
                 }
               />
-              <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
+              <div className=' flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
                   className={'sm:w-32 justify-center out-line w-80 mt-4 '}
                   onClick={() => {
-                    handleBack();
+                    handleBack()
                   }}
                 />
               </div>
             </Tabs.TabPane>
           </Tabs>
         </div>
-      </Fragment>
-    </div>
+      </Fragment >
+    </div >
   );
 };
 export default Page;
