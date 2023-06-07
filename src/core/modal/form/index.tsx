@@ -1,6 +1,5 @@
 import React, { forwardRef, Ref, useImperativeHandle } from 'react';
 import { Form as FormAnt } from 'antd';
-import { v4 } from 'uuid';
 
 import { Form } from '../../form';
 import { Modal } from '../../modal';
@@ -16,7 +15,6 @@ export const ModalForm = forwardRef(
       textSubmit,
       className = '',
       footerCustom,
-      idElement = 'modal-form-' + v4(),
       facade,
       keyState = 'isVisible',
       keyPost = 'post',
