@@ -305,7 +305,7 @@ module.exports = {
           transform: 'translateY(0)',
           animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
         },
-      },
+      }
     },
     animation: {
       shine: 'shine 0.8s',
@@ -314,6 +314,7 @@ module.exports = {
       'burger-hover-4': 'burgerHover 1s infinite ease-in-out alternate forwards 400ms',
       'burger-hover-6': 'burgerHover 1s infinite ease-in-out alternate forwards 600ms',
       'bounce': 'bounce 1s infinite',
+      'none': 'none',
     },
   },
   plugins: [],
