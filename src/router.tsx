@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
-import { Spin } from '@core/spin';
+import { Spin } from 'antd';
 import { keyUser, language, languages, routerLinks } from '@utils';
 import { useTranslation } from 'react-i18next';
 import { GlobalFacade } from '@store';
@@ -83,7 +83,7 @@ const pages = [
       {
         path: routerLinks('store-managerment/edit') + '/:id',
         component: React.lazy(() => import('@pages/store/edit')),
-        title: 'store-managerment/edit'
+        title: 'store-managerment/edit',
       },
       {
         path: routerLinks('Supplier'),
@@ -175,6 +175,5 @@ const Pages = () => {
     </BrowserRouter>
   );
 };
-
 
 export default Pages;

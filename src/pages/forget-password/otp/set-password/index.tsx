@@ -2,8 +2,8 @@ import React, { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { t } from 'i18next';
 
-import { Spin } from '@core/spin';
-import { Form } from '@core/form'
+import { Spin } from 'antd';
+import { Form } from '@core/form';
 import { GlobalFacade } from '@store';
 import { routerLinks, language, languages } from '@utils';
 
@@ -15,11 +15,11 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'setPassword.fulfilled') {
-      navigate(`/${lang}${routerLinks('Sign-in')}`)
+      navigate(`/${lang}${routerLinks('Sign-in')}`);
     }
   }, [status]);
 
-  console.log(data)
+  console.log(data);
   return (
     <Fragment>
       <div className="text-center mb-8 mx-auto">
@@ -28,10 +28,11 @@ const Page = () => {
         </h1>
         <h5 className="intro-x font-normal text-green-900">
           {t('routes.auth.reset-password.subReset')}
-          <br></br> {t('routes.auth.reset-password.subReset1')}</h5>
+          <br></br> {t('routes.auth.reset-password.subReset1')}
+        </h5>
       </div>
-      <div className='mx-auto w-3/4'>
-        <Spin spinning={isLoading} >
+      <div className="mx-auto w-3/4">
+        <Spin spinning={isLoading}>
           <Form
             values={{ ...data }}
             className="intro-x form-login space-y-8"
@@ -42,7 +43,7 @@ const Page = () => {
                 formItem: {
                   placeholder: 'columns.auth.placeholder.Password',
                   type: 'password',
-                  rules: [{ type: 'required' },],
+                  rules: [{ type: 'required' }],
                 },
               },
               {

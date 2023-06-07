@@ -2,8 +2,8 @@ import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { Spin } from '@core/spin';
-import { Form } from '@core/form'
+import { Spin } from 'antd';
+import { Form } from '@core/form';
 import { GlobalFacade } from '@store';
 import { routerLinks, language, languages } from '@utils';
 
@@ -24,13 +24,16 @@ const Page = () => {
   return (
     <Fragment>
       <div className="text-center mb-8">
-        <h1 className="intro-x text-3xl mb-8 font-bold text-teal-900 leading-8 md:text-5xl md:leading-10 lg:leading-10" id={'title-login'}>
+        <h1
+          className="intro-x text-3xl mb-8 font-bold text-teal-900 leading-8 md:text-5xl md:leading-10 lg:leading-10"
+          id={'title-login'}
+        >
           {t('routes.auth.login.title')}
         </h1>
         <h5 className="intro-x font-normal text-teal-900 ">{t('routes.auth.login.subTitle')}</h5>
       </div>
-      <div className='mx-auto w-3/4 relative'>
-        <Spin spinning={isLoading} >
+      <div className="mx-auto w-3/4 relative">
+        <Spin spinning={isLoading}>
           <Form
             values={{ ...data }}
             className="intro-x form-login"
@@ -40,7 +43,7 @@ const Page = () => {
                 title: t('columns.auth.login.Username'),
                 formItem: {
                   placeholder: 'columns.auth.login.Enter Username',
-                  rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }, { type: 'email' }],
+                  rules: [{ type: 'required', message: 'components.form.ruleRequiredPassword' }, { type: 'email' }],
                 },
               },
               {
@@ -50,7 +53,7 @@ const Page = () => {
                   placeholder: 'columns.auth.login.Enter Password',
                   type: 'password',
                   notDefaultValid: true,
-                  rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }]
+                  rules: [{ type: 'required', message: 'components.form.ruleRequiredPassword' }],
                 },
               },
             ]}
@@ -60,7 +63,10 @@ const Page = () => {
           />
         </Spin>
         <div className="absolute right-6 top-2/3 sm:right-0 text-right">
-          <button className={'text-teal-900 font-normal underline hover:no-underline mt-2'} onClick={() => navigate(`/${lang}${routerLinks('ForgetPassword')}`)}>
+          <button
+            className={'text-teal-900 font-normal underline hover:no-underline mt-2'}
+            onClick={() => navigate(`/${lang}${routerLinks('ForgetPassword')}`)}
+          >
             {t('routes.auth.login.Forgot Password')}
           </button>
         </div>

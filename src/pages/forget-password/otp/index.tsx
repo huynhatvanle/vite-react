@@ -2,8 +2,8 @@ import React, { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { t } from 'i18next';
 
-import { Spin } from '@core/spin';
-import { Form } from '@core/form'
+import { Spin } from 'antd';
+import { Form } from '@core/form';
 import { GlobalFacade } from '@store';
 import { routerLinks, language, languages } from '@utils';
 
@@ -14,13 +14,13 @@ const Page = () => {
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
-    console.log(status)
+    console.log(status);
     if (status === 'verifyForgotPassword.fulfilled') {
-      navigate(`/${lang}${routerLinks('SetPassword')}`)
+      navigate(`/${lang}${routerLinks('SetPassword')}`);
     }
   }, [status]);
 
-  console.log(data)
+  console.log(data);
 
   return (
     <Fragment>
@@ -30,8 +30,8 @@ const Page = () => {
         </h1>
         <h5 className="intro-x font-normal text-green-900 ">{t('routes.auth.reset-password.subEmail')}</h5>
       </div>
-      <div className='mx-auto lg:w-full'>
-        <Spin spinning={isLoading} >
+      <div className="mx-auto lg:w-full">
+        <Spin spinning={isLoading}>
           <Form
             values={{ ...data }}
             className="intro-x form-forgetPassword"
@@ -65,7 +65,10 @@ const Page = () => {
           />
         </Spin>
         <div className="mt-3 text-center">
-          <button className={'text-sky-600 font-normal underline hover:no-underline hover:text-sky-500'} onClick={() => navigate(`/${lang}${routerLinks('Login')}`)}>
+          <button
+            className={'text-sky-600 font-normal underline hover:no-underline hover:text-sky-500'}
+            onClick={() => navigate(`/${lang}${routerLinks('Login')}`)}
+          >
             {' '}
             {t('routes.auth.reset-password.Go back to login')}
           </button>
