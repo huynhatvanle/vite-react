@@ -296,6 +296,16 @@ module.exports = {
           transform: 'translateX(0px)',
         },
       },
+      bounce: {
+        '0%, 100%': {
+          transform: 'translateY(-25%)',
+          animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)',
+        },
+        '50%': {
+          transform: 'translateY(0)',
+          animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
+        },
+      },
     },
     animation: {
       shine: 'shine 0.8s',
@@ -303,6 +313,7 @@ module.exports = {
       'burger-hover-2': 'burgerHover 1s infinite ease-in-out alternate forwards 200ms',
       'burger-hover-4': 'burgerHover 1s infinite ease-in-out alternate forwards 400ms',
       'burger-hover-6': 'burgerHover 1s infinite ease-in-out alternate forwards 600ms',
+      'bounce': 'bounce 1s infinite',
     },
   },
   plugins: [],
