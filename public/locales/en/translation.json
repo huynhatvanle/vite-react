@@ -110,7 +110,8 @@
     "synchronized": "Synchronized",
     "Ordermanagement": "Order Management",
     "Discount": "Discount",
-    "Contract": "Contract"
+    "Contract": "Contract",
+    "Upload contract":"Upload contract"
   },
   "pages": {
     "Dashboard": "Dashboard",

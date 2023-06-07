@@ -47,6 +47,8 @@ const Page = () => {
     userFacade.put({ ...values, id });
   };
 
+  const someStatus = 'ACTIVE';
+
   return (
     <Fragment>
       <div className='' >
@@ -72,6 +74,9 @@ const Page = () => {
                   tabIndex: 1,
                   col: 6,
                   rules: [{ type: 'required' }],
+                  disabled: (values) => {
+                    return values?.status === 'UNACTIVE';
+                  }
                 },
               },
               {
@@ -89,6 +94,9 @@ const Page = () => {
                 formItem: {
                   col: 6,
                   rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 15 }],
+                  disabled: (values) => {
+                    return values?.status === 'UNACTIVE';
+                  }
                 },
               },
               {
