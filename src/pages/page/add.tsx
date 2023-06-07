@@ -54,7 +54,7 @@ const Page = () => {
 
   const { t } = useTranslation();
   return (
-    <div className={'max-w-2xl mx-auto'}>
+    <div className={'max-w-3xl mx-auto'}>
       <Form
         values={{ ...pageFacade.data }}
         className="intro-x"

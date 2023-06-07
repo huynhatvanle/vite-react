@@ -56,7 +56,7 @@ const Page = () => {
   const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
   const { t } = useTranslation();
   return (
-    <div className={'max-w-4xl mx-auto'}>
+    <div className={'max-w-3xl mx-auto'}>
       <Form
         values={{ ...dataFacade.data }}
         className="intro-x"
