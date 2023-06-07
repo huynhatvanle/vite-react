@@ -39,7 +39,7 @@ const Page = () => {
   return (
     <Fragment>
       <DataTable
-        className={'container mx-auto'}
+        className={'max-w-5xl mx-auto'}
         facade={codeFacade}
         ref={dataTableRef}
         onRow={() => ({
