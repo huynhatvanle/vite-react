@@ -60,7 +60,8 @@ export const InventoryProductFacade = () => {
     set: (values: State<InventoryProduct>) => dispatch(action.set(values)),
     get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { fullTextSearch: string, idStore?: string; supplierId: string } }) => {
       return dispatch(action.getInventoryProduct({ page, perPage, filter }))
-    }
+    },
+    put: (values: InventoryProduct) => dispatch(action.put(values)),
   };
 };
 

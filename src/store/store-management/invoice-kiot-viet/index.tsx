@@ -15,7 +15,7 @@ const action = {
     async ({ page, perPage, filter }: {
       page: number,
       perPage: number, 
-      filter: { idStore: string, supplierId?: string, status?: string, categoryId?: string } }) => {
+      filter: { idStore: string, supplierId?: string, status?: string, categoryId?: string, categoryId1: string, categoryId2: string, categoryId3: string, dateFrom: string, dateTo: string } }) => {
       const filterInvoiceKiotViet = JSON.parse(filter.toString() || '{}')
       let data = await API.get(routerLinks(name, 'api'), { 
         page, 
@@ -23,7 +23,11 @@ const action = {
         idStore: filterInvoiceKiotViet.idStore,
         status: filterInvoiceKiotViet.status ? filterInvoiceKiotViet.status : '',
         supplierId: filterInvoiceKiotViet.supplierId ? filterInvoiceKiotViet.supplierId : '',
-        categoryId: filterInvoiceKiotViet.categoryId ? filterInvoiceKiotViet.categoryId : ''
+        categoryId: filterInvoiceKiotViet.categoryId3 ? filterInvoiceKiotViet.categoryId3 : filterInvoiceKiotViet.categoryId2 ? filterInvoiceKiotViet.categoryId2 : filterInvoiceKiotViet.categoryId1 ? filterInvoiceKiotViet.categoryId1 : '',
+        categoryId1: filterInvoiceKiotViet.categoryId1 ? filterInvoiceKiotViet.categoryId1 : '',
+        categoryId2: filterInvoiceKiotViet.categoryId2 ? filterInvoiceKiotViet.categoryId2 : '',
+        categoryId3: filterInvoiceKiotViet.categoryId3 ? filterInvoiceKiotViet.categoryId3 : '',
+        filter: {dateFrom: filterInvoiceKiotViet.dateFrom ? filterInvoiceKiotViet.dateFrom : '',dateTo: filterInvoiceKiotViet.dateTo ? filterInvoiceKiotViet.dateTo : ''}
       });
       data.data = Object.entries(data.data as Object)[0]?.[1]
       return data;
@@ -61,7 +65,7 @@ export const InvoiceKiotVietFacade = () => {
     ...(useTypedSelector((state) => state[action.name]) as State<InvoiceKiotViet>),
     set: (values: State<InvoiceKiotViet>) => dispatch(action.set(values)),
     // get: (params: PaginationQuery<InvoiceKiotViet>) => dispatch(action.getInvoiceKiotViet(params)),
-    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { idStore: string, supplierId?: string, status?: string, categoryId?: string } }) => dispatch(action.getInvoiceKiotViet({ page, perPage, filter })),
+    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { idStore: string, supplierId: string, status: string, categoryId: string, categoryId1: string, categoryId2: string, categoryId3: string, dateFrom: string, dateTo: string } }) => dispatch(action.getInvoiceKiotViet({ page, perPage, filter })),
   };
 };
 

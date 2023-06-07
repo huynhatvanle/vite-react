@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Select, Switch, Tabs, Dropdown } from 'antd';
 import { useNavigate, useParams } from 'react-router';
+import classNames from 'classnames';
+import dayjs from 'dayjs';
 
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
@@ -45,8 +47,9 @@ const Page = () => {
   const dataTableRefSupplier = useRef<TableRefObject>(null);
   const dataTableRefInventory = useRef<TableRefObject>(null);
   const dataTableRefRevenue = useRef<TableRefObject>(null);
-  const dataTableRefsubStore = useRef<TableRefObject>(null);
-  const [isBalanceClicked, setIsBalanceClicked] = useState<boolean>(false);
+  const dataTableRefsubStore = useRef<TableRefObject>(null)
+  const [isBalance, setIsBalance] = useState<boolean>(false);
+  const [isProduct, setIsProduct] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState(false);
   const [type, setType] = useState('BALANCE');
 
@@ -348,73 +351,64 @@ const Page = () => {
               )}
             </Tabs.TabPane>
 
-            <Tabs.TabPane
-              tab={
-                <Dropdown
-                  trigger={['click']}
-                  className="!rounded-xl"
-                  menu={{
-                    className: '!mt-3',
-                    items: [
-                      {
-                        key: '1',
-                        className: '!font-semibold !text-base !text-teal-900',
-                        label: (
-                          <div
-                            onClick={() => {
-                              setIsBalanceClicked(false);
-                              dataTableRefProduct?.current?.onChange({
-                                page: 1,
-                                perPage: 10,
-                                filter: { storeId: data?.id, type: 'BALANCE' },
-                              });
-                            }}
-                            className={`${isBalanceClicked ? 'text-gray-200' : ''}`}
-                          >
-                            BALANCE
-                          </div>
-                        ),
-                      },
-                      {
-                        key: '2',
-                        className: '!font-semibold !text-base !text-teal-900',
-                        label: (
-                          <div
-                            onClick={() => {
-                              setIsBalanceClicked(true);
-                              dataTableRefProduct?.current?.onChange({
-                                page: 1,
-                                perPage: 10,
-                                filter: { storeId: id, type: 'NON_BALANCE' },
-                              });
-                            }}
-                            className={`${isBalanceClicked ? '' : 'text-gray-200'}`}
-                          >
-                            Non - BALANCE
-                          </div>
-                        ),
-                      },
-                    ],
-                  }}
-                >
-                  <section className="flex items-center" id={'dropdown-store'}>
-                    <div className="flex">
-                      <div>{t('titles.Listofgoods')}</div>
-                      <Arrow className="w-5 h-5 rotate-90 ml-3 mt-1 fill-green" />
-                    </div>
-                  </section>
-                </Dropdown>
-              }
-              key="2"
-              className="rounded-xl"
-            >
+            <Tabs.TabPane tab={
+              <Dropdown trigger={['click']}
+                className='!rounded-xl'
+                menu={{
+                  className: '!mt-3',
+                  items: [
+                    {
+                      key: '1',
+                      className: '!font-semibold !text-base !text-teal-900',
+                      label: (
+                        <div onClick={() => {
+                          setIsBalance(false);
+                          dataTableRefProduct?.current?.onChange({
+                            page: 1,
+                            perPage: 10,
+                            filter: { storeId: id, type: 'BALANCE' }
+                          });
+                        }} className={`${isBalance ? 'text-gray-200' : ''}`}>
+                          BALANCE
+                        </div>
+                      ),
+                    },
+                    {
+                      key: '2',
+                      className: '!font-semibold !text-base !text-teal-900',
+                      label: (
+                        <div onClick={() => {
+                          setIsBalance(true);
+                          dataTableRefProduct?.current?.onChange({
+                            page: 1,
+                            perPage: 10,
+                            filter: { storeId: id, type: 'NON_BALANCE' }
+                          });
+                        }} className={`${isBalance ? '' : 'text-gray-200'}`}>
+                          Non - BALANCE
+                        </div>
+                      ),
+                    },
+                  ]
+                }}
+              >
+                <section className="flex items-center" id={'dropdown-store'}>
+                  <div className="flex">
+                    <div>{t('titles.Listofgoods')}</div>
+                    <Arrow className='w-5 h-5 rotate-90 ml-3 mt-1 fill-green' />
+                  </div>
+                </section>
+              </Dropdown>
+            }
+              key='2' className='rounded-xl'>
+
               <DataTable
                 ref={dataTableRefProduct}
                 facade={productFacade}
                 defaultRequest={{
                   page: 1,
                   perPage: 10,
-                  filter: { storeId: data?.id, type: 'BALANCE' },
+                  filter: { storeId: id, type: 'BALANCE' }
                 }}
                 xScroll="1270px"
                 className=" bg-white p-5 rounded-lg form-store form-header-category"
@@ -488,8 +482,11 @@ const Page = () => {
                   <div className={'flex h-10 w-36 mb-2 sm:mb-0'}>
                     {
                       <Button
-                        className="!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border !border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group !mt-0 !rounded-xl"
-                        icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-gray-600 group-hover:!fill-white" />}
+                        className={classNames('!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border', {
+                          '!border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group': productFacade.result?.data?.length !== 0 ,
+                          '!border-gray-300 !text-gray-300 cursor-not-allowed': productFacade.result?.data?.length === 0
+                        })}
+                        icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-current group-hover:!fill-white" />}
                         text={t('titles.Export Excel file')}
                         disabled={true}
                         // onClick={() => navigate(routerLinks(''))}
@@ -500,47 +497,43 @@ const Page = () => {
                 leftHeader={
                   <Form
                     className="intro-x rounded-lg w-full form-store"
-                    values={{
-                      supplierName: getFilter(productFacade.queryParams, 'supplierId'),
-                      categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
-                      categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
-                      categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
-                    }}
-                    columns={[
-                      {
-                        title: '',
-                        name: 'supplierName',
-                        formItem: {
-                          placeholder: 'placeholder.Choose a supplier',
-                          col: 5,
-                          type: 'select',
-                          // firstLoad: (value: any) => ({ storeId: data?.id, type: 'BALANCE', supplierId: value ? value : '', categoryId: '' }),
-                          get: {
-                            facade: SupplierStoreFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch) => ({
-                              fullTextSearch,
-                              storeId: id,
-                              type: 'BALANCE',
-                            }),
-                          },
-                          onChange(value, form) {
-                            dataTableRefProduct?.current?.onChange({
-                              page: 1,
-                              perPage: 10,
-                              filter: {
-                                storeId: data?.id,
-                                type: 'BALANCE',
-                                supplierId: value ? value : '',
-                                // categoryId: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '' ,
-                                categoryId1: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '',
-                                categoryId2: form.getFieldValue('categoryId2') ? form.getFieldValue('categoryId2') : '',
-                                categoryId3: form.getFieldValue('categoryId3') ? form.getFieldValue('categoryId3') : '',
-                              },
-                            });
+                    values={{ 'supplierName': getFilter(productFacade.queryParams, 'supplierId'), 'categoryId1': getFilter(productFacade.queryParams, 'categoryId1'), 'categoryId2': getFilter(productFacade.queryParams, 'categoryId2'), 'categoryId3': getFilter(productFacade.queryParams, 'categoryId3'), 'type': getFilter(productFacade.queryParams, 'type') }}
+                    columns={
+                      [
+                        {
+                          title: '',
+                          name: 'supplierName',
+                          formItem: {
+                            placeholder: 'placeholder.Choose a supplier',
+                            col: 5,
+                            type: 'select',
+                            get: {
+                              facade: SupplierStoreFacade,
+                              format: (item: any) => ({
+                                label: item.name,
+                                value: item.id,
+                              }),
+                              params: (fullTextSearch, value) => ({
+                                fullTextSearch,
+                                storeId: id,
+                                type: value().type,
+                              }),
+                            },
+                            onChange(value, form) {
+                              dataTableRefProduct?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: {
+                                  storeId: id,
+                                  type: form.getFieldValue('type'),
+                                  supplierId: value ? value : '',
+                                  // categoryId: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '' ,
+                                  categoryId1: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '',
+                                  categoryId2: form.getFieldValue('categoryId2') ? form.getFieldValue('categoryId2') : '',
+                                  categoryId3: form.getFieldValue('categoryId3') ? form.getFieldValue('categoryId3') : '',
+                                }
+                              });
+                            },
                           },
                         },
                       },
@@ -550,117 +543,107 @@ const Page = () => {
                 subHeader={() => (
                   <Form
                     className="intro-x rounded-lg w-full form-store"
-                    values={{
-                      categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
-                      categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
-                      categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
-                      supplierName: getFilter(productFacade.queryParams, 'supplierId'),
-                      type: getFilter(productFacade.queryParams, 'type'),
-                    }}
-                    columns={[
-                      {
-                        title: '',
-                        name: 'categoryId1',
-                        formItem: {
-                          placeholder: 'placeholder.Main categories',
-                          col: 3,
-                          type: 'select',
-                          firstLoad: () => ({}),
-                          get: {
-                            facade: CategoryFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                          },
-                          onChange(value, form) {
-                            form.resetFields(['categoryId2', 'categoryId3']);
-                            dataTableRefProduct?.current?.onChange({
-                              page: 1,
-                              perPage: 10,
-                              filter: {
-                                storeId: data?.id,
-                                type: form.getFieldValue('type'),
-                                supplierId: form.getFieldValue('supplierName')
-                                  ? form.getFieldValue('supplierName')
-                                  : '',
-                                categoryId1: value ? value : '',
-                              },
-                            });
+                    values={{ 'categoryId1': getFilter(productFacade.queryParams, 'categoryId1'), 'categoryId2': getFilter(productFacade.queryParams, 'categoryId2'), 'categoryId3': getFilter(productFacade.queryParams, 'categoryId3'), 'supplierName': getFilter(productFacade.queryParams, 'supplierId'), 'type': getFilter(productFacade.queryParams, 'type') }}
+                    columns={
+                      [
+                        {
+                          title: '',
+                          name: 'categoryId1',
+                          formItem: {
+                            placeholder: 'placeholder.Main categories',
+                            col: 3,
+                            type: 'select',
+                            firstLoad: () => ({}),
+                            get: {
+                              facade: CategoryFacade,
+                              format: (item: any) => ({
+                                label: item.name,
+                                value: item.id,
+                              }),
+                            },
+                            onChange(value, form) {
+                              form.resetFields(['categoryId2', 'categoryId3'])
+                              dataTableRefProduct?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: {
+                                  storeId: id,
+                                  type: form.getFieldValue('type'),
+                                  supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '',
+                                  categoryId1: value ? value : ''
+                                }
+                              });
+                            },
                           },
                         },
-                      },
-                      {
-                        name: 'categoryId2',
-                        title: '',
-                        formItem: {
-                          placeholder: 'placeholder.Category level 1',
-                          type: 'select',
-                          col: 3,
-                          // disabled: (values: any, form: any) => {  console.log(form.getFieldValue('categoryId1')); return true},
-                          get: {
-                            facade: CategoryFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch, value) => ({
-                              fullTextSearch,
-                              id: value().categoryId1,
-                            }),
-                          },
-                          onChange(value, form) {
-                            form.resetFields(['categoryId3']);
-                            dataTableRefProduct?.current?.onChange({
-                              page: 1,
-                              perPage: 10,
-                              filter: {
-                                storeId: data?.id,
-                                type: form.getFieldValue('type'),
-                                supplierId: form.getFieldValue('supplierName')
-                                  ? form.getFieldValue('supplierName')
-                                  : '',
-                                categoryId2: value ? value : '',
-                                categoryId1: form.getFieldValue('categoryId1'),
-                              },
-                            });
+                        {
+                          name: 'categoryId2',
+                          title: '',
+                          formItem: {
+                            placeholder: 'placeholder.Category level 1',
+                            type: 'select',
+                            col: 3,
+                            // disabled: (values: any, form: any) => values, 
+                            get: {
+                              facade: CategoryFacade,
+                              format: (item: any) => ({
+                                label: item.name,
+                                value: item.id,
+                              }),
+                              params: (fullTextSearch, value) => ({
+                                fullTextSearch,
+                                id: value().categoryId1,
+                              }),
+                            },
+                            onChange(value, form) {
+                              form.resetFields(['categoryId3'])
+                              dataTableRefProduct?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: {
+                                  storeId: id,
+                                  type: form.getFieldValue('type'),
+                                  supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '',
+                                  categoryId2: value ? value : '',
+                                  categoryId1: form.getFieldValue('categoryId1')
+                                }
+                              });
+                            },
                           },
                         },
-                      },
-                      {
-                        name: 'categoryId3',
-                        title: '',
-                        formItem: {
-                          placeholder: 'placeholder.Category level 2',
-                          type: 'select',
-                          col: 3,
-                          // disabled: (values: any, form: any) => values.categoryId3 ? false : true,
-                          get: {
-                            facade: CategoryFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch, value) => ({
-                              fullTextSearch,
-                              id: value().categoryId2,
-                            }),
-                          },
-                          onChange(value, form) {
-                            dataTableRefProduct?.current?.onChange({
-                              page: 1,
-                              perPage: 10,
-                              filter: {
-                                storeId: data?.id,
-                                type: form.getFieldValue('type'),
-                                supplierId: form.getFieldValue('supplierName')
-                                  ? form.getFieldValue('supplierName')
-                                  : '',
-                                categoryId3: value ? value : '',
-                                categoryId1: form.getFieldValue('categoryId1'),
-                                categoryId2: form.getFieldValue('categoryId2'),
-                              },
-                            });
+                        {
+                          name: 'categoryId3',
+                          title: '',
+                          formItem: {
+                            placeholder: 'placeholder.Category level 2',
+                            type: 'select',
+                            col: 3,
+                            // disabled: (values: any, form: any) => values.categoryId3 ? false : true,
+                            get: {
+                              facade: CategoryFacade,
+                              format: (item: any) => ({
+                                label: item.name,
+                                value: item.id,
+                              }),
+                              params: (fullTextSearch, value) => ({
+                                fullTextSearch,
+                                id: value().categoryId2,
+                              })
+                            },
+                            onChange(value, form) {
+                              dataTableRefProduct?.current?.onChange({
+                                page: 1,
+                                perPage: 10,
+                                filter: {
+                                  storeId: id,
+                                  type: form.getFieldValue('type'),
+                                  supplierId: form.getFieldValue('supplierName') ? form.getFieldValue('supplierName') : '',
+                                  categoryId3: value ? value : '',
+                                  categoryId1: form.getFieldValue('categoryId1'),
+                                  categoryId2: form.getFieldValue('categoryId2')
+                                }
+                              });
+                            },
                           },
                         },
                       },
@@ -683,9 +666,9 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Listofbranches')} key="3" className="rounded-xl">
               <DataTable
                 facade={subStoreFacade}
-                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: data?.id, supplierType: 'BALANCE' } }}
-                xScroll="1270px"
-                className=" bg-white p-5 rounded-lg form-store"
+                defaultRequest={{ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'BALANCE' } }}
+                xScroll='1270px'
+                className=' bg-white p-5 rounded-lg form-store'
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -782,19 +765,16 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div
-                            onClick={() => {
-                              // setType('BALANCE')
-                              setIsBalanceClicked(false);
-                              dataTableRefSupplier?.current?.onChange({
-                                page: 1,
-                                perPage: 10,
-                                fullTextSearch: '',
-                                filter: { idSuppiler: id, supplierType: 'BALANCE' },
-                              });
-                            }}
-                            className={`${isBalanceClicked ? 'text-gray-200' : ''}`}
-                          >
+                          <div onClick={() => {
+                            // setType('BALANCE')
+                            setIsBalance(false);
+                            dataTableRefSupplier?.current?.onChange({
+                              page: 1,
+                              perPage: 10,
+                              fullTextSearch: '',
+                              filter: { idSuppiler: id, supplierType: 'BALANCE' }
+                            });
+                          }} className={`${isBalance ? 'text-gray-200' : ''}`}>
                             BALANCE
                           </div>
                         ),
@@ -803,19 +783,11 @@ const Page = () => {
                         key: '2',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div
-                            onClick={() => {
-                              // setType('NON_BALANCE')
-                              setIsBalanceClicked(true);
-                              dataTableRefsubStore?.current?.onChange({
-                                page: 1,
-                                perPage: 10,
-                                fullTextSearch: '',
-                                filter: { storeId: id, supplierType: 'NON_BALANCE' },
-                              });
-                            }}
-                            className={`${isBalanceClicked ? '' : 'text-gray-200'}`}
-                          >
+                          <div onClick={() => {
+                            // setType('NON_BALANCE')
+                            setIsBalance(true);
+                            dataTableRefsubStore?.current?.onChange({ page: 1, perPage: 10, fullTextSearch: '', filter: { storeId: id, supplierType: 'NON_BALANCE' } });
+                          }} className={`${isBalance ? '' : 'text-gray-200'}`}>
                             Non - BALANCE
                           </div>
                         ),
@@ -831,21 +803,14 @@ const Page = () => {
                   </section>
                 </Dropdown>
               }
-              key="4"
-              className="rounded-xl"
-            >
-              {isBalanceClicked ? (
+              key='4' className='rounded-xl'>
+              {isBalance ?
                 <DataTable
                   ref={dataTableRefsubStore}
                   facade={subStoreFacade}
-                  defaultRequest={{
-                    page: 1,
-                    perPage: 10,
-                    fullTextSearch: '',
-                    filter: { storeId: data?.id, supplierType: 'NON_BALANCE' },
-                  }}
-                  xScroll="1270px"
-                  className=" bg-white p-5 rounded-lg"
+                  defaultRequest={{ page: 1, perPage: 10, fullTextSearch: '', filter: { storeId: id, supplierType: 'NON_BALANCE' } }}
+                  xScroll='1270px'
+                  className=' bg-white p-5 rounded-lg'
                   // onRow={(data: any) => ({
                   //   onDoubleClick: () => {
                   //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
@@ -906,9 +871,9 @@ const Page = () => {
                 <DataTable
                   ref={dataTableRefSupplier}
                   facade={connectSupplierFacade}
-                  defaultRequest={{ page: 1, perPage: 10, fullTextSearch: '', filter: { idSuppiler: data?.id } }}
-                  xScroll="1270px"
-                  className=" bg-white p-5 rounded-lg"
+                  defaultRequest={{ page: 1, perPage: 10, fullTextSearch: '', filter: { idSuppiler: id } }}
+                  xScroll='1270px'
+                  className=' bg-white p-5 rounded-lg'
                   // onRow={(data: any) => ({
                   //   onDoubleClick: () => {
                   //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
@@ -979,22 +944,18 @@ const Page = () => {
 
             <Tabs.TabPane
               tab={
-                <Dropdown
-                  trigger={['click']}
-                  className="rounded-xl"
+                <Dropdown trigger={['click']} 
+                  className='rounded-xl'
                   menu={{
                     items: [
                       {
                         key: '0',
                         className: '!font-semibold !text-base !text-teal-900 !w-full',
                         label: (
-                          <div
-                            onClick={() => {
-                              setIsBalanceClicked(false);
-                              // dataTableRef?.current?.onChange();
-                            }}
-                            className={`${isBalanceClicked ? 'text-gray-200' : ''}`}
-                          >
+                          <div onClick={() => {
+                            setIsProduct(false);
+                            // dataTableRef?.current?.onChange();
+                          }} className={`${isProduct ? 'text-gray-200' : ''}`}>
                             {t('store.Revenue by order')}
                           </div>
                         ),
@@ -1003,13 +964,10 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div
-                            onClick={() => {
-                              setIsBalanceClicked(true);
-                              // dataTableRef?.current?.onChange();
-                            }}
-                            className={`${isBalanceClicked ? '' : 'text-gray-200'}`}
-                          >
+                          <div onClick={() => {
+                            setIsProduct(true);
+                            // dataTableRef?.current?.onChange();
+                          }} className={`${isProduct ? '' : 'text-gray-200'}`}>
                             {t('store.Revenue by product')}
                           </div>
                         ),
@@ -1025,16 +983,14 @@ const Page = () => {
                   </section>
                 </Dropdown>
               }
-              key="5"
-              className="rounded-xl"
-            >
-              <div className="bg-white p-5 rounded-lg">
-                {isBalanceClicked ? (
+              key='5' className='rounded-xl'>
+              <div className='bg-white p-5 rounded-lg'>
+                {isProduct ?
                   <DataTable
                     ref={dataTableRefRevenue}
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: data?.id } }}
-                    xScroll="1270px"
+                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
+                    xScroll='1270px'
                     // onRow={(data: any) => ({
                     //   onDoubleClick: () => {
                     //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
@@ -1124,29 +1080,29 @@ const Page = () => {
                                   });
                                 },
                               },
-                            },
-                            {
-                              title: '',
-                              name: 'name',
-                              formItem: {
-                                placeholder: 'placeholder.Choose a supplier',
-                                col: 6,
-                                type: 'select',
-                                // firstLoad: () => ({ page: 1, perPage: 100000, filter: { idSuppiler: '832' } }),
-                                get: {
-                                  facade: ConnectSupplierFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: () => ({
-                                    page: 1,
-                                    perPage: 100000,
-                                    filter: {
-                                      idSuppiler: '832',
-                                    },
-                                  }),
-                                },
+                              {
+                                title: '',
+                                name: 'supplier',
+                                formItem: {
+                                  placeholder: 'placeholder.Choose a supplier',
+                                  col: 6,
+                                  type: 'select',
+                                  // firstLoad: () => ({ page: 1, perPage: 100000, filter: { idSuppiler: '832' } }),
+                                  get: {
+                                    facade: ConnectSupplierFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: () => ({
+                                      page: 1,
+                                      perPage: 100000,
+                                      filter: {
+                                        idSuppiler: '832',
+                                      }
+                                    }),
+                                  },
+                                }
                               },
                             },
                           ]}
@@ -1210,90 +1166,103 @@ const Page = () => {
                         <Form
                           className="intro-x rounded-lg form-store form-header-category"
                           values={{
-                            categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId'),
-                            categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId'),
-                            categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId'),
+                            'categoryId1': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
+                            'categoryId2': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
+                            'categoryId3': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3')
                           }}
-                          columns={[
-                            {
-                              title: '',
-                              name: 'categoryId1',
-                              formItem: {
-                                tabIndex: 3,
-                                placeholder: 'placeholder.Main categories',
-                                type: 'select',
-                                col: 3,
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                },
-                                onChange(value, form) {
-                                  form.resetFields(['categoryId2', 'categoryId3']);
-                                  dataTableRefRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: { idStore: data?.id, categoryId: value ? value : '' },
-                                  });
-                                },
-                              },
-                            },
-                            {
-                              name: 'categoryId2',
-                              title: '',
-                              formItem: {
-                                placeholder: 'placeholder.Category level 1',
-                                type: 'select',
-                                col: 3,
-                                disabled: (values: any, form: any) => (values.categoryId2 ? false : true),
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().categoryId1,
-                                  }),
-                                },
-                                onChange(value, form) {
-                                  form.resetFields(['categoryId3']);
-                                  dataTableRefRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: { idStore: data?.id, categoryId: value ? value : '' },
-                                  });
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'categoryId1',
+                                formItem: {
+                                  tabIndex: 3,
+                                  placeholder: 'placeholder.Main categories',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['categoryId2', 'categoryId3'])
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: { 
+                                        idStore: id, 
+                                        categoryId1: value ? value : '' }
+                                    });
+                                  },
                                 },
                               },
-                            },
-                            {
-                              name: 'cap3',
-                              title: '',
-                              formItem: {
-                                placeholder: 'placeholder.Category level 2',
-                                type: 'select',
-                                col: 3,
-                                disabled: (values: any, form: any) => (values.categoryId2 ? false : true),
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().cap2,
-                                  }),
+                              {
+                                name: 'categoryId2',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'placeholder.Category level 1',
+                                  type: 'select',
+                                  col: 3,
+                                  disabled: (values: any, form: any) => values.categoryId2 ? false : true,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().categoryId1,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['categoryId3'])
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: { 
+                                        idStore: id, 
+                                        categoryId2: value ? value : '',
+                                        categoryId1: form.getFieldValue('categoryId1')
+                                      }
+                                    });
+                                  },
                                 },
-                                onChange(value, form) {
-                                  dataTableRefRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: { idStore: data?.id, categoryId: value ? value : '' },
-                                  });
+                              },
+                              {
+                                name: 'categoryId3',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'placeholder.Category level 2',
+                                  type: 'select',
+                                  col: 3,
+                                  disabled: (values: any, form: any) => values.categoryId2 ? false : true,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                    params: (fullTextSearch, value) => ({
+                                      fullTextSearch,
+                                      id: value().cap2,
+                                    })
+                                  },
+                                  onChange(value, form) {
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: { 
+                                        idStore: id, 
+                                        categoryId3: value ? value : '',
+                                        categoryId1: form.getFieldValue('categoryId1'),
+                                        categoryId2: form.getFieldValue('categoryId2')
+                                      }
+                                    });
+                                  },
                                 },
                               },
                             },
@@ -1307,8 +1276,16 @@ const Page = () => {
                   <DataTable
                     ref={dataTableRefRevenue}
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
-                    xScroll="1440px"
+                    defaultRequest={{ 
+                      page: 1, 
+                      perPage: 10, 
+                      filter: { 
+                        idStore: id, 
+                        dateFrom: dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                        dateTo: dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
+                      }, 
+                    }}
+                    xScroll='1440px'
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
@@ -1370,25 +1347,27 @@ const Page = () => {
                     rightHeader={
                       <div className="flex sm:justify-end text-left flex-col">
                         <Form
-                          className="intro-x sm:flex lg:justify-end mt-2 lg:mt-0 form-store"
-                          values={{ type: getFilter(invoiceKiotVietFacade.queryParams, 'status') }}
-                          columns={[
-                            {
-                              title: '',
-                              name: 'type',
-                              formItem: {
-                                placeholder: 'placeholder.Select order type',
-                                type: 'select',
-                                list: listStatus,
-                                onChange(value, form) {
-                                  dataTableRefRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: {
-                                      idStore: id,
-                                      status: value,
-                                    },
-                                  });
+                          className="intro-x sm:flex lg:justify-end mt-4 lg:mt-0 form-store"
+                          values={{ 'type': getFilter(invoiceKiotVietFacade.queryParams, 'status') }}
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'type',
+                                formItem: {
+                                  placeholder: 'placeholder.Select order type',
+                                  type: 'select',
+                                  list: listStatus,
+                                  onChange(value, form) {
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idStore: id,
+                                        status: value,
+                                      }
+                                    });
+                                  },
                                 },
                               },
                             },
@@ -1396,7 +1375,8 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className="intro-x rounded-lg w-full sm:flex justify-between form-store"
+                          className='intro-x rounded-lg w-full sm:flex justify-between form-store'
+                          values={{'type': getFilter(invoiceKiotVietFacade.queryParams, 'type'), 'StartDate': getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'), 'EndDate': getFilter(invoiceKiotVietFacade.queryParams, 'dateTo') }}
                           columns={[
                             {
                               title: '',
@@ -1419,6 +1399,18 @@ const Page = () => {
                                 col: 4,
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
+                                onChange(value, form) {
+                                  dataTableRefRevenue?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      idStore: id,
+                                      status: form.getFieldValue('type'),
+                                      dateFrom: value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                                      dateTo: form.getFieldValue('EndDate').format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
+                                    }
+                                  });
+                                },
                               },
                             },
                             {
@@ -1442,6 +1434,18 @@ const Page = () => {
                                 col: 4,
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
+                                onChange(value, form) {
+                                  dataTableRefRevenue?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      idStore: id,
+                                      status: form.getFieldValue('type'),
+                                      dateFrom: form.getFieldValue('StartDate').format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                                      dateTo: value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
+                                    }
+                                  });
+                                },
                               },
                             },
                           ]}
@@ -1472,7 +1476,7 @@ const Page = () => {
               </div>
             </Tabs.TabPane>
 
-            <Tabs.TabPane tab={t('titles.Inventory management')} key="6" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Inventory management')} key='6' className='rounded-xl'>
               <DataTable
                 ref={dataTableRefInventory}
                 facade={inventoryProductFacade}
@@ -1585,7 +1589,7 @@ const Page = () => {
                       <Button
                         className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group"
                         text={t('titles.synchronized')}
-                        // onClick={() => navigate(`/${lang}${routerLinks('Supplier/Excel')}`)}
+                      onClick={() => inventoryProductFacade.put({ ...inventoryProductFacade?.data!, id})}
                       />
                     }
                   </div>
