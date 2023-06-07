@@ -4,13 +4,13 @@ import { useNavigate, useLocation } from 'react-router';
 import { Spin } from 'antd';
 
 import { Form } from '@core/form';
-import { routerLinks, language, languages } from '@utils';
+import { routerLinks, getLanguage } from '@utils';
 import { GlobalFacade } from '@store';
 
 const Page = () => {
   const { isLoading, status, resetPassword } = GlobalFacade();
   const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const lang = getLanguage();
   useEffect(() => {
     if (status === 'resetPassword.fulfilled') {
       navigate(`/${lang}${routerLinks('Login')}`, { replace: true });

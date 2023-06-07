@@ -5,8 +5,8 @@ import slug from 'slug';
 
 import { Button } from '@core/button';
 import { Form } from '@core/form';
-import {GlobalFacade, PageFacade} from '@store';
-import { routerLinks, language, languages, listStyle, loopMapSelect } from '@utils';
+import { GlobalFacade, PageFacade } from '@store';
+import { routerLinks, listStyle, loopMapSelect, getLanguage } from '@utils';
 
 const Page = () => {
   const { id } = useParams();
@@ -28,7 +28,7 @@ const Page = () => {
   }, [id]);
 
   const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const lang = getLanguage();
   const isBack = useRef(true);
   useEffect(() => {
     switch (pageFacade.status) {

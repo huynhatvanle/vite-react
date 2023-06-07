@@ -1,7 +1,6 @@
 import React, { forwardRef, useImperativeHandle, PropsWithChildren, Ref } from 'react';
 import { Modal as AntModal, Spin } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { v4 } from 'uuid';
 
 import { Button } from '../button';
 
@@ -18,7 +17,6 @@ export const Modal = forwardRef(
       className = '',
       footerCustom,
       children,
-      idElement = 'modal-' + v4(),
     }: Type,
     ref: Ref<{ handleCancel: () => any }>,
   ) => {
@@ -78,5 +76,4 @@ type Type = PropsWithChildren<{
   textSubmit?: string;
   className?: string;
   footerCustom?: (handleOk: () => Promise<void>, handleCancel: () => void) => JSX.Element[] | JSX.Element;
-  idElement?: string;
 }>;

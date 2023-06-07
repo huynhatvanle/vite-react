@@ -1,9 +1,9 @@
-import React, {Fragment, useEffect} from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Spin } from 'antd';
 
 import { DataTable } from '@core/data-table';
-import { GlobalFacade } from "@store";
+import { GlobalFacade } from '@store';
 
 const Page = () => {
   const { setBreadcrumbs } = GlobalFacade();
