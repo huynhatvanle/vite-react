@@ -26,7 +26,7 @@ const action = {
         categoryId: filterInvoiceKiotViet.categoryId ? filterInvoiceKiotViet.categoryId : ''
       });
       data.data = Object.entries(data.data as Object)[0]?.[1]
-      return data.data;
+      return data;
     }
   )
 }
