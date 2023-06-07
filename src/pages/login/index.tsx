@@ -7,12 +7,11 @@ import { Form } from '@core/form';
 import { ModalForm } from '@core/modal/form';
 import { GlobalFacade } from '@store';
 import { FormModalRefObject } from '@models';
-import { getLanguage } from '@utils';
+import { lang } from '@utils';
 
 const Page = () => {
   const globalFacade = GlobalFacade();
   const navigate = useNavigate();
-  const lang = getLanguage();
   useEffect(() => {
     if (globalFacade.status === 'login.fulfilled' && globalFacade.user && Object.keys(globalFacade.user).length > 0) {
       navigate('/' + lang + '/', { replace: true });

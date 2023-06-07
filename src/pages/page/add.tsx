@@ -6,7 +6,7 @@ import slug from 'slug';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 import { GlobalFacade, PageFacade } from '@store';
-import { routerLinks, listStyle, loopMapSelect, getLanguage } from '@utils';
+import { routerLinks, listStyle, loopMapSelect, lang } from '@utils';
 
 const Page = () => {
   const { id } = useParams();
@@ -28,7 +28,6 @@ const Page = () => {
   }, [id]);
 
   const navigate = useNavigate();
-  const lang = getLanguage();
   const isBack = useRef(true);
   useEffect(() => {
     switch (pageFacade.status) {

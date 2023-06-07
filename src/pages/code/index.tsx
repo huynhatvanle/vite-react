@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-import { getLanguage, keyRole, routerLinks } from '@utils';
+import { lang, keyRole, routerLinks } from '@utils';
 import { GlobalFacade, CodeFacade, CodeTypeFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
@@ -36,7 +36,6 @@ const Page = () => {
   const dataTableRef = useRef<TableRefObject>(null);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const lang = getLanguage();
   return (
     <Fragment>
       <DataTable

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 
 import { Avatar } from '@core/avatar';
 import { UserRoleFacade, UserFacade, CodeFacade, User, GlobalFacade, UserTeamFacade, ManagerFacade } from '@store';
-import { routerLinks, getLanguage } from '@utils';
+import { routerLinks, lang } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 
@@ -27,7 +27,6 @@ const Page = () => {
   }, [id]);
 
   const navigate = useNavigate();
-  const lang = getLanguage();
   const isBack = useRef(true);
   useEffect(() => {
     switch (userFacade.status) {
