@@ -7,7 +7,7 @@ import { DataTable } from '@core/data-table';
 import { TableRefObject } from '@models';
 import { GlobalFacade, PageFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
-import { keyRole, language, languages, routerLinks } from '@utils';
+import { getLanguage, keyRole, routerLinks } from '@utils';
 import { useNavigate } from 'react-router';
 
 const Page = () => {
@@ -31,7 +31,7 @@ const Page = () => {
   const pageTableRef = useRef<TableRefObject>(null);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const lang = getLanguage();
   return (
     <Fragment>
       <DataTable

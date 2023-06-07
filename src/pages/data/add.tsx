@@ -2,12 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import {DataTypeFacade, Data, DataFacade, GlobalFacade} from '@store';
-import { routerLinks, language, languages } from '@utils';
+import { DataTypeFacade, Data, DataFacade, GlobalFacade } from '@store';
+import { routerLinks, getLanguage } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 import slug from 'slug';
-
 const Page = () => {
   const { id } = useParams();
   const dataFacade = DataFacade();
@@ -28,7 +27,7 @@ const Page = () => {
   }, [id]);
 
   const navigate = useNavigate();
-  const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const lang = getLanguage();
   const isBack = useRef(true);
   useEffect(() => {
     switch (dataFacade.status) {
