@@ -205,6 +205,14 @@
     "Image": "Ảnh",
     "Created At": "Ngày tạo"
   },
+  "Page": {
+    "Style" : "Kiểu",
+    "Order": "Order",
+    "ParentId": "ParentId",
+    "Title": "Tiêu đề",
+    "Slug": "Slug",
+    "Content": "Nội dung"
+  },
   "dashboard":{
     "Active Profile Report":"Báo cáo hồ sơ đang hoạt động",
     "Total Profile": "Tổng hồ sơ",
