@@ -67,7 +67,7 @@ const Page = () => {
   useEffect(() => {
     if (id) {
       storeFacade.getById({ id })
-      connectSupplierFacade.get({page: 1, perPage: 10, filter: { idSuppiler: '832', supplierType: '' }, fullTextSearch: ''})
+      connectSupplierFacade.get({ page: 1, perPage: 10, filter: { idSuppiler: '832', supplierType: '' }, fullTextSearch: '' })
     }
     return () => {
       isReload.current && storeFacade.get(param);
@@ -462,7 +462,7 @@ const Page = () => {
                     {
                       <Button
                         className={classNames('!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border', {
-                          '!border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group': productFacade.result?.data?.length !== 0 ,
+                          '!border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group': productFacade.result?.data?.length !== 0,
                           '!border-gray-300 !text-gray-300 cursor-not-allowed': productFacade.result?.data?.length === 0
                         })}
                         icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-current group-hover:!fill-white" />}
@@ -896,7 +896,7 @@ const Page = () => {
 
             <Tabs.TabPane
               tab={
-                <Dropdown trigger={['click']} 
+                <Dropdown trigger={['click']}
                   className='rounded-xl'
                   menu={{
                     items: [
@@ -941,7 +941,15 @@ const Page = () => {
                   <DataTable
                     ref={dataTableRefRevenue}
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
+                    defaultRequest={{
+                      page: 1,
+                      perPage: 10,
+                      filter: {
+                        idStore: id,
+                        dateFrom: dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                        dateTo: dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
+                      }
+                    }}
                     xScroll='1270px'
                     // onRow={(data: any) => ({
                     //   onDoubleClick: () => {
@@ -1064,6 +1072,12 @@ const Page = () => {
                         />
                         <Form
                           className='intro-x rounded-lg w-full sm:flex justify-between form-store '
+                          values={{
+                            'categoryId1': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
+                            'categoryId2': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
+                            'categoryId3': getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
+                            'type': getFilter(invoiceKiotVietFacade.queryParams, 'status')
+                          }}
                           columns={[
                             {
                               title: '',
@@ -1121,6 +1135,18 @@ const Page = () => {
                                 col: 4,
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
+                                onChange(value, form) {
+                                  dataTableRefRevenue?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      idStore: id,
+                                      status: form.getFieldValue('type'),
+                                      dateFrom: form.getFieldValue('StartDate').format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
+                                      dateTo: value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
+                                    }
+                                  });
+                                },
                               },
                             },
                           ]}
@@ -1158,9 +1184,10 @@ const Page = () => {
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
-                                      filter: { 
-                                        idStore: id, 
-                                        categoryId1: value ? value : '' }
+                                      filter: {
+                                        idStore: id,
+                                        categoryId1: value ? value : ''
+                                      }
                                     });
                                   },
                                 },
@@ -1189,8 +1216,8 @@ const Page = () => {
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
-                                      filter: { 
-                                        idStore: id, 
+                                      filter: {
+                                        idStore: id,
                                         categoryId2: value ? value : '',
                                         categoryId1: form.getFieldValue('categoryId1')
                                       }
@@ -1221,8 +1248,8 @@ const Page = () => {
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
-                                      filter: { 
-                                        idStore: id, 
+                                      filter: {
+                                        idStore: id,
                                         categoryId3: value ? value : '',
                                         categoryId1: form.getFieldValue('categoryId1'),
                                         categoryId2: form.getFieldValue('categoryId2')
@@ -1243,14 +1270,14 @@ const Page = () => {
                   <DataTable
                     ref={dataTableRefRevenue}
                     facade={invoiceKiotVietFacade}
-                    defaultRequest={{ 
-                      page: 1, 
-                      perPage: 10, 
-                      filter: { 
-                        idStore: id, 
+                    defaultRequest={{
+                      page: 1,
+                      perPage: 10,
+                      filter: {
+                        idStore: id,
                         dateFrom: dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
                         dateTo: dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
-                      }, 
+                      },
                     }}
                     xScroll='1440px'
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -1343,7 +1370,7 @@ const Page = () => {
                         />
                         <Form
                           className='intro-x rounded-lg w-full sm:flex justify-between form-store'
-                          values={{'type': getFilter(invoiceKiotVietFacade.queryParams, 'type'), 'StartDate': getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'), 'EndDate': getFilter(invoiceKiotVietFacade.queryParams, 'dateTo') }}
+                          values={{ 'type': getFilter(invoiceKiotVietFacade.queryParams, 'status'), 'StartDate': getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'), 'EndDate': getFilter(invoiceKiotVietFacade.queryParams, 'dateTo') }}
                           columns={[
                             {
                               title: '',
@@ -1557,7 +1584,7 @@ const Page = () => {
                       <Button
                         className='!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group'
                         text={t('titles.synchronized')}
-                      onClick={() => inventoryProductFacade.put({ ...inventoryProductFacade?.data!, id})}
+                        onClick={() => inventoryProductFacade.put({ ...inventoryProductFacade?.data!, id })}
                       />
                     }
                   </div>
