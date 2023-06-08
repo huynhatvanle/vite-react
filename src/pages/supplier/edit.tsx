@@ -708,7 +708,7 @@ const Page = () => {
                       rightHeader={
                         <div className="flex justify-end text-left flex-col w-full">
                           <Form
-                            className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:-mr-20 lg:mt-0 form-store"
+                            className="intro-x sm:flex justify-start sm:mt-2 lg:justify-end lg:mt-0 form-store"
                             columns={[
                               {
                                 title: '',
@@ -716,12 +716,12 @@ const Page = () => {
                                 formItem: {
                                   tabIndex: 3,
                                   placeholder: 'placeholder.Select order type',
-                                  col: 5,
+                                  col: 6,
                                   type: 'select',
                                   render() {
                                     return (
                                       <Select
-                                        className="w-48"
+                                        className="w-full mb-2"
                                         showSearch={true}
                                         placeholder={t('placeholder.Select order type')}
                                       >
@@ -738,7 +738,7 @@ const Page = () => {
                                 formItem: {
                                   placeholder: 'placeholder.Choose a store',
                                   type: 'select',
-                                  col: 5,
+                                  col: 6,
                                   get: {
                                     facade: InventorySupplierFacade,
                                     format: (item: any) => ({
