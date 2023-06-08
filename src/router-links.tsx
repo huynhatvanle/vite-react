@@ -15,7 +15,6 @@ export const routerLinks = (name: string, type?: string) => {
     Code: '/setting/code',
     'Code/Add': '/setting/code/add',
     Page: '/setting/page',
-    'Page/Add': '/setting/page/add',
   }; // 💬 generate link to here
 
   const apis: {

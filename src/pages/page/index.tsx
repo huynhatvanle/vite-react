@@ -117,7 +117,7 @@ const PageC = () => {
                             cancelText={t('components.datatable.cancel')}
                           >
                             <button title={t('routes.admin.Layout.Delete') || ''}>
-                              <Trash className="icon-cud bg-red-600 hover:bg-red-400 invisible group-hover:visible" />
+                              <Trash className="icon-cud bg-red-600 hover:bg-red-400 opacity-0 group-hover:opacity-100 transition-all duration-300" />
                             </button>
                           </Popconfirm>
                         </Tooltip>
