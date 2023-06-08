@@ -31,6 +31,7 @@ export * from './store-management/invoice-kiot-viet';
 export * from './supplier/inventory-order';
 export * from './store-management/all-supplier-store';
 export * from './supplier/inventory-supplier';
+export * from './store-management/invoice-revenue';
 export * from './supplier/inventory-product';
 export * from './supplier/document-sub';
 import {
@@ -53,6 +54,7 @@ import {
   inventoryOrdersSlice,
   supplierStoreSlice,
   InventorySupplierSlice,
+  invoiceRevenueSlice,
   inventoryListProductSlice,
   documentsubSlice,
 } from './';
@@ -76,6 +78,7 @@ const rootReducer = combineReducers({
   [inventoryOrdersSlice.name]: inventoryOrdersSlice.reducer,
   [supplierStoreSlice.name]: supplierStoreSlice.reducer,
   [InventorySupplierSlice.name]: InventorySupplierSlice.reducer,
+  [invoiceRevenueSlice.name]: invoiceRevenueSlice.reducer,
   [inventoryListProductSlice.name]: inventoryListProductSlice.reducer,
   [documentsubSlice.name]: documentsubSlice.reducer,
 });
