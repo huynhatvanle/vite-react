@@ -20,11 +20,10 @@ import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
-import { DownArrow, Download } from '@svgs';
+import { DownArrow, Download, UploadFile } from '@svgs';
 import { Dropdown, Select, Tabs } from 'antd';
 import dayjs from 'dayjs';
-import { format } from 'echarts';
-import { DraggableLayout } from '@core/draggable/layout';
+import Upload from 'antd/es/upload/Upload';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -750,7 +749,7 @@ const Page = () => {
                               type: getFilter(inventoryOrders.queryParams, 'type'),
                               Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                             }}
-                            className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:-mr-20 lg:mt-0 form-store"
+                            className="intro-x sm:flex justify-start sm:mt-2 lg:justify-end  lg:mt-0 form-store"
                             columns={[
                               {
                                 title: '',
@@ -828,49 +827,54 @@ const Page = () => {
                               type: getFilter(inventoryOrders.queryParams, 'type'),
                               Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                             }}
-                            className="intro-x rounded-lg w-full sm:flex justify-between form-store"
+                            className="intro-x rounded-lg w-full flex ml-2 mb-2 form-store"
                             columns={[
                               {
                                 title: '',
                                 name: '',
                                 formItem: {
                                   tabIndex: 3,
-                                  col: 2,
+                                  col: 6,
                                   render: () => (
-                                    <div className="flex h-10 items-center">
+                                    <div className="flex h-10 items-center w-auto">
                                       <p>{t('store.Since')}</p>
+                                      <div className='pl-2 pt-2'>
+                                        <Form
+                                          className='pl-2 pt-2 form-supplier-date'
+                                          // values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
+                                          columns={[{
+                                            title: '',
+                                            name: 'dateFrom',
+                                            formItem: {
+                                              tabIndex: 3,
+                                              col: 4,
+                                              type: 'date',
+                                              onChange(value, form) {
+                                                dataTableRefRevenue?.current?.onChange({
+                                                  page: 1,
+                                                  perPage: 10,
+                                                  filter: {
+                                                    idSupplier: id,
+                                                    filterDate: {
+                                                      dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                                      dateTo: form.getFieldValue('dateTo')
+                                                        ? form
+                                                          .getFieldValue('dateTo')
+                                                          .format('MM/DD/YYYY 23:59:59')
+                                                          .replace(/-/g, '/')
+                                                        : '',
+                                                    },
+                                                    idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
+                                                    type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                                                  },
+                                                  fullTextSearch: '',
+                                                });
+                                              },
+                                            },
+                                          },]} />
+                                      </div>
                                     </div>
                                   ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: 'dateFrom',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 4,
-                                  type: 'date',
-                                  onChange(value, form) {
-                                    dataTableRefRevenue?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        idSupplier: id,
-                                        filterDate: {
-                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                          dateTo: form.getFieldValue('dateTo')
-                                            ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
-                                            : '',
-                                        },
-                                        idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
-                                        type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                                      },
-                                      fullTextSearch: '',
-                                    });
-                                  },
                                 },
                               },
                               {
@@ -878,44 +882,47 @@ const Page = () => {
                                 name: '',
                                 formItem: {
                                   tabIndex: 3,
-                                  col: 2,
+                                  col: 6,
                                   render: () => (
-                                    <div className="flex h-10 items-center">
+                                    <div className="flex h-10 items-center w-auto mt-2 sm:mt-0">
                                       <p>{t('store.To date')}</p>
+                                      <div>
+                                        <Form
+                                          className='pl-2 pt-4 form-supplier-date'
+                                          columns={[{
+                                            title: '',
+                                            name: 'dateTo',
+                                            formItem: {
+                                              tabIndex: 3,
+                                              col: 4,
+                                              type: 'date',
+                                              onChange(value, form) {
+                                                console.log('From', form.getFieldValue('dateFrom'));
+                                                dataTableRefRevenue?.current?.onChange({
+                                                  page: 1,
+                                                  perPage: 10,
+                                                  filter: {
+                                                    idSupplier: id,
+                                                    filterDate: {
+                                                      dateFrom: form.getFieldValue('dateFrom')
+                                                        ? form
+                                                          .getFieldValue('dateFrom')
+                                                          .format('MM/DD/YYYY 00:00:00')
+                                                          .replace(/-/g, '/')
+                                                        : '',
+                                                      dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                                    },
+                                                    idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
+                                                    type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                                                  },
+                                                  fullTextSearch: '',
+                                                });
+                                              },
+                                            },
+                                          },]} />
+                                      </div>
                                     </div>
                                   ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: 'dateTo',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 4,
-                                  type: 'date',
-                                  onChange(value, form) {
-                                    console.log('From', form.getFieldValue('dateFrom'));
-
-                                    dataTableRefRevenue?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        idSupplier: id,
-                                        filterDate: {
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
-                                            : '',
-                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
-                                        },
-                                        idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
-                                        type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                                      },
-                                      fullTextSearch: '',
-                                    });
-                                  },
                                 },
                               },
                             ]}
@@ -1085,7 +1092,6 @@ const Page = () => {
                                 formItem: {
                                   placeholder: 'placeholder.Select status',
                                   type: 'select',
-                                  col: 12,
                                   list: statusRevenue,
                                   onChange(value, form) {
                                     dataTableRefListProduct?.current?.onChange({
@@ -1136,52 +1142,56 @@ const Page = () => {
                                 name: '',
                                 formItem: {
                                   tabIndex: 3,
-                                  col: 2,
+                                  col: 3,
                                   render: () => (
-                                    <div className="flex h-10 items-center">
+                                    <div className="flex h-10 items-center w-auto">
                                       <p>{t('store.Since')}</p>
+                                      <div>
+                                        <Form
+                                          className='pl-2 pt-2 form-supplier-date'
+                                          columns={[{
+                                            title: '',
+                                            name: 'dateFrom',
+                                            formItem: {
+                                              tabIndex: 3,
+                                              col: 4,
+                                              type: 'date',
+                                              onChange(value, form) {
+                                                dataTableRefListProduct?.current?.onChange({
+                                                  page: 1,
+                                                  perPage: 10,
+                                                  filter: {
+                                                    idSupplier: id,
+                                                    categoryId: '',
+                                                    categoryId1: form.getFieldValue('categoryId1')
+                                                      ? form.getFieldValue('categoryId1')
+                                                      : '',
+                                                    categoryId2: form.getFieldValue('categoryId2')
+                                                      ? form.getFieldValue('categoryId2')
+                                                      : '',
+                                                    categoryId3: form.getFieldValue('categoryId3')
+                                                      ? form.getFieldValue('categoryId3')
+                                                      : '',
+                                                    status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                                    filterDate: {
+                                                      dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                                      dateTo: form.getFieldValue('dateTo')
+                                                        ? form
+                                                          .getFieldValue('dateTo')
+                                                          .format('MM/DD/YYYY 23:59:59')
+                                                          .replace(/-/g, '/')
+                                                        : '',
+                                                    },
+                                                    idStore: '',
+                                                  },
+                                                  fullTextSearch: '',
+                                                });
+                                              },
+                                            },
+                                          },]} />
+                                      </div>
                                     </div>
                                   ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: 'dateFrom',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 4,
-                                  type: 'date',
-                                  onChange(value, form) {
-                                    dataTableRefListProduct?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        idSupplier: id,
-                                        categoryId: '',
-                                        categoryId1: form.getFieldValue('categoryId1')
-                                          ? form.getFieldValue('categoryId1')
-                                          : '',
-                                        categoryId2: form.getFieldValue('categoryId2')
-                                          ? form.getFieldValue('categoryId2')
-                                          : '',
-                                        categoryId3: form.getFieldValue('categoryId3')
-                                          ? form.getFieldValue('categoryId3')
-                                          : '',
-                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                        filterDate: {
-                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                          dateTo: form.getFieldValue('dateTo')
-                                            ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
-                                            : '',
-                                        },
-                                        idStore: '',
-                                      },
-                                      fullTextSearch: '',
-                                    });
-                                  },
                                 },
                               },
                               {
@@ -1189,54 +1199,59 @@ const Page = () => {
                                 name: '',
                                 formItem: {
                                   tabIndex: 3,
-                                  col: 2,
+                                  col: 3,
                                   render: () => (
-                                    <div className="flex h-10 items-center">
+                                    <div className="flex h-10 items-center w-auto mt-2 sm:mt-0">
                                       <p>{t('store.To date')}</p>
+                                      <div>
+                                        <Form
+                                        className='pl-2 pt-4 form-supplier-date'
+                                        columns={[{
+                                          title: '',
+                                          name: 'dateTo',
+                                          formItem: {
+                                            tabIndex: 3,
+                                            col: 3,
+                                            type: 'date',
+                                            onChange(value, form) {
+                                              dataTableRefListProduct?.current?.onChange({
+                                                page: 1,
+                                                perPage: 10,
+                                                filter: {
+                                                  idSupplier: id,
+                                                  categoryId: '',
+                                                  categoryId1: form.getFieldValue('categoryId1')
+                                                    ? form.getFieldValue('categoryId1')
+                                                    : '',
+                                                  categoryId2: form.getFieldValue('categoryId2')
+                                                    ? form.getFieldValue('categoryId2')
+                                                    : '',
+                                                  categoryId3: form.getFieldValue('categoryId3')
+                                                    ? form.getFieldValue('categoryId3')
+                                                    : '',
+                                                  status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                                  filterDate: {
+                                                    dateFrom: form.getFieldValue('dateFrom')
+                                                      ? form
+                                                        .getFieldValue('dateFrom')
+                                                        .format('MM/DD/YYYY 00:00:00')
+                                                        .replace(/-/g, '/')
+                                                      : '',
+                                                    dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                                  },
+                                                  idStore: '',
+                                                },
+                                                fullTextSearch: '',
+                                              });
+                                            },
+                                          },
+                                        },]} />
+                                      </div>
                                     </div>
                                   ),
                                 },
                               },
-                              {
-                                title: '',
-                                name: 'dateTo',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 4,
-                                  type: 'date',
-                                  onChange(value, form) {
-                                    dataTableRefListProduct?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        idSupplier: id,
-                                        categoryId: '',
-                                        categoryId1: form.getFieldValue('categoryId1')
-                                          ? form.getFieldValue('categoryId1')
-                                          : '',
-                                        categoryId2: form.getFieldValue('categoryId2')
-                                          ? form.getFieldValue('categoryId2')
-                                          : '',
-                                        categoryId3: form.getFieldValue('categoryId3')
-                                          ? form.getFieldValue('categoryId3')
-                                          : '',
-                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                        filterDate: {
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
-                                            : '',
-                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
-                                        },
-                                        idStore: '',
-                                      },
-                                      fullTextSearch: '',
-                                    });
-                                  },
-                                },
-                              },
+
                             ]}
                             disableSubmit={isLoading}
                           />
@@ -1606,9 +1621,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -1649,9 +1664,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1682,7 +1697,7 @@ const Page = () => {
                                       placeholder: 'placeholder.Select status',
                                       type: 'select',
                                       tabIndex: 3,
-                                      col: 6,
+                                      col: 12,
                                       list: listStatusDiscount,
                                       onChange(value, form) {
                                         dataTableRefDiscount?.current?.onChange({
@@ -1846,7 +1861,7 @@ const Page = () => {
                             return (
                               <div className="flex items-center gap-2">
                                 <div className="font-semibold text-teal-900 text-base">Thông tin hợp đồng:</div>
-                                <div>{values.name}</div>
+                                <a className='pl-2'><span className='underline text-blue-400'>Nhấn vào đây</span></a>
                               </div>
                             );
                           },
@@ -1861,7 +1876,7 @@ const Page = () => {
                             return (
                               <div className="flex items-center gap-2">
                                 <div className="font-semibold text-teal-900 text-base">Tệp đã ký:</div>
-                                <div>{values.name}</div>
+                                <a className='pl-2'><span className='underline text-blue-400'>Nhấn vào đây</span></a>
                               </div>
                             );
                           },
@@ -1943,7 +1958,16 @@ const Page = () => {
                     ]}
                   />
                   <p className="text-base text-teal-900 font-bold pl-3 pt-5">Tải lên hợp đồng đăng ký:</p>
-                  <div className="text-center border-2 p-[110px] border-dashed rounded-md m-5"></div>
+                  <div className="text-center border-2 p-[110px] border-dashed rounded-md m-5">
+                    <Upload className='!border-none' type='drag' accept='image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
+                      multiple>
+                      <div>
+                        <UploadFile className='w-28 h-28 mx-auto mb-5' />
+                        <p>Kéo thả tệp mà bạn muốn tải lên <br />hoặc </p>
+                        <Button className='bg-teal-900 text-white text-[14px] px-4 py-2.5 rounded-xl hover:bg-teal-700 inline-flex items-center' text={'Chọn tệp'} />
+                      </div>
+                    </Upload>
+                  </div>
                   <p className="text-base text-teal-900 font-bold pl-3">Tệp trên hệ thống:</p>
                   <div className="text-base pl-3">Chưa có hình hợp đồng trên hệ thống.</div>
                   <div className="sm:flex sm:mt-7 mt-2 justify-between p-4">
