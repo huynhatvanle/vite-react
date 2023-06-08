@@ -53,7 +53,7 @@ const Page = () => {
 
   const { t } = useTranslation();
   return (
-    <div className={'max-w-4xl mx-auto'}>
+    <div className={'max-w-4xl mx-auto bg-white p-4 shadow rounded-xl'}>
       <Form
         values={{ ...userFacade.data }}
         className="intro-x"
