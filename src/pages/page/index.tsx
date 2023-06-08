@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, {Fragment, ReactNode, useEffect, useState} from 'react';
 import { useTranslation } from 'react-i18next';
 import { Popconfirm, Spin, Tooltip } from 'antd';
 
@@ -106,7 +106,7 @@ const PageC = () => {
                   defaultExpandAll
                   titleRender={(node) => (
                     <div className={'group w-full flex items-center justify-between cursor-pointer'}>
-                      <div className="flex-auto py-1">{node.title}</div>
+                      <div className="flex-auto py-1">{node.title as ReactNode}</div>
                       {user?.role?.permissions?.includes(keyRole.P_CODE_DELETE) && (
                         <Tooltip title={t('routes.admin.Layout.Delete')}>
                           <Popconfirm
