@@ -52,7 +52,7 @@ export const Form = ({
         _columns.map(({ name, formItem }: FormModel) => ({
           name,
           formItem: {
-            list: formItem?.list?.map(({ value, disabled }: any) => ({ value, disabled })) || [],
+            list: formItem?.list,
             disabled: formItem?.disabled ? formItem?.disabled(values, form) : false,
           },
         })),
@@ -61,7 +61,7 @@ export const Form = ({
         columns.map(({ name, formItem }: FormModel) => ({
           name,
           formItem: {
-            list: formItem?.list?.map(({ value, disabled }: any) => ({ value, disabled })) || [],
+            list: formItem?.list,
             disabled: formItem?.disabled ? formItem?.disabled(values, form) : false,
           },
         })),
@@ -74,7 +74,7 @@ export const Form = ({
   useEffect(() => {
     if (form && refLoad.current) {
       form.resetFields();
-      form.setFieldsValue(values);
+      form.setFieldsValue(convertFormValue(columns, values, false));
     }
     refLoad.current = true;
   }, [values]);
@@ -569,7 +569,6 @@ export const Form = ({
         failed?.errorFields?.length && form?.scrollToField(failed?.errorFields[0].name, { behavior: 'smooth' })
       }
       onFinish={handFinish}
-      initialValues={convertFormValue(columns, values, false)}
       onValuesChange={async (objValue) => {
         if (form && checkHidden) {
           clearTimeout(timeout.current);
@@ -614,30 +613,27 @@ export const Form = ({
         {extendForm && extendForm(values)}
       </div>
 
-      <div
-        className={classNames('gap-2 flex mt-5', {
-          'justify-center': !extendButton && !handCancel,
-          'md:inline-flex md:float-right': extendButton || handCancel,
-        })}
-      >
-        {handCancel && (
-          <Button
-            text={t(textCancel)}
-            className={'md:min-w-[12rem] w-full justify-center out-line'}
-            onClick={handCancel}
-          />
-        )}
-        {extendButton && extendButton(form)}
-        {handSubmit && (
-          <Button
-            text={t(textSubmit)}
-            id={idSubmit}
-            onClick={() => form && form.submit()}
-            disabled={disableSubmit}
-            className={'md:min-w-[12rem] w-full justify-center'}
-            type={'submit'}
-          />
-        )}
+      <div className={classNames('flex sticky bottom-0 bg-white w-full justify-end')}>
+        <div className={'flex gap-2'}>
+          {handCancel && (
+            <Button
+              text={t(textCancel)}
+              className={'md:min-w-[12rem] w-full justify-center out-line'}
+              onClick={handCancel}
+            />
+          )}
+          {extendButton && extendButton(form)}
+          {handSubmit && (
+            <Button
+              text={t(textSubmit)}
+              id={idSubmit}
+              onClick={() => form && form.submit()}
+              disabled={disableSubmit}
+              className={'md:min-w-[12rem] w-full justify-center'}
+              type={'submit'}
+            />
+          )}
+        </div>
       </div>
     </AntForm>
   );

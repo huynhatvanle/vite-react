@@ -255,7 +255,7 @@
     "Created At": "Ngày tạo"
   },
   "Page": {
-    "Style" : "Kiểu",
+    "Type" : "Loại",
     "Order": "Order",
     "ParentId": "ParentId",
     "Title": "Tiêu đề",
