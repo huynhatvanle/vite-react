@@ -16,7 +16,6 @@ import {
   StoreFacade,
   WardFacade,
   ProvinceFacade,
-  StoreManagement,
   SubStoreFacade,
   ConnectSupplierFacade,
   ProductFacade,
@@ -33,13 +32,13 @@ const Page = () => {
   const navigate = useNavigate();
 
   const storeFacade = StoreFacade();
-  const { data, isLoading, queryParams, status } = storeFacade;
   const productFacade = ProductFacade();
   const subStoreFacade = SubStoreFacade();
   const connectSupplierFacade = ConnectSupplierFacade();
   const inventoryProductFacade = InventoryProductFacade();
   const invoiceKiotVietFacade = InvoiceKiotVietFacade();
   const invoiceRevenueFacade = InvoiceRevenueFacade()
+  const { data, isLoading, queryParams, status } = storeFacade;
 
   const isBack = useRef(true);
   const isReload = useRef(false);
@@ -47,16 +46,18 @@ const Page = () => {
   const { id } = useParams();
   const [forms] = AntForm.useForm();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+
   const dataTableRefProduct = useRef<TableRefObject>(null);
   const dataTableRefSupplier = useRef<TableRefObject>(null);
   const dataTableRefInventory = useRef<TableRefObject>(null);
   const dataTableRefInvoiceRevenue = useRef<TableRefObject>(null);
   const dataTableRefInvoiceKiot = useRef<TableRefObject>(null);
   const dataTableRefsubStore = useRef<TableRefObject>(null);
-  const [isBalance, setIsBalance] = useState<boolean>(false);
-  const [isRevenueByOrder, setIsRevenueByOrder] = useState<boolean>(true);
+
   const [isChecked, setIsChecked] = useState(false);
-  const [isBalance4, setIsBalance4] = useState<boolean>(true);
+  const [isBalance, setIsBalance] = useState(false);
+  const [isBalance4, setIsBalance4] = useState(true);
+  const [isRevenueByOrder, setIsRevenueByOrder] = useState(true);
 
 
   const listStatus = [
@@ -83,10 +84,10 @@ const Page = () => {
       value: 'STOP_SELLING',
     },
   ];
+
   useEffect(() => {
     if (id) {
       storeFacade.getById({ id })
-      connectSupplierFacade.get({ page: 1, perPage: 10, filter: { idSuppiler: '832', supplierType: '' }, fullTextSearch: '' })
     }
     return () => {
       isReload.current && storeFacade.get(param);
@@ -135,7 +136,7 @@ const Page = () => {
             type="card"
             size="large"
             onTabClick={(activeKey: any) => {
-              // activeKey === '3' ? subStoreFacade.get({ page: 1, perPage: 10, fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' } }) : "";
+              activeKey === '3' ? subStoreFacade.get({ page: 1, perPage: 10, fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' } }) : "";
               // console.log(activeKey === '3')
               navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)
             }
@@ -878,7 +879,7 @@ const Page = () => {
                     ],
                   }}
                 >
-                  <section className="flex items-center" id={'dropdown-store'}>
+                  <section className="flex items-center">
                     <div className="flex">
                       <div>{t('titles.Manage')}</div>
                       <Arrow className="w-5 h-5 rotate-90 ml-3 mt-1 fill-green" />
@@ -1092,7 +1093,7 @@ const Page = () => {
                     ],
                   }}
                 >
-                  <section className="flex items-center" id={'dropdown-invoice'}>
+                  <section className="flex items-center">
                     <div className="flex">
                       <div>{t('titles.Revenue')}</div>
                       <Arrow className="w-5 h-5 rotate-90 ml-3 mt-1 fill-green" />
@@ -1115,7 +1116,10 @@ const Page = () => {
                         idStore: id,
                         dateFrom: dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
                         dateTo: dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
+                        status: '',
+                        supplierId: '',
                       },
+                      fullTextSearch: ''
                     }}
                     xScroll="1440px"
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -1312,7 +1316,14 @@ const Page = () => {
                         idStore: id,
                         dateFrom: dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
                         dateTo: dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
-                      }
+                        status: '',
+                        supplierId: '',
+                        categoryId: '',
+                        categoryId1: '',
+                        categoryId2: '',
+                        categoryId3: '',
+                      },
+                      fullTextSearch: ''
                     }}
                     xScroll='1270px'
                     // onRow={(data: any) => ({

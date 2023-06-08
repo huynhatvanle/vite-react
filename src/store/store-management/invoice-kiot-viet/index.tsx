@@ -16,7 +16,7 @@ const action = {
       page: number,
       perPage: number,
       fullTextSearch: string,
-      filter: { idStore: string, supplierId?: string, status?: string, categoryId?: string, categoryId1: string, categoryId2: string, categoryId3: string, dateFrom: string, dateTo: string }
+      filter: { idStore?: string, supplierId?: string, status?: string, categoryId?: string, categoryId1: string, categoryId2: string, categoryId3: string, dateFrom: string, dateTo: string }
     }) => {
       const filterInvoiceKiotViet = JSON.parse(filter.toString() || '{}')
       let data = await API.get(routerLinks(name, 'api'), {
@@ -68,7 +68,7 @@ export const InvoiceKiotVietFacade = () => {
     ...(useTypedSelector((state) => state[action.name]) as State<InvoiceKiotViet>),
     set: (values: State<InvoiceKiotViet>) => dispatch(action.set(values)),
     // get: (params: PaginationQuery<InvoiceKiotViet>) => dispatch(action.getInvoiceKiotViet(params)),
-    get: ({ page, perPage, fullTextSearch, filter }: { page: number, perPage: number, fullTextSearch: string, filter: { idStore: string, supplierId: string, status: string, categoryId: string, categoryId1: string, categoryId2: string, categoryId3: string, dateFrom: string, dateTo: string } }) => dispatch(action.getInvoiceKiotViet({ page, perPage, fullTextSearch, filter })),
+    get: ({ page, perPage, fullTextSearch, filter }: { page: number, perPage: number, fullTextSearch: string, filter: { idStore?: string, supplierId: string, status: string, categoryId: string, categoryId1: string, categoryId2: string, categoryId3: string, dateFrom: string, dateTo: string } }) => dispatch(action.getInvoiceKiotViet({ page, perPage, fullTextSearch, filter })),
   };
 };
 
