@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Select, Switch, Tabs, Dropdown } from 'antd';
+import { Form as AntForm, Select, Switch, Tabs, Dropdown } from 'antd';
 import { useNavigate, useParams } from 'react-router';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -25,6 +25,7 @@ import {
   SupplierStoreFacade,
   InvoiceKiotVietFacade,
 } from '@store';
+import { Excel } from "antd-table-saveas-excel";
 
 const Page = () => {
   const { t } = useTranslation();
@@ -42,6 +43,7 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
+  const [forms] = AntForm.useForm();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const dataTableRefProduct = useRef<TableRefObject>(null);
   const dataTableRefSupplier = useRef<TableRefObject>(null);
@@ -52,6 +54,7 @@ const Page = () => {
   const [isProduct, setIsProduct] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState(false);
   const [type, setType] = useState('BALANCE');
+
 
   const listStatus = [
     {
@@ -94,13 +97,31 @@ const Page = () => {
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`);
 
-  const handleSubmit = (values: StoreManagement) => {
-    storeFacade.put({ ...values, id });
+  const handleSubmit = (values: any) => {
+    const connectKiot = forms.getFieldsValue()
+    storeFacade.put({ ...values, id, connectKiot });
   };
 
   const handleClick = () => {
     setIsChecked(!isChecked);
   };
+
+  interface IExcelColumn {
+    title: string;
+    key: string;
+    dataIndex: string;
+  }
+
+  const columnproduct: IExcelColumn[] = [
+    { title: 'Mã sản phẩm', key: 'code', dataIndex: 'code' },
+    { title: 'Mã vạch (CH)', key: 'storeBarcode', dataIndex: 'storeBarcode' },
+    { title: 'Mã vạch (NCC)', key: 'barcode', dataIndex: 'barcode' },
+    { title: 'Tên sản phẩm', key: 'name', dataIndex: 'name' },
+    { title: 'Danh mục', key: 'category', dataIndex: 'category' },
+    { title: 'Nhà cung cấp', key: 'supplierName', dataIndex: 'supplierName' },
+    { title: 'Đơn vị', key: 'basicUnit', dataIndex: 'basicUnit' },
+    { title: 'Giá bán lẻ (VND)', key: 'productPrice', dataIndex: 'productPrice' },
+  ];
 
   return (
     <div className="w-full">
@@ -117,6 +138,7 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key="1" className="">
               {!isLoading && (
                 <Form
+                formAnt={forms}
                   values={{
                     ...data,
                     emailContact: data?.userRole?.[0].userAdmin?.email,
@@ -302,6 +324,7 @@ const Page = () => {
                       </div>
                       {isChecked && (
                         <Form
+                        formAnt={forms}
                           values={{ ...data }}
                           columns={[
                             {
@@ -458,7 +481,7 @@ const Page = () => {
                     title: 'product.Category',
                     name: 'category',
                     tableItem: {
-                      render: (value: any, item: any) => item.category?.child?.name,
+                      render: (value: any, item: any) => item?.category?.child?.name,
                     },
                   },
                   {
@@ -503,8 +526,18 @@ const Page = () => {
                         )}
                         icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-current group-hover:!fill-white" />}
                         text={t('titles.Export Excel file')}
-                        disabled={true}
-                        // onClick={() => navigate(routerLinks(''))}
+                      //  disabled={true}
+                        onClick={() => {
+                          console.log(productFacade?.result?.data)
+                          const excel = new Excel();
+                          excel
+                            .addSheet("test")
+                            .addColumns(columnproduct)
+                            .addDataSource(productFacade?.result?.data ?? [], {
+                              str2Percent: true
+                            })
+                            .saveAs("Danh sách hàng hóa Balance.xlsx");
+                        }}
                       />
                     }
                   </div>
@@ -1366,7 +1399,7 @@ const Page = () => {
                                   },
                                 },
                               },
-                            
+
                           ]}
                           disableSubmit={isLoading}
                         />

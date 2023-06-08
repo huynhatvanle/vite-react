@@ -18,6 +18,7 @@ const Page = () => {
   const { isLoading, queryParams, status, data } = storeFace;
   const param = JSON.parse(queryParams || '{}');
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const [forms] = AntForm.useForm();
 
   useEffect(() => {
     storeFace.set({ data: undefined });
@@ -33,9 +34,10 @@ const Page = () => {
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`)
   // navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
+
   const handleSubmit = (values: any) => {
-    const kiot = forms.getFieldsValue()
-    storeFace.post(values);
+    const connectKiot = forms.getFieldsValue()
+    storeFace.post({ ...values, connectKiot });
   };
 
   const [isChecked, setIsChecked] = useState(false);
@@ -44,11 +46,8 @@ const Page = () => {
     setIsChecked(!isChecked);
   };
 
-  const [forms] = AntForm.useForm();
-
   return (
     <Fragment>
-      <div className=''>
         <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Storeinformation')}</div>
         <Form
           formAnt={forms}
@@ -214,7 +213,7 @@ const Page = () => {
               </div>
               {isChecked && (
                 <Form
-
+                  formAnt={forms}
                   values={{ ...data }}
                   columns={[
                     {
@@ -261,7 +260,6 @@ const Page = () => {
           disableSubmit={isLoading}
           handCancel={handleBack}
         />
-      </div>
     </Fragment>
   );
 };
