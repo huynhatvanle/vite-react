@@ -368,7 +368,7 @@ export const DataTable = forwardRef(
         page: tempPageIndex,
         perPage: tempPageSize,
         sorts: JSON.stringify(tempSort),
-        filter: JSON.stringify(cleanObjectKeyNull(filters)),
+        // filter: JSON.stringify(cleanObjectKeyNull(filters)),
         fullTextSearch: tempFullTextSearch,
       });
       onChange && onChange(tempParams);

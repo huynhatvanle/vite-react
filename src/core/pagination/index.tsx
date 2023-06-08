@@ -106,13 +106,13 @@ export const Pagination: any = ({
         let listOfRange: { index: number; type: string; disabled: boolean }[];
         const prevFiveItem = {
           type: 'prev_5',
-          index: -1,
-          disabled: false,
+          index: 0,
+          disabled: true,
         };
         const nextFiveItem = {
           type: 'next_5',
-          index: -1,
-          disabled: false,
+          index: 0,
+          disabled: true,
         };
         const firstPageItem = generatePage(1, 1);
         const lastPageItem = generatePage(lastIndex, lastIndex);

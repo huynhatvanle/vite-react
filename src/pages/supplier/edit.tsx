@@ -785,7 +785,7 @@ const Page = () => {
                                 formItem: {
                                   placeholder: 'placeholder.Choose a store',
                                   type: 'select',
-                                  col: 5,
+                                  col: 6,
                                   get: {
                                     facade: InventorySupplierFacade,
                                     format: (item: any) => ({
