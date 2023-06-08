@@ -20,11 +20,10 @@ import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
-import { DownArrow, Download } from '@svgs';
+import { DownArrow, Download, UploadFile } from '@svgs';
 import { Dropdown, Select, Tabs } from 'antd';
 import dayjs from 'dayjs';
-import { format } from 'echarts';
-import { DraggableLayout } from '@core/draggable/layout';
+import Upload from 'antd/es/upload/Upload';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -1846,7 +1845,7 @@ const Page = () => {
                             return (
                               <div className="flex items-center gap-2">
                                 <div className="font-semibold text-teal-900 text-base">Thông tin hợp đồng:</div>
-                                <div>{values.name}</div>
+                                <a className='pl-2'><span className='underline text-blue-400'>Nhấn vào đây</span></a>
                               </div>
                             );
                           },
@@ -1861,7 +1860,7 @@ const Page = () => {
                             return (
                               <div className="flex items-center gap-2">
                                 <div className="font-semibold text-teal-900 text-base">Tệp đã ký:</div>
-                                <div>{values.name}</div>
+                                <a className='pl-2'><span className='underline text-blue-400'>Nhấn vào đây</span></a>
                               </div>
                             );
                           },
@@ -1943,7 +1942,16 @@ const Page = () => {
                     ]}
                   />
                   <p className="text-base text-teal-900 font-bold pl-3 pt-5">Tải lên hợp đồng đăng ký:</p>
-                  <div className="text-center border-2 p-[110px] border-dashed rounded-md m-5"></div>
+                  <div className="text-center border-2 p-[110px] border-dashed rounded-md m-5">
+                    <Upload className='!border-none' type='drag' accept='image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
+                    multiple>
+                      <div>
+                        <UploadFile className='w-28 h-28 mx-auto mb-5'/>
+                        <p>Kéo thả tệp mà bạn muốn tải lên <br/>hoặc </p>
+                        <Button className='bg-teal-900 text-white text-[14px] px-4 py-2.5 rounded-xl hover:bg-teal-700 inline-flex items-center' text={'Chọn tệp'}  />
+                      </div>
+                    </Upload>
+                  </div>
                   <p className="text-base text-teal-900 font-bold pl-3">Tệp trên hệ thống:</p>
                   <div className="text-base pl-3">Chưa có hình hợp đồng trên hệ thống.</div>
                   <div className="sm:flex sm:mt-7 mt-2 justify-between p-4">
