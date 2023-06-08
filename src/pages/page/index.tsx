@@ -5,7 +5,7 @@ import { Popconfirm, Spin, Tooltip } from 'antd';
 import { Button } from '@core/button';
 import { GlobalFacade, PageFacade, Page } from '@store';
 import { Arrow, Plus, Search, Times, Trash } from '@svgs';
-import {keyRole, listType, loopMapSelect} from '@utils';
+import { keyRole, listType, loopMapSelect } from '@utils';
 
 import { Tree } from 'antd';
 import type { TreeProps, DataNode } from 'antd/es/tree';
@@ -15,6 +15,7 @@ import classNames from 'classnames';
 
 const PageC = () => {
   const { user, setBreadcrumbs } = GlobalFacade();
+  const pageFacade = PageFacade();
   useEffect(() => {
     setBreadcrumbs([
       { title: 'titles.Setting', link: '' },
@@ -23,29 +24,23 @@ const PageC = () => {
     pageFacade.get({});
   }, []);
 
-  const pageFacade = PageFacade();
+  const [data, setData] = useState<DataNode>();
   useEffect(() => {
     switch (pageFacade.status) {
       case 'post.fulfilled':
       case 'put.fulfilled':
+        setData(undefined);
+        pageFacade.get({});
+        break;
       case 'delete.fulfilled':
         pageFacade.get({});
         break;
     }
   }, [pageFacade.status]);
-  // const formatMap: any = (array: any[] = [], title = 'name', key = 'id') => {
-  //   return array.map(({ children, style, ...item }) => ({
-  //     ...item,
-  //     title: item[title],
-  //     key: item[key],
-  //     children: children && formatMap(children),
-  //   }));
-  // };
 
   const [searchValue, setSearchValue] = useState('');
-
   const formatMap = (data: Page[]): any[] =>
-    data.map((item) => {
+    data.map(({ children, ...item }) => {
       const strTitle = item.name as string;
       const index = strTitle.indexOf(searchValue);
       const beforeStr = strTitle.substring(0, index);
@@ -60,27 +55,21 @@ const PageC = () => {
         ) : (
           <span>{strTitle}</span>
         );
-      if (item.children) {
-        return { title, key: item.id, children: formatMap(item.children) };
-      }
-
       return {
+        ...item,
         title,
         key: item.id,
-        children: undefined,
+        children: children && formatMap(children),
       };
     });
 
   const { t } = useTranslation();
-  const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
-    pageFacade.getById({id: info.node.key.toString()})
-  };
-
+  const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => setData(info.node);
   const handleSubmit = (values: any) => {
-    if (pageFacade?.data?.id) pageFacade.put({ ...values, id: pageFacade?.data?.id });
+    setData({ ...data, ...values });
+    if (data?.key) pageFacade.put({ ...values, id: data?.key });
     else pageFacade.post(values);
   };
-
   return (
     <Fragment>
       <div className="container mx-auto grid grid-cols-12 gap-3">
@@ -108,31 +97,33 @@ const PageC = () => {
               <Button
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
                 text={t('components.button.New')}
-                onClick={() => pageFacade.set({data: {}})}
+                onClick={() => setData(undefined)}
               />
             </div>
             <div className="overflow-x-hidden overflow-y-auto relative py-2 px-4 h-[calc(100vh-12rem)]">
               {!pageFacade.isLoading ? (
                 <Tree
                   defaultExpandAll
-                  titleRender={(node) => <div className={'group w-full flex items-center justify-between cursor-pointer'}>
-                    <div className="flex-auto py-1">{node.title}</div>
-                    {user?.role?.permissions?.includes(keyRole.P_CODE_DELETE) && (
-                      <Tooltip title={t('routes.admin.Layout.Delete')}>
-                        <Popconfirm
-                          placement="left"
-                          title={t('components.datatable.areYouSureWant')}
-                          onConfirm={() => pageFacade.delete(node.key.toString())}
-                          okText={t('components.datatable.ok')}
-                          cancelText={t('components.datatable.cancel')}
-                        >
-                          <button title={t('routes.admin.Layout.Delete') || ''}>
-                            <Trash className="icon-cud bg-red-600 hover:bg-red-400 invisible group-hover:visible" />
-                          </button>
-                        </Popconfirm>
-                      </Tooltip>
-                    )}
-                  </div>}
+                  titleRender={(node) => (
+                    <div className={'group w-full flex items-center justify-between cursor-pointer'}>
+                      <div className="flex-auto py-1">{node.title}</div>
+                      {user?.role?.permissions?.includes(keyRole.P_CODE_DELETE) && (
+                        <Tooltip title={t('routes.admin.Layout.Delete')}>
+                          <Popconfirm
+                            placement="left"
+                            title={t('components.datatable.areYouSureWant')}
+                            onConfirm={() => pageFacade.delete(node.key.toString())}
+                            okText={t('components.datatable.ok')}
+                            cancelText={t('components.datatable.cancel')}
+                          >
+                            <button title={t('routes.admin.Layout.Delete') || ''}>
+                              <Trash className="icon-cud bg-red-600 hover:bg-red-400 invisible group-hover:visible" />
+                            </button>
+                          </Popconfirm>
+                        </Tooltip>
+                      )}
+                    </div>
+                  )}
                   showLine
                   treeData={formatMap(pageFacade?.result?.data || [])}
                   onSelect={onSelect}
@@ -154,12 +145,12 @@ const PageC = () => {
         <div className="col-span-12 md:col-span-7 lg:col-span-8 intro-x">
           <div className="shadow rounded-md w-full bg-white overflow-auto">
             <div className="h-14 flex justify-between items-center border-b border-gray-100 px-4 py-2">
-              <h2 className="font-bold order-1 text-xl">{pageFacade?.data?.id ? t('pages.Page/Edit') : t('pages.Page/Add')}</h2>
+              <h2 className="font-bold order-1 text-xl">{data?.key ? t('pages.Page/Edit') : t('pages.Page/Add')}</h2>
             </div>
             <div className="overflow-x-hidden overflow-y-auto relative py-2 px-4 h-[calc(100vh-12rem)]">
               <Spin spinning={pageFacade.isLoading}>
                 <Form
-                  values={{...pageFacade.data}}
+                  values={{ ...data }}
                   className="intro-x"
                   columns={[
                     {
@@ -213,7 +204,7 @@ const PageC = () => {
                             title: 'Page.Slug',
                             name: 'id',
                             formItem: {
-                              type: 'hidden'
+                              type: 'hidden',
                             },
                           },
                           {
@@ -263,17 +254,7 @@ const PageC = () => {
                       },
                     },
                   ]}
-                  extendButton={(form) => (
-                    <div className="flex">
-                      <Button
-                        text={t('components.button.Save and Add new')}
-                        className={'md:min-w-[12rem] w-full justify-center out-line'}
-                        onClick={() => {
-                          form.submit();
-                        }}
-                      />
-                    </div>
-                  )}
+                  handCancel={() => setData(undefined)}
                   handSubmit={handleSubmit}
                   disableSubmit={pageFacade.isLoading}
                 />

@@ -55,13 +55,13 @@ export const convertFormValue = (columns: FormModel[], values: { [selector: stri
                 item!.formItem!.column!.forEach((col) => {
                   switch (col!.formItem!.type) {
                     case 'layout':
-                      result[col.name] = values[item.name] ? (values[item.name][i][col.name] || []) : [];
+                      result[col.name] = values[item.name] ? values[item.name][i][col.name] || [] : [];
                       break;
                     case 'upload':
-                      result[col.name] = values[item.name] ? (values[item.name][i][col.name] || null) : null;
+                      result[col.name] = values[item.name] ? values[item.name][i][col.name] || null : null;
                       break;
                     default:
-                      result[col.name] = values[item.name] ? (values[item.name][i][col.name] || '') : '';
+                      result[col.name] = values[item.name] ? values[item.name][i][col.name] || '' : '';
                   }
                 });
                 return result;
@@ -69,15 +69,19 @@ export const convertFormValue = (columns: FormModel[], values: { [selector: stri
             }
             break;
           case 'layout':
-            if (!exportData && !values[item.name]) values[item.name] = []
+            if (!exportData && !values[item.name]) values[item.name] = [];
             break;
           case 'select':
             if (!exportData && item?.formItem?.mode === 'multiple' && values[item.name]) {
               values[item.name] = values[item.name].map((item: any) => (item.id ? item.id : item));
             }
             break;
+          case 'tree_select':
+            if (values[item.name])
+              values[item.name] = exportData ? values[item.name].value : { value: values[item.name] };
+            break;
           case 'textarea':
-            if (!exportData && !values[item.name]) values[item.name] = ''
+            if (!exportData && !values[item.name]) values[item.name] = '';
             break;
           default:
             if (!item?.formItem?.mask && typeof values[item.name] === 'string') {

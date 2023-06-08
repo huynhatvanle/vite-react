@@ -35,11 +35,14 @@ const Component = ({ formItem, placeholder, onChange, value, form, disabled, sho
   );
 
   const initFunction = useCallback(async () => {
-    console.log(typeof value === 'object' && !value?.filter((item: any) => typeof item === 'object')?.length)
-    if (typeof value === 'object' && value.length > 0 && !value?.filter((item: any) => typeof item === 'object')?.length) {
+    if (
+      typeof value === 'object' &&
+      value.length > 0 &&
+      !value?.filter((item: any) => typeof item === 'object')?.length
+    ) {
       onChange && onChange(value.map((item: any) => ({ value: item, label: item })));
     }
-    if (_list.length === 0 && formItem.api || formItem.renderList) await loadData('');
+    if ((_list.length === 0 && formItem.api) || formItem.renderList) await loadData('');
 
     if (value?.length > 0 && value?.length === allValue.current.length) set_checkAll(true);
     else set_checkAll(false);
@@ -127,7 +130,7 @@ const Component = ({ formItem, placeholder, onChange, value, form, disabled, sho
               );
           }
         } else {
-          onChange && onChange(data?.value);
+          onChange && onChange(data);
         }
       }}
       dropdownRender={(originNode) => (
