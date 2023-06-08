@@ -14,6 +14,7 @@ import {
   inventoryOrdersFacade,
   InventorySupplierFacade,
   InventoryListProductFacade,
+  DocumentsubFacade,
 } from '@store';
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
@@ -48,22 +49,16 @@ const Page = () => {
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
   const inventoryProduct = InventoryListProductFacade();
+  const documentsub = DocumentsubFacade();
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
   const [cap1, setCap1] = useState(true);
   const [cap2, setCap2] = useState(true);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-  const [dateFrom, setDateFrom] = useState(() => {
-    const storedDateFrom = sessionStorage.getItem('dateFrom');
-    return storedDateFrom && dayjs(storedDateFrom).isValid() ? storedDateFrom : '';
-  });
-  const [dateTo, setDateTo] = useState(() => {
-    const storedDateTo = sessionStorage.getItem('dateTo');
-    return storedDateTo && dayjs(storedDateTo).isValid() ? storedDateTo : '';
-  });
 
   useEffect(() => {
     if (id) supplierFacade.getById({ id });
+    if (id) documentsub.get({ id });
 
     return () => {
       isReload.current && supplierFacade.get(param);
@@ -76,6 +71,7 @@ const Page = () => {
         break;
     }
   }, [status]);
+  const data1 = documentsub.result?.data;
 
   const revenueTotal = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
   const discountTotal = discountFacade.result?.totalCommissionSupplier?.toLocaleString();
@@ -132,6 +128,16 @@ const Page = () => {
       value: 'STOP_SELLING',
     },
   ];
+  const statusContract = [
+    {
+      label: 'Đã ký',
+      value: 'SIGNED_CONTRACT',
+    },
+    {
+      label: 'Chưa ký',
+      value: 'STOP_SELLING',
+    },
+  ];
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: Supplier) => {
@@ -139,14 +145,12 @@ const Page = () => {
   };
   let i = 1;
 
-  console.log(getFilter(inventoryProduct.queryParams, 'categoryId'));
-
   return (
     <div className={'w-full'}>
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey="1"
+            defaultActiveKey="6"
             // defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
             // onChange={(key) => sessionStorage.setItem('activeTab', key)}
             type="card"
@@ -1736,48 +1740,12 @@ const Page = () => {
 
             <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl'}>
-                {/* <div className="p-6 font-semibold">
-                  <div className="flex items-left">
-                    <p className="sm:text-xl text-base text-teal-900 pb-4 pt-0 mr-5">Chi tiết hợp đồng</p>
-                  </div>
-                  <div className="mb-1 text-base">
-                    <div className="lg:flex lg:items-center justify-between text-teal-900">
-                      <div className="flex flex-row mb-5 gap-5">
-                        <div>Mã hợp đồng:</div>
-                        <div>HD00261</div>
-                      </div>
-                      <div className=" flex flex-row mb-5 gap-5">
-                        <div>Ngày tạo:</div>
-                        <div>12/01/2023 - 15:27</div>
-                      </div>
-                      <div className=" flex flex-row mb-5 gap-5">
-                        <div>Trạng thái</div>
-                        <Form
-                          className="intro-x pt-1 -mx-5 rounded-lg w-full "
-                          columns={[
-                            {
-                              title: '',
-                              name: 'Status',
-                              formItem: {
-                                disabled: () => true,
-                                tabIndex: 3,
-                                placeholder: 'Đã ký',
-                                col: 12,
-                                type: 'select',
-                              },
-                            },
-                          ]}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
                 <div className="flex items-left font-bold pl-5 pt-5">
-                  <p className="sm:text-xl text-base text-teal-900 pb-4 pt-0 mr-5">Chi tiết hợp đồng</p>
+                  <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Chi tiết hợp đồng</p>
                 </div>
-                <div className="form-supplied-tab6">
+                <div className="form-supplied-tab6 px-3 items-center">
                   <Form
-                    values={{ ...data }}
+                    values={{ ...data1 }}
                     className="intro-x"
                     columns={[
                       {
@@ -1787,9 +1755,9 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center gap-2">
-                                <div className="font-semibold text-teal-900 text-base">Mã hợp đồng:</div>
-                                <div>{values.name}</div>
+                              <div className="flex items-center h-full text-base">
+                                <div className="font-semibold text-teal-900 ">Mã hợp đồng:</div>
+                                <div className="ml-4">{values.code}</div>
                               </div>
                             );
                           },
@@ -1802,9 +1770,12 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center gap-2">
-                                <div className="font-semibold text-teal-900 text-base">Ngày tạo:</div>
-                                <div>{values.name}</div>
+                              <div className="flex items-center h-full text-base">
+                                <div className="font-semibold text-teal-900 ">Ngày tạo:</div>
+                                <div className="ml-4">
+                                  {dayjs(values.createdAt).format('DD/MM/YYYY').replace(/-/g, '/')} -{' '}
+                                  {dayjs(values.createdAt).format('HH:mm')}{' '}
+                                </div>
                               </div>
                             );
                           },
@@ -1812,18 +1783,40 @@ const Page = () => {
                       },
                       {
                         title: '',
-                        name: 'status',
+                        name: 'code',
                         formItem: {
                           col: 4,
-                          type: 'select',
                           render: (form, values) => {
                             return (
-                              <div className="flex">
-                                <div className="font-semibold text-teal-900 text-base w-[150px]">Trạng thái:</div>
-                                <Select style={{ width: '100%' }}>
-                                  <Select.Option value="PENDING_SIGN_CONTRACT"> Chờ ký</Select.Option>
-                                  <Select.Option value="SIGNED_CONTRACT"> Đã ký</Select.Option>
-                                </Select>
+                              <div className="flex items-center h-full w-full">
+                                <div className="font-semibold text-teal-900 text-base whitespace-nowrap">
+                                  Trạng thái:
+                                </div>
+                                <div className="w-60 py-2.5 px-4 bg-gray-100 rounded-2xl border-gray-200 ml-4 flex justify-between cursor-not-allowed">
+                                  <p className="text-gray-400">Đã ký</p>
+                                  <DownArrow className="w-4 h-5 text-gray-400 pt-1" />
+                                </div>
+                              </div>
+                            );
+                          },
+                        },
+                      },
+                      {
+                        title: '',
+                        name: 'code',
+                        formItem: {
+                          col: 12,
+                          render: (form, values) => {
+                            return (
+                              <div className="flex items-center h-10 text-base">
+                                <div className="font-semibold text-teal-900 ">Thông tin hợp đồng:</div>
+                                <a href="" className="text-blue-500 ml-4">
+                                  Nhấn vào đầy
+                                </a>
+                                <div className="font-semibold text-teal-900 ml-4">Tệp đã ký:</div>
+                                <a href="" className="text-blue-500 ml-4">
+                                  Nhấn vào đầy
+                                </a>
                               </div>
                             );
                           },
@@ -1831,7 +1824,7 @@ const Page = () => {
                       },
                     ]}
                   />
-                  <Form
+                  {/* <Form
                     values={{ ...data }}
                     className="intro-x !border-b-slate-300 border-b !rounded-none"
                     columns={[
@@ -1939,7 +1932,7 @@ const Page = () => {
                         },
                       },
                     ]}
-                  />
+                  /> */}
                   <p className="text-base text-teal-900 font-bold pl-3 pt-5">Tải lên hợp đồng đăng ký:</p>
                   <div className="text-center border-2 p-[110px] border-dashed rounded-md m-5"></div>
                   <p className="text-base text-teal-900 font-bold pl-3">Tệp trên hệ thống:</p>
@@ -1962,102 +1955,6 @@ const Page = () => {
                     </div>
                   </div>
                 </div>
-                {/* <p className="text-base text-teal-900 font-bold pl-3">Thông tin nhà cung cấp</p>
-                <div className='form-supplied-tab6'>
-                  <Form
-                    values={{ ...data }}
-                    className='intro-x'
-                    columns={[
-                      {
-                        title: '',
-                        name: 'code',
-                        formItem: {
-                          col: 6,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Nhà cung cấp:</div>
-                                <div>{values.name}</div>
-                              </div>
-                            );
-                          }
-                        },
-                      },
-                      {
-                        title: '',
-                        name: 'createdAt',
-                        formItem: {
-                          col: 6,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Tên chủ quản lý:</div>
-                                <div>{values.name}</div>
-                              </div>
-                            );
-                          }
-                        },
-                      },
-                    ]}
-                  />
-                  <Form
-                    values={{ ...data }}
-                    className='intro-x'
-                    columns={[
-                      {
-                        title: '',
-                        name: 'code',
-                        formItem: {
-                          col: 6,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Số điện thoại:</div>
-                                <div>{values.name}</div>
-                              </div>
-                            );
-                          }
-                        },
-                      },
-                      {
-                        title: '',
-                        name: 'createdAt',
-                        formItem: {
-                          col: 6,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center gap-2">
-                                <div className='font-semibold text-teal-900 text-base'>Địa chỉ:</div>
-                                <div>{values.name}</div>
-                              </div>
-                            );
-                          }
-                        },
-                      },
-                    ]}
-                  />
-                </div> */}
-                {/* <p className='text-base text-teal-900 font-bold pl-3 pt-5'>Tải lên hợp đồng đăng ký:</p>
-                <div className='text-center border-2 p-[110px] border-dashed rounded-md m-5'></div>
-                <p className="text-base text-teal-900 font-bold pl-3">Tệp trên hệ thống:</p>
-                <div className="text-base pl-3">Chưa có hình hợp đồng trên hệ thống.</div>
-                <div className="sm:flex sm:mt-7 mt-2 justify-between p-4">
-                  <div className="flex flex-col items-center mt-2" onClick={handleBack}>
-                    <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
-                      {t('components.form.modal.cancel')}
-                    </button>
-                  </div>
-                  <div className="flex sm:justify-end justify-center items-center p-5">
-                    <Button
-                      disabled={true}
-                      text={t('titles.Upload contract')}
-                      className={
-                        'flex bg-teal-900 text-white sm:w-52 w-[64%] rounded-xl items-center justify-center disabled:opacity-30'
-                      }
-                      onClick={() => null}
-                    />
-                  </div>
-                </div> */}
               </div>
             </Tabs.TabPane>
           </Tabs>
