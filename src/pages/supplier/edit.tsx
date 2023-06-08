@@ -13,6 +13,7 @@ import {
   DiscountFacade,
   inventoryOrdersFacade,
   InventorySupplierFacade,
+  InventoryListProductFacade,
 } from '@store';
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
@@ -40,11 +41,13 @@ const Page = () => {
   const dataTableRefProduct = useRef<TableRefObject>(null);
   const dataTableRefDiscount = useRef<TableRefObject>(null);
   const dataTableRefRevenue = useRef<TableRefObject>(null);
+  const dataTableRefListProduct = useRef<TableRefObject>(null);
 
   const productFacade = ProductFacade();
   const ordersFacade = OrdersFacade();
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
+  const inventoryProduct = InventoryListProductFacade();
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
   const [cap1, setCap1] = useState(true);
@@ -58,20 +61,6 @@ const Page = () => {
     const storedDateTo = sessionStorage.getItem('dateTo');
     return storedDateTo && dayjs(storedDateTo).isValid() ? storedDateTo : '';
   });
-  const [dateFrom1, setDateFrom1] = useState(() => {
-    const storedDateFrom1 = sessionStorage.getItem('dateFrom1');
-    return storedDateFrom1 && dayjs(storedDateFrom1).isValid() ? storedDateFrom1 : '';
-  });
-  const [dateTo1, setDateTo1] = useState(() => {
-    const storedDateTo1 = sessionStorage.getItem('dateTo1');
-    return storedDateTo1 && dayjs(storedDateTo1).isValid() ? storedDateTo1 : '';
-  });
-  // sessionStorage.removeItem('dateFrom');
-  // sessionStorage.removeItem('dateTo');
-  // console.log('dateFrom', dateFrom);
-  // console.log('dateTo', dateTo);
-  // console.log("sessionStorage.getItem('dateFrom')", sessionStorage.getItem('dateFrom'));
-  // console.log("sessionStorage.getItem('dateTo')", sessionStorage.getItem('dateTo'));
 
   useEffect(() => {
     if (id) supplierFacade.getById({ id });
@@ -109,6 +98,40 @@ const Page = () => {
       total: inventoryOrders.result?.statistical?.totalOderCancel,
     },
   ];
+  const listStatusDiscount = [
+    {
+      label: 'Chưa thanh toán',
+      value: 'NOT_PAID',
+    },
+    {
+      label: 'Đã thanh toán',
+      value: 'PAID',
+    },
+    {
+      label: 'Chưa hoàn tất',
+      value: 'NOT_COMPLETED_PAID',
+    },
+  ];
+  const statusCategory = [
+    {
+      label: 'Bán hàng',
+      value: 'RECIEVED',
+    },
+    {
+      label: 'Trả hàng',
+      value: 'RETURN',
+    },
+  ];
+  const statusRevenue = [
+    {
+      label: 'Đang bán',
+      value: 'APPROVED',
+    },
+    {
+      label: 'Ngưng bán',
+      value: 'STOP_SELLING',
+    },
+  ];
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: Supplier) => {
@@ -116,13 +139,16 @@ const Page = () => {
   };
   let i = 1;
 
+  console.log(getFilter(inventoryProduct.queryParams, 'categoryId'));
+
   return (
     <div className={'w-full'}>
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
-            onChange={(key) => sessionStorage.setItem('activeTab', key)}
+            defaultActiveKey="1"
+            // defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
+            // onChange={(key) => sessionStorage.setItem('activeTab', key)}
             type="card"
             size="large"
             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)}
@@ -163,6 +189,7 @@ const Page = () => {
                       formItem: {
                         tabIndex: 2,
                         col: 4,
+                        rules: [{ type: 'phone', min: 8, max: 12 }],
                       },
                     },
                     {
@@ -269,6 +296,7 @@ const Page = () => {
                       formItem: {
                         tabIndex: 1,
                         col: 4,
+                        type: 'name',
                         rules: [{ type: 'required' }],
                       },
                     },
@@ -405,6 +433,7 @@ const Page = () => {
                                 onChange(value, form) {
                                   value ? setCap1(false) : setCap1(true);
                                   form.resetFields(['categoryId2', 'categoryId3']);
+                                  setCap2(true);
                                   dataTableRefProduct?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
@@ -412,7 +441,7 @@ const Page = () => {
                                       storeId: '',
                                       type: 'BALANCE',
                                       categoryId1: value ? value : '',
-                                      supplierId: data?.id,
+                                      supplierId: id,
                                     },
                                   });
                                 },
@@ -429,6 +458,8 @@ const Page = () => {
                                 disabled: () => cap1,
                                 get: {
                                   facade: CategoryFacade,
+                                  key: 'result2',
+                                  method: 'get2',
                                   format: (item: any) => ({
                                     label: item.name,
                                     value: item.id,
@@ -446,7 +477,7 @@ const Page = () => {
                                     perPage: 10,
                                     filter: {
                                       storeId: '',
-                                      supplierId: data?.id,
+                                      supplierId: id,
                                       type: 'BALANCE',
                                       categoryId2: value ? value : '',
                                       categoryId1: form.getFieldValue('categoryId1'),
@@ -466,6 +497,8 @@ const Page = () => {
                                 disabled: () => cap2,
                                 get: {
                                   facade: CategoryFacade,
+                                  key: 'result3',
+                                  method: 'get3',
                                   format: (item: any) => ({
                                     label: item.name,
                                     value: item.id,
@@ -481,7 +514,7 @@ const Page = () => {
                                     perPage: 10,
                                     filter: {
                                       storeId: '',
-                                      supplierId: data?.id,
+                                      supplierId: id,
                                       type: 'BALANCE',
                                       categoryId3: value ? value : '',
                                       categoryId1: form.getFieldValue('categoryId1'),
@@ -492,6 +525,7 @@ const Page = () => {
                               },
                             },
                           ]}
+                          disableSubmit={isLoading}
                         />
                         <div className={'h-10 w-36 mt-6 lg:flex '}>
                           {
@@ -692,11 +726,13 @@ const Page = () => {
                         filter: {
                           idSupplier: id,
                           filterDate: {
-                            dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00')}`,
+                            dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 00:00:00')}`,
                             dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
                           },
                           idStore: '',
+                          type: '',
                         },
+
                         fullTextSearch: '',
                       }}
                       xScroll="1400px"
@@ -708,27 +744,40 @@ const Page = () => {
                       rightHeader={
                         <div className="flex justify-end text-left flex-col w-full">
                           <Form
+                            values={{
+                              dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
+                              dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
+                              type: getFilter(inventoryOrders.queryParams, 'type'),
+                              Store: getFilter(inventoryOrders.queryParams, 'idStore'),
+                            }}
                             className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:-mr-20 lg:mt-0 form-store"
                             columns={[
                               {
                                 title: '',
-                                name: 'Category',
+                                name: 'type',
                                 formItem: {
-                                  tabIndex: 3,
-                                  placeholder: 'placeholder.Select order type',
-                                  col: 5,
+                                  placeholder: 'placeholder.Select status',
                                   type: 'select',
-                                  render() {
-                                    return (
-                                      <Select
-                                        className="w-48"
-                                        showSearch={true}
-                                        placeholder={t('placeholder.Select order type')}
-                                      >
-                                        <Select.Option>Bán hàng</Select.Option>
-                                        <Select.Option>Trả hàng</Select.Option>
-                                      </Select>
-                                    );
+                                  tabIndex: 3,
+                                  col: 6,
+                                  list: statusCategory,
+                                  onChange(value, form) {
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idSupplier: id,
+                                        filterDate: {
+                                          dateFrom: form.getFieldValue('dateFrom')
+                                            ? form.getFieldValue('dateFrom')
+                                            : '',
+                                          dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                        },
+                                        idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
+                                        type: value,
+                                      },
+                                      fullTextSearch: '',
+                                    });
                                   },
                                 },
                               },
@@ -738,7 +787,7 @@ const Page = () => {
                                 formItem: {
                                   placeholder: 'placeholder.Choose a store',
                                   type: 'select',
-                                  col: 5,
+                                  col: 6,
                                   get: {
                                     facade: InventorySupplierFacade,
                                     format: (item: any) => ({
@@ -756,7 +805,13 @@ const Page = () => {
                                       filter: {
                                         idSupplier: id,
                                         idStore: value,
-                                        filterDate: { dateFrom: `${dateFrom}`, dateTo: `${dateTo}` },
+                                        filterDate: {
+                                          dateFrom: form.getFieldValue('dateFrom')
+                                            ? form.getFieldValue('dateFrom')
+                                            : '',
+                                          dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                        },
+                                        type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
                                       },
                                       fullTextSearch: '',
                                     });
@@ -768,18 +823,10 @@ const Page = () => {
                           />
                           <Form
                             values={{
-                              dateFrom1:
-                                !sessionStorage.getItem('dateFrom1') || !dateFrom1
-                                  ? `${dayjs().format('MM/DD/YYYY 00:00:00')}`
-                                  : dateFrom1 && dayjs(dateFrom1).isValid()
-                                  ? `${dateFrom1}`
-                                  : '',
-                              dateTo1:
-                                !sessionStorage.getItem('dateTo1') || !dateTo1
-                                  ? `${dayjs().format('MM/DD/YYYY 23:59:59')}`
-                                  : dateTo1 && dayjs(dateTo1).isValid()
-                                  ? `${dateTo1}`
-                                  : '',
+                              dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
+                              dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
+                              type: getFilter(inventoryOrders.queryParams, 'type'),
+                              Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                             }}
                             className="intro-x rounded-lg w-full sm:flex justify-between form-store"
                             columns={[
@@ -798,33 +845,28 @@ const Page = () => {
                               },
                               {
                                 title: '',
-                                name: 'dateFrom1',
+                                name: 'dateFrom',
                                 formItem: {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateFrom1(dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
-                                    sessionStorage.setItem(
-                                      'dateFrom1',
-                                      dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
-                                    ); // <-- lưu giá trị vào sessionStorage
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
                                         filterDate: {
-                                          dateFrom:
-                                            value && dayjs(value).isValid()
-                                              ? `${dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`
-                                              : '',
-                                          dateTo:
-                                            sessionStorage.getItem('dateTo1') === 'Invalid Date'
-                                              ? `${dateTo1}`
-                                              : sessionStorage.getItem('dateTo1'),
+                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                          dateTo: form.getFieldValue('dateTo')
+                                            ? form
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
+                                            : '',
                                         },
-                                        idStore: '',
+                                        idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
+                                        type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
                                       },
                                       fullTextSearch: '',
                                     });
@@ -846,33 +888,30 @@ const Page = () => {
                               },
                               {
                                 title: '',
-                                name: 'dateTo1',
+                                name: 'dateTo',
                                 formItem: {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateTo1(dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'));
-                                    sessionStorage.setItem(
-                                      'dateTo1',
-                                      dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
-                                    ); // <-- lưu giá trị vào sessionStorage
+                                    console.log('From', form.getFieldValue('dateFrom'));
+
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
                                         filterDate: {
-                                          dateFrom:
-                                            sessionStorage.getItem('dateFrom1') === 'Invalid Date'
-                                              ? `${dateFrom1}`
-                                              : sessionStorage.getItem('dateFrom1'),
-                                          dateTo:
-                                            value && dayjs(value).isValid()
-                                              ? `${dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`
-                                              : '',
+                                          dateFrom: form.getFieldValue('dateFrom')
+                                            ? form
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
+                                            : '',
+                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
-                                        idStore: '',
+                                        idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
+                                        type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
                                       },
                                       fullTextSearch: '',
                                     });
@@ -998,177 +1037,100 @@ const Page = () => {
                   </div>
                 </div>
               ) : (
-                <div className={'w-full mx-auto '}>
-                  <div className="px-5 pt-6 pb-4 bg-white rounded-xl">
-                    <DataTable
-                      ref={dataTableRefRevenue}
-                      facade={inventoryOrders}
-                      defaultRequest={{
-                        page: 1,
-                        perPage: 10,
-                        filter: {
-                          idSuppiler: id,
-                          filter: {
-                            dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00')}`,
-                            dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
-                          },
+                <div className="px-5 pt-6 pb-4 bg-white rounded-xl">
+                  <DataTable
+                    ref={dataTableRefListProduct}
+                    facade={inventoryProduct}
+                    defaultRequest={{
+                      page: 1,
+                      perPage: 10,
+                      filter: {
+                        idSupplier: data?.id,
+                        categoryId: '',
+                        idStore: '',
+                        status: '',
+                        categoryId1: '',
+                        categoryId2: '',
+                        categoryId3: '',
+                        filterDate: {
+                          dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 00:00:00')}`,
+                          dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
                         },
-                        fullTextSearch: '',
-                      }}
-                      xScroll="1400px"
-                      pageSizeRender={(sizePage: number) => sizePage}
-                      pageSizeWidth={'50px'}
-                      paginationDescription={(from: number, to: number, total: number) =>
-                        t('routes.admin.Layout.Pagination', { from, to, total })
-                      }
-                      subHeader={() => (
-                        <Form
-                          className="intro-x -mt-5 rounded-lg w-full "
-                          columns={[
-                            {
-                              title: '',
-                              name: 'cap1',
-                              formItem: {
-                                tabIndex: 3,
-                                placeholder: 'Danh mục chính',
-                                col: 3,
-                                type: 'select',
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                },
-                                onChange(value, form) {
-                                  form.resetFields(['cap2', 'cap3']);
-                                },
-                              },
-                            },
-                            {
-                              name: 'cap2',
-                              title: '',
-                              formItem: {
-                                disabled: () => true,
-                                placeholder: 'Danh mục cấp 1',
-                                type: 'select',
-                                col: 3,
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().cap1,
-                                  }),
-                                },
-                                onChange(value, form) {
-                                  form.resetFields(['cap3']);
-                                },
-                              },
-                            },
-                            {
-                              name: 'cap3',
-                              title: '',
-                              formItem: {
-                                disabled: () => true,
-                                placeholder: 'Danh mục cấp 2',
-                                type: 'select',
-                                col: 3,
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().cap2,
-                                  }),
-                                },
-                              },
-                            },
-                          ]}
-                        />
-                      )}
-                      rightHeader={
-                        <div className="flex items-end justify-between">
+                      },
+                      fullTextSearch: '',
+                    }}
+                    xScroll="1400px"
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.Pagination', { from, to, total })
+                    }
+                    subHeader={() => (
+                      <>
+                        <div className="flex justify-start text-left flex-col lg:flex-row lg:justify-between w-full">
                           <Form
                             values={{
-                              dateFrom1:
-                                !sessionStorage.getItem('dateFrom1') || !dateFrom1
-                                  ? `${dayjs().format('MM/DD/YYYY 00:00:00')}`
-                                  : dateFrom1 && dayjs(dateFrom1).isValid()
-                                  ? `${dateFrom1}`
-                                  : '',
-                              dateTo1:
-                                !sessionStorage.getItem('dateTo1') || !dateTo1
-                                  ? `${dayjs().format('MM/DD/YYYY 23:59:59')}`
-                                  : dateTo1 && dayjs(dateTo1).isValid()
-                                  ? `${dateTo1}`
-                                  : '',
+                              categoryId1: getFilter(inventoryProduct.queryParams, 'categoryId1'),
+                              categoryId2: getFilter(inventoryProduct.queryParams, 'categoryId2'),
+                              categoryId3: getFilter(inventoryProduct.queryParams, 'categoryId3'),
+                              dateFrom: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateFrom,
+                              dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
+                              status: getFilter(inventoryProduct.queryParams, 'status'),
                             }}
-                            className="intro-x items-end rounded-lg w-full flex justify-between"
+                            className="intro-x sm:flex justify-start mt-2 w-48 form-store items-center"
                             columns={[
                               {
                                 title: '',
-                                name: '',
+                                name: 'status',
                                 formItem: {
-                                  tabIndex: 3,
-                                  col: 2,
-                                  render: () => (
-                                    <div className="flex h-10 items-center">
-                                      <p></p>
-                                    </div>
-                                  ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: 'Category',
-                                formItem: {
-                                  tabIndex: 3,
-                                  placeholder: 'Chọn loại đơn hàng',
-                                  col: 5,
+                                  placeholder: 'placeholder.Select status',
                                   type: 'select',
-                                  get: {
-                                    facade: CategoryFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                  },
+                                  col: 12,
+                                  list: statusRevenue,
                                   onChange(value, form) {
-                                    form.resetFields(['cap2', 'cap3']);
+                                    dataTableRefListProduct?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idSupplier: data?.id,
+                                        categoryId: '',
+                                        idStore: '',
+                                        categoryId1: form.getFieldValue('categoryId1')
+                                          ? form.getFieldValue('categoryId1')
+                                          : '',
+                                        categoryId2: form.getFieldValue('categoryId2')
+                                          ? form.getFieldValue('categoryId2')
+                                          : '',
+                                        categoryId3: form.getFieldValue('categoryId3')
+                                          ? form.getFieldValue('categoryId3')
+                                          : '',
+                                        status: value,
+                                        filterDate: {
+                                          dateFrom: form.getFieldValue('dateFrom')
+                                            ? form.getFieldValue('dateFrom')
+                                            : '',
+                                          dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                        },
+                                      },
+                                      fullTextSearch: '',
+                                    });
                                   },
                                 },
                               },
-                              {
-                                name: 'Store',
-                                title: '',
-                                formItem: {
-                                  // disabled:() => true,
-                                  placeholder: 'Chọn cửa hàng',
-                                  type: 'select',
-                                  col: 5,
-                                  get: {
-                                    facade: CategoryFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                    params: (fullTextSearch, value) => ({
-                                      fullTextSearch,
-                                      code: value().id,
-                                    }),
-                                  },
-                                  onChange(value, form) {
-                                    form.resetFields(['cap2']);
-                                  },
-                                },
-                              },
+                            ]}
+                            disableSubmit={isLoading}
+                          />
+                          <Form
+                            values={{
+                              categoryId1: getFilter(inventoryProduct.queryParams, 'categoryId1'),
+                              categoryId2: getFilter(inventoryProduct.queryParams, 'categoryId2'),
+                              categoryId3: getFilter(inventoryProduct.queryParams, 'categoryId3'),
+                              dateFrom: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateFrom,
+                              dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
+                              status: getFilter(inventoryProduct.queryParams, 'status'),
+                            }}
+                            className="intro-x w-full sm:flex mt-2 form-store items-center"
+                            columns={[
                               {
                                 title: '',
                                 name: '',
@@ -1184,31 +1146,36 @@ const Page = () => {
                               },
                               {
                                 title: '',
-                                name: 'dateFrom1',
+                                name: 'dateFrom',
                                 formItem: {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateFrom1(dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
-                                    sessionStorage.setItem(
-                                      'dateFrom1',
-                                      dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
-                                    ); // <-- lưu giá trị vào sessionStorage
-                                    dataTableRefRevenue?.current?.onChange({
+                                    dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
+                                        categoryId: '',
+                                        categoryId1: form.getFieldValue('categoryId1')
+                                          ? form.getFieldValue('categoryId1')
+                                          : '',
+                                        categoryId2: form.getFieldValue('categoryId2')
+                                          ? form.getFieldValue('categoryId2')
+                                          : '',
+                                        categoryId3: form.getFieldValue('categoryId3')
+                                          ? form.getFieldValue('categoryId3')
+                                          : '',
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                         filterDate: {
-                                          dateFrom:
-                                            value && dayjs(value).isValid()
-                                              ? `${dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`
-                                              : '',
-                                          dateTo:
-                                            sessionStorage.getItem('dateTo1') === 'Invalid Date'
-                                              ? `${dateTo1}`
-                                              : sessionStorage.getItem('dateTo1'),
+                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                          dateTo: form.getFieldValue('dateTo')
+                                            ? form
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
+                                            : '',
                                         },
                                         idStore: '',
                                       },
@@ -1232,31 +1199,36 @@ const Page = () => {
                               },
                               {
                                 title: '',
-                                name: 'dateTo1',
+                                name: 'dateTo',
                                 formItem: {
                                   tabIndex: 3,
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateTo1(dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'));
-                                    sessionStorage.setItem(
-                                      'dateTo1',
-                                      dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
-                                    ); // <-- lưu giá trị vào sessionStorage
-                                    dataTableRefRevenue?.current?.onChange({
+                                    dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
+                                        categoryId: '',
+                                        categoryId1: form.getFieldValue('categoryId1')
+                                          ? form.getFieldValue('categoryId1')
+                                          : '',
+                                        categoryId2: form.getFieldValue('categoryId2')
+                                          ? form.getFieldValue('categoryId2')
+                                          : '',
+                                        categoryId3: form.getFieldValue('categoryId3')
+                                          ? form.getFieldValue('categoryId3')
+                                          : '',
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                         filterDate: {
-                                          dateFrom:
-                                            sessionStorage.getItem('dateFrom1') === 'Invalid Date'
-                                              ? `${dateFrom1}`
-                                              : sessionStorage.getItem('dateFrom1'),
-                                          dateTo:
-                                            value && dayjs(value).isValid()
-                                              ? `${dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`
-                                              : '',
+                                          dateFrom: form.getFieldValue('dateFrom')
+                                            ? form
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
+                                            : '',
+                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
                                         idStore: '',
                                       },
@@ -1266,88 +1238,231 @@ const Page = () => {
                                 },
                               },
                             ]}
-                            // handSubmit={handleSubmit}
                             disableSubmit={isLoading}
                           />
                         </div>
-                      }
-                      searchPlaceholder={t('placeholder.Search by order number')}
-                      columns={[
-                        {
-                          title: `supplier.Order.STT`,
-                          name: 'id',
-                          tableItem: {
-                            width: 70,
-                            render: (value: any, item: any) => i++,
-                          },
+                        <Form
+                          className="intro-x rounded-lg w-full form-store form-header-category col-supplier mt-5"
+                          values={{
+                            categoryId1: getFilter(inventoryProduct.queryParams, 'categoryId1'),
+                            categoryId2: getFilter(inventoryProduct.queryParams, 'categoryId2'),
+                            categoryId3: getFilter(inventoryProduct.queryParams, 'categoryId3'),
+                            dateFrom: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateFrom,
+                            dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
+                            status: getFilter(inventoryProduct.queryParams, 'status'),
+                          }}
+                          columns={[
+                            {
+                              title: '',
+                              name: 'categoryId1',
+                              formItem: {
+                                placeholder: 'placeholder.Main categories',
+                                col: 3,
+                                type: 'select',
+                                firstLoad: () => ({}),
+                                get: {
+                                  facade: CategoryFacade,
+                                  format: (item: any) => ({
+                                    label: item.name,
+                                    value: item.id,
+                                  }),
+                                },
+                                onChange(value, form) {
+                                  value ? setCap1(false) : setCap1(true);
+                                  form.resetFields(['categoryId2', 'categoryId3']);
+                                  setCap2(true);
+                                  dataTableRefListProduct?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      idSupplier: id,
+                                      categoryId: '',
+                                      categoryId1: value ? value : '',
+                                      status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                      filterDate: {
+                                        dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                        dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                      },
+                                      idStore: '',
+                                    },
+                                    fullTextSearch: '',
+                                  });
+                                },
+                              },
+                            },
+                            {
+                              name: 'categoryId2',
+                              title: '',
+                              formItem: {
+                                placeholder: 'placeholder.Category level 1',
+                                type: 'select',
+                                col: 3,
+                                // disabled: (values: any, form: any) => values.categoryId2 ? false : true,
+                                disabled: () => cap1,
+                                get: {
+                                  facade: CategoryFacade,
+                                  key: 'result2',
+                                  method: 'get2',
+                                  format: (item: any) => ({
+                                    label: item.name,
+                                    value: item.id,
+                                  }),
+                                  params: (fullTextSearch, value) => ({
+                                    fullTextSearch,
+                                    id: value().categoryId1,
+                                  }),
+                                },
+                                onChange(value, form) {
+                                  value ? setCap2(false) : setCap2(true);
+                                  form.resetFields(['categoryId3']);
+                                  dataTableRefListProduct?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      idSupplier: id,
+                                      categoryId: '',
+                                      categoryId1: form.getFieldValue('categoryId1')
+                                        ? form.getFieldValue('categoryId1')
+                                        : '',
+                                      categoryId2: value ? value : '',
+                                      status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                      filterDate: {
+                                        dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                        dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                      },
+                                      idStore: '',
+                                    },
+                                    fullTextSearch: '',
+                                  });
+                                },
+                              },
+                            },
+                            {
+                              name: 'categoryId3',
+                              title: '',
+                              formItem: {
+                                placeholder: 'placeholder.Category level 2',
+                                type: 'select',
+                                col: 3,
+                                // disabled: (values: any, form: any) => values.categoryId3 ? false : true,
+                                disabled: () => cap2,
+                                get: {
+                                  facade: CategoryFacade,
+                                  key: 'result3',
+                                  method: 'get3',
+                                  format: (item: any) => ({
+                                    label: item.name,
+                                    value: item.id,
+                                  }),
+                                  params: (fullTextSearch, value) => ({
+                                    fullTextSearch,
+                                    id: value().categoryId2,
+                                  }),
+                                },
+                                onChange(value, form) {
+                                  dataTableRefListProduct?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      idSupplier: id,
+                                      categoryId: '',
+                                      categoryId1: form.getFieldValue('categoryId1')
+                                        ? form.getFieldValue('categoryId1')
+                                        : '',
+                                      categoryId2: form.getFieldValue('categoryId2')
+                                        ? form.getFieldValue('categoryId2')
+                                        : '',
+                                      categoryId3: value ? value : '',
+                                      status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                      filterDate: {
+                                        dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                        dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                      },
+                                      idStore: '',
+                                    },
+                                    fullTextSearch: '',
+                                  });
+                                },
+                              },
+                            },
+                          ]}
+                          disableSubmit={isLoading}
+                        />
+                      </>
+                    )}
+                    searchPlaceholder={t('placeholder.Search by order number')}
+                    columns={[
+                      {
+                        title: `supplier.Order.STT`,
+                        name: 'id',
+                        tableItem: {
+                          width: 70,
+                          render: (value: any, item: any) => i++,
                         },
-                        {
-                          title: `product.Code`,
-                          name: 'invoiceCode',
-                          tableItem: {
-                            width: 175,
-                          },
+                      },
+                      {
+                        title: `product.Code`,
+                        name: 'productCode',
+                        tableItem: {
+                          width: 175,
                         },
-                        {
-                          title: `product.Name`,
-                          name: 'storeName',
-                          tableItem: {
-                            width: 180,
-                            // render: (value: any, item: any) => item?.store?.name,
-                          },
+                      },
+                      {
+                        title: `product.Name`,
+                        name: 'productName',
+                        tableItem: {
+                          width: 180,
                         },
-                        {
-                          title: `product.Barcode`,
-                          name: 'storeName',
-                          tableItem: {
-                            width: 180,
-                            // render: (value: any, item: any) => item?.store?.name,
-                          },
+                      },
+                      {
+                        title: `product.Barcode`,
+                        name: 'barcode',
+                        tableItem: {
+                          width: 180,
                         },
-                        {
-                          title: `supplier.Order.Revenue Before Tax`,
-                          name: 'subTotal',
-                          tableItem: {
-                            width: 145,
-                            render: (value: any, item: any) => item?.subTotal?.toLocaleString(),
-                          },
+                      },
+                      {
+                        title: `supplier.Order.Revenue Before Tax`,
+                        name: 'subTotal',
+                        tableItem: {
+                          width: 145,
+                          render: (value: any, item: any) => item?.subTotal?.toLocaleString(),
                         },
-                        {
-                          title: `supplier.Order.After Tax`,
-                          name: 'total',
-                          tableItem: {
-                            width: 130,
-                            render: (value: any, item: any) => item?.total?.toLocaleString(),
-                          },
+                      },
+                      {
+                        title: `supplier.Order.After Tax`,
+                        name: 'total',
+                        tableItem: {
+                          width: 130,
+                          render: (value: any, item: any) => item?.total?.toLocaleString(),
                         },
-                        {
-                          title: `supplier.Status`,
-                          name: 'total',
-                          tableItem: {
-                            width: 100,
-                            render: (text: string, item: any) =>
-                              // RETURN
-                              item?.billType === 'RECIEVED' ? (
-                                <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                  {t('supplier.Sup-Status.Sell goods')}
-                                </div>
-                              ) : (
-                                <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                  {t('supplier.Sup-Status.Return goods')}
-                                </div>
-                              ),
-                          },
+                      },
+                      {
+                        title: `supplier.Status`,
+                        name: 'total',
+                        tableItem: {
+                          width: 100,
+                          render: (text: string, item: any) =>
+                            item?.status === 'APPROVED' ? (
+                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                {t('supplier.Sup-Status.Selling')}
+                              </div>
+                            ) : (
+                              <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
+                                {t('supplier.Sup-Status.Discontinued')}
+                              </div>
+                            ),
                         },
-                      ]}
-                      footer={() => (
-                        <div className="w-full flex sm:justify-end justify-center mt-4">
-                          <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                            {t('titles.Export report')}
-                          </button>
-                        </div>
-                      )}
-                    />
-                  </div>
+                      },
+                    ]}
+                    footer={() => (
+                      <div className="w-full flex sm:justify-end justify-center mt-4">
+                        <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
+                          {t('titles.Export report')}
+                        </button>
+                      </div>
+                    )}
+                  />
                 </div>
               )}
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
@@ -1372,9 +1487,10 @@ const Page = () => {
                       filter: {
                         id: id,
                         filter: {
-                          dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00')}`,
-                          dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
+                          dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 00:00:00')}`,
+                          dateTo: `${dayjs().endOf('month').format('MM/DD/YYYY 23:59:59')}`,
                         },
+                        status: '',
                       },
                     }}
                     xScroll="1370px"
@@ -1453,18 +1569,10 @@ const Page = () => {
                         <div className="flex my-5 flex-col lg:flex-row">
                           <Form
                             values={{
-                              dateFrom:
-                                !sessionStorage.getItem('dateFrom') || !dateFrom
-                                  ? `${dayjs().format('MM/DD/YYYY 00:00:00')}`
-                                  : dateFrom && dayjs(dateFrom).isValid()
-                                  ? `${dateFrom}`
-                                  : '',
-                              dateTo:
-                                !sessionStorage.getItem('dateTo') || !dateTo
-                                  ? `${dayjs().format('MM/DD/YYYY 23:59:59')}`
-                                  : dateTo && dayjs(dateTo).isValid()
-                                  ? `${dateTo}`
-                                  : '',
+                              // dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateFrom).format('MM/YYYY').replace(/-/g, '/')
+                              dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
+                              dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
+                              status: getFilter(discountFacade.queryParams, 'status'),
                             }}
                             className="intro-x items-end rounded-lg w-full flex justify-between form-store"
                             columns={[
@@ -1489,27 +1597,23 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateFrom(dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
-                                    sessionStorage.setItem(
-                                      'dateFrom',
-                                      dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
-                                    ); // <-- lưu giá trị vào sessionStorage
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         id: id,
                                         filter: {
-                                          dateFrom:
-                                            value && dayjs(value).isValid()
-                                              ? `${dayjs(value).format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`
-                                              : '',
-                                          dateTo:
-                                            sessionStorage.getItem('dateTo') === 'Invalid Date'
-                                              ? `${dateTo}`
-                                              : sessionStorage.getItem('dateTo'),
+                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                          dateTo: form.getFieldValue('dateTo')
+                                            ? form
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
+                                            : '',
                                         },
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                       },
+                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -1535,27 +1639,25 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    setDateTo(dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'));
-                                    sessionStorage.setItem(
-                                      'dateTo',
-                                      dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
-                                    ); // <-- lưu giá trị vào sessionStorage
+                                    console.log('From', form.getFieldValue('dateFrom'));
+
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
                                       filter: {
                                         id: id,
                                         filter: {
-                                          dateFrom:
-                                            sessionStorage.getItem('dateFrom') === 'Invalid Date'
-                                              ? `${dateFrom}`
-                                              : sessionStorage.getItem('dateFrom'),
-                                          dateTo:
-                                            value && dayjs(value).isValid()
-                                              ? `${dayjs(value).format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`
-                                              : '',
+                                          dateFrom: form.getFieldValue('dateFrom')
+                                            ? form
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
+                                            : '',
+                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                       },
+                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -1566,27 +1668,35 @@ const Page = () => {
                           <div className="flex justify-start lg:justify-end w-full">
                             <div className=" flex justify-end">
                               <Form
+                                values={{
+                                  dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
+                                  dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
+                                  status: getFilter(discountFacade.queryParams, 'status'),
+                                }}
                                 className="form-store"
                                 columns={[
                                   {
                                     title: '',
-                                    name: 'Category',
+                                    name: 'status',
                                     formItem: {
-                                      tabIndex: 3,
-                                      col: 12,
+                                      placeholder: 'placeholder.Select status',
                                       type: 'select',
-                                      render() {
-                                        return (
-                                          <Select
-                                            className="w-48"
-                                            showSearch={true}
-                                            placeholder={t('placeholder.Select status')}
-                                          >
-                                            <Select.Option>Đã thanh toán</Select.Option>
-                                            <Select.Option>Chưa thanh toán</Select.Option>
-                                            <Select.Option>Đã hoàn tất</Select.Option>
-                                          </Select>
-                                        );
+                                      tabIndex: 3,
+                                      col: 6,
+                                      list: listStatusDiscount,
+                                      onChange(value, form) {
+                                        dataTableRefDiscount?.current?.onChange({
+                                          page: 1,
+                                          perPage: 10,
+                                          filter: {
+                                            id: id,
+                                            filter: {
+                                              dateFrom: form.getFieldValue('dateFrom'),
+                                              dateTo: form.getFieldValue('dateTo'),
+                                            },
+                                            status: value,
+                                          },
+                                        });
                                       },
                                     },
                                   },

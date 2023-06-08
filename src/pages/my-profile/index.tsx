@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { Form as AntForm, Tabs } from 'antd';
+import { Form as AntForm, Tabs, Image } from 'antd';
 
 import { User } from '@svgs';
 import { Form } from '@core/form';
@@ -32,8 +32,9 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const profileImage = forms.getFieldValue('profileImage');
-    const image = profileImage[(profileImage.length)-1]?.[0] == 't' ? profileImage : profileImage[(profileImage.length)-1]?.[0]
-    globalFacade.putProfile({ ...values, image });
+    const image = profileImage[(profileImage.length)-1]?.[0] == 'g' ? profileImage : profileImage[(profileImage.length)-1]?.[0]
+
+    globalFacade.putProfile({ ...values, image, profileImage });
   }
 
   return (

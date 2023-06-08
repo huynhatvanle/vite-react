@@ -19,7 +19,12 @@ const action = {
     }: {
       page: number;
       perPage: number;
-      filter: { idSupplier?: string; filterDate?: any; idStore?: string };
+      filter: {
+        idSupplier?: string;
+        filterDate?: { dateFrom?: string; dateTo?: string };
+        idStore?: string;
+        type?: string;
+      };
       fullTextSearch: string;
     }) => {
       const filterInven = JSON.parse(filter.toString() || '{}');
@@ -28,8 +33,9 @@ const action = {
         perPage,
         idSupplier: filterInven.idSupplier,
         idStore: filterInven.idStore,
-        filterDate: filterInven.filterDate,
+        type: filterInven.type,
         fullTextSearch: fullTextSearch,
+        filterDate: { dateFrom: filterInven.filterDate.dateFrom, dateTo: filterInven.filterDate.dateTo },
       });
 
       return data;
@@ -52,7 +58,7 @@ export const inventoryOrdersFacade = () => {
     }: {
       page: number;
       perPage: number;
-      filter: { idSupplier?: string; filterDate?: any; idStore?: string };
+      filter: { idSupplier?: string; filterDate?: any; idStore?: string; type?: string };
       fullTextSearch: string;
     }) => dispatch(action.getOrder({ page, perPage, filter, fullTextSearch })),
   };

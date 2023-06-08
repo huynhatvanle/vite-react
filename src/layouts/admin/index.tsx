@@ -36,6 +36,14 @@ const Layout = ({ children }: PropsWithChildren) => {
   const [isCollapsed, set_isCollapsed] = useState(window.innerWidth < 1025);
   const [isDesktop, set_isDesktop] = useState(window.innerWidth > 640);
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const [scroll, setScroll] = useState(false);
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 700) {
+      setScroll(true);
+    } else {
+      setScroll(false);
+    }
+  });
 
   useEffect(() => {
     if (window.innerWidth < 1025 && !isCollapsed) {
@@ -288,9 +296,14 @@ const Layout = ({ children }: PropsWithChildren) => {
           {children}
         </div>
       </section>
-      <BackTop visibilityHeight={300} className="right-3">
-        <Backtop className="w-11 h-11 bg-cyan-200 rounded-3xl animate-bounce hover:animate-none hover:bg-white " />
-      </BackTop>
+      {scroll ? (
+        <BackTop visibilityHeight={300} className="right-3">
+          <Backtop className="w-11 h-11 bg-cyan-200 rounded-3xl animate-bounce hover:animate-none hover:bg-white " />
+        </BackTop>
+      ) : (
+        <div className="hidden"></div>
+      )}
+
       <footer
         className={classNames('text-lefts pt-9 z-50 mt-10  bg-white p-4 !mr-0', {
           'ml-64': !isCollapsed && isDesktop,

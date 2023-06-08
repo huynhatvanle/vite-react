@@ -32,6 +32,7 @@ export * from './supplier/inventory-order';
 export * from './store-management/all-supplier-store';
 export * from './supplier/inventory-supplier';
 export * from './store-management/invoice-revenue';
+export * from './supplier/inventory-product';
 import {
   globalSlice,
   userSlice,
@@ -52,7 +53,8 @@ import {
   inventoryOrdersSlice,
   supplierStoreSlice,
   InventorySupplierSlice,
-  invoiceRevenueSlice
+  invoiceRevenueSlice,
+  inventoryListProductSlice,
 } from './';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
@@ -75,4 +77,5 @@ const rootReducer = combineReducers({
   [supplierStoreSlice.name]: supplierStoreSlice.reducer,
   [InventorySupplierSlice.name]: InventorySupplierSlice.reducer,
   [invoiceRevenueSlice.name]: invoiceRevenueSlice.reducer,
+  [inventoryListProductSlice.name]: inventoryListProductSlice.reducer,
 });
