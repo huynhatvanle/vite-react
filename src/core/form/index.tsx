@@ -595,13 +595,13 @@ export const Form = ({
                   className={classNames(
                     column?.formItem?.classItem,
                     'col-span-12 col-store' +
-                    (' sm:col-span-' +
-                      (column?.formItem?.colTablet
-                        ? column?.formItem?.colTablet
-                        : column?.formItem?.col
+                      (' sm:col-span-' +
+                        (column?.formItem?.colTablet
+                          ? column?.formItem?.colTablet
+                          : column?.formItem?.col
                           ? column?.formItem?.col
                           : 12)) +
-                    (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
+                      (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
                   )}
                   key={index}
                 >
@@ -619,7 +619,8 @@ export const Form = ({
           '!mt-5 items-center flex-col-reverse sm:flex-row sm:inline-flex': handCancel && handSubmit,
           //'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
-          'sm:w-auto sm:inline-flex float-right text-center items-center sm:flex-row flex-col mt-5': handSubmit && extendButton,
+          'sm:w-auto sm:inline-flex float-right text-center items-center sm:flex-row flex-col mt-5':
+            handSubmit && extendButton,
         })}
       >
         {handCancel && (

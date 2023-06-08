@@ -51,6 +51,7 @@ export const routerLinks = (name: string, type?: string) => {
     InventoryOrders: '/inventory-order/revenue-list',
     SupplierStore: '/sub-organization/store/all-supplier-store',
     InventorySupplier: '/inventory-order/store-by-suppier',
+    InventoryListProduct: '/inventory-order/revenue-list-product',
   }; // 💬 generate api to here
 
   switch (type) {

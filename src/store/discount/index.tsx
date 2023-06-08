@@ -3,7 +3,6 @@ import { CommonEntity } from '@models';
 import { API, routerLinks } from '@utils';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
-
 const name = 'Suborgcommision';
 
 const action = {
@@ -15,7 +14,7 @@ const action = {
       page,
       perPage,
     }: {
-      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string } };
+      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string }; status?: string };
       page?: number;
       perPage?: number;
     }) => {
@@ -24,6 +23,7 @@ const action = {
         page,
         perPage,
         filter: { dateFrom: filterDis.filter.dateFrom, dateTo: filterDis.filter.dateTo },
+        status: filterDis.status,
       });
       let dataDiscount = Object.entries(data.data as Object)[0]?.[1];
       const totalCommissionSupplier = data.data?.totalCommissionSupplier;
@@ -54,7 +54,7 @@ export const DiscountFacade = () => {
       page,
       perPage,
     }: {
-      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string } };
+      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string }; status?: string };
       page?: number;
       perPage?: number;
     }) => dispatch(action.getDiscount({ perPage, page, filter })),
