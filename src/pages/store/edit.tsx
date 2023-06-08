@@ -171,7 +171,7 @@ const Page = () => {
                       formItem: {
                         tabIndex: 3,
                         col: 4,
-                        rules: [{ type: 'fax' }],
+                        rules: [{ type: 'phone', min: 8, max: 12 }],
                       },
                     },
                     {

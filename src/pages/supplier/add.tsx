@@ -59,6 +59,7 @@ const Page = () => {
             formItem: {
               tabIndex: 3,
               col: 6,
+              rules: [{ type: 'phone', min: 8, max: 12 }],
             },
           },
           {
@@ -160,6 +161,7 @@ const Page = () => {
             name: 'nameContact',
             formItem: {
               col: 4,
+              type: 'name',
               rules: [{ type: 'required' }],
             },
           },
@@ -176,7 +178,7 @@ const Page = () => {
             name: 'emailContact',
             formItem: {
               col: 4,
-              rules: [{ type: 'required' }],
+              rules: [{ type: 'required' }, { type: 'email' }],
             },
           },
           {
