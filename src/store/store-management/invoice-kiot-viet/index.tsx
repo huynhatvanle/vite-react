@@ -22,7 +22,7 @@ const action = {
       let data = await API.get(routerLinks(name, 'api'), {
         page,
         perPage,
-        fullTextSearch,
+        fullTextSearch: fullTextSearch ? fullTextSearch : '',
         idStore: filterInvoiceKiotViet.idStore,
         status: filterInvoiceKiotViet.status ? filterInvoiceKiotViet.status : '',
         supplierId: filterInvoiceKiotViet.supplierId ? filterInvoiceKiotViet.supplierId : '',
