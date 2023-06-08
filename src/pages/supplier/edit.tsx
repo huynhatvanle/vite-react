@@ -1079,7 +1079,7 @@ const Page = () => {
                               dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
                               status: getFilter(inventoryProduct.queryParams, 'status'),
                             }}
-                            className="intro-x sm:flex justify-start mt-2 w-full form-store items-centern rounded-lg mb-2"
+                            className="intro-x sm:flex justify-start form-store items-centern rounded-lg"
                             columns={[
                               {
                                 title: '',
@@ -1143,6 +1143,9 @@ const Page = () => {
                                       <p>{t('store.Since')}</p>
                                       <div className="pl-2 pt-2">
                                         <Form
+                                          values={{
+                                            dateFrom: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateFrom,
+                                          }}
                                           className='pl-2 pt-2 form-supplier-date'
                                           columns={[{
                                             title: '',
