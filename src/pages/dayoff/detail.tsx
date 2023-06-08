@@ -74,7 +74,7 @@ const Page = () => {
         widthModal={500}
         idElement={'dayoff'}
       />
-      <div className={'max-w-4xl mx-auto'}>
+      <div className={'max-w-4xl mx-auto bg-white p-4 shadow rounded-xl'}>
         <table className="w-full mx-auto text-sm text-left text-gray-500 border">
           <tbody>
             <tr className={'border-b'}>

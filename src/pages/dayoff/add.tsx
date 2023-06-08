@@ -61,7 +61,7 @@ const Page = () => {
     { value: 2, label: t('dayoff.register.Afternoon') },
   ];
   return (
-    <div className={'max-w-2xl mx-auto'}>
+    <div className={'max-w-2xl mx-auto bg-white p-4 shadow rounded-xl'}>
       {!!user && (
         <Fragment>
           <div className="text-xl font-bold hidden sm:block mb-5">
