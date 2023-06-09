@@ -6,6 +6,7 @@ const common = new Common();
 
 Given('User go to login page', () => cy.visit('/auth/login'));
 When('Click "{}" button', common.clickTextButton);
+When('Click "{}" icon button', common.clickIconButton);
 When('Click "{}" menu', common.clickTextMenu);
 When('Click "{}" sub menu to "{}"', common.clickTextSubMenu);
 When('Click "{}" tab button', common.clickTextTabBtn);

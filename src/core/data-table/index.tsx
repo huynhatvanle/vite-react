@@ -118,9 +118,7 @@ export const DataTable = forwardRef(
         if (!result?.data || new Date().getTime() > time || JSON.stringify(params) != queryParams)
           onChange(params, false);
       }
-      return () => {
-        localStorage.removeItem(idTable.current);
-      };
+      return () => localStorage.removeItem(idTable.current);
     }, []);
 
     const onChange = (request?: PaginationQuery, changeNavigate = true) => {
@@ -135,19 +133,13 @@ export const DataTable = forwardRef(
         }
       } else if (localStorage.getItem(idTable.current))
         params = JSON.parse(localStorage.getItem(idTable.current) || '{}');
-      setParams(params);
 
-      if (showList && facade?.get) {
-        facade?.get(cleanObjectKeyNull({ ...request }));
-      }
+      setParams(params);
+      if (showList && facade?.get) facade?.get(cleanObjectKeyNull({ ...request }));
     };
 
-    if (params.filter && typeof params.filter === 'string') {
-      params.filter = JSON.parse(params.filter);
-    }
-    if (params.sorts && typeof params.sorts === 'string') {
-      params.sorts = JSON.parse(params.sorts);
-    }
+    if (params.filter && typeof params.filter === 'string') params.filter = JSON.parse(params.filter);
+    if (params.sorts && typeof params.sorts === 'string') params.sorts = JSON.parse(params.sorts);
 
     const groupButton = (confirm: any, clearFilters: any, key: any, value: any) => (
       <div className="grid grid-cols-2 gap-2 mt-1">
@@ -171,9 +163,8 @@ export const DataTable = forwardRef(
     const columnSearch = (get: TableGet, fullTextSearch = '', value?: any, facade: any = {}) => {
       if (get?.facade) {
         const params = get.params ? get.params(fullTextSearch, value) : { fullTextSearch };
-        if (new Date().getTime() > facade.time || JSON.stringify(cleanObjectKeyNull(params)) != facade.queryParams) {
+        if (new Date().getTime() > facade.time || JSON.stringify(cleanObjectKeyNull(params)) != facade.queryParams)
           facade.get(cleanObjectKeyNull(params));
-        }
       }
     };
     // noinspection JSUnusedGlobalSymbols
@@ -182,9 +173,7 @@ export const DataTable = forwardRef(
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: any) => {
         const facade = get?.facade ? get?.facade() : {};
         useEffect(() => {
-          if (get && !facade?.result?.data && valueFilter.current[key]) {
-            columnSearch(get, '', undefined, facade);
-          }
+          if (get && !facade?.result?.data && valueFilter.current[key]) columnSearch(get, '', undefined, facade);
         }, [valueFilter.current[key]]);
         return (
           <div className={'p-1'}>
@@ -197,9 +186,7 @@ export const DataTable = forwardRef(
                 timeoutSearch.current = setTimeout(() => columnSearch(get, e.target.value, selectedKeys), 500);
               }}
               onKeyUp={async (e) => {
-                if (e.key === 'Enter') {
-                  await columnSearch(get, e.currentTarget.value, undefined, facade);
-                }
+                if (e.key === 'Enter') await columnSearch(get, e.currentTarget.value, undefined, facade);
               }}
             />
             <div>
@@ -223,9 +210,7 @@ export const DataTable = forwardRef(
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: any) => {
         const facade = get?.facade ? get?.facade() : {};
         useEffect(() => {
-          if (get && !facade?.result?.data && valueFilter.current[key]) {
-            columnSearch(get, '', undefined, facade);
-          }
+          if (get && !facade?.result?.data && valueFilter.current[key]) columnSearch(get, '', undefined, facade);
         }, [valueFilter.current[key]]);
         return (
           <div className={'p-1'}>
@@ -238,9 +223,7 @@ export const DataTable = forwardRef(
                 timeoutSearch.current = setTimeout(() => columnSearch(get, e.target.value, selectedKeys, facade), 500);
               }}
               onKeyUp={async (e) => {
-                if (e.key === 'Enter') {
-                  await columnSearch(get, e.currentTarget.value, undefined, facade);
-                }
+                if (e.key === 'Enter') await columnSearch(get, e.currentTarget.value, undefined, facade);
               }}
             />
             <div>
@@ -270,9 +253,7 @@ export const DataTable = forwardRef(
             placeholder={t('components.datatable.pleaseEnterValueToSearch') || ''}
             onChange={(e) => setSelectedKeys(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                confirm();
-              }
+              if (e.key === 'Enter') confirm();
               e.stopPropagation();
             }}
           />
@@ -322,9 +303,7 @@ export const DataTable = forwardRef(
 
         if (item?.filter) {
           const filter = params?.filter as any;
-          if (params.filter && filter[col!.name!]) {
-            item = { ...item, defaultFilteredValue: filter[col!.name!] };
-          }
+          if (params.filter && filter[col!.name!]) item = { ...item, defaultFilteredValue: filter[col!.name!] };
 
           switch (item?.filter?.type) {
             case 'radio':
@@ -352,13 +331,10 @@ export const DataTable = forwardRef(
           delete item.filter;
         }
         const sorts = params?.sorts as any;
-        if (item?.sorter && sorts && sorts[col!.name!]) {
+        if (item?.sorter && sorts && sorts[col!.name!])
           item.defaultSortOrder =
             sorts[col!.name!] === 'ASC' ? 'ascend' : sorts[col!.name!] === 'DESC' ? 'descend' : '';
-        }
-        if (!item?.render) {
-          item!.render = (text: string) => text && checkTextToShort(text);
-        }
+        if (!item?.render) item!.render = (text: string) => text && checkTextToShort(text);
         // noinspection JSUnusedGlobalSymbols
         return {
           title: t(col.title || ''),
@@ -385,9 +361,7 @@ export const DataTable = forwardRef(
           ? null
           : sorts;
 
-      if (tempFullTextSearch !== params.fullTextSearch) {
-        tempPageIndex = 1;
-      }
+      if (tempFullTextSearch !== params.fullTextSearch) tempPageIndex = 1;
       const tempParams = cleanObjectKeyNull({
         ...params,
         page: tempPageIndex,
@@ -416,29 +390,30 @@ export const DataTable = forwardRef(
                 placeholder={searchPlaceholder || (t('components.datatable.pleaseEnterValueToSearch') as string)}
                 onChange={() => {
                   clearTimeout(timeoutSearch.current);
-                  timeoutSearch.current = setTimeout(() => {
-                    handleTableChange(
-                      undefined,
-                      params.filter,
-                      params.sorts as SorterResult<any>,
-                      (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value,
-                    );
-                  }, 500);
+                  timeoutSearch.current = setTimeout(
+                    () =>
+                      handleTableChange(
+                        undefined,
+                        params.filter,
+                        params.sorts as SorterResult<any>,
+                        (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value,
+                      ),
+                    500,
+                  );
                 }}
                 onKeyUp={(e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === 'Enter')
                     handleTableChange(
                       undefined,
                       params.filter,
                       params.sorts as SorterResult<any>,
                       (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value,
                     );
-                  }
                 }}
               />
               {!params.fullTextSearch ? (
                 <Search
-                  className="w-5 h-5 my-1 fill-gray-600 text-lg las absolute top-1.5 right-3 z-10"
+                  className="w-4 h-4 my-1 fill-gray-600 text-lg las absolute top-2 right-2.5 z-10"
                   onClick={() => {
                     if (params.fullTextSearch) {
                       (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';
@@ -449,7 +424,7 @@ export const DataTable = forwardRef(
               ) : (
                 !!params.fullTextSearch && (
                   <Times
-                    className="w-5 h-5 my-1 fill-gray-600 text-lg las absolute top-1.5 right-3 z-10"
+                    className="w-4 h-4 my-1 fill-gray-600 text-lg las absolute top-2 right-2.5 z-10"
                     onClick={() => {
                       if (params.fullTextSearch) {
                         (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value = '';

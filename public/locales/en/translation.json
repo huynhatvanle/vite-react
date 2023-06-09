@@ -13,7 +13,8 @@
       "No Data": "No Data"
     },
     "form": {
-      "ruleRequired": "This is a required field!",
+      "ruleRequired": "Please enter {{title}}",
+      "ruleRequiredSelect": "Please choose {{title}}",
       "ruleEmail": "Please enter a valid email address!",
       "ruleUsername": "Username contains no special characters, only letters and numbers!",
       "ruleMinLength": "Please enter at least {{min}} characters!",
@@ -24,13 +25,14 @@
       "ruleMax": "Please enter maximum {{max}} number!",
       "ruleMaxSize": "You can only upload up to {{max}}mb!",
       "only text": "Please enter only text!",
-      "only number": "Please enter only number and maximum 999999999 number!",
-      "rulePassword": "Password must contain at least one uppercase letter and one number!",
+      "only number": "Please enter only number",
+      "rulePassword": "Password needs to have at least 8 characters, including at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character",
       "rulePhone": "Phone number is invalid!",
       "confirm": "Confirm",
       "ruleConfirmPassword": "Two passwords that you enter is inconsistent!",
       "incorrectPathFormat": "Incorrect path format",
       "Enter": "Enter",
+      "Choose": "Choose",
       "Upload": "Upload",
       "modal": {
         "save": "Save",

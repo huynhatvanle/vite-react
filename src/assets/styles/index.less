@@ -8,7 +8,7 @@
 
 @import "/src/core";
 .button {
-  @apply px-4 ~'py-2.5' rounded-lg bg-blue-600 text-white hover:bg-blue-400 inline-flex items-center gap-1 border border-transparent font-medium;
+  @apply px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-400 inline-flex items-center gap-1 border border-transparent font-medium;
 
   &.icon {
     @apply p-0 border border-gray-300;
@@ -44,7 +44,7 @@ body {
 
   &.ant-btn-primary { @apply bg-blue-600 text-white; }
 }
-.icon-cud { @apply h-7 w-7 ~'px-1' fill-white rounded-md hover:cursor-pointer; }
+.icon-cud { @apply h-6 w-6 ~'px-1' fill-white rounded-md; }
 svg { fill: currentColor; }
 
 .image-shine, .glightbox {
@@ -72,3 +72,4 @@ svg { fill: currentColor; }
   &-html-container { @apply !m-6; }
   &-actions { @apply !mt-0 !mb-4; }
 }
+.ant-tree-treenode,.ant-tree-node-content-wrapper { @apply w-full; }

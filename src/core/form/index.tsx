@@ -52,7 +52,7 @@ export const Form = ({
         _columns.map(({ name, formItem }: FormModel) => ({
           name,
           formItem: {
-            list: formItem?.list?.map(({ value, disabled }: any) => ({ value, disabled })) || [],
+            list: formItem?.list,
             disabled: formItem?.disabled ? formItem?.disabled(values, form) : false,
           },
         })),
@@ -61,7 +61,7 @@ export const Form = ({
         columns.map(({ name, formItem }: FormModel) => ({
           name,
           formItem: {
-            list: formItem?.list?.map(({ value, disabled }: any) => ({ value, disabled })) || [],
+            list: formItem?.list,
             disabled: formItem?.disabled ? formItem?.disabled(values, form) : false,
           },
         })),
@@ -74,7 +74,7 @@ export const Form = ({
   useEffect(() => {
     if (form && refLoad.current) {
       form.resetFields();
-      form.setFieldsValue(values);
+      form.setFieldsValue(convertFormValue(columns, values, false));
     }
     refLoad.current = true;
   }, [values]);
@@ -167,8 +167,8 @@ export const Form = ({
             tabIndex={formItem.tabIndex || index}
             format={
               !formItem.picker || formItem.picker === 'date'
-                ? formatDate + (formItem.showTime ? ' HH:mm' : '')
-                : formatDate
+                ? (formatDate || '') + (formItem.showTime ? ' HH:mm' : '')
+                : formatDate || ''
             }
             onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
             disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
@@ -260,7 +260,7 @@ export const Form = ({
             maxTagCount={formItem.maxTagCount || 'responsive'}
             onChange={(value: any) => formItem.onChange && formItem.onChange(value, form, reRender)}
             placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+              t(formItem.placeholder || '') || t('components.form.Choose') + ' ' + t(item.title)!.toLowerCase()
             }
             formItem={formItem}
             form={form}
@@ -276,7 +276,7 @@ export const Form = ({
             form={form}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+              t(formItem.placeholder || '') || t('components.form.Choose') + ' ' + t(item.title)!.toLowerCase()
             }
           />
         );
@@ -311,14 +311,11 @@ export const Form = ({
     }
   };
   const generateForm = (item: any, index: number, showLabel = true, name?: string) => {
-    if (!!item?.formItem?.condition && !item?.formItem?.condition(values[item.name], form, index, values)) {
-      return;
-    }
-    if (item?.formItem?.render) {
-      return item?.formItem?.render(form, values, generateForm, index, reRender);
-    }
+    if (!!item?.formItem?.condition && !item?.formItem?.condition(values[item.name], form, index, values)) return;
+    if (item?.formItem?.render) return item?.formItem?.render(form, values, generateForm, index, reRender);
     if (item.formItem) {
       const rules: any = [];
+      if (!item.formItem.type) item.formItem.type = 'text';
 
       if (item.formItem.rules) {
         item.formItem.rules
@@ -326,170 +323,146 @@ export const Form = ({
           .map((rule: any) => {
             switch (rule.type) {
               case 'required':
-                if (!rule.message) {
-                  rule.message = t('components.form.ruleRequired');
-                }
-                rules.push({
-                  required: true,
-                  message: rule.message,
-                });
-                if (!item.formItem.type) {
-                  rules.push({
-                    whitespace: true,
-                    message: t('components.form.ruleRequired'),
-                  });
+                switch (item.formItem.type) {
+                  case 'text':
+                  case 'number':
+                  case 'hidden':
+                  case 'password':
+                  case 'textarea':
+                    rules.push({
+                      required: true,
+                      whitespace: true,
+                      message: t(rule.message || 'components.form.ruleRequired', {
+                        title: t(item.title).toLowerCase(),
+                      }),
+                    });
+                    break;
+                  default:
+                    rules.push({
+                      required: true,
+                      message: t(rule.message || 'components.form.ruleRequiredSelect', {
+                        title: t(item.title).toLowerCase(),
+                      }),
+                    });
+                    break;
                 }
                 break;
               case 'email':
-                if (!rule.message) {
-                  rule.message = t('components.form.ruleEmail');
-                }
                 rules.push(() => ({
                   validator(_: any, value: any) {
                     const regexEmail =
                       /^(([^<>()[\]\\.,;:$%^&*\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                    if (!value || (typeof value === 'string' && regexEmail.test(value.trim()))) {
+                    if (!value || (typeof value === 'string' && regexEmail.test(value.trim())))
                       return Promise.resolve();
-                    } else if (
+                    else if (
                       typeof value === 'object' &&
                       value.length > 0 &&
                       value.filter((item: any) => !regexEmail.test(item)).length === 0
-                    ) {
+                    )
                       return Promise.resolve();
-                    }
-                    return Promise.reject(new Error(rule.message));
+                    return Promise.reject(t(rule.message || 'components.form.ruleEmail'));
                   },
                 }));
                 break;
               case 'phone':
                 rules.push(() => ({
                   validator(_: any, value: any) {
-                    if (
-                      !value?.trim() ||
-                      (value?.trim().length >= rule.min &&
-                        value?.trim().length <= rule.max &&
-                        /^\+?\d+[-\s]?[0-9]+[-\s]?[0-9]+$/.test(value))
-                    ) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(t('components.form.rulePhone'));
+                    if (!value) return Promise.resolve();
+                    else if (/^\d+$/.test(value)) {
+                      if (value?.trim().length < 8)
+                        return Promise.reject(t('components.form.ruleMinNumberLength', { min: 8 }));
+                      else if (value?.trim().length > 12)
+                        return Promise.reject(t('components.form.ruleMaxNumberLength', { max: 12 }));
+                      else return Promise.resolve();
+                    } else return Promise.reject(t('components.form.only number'));
                   },
                 }));
                 break;
               case 'min':
-                if (!rule.message) {
-                  switch (item.formItem.type) {
-                    case 'number':
-                      rule.message = t('components.form.ruleMin', {
-                        min: rule.value,
-                      });
-                      break;
-                    case 'only_number':
-                      rule.message = t('components.form.ruleMinNumberLength', {
-                        min: rule.value,
-                      });
-                      break;
-                    default:
-                      rule.message = t('components.form.ruleMinLength', {
-                        min: rule.value,
-                      });
-                  }
-                }
-                if (item.formItem.type === 'number') {
+                if (item.formItem.type === 'number')
                   rules.push(() => ({
                     validator(_: any, value: any) {
                       if (!value || /^0$|^-?[1-9]\d*(\.\d+)?$/.test(value)) {
                         if (/^0$|^-?[1-9]\d*(\.\d+)?$/.test(value)) {
                           if (parseFloat(value) < rule.value) {
-                            return Promise.reject(new Error(rule.message));
+                            return Promise.reject(t(rule.message || 'components.form.ruleMin', { min: rule.value }));
                           }
                         }
                       }
                       return Promise.resolve();
                     },
                   }));
-                } else {
+                else {
+                  if (!rule.message) {
+                    switch (item.formItem.type) {
+                      case 'only_number':
+                        rule.message = t('components.form.ruleMinNumberLength', { min: rule.value });
+                        break;
+                      default:
+                        rule.message = t('components.form.ruleMinLength', { min: rule.value });
+                    }
+                  }
                   rules.push({
                     type: item.formItem.type === 'number' ? 'number' : 'string',
                     min: rule.value,
                     message: rule.message,
                   });
                 }
-
                 break;
               case 'max':
-                if (!rule.message) {
-                  switch (item.formItem.type) {
-                    case 'number':
-                      rule.message = t('components.form.ruleMax', {
-                        max: rule.value,
-                      });
-                      break;
-                    case 'only_number':
-                      rule.message = t('components.form.ruleMaxNumberLength', {
-                        max: rule.value,
-                      });
-                      break;
-                    default:
-                      rule.message = t('components.form.ruleMaxLength', {
-                        max: rule.value,
-                      });
-                  }
-                }
-                if (item.formItem.type === 'number') {
+                if (item.formItem.type === 'number')
                   rules.push(() => ({
                     validator(_: any, value: any) {
                       if (!value || /^0$|^-?[1-9]\d*(\.\d+)?$/.test(value)) {
                         if (/^0$|^-?[1-9]\d*(\.\d+)?$/.test(value)) {
                           if (parseFloat(value) > rule.value) {
-                            return Promise.reject(new Error(rule.message));
+                            return Promise.reject(
+                              t(rule.message || 'components.form.ruleMax', {
+                                max: rule.value,
+                              }),
+                            );
                           }
                         }
                       }
                       return Promise.resolve();
                     },
                   }));
-                } else {
+                else {
+                  if (!rule.message) {
+                    switch (item.formItem.type) {
+                      case 'only_number':
+                        rule.message = t('components.form.ruleMaxNumberLength', { max: rule.value });
+                        break;
+                      default:
+                        rule.message = t('components.form.ruleMaxLength', { max: rule.value });
+                    }
+                  }
                   rules.push({
                     type: item.formItem.type === 'number' ? 'number' : 'string',
                     max: rule.value,
                     message: rule.message,
                   });
                 }
-
                 break;
               case 'url':
-                if (!rule.message) {
-                  rule.message = t('components.form.incorrectPathFormat');
-                }
                 rules.push({
                   type: 'url',
-                  message: rule.message,
+                  message: t(rule.message || 'components.form.incorrectPathFormat'),
                 });
                 break;
               case 'only_text':
-                if (!rule.message) {
-                  rule.message = t('components.form.only text');
-                }
                 rules.push(() => ({
                   validator(_: any, value: any) {
-                    if (!value || /^[A-Za-z]+$/.test(value)) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error(rule.message));
+                    if (!value || /^[A-Za-z]+$/.test(value)) return Promise.resolve();
+                    return Promise.reject(t(rule.message || 'components.form.only text'));
                   },
                 }));
                 break;
               case 'only_text_space':
-                if (!rule.message) {
-                  rule.message = t('components.form.only text');
-                }
                 rules.push(() => ({
                   validator(_: any, value: any) {
-                    if (!value || /^[a-zA-Z ]+$/.test(value)) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error(rule.message));
+                    if (!value || /^[a-zA-Z ]+$/.test(value)) return Promise.resolve();
+                    return Promise.reject(t(rule.message || 'components.form.only text'));
                   },
                 }));
                 break;
@@ -501,43 +474,51 @@ export const Form = ({
             return rule;
           });
       }
-      switch (item.formItem.type) {
-        case 'number':
-          rules.push(() => ({
-            validator(_: any, value: any) {
-              if (!value || (/^-?[1-9]*\d+(\.\d{1,2})?$/.test(value) && parseInt(value) < 1000000000)) {
-                return Promise.resolve();
-              }
-              return Promise.reject(t('components.form.only number'));
-            },
-          }));
-          break;
-        case 'password':
-          rules.push(() => ({
-            validator: async (rule: any, value: any) => {
-              if (value) {
-                let min = 0;
-                rules.forEach((item: any) => item.min && (min = item.min));
-                if (value?.trim().length > min) {
-                  if (/^(?!.* )(?=.*\d)(?=.*[A-Z]).*$/.test(value)) return Promise.resolve();
-                }
-                return Promise.reject(t('components.form.rulePassword'));
-              } else return Promise.resolve();
-            },
-          }));
-          break;
-        case 'only_number':
-          rules.push(() => ({
-            validator(_: any, value: any) {
-              if (!value || /^[0-9]+$/.test(value)) {
-                return Promise.resolve();
-              }
-              return Promise.reject(t('components.form.only number'));
-            },
-          }));
-          break;
-        default:
-      }
+      if (!item.formItem.notDefaultValid)
+        switch (item.formItem.type) {
+          case 'number':
+            rules.push(() => ({
+              validator(_: any, value: any) {
+                if (!value || (/^-?[1-9]*\d+(\.\d{1,2})?$/.test(value) && parseInt(value) < 1000000000))
+                  return Promise.resolve();
+                return Promise.reject(t('components.form.only number'));
+              },
+            }));
+            break;
+          case 'name':
+            rules.push(() => ({
+              validator(_: any, value: any) {
+                if (!value || /^[a-zA-Z]+$/.test(value)) return Promise.resolve();
+                return Promise.reject(t('components.form.only text'));
+              },
+            }));
+            break;
+          case 'password':
+            rules.push(() => ({
+              validator: async (rule: any, value: any) => {
+                if (value) {
+                  let min = 8;
+                  rules.forEach((item: any) => item.min && (min = item.min));
+                  if (value.trim().length < min)
+                    return Promise.reject(t('components.form.ruleMinNumberLength', { min }));
+                  if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/.test(value))
+                    return Promise.resolve();
+                  else return Promise.reject(t('components.form.rulePassword'));
+                } else return Promise.resolve();
+              },
+            }));
+            break;
+          case 'only_number':
+            rules.push(() => ({
+              validator(_: any, value: any) {
+                if (!value || /^[0-9]+$/.test(value)) return Promise.resolve();
+                return Promise.reject(t('components.form.only number'));
+              },
+            }));
+            break;
+          default:
+        }
+
       const otherProps: any = {
         key: index,
         label: showLabel && t(item.title),
@@ -545,21 +526,22 @@ export const Form = ({
         labelAlign: 'left',
         validateTrigger: 'onBlur',
       };
-      if (rules.length) {
-        otherProps.rules = rules;
-      }
-      if (widthLabel) {
-        otherProps.labelCol = { flex: widthLabel };
-      }
+      if (rules.length) otherProps.rules = rules;
+      if (widthLabel) otherProps.labelCol = { flex: widthLabel };
 
-      if (item.formItem.type === 'switch' || item.formItem.type === 'checkbox') {
-        otherProps.valuePropName = 'checked';
-      }
-      if (item.formItem.type === 'hidden') {
-        otherProps.hidden = true;
-      }
-      if (item.formItem.type === 'select' || item.formItem.type === 'upload') {
-        otherProps.validateTrigger = 'onChange';
+      switch (item.formItem.type) {
+        case 'switch':
+        case 'checkbox':
+          otherProps.valuePropName = 'checked';
+          break;
+        case 'hidden':
+          otherProps.hidden = true;
+          break;
+        case 'select':
+        case 'upload':
+          otherProps.validateTrigger = 'onChange';
+          break;
+        default:
       }
 
       return item.formItem.type !== 'addable' ? (
@@ -587,15 +569,13 @@ export const Form = ({
         failed?.errorFields?.length && form?.scrollToField(failed?.errorFields[0].name, { behavior: 'smooth' })
       }
       onFinish={handFinish}
-      initialValues={convertFormValue(columns, values, false)}
       onValuesChange={async (objValue) => {
         if (form && checkHidden) {
           clearTimeout(timeout.current);
           timeout.current = setTimeout(async () => {
             for (const key in objValue) {
-              if (Object.prototype.hasOwnProperty.call(objValue, key)) {
+              if (Object.prototype.hasOwnProperty.call(objValue, key))
                 columns.filter((_item: any) => _item.name === key);
-              }
             }
             refLoad.current = false;
             set_columns(columns);
@@ -633,30 +613,27 @@ export const Form = ({
         {extendForm && extendForm(values)}
       </div>
 
-      <div
-        className={classNames('gap-2 flex mt-5', {
-          'justify-center': !extendButton && !handCancel,
-          'md:inline-flex md:float-right': extendButton || handCancel,
-        })}
-      >
-        {handCancel && (
-          <Button
-            text={t(textCancel)}
-            className={'md:min-w-[12rem] w-full justify-center out-line'}
-            onClick={handCancel}
-          />
-        )}
-        {extendButton && extendButton(form)}
-        {handSubmit && (
-          <Button
-            text={t(textSubmit)}
-            id={idSubmit}
-            onClick={() => form && form.submit()}
-            disabled={disableSubmit}
-            className={'md:min-w-[12rem] w-full justify-center'}
-            type={'submit'}
-          />
-        )}
+      <div className={classNames('flex sticky bottom-0 bg-white w-full justify-end')}>
+        <div className={'flex gap-2'}>
+          {handCancel && (
+            <Button
+              text={t(textCancel)}
+              className={'md:min-w-[12rem] w-full justify-center out-line'}
+              onClick={handCancel}
+            />
+          )}
+          {extendButton && extendButton(form)}
+          {handSubmit && (
+            <Button
+              text={t(textSubmit)}
+              id={idSubmit}
+              onClick={() => form && form.submit()}
+              disabled={disableSubmit}
+              className={'md:min-w-[12rem] w-full justify-center'}
+              type={'submit'}
+            />
+          )}
+        </div>
       </div>
     </AntForm>
   );
