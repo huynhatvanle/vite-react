@@ -1861,11 +1861,11 @@ const Page = () => {
                             return (
                               <div className="flex items-center h-10 text-base sm:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900">Thông tin hợp đồng:</div>
-                                <a href="" className="text-blue-500 ml-4">
+                                <a href="" className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500">
                                   Nhấn vào đây
                                 </a>
                                 <div className="font-semibold text-teal-900 ml-4">Tệp đã ký:</div>
-                                <a href="" className="text-blue-500 ml-4">
+                                <a href="" className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500">
                                   Nhấn vào đây
                                 </a>
                               </div>
@@ -1961,7 +1961,7 @@ const Page = () => {
                     <Button
                       text={t('components.form.modal.cancel')}
                       className={"z-10 !block out-line border-teal-800 !w-40 sm:!w-28 !font-normal"}
-                      onClick={() => { handleBack }}
+                      onClick={() => { navigate(`/${lang}${routerLinks('Supplier')}`) }}
                     />
                     <Button
                       disabled={true}

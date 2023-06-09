@@ -57,7 +57,6 @@ const Page = () => {
 
   const [isChecked, setIsChecked] = useState(false);
   const [isBalance, setIsBalance] = useState(true);
-  const [isBalance4, setIsBalance4] = useState(true);
   const [isRevenueByOrder, setIsRevenueByOrder] = useState(true);
 
 
@@ -856,8 +855,9 @@ const Page = () => {
                         ),
                       },
                     ],
+                    selectedKeys: ['1'],
+                    onSelect: (key) => console.log(key),
                     onClick: ({ key }) => {
-                      console.log(key)
                       key === '1' ?
                         (
                           setIsBalance(true),
@@ -897,7 +897,7 @@ const Page = () => {
                     page: 1,
                     perPage: 10,
                     fullTextSearch: '',
-                    filter: { idSuppiler: id },
+                    filter: { idSuppiler: id, suppilerType: '' },
                   }}
                   xScroll="1270px"
                   className=" bg-white p-5 rounded-lg"
