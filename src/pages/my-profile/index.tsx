@@ -32,8 +32,8 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const profileImage = forms.getFieldValue('profileImage');
-    const image = profileImage[(profileImage.length)-1]?.[0] == 'g' ? profileImage : profileImage[(profileImage.length)-1]?.[0]
-
+    const image = (profileImage[(profileImage.length)-1]?.[0]).length <= 1 ? profileImage  :
+    profileImage[(profileImage.length)-1]?.[0]
     globalFacade.putProfile({ ...values, image, profileImage });
   }
 
