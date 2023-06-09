@@ -122,7 +122,7 @@ const Page = () => {
           slidesPerView={3}
           spaceBetween={16}
           centeredSlides={true}
-          className={'container slide-zoom'}
+          className={'container'}
         >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
             <SwiperSlide key={i} className={'flex items-center h-96'}>

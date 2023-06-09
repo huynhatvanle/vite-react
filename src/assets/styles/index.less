@@ -57,17 +57,6 @@ svg { fill: currentColor; }
   &:hover:before { @apply animate-shine; }
 }
 
-.slide-zoom {
-  @apply overflow-visible;
-
-  .swiper-slide {
-    @apply opacity-0 duration-500 transition-all ease-in-out !scale-110;
-
-    &.swiper-slide-next, &.swiper-slide-active, &.swiper-slide-prev {
-    @apply opacity-100 duration-500 transition-all ease-in-out !scale-100;
-    }
-  }
-}
 .swal2{
   &-html-container { @apply !m-6; }
   &-actions { @apply !mt-0 !mb-4; }
