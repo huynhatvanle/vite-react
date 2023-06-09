@@ -1479,14 +1479,17 @@ const Page = () => {
                         },
                       },
                     ]}
-                    footer={() => (
-                      <div className="w-full flex sm:justify-end justify-center mt-4">
-                        <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                          {t('titles.Export report')}
-                        </button>
-                      </div>
-                    )}
                   />
+                  <div className="flex sm:justify-end justify-center items-center p-5">
+                    <Button
+                      disabled={inventoryOrders.result?.data?.length === 0 ? true : false}
+                      text={t('titles.Export report')}
+                      className={
+                        'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
+                      }
+                      onClick={() => null}
+                    />
+                  </div>
                 </div>
               )}
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
@@ -1744,7 +1747,7 @@ const Page = () => {
                   />
                   <div className="flex sm:justify-end justify-center items-center p-5">
                     <Button
-                      disabled={true}
+                      disabled={inventoryOrders.result?.data?.length === 0 ? true : false}
                       text={t('titles.Export report')}
                       className={
                         'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
