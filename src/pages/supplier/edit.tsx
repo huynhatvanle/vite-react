@@ -1777,7 +1777,7 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full text-base">
+                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900 ">Mã hợp đồng:</div>
                                 <div className="ml-4">{values.code}</div>
                               </div>
@@ -1792,7 +1792,7 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full text-base">
+                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900 ">Ngày tạo:</div>
                                 <div className="ml-4">
                                   {dayjs(values.createdAt).format('DD/MM/YYYY').replace(/-/g, '/')} -{' '}
@@ -1810,7 +1810,7 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full w-full">
+                              <div className="flex items-center h-full w-full sm:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900 text-base whitespace-nowrap">
                                   Trạng thái:
                                 </div>
@@ -1844,7 +1844,7 @@ const Page = () => {
                           col: 12,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-10 text-base">
+                              <div className="flex items-center h-10 text-base sm:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900">Thông tin hợp đồng:</div>
                                 <a href="" className="text-blue-500 ml-4">
                                   Nhấn vào đây
