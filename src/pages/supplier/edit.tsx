@@ -75,7 +75,7 @@ const Page = () => {
     if (id) documentsub.get({ id });
 
     return () => {
-      isReload.current && documentsub.get({id});
+      isReload.current && documentsub.get({ id });
     };
   }, [documentsub.data]);
 
@@ -158,7 +158,7 @@ const Page = () => {
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey="5"
+            defaultActiveKey="1"
             // defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
             // onChange={(key) => sessionStorage.setItem('activeTab', key)}
             type="card"
@@ -853,7 +853,12 @@ const Page = () => {
                                       <p>{t('store.Since')}</p>
                                       <div className='pl-2 pt-2'>
                                         <Form
-                                          values={{ dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom }}
+                                          values={{
+                                            dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
+                                            dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
+                                            type: getFilter(inventoryOrders.queryParams, 'type'),
+                                            Store: getFilter(inventoryOrders.queryParams, 'idStore'),
+                                          }}
                                           className='pl-2 pt-2 form-supplier-date'
                                           columns={[{
                                             title: '',
@@ -899,7 +904,12 @@ const Page = () => {
                                       <p>{t('store.To date')}</p>
                                       <div>
                                         <Form
-                                          values={{ dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo, }}
+                                          values={{
+                                            dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
+                                            dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
+                                            type: getFilter(inventoryOrders.queryParams, 'type'),
+                                            Store: getFilter(inventoryOrders.queryParams, 'idStore'),
+                                          }}
                                           className='pl-2 pt-4 form-supplier-date'
                                           columns={[{
                                             title: '',
@@ -1080,7 +1090,7 @@ const Page = () => {
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.Pagination', { from, to, total })
+                      t('routes.admin.Layout.PaginationProduct', { from, to, total })
                     }
                     subHeader={() => (
                       <>
@@ -1210,7 +1220,7 @@ const Page = () => {
                                   tabIndex: 3,
                                   col: 3,
                                   render: () => (
-                                    <div className="flex h-10 items-center w-auto">
+                                    <div className="flex h-10 items-center w-auto mt-2 sm:mt-0">
                                       <p>{t('store.To date')}</p>
                                       <div>
                                         <Form
@@ -1413,7 +1423,7 @@ const Page = () => {
                         />
                       </>
                     )}
-                    searchPlaceholder={t('placeholder.Search by order number')}
+                    searchPlaceholder={t('placeholder.Search by order supplier')}
                     columns={[
                       {
                         title: `supplier.Order.STT`,
@@ -1829,7 +1839,7 @@ const Page = () => {
                                   <div className='w-60 py-2.5 px-4 rounded-2xl border-gray-200 ml-4 flex justify-between'>
                                     <Select value={values?.status} className="py-2" style={{ width: "100%" }}>
                                       <Select.Option value="SIGNED_CONTRACT">
-                                        <div onClick={() => putSub({ id:values?.id })}>Đã ký</div>
+                                        <div onClick={() => putSub({ id: values?.id })}>Đã ký</div>
                                       </Select.Option>
                                       <Select.Option value="PENDING_SIGN_CONTRACT">
                                         Chưa ký

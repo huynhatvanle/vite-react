@@ -133,7 +133,7 @@ const Page = () => {
       <Fragment>
         <div className="tab-wrapper">
           <Tabs
-            defaultActiveKey='1'
+            defaultActiveKey='5'
             type="card"
             size="large"
             onTabClick={(activeKey: any) => {
@@ -1119,7 +1119,7 @@ const Page = () => {
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                      t('routes.admin.Layout.PaginationOrder', { from, to, total })
                     }
                     columns={[
                       {
@@ -1423,7 +1423,7 @@ const Page = () => {
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                      t('routes.admin.Layout.PaginationProduct', { from, to, total })
                     }
                     columns={[
                       {
@@ -1521,7 +1521,6 @@ const Page = () => {
                                 placeholder: 'placeholder.Choose a supplier',
                                 col: 6,
                                 type: 'select',
-                                // firstLoad: () => ({ page: 1, perPage: 100000, filter: { idSuppiler: '832' } }),
                                 get: {
                                   facade: ConnectSupplierFacade,
                                   format: (item: any) => ({
@@ -1739,6 +1738,7 @@ const Page = () => {
                       </div>
                     }
                     subHeader={() => (
+<<<<<<< HEAD
                       <Form
                         className="intro-x rounded-lg form-store form-header-category"
                         values={{
@@ -1779,6 +1779,47 @@ const Page = () => {
                                       dateTo: form.getFieldValue('EndDate') ? form.getFieldValue('EndDate') : ''
                                     }
                                   });
+=======
+                      <div>
+                        <Form
+                          className="intro-x rounded-lg form-store form-header-category -mt-2"
+                          values={{
+                            categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
+                            categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
+                            categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
+                            StartDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
+                            EndDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
+                            status: getFilter(invoiceKiotVietFacade.queryParams, 'status')
+                          }}
+                          columns={
+                            [
+                              {
+                                title: '',
+                                name: 'categoryId1',
+                                formItem: {
+                                  tabIndex: 3,
+                                  placeholder: 'placeholder.Main categories',
+                                  type: 'select',
+                                  col: 3,
+                                  get: {
+                                    facade: CategoryFacade,
+                                    format: (item: any) => ({
+                                      label: item.name,
+                                      value: item.id,
+                                    }),
+                                  },
+                                  onChange(value, form) {
+                                    form.resetFields(['categoryId2', 'categoryId3'])
+                                    dataTableRefInvoiceKiot?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idStore: id,
+                                        categoryId1: value ? value : ''
+                                      }
+                                    });
+                                  },
+>>>>>>> 48fadf40bdb9b85aa3a4c26ea22b40c9a31e03ac
                                 },
                               },
                             },

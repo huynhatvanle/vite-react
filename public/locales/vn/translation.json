@@ -159,7 +159,7 @@
         "Confirm Password": "Xác nhận mật khẩu",
         "Password": "Nhập mật khẩu",
         "newPassword": "Nhập mật khẩu mới",
-        "subConfirm":"Hai mật khẩu không giống nhau!"
+        "subConfirm":"Xác nhận mật khẩu không chính xác!"
       }
     }
   },
@@ -372,6 +372,7 @@
     "Category level 1": "Danh mục cấp 1",
     "Category level 2": "Danh mục cấp 2",
     "Search by order number": "Tìm kiếm theo mã đơn hàng",
+    "Search by order supplier": "Tìm kiếm mã sản phẩm, tên, mã vạch",
     "Choose a time": "Chọn thời điểm",
     "Select status": "Chọn trạng thái"
   }
