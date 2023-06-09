@@ -1936,7 +1936,7 @@ const Page = () => {
                       <div>
                         <UploadFile className='w-28 h-28 mx-auto mb-5' />
                         <p>Kéo thả tệp mà bạn muốn tải lên <br />hoặc </p>
-                        <Button className='bg-teal-900 text-white text-[14px] px-4 py-2.5 rounded-xl hover:bg-teal-700 inline-flex items-center' text={'Chọn tệp'} />
+                        <Button className='bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center' text={'Chọn tệp'} />
                       </div>
                     </Upload>
                   </div>
