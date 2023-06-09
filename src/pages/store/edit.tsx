@@ -132,7 +132,7 @@ const Page = () => {
       <Fragment>
         <div className="tab-wrapper">
           <Tabs
-            defaultActiveKey='5'
+            defaultActiveKey='1'
             type="card"
             size="large"
             onTabClick={(activeKey: any) => {
@@ -745,7 +745,7 @@ const Page = () => {
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationProduct', { from, to, total })
+                  t('routes.admin.Layout.PaginationSubStore', { from, to, total })
                 }
                 columns={[
                   {
@@ -1825,7 +1825,7 @@ const Page = () => {
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSubStore', { from, to, total })
+                  t('routes.admin.Layout.PaginationProduct', { from, to, total })
                 }
                 columns={[
                   {

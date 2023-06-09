@@ -149,7 +149,7 @@ const Page = () => {
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey="6"
+            defaultActiveKey="5"
             // defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
             // onChange={(key) => sessionStorage.setItem('activeTab', key)}
             type="card"
@@ -353,7 +353,7 @@ const Page = () => {
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.Pagination', { from, to, total })
+                      t('routes.admin.Layout.PaginationProduct', { from, to, total })
                     }
                     columns={[
                       {
@@ -572,7 +572,7 @@ const Page = () => {
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.Pagination', { from, to, total })
+                      t('routes.admin.Layout.PaginationOrder', { from, to, total })
                     }
                     columns={[
                       {
@@ -742,7 +742,7 @@ const Page = () => {
                       pageSizeRender={(sizePage: number) => sizePage}
                       pageSizeWidth={'50px'}
                       paginationDescription={(from: number, to: number, total: number) =>
-                        t('routes.admin.Layout.Pagination', { from, to, total })
+                        t('routes.admin.Layout.PaginationOrder', { from, to, total })
                       }
                       rightHeader={
                         <div className="flex justify-end text-left flex-col w-full">
@@ -759,7 +759,7 @@ const Page = () => {
                                 title: '',
                                 name: 'type',
                                 formItem: {
-                                  placeholder: 'placeholder.Select status',
+                                  placeholder: 'placeholder.Select order type',
                                   type: 'select',
                                   tabIndex: 3,
                                   col: 6,
@@ -844,6 +844,7 @@ const Page = () => {
                                       <p>{t('store.Since')}</p>
                                       <div className='pl-2 pt-2'>
                                         <Form
+                                          values={{ dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom }}
                                           className='pl-2 pt-2 form-supplier-date'
                                           columns={[{
                                             title: '',
@@ -889,6 +890,7 @@ const Page = () => {
                                       <p>{t('store.To date')}</p>
                                       <div>
                                         <Form
+                                          values={{ dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo, }}
                                           className='pl-2 pt-4 form-supplier-date'
                                           columns={[{
                                             title: '',
@@ -1467,14 +1469,17 @@ const Page = () => {
                         },
                       },
                     ]}
-                    footer={() => (
-                      <div className="w-full flex sm:justify-end justify-center mt-4">
-                        <button className="bg-teal-900 hover:bg-teal-700 text-white sm:w-44 w-[64%] px-4 py-2.5 rounded-xl">
-                          {t('titles.Export report')}
-                        </button>
-                      </div>
-                    )}
                   />
+                  <div className="flex sm:justify-end justify-center items-center p-5">
+                    <Button
+                      disabled={inventoryOrders.result?.data?.length === 0 ? true : false}
+                      text={t('titles.Export report')}
+                      className={
+                        'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
+                      }
+                      onClick={() => null}
+                    />
+                  </div>
                 </div>
               )}
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
@@ -1732,7 +1737,7 @@ const Page = () => {
                   />
                   <div className="flex sm:justify-end justify-center items-center p-5">
                     <Button
-                      disabled={true}
+                      disabled={inventoryOrders.result?.data?.length === 0 ? true : false}
                       text={t('titles.Export report')}
                       className={
                         'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
@@ -1967,7 +1972,7 @@ const Page = () => {
                     </div>
                     <div className="flex sm:justify-end justify-center items-center p-5">
                       <Button
-                        disabled={true}
+                        disabled={inventoryOrders.result?.data?.length === 0 ? true : false}
                         text={t('titles.Upload contract')}
                         className={
                           'flex bg-teal-900 text-white sm:w-52 w-[64%] rounded-xl items-center justify-center disabled:opacity-30'
