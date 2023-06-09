@@ -1957,10 +1957,10 @@ const Page = () => {
                   </div>
                   <p className="text-base text-teal-900 font-bold pl-3">Tệp trên hệ thống:</p>
                   <div className="text-base pl-3">Chưa có hình hợp đồng trên hệ thống.</div>
-                  <div className='flex-col-reverse sm:flex-row flex items-center p-5 justify-between gap-2.5'>
+                  <div className='flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5'>
                     <Button
                       text={t('components.form.modal.cancel')}
-                      className={"z-10 !block out-line border-teal-800 !w-28 !font-normal"}
+                      className={"z-10 !block out-line border-teal-800 !w-40 sm:!w-28 !font-normal"}
                       onClick={() => { handleBack }}
                     />
                     <Button
