@@ -14,7 +14,7 @@ const action = {
             page: number,
             perPage: number,
             fullTextSearch: string,
-            filter: { idStore?: string, supplierId?: string, status?: string, dateFrom: string, dateTo: string }
+            filter: { idStore?: string, supplierId?: string, status?: string, dateFrom?: string, dateTo?: string }
         }) => {
             const filterInvoiceKiotViet = JSON.parse(filter.toString() || '{}')
             let data = await API.get(routerLinks(name, 'api'), {
@@ -62,7 +62,7 @@ export const InvoiceRevenueFacade = () => {
         ...(useTypedSelector((state) => state[action.name]) as State<InvoiceRevenue>),
         set: (values: State<InvoiceRevenue>) => dispatch(action.set(values)),
         // get: (params: PaginationQuery<InvoiceKiotViet>) => dispatch(action.getInvoiceKiotViet(params)),
-        get: ({ page, perPage, fullTextSearch, filter }: { page: number, perPage: number, fullTextSearch: string, filter: { idStore?: string, supplierId: string, status: string, dateFrom: string, dateTo: string } }) => dispatch(action.getInvoiceRevenue({ page, perPage, fullTextSearch, filter })),
+        get: ({ page, perPage, fullTextSearch, filter }: { page: number, perPage: number, fullTextSearch: string, filter: { idStore?: string, supplierId?: string, status?: string, dateFrom?: string, dateTo?: string } }) => dispatch(action.getInvoiceRevenue({ page, perPage, fullTextSearch, filter })),
     };
 };
 
