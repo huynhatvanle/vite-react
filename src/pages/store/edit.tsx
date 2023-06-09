@@ -132,7 +132,7 @@ const Page = () => {
       <Fragment>
         <div className="tab-wrapper">
           <Tabs
-            defaultActiveKey='1'
+            defaultActiveKey='5'
             type="card"
             size="large"
             onTabClick={(activeKey: any) => {
@@ -1183,7 +1183,7 @@ const Page = () => {
                     rightHeader={
                       <div className="flex sm:justify-end text-left flex-col">
                         <Form
-                          className="intro-x sm:flex lg:justify-end mt-4 lg:mt-0 form-store"
+                          className="intro-x sm:flex lg:justify-end form-store mt-2 lg:mt-0"
                           values={{
                             status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
                             StartDate: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
@@ -1227,78 +1227,146 @@ const Page = () => {
                               name: '',
                               formItem: {
                                 tabIndex: 3,
-                                col: 2,
+                                col: 6,
                                 render: () => (
-                                  <div className="flex h-10 items-center !w-full">
+                                  <div className="flex h-10 items-center w-auto">
                                     <p className="text-sm">{t('store.Since')}</p>
+                                    <div className='pl-2 pt-2'>
+                                      <Form
+                                        values={{ StartDate: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom') }}
+                                        className='pl-2 pt-2 form-supplier-date'
+                                        columns={[{
+                                          title: '',
+                                          name: 'StartDate',
+                                          formItem: {
+                                            type: 'date',
+                                            placeholder: 'placeholder.Choose a time',
+                                            onChange(value, form) {
+                                              dataTableRefInvoiceRevenue?.current?.onChange({
+                                                page: 1,
+                                                perPage: 10,
+                                                filter: {
+                                                  idStore: id,
+                                                  status: form.getFieldValue('status'),
+                                                  filterDate: {
+                                                    dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                                    dateTo: form.getFieldValue('EndDate')
+                                                      ? form
+                                                        .getFieldValue('EndDate')
+                                                        .format('MM/DD/YYYY 23:59:59')
+                                                        .replace(/-/g, '/')
+                                                      : '',
+                                                  },
+                                                  type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                                                },
+                                                fullTextSearch: '',
+                                              });
+                                            },
+                                          },
+                                        },]} />
+                                    </div>
                                   </div>
                                 ),
                               },
                             },
-                            {
-                              title: '',
-                              name: 'StartDate',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                                placeholder: 'placeholder.Choose a time',
-                                onChange(value, form) {
-                                  dataTableRefInvoiceRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: {
-                                      idStore: id,
-                                      status: form.getFieldValue('status'),
-                                      dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                      dateTo: form.getFieldValue('EndDate') ?
-                                        form
-                                          .getFieldValue('EndDate')
-                                          .format('MM/DD/YYYY 23:59:59')
-                                          .replace(/-/g, '/') : '',
-                                    },
-                                  });
-                                },
-                              },
-                            },
+                            // {
+                            //   title: '',
+                            //   name: 'StartDate',
+                            //   formItem: {
+                            //     tabIndex: 3,
+                            //     col: 4,
+                            //     type: 'date',
+                            //     placeholder: 'placeholder.Choose a time',
+                            //     onChange(value, form) {
+                            //       dataTableRefInvoiceRevenue?.current?.onChange({
+                            //         page: 1,
+                            //         perPage: 10,
+                            //         filter: {
+                            //           idStore: id,
+                            //           status: form.getFieldValue('status'),
+                            //           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                            //           dateTo: form.getFieldValue('EndDate') ?
+                            //             form
+                            //               .getFieldValue('EndDate')
+                            //               .format('MM/DD/YYYY 23:59:59')
+                            //               .replace(/-/g, '/') : '',
+                            //         },
+                            //       });
+                            //     },
+                            //   },
+                            // },
                             {
                               title: '',
                               name: '',
                               formItem: {
                                 tabIndex: 3,
-                                col: 2,
+                                col: 6,
                                 render: () => (
-                                  <div className="flex h-10 items-center !w-full">
+                                  <div className="flex h-10 items-center w-auto mt-2 sm:mt-0">
                                     <p className="text-sm">{t('store.To date')}</p>
+                                    <div>
+                                      <Form
+                                        values={{ EndDate: getFilter(invoiceRevenueFacade.queryParams, 'dateTo') }}
+                                        className='pl-2 pt-4 form-supplier-date'
+                                        columns={[{
+                                          title: '',
+                                          name: 'EndDate',
+                                          formItem: {
+                                            type: 'date',
+                                            placeholder: 'placeholder.Choose a time',
+                                            onChange(value, form) {
+                                              dataTableRefInvoiceRevenue?.current?.onChange({
+                                                page: 1,
+                                                perPage: 10,
+                                                filter: {
+                                                  idStore: id,
+                                                  status: form.getFieldValue('status'),
+                                                  filterDate: {
+                                                    dateFrom: form.getFieldValue('StartDate')
+                                                      ? form
+                                                        .getFieldValue('StartDate')
+                                                        .format('MM/DD/YYYY 00:00:00')
+                                                        .replace(/-/g, '/')
+                                                      : '',
+                                                    dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                                  },
+                                                  type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                                                },
+                                                fullTextSearch: '',
+                                              });
+                                            },
+                                          },
+                                        },]} />
+                                    </div>
                                   </div>
                                 ),
                               },
                             },
-                            {
-                              title: '',
-                              name: 'EndDate',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                                placeholder: 'placeholder.Choose a time',
-                                onChange(value, form) {
-                                  dataTableRefInvoiceRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: {
-                                      idStore: id,
-                                      status: form.getFieldValue('status'),
-                                      dateFrom: form.getFieldValue('StartDate') ? form
-                                        .getFieldValue('StartDate')
-                                        .format('MM/DD/YYYY 00:00:00')
-                                        .replace(/-/g, '/') : '',
-                                      dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
-                                    },
-                                  });
-                                },
-                              },
-                            },
+                            // {
+                            //   title: '',
+                            //   name: 'EndDate',
+                            //   formItem: {
+                            //     tabIndex: 3,
+                            //     col: 4,
+                            //     type: 'date',
+                            //     placeholder: 'placeholder.Choose a time',
+                            //     onChange(value, form) {
+                            //       dataTableRefInvoiceRevenue?.current?.onChange({
+                            //         page: 1,
+                            //         perPage: 10,
+                            //         filter: {
+                            //           idStore: id,
+                            //           status: form.getFieldValue('status'),
+                            //           dateFrom: form.getFieldValue('StartDate') ? form
+                            //             .getFieldValue('StartDate')
+                            //             .format('MM/DD/YYYY 00:00:00')
+                            //             .replace(/-/g, '/') : '',
+                            //           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                            //         },
+                            //       });
+                            //     },
+                            //   },
+                            // },
                           ]}
                         />
                       </div>
@@ -1392,7 +1460,7 @@ const Page = () => {
                     rightHeader={
                       <div className="flex justify-end text-left flex-col w-full ">
                         <Form
-                          className="intro-x sm:flex justify-start sm:mt-4 lg:justify-end lg:mt-0 form-store"
+                          className="intro-x sm:flex justify-start lg:justify-end lg:mt-0 form-store mt-2"
                           values={{
                             StartDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
                             EndDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
@@ -1453,7 +1521,7 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className='intro-x rounded-lg w-full sm:flex justify-between form-store '
+                          className='intro-x rounded-lg w-full sm:flex justify-between form-store ml-2 mb-2 '
                           values={{
                             StartDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
                             EndDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
@@ -1468,75 +1536,143 @@ const Page = () => {
                               name: '',
                               formItem: {
                                 tabIndex: 3,
-                                col: 2,
+                                col: 6,
                                 render: () => (
-                                  <div className="h-10 items-center !w-full">
+                                  <div className="h-10 items-center auto">
                                     <p className="text-sm">{t('store.Since')}</p>
+                                    <div className='pl-2 pt-2'>
+                                      <Form
+                                        values={{ StartDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom') }}
+                                        className='pl-2 pt-2 form-supplier-date'
+                                        columns={[{
+                                          title: '',
+                                          name: 'StartDate',
+                                          formItem: {
+                                            type: 'date',
+                                            placeholder: 'placeholder.Choose a time',
+                                            onChange(value, form) {
+                                              dataTableRefInvoiceKiot?.current?.onChange({
+                                                page: 1,
+                                                perPage: 10,
+                                                filter: {
+                                                  idStore: id,
+                                                  status: form.getFieldValue('status') ? form.getFieldValue('type') : '',
+                                                  filterDate: {
+                                                    dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                                    dateTo: form.getFieldValue('StartDate')
+                                                      ? form
+                                                        .getFieldValue('StartDate')
+                                                        .format('MM/DD/YYYY 23:59:59')
+                                                        .replace(/-/g, '/')
+                                                      : '',
+                                                  },
+                                                  type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                                                },
+                                                fullTextSearch: '',
+                                              });
+                                            },
+                                          },
+                                        },]} />
+                                    </div>
                                   </div>
                                 ),
                               },
                             },
-                            {
-                              title: '',
-                              name: 'StartDate',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                                placeholder: 'placeholder.Choose a time',
-                                onChange(value, form) {
-                                  dataTableRefInvoiceKiot?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: {
-                                      idStore: id,
-                                      status: form.getFieldValue('status') ? form.getFieldValue('type') : '',
-                                      dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                      dateTo: form.getFieldValue('EndDate') ? form
-                                        .getFieldValue('EndDate')
-                                        .format('MM/DD/YYYY 23:59:59')
-                                        .replace(/-/g, '/') : '',
-                                    },
-                                  });
-                                },
-                              },
-                            },
+                            // {
+                            //   title: '',
+                            //   name: 'StartDate',
+                            //   formItem: {
+                            //     tabIndex: 3,
+                            //     col: 4,
+                            //     type: 'date',
+                            //     placeholder: 'placeholder.Choose a time',
+                            //     onChange(value, form) {
+                            //       dataTableRefInvoiceKiot?.current?.onChange({
+                            //         page: 1,
+                            //         perPage: 10,
+                            //         filter: {
+                            //           idStore: id,
+                            //           status: form.getFieldValue('status') ? form.getFieldValue('type') : '',
+                            //           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                            //           dateTo: form.getFieldValue('EndDate') ? form
+                            //             .getFieldValue('EndDate')
+                            //             .format('MM/DD/YYYY 23:59:59')
+                            //             .replace(/-/g, '/') : '',
+                            //         },
+                            //       });
+                            //     },
+                            //   },
+                            // },
                             {
                               title: '',
                               name: '',
                               formItem: {
                                 tabIndex: 3,
-                                col: 2,
+                                col: 6,
                                 render: () => (
                                   <div className="flex h-10 items-center !w-full">
                                     <p className="text-sm">{t('store.To date')}</p>
+                                    <div>
+                                      <Form
+                                        values={{ EndDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo') }}
+                                        className='pl-2 pt-4 form-supplier-date'
+                                        columns={[{
+                                          title: '',
+                                          name: 'EndDate',
+                                          formItem: {
+                                            type: 'date',
+                                            placeholder: 'placeholder.Choose a time',
+                                            onChange(value, form) {
+                                              dataTableRefInvoiceKiot?.current?.onChange({
+                                                page: 1,
+                                                perPage: 10,
+                                                filter: {
+                                                  idStore: id,
+                                                  status: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                                                  filterDate: {
+                                                    dateFrom: form.getFieldValue('EndDate')
+                                                      ? form
+                                                        .getFieldValue('EndDate')
+                                                        .format('MM/DD/YYYY 00:00:00')
+                                                        .replace(/-/g, '/')
+                                                      : '',
+                                                    dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                                  },
+                                                  type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                                                },
+                                                fullTextSearch: '',
+                                              });
+                                            },
+                                          },
+                                        },]} />
+                                    </div>
                                   </div>
                                 ),
                               },
                             },
-                            {
-                              title: '',
-                              name: 'EndDate',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                                placeholder: 'placeholder.Choose a time',
-                                onChange(value, form) {
-                                  dataTableRefInvoiceKiot?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: {
-                                      idStore: id,
-                                      status: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                                      dateFrom: form.getFieldValue('StartDate') ?
-                                        form.getFieldValue('StartDate').format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                      dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : ''
-                                    }
-                                  });
-                                },
-                              },
-                            },
+                            // {
+                            //   title: '',
+                            //   name: 'EndDate',
+                            //   formItem: {
+                            //     tabIndex: 3,
+                            //     col: 4,
+                            //     type: 'date',
+                            //     placeholder: 'placeholder.Choose a time',
+                            //     onChange(value, form) {
+                            //       dataTableRefInvoiceKiot?.current?.onChange({
+                            //         page: 1,
+                            //         perPage: 10,
+                            //         filter: {
+                            //           idStore: id,
+                            //           status: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                            //           dateFrom: form.getFieldValue('StartDate') ?
+                            //             form.getFieldValue('StartDate').format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                            //           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : ''
+                            //         }
+                            //       });
+                            //     },
+                            //   },
+                            // },
                           ]}
                         />
                       </div>
