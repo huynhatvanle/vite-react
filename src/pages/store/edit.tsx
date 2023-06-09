@@ -1508,8 +1508,8 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: value ? value : '',
-                                      dateFrom: form.getFieldValue('StartDate') ? form.getFieldValue('StartDate').format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                      dateTo: form.getFieldValue('EndDate') ? form.getFieldValue('EndDate').format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                      dateFrom: form.getFieldValue('StartDate') ? form.getFieldValue('StartDate') : '',
+                                      dateTo: form.getFieldValue('EndDate') ? form.getFieldValue('EndDate') : ''
                                     },
                                   });
                                 },
@@ -1636,10 +1636,7 @@ const Page = () => {
                                       idStore: id,
                                       status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                       dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                      dateTo: form.getFieldValue('EndDate') ? form
-                                        .getFieldValue('EndDate')
-                                        .format('MM/DD/YYYY 23:59:59')
-                                        .replace(/-/g, '/') : '',
+                                      dateTo: form.getFieldValue('EndDate') ? form.getFieldValue('EndDate') : '',
                                     },
                                   });
                                 },
@@ -1727,8 +1724,7 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: form.getFieldValue('StartDate') ?
-                                        form.getFieldValue('StartDate').format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                      dateFrom: form.getFieldValue('StartDate') ? form.getFieldValue('StartDate') : '',
                                       dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : ''
                                     }
                                   });
