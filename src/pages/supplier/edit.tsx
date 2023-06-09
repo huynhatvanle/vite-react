@@ -15,6 +15,7 @@ import {
   InventorySupplierFacade,
   InventoryListProductFacade,
   DocumentsubFacade,
+  Documentsub,
 } from '@store';
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
@@ -28,7 +29,6 @@ import Upload from 'antd/es/upload/Upload';
 
 const Page = () => {
   const { t } = useTranslation();
-
   const supplierFacade = SupplierFacade();
   const { data, isLoading, queryParams, status } = supplierFacade;
   const navigate = useNavigate();
@@ -49,6 +49,7 @@ const Page = () => {
   const inventoryOrders = inventoryOrdersFacade();
   const inventoryProduct = InventoryListProductFacade();
   const documentsub = DocumentsubFacade();
+  const { putSub } = documentsub;
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
   const [cap1, setCap1] = useState(true);
@@ -70,6 +71,14 @@ const Page = () => {
         break;
     }
   }, [status]);
+  useEffect(() => {
+    if (id) documentsub.get({ id });
+
+    return () => {
+      isReload.current && documentsub.get({id});
+    };
+  }, [documentsub.data]);
+
   const data1 = documentsub.result?.data;
 
   const revenueTotal = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
@@ -1759,7 +1768,7 @@ const Page = () => {
                 <div className="form-supplied-tab6 px-3 items-center">
                   <Form
                     values={{ ...data1 }}
-                    className="intro-x"
+                    className="intro-x border-b"
                     columns={[
                       {
                         title: '',
@@ -1796,7 +1805,7 @@ const Page = () => {
                       },
                       {
                         title: '',
-                        name: 'code',
+                        name: 'status',
                         formItem: {
                           col: 4,
                           render: (form, values) => {
@@ -1805,10 +1814,24 @@ const Page = () => {
                                 <div className="font-semibold text-teal-900 text-base whitespace-nowrap">
                                   Trạng thái:
                                 </div>
-                                <div className="w-60 py-2.5 px-4 bg-gray-100 rounded-2xl border-gray-200 ml-4 flex justify-between cursor-not-allowed">
-                                  <p className="text-gray-400">Đã ký</p>
-                                  <DownArrow className="w-4 h-5 text-gray-400 pt-1" />
-                                </div>
+
+                                {values?.status == "SIGNED_CONTRACT" ?
+                                  <div className="w-60 py-2.5 px-4 bg-gray-100 rounded-2xl border-gray-200 ml-4 flex justify-between cursor-not-allowed">
+                                    <p className="text-gray-400">Đã ký</p>
+                                    <DownArrow className="w-4 h-5 text-gray-400 pt-1" />
+                                  </div>
+                                  :
+                                  <div className='w-60 py-2.5 px-4 rounded-2xl border-gray-200 ml-4 flex justify-between'>
+                                    <Select value={values?.status} className="py-2" style={{ width: "100%" }}>
+                                      <Select.Option value="SIGNED_CONTRACT">
+                                        <div onClick={() => putSub({ id:values?.id })}>Đã ký</div>
+                                      </Select.Option>
+                                      <Select.Option value="PENDING_SIGN_CONTRACT">
+                                        Chưa ký
+                                      </Select.Option>
+                                    </Select>
+                                  </div>
+                                }
                               </div>
                             );
                           },
@@ -1822,13 +1845,13 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-10 text-base">
-                                <div className="font-semibold text-teal-900 ">Thông tin hợp đồng:</div>
+                                <div className="font-semibold text-teal-900">Thông tin hợp đồng:</div>
                                 <a href="" className="text-blue-500 ml-4">
-                                  Nhấn vào đầy
+                                  Nhấn vào đây
                                 </a>
                                 <div className="font-semibold text-teal-900 ml-4">Tệp đã ký:</div>
                                 <a href="" className="text-blue-500 ml-4">
-                                  Nhấn vào đầy
+                                  Nhấn vào đây
                                 </a>
                               </div>
                             );
@@ -1837,20 +1860,53 @@ const Page = () => {
                       },
                     ]}
                   />
-                  {/* <Form
-                    values={{ ...data }}
-                    className="intro-x !border-b-slate-300 border-b !rounded-none"
+                  <div className="flex items-left font-bold pl-3 pt-5">
+                    <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Thông tin nhà cung cấp</p>
+                  </div>
+                  <Form
+                    values={{ ...data1 }}
+                    className='intro-x border-b form-supplier-contract'
                     columns={[
                       {
                         title: '',
-                        name: 'code',
+                        name: 'name',
                         formItem: {
-                          col: 4,
+                          col: 5,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center gap-2">
-                                <div className="font-semibold text-teal-900 text-base">Thông tin hợp đồng:</div>
-                                <a className='pl-2'><span className='underline text-blue-400'>Nhấn vào đây</span></a>
+                              <div className="flex items-center h-full text-base">
+                                <div className="font-semibold text-teal-900 ">Nhà cung cấp: </div>
+                                <div className="ml-4">{values?.subOrg?.name}</div>
+                              </div>
+                            );
+                          },
+                        },
+                      },
+                      {
+                        title: '',
+                        name: 'name',
+                        formItem: {
+                          col: 7,
+                          render: (form, values) => {
+                            return (
+                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
+                                <div className="font-semibold text-teal-900 ">Tên chủ quản lý: </div>
+                                <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.name}</div>
+                              </div>
+                            );
+                          },
+                        },
+                      },
+                      {
+                        title: '',
+                        name: 'phoneNumber',
+                        formItem: {
+                          col: 5,
+                          render: (form, values) => {
+                            return (
+                              <div className="flex items-center h-full text-base mt-4">
+                                <div className="font-semibold text-teal-900 ">Số điện thoại: </div>
+                                <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.phoneNumber}</div>
                               </div>
                             );
                           },
@@ -1860,12 +1916,12 @@ const Page = () => {
                         title: '',
                         name: 'createdAt',
                         formItem: {
-                          col: 4,
+                          col: 7,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center gap-2">
-                                <div className="font-semibold text-teal-900 text-base">Tệp đã ký:</div>
-                                <a className='pl-2'><span className='underline text-blue-400'>Nhấn vào đây</span></a>
+                              <div className="flex items-center h-full text-base mt-4">
+                                <div className="font-semibold text-teal-900 w-16 h-full">Địa chỉ:</div>
+                                <div className="ml-4 h-full">{values?.subOrg?.address?.street + ', ' + values?.subOrg?.address?.ward?.name + ', ' + values?.subOrg?.address?.district?.name + ', ' + values?.subOrg?.address?.province?.name}</div>
                               </div>
                             );
                           },
@@ -1873,82 +1929,9 @@ const Page = () => {
                       },
                     ]}
                   />
-                  <p className="text-base text-teal-900 font-bold pl-3">Thông tin nhà cung cấp</p>
-                  <Form
-                    values={{ ...data }}
-                    className="intro-x"
-                    columns={[
-                      {
-                        title: '',
-                        name: 'code',
-                        formItem: {
-                          col: 6,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center gap-2">
-                                <div className="font-semibold text-teal-900 text-base">Nhà cung cấp:</div>
-                                <div>{values.name}</div>
-                              </div>
-                            );
-                          },
-                        },
-                      },
-                      {
-                        title: '',
-                        name: 'createdAt',
-                        formItem: {
-                          col: 6,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center gap-2">
-                                <div className="font-semibold text-teal-900 text-base">Tên chủ quản lý:</div>
-                                <div>{values.name}</div>
-                              </div>
-                            );
-                          },
-                        },
-                      },
-                    ]}
-                  />
-                  <Form
-                    values={{ ...data }}
-                    className="intro-x"
-                    columns={[
-                      {
-                        title: '',
-                        name: 'code',
-                        formItem: {
-                          col: 6,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center gap-2">
-                                <div className="font-semibold text-teal-900 text-base">Số điện thoại:</div>
-                                <div>{values.name}</div>
-                              </div>
-                            );
-                          },
-                        },
-                      },
-                      {
-                        title: '',
-                        name: 'createdAt',
-                        formItem: {
-                          col: 6,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center gap-2">
-                                <div className="font-semibold text-teal-900 text-base">Địa chỉ:</div>
-                                <div>{values.name}</div>
-                              </div>
-                            );
-                          },
-                        },
-                      },
-                    ]}
-                  /> */}
                   <p className="text-base text-teal-900 font-bold pl-3 pt-5">Tải lên hợp đồng đăng ký:</p>
                   <div className="text-center border-2 p-[110px] border-dashed rounded-md m-5">
-                    <Upload className='!border-none' type='drag' accept='image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
+                    <Upload className='!border-none' listType='picture' type='drag' accept='image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
                       multiple>
                       <div>
                         <UploadFile className='w-28 h-28 mx-auto mb-5' />
