@@ -221,7 +221,8 @@
         "PaginationStore": "Show {{from}} - {{to}} / Total {{total}} Store",
         "PaginationSubStore": "Show {{from}} - {{to}} / Total {{total}} SubStore",
         "PaginationSupplier": "Show {{from}} - {{to}} / Total {{total}} Supplier",
-        "PaginationProduct": "Show {{from}} - {{to}} / Total {{total}} Product"
+        "PaginationProduct": "Show {{from}} - {{to}} / Total {{total}} Product",
+        "PaginationOrder": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Order"
       }
     }
   },
