@@ -159,7 +159,7 @@
         "Confirm Password": "Confirm Password",
         "Password": "Enter Password",
         "newPassword": "Enter New Password",
-        "subConfirm":"Two passwords are not the same!"
+        "subConfirm":"Confirm password is incorrect!"
       }
     }
   },
@@ -221,7 +221,8 @@
         "PaginationStore": "Show {{from}} - {{to}} / Total {{total}} Store",
         "PaginationSubStore": "Show {{from}} - {{to}} / Total {{total}} SubStore",
         "PaginationSupplier": "Show {{from}} - {{to}} / Total {{total}} Supplier",
-        "PaginationProduct": "Show {{from}} - {{to}} / Total {{total}} Product"
+        "PaginationProduct": "Show {{from}} - {{to}} / Total {{total}} Product",
+        "PaginationOrder": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Order"
       }
     }
   },
@@ -373,6 +374,7 @@
     "Category level 1": "Category level 1",
     "Category level 2": "Category level 2",
     "Search by order number": "Search by order number",
+    "Search by order supplier": "Search by product code, name, barcode",
     "Choose a time": "Choose a time",
     "Select status": "Select status"
   }

@@ -57,10 +57,11 @@ const Page = () => {
                       type: 'custom',
                       validator: ({ getFieldValue }) => ({
                         validator(rule, value: string) {
+                          const errorMsg = t('columns.auth.placeholder.subConfirm');
                           if (!value || getFieldValue('password') === value) {
                             return Promise.resolve();
                           }
-                          return Promise.reject(new Error('columns.auth.placeholder.subConfirm'));
+                          return Promise.reject(new Error(errorMsg));
                         },
                       }),
                     },
