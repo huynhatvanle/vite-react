@@ -857,6 +857,7 @@ const Page = () => {
                       },
                     ],
                     onClick: ({ key }) => {
+                      console.log(key)
                       key === '1' ?
                         (
                           setIsBalance(true),
@@ -874,8 +875,9 @@ const Page = () => {
                             perPage: 10,
                             fullTextSearch: '',
                             filter: { storeId: id, supplierType: 'NON_BALANCE' },
-                          }))
-                    }
+                          })
+                        )
+                    },
                   }}
                 >
                   <section className="flex items-center">
