@@ -639,7 +639,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: t(`supplier.Status`),
+                        title: t(`product.Status`),
                         name: 'isActive',
                         tableItem: {
                           width: 180,

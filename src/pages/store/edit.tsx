@@ -856,7 +856,6 @@ const Page = () => {
                         ),
                       },
                     ],
-                    onSelect: ({ key }) => console.log(key),
                     onClick: ({ key }) => {
                       key === '1' ?
                         (
@@ -1044,21 +1043,7 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900 !w-full',
                         label: (
-                          <div
-                            onClick={() => {
-                              setIsRevenueByOrder(true);
-                              dataTableRefInvoiceRevenue?.current?.onChange({
-                                page: 1,
-                                perPage: 10,
-                                filter: {
-                                  idStore: id,
-                                  dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`,
-                                  dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`,
-                                },
-                              })
-                            }}
-                            className={`${!isRevenueByOrder ? 'text-gray-200' : ''}`}
-                          >
+                          <div className={`${!isRevenueByOrder ? 'text-gray-200' : ''}`}>
                             {t('store.Revenue by order')}
                           </div>
                         ),
@@ -1067,26 +1052,40 @@ const Page = () => {
                         key: '2',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div
-                            onClick={() => {
-                              setIsRevenueByOrder(false);
-                              dataTableRefInvoiceKiot?.current?.onChange({
-                                page: 1,
-                                perPage: 10,
-                                filter: {
-                                  idStore: id,
-                                  dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`,
-                                  dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`,
-                                },
-                              });
-                            }}
-                            className={`${!isRevenueByOrder ? '' : 'text-gray-200'}`}
-                          >
+                          <div className={`${!isRevenueByOrder ? '' : 'text-gray-200'}`}>
                             {t('store.Revenue by product')}
                           </div>
                         ),
                       },
                     ],
+                    onClick: ({ key }) => {
+                      key === '1' ?
+                        (
+                          setIsRevenueByOrder(true),
+                          dataTableRefInvoiceRevenue?.current?.onChange({
+                            page: 1,
+                            perPage: 10,
+                            filter: {
+                              idStore: id,
+                              dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`,
+                              dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`,
+                            },
+                          })
+                        )
+                        :
+                        (
+                          setIsRevenueByOrder(false),
+                          dataTableRefInvoiceKiot?.current?.onChange({
+                            page: 1,
+                            perPage: 10,
+                            filter: {
+                              idStore: id,
+                              dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`,
+                              dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`,
+                            },
+                          })
+                        )
+                    }
                   }}
                 >
                   <section className="flex items-center">
@@ -1740,7 +1739,7 @@ const Page = () => {
                     }
                     subHeader={() => (
                       <Form
-                        className="intro-x rounded-lg form-store form-header-category"
+                        className="intro-x rounded-lg form-store form-header-category -mt-4"
                         values={{
                           categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
                           categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
