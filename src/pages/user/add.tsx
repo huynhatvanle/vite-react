@@ -30,7 +30,7 @@ const Page = () => {
   useEffect(() => {
     switch (userFacade.status) {
       case 'post.fulfilled':
-        navigate(`/${lang}${routerLinks('User')}/${userFacade.data?.id}`);
+        navigate(`/${lang}${routerLinks('User')}/${userFacade.data?.id}/edit`);
         break;
       case 'put.fulfilled':
         if (Object.keys(param).length > 0) isReload.current = true;
