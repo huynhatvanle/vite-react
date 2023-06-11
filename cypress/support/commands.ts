@@ -7,13 +7,12 @@ Cypress.Commands.add(
   { prevSubject: 'element' },
   ($iframe) => new Cypress.Promise((resolve) => $iframe.on('load', () => resolve($iframe.contents().find('body')))),
 );
-Cypress.Commands.add('typeRandom', { prevSubject: 'element' }, (element, text, type): any => {
+Cypress.Commands.add('typeRandom', { prevSubject: 'element' }, (element, text, state, type): any => {
   const random = '_RANDOM_';
   const input = cy.wrap(element).clear();
 
-  if (text.indexOf('_@') > -1 && text.indexOf('@_') > -1) {
-    cy.get(`@${slug(text.replace('_@', '').replace('@_', ''))}`).then((val) => input.type(val.toString()));
-  } else {
+  if (text.indexOf('_@') > -1 && text.indexOf('@_') > -1) input.type(state[slug(text.replace('_@', '').replace('@_', ''))].toString())
+  else {
     if (text.indexOf(random) > -1) {
       switch (type) {
         case 'number':
