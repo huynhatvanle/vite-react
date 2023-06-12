@@ -23,7 +23,8 @@ import {
   CategoryFacade,
   SupplierStoreFacade,
   InvoiceKiotVietFacade,
-  InvoiceRevenueFacade
+  InvoiceRevenueFacade,
+  UserFacade
 } from '@store';
 import { Excel } from "antd-table-saveas-excel";
 
@@ -116,6 +117,9 @@ const Page = () => {
     key: string;
     dataIndex: string;
   }
+
+  const request = JSON.parse(productFacade.queryParams || '{}');
+  request.filter = JSON.parse(request?.filter || '{}');
 
   const columnproduct: IExcelColumn[] = [
     { title: 'Mã sản phẩm', key: 'code', dataIndex: 'code' },
@@ -462,10 +466,6 @@ const Page = () => {
                       width: 180,
                       sorter: true,
                       filter: { type: 'search' },
-                      onCell: () => ({
-                        style: { paddingTop: '0.25rem', paddingBottom: 0 },
-                        onClick: async () => null,
-                      }),
                       render: (text: string, item: any) => text && item.code,
                     },
                   },
