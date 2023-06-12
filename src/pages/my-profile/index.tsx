@@ -32,8 +32,8 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const profileImage = forms.getFieldValue('profileImage');
-    const image = (profileImage[(profileImage.length)-1]?.[0]).length <= 1 ? profileImage  :
-    profileImage[(profileImage.length)-1]?.[0]
+    const image = (profileImage[(profileImage.length) - 1]?.[0]).length <= 1 ? profileImage :
+      profileImage[(profileImage.length) - 1]?.[0]
     globalFacade.putProfile({ ...values, image, profileImage });
   }
 
@@ -83,7 +83,11 @@ const Page = () => {
           />
         </div>
         <div className='flex-1 lg:rounded-xl w-auto'>
-          <Tabs defaultActiveKey="1" size="large" className='profile'>
+          <Tabs
+             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('MyProfile')}?tab=${activeKey}`)}
+             defaultActiveKey="1"
+            size="large"
+            className='profile'>
             <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1">
               <Form
                 values={{ ...user }}
@@ -128,9 +132,7 @@ const Page = () => {
                   <Button
                     text={t('components.button.Cancel')}
                     className={'md:w-32 justify-center out-line max-sm:w-3/5'}
-                    onClick={() => {
-                      navigate(`/${lang}${routerLinks('User/List')}`)
-                    }}
+                    onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}
                   />
                 )}
               />
@@ -193,9 +195,7 @@ const Page = () => {
                   <Button
                     text={t('components.button.Cancel')}
                     className={'md:min-w-[8rem] justify-center out-line max-sm:w-3/5'}
-                    onClick={() => {
-                      navigate(`/${lang}${routerLinks('User/List')}`)
-                    }}
+                    onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}
                   />
                 )}
                 textSubmit='routes.admin.Layout.Change Password'
