@@ -83,7 +83,11 @@ const Page = () => {
           />
         </div>
         <div className='flex-1 lg:rounded-xl w-auto'>
-          <Tabs defaultActiveKey="1" size="large" className='profile'>
+          <Tabs
+            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('MyProfile')}?tab=${activeKey}`)}
+            defaultActiveKey="1"
+            size="large"
+            className='profile'>
             <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1">
               <Form
                 values={{ ...user }}

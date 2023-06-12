@@ -44,10 +44,6 @@ const Page = () => {
           name: 'name',
           tableItem: {
             width: 150,
-            onCell: () => ({
-              style: { paddingTop: '0.25rem', paddingBottom: 0 },
-              onClick: async () => null,
-            }),
             render: (text: string, item: any) => text,
           },
         },

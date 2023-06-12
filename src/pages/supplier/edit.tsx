@@ -15,7 +15,6 @@ import {
   InventorySupplierFacade,
   InventoryListProductFacade,
   DocumentsubFacade,
-  Documentsub,
 } from '@store';
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
@@ -1861,11 +1860,11 @@ const Page = () => {
                             return (
                               <div className="flex items-center h-10 text-base sm:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900">Thông tin hợp đồng:</div>
-                                <a href="" className="text-blue-500 ml-4 border-b border-blue-600">
+                                <a onClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier')}`)} className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500">
                                   Nhấn vào đây
                                 </a>
                                 <div className="font-semibold text-teal-900 ml-4">Tệp đã ký:</div>
-                                <a href="" className="text-blue-500 ml-4 border-b border-blue-600">
+                                <a onClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier')}`)} className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500">
                                   Nhấn vào đây
                                 </a>
                               </div>
