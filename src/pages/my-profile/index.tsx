@@ -32,15 +32,15 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const profileImage = forms.getFieldValue('profileImage');
-    const image = (profileImage[(profileImage.length)-1]?.[0]).length <= 1 ? profileImage  :
-    profileImage[(profileImage.length)-1]?.[0]
+    const image = (profileImage[(profileImage.length) - 1]?.[0]).length <= 1 ? profileImage :
+      profileImage[(profileImage.length) - 1]?.[0]
     globalFacade.putProfile({ ...values, image, profileImage });
   }
 
   return (
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
-        <div className='flex-initial lg:w-[270px] mr-5 lg:rounded-xl w-full'>
+        <div className='flex-initial lg:w-[350px] mr-5 lg:rounded-xl w-full'>
           <Form
             formAnt={forms}
             className="text-center items-centers text-xl font-bold text-slate-700 form-profile"
@@ -129,7 +129,7 @@ const Page = () => {
                     text={t('components.button.Cancel')}
                     className={'md:w-32 justify-center out-line max-sm:w-3/5'}
                     onClick={() => {
-                      navigate(`/${lang}${routerLinks('User/List')}`)
+                      navigate(`/${lang}${routerLinks('MyProfile')}`)
                     }}
                   />
                 )}
@@ -194,7 +194,7 @@ const Page = () => {
                     text={t('components.button.Cancel')}
                     className={'md:min-w-[8rem] justify-center out-line max-sm:w-3/5'}
                     onClick={() => {
-                      navigate(`/${lang}${routerLinks('User/List')}`)
+                      navigate(`/${lang}${routerLinks('MyProfile')}`)
                     }}
                   />
                 )}
