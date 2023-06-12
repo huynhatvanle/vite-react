@@ -411,7 +411,7 @@ const Page = () => {
                                 filter: { storeId: id, type: 'BALANCE' },
                               });
                             }}
-                            className={`${!isBalance ? 'text-gray-200' : ''}`}
+                            className={`${!isBalance ? 'text-gray-300' : ''}`}
                           >
                             BALANCE
                           </div>
@@ -430,7 +430,7 @@ const Page = () => {
                                 filter: { storeId: id, type: 'NON_BALANCE' },
                               });
                             }}
-                            className={`${!isBalance ? '' : 'text-gray-200'}`}
+                            className={`${!isBalance ? '' : 'text-gray-300'}`}
                           >
                             Non - BALANCE
                           </div>
@@ -846,7 +846,7 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div className={`${!isBalance ? 'text-gray-200' : ''}`}>
+                          <div className={`${!isBalance ? 'text-gray-300' : ''}`}>
                             BALANCE
                           </div>
                         ),
@@ -855,7 +855,7 @@ const Page = () => {
                         key: '2',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div className={`${!isBalance ? '' : 'text-gray-200'}`}>
+                          <div className={`${!isBalance ? '' : 'text-gray-300'}`}>
                             Non - BALANCE
                           </div>
                         ),
