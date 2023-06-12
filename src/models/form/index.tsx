@@ -3,7 +3,7 @@ import { TableGet } from '../data-table';
 import { DefaultTFuncReturn } from 'i18next';
 
 export class FormModel {
-  constructor(public name: string, public title: string = '', public formItem?: FormItem) { }
+  constructor(public name: string, public title: string = '', public formItem?: FormItem) {}
 }
 
 export class FormItem {
@@ -21,6 +21,7 @@ export class FormItem {
     | 'slider'
     | 'slider_number'
     | 'date'
+    | 'month_year'
     | 'date_range'
     | 'checkbox'
     | 'radio'
