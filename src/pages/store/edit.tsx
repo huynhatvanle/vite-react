@@ -462,6 +462,11 @@ const Page = () => {
                       width: 180,
                       sorter: true,
                       filter: { type: 'search' },
+                      onCell: () => ({
+                        style: { paddingTop: '0.25rem', paddingBottom: 0 },
+                        onClick: async () => null,
+                      }),
+                      render: (text: string, item: any) => text && item.code,
                     },
                   },
                   {
