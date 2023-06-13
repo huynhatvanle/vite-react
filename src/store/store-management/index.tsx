@@ -33,8 +33,27 @@ const action = {
     const type = 'STORE'
     const connectKiot = {}
     const address = { provinceId, districtId, wardId, street }
-    const { statusCode, message } = await API.post<StoreManagement>(routerLinks(name, 'api'), {
+    const rs = {
       ...values, address, supplierType, type, connectKiot
+    }
+    rs.storeId ? rs.storeId : delete (rs.storeId)
+    const { statusCode, message } = await API.post<StoreManagement>(routerLinks(name, 'api'), {
+      ...rs
+    });
+    if (message) await Message.success({ text: message });
+    return statusCode;
+  }),
+  postStorebranch: createAsyncThunk(name + '/post', async ({ id, ...values }: StoreManagement) => {
+    const provinceId = values.provinceId?.slice(0, values.provinceId.indexOf('|'))
+    const districtId = values.districtId?.slice(0, values.districtId.indexOf('|'))
+    const wardId = values.wardId
+    const street = values.street
+    const supplierType = 'BALANCE'
+    const type = 'STORE'
+    const connectKiot = {}
+    const address = { provinceId, districtId, wardId, street }
+    const { statusCode, message } = await API.post<StoreManagement>(routerLinks(name, 'api'), {
+      ...values, address, supplierType, type, connectKiot, id
     });
     if (message) await Message.success({ text: message });
     return statusCode;
@@ -56,7 +75,14 @@ const action = {
     if (message) await Message.success({ text: message });
     return statusCode;
   }),
+  putbranch: createAsyncThunk(name + '/put', async ({ id }: StoreManagement) => {
+    const isActive = true
+    const { data, message } = await API.put<StoreManagement>(`${routerLinks(name, 'api')}/active-organizaion/${id}`, {isActive:true});
+    if (message) await Message.success({ text: message });
+    return data;
+  }),
 };
+
 export const storeSlice = createSlice(
   new Slice<StoreManagement>(action, (builder: any) => {
     builder
@@ -144,6 +170,8 @@ export const StoreFacade = () => {
     post: (values: StoreManagement) => dispatch(action.postStore(values)),
     put: (values: StoreManagement) => dispatch(action.putStore(values)),
     delete: (id: string) => dispatch(action.delete(id)),
+    postbranch: (values: StoreManagement) => dispatch(action.postStorebranch(values)),
+    putbranch: (values: StoreManagement) => dispatch(action.putbranch(values)),
   };
 };
 
@@ -159,6 +187,7 @@ export class StoreManagement extends CommonEntity {
     public provinceId?: string,
     public street?: string,
     public wardId?: string,
+    public storeId?: string,
     // public type?: string,
     // public contract?: string
     public address?: {

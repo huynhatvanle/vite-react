@@ -742,6 +742,11 @@ const Page = () => {
               <DataTable
                 facade={subStoreFacade}
                 ref={dataTableRefBranch}
+                onRow={(data: any) => ({
+                  onDoubleClick: () => {
+                    navigate(`/${lang}${routerLinks('store-managerment/branch-management/edit')}/${data.id}`)
+                  },
+                })}
                 defaultRequest={{ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'BALANCE' } }}
                 xScroll="1270px"
                 className=" bg-white p-5 rounded-lg form-store"
@@ -801,7 +806,7 @@ const Page = () => {
                             {t('store.Active')}
                           </div>
                         ) : (
-                          <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded"></div>
+                          <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">{t('store.NoActive')}</div>
                         ),
                     },
                   },
@@ -813,7 +818,7 @@ const Page = () => {
                         className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full"
                         icon={<Plus className="icon-cud !h-5 !w-5" />}
                         text={t('titles.Store/SubStore')}
-                      // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
+                        onClick={() => navigate(`/${lang}${routerLinks('store-managerment/branch-management/create')}/${id}`)}
                       />
                     }
                   </div>

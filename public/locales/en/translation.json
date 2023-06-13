@@ -330,6 +330,7 @@
     "To date": "to date",
     "Barcode": "Barcode",
     "Active":"Active",
+    "NoActive":"Stop working",
     "Inventory management": {
       "Product code": "Product code",
       "Barcode (Supplier)": "Supplier barcode",

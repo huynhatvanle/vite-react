@@ -73,7 +73,8 @@
       "New": "Tạo mới",
       "Back": "Trở về",
       "Role": "Vai trò",
-      "Cancel": "Hủy thao tác"
+      "Cancel": "Hủy thao tác",
+      "CancelAction": "Hủy hoạt động"
     }
   },
   "titles": {
@@ -94,6 +95,8 @@
     "Store/SubStore": "Thêm chi nhánh",
     "store-managerment/create": "Thêm cửa hàng",
     "store-managerment/edit": "Thông tin cửa hàng",
+    "store-managerment/branch-management/create": "Thêm cửa hàng",
+    "store-managerment/branch-management/edit": "Thông tin cửa hàng",
     "merchandise-managerment": "Quản lý hàng hóa",
     "merchandise-managerment/product": "Sản phẩm",
     "merchandise-managerment/category": "Danh mục",
@@ -126,6 +129,8 @@
     "Store": "Quản Lý Cửa Hàng",
     "store-managerment/edit": "Quản Lý Cửa Hàng",
     "store-managerment/create": "Quản Lý Cửa Hàng",
+    "store-managerment/branch-management/create": "Quản Lý Cửa Hàng",
+    "store-managerment/branch-management/edit": "Quản Lý Cửa hàng",
     "Supplier": "Quản Lý Nhà Cung Cấp",
     "Supplier/Add": "Quản Lý Nhà Cung Cấp",
     "Supplier/Edit": "Quản Lý Nhà Cung Cấp"
@@ -327,6 +332,7 @@
     "To date":"Đến ngày",
     "Barcode":"Mã vạch",
     "Active":"Đang hoặt động",
+    "NoActive":"Ngưng hoạt động",
     "Inventory management": {
       "Product code": "Mã sản phẩm",
       "Barcode (Supplier)": "Mã vạch (NCC)",
