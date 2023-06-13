@@ -30,6 +30,15 @@ export const convertFormValue = (columns: FormModel[], values: { [selector: stri
               } else values[item.name] = dayjs(values[item.name]);
             }
             break;
+          case 'month_year':
+            if (values[item.name]) {
+              if (exportData) {
+                values[item.name] = values[item.name]
+                  .add(new Date().getTimezoneOffset() / 60, 'hour')
+                  .format('YYYY-MM-DDTHH:mm:ss[Z]');
+              } else values[item.name] = dayjs(values[item.name]);
+            }
+            break;
           case 'date_range':
             if (!!values[item.name] || typeof item.name === 'object') {
               if (exportData) {

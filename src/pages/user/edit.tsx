@@ -47,8 +47,6 @@ const Page = () => {
     userFacade.put({ ...values, id });
   };
 
-  const someStatus = 'ACTIVE';
-
   return (
     <Fragment>
       <div className='' >
