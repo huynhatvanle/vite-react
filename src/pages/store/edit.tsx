@@ -24,7 +24,6 @@ import {
   SupplierStoreFacade,
   InvoiceKiotVietFacade,
   InvoiceRevenueFacade,
-  UserFacade
 } from '@store';
 import { Excel } from "antd-table-saveas-excel";
 
@@ -89,6 +88,7 @@ const Page = () => {
   useEffect(() => {
     if (id) {
       storeFacade.getById({ id })
+      // console.log(dayjs().subtract(1, 'month').format('DD/MM/YYYY 00:00:00').replace(/-/g, '/'))
     }
     return () => {
       isReload.current && storeFacade.get(param);
@@ -116,9 +116,6 @@ const Page = () => {
     key: string;
     dataIndex: string;
   }
-
-  const request = JSON.parse(productFacade.queryParams || '{}');
-  request.filter = JSON.parse(request?.filter || '{}');
 
   const columnproduct: IExcelColumn[] = [
     { title: 'Mã sản phẩm', key: 'code', dataIndex: 'code' },
@@ -401,17 +398,7 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div
-                            onClick={() => {
-                              setIsBalance(true);
-                              dataTableRefProduct?.current?.onChange({
-                                page: 1,
-                                perPage: 10,
-                                filter: { storeId: id, type: 'BALANCE' },
-                              });
-                            }}
-                            className={`${!isBalance ? 'text-gray-300' : ''}`}
-                          >
+                          <div className={`${!isBalance ? 'text-gray-400' : ''}`}>
                             BALANCE
                           </div>
                         ),
@@ -420,22 +407,32 @@ const Page = () => {
                         key: '2',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div
-                            onClick={() => {
-                              setIsBalance(false);
-                              dataTableRefProduct?.current?.onChange({
-                                page: 1,
-                                perPage: 10,
-                                filter: { storeId: id, type: 'NON_BALANCE' },
-                              });
-                            }}
-                            className={`${!isBalance ? '' : 'text-gray-300'}`}
-                          >
+                          <div className={`${!isBalance ? '' : 'text-gray-400'}`}>
                             Non - BALANCE
                           </div>
                         ),
                       },
                     ],
+                    onClick: ({ key }) => {
+                      key === '1' ?
+                        (
+                          setIsBalance(true),
+                          dataTableRefProduct?.current?.onChange({
+                            page: 1,
+                            perPage: 10,
+                            filter: { storeId: id, type: 'BALANCE' },
+                          })
+                        )
+                        :
+                        (
+                          setIsBalance(false),
+                          dataTableRefProduct?.current?.onChange({
+                            page: 1,
+                            perPage: 10,
+                            filter: { storeId: id, type: 'NON_BALANCE' },
+                          })
+                        )
+                    },
                   }}
                 >
                   <section className="flex items-center" id={'dropdown-store'}>
@@ -465,7 +462,6 @@ const Page = () => {
                       width: 180,
                       sorter: true,
                       filter: { type: 'search' },
-                      render: (text: string, item: any) => text && item.code,
                     },
                   },
                   {
@@ -845,7 +841,7 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div className={`${!isBalance ? 'text-gray-300' : ''}`}>
+                          <div className={`${!isBalance ? 'text-gray-400' : ''}`}>
                             BALANCE
                           </div>
                         ),
@@ -854,14 +850,12 @@ const Page = () => {
                         key: '2',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div className={`${!isBalance ? '' : 'text-gray-300'}`}>
+                          <div className={`${!isBalance ? '' : 'text-gray-400'}`}>
                             Non - BALANCE
                           </div>
                         ),
                       },
                     ],
-                    selectedKeys: ['1'],
-                    onSelect: (key) => console.log(key),
                     onClick: ({ key }) => {
                       key === '1' ?
                         (
@@ -1050,7 +1044,7 @@ const Page = () => {
                         key: '1',
                         className: '!font-semibold !text-base !text-teal-900 !w-full',
                         label: (
-                          <div className={`${!isRevenueByOrder ? 'text-gray-200' : ''}`}>
+                          <div className={`${!isRevenueByOrder ? 'text-gray-400' : ''}`}>
                             {t('store.Revenue by order')}
                           </div>
                         ),
@@ -1059,7 +1053,7 @@ const Page = () => {
                         key: '2',
                         className: '!font-semibold !text-base !text-teal-900',
                         label: (
-                          <div className={`${!isRevenueByOrder ? '' : 'text-gray-200'}`}>
+                          <div className={`${!isRevenueByOrder ? '' : 'text-gray-400'}`}>
                             {t('store.Revenue by product')}
                           </div>
                         ),
@@ -1074,8 +1068,8 @@ const Page = () => {
                             perPage: 10,
                             filter: {
                               idStore: id,
-                              dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`,
-                              dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`,
+                              dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+                              dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                             },
                           })
                         )
@@ -1087,8 +1081,8 @@ const Page = () => {
                             perPage: 10,
                             filter: {
                               idStore: id,
-                              dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`,
-                              dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`,
+                              dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+                              dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                             },
                           })
                         )
@@ -1114,8 +1108,8 @@ const Page = () => {
                       perPage: 10,
                       filter: {
                         idStore: id,
-                        dateFrom: dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'),
-                        dateTo: dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/'),
+                        dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+                        dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                         status: '',
                         supplierId: '',
                       },
@@ -1186,8 +1180,8 @@ const Page = () => {
                           className="intro-x sm:flex lg:justify-end form-store mt-2 sm:mt-4 lg:mt-0"
                           values={{
                             status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
-                            StartDate: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
-                            EndDate: getFilter(invoiceRevenueFacade.queryParams, 'dateTo'),
+                            dateFrom: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
+                            dateTo: getFilter(invoiceRevenueFacade.queryParams, 'dateTo'),
                           }}
                           columns={[
                             {
@@ -1204,8 +1198,8 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: value,
-                                      dateFrom: form.getFieldValue('StartDate'),
-                                      dateTo: form.getFieldValue('EndDate'),
+                                      dateFrom: form.getFieldValue('dateFrom'),
+                                      dateTo: form.getFieldValue('dateTo'),
                                     },
                                   });
                                 },
@@ -1218,61 +1212,10 @@ const Page = () => {
                           className="intro-x rounded-lg w-full sm:flex justify-between form-store"
                           values={{
                             status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
-                            StartDate: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
-                            EndDate: getFilter(invoiceRevenueFacade.queryParams, 'dateTo'),
+                            dateFrom: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
+                            dateTo: getFilter(invoiceRevenueFacade.queryParams, 'dateTo'),
                           }}
                           columns={[
-                            // {
-                            //   title: '',
-                            //   name: 'StartDate',
-                            //   formItem: {
-                            //     tabIndex: 3,
-                            //     col: 6,
-                            //     render: (form, values) => (
-                            //       <div className="flex h-10 items-center w-auto">
-                            //         <p className="text-sm">{t('store.Since')}</p>
-                            //         <div className='pl-2 pt-2'>
-                            //           <Form
-                            //             values={{
-                            //               StartDate: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
-                            //               EndDate: getFilter(invoiceRevenueFacade.queryParams, 'dateTo'),
-                            //               status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
-                            //             }}
-                            //             className='pl-2 pt-2 form-supplier-date'
-                            //             columns={[{
-                            //               title: '',
-                            //               name: 'StartDate',
-                            //               formItem: {
-                            //                 type: 'date',
-                            //                 placeholder: 'placeholder.Choose a time',
-                            //                 onChange(value, form) {
-                            //                   dataTableRefInvoiceRevenue?.current?.onChange({
-                            //                     page: 1,
-                            //                     perPage: 10,
-                            //                     filter: {
-                            //                       idStore: id,
-                            //                       status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                            //                       filterDate: {
-                            //                         dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                            //                         dateTo: form.getFieldValue('EndDate')
-                            //                           ? form
-                            //                             .getFieldValue('EndDate')
-                            //                             .format('MM/DD/YYYY 23:59:59')
-                            //                             .replace(/-/g, '/')
-                            //                           : '',
-                            //                       },
-                            //                       type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                            //                     },
-                            //                     fullTextSearch: '',
-                            //                   });
-                            //                 },
-                            //               },
-                            //             },]} />
-                            //         </div>
-                            //       </div>
-                            //     ),
-                            //   },
-                            // },
                             {
                               title: '',
                               name: '',
@@ -1288,7 +1231,7 @@ const Page = () => {
                             },
                             {
                               title: '',
-                              name: 'StartDate',
+                              name: 'dateFrom',
                               formItem: {
                                 tabIndex: 3,
                                 col: 4,
@@ -1301,68 +1244,17 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: form.getFieldValue('status'),
-                                      dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                      dateTo: form.getFieldValue('EndDate') ?
+                                      dateFrom: value ? value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/') : '',
+                                      dateTo: form.getFieldValue('dateTo') ?
                                         form
-                                          .getFieldValue('EndDate')
-                                          .format('MM/DD/YYYY 23:59:59')
+                                          .getFieldValue('dateTo')
+                                          .format('YYYY/MM/DD 23:59:59')
                                           .replace(/-/g, '/') : '',
                                     },
                                   });
                                 },
                               },
                             },
-                            // {
-                            //   title: '',
-                            //   name: '',
-                            //   formItem: {
-                            //     tabIndex: 3,
-                            //     col: 6,
-                            //     render: () => (
-                            //       <div className="flex h-10 items-center w-auto mt-2 sm:mt-0">
-                            //         <p className="text-sm">{t('store.To date')}</p>
-                            //         <div>
-                            //           <Form
-                            //             values={{
-                            //               StartDate: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
-                            //               EndDate: getFilter(invoiceRevenueFacade.queryParams, 'dateTo'),
-                            //               status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
-                            //             }}
-                            //             className='pl-2 pt-4 form-supplier-date'
-                            //             columns={[{
-                            //               title: '',
-                            //               name: 'EndDate',
-                            //               formItem: {
-                            //                 type: 'date',
-                            //                 placeholder: 'placeholder.Choose a time',
-                            //                 onChange(value, form) {
-                            //                   dataTableRefInvoiceRevenue?.current?.onChange({
-                            //                     page: 1,
-                            //                     perPage: 10,
-                            //                     filter: {
-                            //                       idStore: id,
-                            //                       status: form.getFieldValue('status'),
-                            //                       filterDate: {
-                            //                         dateFrom: form.getFieldValue('StartDate')
-                            //                           ? form
-                            //                             .getFieldValue('StartDate')
-                            //                             .format('MM/DD/YYYY 00:00:00')
-                            //                             .replace(/-/g, '/')
-                            //                           : '',
-                            //                         dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
-                            //                       },
-                            //                       type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                            //                     },
-                            //                     fullTextSearch: '',
-                            //                   });
-                            //                 },
-                            //               },
-                            //             },]} />
-                            //         </div>
-                            //       </div>
-                            //     ),
-                            //   },
-                            // },
                             {
                               title: '',
                               name: '',
@@ -1378,7 +1270,7 @@ const Page = () => {
                             },
                             {
                               title: '',
-                              name: 'EndDate',
+                              name: 'dateTo',
                               formItem: {
                                 tabIndex: 3,
                                 col: 4,
@@ -1391,11 +1283,11 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: form.getFieldValue('status'),
-                                      dateFrom: form.getFieldValue('StartDate') ? form
-                                        .getFieldValue('StartDate')
-                                        .format('MM/DD/YYYY 00:00:00')
+                                      dateFrom: form.getFieldValue('dateFrom') ? form
+                                        .getFieldValue('dateFrom')
+                                        .format('YYYY/MM/DD 00:00:00')
                                         .replace(/-/g, '/') : '',
-                                      dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                      dateTo: value ? value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/') : '',
                                     },
                                   });
                                 },
@@ -1415,8 +1307,8 @@ const Page = () => {
                       perPage: 10,
                       filter: {
                         idStore: id,
-                        dateFrom: `${dayjs().format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')}`,
-                        dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')}`,
+                        dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+                        dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                       },
                       fullTextSearch: ''
                     }}
@@ -1489,12 +1381,12 @@ const Page = () => {
                         <Form
                           className="intro-x sm:flex justify-start lg:justify-end lg:mt-0 form-store mt-2 sm:mt-4"
                           values={{
-                            StartDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
-                            EndDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
+                            dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
+                            dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
                             status: getFilter(invoiceKiotVietFacade.queryParams, 'status'),
-                            // categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
-                            // categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
-                            // categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
+                            categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
+                            categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
+                            categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
                           }}
                           columns={[
                             {
@@ -1513,8 +1405,8 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: value ? value : '',
-                                      dateFrom: form.getFieldValue('StartDate') ? form.getFieldValue('StartDate') : '',
-                                      dateTo: form.getFieldValue('EndDate') ? form.getFieldValue('EndDate') : ''
+                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : ''
                                     },
                                   });
                                 },
@@ -1550,68 +1442,14 @@ const Page = () => {
                         <Form
                           className='intro-x rounded-lg w-full sm:flex justify-between form-store ml-2 mb-2 '
                           values={{
-                            StartDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
-                            EndDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
+                            dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
+                            dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
                             status: getFilter(invoiceKiotVietFacade.queryParams, 'status'),
                             categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
                             categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
                             categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
                           }}
                           columns={[
-                            // {
-                            //   title: '',
-                            //   name: '',
-                            //   formItem: {
-                            //     tabIndex: 3,
-                            //     col: 6,
-                            //     render: () => (
-                            //       <div className="h-10 items-center auto">
-                            //         <p className="text-sm">{t('store.Since')}</p>
-                            //         <div className='pl-2 pt-2'>
-                            //           <Form
-                            //             values={{
-                            //               StartDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
-                            //               EndDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
-                            //               status: getFilter(invoiceKiotVietFacade.queryParams, 'status'),
-                            //               categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
-                            //               categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
-                            //               categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
-                            //             }}
-                            //             className='pl-2 pt-2 form-supplier-date'
-                            //             columns={[{
-                            //               title: '',
-                            //               name: 'StartDate',
-                            //               formItem: {
-                            //                 type: 'date',
-                            //                 placeholder: 'placeholder.Choose a time',
-                            //                 onChange(value, form) {
-                            //                   dataTableRefInvoiceKiot?.current?.onChange({
-                            //                     page: 1,
-                            //                     perPage: 10,
-                            //                     filter: {
-                            //                       idStore: id,
-                            //                       status: form.getFieldValue('status') ? form.getFieldValue('type') : '',
-                            //                       filterDate: {
-                            //                         dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                            //                         dateTo: form.getFieldValue('StartDate')
-                            //                           ? form
-                            //                             .getFieldValue('StartDate')
-                            //                             .format('MM/DD/YYYY 23:59:59')
-                            //                             .replace(/-/g, '/')
-                            //                           : '',
-                            //                       },
-                            //                       type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                            //                     },
-                            //                     fullTextSearch: '',
-                            //                   });
-                            //                 },
-                            //               },
-                            //             },]} />
-                            //         </div>
-                            //       </div>
-                            //     ),
-                            //   },
-                            // },
                             {
                               title: '',
                               name: '',
@@ -1619,7 +1457,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className="h-10 items-center !w-full">
+                                  <div className="flex h-10 items-center !w-full">
                                     <p className="text-sm">{t('store.Since')}</p>
                                   </div>
                                 ),
@@ -1627,7 +1465,7 @@ const Page = () => {
                             },
                             {
                               title: '',
-                              name: 'StartDate',
+                              name: 'dateFrom',
                               formItem: {
                                 tabIndex: 3,
                                 col: 4,
@@ -1640,67 +1478,16 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                      dateTo: form.getFieldValue('EndDate') ? form.getFieldValue('EndDate') : '',
+                                      dateFrom: value ? value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/') : '',
+                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                      categoryId1: form.getFieldValue('categoryId1'),
+                                      categoryId2: form.getFieldValue('categoryId2'),
+                                      categoryId3: form.getFieldValue('categoryId3')
                                     },
                                   });
                                 },
                               },
                             },
-                            // {
-                            //   title: '',
-                            //   name: '',
-                            //   formItem: {
-                            //     tabIndex: 3,
-                            //     col: 6,
-                            //     render: () => (
-                            //       <div className="flex h-10 items-center !w-full">
-                            //         <p className="text-sm">{t('store.To date')}</p>
-                            //         <div>
-                            //           <Form
-                            //             values={{
-                            //               StartDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
-                            //               EndDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
-                            //               status: getFilter(invoiceKiotVietFacade.queryParams, 'status'),
-                            //               categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
-                            //               categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
-                            //               categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
-                            //             }}
-                            //             className='pl-2 pt-4 form-supplier-date'
-                            //             columns={[{
-                            //               title: '',
-                            //               name: 'EndDate',
-                            //               formItem: {
-                            //                 type: 'date',
-                            //                 placeholder: 'placeholder.Choose a time',
-                            //                 onChange(value, form) {
-                            //                   dataTableRefInvoiceKiot?.current?.onChange({
-                            //                     page: 1,
-                            //                     perPage: 10,
-                            //                     filter: {
-                            //                       idStore: id,
-                            //                       status: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                            //                       filterDate: {
-                            //                         dateFrom: form.getFieldValue('EndDate')
-                            //                           ? form
-                            //                             .getFieldValue('EndDate')
-                            //                             .format('MM/DD/YYYY 00:00:00')
-                            //                             .replace(/-/g, '/')
-                            //                           : '',
-                            //                         dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
-                            //                       },
-                            //                       type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                            //                     },
-                            //                     fullTextSearch: '',
-                            //                   });
-                            //                 },
-                            //               },
-                            //             },]} />
-                            //         </div>
-                            //       </div>
-                            //     ),
-                            //   },
-                            // },
                             {
                               title: '',
                               name: '',
@@ -1716,7 +1503,7 @@ const Page = () => {
                             },
                             {
                               title: '',
-                              name: 'EndDate',
+                              name: 'dateTo',
                               formItem: {
                                 tabIndex: 3,
                                 col: 4,
@@ -1729,8 +1516,11 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: form.getFieldValue('StartDate') ? form.getFieldValue('StartDate') : '',
-                                      dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : ''
+                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                      dateTo: value ? value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/') : '',
+                                      categoryId1: form.getFieldValue('categoryId1'),
+                                      categoryId2: form.getFieldValue('categoryId2'),
+                                      categoryId3: form.getFieldValue('categoryId3'),
                                     }
                                   });
                                 },
@@ -1747,8 +1537,8 @@ const Page = () => {
                           categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
                           categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
                           categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
-                          StartDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
-                          EndDate: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
+                          dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
+                          dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
                           status: getFilter(invoiceKiotVietFacade.queryParams, 'status')
                         }}
                         columns={
@@ -1777,8 +1567,8 @@ const Page = () => {
                                       idStore: id,
                                       categoryId1: value ? value : '',
                                       status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: form.getFieldValue('StartDate') ? form.getFieldValue('StartDate') : '',
-                                      dateTo: form.getFieldValue('EndDate') ? form.getFieldValue('EndDate') : ''
+                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : ''
                                     }
                                   });
                                 },
@@ -1815,8 +1605,8 @@ const Page = () => {
                                       categoryId2: value ? value : '',
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: form.getFieldValue('StartDate') ? form.getFieldValue('StartDate') : '',
-                                      dateTo: form.getFieldValue('EndDate') ? form.getFieldValue('EndDate') : ''
+                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : ''
                                     }
                                   });
                                 },
@@ -1853,8 +1643,8 @@ const Page = () => {
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       categoryId2: form.getFieldValue('categoryId2'),
                                       status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: form.getFieldValue('StartDate') ? form.getFieldValue('StartDate') : '',
-                                      dateTo: form.getFieldValue('EndDate') ? form.getFieldValue('EndDate') : ''
+                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : ''
                                     }
                                   });
                                 },

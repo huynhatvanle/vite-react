@@ -152,6 +152,8 @@ const Page = () => {
   };
   let i = 1;
 
+  console.log(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom);
+
   return (
     <div className={'w-full'}>
       <Fragment>
@@ -737,7 +739,7 @@ const Page = () => {
                         filter: {
                           idSupplier: id,
                           filterDate: {
-                            dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 00:00:00')}`,
+                            dateFrom: `${dayjs().subtract(1, 'month').format('MM/DD/YYYY 00:00:00')}`,
                             dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
                           },
                           idStore: '',
@@ -785,7 +787,7 @@ const Page = () => {
                                           dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
-                                        type: value,
+                                        type: value ? value : '',
                                       },
                                       fullTextSearch: '',
                                     });
@@ -815,7 +817,7 @@ const Page = () => {
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
-                                        idStore: value,
+                                        idStore: value ? value : '',
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form.getFieldValue('dateFrom')
@@ -839,6 +841,106 @@ const Page = () => {
                               type: getFilter(inventoryOrders.queryParams, 'type'),
                               Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                             }}
+                            className="intro-x rounded-lg w-full sm:flex justify-between form-store"
+                            columns={[
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center">
+                                      <p>{t('store.Since')}</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateFrom',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                  onChange(value, form) {
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idSupplier: id,
+                                        filterDate: {
+                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                          dateTo: form.getFieldValue('dateTo')
+                                            ? form
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
+                                            : '',
+                                        },
+                                        idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
+                                        type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
+                                },
+                              },
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center">
+                                      <p>{t('store.To date')}</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateTo',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                  onChange(value, form) {
+                                    console.log('From', form.getFieldValue('dateFrom'));
+
+                                    dataTableRefRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idSupplier: id,
+                                        filterDate: {
+                                          dateFrom: form.getFieldValue('dateFrom')
+                                            ? form
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
+                                            : '',
+                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                        },
+                                        idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
+                                        type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
+                                },
+                              },
+                            ]}
+                            disableSubmit={isLoading}
+                          />
+                          {/* <Form
+                            values={{
+                              dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
+                              dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
+                              type: getFilter(inventoryOrders.queryParams, 'type'),
+                              Store: getFilter(inventoryOrders.queryParams, 'idStore'),
+                            }}
                             className="intro-x rounded-lg w-full flex ml-2 mb-2 form-store"
                             columns={[
                               {
@@ -850,43 +952,49 @@ const Page = () => {
                                   render: () => (
                                     <div className="flex h-10 items-center w-auto">
                                       <p>{t('store.Since')}</p>
-                                      <div className='pl-2 pt-2'>
+                                      <div className="pl-2 pt-2">
                                         <Form
                                           values={{
                                             dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
-                                            dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
-                                            type: getFilter(inventoryOrders.queryParams, 'type'),
-                                            Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                                           }}
-                                          className='pl-2 pt-2 form-supplier-date'
-                                          columns={[{
-                                            title: '',
-                                            name: 'dateFrom',
-                                            formItem: {
-                                              type: 'date',
-                                              onChange(value, form) {
-                                                dataTableRefRevenue?.current?.onChange({
-                                                  page: 1,
-                                                  perPage: 10,
-                                                  filter: {
-                                                    idSupplier: id,
-                                                    filterDate: {
-                                                      dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                                      dateTo: form.getFieldValue('dateTo')
-                                                        ? form
-                                                          .getFieldValue('dateTo')
-                                                          .format('MM/DD/YYYY 23:59:59')
-                                                          .replace(/-/g, '/')
+                                          className="pl-2 pt-2 form-supplier-date"
+                                          columns={[
+                                            {
+                                              title: '',
+                                              name: 'dateFrom',
+                                              formItem: {
+                                                type: 'date',
+                                                onChange(value, form) {
+                                                  dataTableRefRevenue?.current?.onChange({
+                                                    page: 1,
+                                                    perPage: 10,
+                                                    filter: {
+                                                      idSupplier: id,
+                                                      filterDate: {
+                                                        dateFrom: value
+                                                          ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
+                                                          : '',
+                                                        dateTo: form.getFieldValue('dateTo')
+                                                          ? form
+                                                              .getFieldValue('dateTo')
+                                                              .format('MM/DD/YYYY 23:59:59')
+                                                              .replace(/-/g, '/')
+                                                          : '',
+                                                      },
+                                                      idStore: form.getFieldValue('Store')
+                                                        ? form.getFieldValue('Store')
+                                                        : '',
+                                                      type: form.getFieldValue('type')
+                                                        ? form.getFieldValue('type')
                                                         : '',
                                                     },
-                                                    idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
-                                                    type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                                                  },
-                                                  fullTextSearch: '',
-                                                });
+                                                    fullTextSearch: '',
+                                                  });
+                                                },
                                               },
                                             },
-                                          },]} />
+                                          ]}
+                                        />
                                       </div>
                                     </div>
                                   ),
@@ -904,41 +1012,47 @@ const Page = () => {
                                       <div>
                                         <Form
                                           values={{
-                                            dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
                                             dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
-                                            type: getFilter(inventoryOrders.queryParams, 'type'),
-                                            Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                                           }}
-                                          className='pl-2 pt-4 form-supplier-date'
-                                          columns={[{
-                                            title: '',
-                                            name: 'dateTo',
-                                            formItem: {
-                                              type: 'date',
-                                              onChange(value, form) {
-                                                console.log('From', form.getFieldValue('dateFrom'));
-                                                dataTableRefRevenue?.current?.onChange({
-                                                  page: 1,
-                                                  perPage: 10,
-                                                  filter: {
-                                                    idSupplier: id,
-                                                    filterDate: {
-                                                      dateFrom: form.getFieldValue('dateFrom')
-                                                        ? form
-                                                          .getFieldValue('dateFrom')
-                                                          .format('MM/DD/YYYY 00:00:00')
-                                                          .replace(/-/g, '/')
+                                          className="pl-2 pt-4 form-supplier-date"
+                                          columns={[
+                                            {
+                                              title: '',
+                                              name: 'dateTo',
+                                              formItem: {
+                                                type: 'date',
+                                                onChange(value, form) {
+                                                  console.log('From', form.getFieldValue('dateFrom'));
+                                                  dataTableRefRevenue?.current?.onChange({
+                                                    page: 1,
+                                                    perPage: 10,
+                                                    filter: {
+                                                      idSupplier: id,
+                                                      filterDate: {
+                                                        dateFrom: form.getFieldValue('dateFrom')
+                                                          ? form
+                                                              .getFieldValue('dateFrom')
+                                                              .format('MM/DD/YYYY 00:00:00')
+                                                              .replace(/-/g, '/')
+                                                          : '',
+                                                        dateTo: value
+                                                          ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
+                                                          : '',
+                                                      },
+                                                      idStore: form.getFieldValue('Store')
+                                                        ? form.getFieldValue('Store')
                                                         : '',
-                                                      dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                                      type: form.getFieldValue('type')
+                                                        ? form.getFieldValue('type')
+                                                        : '',
                                                     },
-                                                    idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
-                                                    type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                                                  },
-                                                  fullTextSearch: '',
-                                                });
+                                                    fullTextSearch: '',
+                                                  });
+                                                },
                                               },
                                             },
-                                          },]} />
+                                          ]}
+                                        />
                                       </div>
                                     </div>
                                   ),
@@ -946,7 +1060,7 @@ const Page = () => {
                               },
                             ]}
                             disableSubmit={isLoading}
-                          />
+                          /> */}
                         </div>
                       }
                       searchPlaceholder={t('placeholder.Search by order number')}
@@ -1079,7 +1193,7 @@ const Page = () => {
                         categoryId2: '',
                         categoryId3: '',
                         filterDate: {
-                          dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 00:00:00')}`,
+                          dateFrom: `${dayjs().subtract(1, 'month').format('MM/DD/YYYY 00:00:00')}`,
                           dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
                         },
                       },
@@ -1154,6 +1268,126 @@ const Page = () => {
                               dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
                               status: getFilter(inventoryProduct.queryParams, 'status'),
                             }}
+                            className="intro-x w-full sm:flex mt-2 form-store items-center"
+                            columns={[
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center">
+                                      <p>{t('store.Since')}</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateFrom',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                  onChange(value, form) {
+                                    dataTableRefListProduct?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idSupplier: id,
+                                        categoryId: '',
+                                        categoryId1: form.getFieldValue('categoryId1')
+                                          ? form.getFieldValue('categoryId1')
+                                          : '',
+                                        categoryId2: form.getFieldValue('categoryId2')
+                                          ? form.getFieldValue('categoryId2')
+                                          : '',
+                                        categoryId3: form.getFieldValue('categoryId3')
+                                          ? form.getFieldValue('categoryId3')
+                                          : '',
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                        filterDate: {
+                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                          dateTo: form.getFieldValue('dateTo')
+                                            ? form
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
+                                            : '',
+                                        },
+                                        idStore: '',
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
+                                },
+                              },
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center">
+                                      <p>{t('store.To date')}</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateTo',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                  onChange(value, form) {
+                                    dataTableRefListProduct?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idSupplier: id,
+                                        categoryId: '',
+                                        categoryId1: form.getFieldValue('categoryId1')
+                                          ? form.getFieldValue('categoryId1')
+                                          : '',
+                                        categoryId2: form.getFieldValue('categoryId2')
+                                          ? form.getFieldValue('categoryId2')
+                                          : '',
+                                        categoryId3: form.getFieldValue('categoryId3')
+                                          ? form.getFieldValue('categoryId3')
+                                          : '',
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                        filterDate: {
+                                          dateFrom: form.getFieldValue('dateFrom')
+                                            ? form
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
+                                            : '',
+                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                        },
+                                        idStore: '',
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
+                                },
+                              },
+                            ]}
+                            disableSubmit={isLoading}
+                          />
+                          {/* <Form
+                            values={{
+                              categoryId1: getFilter(inventoryProduct.queryParams, 'categoryId1'),
+                              categoryId2: getFilter(inventoryProduct.queryParams, 'categoryId2'),
+                              categoryId3: getFilter(inventoryProduct.queryParams, 'categoryId3'),
+                              dateFrom: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateFrom,
+                              dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
+                              status: getFilter(inventoryProduct.queryParams, 'status'),
+                            }}
                             className="intro-x w-full sm:flex form-store items-center mb-4 pl-2"
                             columns={[
                               {
@@ -1167,46 +1401,55 @@ const Page = () => {
                                       <p>{t('store.Since')}</p>
                                       <div className="pl-2 pt-2">
                                         <Form
-                                          values={{ dateFrom: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateFrom }}
-                                          className='pl-2 pt-2 form-supplier-date'
-                                          columns={[{
-                                            title: '',
-                                            name: 'dateFrom',
-                                            formItem: {
-                                              type: 'date',
-                                              onChange(value, form) {
-                                                dataTableRefListProduct?.current?.onChange({
-                                                  page: 1,
-                                                  perPage: 10,
-                                                  filter: {
-                                                    idSupplier: id,
-                                                    categoryId: '',
-                                                    categoryId1: form.getFieldValue('categoryId1')
-                                                      ? form.getFieldValue('categoryId1')
-                                                      : '',
-                                                    categoryId2: form.getFieldValue('categoryId2')
-                                                      ? form.getFieldValue('categoryId2')
-                                                      : '',
-                                                    categoryId3: form.getFieldValue('categoryId3')
-                                                      ? form.getFieldValue('categoryId3')
-                                                      : '',
-                                                    status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                                    filterDate: {
-                                                      dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                                      dateTo: form.getFieldValue('dateTo')
-                                                        ? form
-                                                          .getFieldValue('dateTo')
-                                                          .format('MM/DD/YYYY 23:59:59')
-                                                          .replace(/-/g, '/')
+                                          values={{
+                                            dateFrom: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateFrom,
+                                          }}
+                                          className="pl-2 pt-2 form-supplier-date"
+                                          columns={[
+                                            {
+                                              title: '',
+                                              name: 'dateFrom',
+                                              formItem: {
+                                                type: 'date',
+                                                onChange(value, form) {
+                                                  dataTableRefListProduct?.current?.onChange({
+                                                    page: 1,
+                                                    perPage: 10,
+                                                    filter: {
+                                                      idSupplier: id,
+                                                      categoryId: '',
+                                                      categoryId1: form.getFieldValue('categoryId1')
+                                                        ? form.getFieldValue('categoryId1')
                                                         : '',
+                                                      categoryId2: form.getFieldValue('categoryId2')
+                                                        ? form.getFieldValue('categoryId2')
+                                                        : '',
+                                                      categoryId3: form.getFieldValue('categoryId3')
+                                                        ? form.getFieldValue('categoryId3')
+                                                        : '',
+                                                      status: form.getFieldValue('status')
+                                                        ? form.getFieldValue('status')
+                                                        : '',
+                                                      filterDate: {
+                                                        dateFrom: value
+                                                          ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
+                                                          : '',
+                                                        dateTo: form.getFieldValue('dateTo')
+                                                          ? form
+                                                              .getFieldValue('dateTo')
+                                                              .format('MM/DD/YYYY 23:59:59')
+                                                              .replace(/-/g, '/')
+                                                          : '',
+                                                      },
+                                                      idStore: '',
                                                     },
-                                                    idStore: '',
-                                                  },
-                                                  fullTextSearch: '',
-                                                });
+                                                    fullTextSearch: '',
+                                                  });
+                                                },
                                               },
                                             },
-                                          },]} />
+                                          ]}
+                                        />
                                       </div>
                                     </div>
                                   ),
@@ -1223,55 +1466,65 @@ const Page = () => {
                                       <p>{t('store.To date')}</p>
                                       <div>
                                         <Form
-                                          values={{ dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo }}
-                                          className='pl-2 pt-4 form-supplier-date'
-                                          columns={[{
-                                            title: '',
-                                            name: 'dateTo',
-                                            formItem: {
-                                              type: 'date',
-                                              onChange(value, form) {
-                                                dataTableRefListProduct?.current?.onChange({
-                                                  page: 1,
-                                                  perPage: 10,
-                                                  filter: {
-                                                    idSupplier: id,
-                                                    categoryId: '',
-                                                    categoryId1: form.getFieldValue('categoryId1')
-                                                      ? form.getFieldValue('categoryId1')
-                                                      : '',
-                                                    categoryId2: form.getFieldValue('categoryId2')
-                                                      ? form.getFieldValue('categoryId2')
-                                                      : '',
-                                                    categoryId3: form.getFieldValue('categoryId3')
-                                                      ? form.getFieldValue('categoryId3')
-                                                      : '',
-                                                    status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                                    filterDate: {
-                                                      dateFrom: form.getFieldValue('dateFrom')
-                                                        ? form
-                                                          .getFieldValue('dateFrom')
-                                                          .format('MM/DD/YYYY 00:00:00')
-                                                          .replace(/-/g, '/')
+                                          values={{
+                                            dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo
+                                              ? getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo
+                                              : '',
+                                          }}
+                                          className="pl-2 pt-4 form-supplier-date"
+                                          columns={[
+                                            {
+                                              title: '',
+                                              name: 'dateTo',
+                                              formItem: {
+                                                type: 'date',
+                                                onChange(value, form) {
+                                                  dataTableRefListProduct?.current?.onChange({
+                                                    page: 1,
+                                                    perPage: 10,
+                                                    filter: {
+                                                      idSupplier: id,
+                                                      categoryId: '',
+                                                      categoryId1: form.getFieldValue('categoryId1')
+                                                        ? form.getFieldValue('categoryId1')
                                                         : '',
-                                                      dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                                      categoryId2: form.getFieldValue('categoryId2')
+                                                        ? form.getFieldValue('categoryId2')
+                                                        : '',
+                                                      categoryId3: form.getFieldValue('categoryId3')
+                                                        ? form.getFieldValue('categoryId3')
+                                                        : '',
+                                                      status: form.getFieldValue('status')
+                                                        ? form.getFieldValue('status')
+                                                        : '',
+                                                      filterDate: {
+                                                        dateFrom: form.getFieldValue('dateFrom')
+                                                          ? form
+                                                              .getFieldValue('dateFrom')
+                                                              .format('MM/DD/YYYY 00:00:00')
+                                                              .replace(/-/g, '/')
+                                                          : '',
+                                                        dateTo: value
+                                                          ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
+                                                          : '',
+                                                      },
+                                                      idStore: '',
                                                     },
-                                                    idStore: '',
-                                                  },
-                                                  fullTextSearch: '',
-                                                });
+                                                    fullTextSearch: '',
+                                                  });
+                                                },
                                               },
                                             },
-                                          },]} />
+                                          ]}
+                                        />
                                       </div>
                                     </div>
                                   ),
                                 },
                               },
-
                             ]}
                             disableSubmit={isLoading}
-                          />
+                          /> */}
                         </div>
                         <Form
                           className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
@@ -1609,6 +1862,104 @@ const Page = () => {
                               dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                               status: getFilter(discountFacade.queryParams, 'status'),
                             }}
+                            className="intro-x items-end rounded-lg w-full flex justify-between form-store"
+                            columns={[
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 text-xs whitespace-nowrap items-center">
+                                      <p>{t('Kỳ hạn từ')}</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateFrom',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'month_year',
+                                  onChange(value, form) {
+                                    dataTableRefDiscount?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        id: id,
+                                        filter: {
+                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
+                                          dateTo: form.getFieldValue('dateTo')
+                                            ? form
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
+                                            : '',
+                                        },
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
+                                },
+                              },
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 text-xs items-center">
+                                      <p>{t('đến')}</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateTo',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'month_year',
+                                  onChange(value, form) {
+                                    console.log('From', form.getFieldValue('dateFrom'));
+
+                                    dataTableRefDiscount?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        id: id,
+                                        filter: {
+                                          dateFrom: form.getFieldValue('dateFrom')
+                                            ? form
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
+                                            : '',
+                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                        },
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
+                                },
+                              },
+                            ]}
+                            disableSubmit={isLoading}
+                          />
+                          {/* <Form
+                            values={{
+                              // dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateFrom).format('MM/YYYY').replace(/-/g, '/')
+                              dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
+                              dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
+                              status: getFilter(discountFacade.queryParams, 'status'),
+                            }}
                             className="intro-x rounded-lg w-full flex ml-2 mb-2 form-store"
                             columns={[
                               {
@@ -1620,37 +1971,45 @@ const Page = () => {
                                   render: () => (
                                     <div className="flex h-10 items-center w-auto">
                                       <p> {t('Kỳ hạn từ')}</p>
-                                      <div className='pl-2 pt-2'>
+                                      <div className="pl-2 pt-2">
                                         <Form
-                                          className='pl-2 pt-2 form-supplier-date'
-                                          values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
-                                          columns={[{
-                                            title: '',
-                                            name: 'dateFrom',
-                                            formItem: {
-                                              type: 'date',
-                                              onChange(value, form) {
-                                                dataTableRefDiscount?.current?.onChange({
-                                                  page: 1,
-                                                  perPage: 10,
-                                                  filter: {
-                                                    id: id,
+                                          className="pl-2 pt-2 form-supplier-date"
+                                          values={{
+                                            dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
+                                          }}
+                                          columns={[
+                                            {
+                                              title: '',
+                                              name: 'dateFrom',
+                                              formItem: {
+                                                type: 'date',
+                                                onChange(value, form) {
+                                                  dataTableRefDiscount?.current?.onChange({
+                                                    page: 1,
+                                                    perPage: 10,
                                                     filter: {
-                                                      dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                                      dateTo: form.getFieldValue('dateTo')
-                                                        ? form
-                                                          .getFieldValue('dateTo')
-                                                          .format('MM/DD/YYYY 23:59:59')
-                                                          .replace(/-/g, '/')
+                                                      id: id,
+                                                      filter: {
+                                                        dateFrom: value
+                                                          ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
+                                                          : '',
+                                                        dateTo: form.getFieldValue('dateTo')
+                                                          ? form
+                                                              .getFieldValue('dateTo')
+                                                              .format('MM/DD/YYYY 23:59:59')
+                                                              .replace(/-/g, '/')
+                                                          : '',
+                                                      },
+                                                      status: form.getFieldValue('status')
+                                                        ? form.getFieldValue('status')
                                                         : '',
                                                     },
-                                                    status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                                  },
-                                                  fullTextSearch: '',
-                                                });
+                                                    fullTextSearch: '',
+                                                  });
+                                                },
                                               },
                                             },
-                                          }]}
+                                          ]}
                                         />
                                       </div>
                                     </div>
@@ -1668,35 +2027,46 @@ const Page = () => {
                                       <p>{t('đến')}</p>
                                       <div>
                                         <Form
-                                          className='pl-2 pt-4 form-supplier-date'
-                                          values={{ dateFrom: '05/01/2023', dateTo: '05/24/2023' }}
-                                          columns={[{
-                                            title: '',
-                                            name: 'dateTo',
-                                            formItem: {
-                                              type: 'date',
-                                              onChange(value, form) {
-                                                dataTableRefDiscount?.current?.onChange({
-                                                  page: 1,
-                                                  perPage: 10,
-                                                  filter: {
-                                                    id: id,
+                                          className="pl-2 pt-4 form-supplier-date"
+                                          values={{
+                                            dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo
+                                              ? getFilter(discountFacade.queryParams, 'filter')?.dateTo
+                                              : '',
+                                          }}
+                                          columns={[
+                                            {
+                                              title: '',
+                                              name: 'dateTo',
+                                              formItem: {
+                                                type: 'date',
+                                                onChange(value, form) {
+                                                  dataTableRefDiscount?.current?.onChange({
+                                                    page: 1,
+                                                    perPage: 10,
                                                     filter: {
-                                                      dateFrom: form.getFieldValue('dateFrom')
-                                                        ? form
-                                                          .getFieldValue('dateFrom')
-                                                          .format('MM/DD/YYYY 00:00:00')
-                                                          .replace(/-/g, '/')
+                                                      id: id,
+                                                      filter: {
+                                                        dateFrom: form.getFieldValue('dateFrom')
+                                                          ? form
+                                                              .getFieldValue('dateFrom')
+                                                              .format('MM/DD/YYYY 00:00:00')
+                                                              .replace(/-/g, '/')
+                                                          : '',
+                                                        dateTo: value
+                                                          ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
+                                                          : '',
+                                                      },
+                                                      status: form.getFieldValue('status')
+                                                        ? form.getFieldValue('status')
                                                         : '',
-                                                      dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                                     },
-                                                    status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                                  },
-                                                  fullTextSearch: '',
-                                                });
+                                                    fullTextSearch: '',
+                                                  });
+                                                },
                                               },
                                             },
-                                          }]} />
+                                          ]}
+                                        />
                                       </div>
                                     </div>
                                   ),
@@ -1704,7 +2074,7 @@ const Page = () => {
                               },
                             ]}
                             disableSubmit={isLoading}
-                          />
+                          /> */}
                           <div className="sm:flex lg:justify-end w-full">
                             <Form
                               values={{
@@ -1829,23 +2199,21 @@ const Page = () => {
                                   Trạng thái:
                                 </div>
 
-                                {values?.status == "SIGNED_CONTRACT" ?
+                                {values?.status == 'SIGNED_CONTRACT' ? (
                                   <div className="w-60 py-2.5 px-4 bg-gray-100 rounded-2xl border-gray-200 ml-4 flex justify-between cursor-not-allowed">
                                     <p className="text-gray-400">Đã ký</p>
                                     <DownArrow className="w-4 h-5 text-gray-400 pt-1" />
                                   </div>
-                                  :
-                                  <div className='w-60 py-2.5 px-4 rounded-2xl border-gray-200 ml-4 flex justify-between'>
-                                    <Select value={values?.status} className="py-2" style={{ width: "100%" }}>
+                                ) : (
+                                  <div className="w-60 py-2.5 px-4 rounded-2xl border-gray-200 ml-4 flex justify-between">
+                                    <Select value={values?.status} className="py-2" style={{ width: '100%' }}>
                                       <Select.Option value="SIGNED_CONTRACT">
                                         <div onClick={() => putSub({ id: values?.id })}>Đã ký</div>
                                       </Select.Option>
-                                      <Select.Option value="PENDING_SIGN_CONTRACT">
-                                        Chưa ký
-                                      </Select.Option>
+                                      <Select.Option value="PENDING_SIGN_CONTRACT">Chưa ký</Select.Option>
                                     </Select>
                                   </div>
-                                }
+                                )}
                               </div>
                             );
                           },
@@ -1879,7 +2247,7 @@ const Page = () => {
                   </div>
                   <Form
                     values={{ ...data1 }}
-                    className='intro-x border-b form-supplier-contract'
+                    className="intro-x border-b form-supplier-contract"
                     columns={[
                       {
                         title: '',
@@ -1935,7 +2303,15 @@ const Page = () => {
                             return (
                               <div className="flex items-center h-full text-base mt-4">
                                 <div className="font-semibold text-teal-900 w-16 h-full">Địa chỉ:</div>
-                                <div className="ml-4 h-full">{values?.subOrg?.address?.street + ', ' + values?.subOrg?.address?.ward?.name + ', ' + values?.subOrg?.address?.district?.name + ', ' + values?.subOrg?.address?.province?.name}</div>
+                                <div className="ml-4 h-full">
+                                  {values?.subOrg?.address?.street +
+                                    ', ' +
+                                    values?.subOrg?.address?.ward?.name +
+                                    ', ' +
+                                    values?.subOrg?.address?.district?.name +
+                                    ', ' +
+                                    values?.subOrg?.address?.province?.name}
+                                </div>
                               </div>
                             );
                           },
@@ -1945,22 +2321,33 @@ const Page = () => {
                   />
                   <p className="text-base text-teal-900 font-bold pl-3 pt-5">Tải lên hợp đồng đăng ký:</p>
                   <div className="text-center border-2 p-[110px] border-dashed rounded-md m-5">
-                    <Upload className='!border-none' listType='picture' type='drag' accept='image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
-                      multiple>
+                    <Upload
+                      className="!border-none"
+                      listType="picture"
+                      type="drag"
+                      accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                      multiple
+                    >
                       <div>
-                        <UploadFile className='w-28 h-28 mx-auto mb-5' />
-                        <p>Kéo thả tệp mà bạn muốn tải lên <br />hoặc </p>
-                        <Button className='bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center' text={'Chọn tệp'} />
+                        <UploadFile className="w-28 h-28 mx-auto mb-5" />
+                        <p>
+                          Kéo thả tệp mà bạn muốn tải lên <br />
+                          hoặc{' '}
+                        </p>
+                        <Button
+                          className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
+                          text={'Chọn tệp'}
+                        />
                       </div>
                     </Upload>
                   </div>
                   <p className="text-base text-teal-900 font-bold pl-3">Tệp trên hệ thống:</p>
                   <div className="text-base pl-3">Chưa có hình hợp đồng trên hệ thống.</div>
 
-                  <div className='flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5'>
+                  <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5">
                     <Button
                       text={t('components.form.modal.cancel')}
-                      className={"z-10 !block out-line border-teal-800 !w-40 sm:!w-28 !font-normal"}
+                      className={'z-10 !block out-line border-teal-800 !w-40 sm:!w-28 !font-normal'}
                       onClick={() => navigate(`/${lang}${routerLinks('Supplier')}`)}
                     />
                     <Button
