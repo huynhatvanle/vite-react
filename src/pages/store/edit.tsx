@@ -1450,60 +1450,6 @@ const Page = () => {
                             categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
                           }}
                           columns={[
-                            // {
-                            //   title: '',
-                            //   name: '',
-                            //   formItem: {
-                            //     tabIndex: 3,
-                            //     col: 6,
-                            //     render: () => (
-                            //       <div className="h-10 items-center auto">
-                            //         <p className="text-sm">{t('store.Since')}</p>
-                            //         <div className='pl-2 pt-2'>
-                            //           <Form
-                            //             values={{
-                            //               dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
-                            //               dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
-                            //               status: getFilter(invoiceKiotVietFacade.queryParams, 'status'),
-                            //               categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
-                            //               categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
-                            //               categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
-                            //             }}
-                            //             className='pl-2 pt-2 form-supplier-date'
-                            //             columns={[{
-                            //               title: '',
-                            //               name: 'dateFrom',
-                            //               formItem: {
-                            //                 type: 'date',
-                            //                 placeholder: 'placeholder.Choose a time',
-                            //                 onChange(value, form) {
-                            //                   dataTableRefInvoiceKiot?.current?.onChange({
-                            //                     page: 1,
-                            //                     perPage: 10,
-                            //                     filter: {
-                            //                       idStore: id,
-                            //                       status: form.getFieldValue('status') ? form.getFieldValue('type') : '',
-                            //                       filterDate: {
-                            //                         dateFrom: value ? value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/') : '',
-                            //                         dateTo: form.getFieldValue('dateFrom')
-                            //                           ? form
-                            //                             .getFieldValue('dateFrom')
-                            //                             .format('YYYY/MM/DD 23:59:59')
-                            //                             .replace(/-/g, '/')
-                            //                           : '',
-                            //                       },
-                            //                       type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                            //                     },
-                            //                     fullTextSearch: '',
-                            //                   });
-                            //                 },
-                            //               },
-                            //             },]} />
-                            //         </div>
-                            //       </div>
-                            //     ),
-                            //   },
-                            // },
                             {
                               title: '',
                               name: '',
@@ -1511,7 +1457,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className="h-10 items-center !w-full">
+                                  <div className="flex h-10 items-center !w-full">
                                     <p className="text-sm">{t('store.Since')}</p>
                                   </div>
                                 ),
