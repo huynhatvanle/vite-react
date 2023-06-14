@@ -75,9 +75,13 @@ const action = {
     if (message) await Message.success({ text: message });
     return statusCode;
   }),
-  putbranch: createAsyncThunk(name + '/put', async ({ id }: StoreManagement) => {
-    const isActive = true
+  putbranchtrue: createAsyncThunk(name + '/put', async ({ id }: StoreManagement) => {
     const { data, message } = await API.put<StoreManagement>(`${routerLinks(name, 'api')}/active-organizaion/${id}`, {isActive:true});
+    if (message) await Message.success({ text: message });
+    return data;
+  }),
+  putbranchfalse: createAsyncThunk(name + '/put', async ({ id }: StoreManagement) => {
+    const { data, message } = await API.put<StoreManagement>(`${routerLinks(name, 'api')}/active-organizaion/${id}`, {isActive:false});
     if (message) await Message.success({ text: message });
     return data;
   }),
@@ -171,7 +175,8 @@ export const StoreFacade = () => {
     put: (values: StoreManagement) => dispatch(action.putStore(values)),
     delete: (id: string) => dispatch(action.delete(id)),
     postbranch: (values: StoreManagement) => dispatch(action.postStorebranch(values)),
-    putbranch: (values: StoreManagement) => dispatch(action.putbranch(values)),
+    puttrue: (values: StoreManagement) => dispatch(action.putbranchtrue(values)),
+    putfalse: (values: StoreManagement) => dispatch(action.putbranchfalse(values)),
   };
 };
 

@@ -1,14 +1,13 @@
-import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import { Form as AntForm, Popconfirm, Switch } from 'antd';
+import { Form as AntForm, Switch } from 'antd';
 
 import { Form } from '@core/form';
 import { Button } from '@core/button';
 import { routerLinks, language, languages } from '@utils';
 import { DistrictFacade, ProvinceFacade, StoreFacade, WardFacade } from '@store';
 import { Message } from '@core/message';
-import Swal from 'sweetalert2';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -17,7 +16,7 @@ const Page = () => {
   const isReload = useRef(false);
   const isBack = useRef(true);
   const storeFace = StoreFacade();
-  const { isLoading, queryParams, status, data, putbranch } = storeFace;
+  const { isLoading, queryParams, status, data, puttrue, putfalse } = storeFace;
   const param = JSON.parse(queryParams || '{}');
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const [forms] = AntForm.useForm();
@@ -46,30 +45,20 @@ const Page = () => {
   }, [status]);
 
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`)
+  const handleBack = () => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}`)
   // navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
 
   const handleSubmit = (values: any) => {
     const connectKiot = forms.getFieldsValue()
     const storeId = id ? id : '';
-    storeFace.post({ ...values, connectKiot, storeId });
+    const isStore = storeId
+    storeFace.put({ ...values, connectKiot, isStore, id });
   };
 
   const [isChecked, setIsChecked] = useState(false);
 
   const handleClick = () => {
     setIsChecked(!isChecked);
-  };
-
-  const [open, setOpen] = useState(false);
-
-  const showPopconfirm = () => {
-    setOpen(true);
-  };
-
-  const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setOpen(false);
   };
 
   return (
@@ -310,14 +299,39 @@ const Page = () => {
           </>
         )}
         extendButton={(form) => (
-          <Button
-            text={t('components.button.CancelAction')}
-            className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5'}
-            onClick={() =>{
-
-            } }
-              //putbranch({ id: data?.id })}
-          />
+          storeFace?.data?.isActive ? (
+            <Button
+              text={t('components.button.CancelAction')}
+              className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5'}
+              onClick={() => Message.confirm({
+                text: 'Bạn có chắc muốn kích hoạt chi nhánh này ?',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '',
+                showCloseButton: true,
+                showCancelButton: true,
+                showConfirmButton: true,
+                onConfirm: () => {
+                  ( putfalse({ id: data?.id }) )
+                },
+              })}
+            />
+          )
+          :
+          (<Button
+            text={t('components.button.Action')}
+            className={'md:min-w-[8rem] justify-center !bg-yellow-500 max-sm:w-3/5'}
+            onClick={() => Message.confirm({
+              text: 'Bạn có chắc hủy kích hoạt chi nhánh này ?',
+              confirmButtonColor: '#d33',
+              cancelButtonColor: '',
+              showCloseButton: true,
+              showCancelButton: true,
+              showConfirmButton: true,
+              onConfirm: () => {
+                ( puttrue({ id: data?.id }) )
+              },
+            })}
+          />)
         )}
         handSubmit={handleSubmit}
         disableSubmit={isLoading}
