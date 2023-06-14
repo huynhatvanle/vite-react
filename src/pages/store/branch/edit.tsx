@@ -16,7 +16,7 @@ const Page = () => {
   const isReload = useRef(false);
   const isBack = useRef(true);
   const storeFace = StoreFacade();
-  const { isLoading, queryParams, status, data, puttrue, putfalse } = storeFace;
+  const { isLoading, queryParams, status, data, putbranchtrue, putbranchfalse } = storeFace;
   const param = JSON.parse(queryParams || '{}');
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const [forms] = AntForm.useForm();
@@ -41,6 +41,12 @@ const Page = () => {
           isBack.current = true;
         }
         break;
+      case 'putbranchtrue.fulfilled':
+        navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}`)
+        break;
+      case 'putbranchfalse.fulfilled':
+        navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}`)
+        break;
     }
   }, [status]);
 
@@ -54,6 +60,7 @@ const Page = () => {
     const isStore = storeId
     storeFace.put({ ...values, connectKiot, isStore, id });
   };
+
 
   const [isChecked, setIsChecked] = useState(false);
 
@@ -311,27 +318,27 @@ const Page = () => {
                 showCancelButton: true,
                 showConfirmButton: true,
                 onConfirm: () => {
-                  ( putfalse({ id: data?.id }) )
+                  (putbranchfalse({ id: data?.id }))
                 },
               })}
             />
           )
-          :
-          (<Button
-            text={t('components.button.Action')}
-            className={'md:min-w-[8rem] justify-center !bg-yellow-500 max-sm:w-3/5'}
-            onClick={() => Message.confirm({
-              text: 'Bạn có chắc hủy kích hoạt chi nhánh này ?',
-              confirmButtonColor: '#d33',
-              cancelButtonColor: '',
-              showCloseButton: true,
-              showCancelButton: true,
-              showConfirmButton: true,
-              onConfirm: () => {
-                ( puttrue({ id: data?.id }) )
-              },
-            })}
-          />)
+            :
+            (<Button
+              text={t('components.button.Action')}
+              className={'md:min-w-[8rem] justify-center !bg-yellow-500 max-sm:w-3/5'}
+              onClick={() => Message.confirm({
+                text: 'Bạn có chắc hủy kích hoạt chi nhánh này ?',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '',
+                showCloseButton: true,
+                showCancelButton: true,
+                showConfirmButton: true,
+                onConfirm: () => {
+                  (putbranchtrue({ id: data?.id }))
+                },
+              })}
+            />)
         )}
         handSubmit={handleSubmit}
         disableSubmit={isLoading}

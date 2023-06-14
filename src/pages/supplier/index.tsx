@@ -2,11 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import { Plus } from '@svgs';
+import { Infor, Plus } from '@svgs';
 import { SupplierFacade } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { language, languages, routerLinks } from '@utils';
+import { Tooltip } from 'antd';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -46,15 +47,28 @@ const Page = () => {
           title: t(`supplier.Address`),
           name: 'address',
           tableItem: {
-            width: 555,
-            render: (value: any, item: any) =>
-              item?.address?.street +
-              ', ' +
-              item?.address?.ward?.name +
-              ', ' +
-              item?.address?.district?.name +
-              ', ' +
-              item?.address?.province?.name,
+            width: 455,
+            // render: (value: any, item: any) =>
+            //   item?.address?.street +
+            //   ', ' +
+            //   item?.address?.ward?.name +
+            //   ', ' +
+            //   item?.address?.district?.name +
+            //   ', ' +
+            //   item?.address?.province?.name,
+            render: (value: any, item: any) => {
+              const address = item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name
+              return (
+                <div>
+                  {address}
+                  {address.length >= 60 ?
+                  <Tooltip title={address} className='text-black' >
+                    <Infor className='w-4 h-4 mt-1'/>
+                  </Tooltip>
+                  : null
+                  }
+                </div>
+            )}
           },
         },
         {

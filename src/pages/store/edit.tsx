@@ -619,7 +619,7 @@ const Page = () => {
                           placeholder: 'placeholder.Main categories',
                           col: 3,
                           type: 'select',
-                          firstLoad: () => ({}),
+                          //firstLoad: () => ({}),
                           get: {
                             facade: CategoryFacade,
                             format: (item: any) => ({
@@ -813,13 +813,16 @@ const Page = () => {
                 ]}
                 rightHeader={
                   <div className={'flex gap-2'}>
-                    {
-                      <Button
-                        className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full"
-                        icon={<Plus className="icon-cud !h-5 !w-5" />}
-                        text={t('titles.Store/SubStore')}
-                        onClick={() => navigate(`/${lang}${routerLinks('store-managerment/branch-management/create')}/${id}`)}
-                      />
+                    {storeFacade?.data?.storeId === null ?
+                      (
+                        <Button
+                          className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full"
+                          icon={<Plus className="icon-cud !h-5 !w-5" />}
+                          text={t('titles.Store/SubStore')}
+                          onClick={() => navigate(`/${lang}${routerLinks('store-managerment/branch-management/create')}/${id}`)}
+                        />
+                      )
+                      : null
                     }
                   </div>
                 }

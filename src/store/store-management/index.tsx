@@ -75,12 +75,12 @@ const action = {
     if (message) await Message.success({ text: message });
     return statusCode;
   }),
-  putbranchtrue: createAsyncThunk(name + '/put', async ({ id }: StoreManagement) => {
+  putbranchtrue: createAsyncThunk(name + '/putbranchtrue', async ({ id }: StoreManagement) => {
     const { data, message } = await API.put<StoreManagement>(`${routerLinks(name, 'api')}/active-organizaion/${id}`, {isActive:true});
     if (message) await Message.success({ text: message });
     return data;
   }),
-  putbranchfalse: createAsyncThunk(name + '/put', async ({ id }: StoreManagement) => {
+  putbranchfalse: createAsyncThunk(name + '/putbranchfalse', async ({ id }: StoreManagement) => {
     const { data, message } = await API.put<StoreManagement>(`${routerLinks(name, 'api')}/active-organizaion/${id}`, {isActive:false});
     if (message) await Message.success({ text: message });
     return data;
@@ -160,6 +160,44 @@ export const storeSlice = createSlice(
         } else state.status = 'idle';
         state.isLoading = false;
       })
+      .addCase(
+        action.putbranchfalse.pending,
+        (
+          state: State<StoreManagement>,
+          action: PayloadAction<undefined, string, { arg: StoreManagement; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.data = action.meta.arg;
+          state.isLoading = true;
+          state.status = 'putbranchfalse.pending';
+        },
+      )
+      .addCase(action.putbranchfalse.fulfilled, (state: State<StoreManagement>, action: PayloadAction<StoreManagement>) => {
+        console.log(action)
+        if (action.payload.toString() === '200') {
+          state.isVisible = false;
+          state.status = 'putbranchfalse.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
+      .addCase(
+        action.putbranchtrue.pending,
+        (
+          state: State<StoreManagement>,
+          action: PayloadAction<undefined, string, { arg: StoreManagement; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.data = action.meta.arg;
+          state.isLoading = true;
+          state.status = 'putbranchtrue.pending';
+        },
+      )
+      .addCase(action.putbranchtrue.fulfilled, (state: State<StoreManagement>, action: PayloadAction<StoreManagement>) => {
+        console.log(action)
+        if (action.payload.toString() === '200') {
+          state.isVisible = false;
+          state.status = 'putbranchtrue.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
   }),
 );
 
@@ -175,8 +213,8 @@ export const StoreFacade = () => {
     put: (values: StoreManagement) => dispatch(action.putStore(values)),
     delete: (id: string) => dispatch(action.delete(id)),
     postbranch: (values: StoreManagement) => dispatch(action.postStorebranch(values)),
-    puttrue: (values: StoreManagement) => dispatch(action.putbranchtrue(values)),
-    putfalse: (values: StoreManagement) => dispatch(action.putbranchfalse(values)),
+    putbranchtrue: (values: StoreManagement) => dispatch(action.putbranchtrue(values)),
+    putbranchfalse: (values: StoreManagement) => dispatch(action.putbranchfalse(values)),
   };
 };
 
