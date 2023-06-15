@@ -150,7 +150,7 @@ export const DataTable = forwardRef(
             clearFilters();
             confirm();
           }}
-          className={'justify-center'}
+          className={'justify-center !bg-gray-300 !text-black'}
         />
         <Button
           icon={<Search className="fill-white h-4 w-4" />}

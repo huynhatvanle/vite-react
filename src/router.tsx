@@ -86,6 +86,16 @@ const pages = [
         title: 'store-managerment/edit',
       },
       {
+        path: routerLinks('store-managerment/branch-management/create') + '/:id',
+        component: React.lazy(() => import('@pages/store/add')),
+        title: 'store-managerment/branch-management/create',
+      },
+      {
+        path: routerLinks('store-managerment/branch-management/edit') + '/:id',
+        component: React.lazy(() => import('@pages/store/branch/edit')),
+        title: 'store-managerment/branch-management/edit',
+      },
+      {
         path: routerLinks('Supplier'),
         component: React.lazy(() => import('@pages/supplier')),
         title: 'Supplier',

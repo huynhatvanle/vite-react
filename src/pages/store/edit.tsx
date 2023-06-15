@@ -619,7 +619,7 @@ const Page = () => {
                           placeholder: 'placeholder.Main categories',
                           col: 3,
                           type: 'select',
-                          firstLoad: () => ({}),
+                          //firstLoad: () => ({}),
                           get: {
                             facade: CategoryFacade,
                             format: (item: any) => ({
@@ -742,6 +742,11 @@ const Page = () => {
               <DataTable
                 facade={subStoreFacade}
                 ref={dataTableRefBranch}
+                onRow={(data: any) => ({
+                  onDoubleClick: () => {
+                    navigate(`/${lang}${routerLinks('store-managerment/branch-management/edit')}/${data.id}`)
+                  },
+                })}
                 defaultRequest={{ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'BALANCE' } }}
                 xScroll="1270px"
                 className=" bg-white p-5 rounded-lg form-store"
@@ -801,20 +806,23 @@ const Page = () => {
                             {t('store.Active')}
                           </div>
                         ) : (
-                          <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded"></div>
+                          <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">{t('store.NoActive')}</div>
                         ),
                     },
                   },
                 ]}
                 rightHeader={
                   <div className={'flex gap-2'}>
-                    {
-                      <Button
-                        className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full"
-                        icon={<Plus className="icon-cud !h-5 !w-5" />}
-                        text={t('titles.Store/SubStore')}
-                      // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
-                      />
+                    {storeFacade?.data?.storeId === null ?
+                      (
+                        <Button
+                          className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full"
+                          icon={<Plus className="icon-cud !h-5 !w-5" />}
+                          text={t('titles.Store/SubStore')}
+                          onClick={() => navigate(`/${lang}${routerLinks('store-managerment/branch-management/create')}/${id}`)}
+                        />
+                      )
+                      : null
                     }
                   </div>
                 }
@@ -1488,60 +1496,6 @@ const Page = () => {
                                 },
                               },
                             },
-                            // {
-                            //   title: '',
-                            //   name: '',
-                            //   formItem: {
-                            //     tabIndex: 3,
-                            //     col: 6,
-                            //     render: () => (
-                            //       <div className="flex h-10 items-center !w-full">
-                            //         <p className="text-sm">{t('store.To date')}</p>
-                            //         <div>
-                            //           <Form
-                            //             values={{
-                            //               dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
-                            //               dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
-                            //               status: getFilter(invoiceKiotVietFacade.queryParams, 'status'),
-                            //               categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
-                            //               categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
-                            //               categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
-                            //             }}
-                            //             className='pl-2 pt-4 form-supplier-date'
-                            //             columns={[{
-                            //               title: '',
-                            //               name: 'dateTo',
-                            //               formItem: {
-                            //                 type: 'date',
-                            //                 placeholder: 'placeholder.Choose a time',
-                            //                 onChange(value, form) {
-                            //                   dataTableRefInvoiceKiot?.current?.onChange({
-                            //                     page: 1,
-                            //                     perPage: 10,
-                            //                     filter: {
-                            //                       idStore: id,
-                            //                       status: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                            //                       filterDate: {
-                            //                         dateFrom: form.getFieldValue('dateTo')
-                            //                           ? form
-                            //                             .getFieldValue('dateTo')
-                            //                             .format('YYYY/MM/DD 00:00:00')
-                            //                             .replace(/-/g, '/')
-                            //                           : '',
-                            //                         dateTo: value ? value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/') : '',
-                            //                       },
-                            //                       type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                            //                     },
-                            //                     fullTextSearch: '',
-                            //                   });
-                            //                 },
-                            //               },
-                            //             },]} />
-                            //         </div>
-                            //       </div>
-                            //     ),
-                            //   },
-                            // },
                             {
                               title: '',
                               name: '',

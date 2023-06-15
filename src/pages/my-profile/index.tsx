@@ -40,7 +40,7 @@ const Page = () => {
   return (
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
-        <div className='flex-initial lg:w-[270px] mr-5 lg:rounded-xl w-full'>
+        <div className='flex-initial lg:w-[350px] mr-5 lg:rounded-xl w-full'>
           <Form
             formAnt={forms}
             className="text-center items-centers text-xl font-bold text-slate-700 form-profile"
@@ -84,8 +84,8 @@ const Page = () => {
         </div>
         <div className='flex-1 lg:rounded-xl w-auto'>
           <Tabs
-             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('MyProfile')}?tab=${activeKey}`)}
-             defaultActiveKey="1"
+            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('MyProfile')}?tab=${activeKey}`)}
+            defaultActiveKey="1"
             size="large"
             className='profile'>
             <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1">
@@ -132,7 +132,9 @@ const Page = () => {
                   <Button
                     text={t('components.button.Cancel')}
                     className={'md:w-32 justify-center out-line max-sm:w-3/5'}
-                    onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}
+                    onClick={() => {
+                      navigate(`/${lang}${routerLinks('MyProfile')}`)
+                    }}
                   />
                 )}
               />
@@ -195,7 +197,9 @@ const Page = () => {
                   <Button
                     text={t('components.button.Cancel')}
                     className={'md:min-w-[8rem] justify-center out-line max-sm:w-3/5'}
-                    onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}
+                    onClick={() => {
+                      navigate(`/${lang}${routerLinks('MyProfile')}`)
+                    }}
                   />
                 )}
                 textSubmit='routes.admin.Layout.Change Password'
