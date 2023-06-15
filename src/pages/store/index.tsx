@@ -34,7 +34,7 @@ const Page = () => {
       className=' bg-white p-5 rounded-lg'
       onRow={(data: any) => ({
         onDoubleClick: () => {
-          navigate(`/${lang}${routerLinks('store-managerment/edit')}/${data.id}`)
+          navigate(`/${lang}${routerLinks('store-managerment/edit')}/${data.id}?tab=1`)
         },
       })}
       pageSizeRender={(sizePage: number) => sizePage}
