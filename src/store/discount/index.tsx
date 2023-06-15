@@ -33,13 +33,10 @@ const action = {
       return dataTemp;
     },
   ),
-  // getByIdDiscount: createAsyncThunk(
-  //   name + '/getById',
-  //   async ({ id, page, perPage }: { id?: string; page?: number; perPage?: number }) => {
-  //     const data = await API.get<Discount>(`${routerLinks(name, 'api')}/${id}`, { page, perPage });
-  //     return { data };
-  //   },
-  // ),
+  getIdDiscount: createAsyncThunk(name + '/getById', async ({ id }: { id: string }) => {
+    const data = await API.get<Discount>(`${routerLinks(name, 'api')}/detail/${id}`);
+    return { data };
+  }),
 };
 
 export const DiscountSlice = createSlice(new Slice<Discount>(action));
@@ -58,8 +55,7 @@ export const DiscountFacade = () => {
       page?: number;
       perPage?: number;
     }) => dispatch(action.getDiscount({ perPage, page, filter })),
-    // getById: ({ id, page, perPage }: { id?: string; page?: number; perPage?: number }) =>
-    //   dispatch(action.getByIdDiscount({ id, page, perPage })),
+    getById: ({ id }: { id: string }) => dispatch(action.getIdDiscount({ id })),
     post: (values: Discount) => dispatch(action.post(values)),
     put: (values: Discount) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),
@@ -67,7 +63,15 @@ export const DiscountFacade = () => {
 };
 
 export class Discount extends CommonEntity {
-  constructor(public id?: string, public name?: string, public code?: string, public totalCommissionSupplier?: number) {
+  constructor(
+    public commision?: string,
+    public datefrom?: string,
+    public dateto?: string,
+    public noPay?: string,
+    public status?: string,
+    public paid?: string,
+    public totalCommissionSupplier?: number,
+  ) {
     super();
   }
 }

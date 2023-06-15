@@ -66,13 +66,14 @@ export const inventoryOrdersFacade = () => {
 
 export class InventoryOrders extends CommonEntity {
   constructor(
-    public units?: {
-      value?: string;
-      name?: string;
-      isDefault?: boolean;
-    },
-    public id?: string,
-    public iventory?: Product,
+    public billType?: string,
+    public invoiceCode?: string,
+    public subTotal?: string,
+    public storeName?: string,
+    public pickUpDate?: string,
+    public completedDate?: string,
+    public total?: string,
+    public voucherAmount?: string,
   ) {
     super();
   }

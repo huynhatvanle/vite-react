@@ -111,7 +111,8 @@
     "Ordermanagement": "Order Management",
     "Discount": "Discount",
     "Contract": "Contract",
-    "Upload contract":"Upload contract"
+    "Upload contract":"Upload contract",
+    "Contract-View": "Contract View"
   },
   "pages": {
     "Dashboard": "Dashboard",

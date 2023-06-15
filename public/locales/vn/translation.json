@@ -115,7 +115,8 @@
     "Ordermanagement": "Quản lý đơn hàng",
     "Discount": "Chiết Khấu",
     "Contract": "Hợp đồng",
-    "Upload contract":"Đăng tải hợp đồng"
+    "Upload contract":"Đăng tải hợp đồng",
+    "Contract-View": "Hợp đồng kết nối"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
