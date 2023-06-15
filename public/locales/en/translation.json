@@ -73,6 +73,7 @@
       "New": "New",
       "Back": "Back",
       "Role": "Role",
+      "CancelAction": "Cancel the activity",
       "Cancel": "Cancel"
     }
   },
@@ -95,6 +96,7 @@
     "store-managerment/create": "Add new Store",
     "store-managerment/edit": "Store Information",
     "merchandise-managerment": "Inventory management",
+    "store-managerment/branch-management/edit": "Store Information",
     "merchandise-managerment/product": "Product",
     "merchandise-managerment/category": "Category",
     "merchandise-managerment/tax": "Tax",
@@ -111,24 +113,28 @@
     "Ordermanagement": "Order Management",
     "Discount": "Discount",
     "Contract": "Contract",
-    "Upload contract":"Upload contract"
+    "Upload contract":"Upload contract",
+    "Contract-View": "Contract View"
   },
   "pages": {
     "Dashboard": "Dashboard",
     "Login": "Login",
     "User/List": "List User",
-    "User/Add": "Add new User",
-    "User/Edit": "Edit User",
+    "User/Add": "List User",
+    "User/Edit": "List User",
     "store-managerment/create": "Create Store",
     "Đặt Lại Mật Khẩu": "Reset Password",
     "Sign-in": "Sign in",
     "Quên Mật Khẩu": "Forgot Password",
     "Store": "Store",
-    "store-managerment/edit": "Edit Store",
+    "store-managerment/edit": "Create Store",
+    "store-managerment/branch-management/edit": "Create Store",
+    "store-managerment/branch-management/create": "Create Store",
     "MyProfile": "My Profile",
     "Supplier": "Supplier",
-    "Supplier/Add": "Add new Supplier",
-    "Supplier/Edit": "Edit Supplier"
+    "Supplier/Add": "Supplier",
+    "Supplier/Edit": "Supplier",
+    "Contract-View": "Contract Management"
   },
   "columns": {
     "auth": {
@@ -259,6 +265,8 @@
       "on sale":"On sale",
       "stop selling":"Stop selling"
     },
+    "Supplier revenue Order":"Supplier revenue by order.xlsx",
+     "Supplier revenue product":"Supplier revenue by product.xlsx",
     "CodeName": "Code Supplier",
     "Order": {
       "STT": "STT",
@@ -266,6 +274,7 @@
       "Discount": "Discount (VND)",
       "Paid": "Paid (VND)",
       "Unpaid": "Unpaidn (VND)",
+      "Unfinish":"Unfinish",
       "Order ID": "Order ID",
       "Store Name": "Store Name",
       "Recipient": "Recipient",
@@ -301,6 +310,44 @@
       "Cancelled": "Cancelled",
       "Return goods": "Return goods",
       "Sell goods": "Sell goods"
+    },
+    "Contract":{
+      "Contract details":"Contract details",
+      "Contract Code":"Contract Code",
+      "Date created":"Date created",
+      "Contract information":"Contract information",
+      "Supplier Information":"Supplier Information",
+      "Click here":"Click here",
+      "Signed file":"Signed file",
+      "Manager name":"Manager's name",
+      "Upload contract":"Upload signed contract",
+      "Upload file":"Drag and drop the file you want to upload",
+      "Select file":"Select file",
+      "or":"or",
+      "File system":"Files on the system",
+      "File form system":"There is no contract form on the system"
+    },
+    "Contract-View":{
+      "SOCIALIST REPUBLIC OF VIETNAM":"SOCIALIST REPUBLIC OF VIETNAM",
+      "Independence-Freedom-Happiness":"Independence - Freedom - Happiness",
+      "Contract":"CONTRACT",
+      "Referred A":"Referred to as the A",
+      "Referred B":"Referred to as the B",
+      "ID":"ID/CCCD/Passport number",
+      "Date Range":"Date Range",
+      "Issued by":"Issued by",
+      "DKTT":"Place of permanent residence",
+      "SUPPLIER":"SUPPLIER",
+      "Contract with code":"Based on the contract with code",
+      "Today":"Today 05-07-2022 at ...... We include",
+      "Contract from the date":"The two parties agree to sign the contract from the date of",
+      "Contract content":"We have read and understood the contract and agree to sign it",
+      "Contract Minutes":"This contract minutes after signing will be valid according to the law",
+      "Contract name":"Contract signed by the name of the supplier on 1/7/2022",
+      "Sign":"Sign",
+      "A side":"A side",
+      "B side":"B side",
+      "Export contract":"Export contract"
     }
   },
   "store": {
@@ -330,6 +377,7 @@
     "To date": "to date",
     "Barcode": "Barcode",
     "Active":"Active",
+    "NoActive":"Stop working",
     "Inventory management": {
       "Product code": "Product code",
       "Barcode (Supplier)": "Supplier barcode",
@@ -364,7 +412,9 @@
     "Price": "Retail price (VND)",
     "Status": "Status",
     "Barcode": "Barcode",
-    "Revenue":"Revenue"
+    "Revenue":"Revenue",
+    "Image link":"Image link",
+    "status": "Status"
   },
   "placeholder": {
     "Choose a supplier": "Choose a supplier",

@@ -73,7 +73,9 @@
       "New": "Tạo mới",
       "Back": "Trở về",
       "Role": "Vai trò",
-      "Cancel": "Hủy thao tác"
+      "Cancel": "Hủy thao tác",
+      "CancelAction": "Hủy hoạt động",
+      "Action": "Tiếp tục hoạt động"
     }
   },
   "titles": {
@@ -94,6 +96,8 @@
     "Store/SubStore": "Thêm chi nhánh",
     "store-managerment/create": "Thêm cửa hàng",
     "store-managerment/edit": "Thông tin cửa hàng",
+    "store-managerment/branch-management/create": "Thêm cửa hàng",
+    "store-managerment/branch-management/edit": "Thông tin cửa hàng",
     "merchandise-managerment": "Quản lý hàng hóa",
     "merchandise-managerment/product": "Sản phẩm",
     "merchandise-managerment/category": "Danh mục",
@@ -111,7 +115,8 @@
     "Ordermanagement": "Quản lý đơn hàng",
     "Discount": "Chiết Khấu",
     "Contract": "Hợp đồng",
-    "Upload contract":"Đăng tải hợp đồng"
+    "Upload contract":"Đăng tải hợp đồng",
+    "Contract-View": "Hợp đồng kết nối"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -126,9 +131,12 @@
     "Store": "Quản Lý Cửa Hàng",
     "store-managerment/edit": "Quản Lý Cửa Hàng",
     "store-managerment/create": "Quản Lý Cửa Hàng",
+    "store-managerment/branch-management/create": "Quản Lý Cửa Hàng",
+    "store-managerment/branch-management/edit": "Quản Lý Cửa Hàng",
     "Supplier": "Quản Lý Nhà Cung Cấp",
     "Supplier/Add": "Quản Lý Nhà Cung Cấp",
-    "Supplier/Edit": "Quản Lý Nhà Cung Cấp"
+    "Supplier/Edit": "Quản Lý Nhà Cung Cấp",
+    "Contract-View": "Quản Lý Hợp Đồng"
   },
   "columns": {
     "auth": {
@@ -256,6 +264,8 @@
       "on sale":"Đang bán",
       "stop selling":"Ngưng bán"
     },
+    "Supplier revenue Order":"Doanh thu nhà cung cấp theo đơn hàng.xlsx",
+    "Supplier revenue product":"Doanh thu nhà cung cấp theo sản phẩm.xlsx",
     "CodeName": "Mã nhà cung cấp",
     "Order": {
       "STT": "STT",
@@ -263,6 +273,7 @@
       "Discount": "Chiết khấu (VND)",
       "Paid": "Đã thanh toán",
       "Unpaid": "Chưa thanh toán",
+      "Unfinish":"Chưa hoàn tất",
       "Order ID": "Mã đơn hàng",
       "Store Name": "Tên cửa hàng",
       "Recipient": "Người nhận",
@@ -298,6 +309,44 @@
       "Cancelled": "Đã huỷ",
       "Return goods": "Trả hàng",
       "Sell goods": "Bán hàng"
+    },
+    "Contract":{
+      "Contract details":"Chi tiết hợp đồng",
+      "Contract Code":"Mã hợp đồng",
+      "Date created":"Ngày tạo",
+      "Contract information":"Thông tin hợp đồng",
+      "Supplier Information":"Thông tin nhà cung cấp",
+      "Click here":"Nhấn vào đây",
+      "Signed file":"Tệp đã ký",
+      "Manager name":"Tên chủ quản lý",
+      "Upload contract":"Tải lên hợp đồng đã ký",
+      "Upload file":"Kéo thả tệp mà bạn muốn tải lên",
+      "Select file":"Chọn tệp",
+      "or":"hoặc",
+      "File system":"Tệp trên hệ thống",
+      "File form system":"Chưa có hình hợp đồng trên hệ thống"
+    },
+    "Contract-View":{
+      "SOCIALIST REPUBLIC OF VIETNAM":"CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM",
+      "Independence-Freedom-Happiness":"Độc lập - Tự do - Hạnh phúc",
+      "Contract":"HỢP ĐỒNG",
+      "Referred A":"Gọi tắt là bên A",
+      "Referred B":"Gọi tắt là bên B",
+      "ID":"Số CMND/CCCD/Passport",
+      "Date Range":"Ngày cấp",
+      "Issued by":"Nơi cấp",
+      "DKTT":"Nơi ĐKTT",
+      "SUPPLIER":"NHÀ CUNG CẤP",
+      "Contract with code":"Căn cứ vào hợp đồng có mã",
+      "Today":"Hôm nay ngày 05-07-2022 tại ...... Chúng tôi gồm",
+      "Contract from the date":"Hai bên đồng ý ký kết hợp đồng từ ngày",
+      "Contract content":"Chúng tôi đã đọc và hiểu rõ nội dung hợp đồng và đồng ý ký tên",
+      "Contract Minutes":"Biên bản hợp đồng này sau khi ký tên sẽ có giá trị theo luật định",
+      "Contract name":"Hợp đồng được ký bởi tên chủ cung cấp ngày 1/7/2022",
+      "Sign":"Ký tên",
+      "A side":"Bên A",
+      "B side":"Bên B",
+      "Export contract":"Xuất hợp đồng"
     }
   },
   "store": {
@@ -327,6 +376,7 @@
     "To date":"Đến ngày",
     "Barcode":"Mã vạch",
     "Active":"Đang hoặt động",
+    "NoActive":"Ngưng hoạt động",
     "Inventory management": {
       "Product code": "Mã sản phẩm",
       "Barcode (Supplier)": "Mã vạch (NCC)",
@@ -364,7 +414,9 @@
     "SellingPrice": "Giá bán lẻ của CH (VND)",
     "Status": "Tình trạng",
     "Barcode": "Mã vạch",
-    "Revenue":"Doanh thu"
+    "Revenue":"Doanh thu",
+    "Image link":"Link hình ảnh",
+    "status": "Trạng thái"
   },
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",

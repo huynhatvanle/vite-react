@@ -86,6 +86,16 @@ const pages = [
         title: 'store-managerment/edit',
       },
       {
+        path: routerLinks('store-managerment/branch-management/create') + '/:id',
+        component: React.lazy(() => import('@pages/store/add')),
+        title: 'store-managerment/branch-management/create',
+      },
+      {
+        path: routerLinks('store-managerment/branch-management/edit') + '/:id',
+        component: React.lazy(() => import('@pages/store/branch/edit')),
+        title: 'store-managerment/branch-management/edit',
+      },
+      {
         path: routerLinks('Supplier'),
         component: React.lazy(() => import('@pages/supplier')),
         title: 'Supplier',
@@ -99,6 +109,16 @@ const pages = [
         path: routerLinks('Supplier/Edit') + '/:id',
         component: React.lazy(() => import('@pages/supplier/edit')),
         title: 'Supplier/Edit',
+      },
+      {
+        path: routerLinks('Contract-View') + '/:id',
+        component: React.lazy(() => import('@pages/supplier/supplierContract')),
+        title: 'Contract-View',
+      },
+      {
+        path: routerLinks('Discount-Detail') + '/:id',
+        component: React.lazy(() => import('@pages/supplier/discountDetail')),
+        title: 'Discount-Detail',
       },
     ], // 💬 generate link to here
   },

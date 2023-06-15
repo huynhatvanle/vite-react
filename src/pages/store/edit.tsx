@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form as AntForm, Select, Switch, Tabs, Dropdown } from 'antd';
-import { useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 
@@ -68,25 +68,25 @@ const Page = () => {
   const category3 = categoryFacade.result3?.data
   const listStatus = [
     {
-      label: 'Bán hàng',
+      label: t('supplier.Sup-Status.Sell goods'),
       value: 'DELEVERED',
     },
     {
-      label: 'Trả hàng',
+      label: t('supplier.Sup-Status.Return goods'),
       value: 'REFUND',
     },
     {
-      label: 'Đã hủy',
+      label: t('supplier.Sup-Status.Cancelled'),
       value: 'CANCEL',
     },
   ];
   const listStatusProduct = [
     {
-      label: 'Đang bán',
+      label: t('supplier.Sup-Status.Selling'),
       value: 'APPROVED',
     },
     {
-      label: 'Ngừng bán',
+      label: t('supplier.Sup-Status.Discontinued'),
       value: 'STOP_SELLING',
     },
   ];
@@ -182,6 +182,34 @@ const Page = () => {
     dataIndex: string;
   }
 
+  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeStoreTab') || '1');
+
+  const onChangeTab = (key: string) => {
+    setActiveKey(key);
+    localStorage.setItem('activeStoreTab', key);
+
+    if (key === '3') {
+      dataTableRefBranch?.current?.onChange({
+        page: 1,
+        perPage: 10,
+        fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
+      });
+    }
+
+    navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${key}`);
+  };
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const tab = urlParams.get('tab');
+
+  useEffect(() => {
+    if (tab) {
+      setActiveKey(tab);
+    } else {
+      setActiveKey('1');
+    }
+  }, []);
+
   const columnproduct: IExcelColumn[] = [
     { title: 'Mã sản phẩm', key: 'code', dataIndex: 'code' },
     { title: 'Mã vạch (CH)', key: 'storeBarcode', dataIndex: 'storeBarcode' },
@@ -200,18 +228,8 @@ const Page = () => {
         <div className="tab-wrapper">
           <Tabs
             defaultActiveKey='1'
-            type="card"
-            size="large"
-            onTabClick={(activeKey: any) => {
-              activeKey === '3' ? dataTableRefBranch?.current?.onChange({
-                page: 1,
-                perPage: 10,
-                fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
-              }) : ''
-              activeKey === '4' ? setLoadSupplier(true) : setLoadSupplier(false)
-              navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)
-            }
-            }
+            activeKey={activeKey} type="card" size="large"
+            onTabClick={(key: string) => onChangeTab(key)}
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key="1" className="">
               {!isLoading && (
@@ -868,6 +886,11 @@ const Page = () => {
               <DataTable
                 facade={subStoreFacade}
                 ref={dataTableRefBranch}
+                onRow={(data: any) => ({
+                  onDoubleClick: () => {
+                    navigate(`/${lang}${routerLinks('store-managerment/branch-management/edit')}/${data.id}`)
+                  },
+                })}
                 defaultRequest={{ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'BALANCE' } }}
                 xScroll="1270px"
                 className=" bg-white p-5 rounded-lg form-store"
@@ -927,20 +950,23 @@ const Page = () => {
                             {t('store.Active')}
                           </div>
                         ) : (
-                          <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded"></div>
+                          <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">{t('store.NoActive')}</div>
                         ),
                     },
                   },
                 ]}
                 rightHeader={
                   <div className={'flex gap-2'}>
-                    {
-                      <Button
-                        className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full"
-                        icon={<Plus className="icon-cud !h-5 !w-5" />}
-                        text={t('titles.Store/SubStore')}
-                      // onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
-                      />
+                    {storeFacade?.data?.storeId === null ?
+                      (
+                        <Button
+                          className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full"
+                          icon={<Plus className="icon-cud !h-5 !w-5" />}
+                          text={t('titles.Store/SubStore')}
+                          onClick={() => navigate(`/${lang}${routerLinks('store-managerment/branch-management/create')}/${id}`)}
+                        />
+                      )
+                      : null
                     }
                   </div>
                 }
@@ -1013,28 +1039,36 @@ const Page = () => {
               key="4"
               className="rounded-xl"
             >
-              {isBalance ? (
-                <DataTable
-                  ref={dataTableRefSupplier}
-                  facade={connectSupplierFacade}
-                  defaultRequest={{
+              <DataTable
+                ref={isBalance ? dataTableRefSupplier : dataTableRefsubStore}
+                facade={isBalance ? connectSupplierFacade : subStoreFacade}
+                defaultRequest={isBalance ?
+                  {
                     page: 1,
                     perPage: 10,
                     filter: { idSuppiler: id },
-                  }}
-                  xScroll="1270px"
-                  className=" bg-white p-5 rounded-lg"
-                  // onRow={(data: any) => ({
-                  //   onDoubleClick: () => {
-                  //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                  //   },
-                  // })}
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.PaginationSupplier', { from, to, total })
                   }
-                  columns={[
+                  :
+                  {
+                    page: 1,
+                    perPage: 10,
+                    filter: { storeId: id, supplierType: 'NON_BALANCE' },
+                  }
+                }
+                xScroll="1270px"
+                className=" bg-white p-5 rounded-lg"
+                // onRow={(data: any) => ({
+                //   onDoubleClick: () => {
+                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                //   },
+                // })}
+                pageSizeRender={(sizePage: number) => sizePage}
+                pageSizeWidth={'50px'}
+                paginationDescription={(from: number, to: number, total: number) =>
+                  t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                }
+                columns={isBalance ?
+                  [
                     {
                       title: 'supplier.CodeName',
                       name: 'supplier',
@@ -1078,30 +1112,9 @@ const Page = () => {
                         render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                       },
                     },
-                  ]}
-                />
-              ) : (
-                <DataTable
-                  ref={dataTableRefsubStore}
-                  facade={subStoreFacade}
-                  defaultRequest={{
-                    page: 1,
-                    perPage: 10,
-                    filter: { storeId: id, supplierType: 'NON_BALANCE' },
-                  }}
-                  xScroll="1270px"
-                  className=" bg-white p-5 rounded-lg"
-                  // onRow={(data: any) => ({
-                  //   onDoubleClick: () => {
-                  //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                  //   },
-                  // })}
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                  }
-                  columns={[
+                  ]
+                  :
+                  [
                     {
                       title: 'supplier.CodeName',
                       name: 'code',
@@ -1143,9 +1156,11 @@ const Page = () => {
                         render: (value: any, item: any) => item.peopleContact?.phoneNumber,
                       },
                     },
-                  ]}
-                />
-              )}
+                  ]
+                }
+
+              />
+
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}

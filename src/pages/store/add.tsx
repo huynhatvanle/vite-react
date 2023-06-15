@@ -1,6 +1,6 @@
 import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Form as AntForm, Switch } from 'antd';
 
 import { Form } from '@core/form';
@@ -20,6 +20,8 @@ const Page = () => {
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const [forms] = AntForm.useForm();
 
+  const { id } = useParams();
+
   useEffect(() => {
     storeFace.set({ data: undefined });
     return () => {
@@ -37,7 +39,8 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const connectKiot = forms.getFieldsValue()
-    storeFace.post({ ...values, connectKiot });
+    const storeId = id ? id : '';
+    storeFace.post({ ...values, connectKiot, storeId });
   };
 
   const [isChecked, setIsChecked] = useState(false);

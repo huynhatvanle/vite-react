@@ -21,10 +21,11 @@ import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
-import { DownArrow, Download, UploadFile } from '@svgs';
+import { DownArrow, Download, UploadIcon } from '@svgs';
 import { Dropdown, Select, Tabs } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
+import { Excel } from 'antd-table-saveas-excel';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -79,7 +80,6 @@ const Page = () => {
   }, [documentsub.data]);
 
   const data1 = documentsub.result?.data;
-
   const revenueTotal = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
   const discountTotal = discountFacade.result?.totalCommissionSupplier?.toLocaleString();
 
@@ -103,47 +103,93 @@ const Page = () => {
   ];
   const listStatusDiscount = [
     {
-      label: 'Chưa thanh toán',
+      label: t('supplier.Order.Unpaid'),
       value: 'NOT_PAID',
     },
     {
-      label: 'Đã thanh toán',
+      label: t('supplier.Order.Paid'),
       value: 'PAID',
     },
     {
-      label: 'Chưa hoàn tất',
+      label: t('supplier.Order.Paid'),
       value: 'NOT_COMPLETED_PAID',
     },
   ];
   const statusCategory = [
     {
-      label: 'Bán hàng',
+      label: t('supplier.Sup-Status.Sell goods'),
       value: 'RECIEVED',
     },
     {
-      label: 'Trả hàng',
+      label: t('supplier.Sup-Status.Return goods'),
       value: 'RETURN',
     },
   ];
   const statusRevenue = [
     {
-      label: 'Đang bán',
+      label: t('supplier.Sup-Status.Selling'),
       value: 'APPROVED',
     },
     {
-      label: 'Ngưng bán',
+      label: t('supplier.Sup-Status.Discontinued'),
       value: 'STOP_SELLING',
     },
   ];
   const statusContract = [
     {
-      label: 'Đã ký',
+      label: t('supplier.Sup-Status.Signed'),
       value: 'SIGNED_CONTRACT',
     },
     {
-      label: 'Chưa ký',
+      label: t('supplier.Sup-Status.Waiting'),
       value: 'STOP_SELLING',
     },
+  ];
+
+  interface IExcelColumn {
+    title: string;
+    key: string;
+    dataIndex: string;
+  }
+
+  const columnproduct: IExcelColumn[] = [
+    { title: t('product.Code'), key: 'code', dataIndex: 'code' },
+    { title: t('product.Name'), key: 'name', dataIndex: 'name' },
+    { title: t('product.Storecode'), key: 'barcode', dataIndex: 'barcode' },
+    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t('product.Unit'), key: 'basicUnit', dataIndex: 'basicUnit' },
+    { title: t('product.Price'), key: 'price', dataIndex: 'price' },
+    { title: t('product.Status'), key: 'approveStatus', dataIndex: 'approveStatus' },
+    { title: t('product.Image link'), key: 'photos', dataIndex: 'photos' },
+  ];
+  const columnrevenue: IExcelColumn[] = [
+    { title: t('supplier.Order.STT'), key: 'stt', dataIndex: 'STT' },
+    { title: t('supplier.Order.Order ID'), key: 'code', dataIndex: 'code' },
+    { title: t('supplier.Order.Store Name'), key: 'name', dataIndex: 'name' },
+    { title: t('supplier.Order.Order Date'), key: 'pickUpDate', dataIndex: 'pickUpDate' },
+    { title: t('supplier.Order.Delivery Date'), key: 'completedDate', dataIndex: 'completedDate' },
+    { title: t('supplier.Order.Before Tax'), key: 'BeforeTax', dataIndex: 'BeforeTax' },
+    { title: t('supplier.Order.After Tax'), key: 'AfterTax', dataIndex: 'AfterTax' },
+    { title: t('supplier.Order.Promotion'), key: 'voucherAmount', dataIndex: 'voucherAmount' },
+    { title: t('supplier.Order.Total Amount'), key: 'Total', dataIndex: 'Total' },
+    { title: t('supplier.Order.Order Type'), key: 'Type', dataIndex: 'Type' },
+  ];
+  const columnInventoryProduct: IExcelColumn[] = [
+    { title: t('supplier.Order.STT'), key: 'stt', dataIndex: 'STT' },
+    { title: t('product.Code'), key: 'productCode', dataIndex: 'productCode' },
+    { title: t('product.Name'), key: 'productName', dataIndex: 'productName' },
+    { title: t('product.Storecode'), key: 'barcode', dataIndex: 'barcode' },
+    { title: t('supplier.Order.Revenue Before Tax'), key: 'subTotal', dataIndex: 'subTotal' },
+    { title: t('supplier.Order.After Tax'), key: 'total', dataIndex: 'total' },
+    { title: t('product.status'), key: 'status', dataIndex: 'status' },
+  ];
+  const columnDiscount: IExcelColumn[] = [
+    { title: t('supplier.Order.STT'), key: 'stt', dataIndex: 'STT' },
+    { title: t('supplier.Order.Time'), key: 'date', dataIndex: 'date' },
+    { title: t('supplier.Order.Discount'), key: 'commision', dataIndex: 'commision' },
+    { title: t('supplier.Order.Paid'), key: 'paid', dataIndex: 'paid' },
+    { title: t('supplier.Order.Unpaid'), key: 'unPaid', dataIndex: 'unPaid' },
+    { title: t('product.status'), key: 'status', dataIndex: 'status' },
   ];
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
@@ -152,16 +198,14 @@ const Page = () => {
   };
   let i = 1;
 
-  console.log(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom);
-
   return (
     <div className={'w-full'}>
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey="1"
-            // defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
-            // onChange={(key) => sessionStorage.setItem('activeTab', key)}
+            // defaultActiveKey="1"
+            defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
+            onChange={(key) => sessionStorage.setItem('activeTab', key)}
             type="card"
             size="large"
             onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)}
@@ -384,7 +428,7 @@ const Page = () => {
                       },
                       {
                         title: `product.Category`,
-                        name: 'address',
+                        name: 'category',
                         tableItem: {
                           width: 205,
                           render: (value: any, item: any) =>
@@ -393,7 +437,7 @@ const Page = () => {
                       },
                       {
                         title: `product.Price`,
-                        name: 'contract',
+                        name: 'price',
                         tableItem: {
                           width: 280,
                           render: (value: any, item: any) => item?.productPrice[0]?.price.toLocaleString(),
@@ -553,7 +597,31 @@ const Page = () => {
                               }
                               text={t('titles.Export Excel file')}
                               disabled={productFacade.result?.data?.length === 0 ? true : false}
-                              onClick={() => navigate(`/${lang}${routerLinks('Supplier/Exce')}`)}
+                              onClick={() => {
+                                const dataProduct = productFacade?.result?.data?.map((item) => {
+                                  return {
+                                    code: item.code,
+                                    name: item.name,
+                                    barcode: item.barcode,
+                                    category: item.category?.child?.name || item.category?.child?.child?.name,
+                                    basicUnit: item.basicUnit,
+                                    price: item.productPrice?.[0]?.price.toLocaleString(),
+                                    approveStatus:
+                                      item.approveStatus === 'APPROVED'
+                                        ? t('supplier.Sup-Status.Selling')
+                                        : t('supplier.Sup-Status.Discontinued'),
+                                    photos: item.photos?.[0]?.url,
+                                  };
+                                });
+                                const excel = new Excel();
+                                excel
+                                  .addSheet('test')
+                                  .addColumns(columnproduct)
+                                  .addDataSource(dataProduct ?? [], {
+                                    str2Percent: true,
+                                  })
+                                  .saveAs('Danh sách hàng hóa.xlsx');
+                              }}
                             />
                           }
                         </div>
@@ -873,9 +941,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -907,8 +975,6 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    console.log('From', form.getFieldValue('dateFrom'));
-
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -917,9 +983,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -934,133 +1000,6 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
-                          {/* <Form
-                            values={{
-                              dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
-                              dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
-                              type: getFilter(inventoryOrders.queryParams, 'type'),
-                              Store: getFilter(inventoryOrders.queryParams, 'idStore'),
-                            }}
-                            className="intro-x rounded-lg w-full flex ml-2 mb-2 form-store"
-                            columns={[
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 6,
-                                  render: () => (
-                                    <div className="flex h-10 items-center w-auto">
-                                      <p>{t('store.Since')}</p>
-                                      <div className="pl-2 pt-2">
-                                        <Form
-                                          values={{
-                                            dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
-                                          }}
-                                          className="pl-2 pt-2 form-supplier-date"
-                                          columns={[
-                                            {
-                                              title: '',
-                                              name: 'dateFrom',
-                                              formItem: {
-                                                type: 'date',
-                                                onChange(value, form) {
-                                                  dataTableRefRevenue?.current?.onChange({
-                                                    page: 1,
-                                                    perPage: 10,
-                                                    filter: {
-                                                      idSupplier: id,
-                                                      filterDate: {
-                                                        dateFrom: value
-                                                          ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
-                                                          : '',
-                                                        dateTo: form.getFieldValue('dateTo')
-                                                          ? form
-                                                              .getFieldValue('dateTo')
-                                                              .format('MM/DD/YYYY 23:59:59')
-                                                              .replace(/-/g, '/')
-                                                          : '',
-                                                      },
-                                                      idStore: form.getFieldValue('Store')
-                                                        ? form.getFieldValue('Store')
-                                                        : '',
-                                                      type: form.getFieldValue('type')
-                                                        ? form.getFieldValue('type')
-                                                        : '',
-                                                    },
-                                                    fullTextSearch: '',
-                                                  });
-                                                },
-                                              },
-                                            },
-                                          ]}
-                                        />
-                                      </div>
-                                    </div>
-                                  ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 6,
-                                  render: () => (
-                                    <div className="flex h-10 items-center w-auto mt-2 sm:mt-0">
-                                      <p>{t('store.To date')}</p>
-                                      <div>
-                                        <Form
-                                          values={{
-                                            dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
-                                          }}
-                                          className="pl-2 pt-4 form-supplier-date"
-                                          columns={[
-                                            {
-                                              title: '',
-                                              name: 'dateTo',
-                                              formItem: {
-                                                type: 'date',
-                                                onChange(value, form) {
-                                                  console.log('From', form.getFieldValue('dateFrom'));
-                                                  dataTableRefRevenue?.current?.onChange({
-                                                    page: 1,
-                                                    perPage: 10,
-                                                    filter: {
-                                                      idSupplier: id,
-                                                      filterDate: {
-                                                        dateFrom: form.getFieldValue('dateFrom')
-                                                          ? form
-                                                              .getFieldValue('dateFrom')
-                                                              .format('MM/DD/YYYY 00:00:00')
-                                                              .replace(/-/g, '/')
-                                                          : '',
-                                                        dateTo: value
-                                                          ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
-                                                          : '',
-                                                      },
-                                                      idStore: form.getFieldValue('Store')
-                                                        ? form.getFieldValue('Store')
-                                                        : '',
-                                                      type: form.getFieldValue('type')
-                                                        ? form.getFieldValue('type')
-                                                        : '',
-                                                    },
-                                                    fullTextSearch: '',
-                                                  });
-                                                },
-                                              },
-                                            },
-                                          ]}
-                                        />
-                                      </div>
-                                    </div>
-                                  ),
-                                },
-                              },
-                            ]}
-                            disableSubmit={isLoading}
-                          /> */}
                         </div>
                       }
                       searchPlaceholder={t('placeholder.Search by order number')}
@@ -1153,6 +1092,16 @@ const Page = () => {
                           },
                         },
                       ]}
+                      // row={[
+                      //   {
+                      //     title: `supplier.Order.STT`,
+                      //     name: 'id',
+                      //     tableItem: {
+                      //       width: 70,
+                      //       render: () => <div className="bg-black h-[1000px] w-[1000px]"></div>,
+                      //     },
+                      //   },
+                      // ]}
                       subHeader={() => (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
                           {subHeader.map((e) => (
@@ -1171,7 +1120,37 @@ const Page = () => {
                         className={
                           'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
                         }
-                        onClick={() => null}
+                        onClick={() => {
+                          const inventory = inventoryOrders?.result?.data?.map((item) => {
+                            return {
+                              STT: i++,
+                              code: item.invoiceCode,
+                              name: item.storeName,
+                              pickUpDate: item.pickUpDate
+                                ? dayjs(item.pickUpDate).format(formatDate).replace(/-/g, '/')
+                                : '',
+                              completedDate: item.completedDate
+                                ? dayjs(item.completedDate).format(formatDate).replace(/-/g, '/')
+                                : '',
+                              BeforeTax: item.subTotal?.toLocaleString(),
+                              AfterTax: item.total?.toLocaleString(),
+                              voucherAmount: item.voucherAmount,
+                              Total: item.total?.toLocaleString(),
+                              Type:
+                                item.billType === 'RECIEVED'
+                                  ? t('supplier.Sup-Status.Sell goods')
+                                  : t('supplier.Sup-Status.Return goods'),
+                            };
+                          });
+                          const excel = new Excel();
+                          excel
+                            .addSheet('test')
+                            .addColumns(columnrevenue)
+                            .addDataSource(inventory ?? [], {
+                              str2Percent: true,
+                            })
+                            .saveAs(t('supplier.Supplier revenue Order'));
+                        }}
                       />
                     </div>
                   </div>
@@ -1311,9 +1290,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: '',
@@ -1363,9 +1342,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1379,152 +1358,6 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
-                          {/* <Form
-                            values={{
-                              categoryId1: getFilter(inventoryProduct.queryParams, 'categoryId1'),
-                              categoryId2: getFilter(inventoryProduct.queryParams, 'categoryId2'),
-                              categoryId3: getFilter(inventoryProduct.queryParams, 'categoryId3'),
-                              dateFrom: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateFrom,
-                              dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
-                              status: getFilter(inventoryProduct.queryParams, 'status'),
-                            }}
-                            className="intro-x w-full sm:flex form-store items-center mb-4 pl-2"
-                            columns={[
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 3,
-                                  render: () => (
-                                    <div className="flex h-10 items-center w-auto">
-                                      <p>{t('store.Since')}</p>
-                                      <div className="pl-2 pt-2">
-                                        <Form
-                                          values={{
-                                            dateFrom: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateFrom,
-                                          }}
-                                          className="pl-2 pt-2 form-supplier-date"
-                                          columns={[
-                                            {
-                                              title: '',
-                                              name: 'dateFrom',
-                                              formItem: {
-                                                type: 'date',
-                                                onChange(value, form) {
-                                                  dataTableRefListProduct?.current?.onChange({
-                                                    page: 1,
-                                                    perPage: 10,
-                                                    filter: {
-                                                      idSupplier: id,
-                                                      categoryId: '',
-                                                      categoryId1: form.getFieldValue('categoryId1')
-                                                        ? form.getFieldValue('categoryId1')
-                                                        : '',
-                                                      categoryId2: form.getFieldValue('categoryId2')
-                                                        ? form.getFieldValue('categoryId2')
-                                                        : '',
-                                                      categoryId3: form.getFieldValue('categoryId3')
-                                                        ? form.getFieldValue('categoryId3')
-                                                        : '',
-                                                      status: form.getFieldValue('status')
-                                                        ? form.getFieldValue('status')
-                                                        : '',
-                                                      filterDate: {
-                                                        dateFrom: value
-                                                          ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
-                                                          : '',
-                                                        dateTo: form.getFieldValue('dateTo')
-                                                          ? form
-                                                              .getFieldValue('dateTo')
-                                                              .format('MM/DD/YYYY 23:59:59')
-                                                              .replace(/-/g, '/')
-                                                          : '',
-                                                      },
-                                                      idStore: '',
-                                                    },
-                                                    fullTextSearch: '',
-                                                  });
-                                                },
-                                              },
-                                            },
-                                          ]}
-                                        />
-                                      </div>
-                                    </div>
-                                  ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 3,
-                                  render: () => (
-                                    <div className="flex h-10 items-center w-auto mt-2 sm:mt-0">
-                                      <p>{t('store.To date')}</p>
-                                      <div>
-                                        <Form
-                                          values={{
-                                            dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo
-                                              ? getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo
-                                              : '',
-                                          }}
-                                          className="pl-2 pt-4 form-supplier-date"
-                                          columns={[
-                                            {
-                                              title: '',
-                                              name: 'dateTo',
-                                              formItem: {
-                                                type: 'date',
-                                                onChange(value, form) {
-                                                  dataTableRefListProduct?.current?.onChange({
-                                                    page: 1,
-                                                    perPage: 10,
-                                                    filter: {
-                                                      idSupplier: id,
-                                                      categoryId: '',
-                                                      categoryId1: form.getFieldValue('categoryId1')
-                                                        ? form.getFieldValue('categoryId1')
-                                                        : '',
-                                                      categoryId2: form.getFieldValue('categoryId2')
-                                                        ? form.getFieldValue('categoryId2')
-                                                        : '',
-                                                      categoryId3: form.getFieldValue('categoryId3')
-                                                        ? form.getFieldValue('categoryId3')
-                                                        : '',
-                                                      status: form.getFieldValue('status')
-                                                        ? form.getFieldValue('status')
-                                                        : '',
-                                                      filterDate: {
-                                                        dateFrom: form.getFieldValue('dateFrom')
-                                                          ? form
-                                                              .getFieldValue('dateFrom')
-                                                              .format('MM/DD/YYYY 00:00:00')
-                                                              .replace(/-/g, '/')
-                                                          : '',
-                                                        dateTo: value
-                                                          ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
-                                                          : '',
-                                                      },
-                                                      idStore: '',
-                                                    },
-                                                    fullTextSearch: '',
-                                                  });
-                                                },
-                                              },
-                                            },
-                                          ]}
-                                        />
-                                      </div>
-                                    </div>
-                                  ),
-                                },
-                              },
-                            ]}
-                            disableSubmit={isLoading}
-                          /> */}
                         </div>
                         <Form
                           className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
@@ -1743,12 +1576,36 @@ const Page = () => {
                   />
                   <div className="flex sm:justify-end justify-center items-center p-5">
                     <Button
-                      disabled={inventoryOrders.result?.data?.length === 0 ? true : false}
+                      disabled={inventoryProduct.result?.data?.length === 0 ? true : false}
                       text={t('titles.Export report')}
                       className={
                         'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
                       }
-                      onClick={() => null}
+                      onClick={() => {
+                        let tt = 1;
+                        const product = inventoryProduct?.result?.data?.map((item) => {
+                          return {
+                            STT: tt++,
+                            productName: item.productName,
+                            barcode: item.barcode,
+                            subTotal: item.subTotal?.toLocaleString(),
+                            total: item.total?.toLocaleString(),
+                            productCode: item.productCode,
+                            status:
+                              item.status === 'APPROVED'
+                                ? t('supplier.Sup-Status.Selling')
+                                : 'supplier.Sup-Status.Discontinued',
+                          };
+                        });
+                        const excel = new Excel();
+                        excel
+                          .addSheet('test')
+                          .addColumns(columnInventoryProduct)
+                          .addDataSource(product ?? [], {
+                            str2Percent: true,
+                          })
+                          .saveAs(t('supplier.Supplier revenue product'));
+                      }}
                     />
                   </div>
                 </div>
@@ -1781,6 +1638,9 @@ const Page = () => {
                         status: '',
                       },
                     }}
+                    onRow={(data: any) => ({
+                      onDoubleClick: () => navigate(`/${lang}${routerLinks('Discount-Detail')}/${data.id}`),
+                    })}
                     xScroll="1370px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
@@ -1820,8 +1680,7 @@ const Page = () => {
                         name: 'paid',
                         tableItem: {
                           width: 245,
-                          render: (value: any, item: any) =>
-                            item?.status === 'NOT_PAID' ? 0 : item?.noPay - item?.paid,
+                          render: (value: any, item: any) => (item?.paid ? item?.paid.toLocaleString() : '0'),
                         },
                       },
                       {
@@ -1857,7 +1716,6 @@ const Page = () => {
                         <div className="flex my-5 flex-col lg:flex-row">
                           <Form
                             values={{
-                              // dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateFrom).format('MM/YYYY').replace(/-/g, '/')
                               dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
                               dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                               status: getFilter(discountFacade.queryParams, 'status'),
@@ -1871,7 +1729,7 @@ const Page = () => {
                                   tabIndex: 3,
                                   col: 2,
                                   render: () => (
-                                    <div className="flex h-10 text-xs whitespace-nowrap items-center">
+                                    <div className="flex h-10 text-xs items-center">{/* whitespace-nowrap */}
                                       <p>{t('Kỳ hạn từ')}</p>
                                     </div>
                                   ),
@@ -1894,9 +1752,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -1927,8 +1785,6 @@ const Page = () => {
                                   col: 4,
                                   type: 'month_year',
                                   onChange(value, form) {
-                                    console.log('From', form.getFieldValue('dateFrom'));
-
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1937,9 +1793,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1953,128 +1809,6 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
-                          {/* <Form
-                            values={{
-                              // dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateFrom).format('MM/YYYY').replace(/-/g, '/')
-                              dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
-                              dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
-                              status: getFilter(discountFacade.queryParams, 'status'),
-                            }}
-                            className="intro-x rounded-lg w-full flex ml-2 mb-2 form-store"
-                            columns={[
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 6,
-                                  render: () => (
-                                    <div className="flex h-10 items-center w-auto">
-                                      <p> {t('Kỳ hạn từ')}</p>
-                                      <div className="pl-2 pt-2">
-                                        <Form
-                                          className="pl-2 pt-2 form-supplier-date"
-                                          values={{
-                                            dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
-                                          }}
-                                          columns={[
-                                            {
-                                              title: '',
-                                              name: 'dateFrom',
-                                              formItem: {
-                                                type: 'date',
-                                                onChange(value, form) {
-                                                  dataTableRefDiscount?.current?.onChange({
-                                                    page: 1,
-                                                    perPage: 10,
-                                                    filter: {
-                                                      id: id,
-                                                      filter: {
-                                                        dateFrom: value
-                                                          ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
-                                                          : '',
-                                                        dateTo: form.getFieldValue('dateTo')
-                                                          ? form
-                                                              .getFieldValue('dateTo')
-                                                              .format('MM/DD/YYYY 23:59:59')
-                                                              .replace(/-/g, '/')
-                                                          : '',
-                                                      },
-                                                      status: form.getFieldValue('status')
-                                                        ? form.getFieldValue('status')
-                                                        : '',
-                                                    },
-                                                    fullTextSearch: '',
-                                                  });
-                                                },
-                                              },
-                                            },
-                                          ]}
-                                        />
-                                      </div>
-                                    </div>
-                                  ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 6,
-                                  render: () => (
-                                    <div className="flex h-10 items-center w-auto mt-2 sm:mt-0 pl-12">
-                                      <p>{t('đến')}</p>
-                                      <div>
-                                        <Form
-                                          className="pl-2 pt-4 form-supplier-date"
-                                          values={{
-                                            dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo
-                                              ? getFilter(discountFacade.queryParams, 'filter')?.dateTo
-                                              : '',
-                                          }}
-                                          columns={[
-                                            {
-                                              title: '',
-                                              name: 'dateTo',
-                                              formItem: {
-                                                type: 'date',
-                                                onChange(value, form) {
-                                                  dataTableRefDiscount?.current?.onChange({
-                                                    page: 1,
-                                                    perPage: 10,
-                                                    filter: {
-                                                      id: id,
-                                                      filter: {
-                                                        dateFrom: form.getFieldValue('dateFrom')
-                                                          ? form
-                                                              .getFieldValue('dateFrom')
-                                                              .format('MM/DD/YYYY 00:00:00')
-                                                              .replace(/-/g, '/')
-                                                          : '',
-                                                        dateTo: value
-                                                          ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/')
-                                                          : '',
-                                                      },
-                                                      status: form.getFieldValue('status')
-                                                        ? form.getFieldValue('status')
-                                                        : '',
-                                                    },
-                                                    fullTextSearch: '',
-                                                  });
-                                                },
-                                              },
-                                            },
-                                          ]}
-                                        />
-                                      </div>
-                                    </div>
-                                  ),
-                                },
-                              },
-                            ]}
-                            disableSubmit={isLoading}
-                          /> */}
                           <div className="sm:flex lg:justify-end w-full">
                             <Form
                               values={{
@@ -2125,12 +1859,37 @@ const Page = () => {
                   />
                   <div className="flex sm:justify-end justify-center items-center p-5">
                     <Button
-                      disabled={inventoryOrders.result?.data?.length === 0 ? true : false}
+                      disabled={discountFacade.result?.data?.length === 0 ? true : false}
                       text={t('titles.Export report')}
                       className={
                         'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
                       }
-                      onClick={() => null}
+                      onClick={() => {
+                        let tt = 1;
+                        const discount = discountFacade?.result?.data?.map((item) => {
+                          return {
+                            STT: tt++,
+                            commision: item.commision ? item.commision?.toLocaleString() : '0',
+                            paid: item.paid ? item.paid?.toLocaleString() : '0',
+                            unPaid: item.noPay?.toLocaleString(),
+                            date:
+                              dayjs(item?.datefrom, 'YYYY-MM-DDTHH:mm:ss').format('MM/YYYY').replace(/-/g, '/') +
+                              '-' +
+                              dayjs(item?.dateto, 'YYYY-MM-DDTHH:mm:ss').format('MM/YYYY').replace(/-/g, '/'),
+                            status: item.status === 'NOT_PAID' ? t('supplier.Order.Paid') : t('supplier.Order.Unpaid'),
+                          };
+                        });
+                        console.log(discountFacade?.result?.data);
+
+                        const excel = new Excel();
+                        excel
+                          .addSheet('test')
+                          .addColumns(columnDiscount)
+                          .addDataSource(discount ?? [], {
+                            str2Percent: true,
+                          })
+                          .saveAs('Chiết khấu nhà cung cấp.xlsx');
+                      }}
                     />
                   </div>
                 </div>
@@ -2145,14 +1904,14 @@ const Page = () => {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
-              <div className={'w-full mx-auto bg-white rounded-xl'}>
-                <div className="flex items-left font-bold pl-5 pt-5">
-                  <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Chi tiết hợp đồng</p>
+              <div className={'w-full mx-auto bg-white rounded-xl pt-6'}>
+                <div className="flex items-left font-bold px-6">
+                  <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">{t('supplier.Contract.Contract details')}</p>
                 </div>
-                <div className="form-supplied-tab6 px-3 items-center">
+                <div className="form-supplied-tab6 items-center">
                   <Form
                     values={{ ...data1 }}
-                    className="intro-x border-b"
+                    className="intro-x border-b form-col-tab6"
                     columns={[
                       {
                         title: '',
@@ -2161,8 +1920,8 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900 ">Mã hợp đồng:</div>
+                              <div className="flex items-center h-full text-base lg:mt-0">
+                                <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Contract Code')}:</div>
                                 <div className="ml-4">{values.code}</div>
                               </div>
                             );
@@ -2176,8 +1935,8 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900 ">Ngày tạo:</div>
+                              <div className="flex items-center h-full text-base lg:mt-0 mt-4">
+                                <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Date created')}:</div>
                                 <div className="ml-4">
                                   {dayjs(values.createdAt).format('DD/MM/YYYY').replace(/-/g, '/')} -{' '}
                                   {dayjs(values.createdAt).format('HH:mm')}{' '}
@@ -2194,23 +1953,23 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full w-full sm:mt-0 mt-4">
+                              <div className="flex items-center h-full w-full lg:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900 text-base whitespace-nowrap">
-                                  Trạng thái:
+                                  {t('supplier.Status')}:
                                 </div>
 
                                 {values?.status == 'SIGNED_CONTRACT' ? (
                                   <div className="w-60 py-2.5 px-4 bg-gray-100 rounded-2xl border-gray-200 ml-4 flex justify-between cursor-not-allowed">
-                                    <p className="text-gray-400">Đã ký</p>
+                                    <p className="text-gray-400"> {t('supplier.Sup-Status.Signed')}</p>
                                     <DownArrow className="w-4 h-5 text-gray-400 pt-1" />
                                   </div>
                                 ) : (
                                   <div className="w-60 py-2.5 px-4 rounded-2xl border-gray-200 ml-4 flex justify-between">
                                     <Select value={values?.status} className="py-2" style={{ width: '100%' }}>
                                       <Select.Option value="SIGNED_CONTRACT">
-                                        <div onClick={() => putSub({ id: values?.id })}>Đã ký</div>
+                                        <div onClick={() => putSub({ id: values?.id })}>{t('supplier.Sup-Status.Signed')}</div>
                                       </Select.Option>
-                                      <Select.Option value="PENDING_SIGN_CONTRACT">Chưa ký</Select.Option>
+                                      <Select.Option value="PENDING_SIGN_CONTRACT">{t('supplier.Sup-Status.Waiting')}</Select.Option>
                                     </Select>
                                   </div>
                                 )}
@@ -2223,17 +1982,58 @@ const Page = () => {
                         title: '',
                         name: 'code',
                         formItem: {
-                          col: 12,
+                          col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-10 text-base sm:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900">Thông tin hợp đồng:</div>
-                                <a onClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier')}`)} className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500">
-                                  Nhấn vào đây
+                              <div className="flex items-center h-10 text-base lg:mt-0 mt-4">
+                                <div className="font-semibold text-teal-900">{t('supplier.Contract.Contract information')}:</div>
+                                <a
+                                  onClick={(activeKey: any) =>
+                                    navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
+                                  }
+                                  className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
+                                >
+                                  {t('supplier.Contract.Click here')}
                                 </a>
-                                <div className="font-semibold text-teal-900 ml-4">Tệp đã ký:</div>
-                                <a onClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier')}`)} className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500">
-                                  Nhấn vào đây
+                                {/* <div className="font-semibold text-teal-900 ml-4">{t('supplier.Contract.Signed file')}:</div>
+                                <a
+                                  onClick={(activeKey: any) =>
+                                    navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
+                                  }
+                                  className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
+                                >
+                                  {t('supplier.Contract.Click here')}
+                                </a> */}
+                              </div>
+                            );
+                          },
+                        },
+                      },
+                      {
+                        title: '',
+                        name: 'code',
+                        formItem: {
+                          col: 4,
+                          render: (form, values) => {
+                            return (
+                              <div className="flex items-center h-10 text-base lg:mt-0 mt-4">
+                                {/* <div className="font-semibold text-teal-900">{t('supplier.Contract.Contract information')}:</div>
+                                <a
+                                  onClick={(activeKey: any) =>
+                                    navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
+                                  }
+                                  className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
+                                >
+                                  {t('supplier.Contract.Click here')}
+                                </a> */}
+                                <div className="font-semibold text-teal-900">{t('supplier.Contract.Signed file')}:</div>
+                                <a
+                                  onClick={(activeKey: any) =>
+                                    navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
+                                  }
+                                  className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
+                                >
+                                  {t('supplier.Contract.Click here')}
                                 </a>
                               </div>
                             );
@@ -2242,8 +2042,8 @@ const Page = () => {
                       },
                     ]}
                   />
-                  <div className="flex items-left font-bold pl-3 pt-5">
-                    <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Thông tin nhà cung cấp</p>
+                  <div className="flex items-left font-bold px-6 pt-1">
+                    <p className="text-base text-teal-900 mt-4">{t('supplier.Contract.Supplier Information')}</p>
                   </div>
                   <Form
                     values={{ ...data1 }}
@@ -2257,7 +2057,7 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base">
-                                <div className="font-semibold text-teal-900 ">Nhà cung cấp: </div>
+                                <div className="font-semibold text-teal-900 ">{t('store.Inventory management.Supplier')}: </div>
                                 <div className="ml-4">{values?.subOrg?.name}</div>
                               </div>
                             );
@@ -2272,7 +2072,7 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base sm:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900 ">Tên chủ quản lý: </div>
+                                <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Manager name')}: </div>
                                 <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.name}</div>
                               </div>
                             );
@@ -2287,7 +2087,7 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base mt-4">
-                                <div className="font-semibold text-teal-900 ">Số điện thoại: </div>
+                                <div className="font-semibold text-teal-900 ">{t('supplier.Phone Number')}: </div>
                                 <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.phoneNumber}</div>
                               </div>
                             );
@@ -2302,7 +2102,7 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base mt-4">
-                                <div className="font-semibold text-teal-900 w-16 h-full">Địa chỉ:</div>
+                                <div className="font-semibold text-teal-900 w-16 h-full">{t('supplier.Address')}:</div>
                                 <div className="ml-4 h-full">
                                   {values?.subOrg?.address?.street +
                                     ', ' +
@@ -2319,32 +2119,32 @@ const Page = () => {
                       },
                     ]}
                   />
-                  <p className="text-base text-teal-900 font-bold pl-3 pt-5">Tải lên hợp đồng đăng ký:</p>
-                  <div className="text-center border-2 p-[110px] border-dashed rounded-md m-5">
+                  <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">{t('supplier.Contract.Upload contract')}:</p>
+                  <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
                     <Upload
-                      className="!border-none"
+                      style={{ border: 'none' }}
                       listType="picture"
                       type="drag"
                       accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                       multiple
                     >
-                      <div>
-                        <UploadFile className="w-28 h-28 mx-auto mb-5" />
-                        <p>
-                          Kéo thả tệp mà bạn muốn tải lên <br />
-                          hoặc{' '}
+                      <div className="bg-white -my-4">
+                        <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
+                        <p className="mb-4">
+                          {t('supplier.Contract.Upload file')} <br />
+                          {t('supplier.Contract.or')}{' '}
                         </p>
                         <Button
                           className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
-                          text={'Chọn tệp'}
+                          text={t('supplier.Contract.Select file')}
                         />
                       </div>
                     </Upload>
                   </div>
-                  <p className="text-base text-teal-900 font-bold pl-3">Tệp trên hệ thống:</p>
-                  <div className="text-base pl-3">Chưa có hình hợp đồng trên hệ thống.</div>
+                  <p className="text-base text-teal-900 font-bold px-6 py-4">{t('supplier.Contract.File system')}:</p>
+                  <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
 
-                  <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5">
+                  <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 mt-5">
                     <Button
                       text={t('components.form.modal.cancel')}
                       className={'z-10 !block out-line border-teal-800 !w-40 sm:!w-28 !font-normal'}

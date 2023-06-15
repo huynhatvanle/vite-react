@@ -60,11 +60,20 @@ const Page = () => {
           title: 'store.Address',
           name: 'address',
           tableItem: {
-            render: (value: any, item: any) => item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name,
+            render: (value: any, item: any) => {
+              const address = item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name
+              return (
+                <div className='flex'>
+                  {address}
+                  {address.length >= 60 ?
+                  <Tooltip title={address} className='text-black' >
+                    <Infor className='w-4 h-4 mt-1 ml-1'/>
+                  </Tooltip>
+                  : null
+                  }
+                </div>
+            )}
           },
-          //   <Tooltip placement="bottom" title={"Hii, I am sample tooltip."}>
-          //   <Button>Over me to see tooltip information!</Button>
-          // </Tooltip>
         },
         {
           title: 'store.Type',
