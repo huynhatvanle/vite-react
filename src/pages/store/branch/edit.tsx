@@ -306,43 +306,50 @@ const Page = () => {
           </>
         )}
         extendButton={(form) => (
-          storeFace?.data?.isActive ? (
+          <div className='flex gap-2 !w-full justify-between sm:flex-row  flex-col text-center items-center'>
             <Button
-              text={t('components.button.CancelAction')}
-              className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5'}
-              onClick={() => Message.confirm({
-                text: 'Bạn có chắc muốn kích hoạt chi nhánh này ?',
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '',
-                showCloseButton: true,
-                showCancelButton: true,
-                showConfirmButton: true,
-                onConfirm: () => {
-                  (putbranchfalse({ id: data?.id }))
-                },
-              })}
+              text={'Trở về'}
+              className={'sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
+              onClick={handleBack}
             />
-          )
-            :
-            (<Button
-              text={t('components.button.Action')}
-              className={'md:min-w-[8rem] justify-center !bg-yellow-500 max-sm:w-3/5'}
-              onClick={() => Message.confirm({
-                text: 'Bạn có chắc hủy kích hoạt chi nhánh này ?',
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '',
-                showCloseButton: true,
-                showCancelButton: true,
-                showConfirmButton: true,
-                onConfirm: () => {
-                  (putbranchtrue({ id: data?.id }))
-                },
-              })}
-            />)
+            {storeFace?.data?.isActive ? (
+              <Button
+                text={t('components.button.CancelAction')}
+                className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5'}
+                onClick={() => Message.confirm({
+                  text: 'Bạn có chắc muốn kích hoạt chi nhánh này ?',
+                  confirmButtonColor: '#d33',
+                  cancelButtonColor: '',
+                  showCloseButton: true,
+                  showCancelButton: true,
+                  showConfirmButton: true,
+                  onConfirm: () => {
+                    (putfalse({ id: data?.id }))
+                  },
+                })}
+              />
+            ) : (
+              <Button
+                text={t('components.button.Action')}
+                className={'md:min-w-[8rem] justify-center !bg-yellow-500 max-sm:w-3/5 '}//ml-[60rem]
+                onClick={() => Message.confirm({
+                  text: 'Bạn có chắc hủy kích hoạt chi nhánh này ?',
+                  confirmButtonColor: '#d33',
+                  cancelButtonColor: '',
+                  showCloseButton: true,
+                  showCancelButton: true,
+                  showConfirmButton: true,
+                  onConfirm: () => {
+                    (puttrue({ id: data?.id }))
+                  },
+                })}
+              />
+            )}
+          </div>
         )}
         handSubmit={handleSubmit}
         disableSubmit={isLoading}
-        handCancel={handleBack}
+      // handCancel={handleBack}
       />
     </Fragment>
   );
