@@ -346,20 +346,20 @@ export const DataTable = forwardRef(
 
     const handleTableChange = (
       pagination?: { page?: number; perPage?: number },
-      filters = {},
+      filters = params.filter,
       sorts?: SorterResult<any>,
       tempFullTextSearch?: string,
     ) => {
       let tempPageIndex = pagination?.page || params.page;
       const tempPageSize = pagination?.perPage || params.perPage;
-
+  
       const tempSort =
         sorts && sorts?.field && sorts?.order
           ? {
             [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
           }
           : sorts?.field
-            ? null
+            ? ''
             : sorts;
 
       if (tempFullTextSearch !== params.fullTextSearch) tempPageIndex = 1;
@@ -368,7 +368,7 @@ export const DataTable = forwardRef(
         page: tempPageIndex,
         perPage: tempPageSize,
         sorts: JSON.stringify(tempSort),
-        // filter: JSON.stringify(cleanObjectKeyNull(filters)),
+        filter: JSON.stringify(cleanObjectKeyNull({...params.filter as Object, ... filters as Object})),
         fullTextSearch: tempFullTextSearch,
       });
       onChange && onChange(tempParams);

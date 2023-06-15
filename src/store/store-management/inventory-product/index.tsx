@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Product } from '@store/product';
-import { API, routerLinks } from '@utils';
+import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { CommonEntity, Responses } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
@@ -10,15 +10,21 @@ const action = {
   ...new Action<InventoryProduct>(name),
   getInventoryProduct: createAsyncThunk(
     name + '/get',
-    async ({ page, perPage, filter }: { page: number, perPage: number, filter: { fullTextSearch: string, idStore?: string; supplierId: string } }) => {
+    async ({ page, perPage, filter, sorts }: { page: number, perPage: number, filter: { fullTextSearch: string, idStore?: string; supplierId: string }, sorts: {} }) => {
       const filterInventoryProduct = JSON.parse(filter.toString() || '{}')
-      let data = await API.get(routerLinks(name, 'api'), {
+      const sortInventoryProduct = sorts ? JSON.parse(sorts.toString() || '{}') : '';
+      let data = await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({
         page,
         perPage,
         idStore: filterInventoryProduct.idStore,
-        supplierId: filterInventoryProduct.supplierId ? filterInventoryProduct.supplierId : '',
-        fullTextSearch: filterInventoryProduct.fullTextSearch ? filterInventoryProduct.fullTextSearch : ''
-      });
+        supplierId: filterInventoryProduct.supplierId,
+        fullTextSearch: filterInventoryProduct.fullTextSearch,
+        productName: filterInventoryProduct.productName,
+        supplierBarcode: filterInventoryProduct.supplierBarcode,
+        storeBarcode: filterInventoryProduct.storeBarcode,
+        productCode: filterInventoryProduct.productCode,
+        sort: { productCode: sortInventoryProduct.productCode, productName: sortInventoryProduct.productName }
+      }));
 
       const inventory = Object.entries(data.data as Object)[0]?.[1]
       data.data = inventory
@@ -58,8 +64,9 @@ export const InventoryProductFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<InventoryProduct>),
     set: (values: State<InventoryProduct>) => dispatch(action.set(values)),
-    get: ({ page, perPage, filter }: { page: number, perPage: number, filter: { fullTextSearch: string, idStore?: string; supplierId: string } }) => {
-      return dispatch(action.getInventoryProduct({ page, perPage, filter }))
+    get: ({ page, perPage, filter, sorts }: { page: number, perPage: number, filter: { fullTextSearch: string, idStore?: string; supplierId: string }, sorts: {} }) => {
+      console.log(filter)
+      return dispatch(action.getInventoryProduct({ page, perPage, filter, sorts }))
     },
     put: (values: InventoryProduct) => dispatch(action.put(values)),
   };

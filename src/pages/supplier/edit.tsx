@@ -735,7 +735,7 @@ const Page = () => {
                       facade={inventoryOrders}
                       defaultRequest={{
                         page: 1,
-                        perPage: 10,
+                        perPage: 1000,
                         filter: {
                           idSupplier: id,
                           filterDate: {

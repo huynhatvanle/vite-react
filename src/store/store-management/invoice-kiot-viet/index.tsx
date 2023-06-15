@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { API, routerLinks } from '@utils';
+import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { CommonEntity, PaginationQuery, Responses } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
@@ -19,19 +19,19 @@ const action = {
       filter: { idStore?: string, supplierId?: string, status?: string, categoryId?: string, categoryId1?: string, categoryId2?: string, categoryId3?: string, dateFrom: string, dateTo: string }
     }) => {
       const filterInvoiceKiotViet = JSON.parse(filter.toString() || '{}')
-      let data = await API.get(routerLinks(name, 'api'), {
+      let data = await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({
         page,
         perPage,
-        fullTextSearch: fullTextSearch ? fullTextSearch : '',
+        fullTextSearch: fullTextSearch,
         idStore: filterInvoiceKiotViet.idStore,
-        status: filterInvoiceKiotViet.status ? filterInvoiceKiotViet.status : '',
-        supplierId: filterInvoiceKiotViet.supplierId ? filterInvoiceKiotViet.supplierId : '',
-        categoryId: filterInvoiceKiotViet.categoryId3 ? filterInvoiceKiotViet.categoryId3 : filterInvoiceKiotViet.categoryId2 ? filterInvoiceKiotViet.categoryId2 : filterInvoiceKiotViet.categoryId1 ? filterInvoiceKiotViet.categoryId1 : '',
-        categoryId1: filterInvoiceKiotViet.categoryId1 ? filterInvoiceKiotViet.categoryId1 : '',
-        categoryId2: filterInvoiceKiotViet.categoryId2 ? filterInvoiceKiotViet.categoryId2 : '',
-        categoryId3: filterInvoiceKiotViet.categoryId3 ? filterInvoiceKiotViet.categoryId3 : '',
+        status: filterInvoiceKiotViet.status,
+        supplierId: filterInvoiceKiotViet.supplierId,
+        categoryId: filterInvoiceKiotViet.categoryId3 ? filterInvoiceKiotViet.categoryId3 : filterInvoiceKiotViet.categoryId2 ? filterInvoiceKiotViet.categoryId2 : filterInvoiceKiotViet.categoryId1 ? filterInvoiceKiotViet.categoryId1 : null,
+        categoryId1: filterInvoiceKiotViet.categoryId1,
+        categoryId2: filterInvoiceKiotViet.categoryId2,
+        categoryId3: filterInvoiceKiotViet.categoryId3,
         filter: { dateFrom: filterInvoiceKiotViet.dateFrom ? filterInvoiceKiotViet.dateFrom : '', dateTo: filterInvoiceKiotViet.dateTo ? filterInvoiceKiotViet.dateTo : '' }
-      });
+      }));
       data.data = Object.entries(data.data as Object)[0]?.[1]
       return data;
     }

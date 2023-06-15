@@ -11,13 +11,17 @@ const action = {
     const data = await API.get<Category>(`${routerLinks(name, 'api')}/${id}`);
     return { data };
   }),
+  // get1: createAsyncThunk(
+  //   name + '/get',
+  //   async (params: PaginationQuery<Category>) => await API.get(routerLinks(name, 'api'), params),
+  // ),
   get2: createAsyncThunk(
     name + '/get2',
-    async (params: PaginationQuery<Category>) => await API.get(routerLinks(name, 'api'), params),
+    async (id: string) => await API.get(routerLinks(name, 'api'), { id }),
   ),
   get3: createAsyncThunk(
     name + '/get3',
-    async (params: PaginationQuery<Category>) => await API.get(routerLinks(name, 'api'), params),
+    async (id: string) => await API.get(routerLinks(name, 'api'), { id }),
   ),
 };
 
@@ -81,8 +85,8 @@ export const CategoryFacade = () => {
     ...(useTypedSelector((state) => state[action.name]) as State<Category>),
     set: (values: State<Category>) => dispatch(action.set(values)),
     get: (params: PaginationQuery<Category>) => dispatch(action.get(params)),
-    get2: (params: PaginationQuery<Category>) => dispatch(action.get2(params)),
-    get3: (params: PaginationQuery<Category>) => dispatch(action.get3(params)),
+    get2: ({ id }: { id: string }) => dispatch(action.get2(id)),
+    get3: ({ id }: { id: string }) => dispatch(action.get3(id)),
     getById: ({ fullTextSearch, id }: { fullTextSearch: string; id: string }) => dispatch(action.getByIdCategory(id)),
     post: (values: Category) => dispatch(action.post(values)),
     put: (values: Category) => dispatch(action.put(values)),

@@ -359,7 +359,9 @@
     "Category": "Danh mục",
     "SupplierName": "Nhà cung cấp",
     "Unit": "Đơn vị",
-    "Price": "Giá bán lẻ (VND)",
+    "PriceBalance": "Giá bán lẻ của NCC (VND)",
+    "PriceNonBalance": "Giá nhập (VND)",
+    "SellingPrice": "Giá bán lẻ của CH (VND)",
     "Status": "Tình trạng",
     "Barcode": "Mã vạch",
     "Revenue":"Doanh thu"

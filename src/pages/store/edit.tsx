@@ -39,6 +39,7 @@ const Page = () => {
   const invoiceKiotVietFacade = InvoiceKiotVietFacade();
   const invoiceRevenueFacade = InvoiceRevenueFacade()
   const { data, isLoading, queryParams, status } = storeFacade;
+  const categoryFacade = CategoryFacade()
 
   const isBack = useRef(true);
   const isReload = useRef(false);
@@ -58,8 +59,13 @@ const Page = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [isBalance, setIsBalance] = useState(true);
   const [isRevenueByOrder, setIsRevenueByOrder] = useState(true);
+  const [categoryId1, setCategoryId1] = useState('')
+  const [categoryId2, setCategoryId2] = useState('')
+  const [loadSuppllier, setLoadSupplier] = useState(false)
 
-
+  const category1 = categoryFacade.result?.data
+  const category2 = categoryFacade.result2?.data
+  const category3 = categoryFacade.result3?.data
   const listStatus = [
     {
       label: 'Bán hàng',
@@ -88,17 +94,76 @@ const Page = () => {
   useEffect(() => {
     if (id) {
       storeFacade.getById({ id })
-      // console.log(dayjs().subtract(1, 'month').format('DD/MM/YYYY 00:00:00').replace(/-/g, '/'))
     }
+    categoryFacade.get({})
     return () => {
       isReload.current && storeFacade.get(param);
     };
   }, [id]);
 
   useEffect(() => {
+    if (categoryId1) {
+      categoryFacade.get2({ id: categoryId1 })
+    }
+  }, [categoryId1]);
+
+  useEffect(() => {
+    if (categoryId2) {
+      categoryFacade.get3({ id: categoryId2 })
+    }
+  }, [categoryId2]);
+
+  useEffect(() => {
     if (status === 'put.fulfilled')
       navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
   }, [status]);
+
+  useEffect(() => {
+    // if (loadSuppllier) {
+      // connectSupplierFacade.get({
+      //   page: 1,
+      //   perPage: 10,
+      //   fullTextSearch: '',
+      //   filter: { idSuppiler: id },
+      // })
+      // subStoreFacade.get({
+      //   page: 1,
+      //   perPage: 10,
+      //   fullTextSearch: '',
+      //   filter: { storeId: id, supplierType: 'NON_BALANCE' },
+      // })
+      // dataTableRefInvoiceRevenue?.current?.onChange({
+      //   page: 1,
+      //   perPage: 10,
+      //   filter: {
+      //     idStore: id,
+      //     dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+      //     dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
+      //   },
+      // }),
+      //   dataTableRefInvoiceKiot?.current?.onChange({
+      //     page: 1,
+      //     perPage: 10,
+      //     filter: {
+      //       idStore: id,
+      //       dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+      //       dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
+      //     },
+      //   }),
+      // dataTableRefsubStore?.current?.onChange({
+      //   page: 1,
+      //   perPage: 10,
+      //   fullTextSearch: '',
+      //   filter: { storeId: id, supplierType: 'NON_BALANCE' },
+      // })
+      // dataTableRefSupplier?.current?.onChange({
+      //   page: 1,
+      //   perPage: 10,
+      //   fullTextSearch: '',
+      //   filter: { idSuppiler: id },
+      // })
+    // }
+  }, [productFacade.queryParams]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`);
 
@@ -125,9 +190,10 @@ const Page = () => {
     { title: 'Danh mục', key: 'category', dataIndex: 'category' },
     { title: 'Nhà cung cấp', key: 'supplierName', dataIndex: 'supplierName' },
     { title: 'Đơn vị', key: 'basicUnit', dataIndex: 'basicUnit' },
-    { title: 'Giá bán lẻ (VND)', key: 'productPrice', dataIndex: 'productPrice' },
+    { title: isBalance ? 'Giá bán lẻ của NCC (VND)' : 'Giá nhập (VND)', key: 'productPrice', dataIndex: 'productPrice' },
+    { title: 'Giá bán lẻ của CH (VND)', key: 'sellingPrice', dataIndex: 'sellingPrice' },
   ];
-
+  
   return (
     <div className="w-full">
       <Fragment>
@@ -142,6 +208,7 @@ const Page = () => {
                 perPage: 10,
                 fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
               }) : ''
+              activeKey === '4' ? setLoadSupplier(true) : setLoadSupplier(false)
               navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)
             }
             }
@@ -421,7 +488,9 @@ const Page = () => {
                             page: 1,
                             perPage: 10,
                             filter: { storeId: id, type: 'BALANCE' },
-                          })
+                          }),
+                          setCategoryId1(''),
+                          setCategoryId2('')
                         )
                         :
                         (
@@ -430,7 +499,9 @@ const Page = () => {
                             page: 1,
                             perPage: 10,
                             filter: { storeId: id, type: 'NON_BALANCE' },
-                          })
+                          }),
+                          setCategoryId1(''),
+                          setCategoryId2('')
                         )
                     },
                   }}
@@ -506,11 +577,19 @@ const Page = () => {
                     tableItem: {},
                   },
                   {
-                    title: 'product.Price',
+                    title: isBalance ? 'product.PriceBalance' : 'product.PriceNonBalance',
                     name: 'productPrice',
                     tableItem: {
                       render: (text, item) =>
                         parseInt(item.productPrice[0] ? item.productPrice[0]?.price : '0').toLocaleString(),
+                    },
+                  },
+                  {
+                    title: 'product.SellingPrice',
+                    name: 'sellingPrice',
+                    tableItem: {  
+                      render: (text, item) =>
+                      item.sellingPrice ? parseInt(item.sellingPrice).toLocaleString() : '',
                     },
                   },
                 ]}
@@ -537,15 +616,24 @@ const Page = () => {
                         text={t('titles.Export Excel file')}
                         disabled={productFacade.result?.data?.length === 0 ? true : false}
                         onClick={() => {
-                          console.log(productFacade?.result?.data)
                           const excel = new Excel();
                           excel
                             .addSheet("test")
                             .addColumns(columnproduct)
-                            .addDataSource(productFacade?.result?.data ?? [], {
+                            .addDataSource(productFacade?.result?.data?.map((item) => ({
+                              productPrice: item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()),
+                              basicUnit: item?.basicUnit,
+                              supplierName: item?.supplierName,
+                              category: item?.category?.child?.name,
+                              name: item?.name,
+                              barcode: item?.barcode,
+                              storeBarcode: item?.storeBarcode,
+                              code: item?.code,
+                              sellingPrice: item?.sellingPrice ? parseInt(item?.sellingPrice).toLocaleString(): ''
+                            })) ?? [], {
                               str2Percent: true
                             })
-                            .saveAs("Danh sách hàng hóa Balance.xlsx");
+                            .saveAs("Danh sách hàng hóa Balance.xlsx")
                         }}
                       />
                     }
@@ -560,6 +648,10 @@ const Page = () => {
                       categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                       categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
                       type: getFilter(productFacade.queryParams, 'type'),
+                      productCode: getFilter(productFacade.queryParams, 'code'),
+                      storeBarcode: getFilter(productFacade.queryParams, 'storeBarcode'),
+                      supplierBarcode: getFilter(productFacade.queryParams, 'barcode'),
+                      productName: getFilter(productFacade.queryParams, 'name'),
                     }}
                     columns={[
                       {
@@ -588,11 +680,14 @@ const Page = () => {
                               filter: {
                                 storeId: id,
                                 type: form.getFieldValue('type'),
-                                supplierId: value ? value : '',
-                                // categoryId: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '' ,
-                                categoryId1: form.getFieldValue('categoryId1') ? form.getFieldValue('categoryId1') : '',
-                                categoryId2: form.getFieldValue('categoryId2') ? form.getFieldValue('categoryId2') : '',
-                                categoryId3: form.getFieldValue('categoryId3') ? form.getFieldValue('categoryId3') : '',
+                                supplierId: value,
+                                categoryId1: form.getFieldValue('categoryId1'),
+                                categoryId2: form.getFieldValue('categoryId2'),
+                                categoryId3: form.getFieldValue('categoryId3'),
+                                name: form.getFieldValue('productName'),
+                                barcode: form.getFieldValue('supplierBarcode'),
+                                storeBarcode: form.getFieldValue('storeBarcode'),
+                                code: form.getFieldValue('productCode'),
                               },
                             });
                           },
@@ -603,13 +698,17 @@ const Page = () => {
                 }
                 subHeader={() => (
                   <Form
-                    className="intro-x rounded-lg w-full form-store"
+                    className="intro-x rounded-lg w-full form-store"  
                     values={{
                       categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                       categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                       categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
                       supplierName: getFilter(productFacade.queryParams, 'supplierId'),
                       type: getFilter(productFacade.queryParams, 'type'),
+                      productCode: getFilter(productFacade.queryParams, 'code'),
+                      storeBarcode: getFilter(productFacade.queryParams, 'storeBarcode'),
+                      supplierBarcode: getFilter(productFacade.queryParams, 'barcode'),
+                      productName: getFilter(productFacade.queryParams, 'name'),
                     }}
                     columns={[
                       {
@@ -619,15 +718,21 @@ const Page = () => {
                           placeholder: 'placeholder.Main categories',
                           col: 3,
                           type: 'select',
-                          firstLoad: () => ({}),
-                          get: {
-                            facade: CategoryFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                          },
-                          onChange(value, form) {
+                          list: category1?.map((item) => ({
+                            label: item?.name!,
+                            value: item?.id!
+                          })),
+                          // firstLoad: () => ({}),
+                          // get: {
+                          //   facade: CategoryFacade,
+                          //   format: (item: any) => ({
+                          //     label: item.name,
+                          //     value: item.id,
+                          //   }),
+                          // },
+                          onChange(value, form) {         
+                            setCategoryId1(value)
+                            setCategoryId2('')
                             form.resetFields(['categoryId2', 'categoryId3']);
                             dataTableRefProduct?.current?.onChange({
                               page: 1,
@@ -635,10 +740,12 @@ const Page = () => {
                               filter: {
                                 storeId: id,
                                 type: form.getFieldValue('type'),
-                                supplierId: form.getFieldValue('supplierName')
-                                  ? form.getFieldValue('supplierName')
-                                  : '',
-                                categoryId1: value ? value : '',
+                                supplierId: form.getFieldValue('supplierName'),
+                                categoryId1: value,
+                                name: form.getFieldValue('productName'),
+                                barcode: form.getFieldValue('supplierBarcode'),
+                                storeBarcode: form.getFieldValue('storeBarcode'),
+                                code: form.getFieldValue('productCode'),
                               },
                             });
                           },
@@ -651,21 +758,29 @@ const Page = () => {
                           placeholder: 'placeholder.Category level 1',
                           type: 'select',
                           col: 3,
-                          disabled: (values, form) => values.categoryId1 ? false : true,
-                          get: {
-                            facade: CategoryFacade,
-                            key: 'result2',
-                            method: 'get2',
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch, value) => ({
-                              fullTextSearch,
-                              id: value().categoryId1,
-                            }),
-                          },
+                          list: category2?.map((item) => ({
+                            label: item?.name!,
+                            value: item?.id!
+                          })),
+                          disabled: (values: any, form: any) => categoryId1 ?
+                            category2?.length === 0 ? true
+                              : category2 ? false : true
+                            : true,
+                          // get: {
+                          //   facade: CategoryFacade,
+                          //   key: 'result2',
+                          //   method: 'get2',
+                          //   format: (item: any) => ({
+                          //     label: item.name,
+                          //     value: item.id,
+                          //   }),
+                          //   params: (fullTextSearch, value) => ({
+                          //     fullTextSearch,
+                          //     id: value().categoryId1,
+                          //   }),
+                          // },
                           onChange(value, form) {
+                            setCategoryId2(value)
                             form.resetFields(['categoryId3']);
                             dataTableRefProduct?.current?.onChange({
                               page: 1,
@@ -673,11 +788,13 @@ const Page = () => {
                               filter: {
                                 storeId: id,
                                 type: form.getFieldValue('type'),
-                                supplierId: form.getFieldValue('supplierName')
-                                  ? form.getFieldValue('supplierName')
-                                  : '',
-                                categoryId2: value ? value : '',
+                                supplierId: form.getFieldValue('supplierName'),
+                                categoryId2: value,
                                 categoryId1: form.getFieldValue('categoryId1'),
+                                name: form.getFieldValue('productName'),
+                                barcode:form.getFieldValue('supplierBarcode'),
+                                storeBarcode:form.getFieldValue('storeBarcode'),
+                                code:form.getFieldValue('productCode'),
                               },
                             });
                           },
@@ -690,20 +807,27 @@ const Page = () => {
                           placeholder: 'placeholder.Category level 2',
                           type: 'select',
                           col: 3,
-                          disabled: (values: any, form: any) => values.categoryId2 ? false : true,
-                          get: {
-                            facade: CategoryFacade,
-                            key: 'result3',
-                            method: 'get3',
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch, value) => ({
-                              fullTextSearch,
-                              id: value().categoryId2,
-                            }),
-                          },
+                          list: category3?.map((item) => ({
+                            label: item?.name!,
+                            value: item?.id!
+                          })),
+                          disabled: (values: any, form: any) => categoryId2 ?
+                            category3?.length === 0 ? true
+                              : category3 ? false : true
+                            : true,
+                          // get: {
+                          //   facade: CategoryFacade,
+                          //   key: 'result3',
+                          //   method: 'get3',
+                          //   format: (item: any) => ({
+                          //     label: item.name,
+                          //     value: item.id,
+                          //   }),
+                          //   params: (fullTextSearch, value) => ({
+                          //     fullTextSearch,
+                          //     id: value().categoryId2,
+                          //   }),
+                          // },
                           onChange(value, form) {
                             dataTableRefProduct?.current?.onChange({
                               page: 1,
@@ -711,12 +835,14 @@ const Page = () => {
                               filter: {
                                 storeId: id,
                                 type: form.getFieldValue('type'),
-                                supplierId: form.getFieldValue('supplierName')
-                                  ? form.getFieldValue('supplierName')
-                                  : '',
-                                categoryId3: value ? value : '',
+                                supplierId: form.getFieldValue('supplierName'),
+                                categoryId3: value,
                                 categoryId1: form.getFieldValue('categoryId1'),
                                 categoryId2: form.getFieldValue('categoryId2'),
+                                name: form.getFieldValue('productName'),
+                                barcode:form.getFieldValue('supplierBarcode'),
+                                storeBarcode:form.getFieldValue('storeBarcode'),
+                                code:form.getFieldValue('productCode'),
                               },
                             });
                           },
@@ -863,16 +989,15 @@ const Page = () => {
                           dataTableRefSupplier?.current?.onChange({
                             page: 1,
                             perPage: 10,
-                            fullTextSearch: '',
                             filter: { idSuppiler: id },
-                          }))
+                          })
+                        )
                         :
                         (
                           setIsBalance(false),
                           dataTableRefsubStore?.current?.onChange({
                             page: 1,
                             perPage: 10,
-                            fullTextSearch: '',
                             filter: { storeId: id, supplierType: 'NON_BALANCE' },
                           })
                         )
@@ -895,8 +1020,7 @@ const Page = () => {
                   defaultRequest={{
                     page: 1,
                     perPage: 10,
-                    fullTextSearch: '',
-                    filter: { idSuppiler: id, suppilerType: '' },
+                    filter: { idSuppiler: id },
                   }}
                   xScroll="1270px"
                   className=" bg-white p-5 rounded-lg"
@@ -963,7 +1087,6 @@ const Page = () => {
                   defaultRequest={{
                     page: 1,
                     perPage: 10,
-                    fullTextSearch: '',
                     filter: { storeId: id, supplierType: 'NON_BALANCE' },
                   }}
                   xScroll="1270px"
@@ -1071,7 +1194,9 @@ const Page = () => {
                               dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
                               dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                             },
-                          })
+                          }),
+                          setCategoryId1(''),
+                          setCategoryId2('')
                         )
                         :
                         (
@@ -1084,9 +1209,13 @@ const Page = () => {
                               dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
                               dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                             },
-                          })
+                          }),
+                          setCategoryId1(''),
+                          setCategoryId2('')
                         )
-                    }
+                    },
+                    selectedKeys: isRevenueByOrder ? ['1'] : ['2'],
+                    onSelect: ({ key, selectedKeys }) => console.log(key, selectedKeys),
                   }}
                 >
                   <section className="flex items-center">
@@ -1110,10 +1239,7 @@ const Page = () => {
                         idStore: id,
                         dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
                         dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
-                        status: '',
-                        supplierId: '',
                       },
-                      fullTextSearch: ''
                     }}
                     xScroll="1270px"
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -1244,12 +1370,8 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: form.getFieldValue('status'),
-                                      dateFrom: value ? value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/') : '',
-                                      dateTo: form.getFieldValue('dateTo') ?
-                                        form
-                                          .getFieldValue('dateTo')
-                                          .format('YYYY/MM/DD 23:59:59')
-                                          .replace(/-/g, '/') : '',
+                                      dateFrom:value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+                                      dateTo: form.getFieldValue('dateTo').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
                                     },
                                   });
                                 },
@@ -1283,11 +1405,8 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: form.getFieldValue('status'),
-                                      dateFrom: form.getFieldValue('dateFrom') ? form
-                                        .getFieldValue('dateFrom')
-                                        .format('YYYY/MM/DD 00:00:00')
-                                        .replace(/-/g, '/') : '',
-                                      dateTo: value ? value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/') : '',
+                                      dateFrom: form.getFieldValue('dateFrom').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+                                      dateTo:value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                                     },
                                   });
                                 },
@@ -1310,7 +1429,6 @@ const Page = () => {
                         dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
                         dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                       },
-                      fullTextSearch: ''
                     }}
                     xScroll='1270px'
                     // onRow={(data: any) => ({
@@ -1404,9 +1522,12 @@ const Page = () => {
                                     perPage: 10,
                                     filter: {
                                       idStore: id,
-                                      status: value ? value : '',
-                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
-                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : ''
+                                      status: value,
+                                      dateFrom: form.getFieldValue('dateFrom'),
+                                      dateTo: form.getFieldValue('dateTo'),
+                                      categoryId1: form.getFieldValue('categoryId1'),
+                                      categoryId2: form.getFieldValue('categoryId2'),
+                                      categoryId3: form.getFieldValue('categoryId3')
                                     },
                                   });
                                 },
@@ -1419,21 +1540,25 @@ const Page = () => {
                                 placeholder: 'placeholder.Choose a supplier',
                                 col: 6,
                                 type: 'select',
+                                list: subStoreFacade.result?.data?.map((item) => ({
+                                  label: item?.name,
+                                  value: item?.id!
+                                })),
                                 // firstLoad: () => ({ page: 1, perPage: 100000, filter: { idSuppiler: '832' } }),
-                                get: {
-                                  facade: ConnectSupplierFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: () => ({
-                                    page: 1,
-                                    perPage: 100000,
-                                    filter: {
-                                      idSuppiler: '832',
-                                    },
-                                  }),
-                                },
+                                // get: {
+                                //   facade: ConnectSupplierFacade,
+                                //   format: (item: any) => ({
+                                //     label: item.name,
+                                //     value: item.id,
+                                //   }),
+                                //   params: () => ({
+                                //     page: 1,
+                                //     perPage: 100000,
+                                //     filter: {
+                                //       idSuppiler: '832',
+                                //     },
+                                //   }),
+                                // },
                               },
                             },
                           ]}
@@ -1477,9 +1602,9 @@ const Page = () => {
                                     perPage: 10,
                                     filter: {
                                       idStore: id,
-                                      status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: value ? value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/') : '',
-                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                      status: form.getFieldValue('status'),
+                                      dateFrom: value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+                                      dateTo: form.getFieldValue('dateTo').format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       categoryId2: form.getFieldValue('categoryId2'),
                                       categoryId3: form.getFieldValue('categoryId3')
@@ -1488,60 +1613,6 @@ const Page = () => {
                                 },
                               },
                             },
-                            // {
-                            //   title: '',
-                            //   name: '',
-                            //   formItem: {
-                            //     tabIndex: 3,
-                            //     col: 6,
-                            //     render: () => (
-                            //       <div className="flex h-10 items-center !w-full">
-                            //         <p className="text-sm">{t('store.To date')}</p>
-                            //         <div>
-                            //           <Form
-                            //             values={{
-                            //               dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
-                            //               dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
-                            //               status: getFilter(invoiceKiotVietFacade.queryParams, 'status'),
-                            //               categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
-                            //               categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
-                            //               categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
-                            //             }}
-                            //             className='pl-2 pt-4 form-supplier-date'
-                            //             columns={[{
-                            //               title: '',
-                            //               name: 'dateTo',
-                            //               formItem: {
-                            //                 type: 'date',
-                            //                 placeholder: 'placeholder.Choose a time',
-                            //                 onChange(value, form) {
-                            //                   dataTableRefInvoiceKiot?.current?.onChange({
-                            //                     page: 1,
-                            //                     perPage: 10,
-                            //                     filter: {
-                            //                       idStore: id,
-                            //                       status: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                            //                       filterDate: {
-                            //                         dateFrom: form.getFieldValue('dateTo')
-                            //                           ? form
-                            //                             .getFieldValue('dateTo')
-                            //                             .format('YYYY/MM/DD 00:00:00')
-                            //                             .replace(/-/g, '/')
-                            //                           : '',
-                            //                         dateTo: value ? value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/') : '',
-                            //                       },
-                            //                       type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                            //                     },
-                            //                     fullTextSearch: '',
-                            //                   });
-                            //                 },
-                            //               },
-                            //             },]} />
-                            //         </div>
-                            //       </div>
-                            //     ),
-                            //   },
-                            // },
                             {
                               title: '',
                               name: '',
@@ -1569,9 +1640,9 @@ const Page = () => {
                                     perPage: 10,
                                     filter: {
                                       idStore: id,
-                                      status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
-                                      dateTo: value ? value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/') : '',
+                                      status: form.getFieldValue('status'),
+                                      dateFrom: form.getFieldValue('dateFrom').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+                                      dateTo: value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       categoryId2: form.getFieldValue('categoryId2'),
                                       categoryId3: form.getFieldValue('categoryId3'),
@@ -1605,24 +1676,30 @@ const Page = () => {
                                 placeholder: 'placeholder.Main categories',
                                 type: 'select',
                                 col: 3,
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                },
+                                list: category1?.map((item) => ({
+                                  label: item?.name!,
+                                  value: item?.id!
+                                })),
+                                // get: {
+                                //   facade: CategoryFacade,
+                                //   format: (item: any) => ({
+                                //     label: item.name,
+                                //     value: item.id,
+                                //   }),
+                                // },
                                 onChange(value, form) {
+                                  setCategoryId1(value)
+                                  setCategoryId2('')
                                   form.resetFields(['categoryId2', 'categoryId3'])
                                   dataTableRefInvoiceKiot?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
                                     filter: {
                                       idStore: id,
-                                      categoryId1: value ? value : '',
-                                      status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
-                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : ''
+                                      categoryId1: value,
+                                      status: form.getFieldValue('status'),
+                                      dateFrom: form.getFieldValue('dateFrom'),
+                                      dateTo: form.getFieldValue('dateTo')
                                     }
                                   });
                                 },
@@ -1635,32 +1712,40 @@ const Page = () => {
                                 placeholder: 'placeholder.Category level 1',
                                 type: 'select',
                                 col: 3,
-                                disabled: (values: any, form: any) => values.categoryId1 ? false : true,
-                                get: {
-                                  key: 'result2',
-                                  method: 'get2',
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().categoryId1,
-                                  }),
-                                },
+                                list: category2?.map((item) => ({
+                                  label: item?.name!,
+                                  value: item?.id!
+                                })),
+                                disabled: (values: any, form: any) => categoryId1 ?
+                                  category2?.length === 0 ? true
+                                    : category2 ? false : true
+                                  : true,
+                                // get: {
+                                //   key: 'result2',
+                                //   method: 'get2',
+                                //   facade: CategoryFacade,
+                                //   format: (item: any) => ({
+                                //     label: item.name,
+                                //     value: item.id,
+                                //   }),
+                                //   params: (fullTextSearch, value) => ({
+                                //     fullTextSearch,
+                                //     id: value().categoryId1,
+                                //   }),
+                                // },
                                 onChange(value, form) {
+                                  setCategoryId2(value)
                                   form.resetFields(['categoryId3'])
                                   dataTableRefInvoiceKiot?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
                                     filter: {
                                       idStore: id,
-                                      categoryId2: value ? value : '',
+                                      categoryId2: value,
                                       categoryId1: form.getFieldValue('categoryId1'),
-                                      status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
-                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : ''
+                                      status: form.getFieldValue('status'),
+                                      dateFrom: form.getFieldValue('dateFrom'),
+                                      dateTo: form.getFieldValue('dateTo')
                                     }
                                   });
                                 },
@@ -1673,32 +1758,39 @@ const Page = () => {
                                 placeholder: 'placeholder.Category level 2',
                                 type: 'select',
                                 col: 3,
-                                disabled: (values: any, form: any) => values.categoryId2 ? false : true,
-                                get: {
-                                  key: 'result3',
-                                  method: 'get3',
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().cap2,
-                                  })
-                                },
+                                list: category3?.map((item) => ({
+                                  label: item?.name!,
+                                  value: item?.id!
+                                })),
+                                disabled: (values: any, form: any) => categoryId2 ?
+                                  category3?.length === 0 ? true
+                                    : category3 ? false : true
+                                  : true,
+                                // get: {
+                                //   facade: CategoryFacade,
+                                //   key: 'result3',
+                                //   method: 'get3',
+                                //   format: (item: any) => ({
+                                //     label: item.name,
+                                //     value: item.id,
+                                //   }),
+                                //   params: (fullTextSearch, value) => ({
+                                //     fullTextSearch,
+                                //     id: value().categoryId2,
+                                //   }),
+                                // },
                                 onChange(value, form) {
                                   dataTableRefInvoiceKiot?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
                                     filter: {
                                       idStore: id,
-                                      categoryId3: value ? value : '',
+                                      categoryId3: value,
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       categoryId2: form.getFieldValue('categoryId2'),
-                                      status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
-                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : ''
+                                      status: form.getFieldValue('status'),
+                                      dateFrom: form.getFieldValue('dateFrom'),
+                                      dateTo: form.getFieldValue('dateTo')
                                     }
                                   });
                                 },
@@ -1853,7 +1945,13 @@ const Page = () => {
                 leftHeader={
                   <Form
                     className="intro-x rounded-lg md:flex"
-                    values={{ supplierName: getFilter(inventoryProductFacade.queryParams, 'supplierId') }}
+                    values={{ 
+                      supplierName: getFilter(inventoryProductFacade.queryParams, 'supplierId'),
+                      productCode: getFilter(inventoryProductFacade.queryParams, 'productCode'),
+                      storeBarcode: getFilter(inventoryProductFacade.queryParams, 'storeBarcode'),
+                      supplierBarcode: getFilter(inventoryProductFacade.queryParams, 'supplierBarcode'),
+                      productName: getFilter(inventoryProductFacade.queryParams, 'productName'),
+                    }}
                     columns={[
                       {
                         title: '',
@@ -1876,7 +1974,14 @@ const Page = () => {
                             dataTableRefInventory?.current?.onChange({
                               page: 1,
                               perPage: 10,
-                              filter: { idStore: id, supplierId: value ? value : '' },
+                              filter: { 
+                                idStore: id, 
+                                supplierId: value,
+                                productName: form.getFieldValue('productName'),
+                                supplierBarcode:form.getFieldValue('supplierBarcode'),
+                                storeBarcode:form.getFieldValue('storeBarcode'),
+                                productCode:form.getFieldValue('productCode'),
+                              },
                             });
                           },
                         },
@@ -1898,8 +2003,8 @@ const Page = () => {
             </Tabs.TabPane>
           </Tabs>
         </div>
-      </Fragment>
-    </div>
+      </Fragment >
+    </div >
   );
 };
 export default Page;

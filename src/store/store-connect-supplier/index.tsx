@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { CommonEntity } from '@models';
-import { API, routerLinks } from '@utils';
-import { Supplier } from '@store/supplier';
+import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
 const name = 'ConnectSupplier';
@@ -13,13 +12,13 @@ const action = {
     name + '/get',
     async ({ page, perPage, filter, fullTextSearch }: { page: number, perPage: number, fullTextSearch: string, filter: { idSuppiler?: string, supplierType?: string } }) => {
       const filterStoreConnectSupplier = JSON.parse(filter.toString() || '{}')
-      const data = await API.get(routerLinks(name, 'api'), {
+      const data = await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({
         page,
         perPage,
         idSuppiler: filterStoreConnectSupplier.idSuppiler,
-        supplierType: filterStoreConnectSupplier.supplierType ? filterStoreConnectSupplier.supplierType : '',
+        supplierType: filterStoreConnectSupplier.supplierType,
         fullTextSearch
-      })
+      }))
       return data
     }
   ),
