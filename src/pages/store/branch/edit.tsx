@@ -51,7 +51,7 @@ const Page = () => {
   }, [status]);
 
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}`)
+  const handleBack = () => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=3`)
   // navigate(`/${lang}${routerLinks('Store')}?${new URLSearchParams(param).toString()}`);
 
   const handleSubmit = (values: any) => {

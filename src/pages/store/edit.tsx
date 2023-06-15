@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form as AntForm, Select, Switch, Tabs, Dropdown } from 'antd';
-import { useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 
@@ -117,6 +117,34 @@ const Page = () => {
     dataIndex: string;
   }
 
+  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeStoreTab') || '1');
+
+  const onChangeTab = (key: string) => {
+    setActiveKey(key);
+    localStorage.setItem('activeStoreTab', key);
+
+    if (key === '3') {
+      dataTableRefBranch?.current?.onChange({
+        page: 1,
+        perPage: 10,
+        fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
+      });
+    }
+
+    navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${key}`);
+  };
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const tab = urlParams.get('tab');
+
+  useEffect(() => {
+    if (tab) {
+      setActiveKey(tab);
+    } else {
+      setActiveKey('1');
+    }
+  }, []);
+
   const columnproduct: IExcelColumn[] = [
     { title: 'Mã sản phẩm', key: 'code', dataIndex: 'code' },
     { title: 'Mã vạch (CH)', key: 'storeBarcode', dataIndex: 'storeBarcode' },
@@ -134,17 +162,20 @@ const Page = () => {
         <div className="tab-wrapper">
           <Tabs
             defaultActiveKey='1'
-            type="card"
-            size="large"
-            onTabClick={(activeKey: any) => {
-              activeKey === '3' ? dataTableRefBranch?.current?.onChange({
-                page: 1,
-                perPage: 10,
-                fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
-              }) : ''
-              navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)
-            }
-            }
+            activeKey={activeKey} type="card" size="large"
+            onTabClick={(key: string) => onChangeTab(key)}
+          // defaultActiveKey='1'
+          // type="card"
+          // size="large"
+          // onTabClick={(activeKey: any) => {
+          //   activeKey === '3' ? dataTableRefBranch?.current?.onChange({
+          //     page: 1,
+          //     perPage: 10,
+          //     fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
+          //   }) : ''
+          //   navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)
+          // }
+          // }
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key="1" className="">
               {!isLoading && (
