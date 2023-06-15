@@ -1716,7 +1716,6 @@ const Page = () => {
                         <div className="flex my-5 flex-col lg:flex-row">
                           <Form
                             values={{
-                              // dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateFrom).format('MM/YYYY').replace(/-/g, '/')
                               dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
                               dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                               status: getFilter(discountFacade.queryParams, 'status'),
@@ -1730,7 +1729,7 @@ const Page = () => {
                                   tabIndex: 3,
                                   col: 2,
                                   render: () => (
-                                    <div className="flex h-10 text-xs whitespace-nowrap items-center">
+                                    <div className="flex h-10 text-xs items-center">{/* whitespace-nowrap */}
                                       <p>{t('Kỳ hạn từ')}</p>
                                     </div>
                                   ),
@@ -1905,14 +1904,14 @@ const Page = () => {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
-              <div className={'w-full mx-auto bg-white rounded-xl pb-4 pt-6'}>
+              <div className={'w-full mx-auto bg-white rounded-xl pt-6'}>
                 <div className="flex items-left font-bold px-6">
                   <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">{t('supplier.Contract.Contract details')}</p>
                 </div>
                 <div className="form-supplied-tab6 items-center">
                   <Form
                     values={{ ...data1 }}
-                    className="intro-x border-b"
+                    className="intro-x border-b form-col-tab6"
                     columns={[
                       {
                         title: '',
@@ -1921,7 +1920,7 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
+                              <div className="flex items-center h-full text-base lg:mt-0">
                                 <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Contract Code')}:</div>
                                 <div className="ml-4">{values.code}</div>
                               </div>
@@ -1936,7 +1935,7 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
+                              <div className="flex items-center h-full text-base lg:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Date created')}:</div>
                                 <div className="ml-4">
                                   {dayjs(values.createdAt).format('DD/MM/YYYY').replace(/-/g, '/')} -{' '}
@@ -1954,7 +1953,7 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full w-full sm:mt-0 mt-4">
+                              <div className="flex items-center h-full w-full lg:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900 text-base whitespace-nowrap">
                                   {t('supplier.Status')}:
                                 </div>
@@ -1983,10 +1982,10 @@ const Page = () => {
                         title: '',
                         name: 'code',
                         formItem: {
-                          col: 12,
+                          col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-10 text-base sm:mt-0 mt-4">
+                              <div className="flex items-center h-10 text-base lg:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900">{t('supplier.Contract.Contract information')}:</div>
                                 <a
                                   onClick={(activeKey: any) =>
@@ -1996,7 +1995,38 @@ const Page = () => {
                                 >
                                   {t('supplier.Contract.Click here')}
                                 </a>
-                                <div className="font-semibold text-teal-900 ml-4">{t('supplier.Contract.Signed file')}:</div>
+                                {/* <div className="font-semibold text-teal-900 ml-4">{t('supplier.Contract.Signed file')}:</div>
+                                <a
+                                  onClick={(activeKey: any) =>
+                                    navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
+                                  }
+                                  className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
+                                >
+                                  {t('supplier.Contract.Click here')}
+                                </a> */}
+                              </div>
+                            );
+                          },
+                        },
+                      },
+                      {
+                        title: '',
+                        name: 'code',
+                        formItem: {
+                          col: 4,
+                          render: (form, values) => {
+                            return (
+                              <div className="flex items-center h-10 text-base lg:mt-0 mt-4">
+                                {/* <div className="font-semibold text-teal-900">{t('supplier.Contract.Contract information')}:</div>
+                                <a
+                                  onClick={(activeKey: any) =>
+                                    navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
+                                  }
+                                  className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
+                                >
+                                  {t('supplier.Contract.Click here')}
+                                </a> */}
+                                <div className="font-semibold text-teal-900">{t('supplier.Contract.Signed file')}:</div>
                                 <a
                                   onClick={(activeKey: any) =>
                                     navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
@@ -2013,7 +2043,7 @@ const Page = () => {
                     ]}
                   />
                   <div className="flex items-left font-bold px-6 pt-1">
-                    <p className="text-base text-teal-900 ">{t('supplier.Contract.Supplier Information')}</p>
+                    <p className="text-base text-teal-900 mt-4">{t('supplier.Contract.Supplier Information')}</p>
                   </div>
                   <Form
                     values={{ ...data1 }}
@@ -2089,7 +2119,7 @@ const Page = () => {
                       },
                     ]}
                   />
-                  <p className="text-base text-teal-900 font-bold px-6 pt-1">{t('supplier.Contract.Upload contract')}:</p>
+                  <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">{t('supplier.Contract.Upload contract')}:</p>
                   <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
                     <Upload
                       style={{ border: 'none' }}
