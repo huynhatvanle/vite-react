@@ -62,25 +62,25 @@ const Page = () => {
 
   const listStatus = [
     {
-      label: 'Bán hàng',
+      label: t('supplier.Sup-Status.Sell goods'),
       value: 'DELEVERED',
     },
     {
-      label: 'Trả hàng',
+      label: t('supplier.Sup-Status.Return goods'),
       value: 'REFUND',
     },
     {
-      label: 'Đã hủy',
+      label: t('supplier.Sup-Status.Cancelled'),
       value: 'CANCEL',
     },
   ];
   const listStatusProduct = [
     {
-      label: 'Đang bán',
+      label: t('supplier.Sup-Status.Selling'),
       value: 'APPROVED',
     },
     {
-      label: 'Ngừng bán',
+      label: t('supplier.Sup-Status.Discontinued'),
       value: 'STOP_SELLING',
     },
   ];
