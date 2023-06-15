@@ -32,6 +32,7 @@ const action = {
       fullTextSearch: string;
     }) => {
       const filterProduct = JSON.parse(filter.toString() || '{}');
+
       const data = await API.get(routerLinks(name, 'api'), {
         page,
         perPage,
@@ -89,13 +90,12 @@ export const InventoryListProductFacade = () => {
 
 export class InventoryListProduct extends CommonEntity {
   constructor(
-    public units?: {
-      value?: string;
-      name?: string;
-      isDefault?: boolean;
-    },
-    public id?: string,
-    public iventory?: Product,
+    public productCode?: string,
+    public productName?: string,
+    public barcode?: string,
+    public subTotal?: string,
+    public total?: string,
+    public status?: string,
   ) {
     super();
   }

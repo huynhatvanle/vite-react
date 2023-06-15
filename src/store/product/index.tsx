@@ -16,7 +16,14 @@ const action = {
     }: {
       page: number;
       perPage: number;
-      filter: { storeId?: string; type: string; supplierId?: string; categoryId1?: string, categoryId2?: string, categoryId3?: string };
+      filter: {
+        storeId?: string;
+        type: string;
+        supplierId?: string;
+        categoryId1?: string;
+        categoryId2?: string;
+        categoryId3?: string;
+      };
     }) => {
       const filterProduct = JSON.parse(filter.toString() || '{}');
       const data = await API.get(routerLinks(name, 'api'), {
@@ -25,7 +32,13 @@ const action = {
         storeId: filterProduct.storeId,
         type: filterProduct.type ? filterProduct.type : '',
         supplierId: filterProduct.supplierId ? filterProduct.supplierId : '',
-        categoryId: filterProduct.categoryId3 ? filterProduct.categoryId3 : filterProduct.categoryId2 ? filterProduct.categoryId2 : filterProduct.categoryId1 ? filterProduct.categoryId1 : '',
+        categoryId: filterProduct.categoryId3
+          ? filterProduct.categoryId3
+          : filterProduct.categoryId2
+          ? filterProduct.categoryId2
+          : filterProduct.categoryId1
+          ? filterProduct.categoryId1
+          : '',
         categoryId1: filterProduct.categoryId1 ? filterProduct.categoryId1 : '',
         categoryId2: filterProduct.categoryId2 ? filterProduct.categoryId2 : '',
         categoryId3: filterProduct.categoryId3 ? filterProduct.categoryId3 : '',
@@ -50,7 +63,14 @@ export const ProductFacade = () => {
     }: {
       page: number;
       perPage: number;
-      filter: { supplierId?: string; storeId?: string; type: string; categoryId1: string; categoryId2: string; categoryId3: string; };
+      filter: {
+        supplierId?: string;
+        storeId?: string;
+        type: string;
+        categoryId1: string;
+        categoryId2: string;
+        categoryId3: string;
+      };
     }) => {
       return dispatch(action.getProduct({ page, perPage, filter }));
     },
@@ -66,7 +86,7 @@ export class Product extends CommonEntity {
   constructor(
     public id?: string,
     public code?: string,
-    public barCode?: string,
+    public barcode?: string,
     public name?: string,
     public description?: string,
     public brand?: string,
@@ -75,7 +95,30 @@ export class Product extends CommonEntity {
     public stockQuantity?: string,
     public supplierName?: string,
     public basicUnit?: string,
-    public price?: number,
+    public productPrice?: {
+      0: {
+        price: string;
+      };
+    },
+    public approveStatus?: string,
+    public category?: {
+      child?: {
+        child?: {
+          id?: string;
+          name?: string;
+        };
+        id?: string;
+        name?: string;
+      };
+      id?: string;
+      name?: string;
+    },
+    public photos?: {
+      0: {
+        isCover: boolean;
+        url: string;
+      };
+    },
   ) {
     super();
   }

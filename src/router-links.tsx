@@ -18,6 +18,8 @@ export const routerLinks = (name: string, type?: string) => {
     Supplier: '/supplier',
     'Supplier/Add': '/supplier/add',
     'Supplier/Edit': '/supplier/edit',
+    'Contract-View': '/contract-view',
+    'Discount-Detail': '/discount-detail',
 
     Store: '/store-managerment',
     'store-managerment/create': '/store-managerment/create',
@@ -54,6 +56,7 @@ export const routerLinks = (name: string, type?: string) => {
     InventorySupplier: '/inventory-order/store-by-suppier',
     InventoryListProduct: '/inventory-order/revenue-list-product',
     documentsuborganiztion: '/document-sub-organiztion',
+    suborgcommisionline: '/sub-org-commision-line',
   }; // 💬 generate api to here
 
   switch (type) {
