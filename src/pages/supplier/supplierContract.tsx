@@ -10,87 +10,87 @@ const Page = () => {
           <div className="p-4">
             <div className="flex justify-center w-full pt-5">
               <div>
-                <p>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM </p>
-                <p className="flex justify-center">Độc lập - Tự do - Hạnh phúc </p>
+                <p>{t('supplier.Contract-View.SOCIALIST REPUBLIC OF VIETNAM')}</p>
+                <p className="flex justify-center">{t('supplier.Contract-View.Independence-Freedom-Happiness')} </p>
                 <p className="flex justify-center">--------------------</p>
-                <strong className="flex justify-center mt-4">HỢP ĐỒNG</strong>
+                <strong className="flex justify-center mt-4">{t('supplier.Contract-View.Contract')}</strong>
                 <strong>
-                  <p className="flex justify-center">Mã hợp đồng: HĐ_7-2022_287</p>
+                  <p className="flex justify-center">{t('supplier.Contract.Contract Code')}: HĐ_7-2022_287</p>
                 </strong>
               </div>
             </div>
             <div className="">
-              <p className="py-3 px-1">Hôm nay ngày 05-07-2022 tại ...... Chúng tôi gồm:</p>
+              <p className="py-3 px-1">{t('supplier.Contract-View.Today')}:</p>
               <table width="100%" cellPadding={5}>
                 <tbody>
                   <tr>
                     <td colSpan={3}>
-                      <strong>BALANCE (Gọi tắt là bên A):</strong>
+                      <strong>BALANCE ({t('supplier.Contract-View.Referred A')}):</strong>
                     </td>
                   </tr>
                   <tr>
-                    <td className="w-[33%]">Họ và tên: </td>
-                    <td className="w-[33%]">Số điện thoại:</td>
+                    <td className="w-[33%]">{t('user.Fullname')}: </td>
+                    <td className="w-[33%]">{t('user.Phone Number')}:</td>
                     <td className="w-[33%]">Email: </td>
                   </tr>
                   <tr>
-                    <td className="w-[33%]">Số CMND/CCCD/Passport: </td>
-                    <td className="w-[33%]">Ngày cấp: </td>
-                    <td className="w-[33%]">Nơi cấp: </td>
+                    <td className="w-[33%]">{t('supplier.Contract-View.ID')}: </td>
+                    <td className="w-[33%]">{t('supplier.Contract-View.Date Range')}: </td>
+                    <td className="w-[33%]">{t('supplier.Contract-View.Issued by')}: </td>
                   </tr>
                   <tr>
-                    <td colSpan={3}>Nơi ĐKTT:</td>
+                    <td colSpan={3}>{t('supplier.Contract-View.DKTT')}:</td>
                   </tr>
                   <tr>
                     <td colSpan={3}>
-                      <strong>NHÀ CUNG CẤP (Gọi tắt là bên B): </strong>
+                      <strong>{t('supplier.Contract-View.SUPPLIER')}({t('supplier.Contract-View.Referred B')}): </strong>
                     </td>
                   </tr>
                   <tr>
-                    <td className="w-[33%]">Họ và tên:</td>
-                    <td className="w-[33%]">Số điện thoại: </td>
+                    <td className="w-[33%]">{t('user.Fullname')}: </td>
+                    <td className="w-[33%]">{t('user.Phone Number')}:</td>
                     <td className="w-[33%]">Email: </td>
                   </tr>
                   <tr>
-                    <td className="w-[33%]">Số CMND/CCCD/Passport: </td>
-                    <td className="w-[33%]">Ngày cấp:</td>
-                    <td className="w-[33%]">Nơi cấp: </td>
+                    <td className="w-[33%]">{t('supplier.Contract-View.ID')}: </td>
+                    <td className="w-[33%]">{t('supplier.Contract-View.Date Range')}: </td>
+                    <td className="w-[33%]">{t('supplier.Contract-View.Issued by')}: </td>
                   </tr>
                   <tr>
-                    <td colSpan={3}>Nơi ĐKTT:</td>
+                    <td colSpan={3}>{t('supplier.Contract-View.DKTT')}:</td>
                   </tr>
                 </tbody>
               </table>
               <p className="py-2 px-1">
-                <strong>Căn cứ vào hợp đồng có mã :</strong>
+                <strong>{t('supplier.Contract-View.Contract with code')}:</strong>
               </p>
-              <p className="py-2 px-1">Hai bên đồng ý ký kết hợp đồng từ ngày .</p>
-              <p className="py-2 px-1">Chúng tôi đã đọc và hiểu rõ nội dung hợp đồng và đồng ý ký tên.</p>
-              <p className="py-2 px-1">Biên bản hợp đồng này sau khi ký tên sẽ có giá trị theo luật định.</p>
+              <p className="py-2 px-1">{t('supplier.Contract-View.Contract from the date')} .</p>
+              <p className="py-2 px-1">{t('supplier.Contract-View.Contract content')}.</p>
+              <p className="py-2 px-1">{t('supplier.Contract-View.Contract Minutes')}.</p>
             </div>
             <div className="flex pt-4">
               <div className="p-1 flex justify-center items-center w-1/2">
                 <div>
-                  <strong className="flex justify-center">Bên A</strong>
+                  <strong className="flex justify-center">{t('supplier.Contract-View.A side')}</strong>
                   <div className="flex justify-center">
                     <button className=" bg-red-200 border p-2 m-0 rounded-lg hover:bg-white hover:text-blue-500 hover:border-blue-500 hover:border">
-                      Ký tên
+                      {t('supplier.Contract-View.Sign')}
                     </button>
                   </div>
-                  <em className="flex justify-center">(Ký tên)</em>
-                  <p className="flex justify-center">Hợp đồng được ký bởi tên chủ cung cấp ngày 1/7/2022</p>
+                  <em className="flex justify-center">({t('supplier.Contract-View.Sign')})</em>
+                  <p className="flex justify-center">{t('supplier.Contract-View.Contract name')}</p>
                 </div>
               </div>
               <div className="p-1 flex justify-center items-center w-1/2">
                 <div>
-                  <strong className="flex justify-center">Bên B</strong>
+                  <strong className="flex justify-center">{t('supplier.Contract-View.B side')}</strong>
                   <div className="flex justify-center">
                     <button className=" bg-red-200 border p-2 m-0 rounded-lg hover:bg-white hover:text-blue-500 hover:border-blue-500 hover:border">
-                      Ký tên
+                      {t('supplier.Contract-View.Sign')}
                     </button>
                   </div>
-                  <em className="flex justify-center">(Ký tên)</em>
-                  <p className="flex justify-center">Hợp đồng được ký bởi tên chủ cung cấp ngày 1/7/2022</p>
+                  <em className="flex justify-center">({t('supplier.Contract-View.Sign')})</em>
+                  <p className="flex justify-center">{t('supplier.Contract-View.Contract name')}</p>
                 </div>
               </div>
             </div>
@@ -100,7 +100,7 @@ const Page = () => {
                   In
                 </button>
                 <button className=" bg-blue-200 p-2 border ml-5 rounded-lg hover:bg-white hover:text-blue-500 hover:border-blue-500 hover:border">
-                  Xuất hợp đồng
+                  {t('supplier.Contract-View.Export contract')}
                 </button>
               </div>
             </div>

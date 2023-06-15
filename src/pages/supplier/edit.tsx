@@ -103,45 +103,45 @@ const Page = () => {
   ];
   const listStatusDiscount = [
     {
-      label: 'Chưa thanh toán',
+      label: t('supplier.Order.Unpaid'),
       value: 'NOT_PAID',
     },
     {
-      label: 'Đã thanh toán',
+      label: t('supplier.Order.Paid'),
       value: 'PAID',
     },
     {
-      label: 'Chưa hoàn tất',
+      label: t('supplier.Order.Paid'),
       value: 'NOT_COMPLETED_PAID',
     },
   ];
   const statusCategory = [
     {
-      label: 'Bán hàng',
+      label: t('supplier.Sup-Status.Sell goods'),
       value: 'RECIEVED',
     },
     {
-      label: 'Trả hàng',
+      label: t('supplier.Sup-Status.Return goods'),
       value: 'RETURN',
     },
   ];
   const statusRevenue = [
     {
-      label: 'Đang bán',
+      label: t('supplier.Sup-Status.Selling'),
       value: 'APPROVED',
     },
     {
-      label: 'Ngưng bán',
+      label: t('supplier.Sup-Status.Discontinued'),
       value: 'STOP_SELLING',
     },
   ];
   const statusContract = [
     {
-      label: 'Đã ký',
+      label: t('supplier.Sup-Status.Signed'),
       value: 'SIGNED_CONTRACT',
     },
     {
-      label: 'Chưa ký',
+      label: t('supplier.Sup-Status.Waiting'),
       value: 'STOP_SELLING',
     },
   ];
@@ -153,43 +153,43 @@ const Page = () => {
   }
 
   const columnproduct: IExcelColumn[] = [
-    { title: 'Mã sản phẩm', key: 'code', dataIndex: 'code' },
-    { title: 'Tên sản phẩm', key: 'name', dataIndex: 'name' },
-    { title: 'Mã vạch', key: 'barcode', dataIndex: 'barcode' },
-    { title: 'Danh mục', key: 'category', dataIndex: 'category' },
-    { title: 'Đơn vị tính', key: 'basicUnit', dataIndex: 'basicUnit' },
-    { title: 'Giá bán', key: 'price', dataIndex: 'price' },
-    { title: 'Trạng thái', key: 'approveStatus', dataIndex: 'approveStatus' },
-    { title: 'Link hình ảnh', key: 'photos', dataIndex: 'photos' },
+    { title: t('product.Code'), key: 'code', dataIndex: 'code' },
+    { title: t('product.Name'), key: 'name', dataIndex: 'name' },
+    { title: t('product.Storecode'), key: 'barcode', dataIndex: 'barcode' },
+    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t('product.Unit'), key: 'basicUnit', dataIndex: 'basicUnit' },
+    { title: t('product.Price'), key: 'price', dataIndex: 'price' },
+    { title: t('product.Status'), key: 'approveStatus', dataIndex: 'approveStatus' },
+    { title: t('product.Image link'), key: 'photos', dataIndex: 'photos' },
   ];
   const columnrevenue: IExcelColumn[] = [
-    { title: 'STT', key: 'stt', dataIndex: 'STT' },
-    { title: 'Mã đơn hàng', key: 'code', dataIndex: 'code' },
-    { title: 'Tên cửa hàng', key: 'name', dataIndex: 'name' },
-    { title: 'Ngày đặt', key: 'pickUpDate', dataIndex: 'pickUpDate' },
-    { title: 'Ngày nhận', key: 'completedDate', dataIndex: 'completedDate' },
-    { title: 'Trước thuế', key: 'BeforeTax', dataIndex: 'BeforeTax' },
-    { title: 'Sau thuế', key: 'AfterTax', dataIndex: 'AfterTax' },
-    { title: 'Khuyến mãi', key: 'voucherAmount', dataIndex: 'voucherAmount' },
-    { title: 'Thành tiền', key: 'Total', dataIndex: 'Total' },
-    { title: 'Loại đơn', key: 'Type', dataIndex: 'Type' },
+    { title: t('supplier.Order.STT'), key: 'stt', dataIndex: 'STT' },
+    { title: t('supplier.Order.Order ID'), key: 'code', dataIndex: 'code' },
+    { title: t('supplier.Order.Store Name'), key: 'name', dataIndex: 'name' },
+    { title: t('supplier.Order.Order Date'), key: 'pickUpDate', dataIndex: 'pickUpDate' },
+    { title: t('supplier.Order.Delivery Date'), key: 'completedDate', dataIndex: 'completedDate' },
+    { title: t('supplier.Order.Before Tax'), key: 'BeforeTax', dataIndex: 'BeforeTax' },
+    { title: t('supplier.Order.After Tax'), key: 'AfterTax', dataIndex: 'AfterTax' },
+    { title: t('supplier.Order.Promotion'), key: 'voucherAmount', dataIndex: 'voucherAmount' },
+    { title: t('supplier.Order.Total Amount'), key: 'Total', dataIndex: 'Total' },
+    { title: t('supplier.Order.Order Type'), key: 'Type', dataIndex: 'Type' },
   ];
   const columnInventoryProduct: IExcelColumn[] = [
-    { title: 'STT', key: 'stt', dataIndex: 'STT' },
-    { title: 'Mã sản phẩm', key: 'productCode', dataIndex: 'productCode' },
-    { title: 'Tên sản phẩm', key: 'productName', dataIndex: 'productName' },
-    { title: 'Mã vạch', key: 'barcode', dataIndex: 'barcode' },
-    { title: 'Doanh thu trước thuế', key: 'subTotal', dataIndex: 'subTotal' },
-    { title: 'Sau thuế', key: 'total', dataIndex: 'total' },
-    { title: 'Trạng thái', key: 'status', dataIndex: 'status' },
+    { title: t('supplier.Order.STT'), key: 'stt', dataIndex: 'STT' },
+    { title: t('product.Code'), key: 'productCode', dataIndex: 'productCode' },
+    { title: t('product.Name'), key: 'productName', dataIndex: 'productName' },
+    { title: t('product.Storecode'), key: 'barcode', dataIndex: 'barcode' },
+    { title: t('supplier.Order.Revenue Before Tax'), key: 'subTotal', dataIndex: 'subTotal' },
+    { title: t('supplier.Order.After Tax'), key: 'total', dataIndex: 'total' },
+    { title: t('product.status'), key: 'status', dataIndex: 'status' },
   ];
   const columnDiscount: IExcelColumn[] = [
-    { title: 'STT', key: 'stt', dataIndex: 'STT' },
-    { title: 'Thời gian', key: 'date', dataIndex: 'date' },
-    { title: 'Chiết khấu', key: 'commision', dataIndex: 'commision' },
-    { title: 'Đã thanh toán', key: 'paid', dataIndex: 'paid' },
-    { title: 'Chưa thanh toán', key: 'unPaid', dataIndex: 'unPaid' },
-    { title: 'Trạng thái', key: 'status', dataIndex: 'status' },
+    { title: t('supplier.Order.STT'), key: 'stt', dataIndex: 'STT' },
+    { title: t('supplier.Order.Time'), key: 'date', dataIndex: 'date' },
+    { title: t('supplier.Order.Discount'), key: 'commision', dataIndex: 'commision' },
+    { title: t('supplier.Order.Paid'), key: 'paid', dataIndex: 'paid' },
+    { title: t('supplier.Order.Unpaid'), key: 'unPaid', dataIndex: 'unPaid' },
+    { title: t('product.status'), key: 'status', dataIndex: 'status' },
   ];
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
@@ -941,9 +941,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -983,9 +983,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1149,7 +1149,7 @@ const Page = () => {
                             .addDataSource(inventory ?? [], {
                               str2Percent: true,
                             })
-                            .saveAs('Doanh thu nhà cung cấp theo đơn hàng.xlsx');
+                            .saveAs(t('supplier.Supplier revenue Order'));
                         }}
                       />
                     </div>
@@ -1290,9 +1290,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: '',
@@ -1342,9 +1342,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1604,7 +1604,7 @@ const Page = () => {
                           .addDataSource(product ?? [], {
                             str2Percent: true,
                           })
-                          .saveAs('Doanh thu nhà cung cấp theo sản phẩm.xlsx');
+                          .saveAs(t('supplier.Supplier revenue product'));
                       }}
                     />
                   </div>
@@ -1716,7 +1716,6 @@ const Page = () => {
                         <div className="flex my-5 flex-col lg:flex-row">
                           <Form
                             values={{
-                              // dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateFrom).format('MM/YYYY').replace(/-/g, '/')
                               dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
                               dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                               status: getFilter(discountFacade.queryParams, 'status'),
@@ -1730,7 +1729,7 @@ const Page = () => {
                                   tabIndex: 3,
                                   col: 2,
                                   render: () => (
-                                    <div className="flex h-10 text-xs whitespace-nowrap items-center">
+                                    <div className="flex h-10 text-xs items-center">{/* whitespace-nowrap */}
                                       <p>{t('Kỳ hạn từ')}</p>
                                     </div>
                                   ),
@@ -1753,9 +1752,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -1794,9 +1793,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1905,14 +1904,14 @@ const Page = () => {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
-              <div className={'w-full mx-auto bg-white rounded-xl pb-4 pt-6'}>
+              <div className={'w-full mx-auto bg-white rounded-xl pt-6'}>
                 <div className="flex items-left font-bold px-6">
-                  <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Chi tiết hợp đồng</p>
+                  <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">{t('supplier.Contract.Contract details')}</p>
                 </div>
                 <div className="form-supplied-tab6 items-center">
                   <Form
                     values={{ ...data1 }}
-                    className="intro-x border-b"
+                    className="intro-x border-b form-col-tab6"
                     columns={[
                       {
                         title: '',
@@ -1921,8 +1920,8 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900 ">Mã hợp đồng:</div>
+                              <div className="flex items-center h-full text-base lg:mt-0">
+                                <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Contract Code')}:</div>
                                 <div className="ml-4">{values.code}</div>
                               </div>
                             );
@@ -1936,8 +1935,8 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900 ">Ngày tạo:</div>
+                              <div className="flex items-center h-full text-base lg:mt-0 mt-4">
+                                <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Date created')}:</div>
                                 <div className="ml-4">
                                   {dayjs(values.createdAt).format('DD/MM/YYYY').replace(/-/g, '/')} -{' '}
                                   {dayjs(values.createdAt).format('HH:mm')}{' '}
@@ -1954,23 +1953,23 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full w-full sm:mt-0 mt-4">
+                              <div className="flex items-center h-full w-full lg:mt-0 mt-4">
                                 <div className="font-semibold text-teal-900 text-base whitespace-nowrap">
-                                  Trạng thái:
+                                  {t('supplier.Status')}:
                                 </div>
 
                                 {values?.status == 'SIGNED_CONTRACT' ? (
                                   <div className="w-60 py-2.5 px-4 bg-gray-100 rounded-2xl border-gray-200 ml-4 flex justify-between cursor-not-allowed">
-                                    <p className="text-gray-400">Đã ký</p>
+                                    <p className="text-gray-400"> {t('supplier.Sup-Status.Signed')}</p>
                                     <DownArrow className="w-4 h-5 text-gray-400 pt-1" />
                                   </div>
                                 ) : (
                                   <div className="w-60 py-2.5 px-4 rounded-2xl border-gray-200 ml-4 flex justify-between">
                                     <Select value={values?.status} className="py-2" style={{ width: '100%' }}>
                                       <Select.Option value="SIGNED_CONTRACT">
-                                        <div onClick={() => putSub({ id: values?.id })}>Đã ký</div>
+                                        <div onClick={() => putSub({ id: values?.id })}>{t('supplier.Sup-Status.Signed')}</div>
                                       </Select.Option>
-                                      <Select.Option value="PENDING_SIGN_CONTRACT">Chưa ký</Select.Option>
+                                      <Select.Option value="PENDING_SIGN_CONTRACT">{t('supplier.Sup-Status.Waiting')}</Select.Option>
                                     </Select>
                                   </div>
                                 )}
@@ -1983,27 +1982,58 @@ const Page = () => {
                         title: '',
                         name: 'code',
                         formItem: {
-                          col: 12,
+                          col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-10 text-base sm:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900">Thông tin hợp đồng:</div>
+                              <div className="flex items-center h-10 text-base lg:mt-0 mt-4">
+                                <div className="font-semibold text-teal-900">{t('supplier.Contract.Contract information')}:</div>
                                 <a
                                   onClick={(activeKey: any) =>
                                     navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
                                   }
                                   className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
                                 >
-                                  Nhấn vào đây
+                                  {t('supplier.Contract.Click here')}
                                 </a>
-                                <div className="font-semibold text-teal-900 ml-4">Tệp đã ký:</div>
+                                {/* <div className="font-semibold text-teal-900 ml-4">{t('supplier.Contract.Signed file')}:</div>
                                 <a
                                   onClick={(activeKey: any) =>
                                     navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
                                   }
                                   className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
                                 >
-                                  Nhấn vào đây
+                                  {t('supplier.Contract.Click here')}
+                                </a> */}
+                              </div>
+                            );
+                          },
+                        },
+                      },
+                      {
+                        title: '',
+                        name: 'code',
+                        formItem: {
+                          col: 4,
+                          render: (form, values) => {
+                            return (
+                              <div className="flex items-center h-10 text-base lg:mt-0 mt-4">
+                                {/* <div className="font-semibold text-teal-900">{t('supplier.Contract.Contract information')}:</div>
+                                <a
+                                  onClick={(activeKey: any) =>
+                                    navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
+                                  }
+                                  className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
+                                >
+                                  {t('supplier.Contract.Click here')}
+                                </a> */}
+                                <div className="font-semibold text-teal-900">{t('supplier.Contract.Signed file')}:</div>
+                                <a
+                                  onClick={(activeKey: any) =>
+                                    navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
+                                  }
+                                  className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
+                                >
+                                  {t('supplier.Contract.Click here')}
                                 </a>
                               </div>
                             );
@@ -2013,7 +2043,7 @@ const Page = () => {
                     ]}
                   />
                   <div className="flex items-left font-bold px-6 pt-1">
-                    <p className="text-base text-teal-900 ">Thông tin nhà cung cấp</p>
+                    <p className="text-base text-teal-900 mt-4">{t('supplier.Contract.Supplier Information')}</p>
                   </div>
                   <Form
                     values={{ ...data1 }}
@@ -2027,7 +2057,7 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base">
-                                <div className="font-semibold text-teal-900 ">Nhà cung cấp: </div>
+                                <div className="font-semibold text-teal-900 ">{t('store.Inventory management.Supplier')}: </div>
                                 <div className="ml-4">{values?.subOrg?.name}</div>
                               </div>
                             );
@@ -2042,7 +2072,7 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base sm:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900 ">Tên chủ quản lý: </div>
+                                <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Manager name')}: </div>
                                 <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.name}</div>
                               </div>
                             );
@@ -2057,7 +2087,7 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base mt-4">
-                                <div className="font-semibold text-teal-900 ">Số điện thoại: </div>
+                                <div className="font-semibold text-teal-900 ">{t('supplier.Phone Number')}: </div>
                                 <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.phoneNumber}</div>
                               </div>
                             );
@@ -2072,7 +2102,7 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base mt-4">
-                                <div className="font-semibold text-teal-900 w-16 h-full">Địa chỉ:</div>
+                                <div className="font-semibold text-teal-900 w-16 h-full">{t('supplier.Address')}:</div>
                                 <div className="ml-4 h-full">
                                   {values?.subOrg?.address?.street +
                                     ', ' +
@@ -2089,7 +2119,7 @@ const Page = () => {
                       },
                     ]}
                   />
-                  <p className="text-base text-teal-900 font-bold px-6 pt-1">Tải lên hợp đồng đã ký:</p>
+                  <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">{t('supplier.Contract.Upload contract')}:</p>
                   <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
                     <Upload
                       style={{ border: 'none' }}
@@ -2101,18 +2131,18 @@ const Page = () => {
                       <div className="bg-white -my-4">
                         <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
                         <p className="mb-4">
-                          Kéo thả tệp mà bạn muốn tải lên <br />
-                          hoặc{' '}
+                          {t('supplier.Contract.Upload file')} <br />
+                          {t('supplier.Contract.or')}{' '}
                         </p>
                         <Button
                           className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
-                          text={'Chọn tệp'}
+                          text={t('supplier.Contract.Select file')}
                         />
                       </div>
                     </Upload>
                   </div>
-                  <p className="text-base text-teal-900 font-bold px-6 py-4">Tệp trên hệ thống:</p>
-                  <div className="text-base px-6">Chưa có hình hợp đồng trên hệ thống.</div>
+                  <p className="text-base text-teal-900 font-bold px-6 py-4">{t('supplier.Contract.File system')}:</p>
+                  <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
 
                   <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 mt-5">
                     <Button

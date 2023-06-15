@@ -35,7 +35,7 @@ const Page = () => {
         <Spin spinning={isLoading}>
           <Form
             values={{ ...data }}
-            className="intro-x form-login space-y-8"
+            className="intro-x form-login"//space-y-8
             columns={[
               {
                 name: 'password',
