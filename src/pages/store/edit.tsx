@@ -164,18 +164,6 @@ const Page = () => {
             defaultActiveKey='1'
             activeKey={activeKey} type="card" size="large"
             onTabClick={(key: string) => onChangeTab(key)}
-          // defaultActiveKey='1'
-          // type="card"
-          // size="large"
-          // onTabClick={(activeKey: any) => {
-          //   activeKey === '3' ? dataTableRefBranch?.current?.onChange({
-          //     page: 1,
-          //     perPage: 10,
-          //     fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
-          //   }) : ''
-          //   navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`)
-          // }
-          // }
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key="1" className="">
               {!isLoading && (
@@ -927,29 +915,38 @@ const Page = () => {
               key="4"
               className="rounded-xl"
             >
-              {isBalance ? (
-                <DataTable
-                  ref={dataTableRefSupplier}
-                  facade={connectSupplierFacade}
-                  defaultRequest={{
+              <DataTable
+                ref={isBalance ? dataTableRefSupplier : dataTableRefsubStore}
+                facade={isBalance ? connectSupplierFacade : subStoreFacade}
+                defaultRequest={isBalance ?
+                  {
                     page: 1,
                     perPage: 10,
                     fullTextSearch: '',
                     filter: { idSuppiler: id, suppilerType: '' },
-                  }}
-                  xScroll="1270px"
-                  className=" bg-white p-5 rounded-lg"
-                  // onRow={(data: any) => ({
-                  //   onDoubleClick: () => {
-                  //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                  //   },
-                  // })}
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.PaginationSupplier', { from, to, total })
                   }
-                  columns={[
+                  :
+                  {
+                    page: 1,
+                    perPage: 10,
+                    fullTextSearch: '',
+                    filter: { storeId: id, supplierType: 'NON_BALANCE' },
+                  }
+                }
+                xScroll="1270px"
+                className=" bg-white p-5 rounded-lg"
+                // onRow={(data: any) => ({
+                //   onDoubleClick: () => {
+                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                //   },
+                // })}
+                pageSizeRender={(sizePage: number) => sizePage}
+                pageSizeWidth={'50px'}
+                paginationDescription={(from: number, to: number, total: number) =>
+                  t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                }
+                columns={isBalance ?
+                  [
                     {
                       title: 'supplier.CodeName',
                       name: 'supplier',
@@ -993,31 +990,9 @@ const Page = () => {
                         render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                       },
                     },
-                  ]}
-                />
-              ) : (
-                <DataTable
-                  ref={dataTableRefsubStore}
-                  facade={subStoreFacade}
-                  defaultRequest={{
-                    page: 1,
-                    perPage: 10,
-                    fullTextSearch: '',
-                    filter: { storeId: id, supplierType: 'NON_BALANCE' },
-                  }}
-                  xScroll="1270px"
-                  className=" bg-white p-5 rounded-lg"
-                  // onRow={(data: any) => ({
-                  //   onDoubleClick: () => {
-                  //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                  //   },
-                  // })}
-                  pageSizeRender={(sizePage: number) => sizePage}
-                  pageSizeWidth={'50px'}
-                  paginationDescription={(from: number, to: number, total: number) =>
-                    t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                  }
-                  columns={[
+                  ]
+                  :
+                  [
                     {
                       title: 'supplier.CodeName',
                       name: 'code',
@@ -1059,9 +1034,11 @@ const Page = () => {
                         render: (value: any, item: any) => item.peopleContact?.phoneNumber,
                       },
                     },
-                  ]}
-                />
-              )}
+                  ]
+                }
+
+              />
+
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
