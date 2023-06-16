@@ -1512,7 +1512,7 @@ const Page = () => {
                         },
                       },
                     ]}
-                    searchPlaceholder={t('placeholder.Search by order number')}
+                    // searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
                       <div className="flex justify-end text-left flex-col w-full ">
                         <Form
@@ -1725,7 +1725,7 @@ const Page = () => {
                                       categoryId1: value,
                                       status: form.getFieldValue('status'),
                                       dateFrom: form.getFieldValue('dateFrom'),
-                                      dateTo: form.getFieldValue('dateTo'), 
+                                      dateTo: form.getFieldValue('dateTo'),
                                       supplierId: form.getFieldValue('supplierId'),
                                     }
                                   });
