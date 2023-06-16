@@ -195,7 +195,6 @@ const Page = () => {
         fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
       });
     }
-
     navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${key}`);
   };
 
@@ -205,8 +204,6 @@ const Page = () => {
   useEffect(() => {
     if (tab) {
       setActiveKey(tab);
-    } else {
-      setActiveKey('1');
     }
   }, []);
 
@@ -221,7 +218,7 @@ const Page = () => {
     { title: isBalance ? 'Giá bán lẻ của NCC (VND)' : 'Giá nhập (VND)', key: 'productPrice', dataIndex: 'productPrice' },
     { title: 'Giá bán lẻ của CH (VND)', key: 'sellingPrice', dataIndex: 'sellingPrice' },
   ];
-  
+
   return (
     <div className="w-full">
       <Fragment>
@@ -605,7 +602,7 @@ const Page = () => {
                   {
                     title: 'product.SellingPrice',
                     name: 'sellingPrice',
-                    tableItem: {  
+                    tableItem: {
                       render: (text, item) =>
                       item.sellingPrice ? parseInt(item.sellingPrice).toLocaleString() : '',
                     },
@@ -716,7 +713,7 @@ const Page = () => {
                 }
                 subHeader={() => (
                   <Form
-                    className="intro-x rounded-lg w-full form-store"  
+                    className="intro-x rounded-lg w-full form-store"
                     values={{
                       categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                       categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
@@ -748,7 +745,7 @@ const Page = () => {
                           //     value: item.id,
                           //   }),
                           // },
-                          onChange(value, form) {         
+                          onChange(value, form) {
                             setCategoryId1(value)
                             setCategoryId2('')
                             form.resetFields(['categoryId2', 'categoryId3']);
@@ -1009,7 +1006,7 @@ const Page = () => {
                       },
                     ],
                     onClick: ({ key }) => {
-                      key === '1' ?
+                      key == '1' ?
                         (
                           setIsBalance(true),
                           dataTableRefSupplier?.current?.onChange({
@@ -1960,7 +1957,7 @@ const Page = () => {
                 leftHeader={
                   <Form
                     className="intro-x rounded-lg md:flex"
-                    values={{ 
+                    values={{
                       supplierName: getFilter(inventoryProductFacade.queryParams, 'supplierId'),
                       productCode: getFilter(inventoryProductFacade.queryParams, 'productCode'),
                       storeBarcode: getFilter(inventoryProductFacade.queryParams, 'storeBarcode'),
@@ -1989,8 +1986,8 @@ const Page = () => {
                             dataTableRefInventory?.current?.onChange({
                               page: 1,
                               perPage: 10,
-                              filter: { 
-                                idStore: id, 
+                              filter: {
+                                idStore: id,
                                 supplierId: value,
                                 productName: form.getFieldValue('productName'),
                                 supplierBarcode:form.getFieldValue('supplierBarcode'),
@@ -2023,3 +2020,18 @@ const Page = () => {
   );
 };
 export default Page;
+
+
+//dear maitodan,
+//i'm writting to tell you about to gong to the cinema.
+//firstly, i really sorry because i can't go to the cinema with you.
+//and i have a lot of homework to do so i can't go to the cinema with you.
+//finally, i want to see you in the cinema on the next sunday. Can you spend time?
+//i'm looking forward to your email.
+//maito
+
+//dear maitoancac
+//i writting to thanks for having invited me.
+//firstly, i really thanks you because you invited me to spend a weekend with her family. Besides, i can't go and i really sorry.
+//finally, i having a footballmatch in the weekend
+//i'm looking forward to your email
