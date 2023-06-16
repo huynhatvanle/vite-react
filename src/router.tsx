@@ -112,12 +112,12 @@ const pages = [
       },
       {
         path: routerLinks('Contract-View') + '/:id',
-        component: React.lazy(() => import('@pages/supplier/supplierContract')),
+        component: React.lazy(() => import('@pages/supplier/supllier-contract/supplierContract')),
         title: 'Contract-View',
       },
       {
         path: routerLinks('Discount-Detail') + '/:id',
-        component: React.lazy(() => import('@pages/supplier/discountDetail')),
+        component: React.lazy(() => import('@pages/supplier/discountDetail/discountDetail')),
         title: 'Discount-Detail',
       },
     ], // 💬 generate link to here
