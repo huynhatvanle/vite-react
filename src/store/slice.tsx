@@ -146,6 +146,8 @@ export class Slice<T extends CommonEntity> {
 export interface State<T = object> {
   [selector: string]: any;
   result?: Responses<T[]>;
+  result2?: Responses<T[]>;
+  result3?: Responses<T[]>;
   data?: T;
   isLoading?: boolean;
   isVisible?: boolean;
