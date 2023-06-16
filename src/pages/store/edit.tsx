@@ -61,7 +61,6 @@ const Page = () => {
   const [isRevenueByOrder, setIsRevenueByOrder] = useState(true);
   const [categoryId1, setCategoryId1] = useState('')
   const [categoryId2, setCategoryId2] = useState('')
-  const [loadSuppllier, setLoadSupplier] = useState(false)
 
   const category1 = categoryFacade.result?.data
   const category2 = categoryFacade.result2?.data
@@ -192,7 +191,7 @@ const Page = () => {
       dataTableRefBranch?.current?.onChange({
         page: 1,
         perPage: 10,
-        fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
+        filter: { storeId: id, supplierType: 'BALANCE' }
       });
     }
 
@@ -209,6 +208,21 @@ const Page = () => {
       setActiveKey('1');
     }
   }, []);
+
+  useEffect(() => {
+    if (!isRevenueByOrder) {
+      connectSupplierFacade.get({
+        page: 1,
+        perPage: 10,
+        filter: { idSuppiler: id },
+      })
+      subStoreFacade.get({ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'NON_BALANCE' } })
+    }
+  }, [isRevenueByOrder])
+
+  const supplierInvoice = subStoreFacade.result?.data ? subStoreFacade.result?.data.map((item) => { return { id: item.id, name: item.name } }) : []
+  const supplierInvoice1 = connectSupplierFacade.result?.data ? connectSupplierFacade.result?.data.map((item) => { return { id: item.supplier!.id, name: item.supplier!.name } }) : []
+  const supplierInvoice2 = [...supplierInvoice, ...supplierInvoice1]
 
   const columnproduct: IExcelColumn[] = [
     { title: t('product.Code'), key: 'code', dataIndex: 'code' },
@@ -1548,7 +1562,7 @@ const Page = () => {
                                 placeholder: 'placeholder.Choose a supplier',
                                 col: 6,
                                 type: 'select',
-                                list: subStoreFacade.result?.data?.map((item) => ({
+                                list: supplierInvoice2.map((item) => ({
                                   label: item?.name,
                                   value: item?.id!
                                 })),
