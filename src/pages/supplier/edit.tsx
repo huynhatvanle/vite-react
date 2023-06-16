@@ -125,15 +125,15 @@ const Page = () => {
   ];
   const listStatusDiscount = [
     {
-      label: t('supplier.Order.Unpaid'),
-      value: 'NOT_PAID',
-    },
-    {
       label: t('supplier.Order.Paid'),
       value: 'PAID',
     },
     {
-      label: t('supplier.Order.Paid'),
+      label: t('supplier.Order.Unpaid'),
+      value: 'NOT_PAID',
+    },
+    {
+      label: t('supplier.Order.Unfinish'),
       value: 'NOT_COMPLETED_PAID',
     },
   ];
