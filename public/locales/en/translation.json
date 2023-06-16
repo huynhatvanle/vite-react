@@ -409,12 +409,16 @@
     "Category": "Category",
     "SupplierName": "Supplier name",
     "Unit": "Unit",
+    "PriceBalance": "Retail price from supplier (VND)",
+    "PriceNonBalance": "Import price (VND)",
+    "SellingPrice": "Retail price from store (VND)",
     "Price": "Retail price (VND)",
     "Status": "Status",
     "Barcode": "Barcode",
     "Revenue":"Revenue",
     "Image link":"Image link",
-    "status": "Status"
+    "status": "Status",
+    "List Balance":"Chemical List Balance.xlsx"
   },
   "placeholder": {
     "Choose a supplier": "Choose a supplier",

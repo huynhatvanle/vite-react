@@ -120,48 +120,48 @@ const Page = () => {
 
   useEffect(() => {
     // if (loadSuppllier) {
-      // connectSupplierFacade.get({
-      //   page: 1,
-      //   perPage: 10,
-      //   fullTextSearch: '',
-      //   filter: { idSuppiler: id },
-      // })
-      // subStoreFacade.get({
-      //   page: 1,
-      //   perPage: 10,
-      //   fullTextSearch: '',
-      //   filter: { storeId: id, supplierType: 'NON_BALANCE' },
-      // })
-      // dataTableRefInvoiceRevenue?.current?.onChange({
-      //   page: 1,
-      //   perPage: 10,
-      //   filter: {
-      //     idStore: id,
-      //     dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-      //     dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
-      //   },
-      // }),
-      //   dataTableRefInvoiceKiot?.current?.onChange({
-      //     page: 1,
-      //     perPage: 10,
-      //     filter: {
-      //       idStore: id,
-      //       dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-      //       dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
-      //     },
-      //   }),
-      // dataTableRefsubStore?.current?.onChange({
-      //   page: 1,
-      //   perPage: 10,
-      //   fullTextSearch: '',
-      //   filter: { storeId: id, supplierType: 'NON_BALANCE' },
-      // })
-      // dataTableRefSupplier?.current?.onChange({
-      //   page: 1,
-      //   perPage: 10,
-      //   fullTextSearch: '',
-      //   filter: { idSuppiler: id },
-      // })
+    // connectSupplierFacade.get({
+    //   page: 1,
+    //   perPage: 10,
+    //   fullTextSearch: '',
+    //   filter: { idSuppiler: id },
+    // })
+    // subStoreFacade.get({
+    //   page: 1,
+    //   perPage: 10,
+    //   fullTextSearch: '',
+    //   filter: { storeId: id, supplierType: 'NON_BALANCE' },
+    // })
+    // dataTableRefInvoiceRevenue?.current?.onChange({
+    //   page: 1,
+    //   perPage: 10,
+    //   filter: {
+    //     idStore: id,
+    //     dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+    //     dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
+    //   },
+    // }),
+    //   dataTableRefInvoiceKiot?.current?.onChange({
+    //     page: 1,
+    //     perPage: 10,
+    //     filter: {
+    //       idStore: id,
+    //       dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+    //       dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
+    //     },
+    //   }),
+    // dataTableRefsubStore?.current?.onChange({
+    //   page: 1,
+    //   perPage: 10,
+    //   fullTextSearch: '',
+    //   filter: { storeId: id, supplierType: 'NON_BALANCE' },
+    // })
+    // dataTableRefSupplier?.current?.onChange({
+    //   page: 1,
+    //   perPage: 10,
+    //   fullTextSearch: '',
+    //   filter: { idSuppiler: id },
+    // })
     // }
   }, [productFacade.queryParams]);
 
@@ -211,17 +211,17 @@ const Page = () => {
   }, []);
 
   const columnproduct: IExcelColumn[] = [
-    { title: 'Mã sản phẩm', key: 'code', dataIndex: 'code' },
-    { title: 'Mã vạch (CH)', key: 'storeBarcode', dataIndex: 'storeBarcode' },
-    { title: 'Mã vạch (NCC)', key: 'barcode', dataIndex: 'barcode' },
-    { title: 'Tên sản phẩm', key: 'name', dataIndex: 'name' },
-    { title: 'Danh mục', key: 'category', dataIndex: 'category' },
-    { title: 'Nhà cung cấp', key: 'supplierName', dataIndex: 'supplierName' },
-    { title: 'Đơn vị', key: 'basicUnit', dataIndex: 'basicUnit' },
-    { title: isBalance ? 'Giá bán lẻ của NCC (VND)' : 'Giá nhập (VND)', key: 'productPrice', dataIndex: 'productPrice' },
-    { title: 'Giá bán lẻ của CH (VND)', key: 'sellingPrice', dataIndex: 'sellingPrice' },
+    { title: t('product.Code'), key: 'code', dataIndex: 'code' },
+    { title: t('product.StoreCode'), key: 'storeBarcode', dataIndex: 'storeBarcode' },
+    { title: t('product.SupplierCode'), key: 'barcode', dataIndex: 'barcode' },
+    { title: t('product.Name'), key: 'name', dataIndex: 'name' },
+    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t('product.SupplierName'), key: 'supplierName', dataIndex: 'supplierName' },
+    { title: t('product.Unit'), key: 'basicUnit', dataIndex: 'basicUnit' },
+    { title: isBalance ? t('product.PriceBalance') : t('product.PriceNonBalance'), key: 'productPrice', dataIndex: 'productPrice' },
+    { title: t('product.SellingPrice'), key: 'sellingPrice', dataIndex: 'sellingPrice' },
   ];
-  
+
   return (
     <div className="w-full">
       <Fragment>
@@ -605,9 +605,9 @@ const Page = () => {
                   {
                     title: 'product.SellingPrice',
                     name: 'sellingPrice',
-                    tableItem: {  
+                    tableItem: {
                       render: (text, item) =>
-                      item.sellingPrice ? parseInt(item.sellingPrice).toLocaleString() : '',
+                        item.sellingPrice ? parseInt(item.sellingPrice).toLocaleString() : '',
                     },
                   },
                 ]}
@@ -647,11 +647,11 @@ const Page = () => {
                               barcode: item?.barcode,
                               storeBarcode: item?.storeBarcode,
                               code: item?.code,
-                              sellingPrice: item?.sellingPrice ? parseInt(item?.sellingPrice).toLocaleString(): ''
+                              sellingPrice: item?.sellingPrice ? parseInt(item?.sellingPrice).toLocaleString() : ''
                             })) ?? [], {
                               str2Percent: true
                             })
-                            .saveAs("Danh sách hàng hóa Balance.xlsx")
+                            .saveAs(t('product.List Balance'))
                         }}
                       />
                     }
@@ -716,7 +716,7 @@ const Page = () => {
                 }
                 subHeader={() => (
                   <Form
-                    className="intro-x rounded-lg w-full form-store"  
+                    className="intro-x rounded-lg w-full form-store"
                     values={{
                       categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                       categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
@@ -748,7 +748,7 @@ const Page = () => {
                           //     value: item.id,
                           //   }),
                           // },
-                          onChange(value, form) {         
+                          onChange(value, form) {
                             setCategoryId1(value)
                             setCategoryId2('')
                             form.resetFields(['categoryId2', 'categoryId3']);
@@ -810,9 +810,9 @@ const Page = () => {
                                 categoryId2: value,
                                 categoryId1: form.getFieldValue('categoryId1'),
                                 name: form.getFieldValue('productName'),
-                                barcode:form.getFieldValue('supplierBarcode'),
-                                storeBarcode:form.getFieldValue('storeBarcode'),
-                                code:form.getFieldValue('productCode'),
+                                barcode: form.getFieldValue('supplierBarcode'),
+                                storeBarcode: form.getFieldValue('storeBarcode'),
+                                code: form.getFieldValue('productCode'),
                               },
                             });
                           },
@@ -858,9 +858,9 @@ const Page = () => {
                                 categoryId1: form.getFieldValue('categoryId1'),
                                 categoryId2: form.getFieldValue('categoryId2'),
                                 name: form.getFieldValue('productName'),
-                                barcode:form.getFieldValue('supplierBarcode'),
-                                storeBarcode:form.getFieldValue('storeBarcode'),
-                                code:form.getFieldValue('productCode'),
+                                barcode: form.getFieldValue('supplierBarcode'),
+                                storeBarcode: form.getFieldValue('storeBarcode'),
+                                code: form.getFieldValue('productCode'),
                               },
                             });
                           },
@@ -1385,7 +1385,7 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: form.getFieldValue('status'),
-                                      dateFrom:value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+                                      dateFrom: value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
                                       dateTo: form.getFieldValue('dateTo').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
                                     },
                                   });
@@ -1421,7 +1421,7 @@ const Page = () => {
                                       idStore: id,
                                       status: form.getFieldValue('status'),
                                       dateFrom: form.getFieldValue('dateFrom').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-                                      dateTo:value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
+                                      dateTo: value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                                     },
                                   });
                                 },
@@ -1960,7 +1960,7 @@ const Page = () => {
                 leftHeader={
                   <Form
                     className="intro-x rounded-lg md:flex"
-                    values={{ 
+                    values={{
                       supplierName: getFilter(inventoryProductFacade.queryParams, 'supplierId'),
                       productCode: getFilter(inventoryProductFacade.queryParams, 'productCode'),
                       storeBarcode: getFilter(inventoryProductFacade.queryParams, 'storeBarcode'),
@@ -1989,13 +1989,13 @@ const Page = () => {
                             dataTableRefInventory?.current?.onChange({
                               page: 1,
                               perPage: 10,
-                              filter: { 
-                                idStore: id, 
+                              filter: {
+                                idStore: id,
                                 supplierId: value,
                                 productName: form.getFieldValue('productName'),
-                                supplierBarcode:form.getFieldValue('supplierBarcode'),
-                                storeBarcode:form.getFieldValue('storeBarcode'),
-                                productCode:form.getFieldValue('productCode'),
+                                supplierBarcode: form.getFieldValue('supplierBarcode'),
+                                storeBarcode: form.getFieldValue('storeBarcode'),
+                                productCode: form.getFieldValue('productCode'),
                               },
                             });
                           },
