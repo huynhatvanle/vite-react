@@ -523,7 +523,7 @@ const Page = () => {
                         )
                     },
                   }}
-                  // open={activeKey != '2' ? false : undefined}
+                // open={activeKey != '2' ? false : undefined}
                 >
                   <section className="flex items-center" id={'dropdown-store'}>
                     <div>{t('titles.Listofgoods')}</div>
@@ -591,7 +591,7 @@ const Page = () => {
                     },
                   },
                   {
-                    title: 'product.Unit',
+                    title: 'product.UnitProduct',
                     name: 'basicUnit',
                     tableItem: {},
                   },
@@ -601,7 +601,7 @@ const Page = () => {
                     tableItem: {
                       render: (text, item) =>
                         isBalance ? parseInt(item.productPrice[0] ? item.productPrice[0]?.price : '0').toLocaleString()
-                        : parseInt(item?.price ? item?.price : '0').toLocaleString(),
+                          : parseInt(item?.price ? item?.price : '0').toLocaleString(),
                     },
                   },
                   {
@@ -1031,7 +1031,7 @@ const Page = () => {
                         )
                     },
                   }}
-                  // open={activeKey != '4' ? false : undefined}
+                // open={activeKey != '4' ? false : undefined}
                 >
                   <section className="flex items-center">
                     <div>{t('titles.Manage')}</div>
@@ -1235,7 +1235,7 @@ const Page = () => {
                     selectedKeys: isRevenueByOrder ? ['1'] : ['2'],
                     onSelect: ({ key, selectedKeys }) => console.log(key, selectedKeys),
                   }}
-                  // open={activeKey != '5' ? false : undefined}
+                // open={activeKey != '5' ? false : undefined}
                 >
                   <section className="flex items-center">
                     <div>{t('titles.Revenue')}</div>
@@ -1491,7 +1491,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'titles.Revenue',
+                        title: 'product.SupplierName',
                         name: 'supplier',
                         tableItem: {
                           // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,

@@ -409,6 +409,7 @@
     "Category": "Category",
     "SupplierName": "Supplier name",
     "Unit": "Unit",
+    "UnitProduct": "Unit",
     "PriceBalance": "Retail price from supplier (VND)",
     "PriceNonBalance": "Import price (VND)",
     "SellingPrice": "Retail price from store (VND)",
