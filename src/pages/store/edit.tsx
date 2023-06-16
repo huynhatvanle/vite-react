@@ -523,7 +523,7 @@ const Page = () => {
                         )
                     },
                   }}
-                  // open={activeKey != '2' ? false : undefined}
+                // open={activeKey != '2' ? false : undefined}
                 >
                   <section className="flex items-center" id={'dropdown-store'}>
                     <div>{t('titles.Listofgoods')}</div>
@@ -601,7 +601,7 @@ const Page = () => {
                     tableItem: {
                       render: (text, item) =>
                         isBalance ? parseInt(item.productPrice[0] ? item.productPrice[0]?.price : '0').toLocaleString()
-                        : parseInt(item?.price ? item?.price : '0').toLocaleString(),
+                          : parseInt(item?.price ? item?.price : '0').toLocaleString(),
                     },
                   },
                   {
@@ -1011,27 +1011,10 @@ const Page = () => {
                       },
                     ],
                     onClick: ({ key }) => {
-                      key === '1' ?
-                        (
-                          setIsBalance(true),
-                          dataTableRefSupplier?.current?.onChange({
-                            page: 1,
-                            perPage: 10,
-                            filter: { idSuppiler: id },
-                          })
-                        )
-                        :
-                        (
-                          setIsBalance(false),
-                          dataTableRefsubStore?.current?.onChange({
-                            page: 1,
-                            perPage: 10,
-                            filter: { storeId: id, supplierType: 'NON_BALANCE' },
-                          })
-                        )
+                      key === '1' ? setIsBalance(true) : setIsBalance(false)
                     },
                   }}
-                  // open={activeKey != '4' ? false : undefined}
+                // open={activeKey != '4' ? false : undefined}
                 >
                   <section className="flex items-center">
                     <div>{t('titles.Manage')}</div>
@@ -1042,128 +1025,138 @@ const Page = () => {
               key="4"
               className="rounded-xl"
             >
-              <DataTable
-                ref={isBalance ? dataTableRefSupplier : dataTableRefsubStore}
-                facade={isBalance ? connectSupplierFacade : subStoreFacade}
-                defaultRequest={isBalance ?
-                  {
-                    page: 1,
-                    perPage: 10,
-                    filter: { idSuppiler: id },
-                  }
-                  :
-                  {
-                    page: 1,
-                    perPage: 10,
-                    filter: { storeId: id, supplierType: 'NON_BALANCE' },
-                  }
-                }
-                xScroll="1270px"
-                className=" bg-white p-5 rounded-lg"
-                // onRow={(data: any) => ({
-                //   onDoubleClick: () => {
-                //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
-                //   },
-                // })}
-                pageSizeRender={(sizePage: number) => sizePage}
-                pageSizeWidth={'50px'}
-                paginationDescription={(from: number, to: number, total: number) =>
-                  t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                }
-                columns={isBalance ?
-                  [
-                    {
-                      title: 'supplier.CodeName',
-                      name: 'supplier',
-                      tableItem: {
-                        width: 150,
-                        render: (value: any, item: any) => item.supplier?.code,
+              {isBalance ? (
+                <div className={'w-full mx-auto '}>
+                  <div className="p-5 bg-white rounded-xl">
+                    <DataTable
+                      ref={dataTableRefSupplier}
+                      facade={connectSupplierFacade}
+                      defaultRequest={{
+                        page: 1,
+                        perPage: 10,
+                        filter: { idSuppiler: id },
+                      }}
+                      xScroll="1270px"
+                      pageSizeRender={(sizePage: number) => sizePage}
+                      pageSizeWidth={'50px'}
+                      paginationDescription={(from: number, to: number, total: number) =>
+                        t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                      }
+                      columns={[
+                        {
+                          title: 'supplier.CodeName',
+                          name: 'supplier',
+                          tableItem: {
+                            width: 150,
+                            render: (value: any, item: any) => item.supplier?.code,
+                          },
+                        },
+                        {
+                          title: 'supplier.Name',
+                          name: 'supplier',
+                          tableItem: {
+                            render: (value: any, item: any) => item.supplier?.name,
+                          },
+                        },
+                        {
+                          title: 'store.Address',
+                          name: 'supplier',
+                          tableItem: {
+                            render: (value: any, item: any) =>
+                              item.supplier.address?.street +
+                              ', ' +
+                              item.supplier.address?.ward.name +
+                              ', ' +
+                              item.supplier.address?.district.name +
+                              ', ' +
+                              item.supplier.address?.province.name,
+                          },
+                        },
+                        {
+                          title: 'store.Name management',
+                          name: 'supplier',
+                          tableItem: {
+                            render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                          },
+                        },
+                        {
+                          title: 'store.Phone Number',
+                          name: 'supplier',
+                          tableItem: {
+                            render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                          },
+                        },
+                      ]}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className='bg-white rounded-xl p-5'>
+                  <DataTable
+                    ref={dataTableRefsubStore}
+                    facade={subStoreFacade}
+                    defaultRequest={{
+                      page: 1,
+                      perPage: 10,
+                      filter: { storeId: id, supplierType: 'NON_BALANCE' },
+                    }}
+                    xScroll='1270px'
+                    // onRow={(data: any) => ({
+                    //   onDoubleClick: () => {
+                    //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
+                    //   },
+                    // })}
+                    pageSizeRender={(sizePage: number) => sizePage}
+                    pageSizeWidth={'50px'}
+                    paginationDescription={(from: number, to: number, total: number) =>
+                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
+                    }
+                    columns={[
+                      {
+                        title: 'supplier.CodeName',
+                        name: 'code',
+                        tableItem: {
+                          width: 150,
+                        },
                       },
-                    },
-                    {
-                      title: 'supplier.Name',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier?.name,
+                      {
+                        title: 'supplier.Name',
+                        name: 'name',
+                        tableItem: {
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Address',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) =>
-                          item.supplier.address?.street +
-                          ', ' +
-                          item.supplier.address?.ward.name +
-                          ', ' +
-                          item.supplier.address?.district.name +
-                          ', ' +
-                          item.supplier.address?.province.name,
+                      {
+                        title: 'store.Address',
+                        name: 'address',
+                        tableItem: {
+                          render: (value: any, item: any) =>
+                            item.address?.street +
+                            ', ' +
+                            item.address?.wardName +
+                            ', ' +
+                            item.address?.districtName +
+                            ', ' +
+                            item.address?.provinceName,
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Name management',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                      {
+                        title: 'store.Name management',
+                        name: 'peopleContact',
+                        tableItem: {
+                          render: (value: any, item: any) => item.peopleContact?.name,
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Phone Number',
-                      name: 'supplier',
-                      tableItem: {
-                        render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                      {
+                        title: 'store.Phone Number',
+                        name: 'peopleContact',
+                        tableItem: {
+                          render: (value: any, item: any) => item.peopleContact?.phoneNumber,
+                        },
                       },
-                    },
-                  ]
-                  :
-                  [
-                    {
-                      title: 'supplier.CodeName',
-                      name: 'code',
-                      tableItem: {
-                        width: 150,
-                      },
-                    },
-                    {
-                      title: 'supplier.Name',
-                      name: 'name',
-                      tableItem: {
-                      },
-                    },
-                    {
-                      title: 'store.Address',
-                      name: 'address',
-                      tableItem: {
-                        render: (value: any, item: any) =>
-                          item.address?.street +
-                          ', ' +
-                          item.address?.wardName +
-                          ', ' +
-                          item.address?.districtName +
-                          ', ' +
-                          item.address?.provinceName,
-                      },
-                    },
-                    {
-                      title: 'store.Name management',
-                      name: 'peopleContact',
-                      tableItem: {
-                        render: (value: any, item: any) => item.peopleContact?.name,
-                      },
-                    },
-                    {
-                      title: 'store.Phone Number',
-                      name: 'peopleContact',
-                      tableItem: {
-                        render: (value: any, item: any) => item.peopleContact?.phoneNumber,
-                      },
-                    },
-                  ]
-                }
-
-              />
-
+                    ]}
+                  />
+                </div>
+              )}
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
@@ -1204,38 +1197,18 @@ const Page = () => {
                       key === '1' ?
                         (
                           setIsRevenueByOrder(true),
-                          dataTableRefInvoiceRevenue?.current?.onChange({
-                            page: 1,
-                            perPage: 10,
-                            filter: {
-                              idStore: id,
-                              dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-                              dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
-                            },
-                          }),
                           setCategoryId1(''),
                           setCategoryId2('')
                         )
                         :
                         (
                           setIsRevenueByOrder(false),
-                          dataTableRefInvoiceKiot?.current?.onChange({
-                            page: 1,
-                            perPage: 10,
-                            filter: {
-                              idStore: id,
-                              dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-                              dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
-                            },
-                          }),
                           setCategoryId1(''),
                           setCategoryId2('')
                         )
                     },
-                    selectedKeys: isRevenueByOrder ? ['1'] : ['2'],
-                    onSelect: ({ key, selectedKeys }) => console.log(key, selectedKeys),
                   }}
-                  // open={activeKey != '5' ? false : undefined}
+                // open={activeKey != '5' ? false : undefined}
                 >
                   <section className="flex items-center">
                     <div>{t('titles.Revenue')}</div>
@@ -1246,197 +1219,211 @@ const Page = () => {
               key="5"
               className="rounded-xl"
             >
-              <div className="bg-white p-5 rounded-lg">
-                {isRevenueByOrder ? (
-                  <DataTable
-                    ref={dataTableRefInvoiceRevenue}
-                    facade={invoiceRevenueFacade}
-                    defaultRequest={{
-                      page: 1,
-                      perPage: 10,
-                      filter: {
-                        idStore: id,
-                        dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-                        dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
-                      },
-                    }}
-                    xScroll="1270px"
-                    pageSizeRender={(sizePage: number) => sizePage}
-                    pageSizeWidth={'50px'}
-                    paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.PaginationSupplier', { from, to, total })
-                    }
-                    columns={[
-                      {
-                        title: 'store.Revenue.Serial number',
-                        name: 'supplier',
-                        tableItem: {
-                          width: 150,
-                          // render: (value: any, item: any) => item.supplier?.code,
+              {isRevenueByOrder ? (
+                <div className={'w-full mx-auto '}>
+                  <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
+                    <DataTable
+                      ref={dataTableRefInvoiceRevenue}
+                      facade={invoiceRevenueFacade}
+                      defaultRequest={{
+                        page: 1,
+                        perPage: 10,
+                        filter: {
+                          idStore: id,
+                          dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+                          dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                         },
-                      },
-                      {
-                        title: 'store.Revenue.Order code',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier?.name,
+                      }}
+                      xScroll="1270px"
+                      pageSizeRender={(sizePage: number) => sizePage}
+                      pageSizeWidth={'50px'}
+                      paginationDescription={(from: number, to: number, total: number) =>
+                        t('routes.admin.Layout.PaginationOrder', { from, to, total })
+                      }
+                      searchPlaceholder={t('placeholder.Search by order number')}
+                      columns={[
+                        {
+                          title: 'store.Revenue.Serial number',
+                          name: 'supplier',
+                          tableItem: {
+                            width: 150,
+                            // render: (value: any, item: any) => item.supplier?.code,
+                          },
                         },
-                      },
-                      {
-                        title: 'store.Revenue.Sale date',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier?.name,
+                        {
+                          title: 'store.Revenue.Order code',
+                          name: 'supplier',
+                          tableItem: {
+                            // render: (value: any, item: any) => item.supplier?.name,
+                          },
                         },
-                      },
-                      {
-                        title: 'store.Revenue.Value (VND)',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier?.name,
+                        {
+                          title: 'store.Revenue.Sale date',
+                          name: 'supplier',
+                          tableItem: {
+                            // render: (value: any, item: any) => item.supplier?.name,
+                          },
                         },
-                      },
-                      {
-                        title: 'store.Revenue.Discount (VND)',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                        {
+                          title: 'store.Revenue.Value (VND)',
+                          name: 'supplier',
+                          tableItem: {
+                            // render: (value: any, item: any) => item.supplier?.name,
+                          },
                         },
-                      },
-                      {
-                        title: 'store.Revenue.Total amount (VND)',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        {
+                          title: 'store.Revenue.Discount (VND)',
+                          name: 'supplier',
+                          tableItem: {
+                            // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                          },
                         },
-                      },
-                      {
-                        title: 'store.Revenue.Order type',
-                        name: 'supplier',
-                        tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                        {
+                          title: 'store.Revenue.Total amount (VND)',
+                          name: 'supplier',
+                          tableItem: {
+                            // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                          },
                         },
-                      },
-                    ]}
-                    searchPlaceholder={t('placeholder.Search by order number')}
-                    rightHeader={
-                      <div className="flex sm:justify-end text-left flex-col">
-                        <Form
-                          className="intro-x sm:flex lg:justify-end form-store mt-2 sm:mt-4 lg:mt-0"
-                          values={{
-                            status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
-                            dateFrom: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
-                            dateTo: getFilter(invoiceRevenueFacade.queryParams, 'dateTo'),
-                          }}
-                          columns={[
-                            {
-                              title: '',
-                              name: 'status',
-                              formItem: {
-                                placeholder: 'placeholder.Select order type',
-                                type: 'select',
-                                list: listStatus,
-                                onChange(value, form) {
-                                  dataTableRefInvoiceRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: {
-                                      idStore: id,
-                                      status: value,
-                                      dateFrom: form.getFieldValue('dateFrom'),
-                                      dateTo: form.getFieldValue('dateTo'),
-                                    },
-                                  });
+                        {
+                          title: 'store.Revenue.Order type',
+                          name: 'supplier',
+                          tableItem: {
+                            // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                          },
+                        },
+                      ]}
+                      rightHeader={
+                        <div className="flex sm:justify-end text-left flex-col">
+                          <Form
+                            className="intro-x sm:flex lg:justify-end form-store mt-2 sm:mt-4 lg:mt-0"
+                            values={{
+                              status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
+                              dateFrom: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
+                              dateTo: getFilter(invoiceRevenueFacade.queryParams, 'dateTo'),
+                            }}
+                            columns={[
+                              {
+                                title: '',
+                                name: 'status',
+                                formItem: {
+                                  placeholder: 'placeholder.Select order type',
+                                  type: 'select',
+                                  list: listStatus,
+                                  onChange(value, form) {
+                                    dataTableRefInvoiceRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idStore: id,
+                                        status: value,
+                                        dateFrom: form.getFieldValue('dateFrom'),
+                                        dateTo: form.getFieldValue('dateTo'),
+                                      },
+                                    });
+                                  },
                                 },
                               },
-                            },
-                          ]}
-                          disableSubmit={isLoading}
-                        />
-                        <Form
-                          className="intro-x rounded-lg w-full sm:flex justify-between form-store"
-                          values={{
-                            status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
-                            dateFrom: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
-                            dateTo: getFilter(invoiceRevenueFacade.queryParams, 'dateTo'),
-                          }}
-                          columns={[
-                            {
-                              title: '',
-                              name: '',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 2,
-                                render: () => (
-                                  <div className="flex h-10 items-center !w-full">
-                                    <p className="text-sm">{t('store.Since')}</p>
-                                  </div>
-                                ),
-                              },
-                            },
-                            {
-                              title: '',
-                              name: 'dateFrom',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                                placeholder: 'placeholder.Choose a time',
-                                onChange(value, form) {
-                                  dataTableRefInvoiceRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: {
-                                      idStore: id,
-                                      status: form.getFieldValue('status'),
-                                      dateFrom: value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-                                      dateTo: form.getFieldValue('dateTo').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-                                    },
-                                  });
+                            ]}
+                            disableSubmit={isLoading}
+                          />
+                          <Form
+                            className="intro-x rounded-lg w-full sm:flex justify-between form-store"
+                            values={{
+                              status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
+                              dateFrom: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
+                              dateTo: getFilter(invoiceRevenueFacade.queryParams, 'dateTo'),
+                            }}
+                            columns={[
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center !w-full">
+                                      <p className="text-sm">{t('store.Since')}</p>
+                                    </div>
+                                  ),
                                 },
                               },
-                            },
-                            {
-                              title: '',
-                              name: '',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 2,
-                                render: () => (
-                                  <div className="flex h-10 items-center !w-full">
-                                    <p className="text-sm">{t('store.To date')}</p>
-                                  </div>
-                                ),
-                              },
-                            },
-                            {
-                              title: '',
-                              name: 'dateTo',
-                              formItem: {
-                                tabIndex: 3,
-                                col: 4,
-                                type: 'date',
-                                placeholder: 'placeholder.Choose a time',
-                                onChange(value, form) {
-                                  dataTableRefInvoiceRevenue?.current?.onChange({
-                                    page: 1,
-                                    perPage: 10,
-                                    filter: {
-                                      idStore: id,
-                                      status: form.getFieldValue('status'),
-                                      dateFrom: form.getFieldValue('dateFrom').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-                                      dateTo: value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
-                                    },
-                                  });
+                              {
+                                title: '',
+                                name: 'dateFrom',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                  placeholder: 'placeholder.Choose a time',
+                                  onChange(value, form) {
+                                    dataTableRefInvoiceRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idStore: id,
+                                        status: form.getFieldValue('status'),
+                                        dateFrom: value ? value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/') : '',
+                                        dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/') : '',
+                                      },
+                                    });
+                                  },
                                 },
                               },
-                            },
-                          ]}
-                        />
-                      </div>
-                    }
-                  />
-                ) : (
+                              {
+                                title: '',
+                                name: '',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 2,
+                                  render: () => (
+                                    <div className="flex h-10 items-center !w-full">
+                                      <p className="text-sm">{t('store.To date')}</p>
+                                    </div>
+                                  ),
+                                },
+                              },
+                              {
+                                title: '',
+                                name: 'dateTo',
+                                formItem: {
+                                  tabIndex: 3,
+                                  col: 4,
+                                  type: 'date',
+                                  placeholder: 'placeholder.Choose a time',
+                                  onChange(value, form) {
+                                    dataTableRefInvoiceRevenue?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        idStore: id,
+                                        status: form.getFieldValue('status'),
+                                        dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/') : '',
+                                        dateTo: value ? value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/') : '',
+                                      },
+                                    });
+                                  },
+                                },
+                              },
+                            ]}
+                          />
+                        </div>
+                      }
+                    />
+                    <div className="flex sm:justify-end justify-center items-center p-5">
+                      <Button
+                        disabled={true}
+                        text={t('titles.Export report')}
+                        className={
+                          'flex bg-teal-900 text-white sm:w-[10rem] rounded-xl items-center justify-center disabled:opacity-50'
+                        }
+                        onClick={() => null}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className='bg-white rounded-xl p-5'>
                   <DataTable
                     ref={dataTableRefInvoiceKiot}
                     facade={invoiceKiotVietFacade}
@@ -1620,14 +1607,16 @@ const Page = () => {
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
                                 onChange(value, form) {
+                                  console.log(value);
+
                                   dataTableRefInvoiceKiot?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
                                     filter: {
                                       idStore: id,
                                       status: form.getFieldValue('status'),
-                                      dateFrom: value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-                                      dateTo: form.getFieldValue('dateTo').format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
+                                      dateFrom: value ? value.format('YYYY/MM/DD 00:00:00').replace(/-/g, '/') : '',
+                                      dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo').format('YYYY/MM/DD 23:59:59').replace(/-/g, '/') : '',
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       categoryId2: form.getFieldValue('categoryId2'),
                                       categoryId3: form.getFieldValue('categoryId3'),
@@ -1665,8 +1654,8 @@ const Page = () => {
                                     filter: {
                                       idStore: id,
                                       status: form.getFieldValue('status'),
-                                      dateFrom: form.getFieldValue('dateFrom').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
-                                      dateTo: value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
+                                      dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/') : '',
+                                      dateTo: value ? value.format('YYYY/MM/DD 23:59:59').replace(/-/g, '/') : '',
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       categoryId2: form.getFieldValue('categoryId2'),
                                       categoryId3: form.getFieldValue('categoryId3'),
@@ -1725,7 +1714,7 @@ const Page = () => {
                                       categoryId1: value,
                                       status: form.getFieldValue('status'),
                                       dateFrom: form.getFieldValue('dateFrom'),
-                                      dateTo: form.getFieldValue('dateTo'), 
+                                      dateTo: form.getFieldValue('dateTo'),
                                       supplierId: form.getFieldValue('supplierId'),
                                     }
                                   });
@@ -1830,18 +1819,18 @@ const Page = () => {
                       />
                     )}
                   />
-                )}
-                <div className="flex sm:justify-end justify-center items-center p-5">
-                  <Button
-                    disabled={true}
-                    text={t('titles.Export report')}
-                    className={
-                      'flex bg-teal-900 text-white sm:w-[10rem] rounded-xl items-center justify-center disabled:opacity-50'
-                    }
-                    onClick={() => null}
-                  />
+                  <div className="flex sm:justify-end justify-center items-center p-5">
+                    <Button
+                      disabled={true}
+                      text={t('titles.Export report')}
+                      className={
+                        'flex bg-teal-900 text-white sm:w-[10rem] rounded-xl items-center justify-center disabled:opacity-50'
+                      }
+                      onClick={() => null}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
