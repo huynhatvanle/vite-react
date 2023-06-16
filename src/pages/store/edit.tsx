@@ -63,8 +63,6 @@ const Page = () => {
   const [categoryId2, setCategoryId2] = useState('')
   const [loadSuppllier, setLoadSupplier] = useState(false)
 
-  console.log(JSON.parse(productFacade.queryParams || '{}'))
-
   const category1 = categoryFacade.result?.data
   const category2 = categoryFacade.result2?.data
   const category3 = categoryFacade.result3?.data
@@ -197,6 +195,7 @@ const Page = () => {
         fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
       });
     }
+
     navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${key}`);
   };
 
@@ -206,6 +205,8 @@ const Page = () => {
   useEffect(() => {
     if (tab) {
       setActiveKey(tab);
+    } else {
+      setActiveKey('1');
     }
   }, []);
 
@@ -1010,7 +1011,7 @@ const Page = () => {
                       },
                     ],
                     onClick: ({ key }) => {
-                      key == '1' ?
+                      key === '1' ?
                         (
                           setIsBalance(true),
                           dataTableRefSupplier?.current?.onChange({
@@ -2037,8 +2038,3 @@ const Page = () => {
 };
 export default Page;
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 57694127e8538f11c65b6010de582066daa03353
