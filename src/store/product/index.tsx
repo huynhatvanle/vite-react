@@ -13,32 +13,50 @@ const action = {
       page,
       perPage,
       filter,
-      sorts
+      sorts,
     }: {
       page: number;
       perPage: number;
-      filter: { storeId?: string; type: string; supplierId?: string; categoryId1?: string, categoryId2?: string, categoryId3?: string, isGetAll: boolean,}, sorts: {};
+      filter: {
+        storeId?: string;
+        type: string;
+        supplierId?: string;
+        categoryId1?: string;
+        categoryId2?: string;
+        categoryId3?: string;
+        isGetAll: boolean;
+      };
+      sorts: {};
     }) => {
       const filterProduct = JSON.parse(filter.toString() || '{}');
       const sortProduct = sorts ? JSON.parse(sorts.toString() || '{}') : '';
-      cleanObjectKeyNull(sortProduct)
-      const data = await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({
-        page,
-        perPage,
-        storeId: filterProduct.storeId,
-        type: filterProduct.type,
-        supplierId: filterProduct.supplierId,
-        categoryId: filterProduct.categoryId3 ? filterProduct.categoryId3 : filterProduct.categoryId2 ? filterProduct.categoryId2 : filterProduct.categoryId1 ? filterProduct.categoryId1 : null,
-        categoryId1: filterProduct.categoryId1,
-        categoryId2: filterProduct.categoryId2,
-        categoryId3: filterProduct.categoryId3,
-        productName: filterProduct.name,
-        supplierBarcode: filterProduct.barcode,
-        storeBarcode: filterProduct.storeBarcode,
-        productCode: filterProduct.code,
-        isGetAll: filterProduct.isGetAll,
-        sort: { productCode: sortProduct.code, productName: sortProduct.name }
-      }));
+      cleanObjectKeyNull(sortProduct);
+      const data = await API.get(
+        routerLinks(name, 'api'),
+        cleanObjectKeyNull({
+          page,
+          perPage,
+          storeId: filterProduct.storeId,
+          type: filterProduct.type,
+          supplierId: filterProduct.supplierId,
+          categoryId: filterProduct.categoryId3
+            ? filterProduct.categoryId3
+            : filterProduct.categoryId2
+            ? filterProduct.categoryId2
+            : filterProduct.categoryId1
+            ? filterProduct.categoryId1
+            : null,
+          categoryId1: filterProduct.categoryId1,
+          categoryId2: filterProduct.categoryId2,
+          categoryId3: filterProduct.categoryId3,
+          productName: filterProduct.name,
+          supplierBarcode: filterProduct.barcode,
+          storeBarcode: filterProduct.storeBarcode,
+          productCode: filterProduct.code,
+          isGetAll: filterProduct.isGetAll,
+          sort: { productCode: sortProduct.code, productName: sortProduct.name },
+        }),
+      );
       return data;
     },
   ),
@@ -60,7 +78,16 @@ export const ProductFacade = () => {
     }: {
       page: number;
       perPage: number;
-      filter: { supplierId?: string; storeId?: string; type: string; categoryId1: string; categoryId2: string; categoryId3: string; isGetAll: boolean, }, sorts: {};
+      filter: {
+        supplierId?: string;
+        storeId?: string;
+        type: string;
+        categoryId1: string;
+        categoryId2: string;
+        categoryId3: string;
+        isGetAll: boolean;
+      };
+      sorts: {};
     }) => {
       return dispatch(action.getProduct({ page, perPage, filter, sorts }));
     },
@@ -90,15 +117,26 @@ export class Product extends CommonEntity {
     public sellingPrice?: string,
     public category?: {
       child: {
-        id: string,
-        name: string
-      }
+        child: {
+          id: string;
+          name: string;
+        };
+        id: string;
+        name: string;
+      };
     },
     public productPrice?: [
       {
-        price: string
-      }
-    ]
+        price: string;
+      },
+    ],
+    public child?: {},
+    public photos?: {
+      0: {
+        url?: string;
+      };
+    },
+    public approveStatus?: string,
   ) {
     super();
   }

@@ -48,22 +48,44 @@ const Page = () => {
   const discountFacade = DiscountFacade();
   const inventoryOrders = inventoryOrdersFacade();
   const inventoryProduct = InventoryListProductFacade();
+  const categoryFacade = CategoryFacade();
   const documentsub = DocumentsubFacade();
   const { putSub } = documentsub;
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
   const [cap1, setCap1] = useState(true);
   const [cap2, setCap2] = useState(true);
+  const [categoryId1, setCategoryId1] = useState('');
+  const [categoryId2, setCategoryId2] = useState('');
+  const category1 = categoryFacade.result?.data;
+  console.log(category1);
+
+  const category2 = categoryFacade.result2?.data;
+  const category3 = categoryFacade.result3?.data;
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
     if (id) supplierFacade.getById({ id });
     if (id) documentsub.get({ id });
+    categoryFacade.get({});
 
     return () => {
       isReload.current && supplierFacade.get(param);
     };
   }, [id]);
+
+  useEffect(() => {
+    if (categoryId1) {
+      categoryFacade.get2({ id: categoryId1 });
+    }
+  }, [categoryId1]);
+
+  useEffect(() => {
+    if (categoryId2) {
+      categoryFacade.get3({ id: categoryId2 });
+    }
+  }, [categoryId2]);
+
   useEffect(() => {
     switch (status) {
       case 'put.fulfilled':
@@ -196,6 +218,9 @@ const Page = () => {
   const handleSubmit = (values: Supplier) => {
     supplierFacade.put({ ...values, id });
   };
+  let stt = 1;
+  let stt1 = 1;
+  let stt2 = 1;
   let i = 1;
 
   return (
@@ -482,18 +507,22 @@ const Page = () => {
                                 placeholder: 'placeholder.Main categories',
                                 col: 3,
                                 type: 'select',
-                                firstLoad: () => ({}),
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                },
+                                list: category1?.map((item) => ({
+                                  label: item?.name!,
+                                  value: item?.id!,
+                                })),
+                                // firstLoad: () => ({}),
+                                // get: {
+                                //   facade: CategoryFacade,
+                                //   format: (item: any) => ({
+                                //     label: item.name,
+                                //     value: item.id,
+                                //   }),
+                                // },
                                 onChange(value, form) {
-                                  value ? setCap1(false) : setCap1(true);
+                                  setCategoryId1(value);
+                                  setCategoryId2('');
                                   form.resetFields(['categoryId2', 'categoryId3']);
-                                  setCap2(true);
                                   dataTableRefProduct?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
@@ -514,23 +543,27 @@ const Page = () => {
                                 placeholder: 'placeholder.Category level 1',
                                 type: 'select',
                                 col: 3,
-                                // disabled: (values: any, form: any) => values.categoryId2 ? false : true,
-                                disabled: () => cap1,
-                                get: {
-                                  facade: CategoryFacade,
-                                  key: 'result2',
-                                  method: 'get2',
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().categoryId1,
-                                  }),
-                                },
+                                list: category2?.map((item) => ({
+                                  label: item?.name!,
+                                  value: item?.id!,
+                                })),
+                                disabled: (values: any, form: any) =>
+                                  categoryId1 ? (category2?.length === 0 ? true : category2 ? false : true) : true,
+                                // get: {
+                                //   facade: CategoryFacade,
+                                //   key: 'result2',
+                                //   method: 'get2',
+                                //   format: (item: any) => ({
+                                //     label: item.name,
+                                //     value: item.id,
+                                //   }),
+                                //   params: (fullTextSearch, value) => ({
+                                //     fullTextSearch,
+                                //     id: value().categoryId1,
+                                //   }),
+                                // },
                                 onChange(value, form) {
-                                  value ? setCap2(false) : setCap2(true);
+                                  setCategoryId2(value);
                                   form.resetFields(['categoryId3']);
                                   dataTableRefProduct?.current?.onChange({
                                     page: 1,
@@ -553,21 +586,25 @@ const Page = () => {
                                 placeholder: 'placeholder.Category level 2',
                                 type: 'select',
                                 col: 3,
-                                // disabled: (values: any, form: any) => values.categoryId3 ? false : true,
-                                disabled: () => cap2,
-                                get: {
-                                  facade: CategoryFacade,
-                                  key: 'result3',
-                                  method: 'get3',
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().categoryId2,
-                                  }),
-                                },
+                                list: category3?.map((item) => ({
+                                  label: item?.name!,
+                                  value: item?.id!,
+                                })),
+                                disabled: (values: any, form: any) =>
+                                  categoryId2 ? (category3?.length === 0 ? true : category3 ? false : true) : true,
+                                // get: {
+                                //   facade: CategoryFacade,
+                                //   key: 'result3',
+                                //   method: 'get3',
+                                //   format: (item: any) => ({
+                                //     label: item.name,
+                                //     value: item.id,
+                                //   }),
+                                //   params: (fullTextSearch, value) => ({
+                                //     fullTextSearch,
+                                //     id: value().categoryId2,
+                                //   }),
+                                // },
                                 onChange(value, form) {
                                   dataTableRefProduct?.current?.onChange({
                                     page: 1,
@@ -944,9 +981,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -986,9 +1023,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1013,7 +1050,14 @@ const Page = () => {
                           tableItem: {
                             width: 70,
                             sorter: true,
-                            render: (value: any, item: any) => i++,
+                            render: (value: any, item: any) =>
+                              JSON.parse(discountFacade.queryParams || '{}').page != 1
+                                ? `${
+                                    JSON.parse(discountFacade.queryParams || '{}').page *
+                                      JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                    stt1++
+                                  }`
+                                : `${stt1++}`,
                           },
                         },
                         {
@@ -1294,9 +1338,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: '',
@@ -1346,9 +1390,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1381,18 +1425,22 @@ const Page = () => {
                                 placeholder: 'placeholder.Main categories',
                                 col: 3,
                                 type: 'select',
-                                firstLoad: () => ({}),
-                                get: {
-                                  facade: CategoryFacade,
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                },
+                                list: category1?.map((item) => ({
+                                  label: item?.name!,
+                                  value: item?.id!,
+                                })),
+                                // firstLoad: () => ({}),
+                                // get: {
+                                //   facade: CategoryFacade,
+                                //   format: (item: any) => ({
+                                //     label: item.name,
+                                //     value: item.id,
+                                //   }),
+                                // },
                                 onChange(value, form) {
-                                  value ? setCap1(false) : setCap1(true);
+                                  setCategoryId1(value);
+                                  setCategoryId2('');
                                   form.resetFields(['categoryId2', 'categoryId3']);
-                                  setCap2(true);
                                   dataTableRefListProduct?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
@@ -1420,22 +1468,28 @@ const Page = () => {
                                 type: 'select',
                                 col: 3,
                                 // disabled: (values: any, form: any) => values.categoryId2 ? false : true,
-                                disabled: () => cap1,
-                                get: {
-                                  facade: CategoryFacade,
-                                  key: 'result2',
-                                  method: 'get2',
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().categoryId1,
-                                  }),
-                                },
+                                // disabled: () => cap1,
+                                // get: {
+                                //   facade: CategoryFacade,
+                                //   key: 'result2',
+                                //   method: 'get2',
+                                //   format: (item: any) => ({
+                                //     label: item.name,
+                                //     value: item.id,
+                                //   }),
+                                //   params: (fullTextSearch, value) => ({
+                                //     fullTextSearch,
+                                //     id: value().categoryId1,
+                                //   }),
+                                // },
+                                list: category2?.map((item) => ({
+                                  label: item?.name!,
+                                  value: item?.id!,
+                                })),
+                                disabled: (values: any, form: any) =>
+                                  categoryId1 ? (category2?.length === 0 ? true : category2 ? false : true) : true,
                                 onChange(value, form) {
-                                  value ? setCap2(false) : setCap2(true);
+                                  setCategoryId2(value);
                                   form.resetFields(['categoryId3']);
                                   dataTableRefListProduct?.current?.onChange({
                                     page: 1,
@@ -1467,20 +1521,26 @@ const Page = () => {
                                 type: 'select',
                                 col: 3,
                                 // disabled: (values: any, form: any) => values.categoryId3 ? false : true,
-                                disabled: () => cap2,
-                                get: {
-                                  facade: CategoryFacade,
-                                  key: 'result3',
-                                  method: 'get3',
-                                  format: (item: any) => ({
-                                    label: item.name,
-                                    value: item.id,
-                                  }),
-                                  params: (fullTextSearch, value) => ({
-                                    fullTextSearch,
-                                    id: value().categoryId2,
-                                  }),
-                                },
+                                // disabled: () => cap2,
+                                // get: {
+                                //   facade: CategoryFacade,
+                                //   key: 'result3',
+                                //   method: 'get3',
+                                //   format: (item: any) => ({
+                                //     label: item.name,
+                                //     value: item.id,
+                                //   }),
+                                //   params: (fullTextSearch, value) => ({
+                                //     fullTextSearch,
+                                //     id: value().categoryId2,
+                                //   }),
+                                // },
+                                list: category3?.map((item) => ({
+                                  label: item?.name!,
+                                  value: item?.id!,
+                                })),
+                                disabled: (values: any, form: any) =>
+                                  categoryId2 ? (category3?.length === 0 ? true : category3 ? false : true) : true,
                                 onChange(value, form) {
                                   dataTableRefListProduct?.current?.onChange({
                                     page: 1,
@@ -1520,7 +1580,14 @@ const Page = () => {
                         tableItem: {
                           width: 70,
                           sorter: true,
-                          render: (value: any, item: any) => i++,
+                          render: (value: any, item: any) =>
+                            JSON.parse(discountFacade.queryParams || '{}').page != 1
+                              ? `${
+                                  JSON.parse(discountFacade.queryParams || '{}').page *
+                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                  stt2++
+                                }`
+                              : `${stt2++}`,
                         },
                       },
                       {
@@ -1660,7 +1727,14 @@ const Page = () => {
                         name: 'stt',
                         tableItem: {
                           width: 110,
-                          render: (value: any, item: any) => `${i++}`,
+                          render: (value: any, item: any) =>
+                            JSON.parse(discountFacade.queryParams || '{}').page != 1
+                              ? `${
+                                  JSON.parse(discountFacade.queryParams || '{}').page *
+                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                  stt++
+                                }`
+                              : `${stt++}`,
                         },
                       },
                       {
@@ -1736,7 +1810,8 @@ const Page = () => {
                                   tabIndex: 3,
                                   col: 2,
                                   render: () => (
-                                    <div className="flex h-10 text-xs items-center">{/* whitespace-nowrap */}
+                                    <div className="flex h-10 text-xs items-center">
+                                      {/* whitespace-nowrap */}
                                       <p>{t('Kỳ hạn từ')}</p>
                                     </div>
                                   ),
@@ -1759,9 +1834,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -1800,9 +1875,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1913,7 +1988,9 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl pt-6'}>
                 <div className="flex items-left font-bold px-6">
-                  <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">{t('supplier.Contract.Contract details')}</p>
+                  <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">
+                    {t('supplier.Contract.Contract details')}
+                  </p>
                 </div>
                 <div className="form-supplied-tab6 items-center">
                   <Form
@@ -1928,7 +2005,9 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base lg:mt-0">
-                                <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Contract Code')}:</div>
+                                <div className="font-semibold text-teal-900 ">
+                                  {t('supplier.Contract.Contract Code')}:
+                                </div>
                                 <div className="ml-4">{values.code}</div>
                               </div>
                             );
@@ -1943,7 +2022,9 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base lg:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Date created')}:</div>
+                                <div className="font-semibold text-teal-900 ">
+                                  {t('supplier.Contract.Date created')}:
+                                </div>
                                 <div className="ml-4">
                                   {dayjs(values.createdAt).format('DD/MM/YYYY').replace(/-/g, '/')} -{' '}
                                   {dayjs(values.createdAt).format('HH:mm')}{' '}
@@ -1974,9 +2055,13 @@ const Page = () => {
                                   <div className="w-60 py-2.5 px-4 rounded-2xl border-gray-200 ml-4 flex justify-between">
                                     <Select value={values?.status} className="py-2" style={{ width: '100%' }}>
                                       <Select.Option value="SIGNED_CONTRACT">
-                                        <div onClick={() => putSub({ id: values?.id })}>{t('supplier.Sup-Status.Signed')}</div>
+                                        <div onClick={() => putSub({ id: values?.id })}>
+                                          {t('supplier.Sup-Status.Signed')}
+                                        </div>
                                       </Select.Option>
-                                      <Select.Option value="PENDING_SIGN_CONTRACT">{t('supplier.Sup-Status.Waiting')}</Select.Option>
+                                      <Select.Option value="PENDING_SIGN_CONTRACT">
+                                        {t('supplier.Sup-Status.Waiting')}
+                                      </Select.Option>
                                     </Select>
                                   </div>
                                 )}
@@ -1993,7 +2078,9 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-10 text-base lg:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900">{t('supplier.Contract.Contract information')}:</div>
+                                <div className="font-semibold text-teal-900">
+                                  {t('supplier.Contract.Contract information')}:
+                                </div>
                                 <a
                                   onClick={(activeKey: any) =>
                                     navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
@@ -2064,7 +2151,9 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base">
-                                <div className="font-semibold text-teal-900 ">{t('store.Inventory management.Supplier')}: </div>
+                                <div className="font-semibold text-teal-900 ">
+                                  {t('store.Inventory management.Supplier')}:{' '}
+                                </div>
                                 <div className="ml-4">{values?.subOrg?.name}</div>
                               </div>
                             );
@@ -2079,7 +2168,9 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-full text-base sm:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900 ">{t('supplier.Contract.Manager name')}: </div>
+                                <div className="font-semibold text-teal-900 ">
+                                  {t('supplier.Contract.Manager name')}:{' '}
+                                </div>
                                 <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.name}</div>
                               </div>
                             );
@@ -2126,7 +2217,9 @@ const Page = () => {
                       },
                     ]}
                   />
-                  <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">{t('supplier.Contract.Upload contract')}:</p>
+                  <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">
+                    {t('supplier.Contract.Upload contract')}:
+                  </p>
                   <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
                     <Upload
                       style={{ border: 'none' }}
