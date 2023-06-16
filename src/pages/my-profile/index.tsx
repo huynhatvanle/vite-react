@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Form as AntForm, Tabs, Image } from 'antd';
@@ -36,6 +36,23 @@ const Page = () => {
       profileImage[(profileImage.length) - 1]?.[0]
     globalFacade.putProfile({ ...values, image, profileImage });
   }
+
+  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeStoreTab') || '1');
+
+  const onChangeTab = (key: string) => {
+    setActiveKey(key);
+    localStorage.setItem('activeStoreTab', key);
+    navigate(`/${lang}${routerLinks('MyProfile')}?tab=${key}`);
+  };
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const tab = urlParams.get('tab');
+
+  useEffect(() => {
+    if (tab) {
+      setActiveKey(tab);
+    }
+  }, []);
 
   return (
     <Fragment>
@@ -84,8 +101,9 @@ const Page = () => {
         </div>
         <div className='flex-1 lg:rounded-xl w-auto'>
           <Tabs
-            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('MyProfile')}?tab=${activeKey}`)}
+            onTabClick={(key: string) => onChangeTab(key)}
             defaultActiveKey="1"
+            activeKey={activeKey}
             size="large"
             className='profile'>
             <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1">
@@ -140,7 +158,7 @@ const Page = () => {
               />
             </Tabs.TabPane>
 
-            <Tabs.TabPane tab={t('routes.admin.Layout.Change Password')} key="2" className=''>
+            <Tabs.TabPane tab={t('routes.admin.Layout.Change Password')} key="2">
               <Form
                 values={{ ...user }}
                 className=''
