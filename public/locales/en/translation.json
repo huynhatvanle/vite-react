@@ -403,7 +403,8 @@
   },
   "product": {
     "Code": "Product code",
-    "StoreCode": "Store barcode",
+    "StoreCode": "Store barcode(CH)",
+    "Storecode": "Store barcode",
     "SupplierCode": "Supplier barcode",
     "Name": "Product name",
     "Category": "Category",
@@ -419,7 +420,8 @@
     "Revenue":"Revenue",
     "Image link":"Image link",
     "status": "Status",
-    "List Balance":"Chemical List Balance.xlsx"
+    "List Balance":"Chemical List Balance.xlsx",
+    "List":"List of goods.xlsx"
   },
   "placeholder": {
     "Choose a supplier": "Choose a supplier",

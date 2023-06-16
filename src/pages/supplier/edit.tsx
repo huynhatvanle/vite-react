@@ -228,7 +228,6 @@ const Page = () => {
       <Fragment>
         <div className="">
           <Tabs
-            // defaultActiveKey="1"
             defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
             onChange={(key) => sessionStorage.setItem('activeTab', key)}
             type="card"
@@ -660,7 +659,7 @@ const Page = () => {
                                   .addDataSource(dataProduct ?? [], {
                                     str2Percent: true,
                                   })
-                                  .saveAs('Danh sách hàng hóa.xlsx');
+                                  .saveAs(t('product.List'));
                               }}
                             />
                           }
@@ -981,9 +980,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -1023,9 +1022,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1052,11 +1051,10 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(discountFacade.queryParams || '{}').page != 1
-                                ? `${
-                                    JSON.parse(discountFacade.queryParams || '{}').page *
-                                      JSON.parse(discountFacade.queryParams || '{}').perPage +
-                                    stt1++
-                                  }`
+                                ? `${JSON.parse(discountFacade.queryParams || '{}').page *
+                                JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                stt1++
+                                }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1140,16 +1138,6 @@ const Page = () => {
                           },
                         },
                       ]}
-                      // row={[
-                      //   {
-                      //     title: `supplier.Order.STT`,
-                      //     name: 'id',
-                      //     tableItem: {
-                      //       width: 70,
-                      //       render: () => <div className="bg-black h-[1000px] w-[1000px]"></div>,
-                      //     },
-                      //   },
-                      // ]}
                       subHeader={() => (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
                           {subHeader.map((e) => (
@@ -1338,9 +1326,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: '',
@@ -1390,9 +1378,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1582,11 +1570,10 @@ const Page = () => {
                           sorter: true,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${
-                                  JSON.parse(discountFacade.queryParams || '{}').page *
-                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
-                                  stt2++
-                                }`
+                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
+                              JSON.parse(discountFacade.queryParams || '{}').perPage +
+                              stt2++
+                              }`
                               : `${stt2++}`,
                         },
                       },
@@ -1729,11 +1716,10 @@ const Page = () => {
                           width: 110,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${
-                                  JSON.parse(discountFacade.queryParams || '{}').page *
-                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
-                                  stt++
-                                }`
+                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
+                              JSON.parse(discountFacade.queryParams || '{}').perPage +
+                              stt++
+                              }`
                               : `${stt++}`,
                         },
                       },
@@ -1834,9 +1820,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -1875,9 +1861,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
