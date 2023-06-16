@@ -43,7 +43,9 @@ const Page = () => {
                   </tr>
                   <tr>
                     <td colSpan={3}>
-                      <strong>{t('supplier.Contract-View.SUPPLIER')}({t('supplier.Contract-View.Referred B')}): </strong>
+                      <strong>
+                        {t('supplier.Contract-View.SUPPLIER')}({t('supplier.Contract-View.Referred B')}):{' '}
+                      </strong>
                     </td>
                   </tr>
                   <tr>

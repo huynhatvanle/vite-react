@@ -195,6 +195,7 @@ const Page = () => {
         fullTextSearch: '', filter: { storeId: id, supplierType: 'BALANCE' }
       });
     }
+
     navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${key}`);
   };
 
@@ -204,6 +205,8 @@ const Page = () => {
   useEffect(() => {
     if (tab) {
       setActiveKey(tab);
+    } else {
+      setActiveKey('1');
     }
   }, []);
 
@@ -520,6 +523,7 @@ const Page = () => {
                         )
                     },
                   }}
+                  // open={activeKey != '2' ? false : undefined}
                 >
                   <section className="flex items-center" id={'dropdown-store'}>
                     <div>{t('titles.Listofgoods')}</div>
@@ -593,10 +597,11 @@ const Page = () => {
                   },
                   {
                     title: isBalance ? 'product.PriceBalance' : 'product.PriceNonBalance',
-                    name: 'productPrice',
+                    name: isBalance ? 'productPrice' : 'price',
                     tableItem: {
                       render: (text, item) =>
-                        parseInt(item.productPrice[0] ? item.productPrice[0]?.price : '0').toLocaleString(),
+                        isBalance ? parseInt(item.productPrice[0] ? item.productPrice[0]?.price : '0').toLocaleString()
+                        : parseInt(item?.price ? item?.price : '0').toLocaleString(),
                     },
                   },
                   {
@@ -1006,7 +1011,7 @@ const Page = () => {
                       },
                     ],
                     onClick: ({ key }) => {
-                      key == '1' ?
+                      key === '1' ?
                         (
                           setIsBalance(true),
                           dataTableRefSupplier?.current?.onChange({
@@ -1026,6 +1031,7 @@ const Page = () => {
                         )
                     },
                   }}
+                  // open={activeKey != '4' ? false : undefined}
                 >
                   <section className="flex items-center">
                     <div>{t('titles.Manage')}</div>
@@ -1229,6 +1235,7 @@ const Page = () => {
                     selectedKeys: isRevenueByOrder ? ['1'] : ['2'],
                     onSelect: ({ key, selectedKeys }) => console.log(key, selectedKeys),
                   }}
+                  // open={activeKey != '5' ? false : undefined}
                 >
                   <section className="flex items-center">
                     <div>{t('titles.Revenue')}</div>
@@ -1505,7 +1512,7 @@ const Page = () => {
                         },
                       },
                     ]}
-                    searchPlaceholder={t('placeholder.Search by order number')}
+                    // searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
                       <div className="flex justify-end text-left flex-col w-full ">
                         <Form
@@ -1517,6 +1524,7 @@ const Page = () => {
                             categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
                             categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
                             categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
+                            supplierId: getFilter(invoiceKiotVietFacade.queryParams, 'supplierId'),
                           }}
                           columns={[
                             {
@@ -1539,7 +1547,8 @@ const Page = () => {
                                       dateTo: form.getFieldValue('dateTo'),
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       categoryId2: form.getFieldValue('categoryId2'),
-                                      categoryId3: form.getFieldValue('categoryId3')
+                                      categoryId3: form.getFieldValue('categoryId3'),
+                                      supplierId: form.getFieldValue('supplierId'),
                                     },
                                   });
                                 },
@@ -1547,7 +1556,7 @@ const Page = () => {
                             },
                             {
                               title: '',
-                              name: 'supplier',
+                              name: 'supplierId',
                               formItem: {
                                 placeholder: 'placeholder.Choose a supplier',
                                 col: 6,
@@ -1556,21 +1565,22 @@ const Page = () => {
                                   label: item?.name,
                                   value: item?.id!
                                 })),
-                                // firstLoad: () => ({ page: 1, perPage: 100000, filter: { idSuppiler: '832' } }),
-                                // get: {
-                                //   facade: ConnectSupplierFacade,
-                                //   format: (item: any) => ({
-                                //     label: item.name,
-                                //     value: item.id,
-                                //   }),
-                                //   params: () => ({
-                                //     page: 1,
-                                //     perPage: 100000,
-                                //     filter: {
-                                //       idSuppiler: '832',
-                                //     },
-                                //   }),
-                                // },
+                                onChange(value, form) {
+                                  dataTableRefInvoiceKiot?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      idStore: id,
+                                      supplierId: value,
+                                      status: form.getFieldValue('status'),
+                                      dateFrom: form.getFieldValue('dateFrom'),
+                                      dateTo: form.getFieldValue('dateTo'),
+                                      categoryId1: form.getFieldValue('categoryId1'),
+                                      categoryId2: form.getFieldValue('categoryId2'),
+                                      categoryId3: form.getFieldValue('categoryId3')
+                                    },
+                                  });
+                                },
                               },
                             },
                           ]}
@@ -1585,6 +1595,7 @@ const Page = () => {
                             categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
                             categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
                             categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
+                            supplierId: getFilter(invoiceKiotVietFacade.queryParams, 'supplierId'),
                           }}
                           columns={[
                             {
@@ -1619,7 +1630,8 @@ const Page = () => {
                                       dateTo: form.getFieldValue('dateTo').format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       categoryId2: form.getFieldValue('categoryId2'),
-                                      categoryId3: form.getFieldValue('categoryId3')
+                                      categoryId3: form.getFieldValue('categoryId3'),
+                                      supplierId: form.getFieldValue('supplierId'),
                                     },
                                   });
                                 },
@@ -1658,6 +1670,7 @@ const Page = () => {
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       categoryId2: form.getFieldValue('categoryId2'),
                                       categoryId3: form.getFieldValue('categoryId3'),
+                                      supplierId: form.getFieldValue('supplierId'),
                                     }
                                   });
                                 },
@@ -1676,7 +1689,8 @@ const Page = () => {
                           categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
                           dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
                           dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
-                          status: getFilter(invoiceKiotVietFacade.queryParams, 'status')
+                          status: getFilter(invoiceKiotVietFacade.queryParams, 'status'),
+                          supplierId: getFilter(invoiceKiotVietFacade.queryParams, 'supplierId'),
                         }}
                         columns={
                           [
@@ -1711,7 +1725,8 @@ const Page = () => {
                                       categoryId1: value,
                                       status: form.getFieldValue('status'),
                                       dateFrom: form.getFieldValue('dateFrom'),
-                                      dateTo: form.getFieldValue('dateTo')
+                                      dateTo: form.getFieldValue('dateTo'),
+                                      supplierId: form.getFieldValue('supplierId'),
                                     }
                                   });
                                 },
@@ -1757,7 +1772,8 @@ const Page = () => {
                                       categoryId1: form.getFieldValue('categoryId1'),
                                       status: form.getFieldValue('status'),
                                       dateFrom: form.getFieldValue('dateFrom'),
-                                      dateTo: form.getFieldValue('dateTo')
+                                      dateTo: form.getFieldValue('dateTo'),
+                                      supplierId: form.getFieldValue('supplierId'),
                                     }
                                   });
                                 },
@@ -1802,7 +1818,8 @@ const Page = () => {
                                       categoryId2: form.getFieldValue('categoryId2'),
                                       status: form.getFieldValue('status'),
                                       dateFrom: form.getFieldValue('dateFrom'),
-                                      dateTo: form.getFieldValue('dateTo')
+                                      dateTo: form.getFieldValue('dateTo'),
+                                      supplierId: form.getFieldValue('supplierId'),
                                     }
                                   });
                                 },
@@ -2020,6 +2037,4 @@ const Page = () => {
   );
 };
 export default Page;
-
-
 
