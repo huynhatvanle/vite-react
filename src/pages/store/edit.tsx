@@ -211,15 +211,15 @@ const Page = () => {
   }, []);
 
   const columnproduct: IExcelColumn[] = [
-    { title: 'Mã sản phẩm', key: 'code', dataIndex: 'code' },
-    { title: 'Mã vạch (CH)', key: 'storeBarcode', dataIndex: 'storeBarcode' },
-    { title: 'Mã vạch (NCC)', key: 'barcode', dataIndex: 'barcode' },
-    { title: 'Tên sản phẩm', key: 'name', dataIndex: 'name' },
-    { title: 'Danh mục', key: 'category', dataIndex: 'category' },
-    { title: 'Nhà cung cấp', key: 'supplierName', dataIndex: 'supplierName' },
-    { title: 'Đơn vị', key: 'basicUnit', dataIndex: 'basicUnit' },
-    { title: isBalance ? 'Giá bán lẻ của NCC (VND)' : 'Giá nhập (VND)', key: 'productPrice', dataIndex: 'productPrice' },
-    { title: 'Giá bán lẻ của CH (VND)', key: 'sellingPrice', dataIndex: 'sellingPrice' },
+    { title: t('product.Code'), key: 'code', dataIndex: 'code' },
+    { title: t('product.StoreCode'), key: 'storeBarcode', dataIndex: 'storeBarcode' },
+    { title: t('product.SupplierCode'), key: 'barcode', dataIndex: 'barcode' },
+    { title: t('product.Name'), key: 'name', dataIndex: 'name' },
+    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t('product.SupplierName'), key: 'supplierName', dataIndex: 'supplierName' },
+    { title: t('product.Unit'), key: 'basicUnit', dataIndex: 'basicUnit' },
+    { title: isBalance ? t('product.PriceBalance') : t('product.PriceNonBalance'), key: 'productPrice', dataIndex: 'productPrice' },
+    { title: t('product.SellingPrice'), key: 'sellingPrice', dataIndex: 'sellingPrice' },
   ];
 
   return (
@@ -591,7 +591,7 @@ const Page = () => {
                     },
                   },
                   {
-                    title: 'product.Unit',
+                    title: 'product.UnitProduct',
                     name: 'basicUnit',
                     tableItem: {},
                   },
@@ -653,7 +653,7 @@ const Page = () => {
                             })) ?? [], {
                               str2Percent: true
                             })
-                            .saveAs("Danh sách hàng hóa Balance.xlsx")
+                            .saveAs(t('product.List Balance'))
                         }}
                       />
                     }
@@ -1478,7 +1478,7 @@ const Page = () => {
                         },
                       },
                       {
-                        title: 'titles.Revenue',
+                        title: 'product.SupplierName',
                         name: 'supplier',
                         tableItem: {
                           // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
@@ -1499,7 +1499,7 @@ const Page = () => {
                         },
                       },
                     ]}
-                    searchPlaceholder={t('placeholder.Search by order number')}
+                    // searchPlaceholder={t('placeholder.Search by order number')}
                     rightHeader={
                       <div className="flex justify-end text-left flex-col w-full ">
                         <Form

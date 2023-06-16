@@ -409,6 +409,7 @@
     "Category": "Danh mục",
     "SupplierName": "Nhà cung cấp",
     "Unit": "Đơn vị",
+    "UnitProduct": "Đơn vị nhập",
     "PriceBalance": "Giá bán lẻ của NCC (VND)",
     "PriceNonBalance": "Giá nhập (VND)",
     "SellingPrice": "Giá bán lẻ của CH (VND)",
@@ -417,7 +418,8 @@
     "Barcode": "Mã vạch",
     "Revenue":"Doanh thu",
     "Image link":"Link hình ảnh",
-    "status": "Trạng thái"
+    "status": "Trạng thái",
+    "List Balance":"Danh sách hóa hóa Balance.xlsx"
   },
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",
