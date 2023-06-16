@@ -2022,16 +2022,4 @@ const Page = () => {
 export default Page;
 
 
-//dear maitodan,
-//i'm writting to tell you about to gong to the cinema.
-//firstly, i really sorry because i can't go to the cinema with you.
-//and i have a lot of homework to do so i can't go to the cinema with you.
-//finally, i want to see you in the cinema on the next sunday. Can you spend time?
-//i'm looking forward to your email.
-//maito
 
-//dear maitoancac
-//i writting to thanks for having invited me.
-//firstly, i really thanks you because you invited me to spend a weekend with her family. Besides, i can't go and i really sorry.
-//finally, i having a footballmatch in the weekend
-//i'm looking forward to your email
