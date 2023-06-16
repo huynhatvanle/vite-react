@@ -2,7 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { CommonEntity, PaginationQuery, Responses } from '@models';
-import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
+import { useAppDispatch, useTypedSelector, Action, Slice, State, storeSlice } from '@store';
 
 
 
@@ -12,13 +12,15 @@ const action = {
   ...new Action<InvoiceKiotViet>(name),
   getInvoiceKiotViet: createAsyncThunk(
     name + '/get',
-    async ({ page, perPage, fullTextSearch, filter }: {
+    async ({ page, perPage, fullTextSearch, filter, sorts }: {
       page: number,
       perPage: number,
       fullTextSearch: string,
+      sorts: {},
       filter: { idStore?: string, supplierId?: string, status?: string, categoryId?: string, categoryId1?: string, categoryId2?: string, categoryId3?: string, dateFrom: string, dateTo: string }
     }) => {
       const filterInvoiceKiotViet = JSON.parse(filter.toString() || '{}')
+      const sortInvoice = sorts ? JSON.parse(sorts.toString() || '{}') : ''
       let data = await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({
         page,
         perPage,
@@ -30,7 +32,8 @@ const action = {
         categoryId1: filterInvoiceKiotViet.categoryId1,
         categoryId2: filterInvoiceKiotViet.categoryId2,
         categoryId3: filterInvoiceKiotViet.categoryId3,
-        filter: { dateFrom: filterInvoiceKiotViet.dateFrom ? filterInvoiceKiotViet.dateFrom : '', dateTo: filterInvoiceKiotViet.dateTo ? filterInvoiceKiotViet.dateTo : '' }
+        filter: { dateFrom: filterInvoiceKiotViet.dateFrom ? filterInvoiceKiotViet.dateFrom : '', dateTo: filterInvoiceKiotViet.dateTo ? filterInvoiceKiotViet.dateTo : '' },
+        sort: { index: sortInvoice.supplier, productCode: sortInvoice.supplier1, productName: sortInvoice.supplier2, barcode: sortInvoice.supplier3s }
       }));
       data.data = Object.entries(data.data as Object)[0]?.[1]
       return data;
@@ -68,7 +71,7 @@ export const InvoiceKiotVietFacade = () => {
     ...(useTypedSelector((state) => state[action.name]) as State<InvoiceKiotViet>),
     set: (values: State<InvoiceKiotViet>) => dispatch(action.set(values)),
     // get: (params: PaginationQuery<InvoiceKiotViet>) => dispatch(action.getInvoiceKiotViet(params)),
-    get: ({ page, perPage, fullTextSearch, filter }: { page: number, perPage: number, fullTextSearch: string, filter: { idStore?: string, supplierId?: string, status?: string, categoryId?: string, categoryId1?: string, categoryId2?: string, categoryId3?: string, dateFrom: string, dateTo: string } }) => dispatch(action.getInvoiceKiotViet({ page, perPage, fullTextSearch, filter })),
+    get: ({ page, perPage, fullTextSearch, filter, sorts }: { page: number, perPage: number, sorts: {}, fullTextSearch: string, filter: { idStore?: string, supplierId?: string, status?: string, categoryId?: string, categoryId1?: string, categoryId2?: string, categoryId3?: string, dateFrom: string, dateTo: string } }) => dispatch(action.getInvoiceKiotViet({ page, perPage, fullTextSearch, filter, sorts })),
   };
 };
 

@@ -1473,7 +1473,7 @@ const Page = () => {
                       },
                       {
                         title: 'store.Inventory management.Product code',
-                        name: 'supplier',
+                        name: 'supplier1',
                         tableItem: {
                           sorter: true,
                           // render: (value: any, item: any) => item.supplier?.name,
@@ -1481,7 +1481,7 @@ const Page = () => {
                       },
                       {
                         title: 'store.Inventory management.Product name',
-                        name: 'supplier',
+                        name: 'supplier2',
                         tableItem: {
                           sorter: true,
                           // render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
@@ -1489,7 +1489,7 @@ const Page = () => {
                       },
                       {
                         title: 'store.Barcode',
-                        name: 'supplier',
+                        name: 'supplier3',
                         tableItem: {
                           sorter: true,
                           // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
