@@ -419,7 +419,8 @@
     "Revenue":"Doanh thu",
     "Image link":"Link hình ảnh",
     "status": "Trạng thái",
-    "List Balance":"Danh sách hóa hóa Balance.xlsx"
+    "List Balance":"Danh sách hàng hóa Balance.xlsx",
+    "List":"Danh sách hàng hóa.xlsx"
   },
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",
