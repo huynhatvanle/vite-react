@@ -224,11 +224,12 @@
         "Day": "day",
         "Pagination": "Show {{from}} - {{to}} / Total {{total}} categories",
         "User": "Show {{from}} - {{to}} / Total {{total}} user",
-        "PaginationStore": "Show {{from}} - {{to}} / Total {{total}} Store",
-        "PaginationSubStore": "Show {{from}} - {{to}} / Total {{total}} SubStore",
-        "PaginationSupplier": "Show {{from}} - {{to}} / Total {{total}} Supplier",
-        "PaginationProduct": "Show {{from}} - {{to}} / Total {{total}} Product",
-        "PaginationOrder": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} Order"
+        "PaginationStore": "Show {{from}} - {{to}} / Total {{total}} store",
+        "PaginationSubStore": "Show {{from}} - {{to}} / Total {{total}} subStore",
+        "PaginationSupplier": "Show {{from}} - {{to}} / Total {{total}} supplier",
+        "PaginationProduct": "Show {{from}} - {{to}} / Total {{total}} product",
+        "PaginationOrder": "Show {{from}} - {{to}} / Total {{total}} order",
+        "PaginationDiscount":  "Show {{from}} - {{to}} / Total {{total}} discount"
       }
     }
   },
@@ -266,7 +267,8 @@
       "stop selling":"Stop selling"
     },
     "Supplier revenue Order":"Supplier revenue by order.xlsx",
-     "Supplier revenue product":"Supplier revenue by product.xlsx",
+    "Supplier revenue product":"Supplier revenue by product.xlsx",
+    "Discount supplier":"Supplier discount.xlsx",
     "CodeName": "Code Supplier",
     "Order": {
       "STT": "STT",

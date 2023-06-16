@@ -227,7 +227,8 @@
         "PaginationSubStore": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} chi nhánh",
         "PaginationSupplier": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} nhà cung cấp",
         "PaginationProduct": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} sản phẩm",
-        "PaginationOrder": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} đơn hàng"
+        "PaginationOrder": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} đơn hàng",
+        "PaginationDiscount": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} chiết khấu"
       }
     }
   },
@@ -266,6 +267,7 @@
     },
     "Supplier revenue Order":"Doanh thu nhà cung cấp theo đơn hàng.xlsx",
     "Supplier revenue product":"Doanh thu nhà cung cấp theo sản phẩm.xlsx",
+    "Discount supplier":"Chiết khấu nhà cung cấp.xlsx",
     "CodeName": "Mã nhà cung cấp",
     "Order": {
       "STT": "STT",

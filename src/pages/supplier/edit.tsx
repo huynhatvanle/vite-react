@@ -1050,9 +1050,9 @@ const Page = () => {
                             width: 70,
                             sorter: true,
                             render: (value: any, item: any) =>
-                              JSON.parse(discountFacade.queryParams || '{}').page != 1
-                                ? `${JSON.parse(discountFacade.queryParams || '{}').page *
-                                JSON.parse(discountFacade.queryParams || '{}').perPage +
+                              JSON.parse(inventoryOrders.queryParams || '{}').page != 1
+                                ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                JSON.parse(inventoryOrders.queryParams || '{}').perPage +
                                 stt1++
                                 }`
                                 : `${stt1++}`,
@@ -1569,9 +1569,9 @@ const Page = () => {
                           width: 70,
                           sorter: true,
                           render: (value: any, item: any) =>
-                            JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
-                              JSON.parse(discountFacade.queryParams || '{}').perPage +
+                            JSON.parse(inventoryProduct.queryParams || '{}').page != 1
+                              ? `${JSON.parse(inventoryProduct.queryParams || '{}').page *
+                              JSON.parse(inventoryProduct.queryParams || '{}').perPage +
                               stt2++
                               }`
                               : `${stt2++}`,
@@ -1706,7 +1706,7 @@ const Page = () => {
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
-                      t('routes.admin.Layout.Pagination', { from, to, total })
+                      t('routes.admin.Layout.PaginationDiscount', { from, to, total })
                     }
                     columns={[
                       {
@@ -1956,7 +1956,7 @@ const Page = () => {
                           .addDataSource(discount ?? [], {
                             str2Percent: true,
                           })
-                          .saveAs('Chiết khấu nhà cung cấp.xlsx');
+                          .saveAs(t('supplier.Discount supplier'));
                       }}
                     />
                   </div>
