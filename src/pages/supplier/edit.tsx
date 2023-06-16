@@ -416,6 +416,7 @@ const Page = () => {
                         tableItem: {
                           width: 170,
                           sorter: true,
+                          filter: { type: 'search' },
                         },
                       },
                       {
@@ -423,6 +424,8 @@ const Page = () => {
                         name: 'name',
                         tableItem: {
                           width: 300,
+                          sorter: true,
+                          filter: { type: 'search' },
                           render: (value: any, item: any) => item?.name,
                         },
                       },
@@ -803,7 +806,7 @@ const Page = () => {
                       facade={inventoryOrders}
                       defaultRequest={{
                         page: 1,
-                        perPage: 1000,
+                        perPage: 10,
                         filter: {
                           idSupplier: id,
                           filterDate: {
@@ -1009,6 +1012,7 @@ const Page = () => {
                           name: 'id',
                           tableItem: {
                             width: 70,
+                            sorter: true,
                             render: (value: any, item: any) => i++,
                           },
                         },
@@ -1256,7 +1260,7 @@ const Page = () => {
                                   tabIndex: 3,
                                   col: 2,
                                   render: () => (
-                                    <div className="flex h-10 items-center">
+                                    <div className="flex h-10 items-center xl:ml-4 ml-0">
                                       <p>{t('store.Since')}</p>
                                     </div>
                                   ),
@@ -1515,6 +1519,7 @@ const Page = () => {
                         name: 'id',
                         tableItem: {
                           width: 70,
+                          sorter: true,
                           render: (value: any, item: any) => i++,
                         },
                       },
@@ -1522,6 +1527,7 @@ const Page = () => {
                         title: `product.Code`,
                         name: 'productCode',
                         tableItem: {
+                          sorter: true,
                           width: 175,
                         },
                       },
@@ -1529,6 +1535,7 @@ const Page = () => {
                         title: `product.Name`,
                         name: 'productName',
                         tableItem: {
+                          sorter: true,
                           width: 180,
                         },
                       },
@@ -1536,6 +1543,7 @@ const Page = () => {
                         title: `product.Barcode`,
                         name: 'barcode',
                         tableItem: {
+                          sorter: true,
                           width: 180,
                         },
                       },
@@ -1620,7 +1628,6 @@ const Page = () => {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('titles.Discount')} key="5" className="rounded-xl">
-              {/* lấy về đc data/ tạo 1 cái data mới /lấy 1 cái key tạo 1 row mới trong table */}
               <div className={'w-full mx-auto bg-white rounded-xl'}>
                 <div className="px-5 pt-3 pb-4">
                   <DataTable
@@ -1769,7 +1776,7 @@ const Page = () => {
                                 name: '',
                                 formItem: {
                                   tabIndex: 3,
-                                  col: 2,
+                                  col: 1,
                                   render: () => (
                                     <div className="flex h-10 text-xs items-center">
                                       <p>{t('đến')}</p>

@@ -31,7 +31,7 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'post.fulfilled')
-      navigate(`/${lang}${routerLinks('Store')}`)
+      navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=3`)
   }, [status]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Store')}`)
@@ -39,7 +39,8 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const connectKiot = forms.getFieldsValue()
-    storeFace.post({ ...values, connectKiot });
+    const storeId = id;
+    storeFace.post({ ...values, connectKiot, storeId });
   };
 
   const [isChecked, setIsChecked] = useState(false);

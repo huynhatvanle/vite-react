@@ -2,7 +2,14 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { language, languages } from '@utils';
-import { GlobalFacade, DiscountFacade, detailDiscountFacade } from '@store';
+import {
+  GlobalFacade,
+  DiscountFacade,
+  detailDiscountFacade,
+  SupplierFacade,
+  ProductFacade,
+  OrdersFacade,
+} from '@store';
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
@@ -11,6 +18,7 @@ import dayjs from 'dayjs';
 const Page = () => {
   const { t } = useTranslation();
   const discountFacade = DiscountFacade();
+  const orderFacade = OrdersFacade();
   const { data, isLoading, queryParams, status } = discountFacade;
   const detailDiscountt = detailDiscountFacade();
   const navigate = useNavigate();
@@ -164,12 +172,12 @@ const Page = () => {
           </div>
           <div className="px-5 pb-4">
             <DataTable
-              facade={''}
-              // defaultRequest={{
-              //   page: 1,
-              //   perPage: 10,
-              //   filter: { id: id },
-              // }}
+              facade={orderFacade}
+              defaultRequest={{
+                page: 1,
+                perPage: 10,
+                filter: { filterSupplier: 1056 },
+              }}
               xScroll="895px"
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}

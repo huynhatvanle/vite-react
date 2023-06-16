@@ -34,12 +34,7 @@ const Page = () => {
   useEffect(() => {
     switch (status) {
       case 'put.fulfilled':
-        if (Object.keys(param).length > 0) isReload.current = true;
-
-        if (isBack.current) handleBack();
-        else {
-          isBack.current = true;
-        }
+        navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=3`)
         break;
       case 'putbranchtrue.fulfilled':
         navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}`)
@@ -324,7 +319,7 @@ const Page = () => {
                   showCancelButton: true,
                   showConfirmButton: true,
                   onConfirm: () => {
-                    (putfalse({ id: data?.id }))
+                    (putbranchfalse({ id: data?.id }), navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=3`))
                   },
                 })}
               />
@@ -340,7 +335,7 @@ const Page = () => {
                   showCancelButton: true,
                   showConfirmButton: true,
                   onConfirm: () => {
-                    (puttrue({ id: data?.id }))
+                    (putbranchtrue({ id: data?.id }), navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=3`))
                   },
                 })}
               />

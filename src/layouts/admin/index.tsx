@@ -144,7 +144,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                   label: (
                     <div
                       className="flex"
-                      onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}
+                      onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}?tab=1`, { replace: true })}
                     >
                       <div className="flex items-center">
                         <UserProfile className="w-6 h-6 pr-2 text-black" />
@@ -159,7 +159,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                   label: (
                     <div
                       className="flex"
-                      onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}
+                      onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}?tab=2`, { replace: true })}
                     >
                       <div className="flex items-center">
                         <Key className="w-6 h-6 pr-2 text-black" />
