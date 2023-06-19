@@ -1,4 +1,4 @@
-import { listType, listStyle } from '../../../utils/variable';
+import { listType } from '../../../utils/variable';
 
 export default class Component {
   static get toolbox() {
@@ -45,13 +45,13 @@ export default class Component {
     optionStyle.innerText = '';
     optionStyle.selected = !this.data || !this.data.style;
     selectStyle.appendChild(optionStyle);
-    for (let i = 0; i < listStyle.length; i++) {
-      const optionStyle = document.createElement('option');
-      optionStyle.value = listStyle[i].value;
-      optionStyle.innerText = listStyle[i].label;
-      optionStyle.selected = this.data && this.data.style && this.data.style === listStyle[i].value;
-      selectStyle.appendChild(optionStyle);
-    }
+    // for (let i = 0; i < listStyle.length; i++) {
+    //   const optionStyle = document.createElement('option');
+    //   optionStyle.value = listStyle[i].value;
+    //   optionStyle.innerText = listStyle[i].label;
+    //   optionStyle.selected = this.data && this.data.style && this.data.style === listStyle[i].value;
+    //   selectStyle.appendChild(optionStyle);
+    // }
     selectStyle.onchange = () => (this.data.style = selectStyle.value);
 
     const inputCode = document.createElement('input');

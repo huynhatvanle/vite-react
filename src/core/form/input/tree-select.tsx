@@ -35,26 +35,22 @@ const Component = ({ formItem, placeholder, onChange, value, form, disabled, sho
   );
 
   const initFunction = useCallback(async () => {
-    if (value?.length > 0 && !value?.filter((item: any) => typeof item === 'object')?.length) {
+    if (
+      typeof value === 'object' &&
+      value.length > 0 &&
+      !value?.filter((item: any) => typeof item === 'object')?.length
+    ) {
       onChange && onChange(value.map((item: any) => ({ value: item, label: item })));
     }
-    if (_list.length === 0) {
-      if (formItem.api || formItem.renderList) {
-        await loadData('');
-      }
-    }
-    if (value?.length > 0 && value?.length === allValue.current.length) {
-      set_checkAll(true);
-    } else if (value?.length === 0) {
-      set_checkAll(false);
-    } else {
-      set_checkAll(false);
-    }
+    if ((_list.length === 0 && formItem.api) || formItem.renderList) await loadData('');
+
+    if (value?.length > 0 && value?.length === allValue.current.length) set_checkAll(true);
+    else set_checkAll(false);
   }, [formItem, loadData, _list, allValue, value, onChange]);
 
   useEffect(() => {
     initFunction();
-  }, [value, initFunction]);
+  }, [value]);
 
   const loadDataTree = async (treeNode: any) => {
     if (formItem.api.loadData) {
@@ -117,26 +113,25 @@ const Component = ({ formItem, placeholder, onChange, value, form, disabled, sho
       allowClear={true}
       showSearch={showSearch}
       onChange={(data) => {
-        onChange && onChange(data?.value);
-        // if (formItem.api?.loadData) {
-        //   if (formItem.mode !== 'multiple') {
-        //     const _data = _list.filter((_item: any) => _item.id === data.value)[0];
-        //     onChange && onChange({ ..._data, label: _data.fullTitle });
-        //   } else {
-        //     onChange &&
-        //       onChange(
-        //         data.map((__item: any) => {
-        //           const _data = _list.filter((_item: any) => _item.id === __item.value)[0];
-        //           if (_data) {
-        //             return { ..._data, label: _data.fullTitle };
-        //           }
-        //           return __item;
-        //         }),
-        //       );
-        //   }
-        // } else {
-        //   onChange && onChange(data?.value);
-        // }
+        if (formItem.api?.loadData) {
+          if (formItem.mode !== 'multiple') {
+            const _data = _list.filter((_item: any) => _item.id === data.value)[0];
+            onChange && onChange({ ..._data, label: _data.fullTitle });
+          } else {
+            onChange &&
+              onChange(
+                data.map((__item: any) => {
+                  const _data = _list.filter((_item: any) => _item.id === __item.value)[0];
+                  if (_data) {
+                    return { ..._data, label: _data.fullTitle };
+                  }
+                  return __item;
+                }),
+              );
+          }
+        } else {
+          onChange && onChange(data);
+        }
       }}
       dropdownRender={(originNode) => (
         <Fragment>
