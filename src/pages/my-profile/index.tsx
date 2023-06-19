@@ -17,6 +17,9 @@ const Page = () => {
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   const [forms] = AntForm.useForm();
+  const urlParams = new URLSearchParams(window.location.search);
+  const tab = urlParams.get('tab');
+  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeStoreTab') || '1');
 
   useEffect(() => {
     profile();
@@ -30,14 +33,11 @@ const Page = () => {
     }
   }, [status]);
 
-  const handleSubmit = (values: any) => {
-    const profileImage = forms.getFieldValue('profileImage');
-    const image = (profileImage[(profileImage.length) - 1]?.[0]).length <= 1 ? profileImage :
-      profileImage[(profileImage.length) - 1]?.[0]
-    globalFacade.putProfile({ ...values, image, profileImage });
-  }
-
-  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeStoreTab') || '1');
+  useEffect(() => {
+    if (tab) {
+      setActiveKey(tab);
+    }
+  }, [tab]);
 
   const onChangeTab = (key: string) => {
     setActiveKey(key);
@@ -45,20 +45,19 @@ const Page = () => {
     navigate(`/${lang}${routerLinks('MyProfile')}?tab=${key}`);
   };
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const tab = urlParams.get('tab');
-
-  useEffect(() => {
-    if (tab) {
-      setActiveKey(tab);
-    }
-  }, []);
+  const handleSubmit = (values: any) => {
+    const profileImage = forms.getFieldValue('profileImage');
+    const image = (profileImage[(profileImage.length) - 1]?.[0]).length <= 1 ? profileImage :
+      profileImage[(profileImage.length) - 1]?.[0]
+    globalFacade.putProfile({ ...values, image, profileImage });
+  }
 
   return (
     <Fragment>
       <div className='flex lg:flex-row flex-col w-full'>
         <div className='flex-initial lg:w-[350px] mr-5 lg:rounded-xl w-full'>
           <Form
+            values={{ ...user }}
             formAnt={forms}
             className="text-center items-centers text-xl font-bold text-slate-700 form-profile"
             columns={[
@@ -96,13 +95,11 @@ const Page = () => {
               },
             ]}
             disableSubmit={isLoading}
-            values={{ ...user }}
           />
         </div>
         <div className='flex-1 lg:rounded-xl w-auto'>
           <Tabs
             onTabClick={(key: string) => onChangeTab(key)}
-            defaultActiveKey="1"
             activeKey={activeKey}
             size="large"
             className='profile'>
