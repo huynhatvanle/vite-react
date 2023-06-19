@@ -58,7 +58,6 @@ const Page = () => {
   const [categoryId1, setCategoryId1] = useState('');
   const [categoryId2, setCategoryId2] = useState('');
   const category1 = categoryFacade.result?.data;
-  console.log(category1);
 
   const category2 = categoryFacade.result2?.data;
   const category3 = categoryFacade.result3?.data;
@@ -174,13 +173,13 @@ const Page = () => {
     dataIndex: string;
   }
   const columnheaderproduct: IExcelColumn[] = [
-    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t('placeholder.Main categories'), key: 'categoryId1', dataIndex: 'categoryId1' },
     { title: t(''), key: '', dataIndex: '' },
     { title: t(''), key: '', dataIndex: '' },
-    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t('placeholder.Category level 1'), key: 'categoryId2', dataIndex: 'categoryId2' },
     { title: t(''), key: '', dataIndex: '' },
     { title: t(''), key: '', dataIndex: '' },
-    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t('placeholder.Category level 2'), key: 'categoryId3', dataIndex: 'categoryId3' },
     { title: t(''), key: '', dataIndex: '' },
     { title: t(''), key: '', dataIndex: '' },
   ];
@@ -650,6 +649,9 @@ const Page = () => {
                               onClick={() => {
                                 const dataProduct = productFacade?.result?.data?.map((item) => {
                                   return {
+                                    categoryId1: item.categoryId1,
+                                    categoryId2: item.categoryId2,
+                                    categoryId3: item.categoryId3,
                                     stt: stt++,
                                     code: item.code,
                                     name: item.name,
@@ -666,9 +668,7 @@ const Page = () => {
                                 });
                                 const excel = new Excel();
                                 excel
-                                  .addSheet(t('titles.Listofgoods'))
-                                  // .addheaders(columnheaderproduct)
-                                  // .addRow('2')
+                                  .addSheet('test')
                                   .addColumns(columnheaderproduct)
                                   .addColumns(columnproduct)
                                   .addDataSource(dataProduct ?? [], {
