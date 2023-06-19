@@ -15,11 +15,10 @@ export const language = import.meta.env.VITE_URL_LANGUAGE;
 //   messagingSenderId: import.meta.env.REACT_APP_MESSAGING_SENDER_ID_FIREBASE,
 //   appId: import.meta.env.REACT_APP_APP_ID_FIREBASE
 // };
-export const listType = [{ value: 'slider', label: 'Slider' }];
-export const listStyle = [
-  { value: 'style1', label: 'Style 1' },
-  { value: 'style2', label: 'Style 2' },
-  { value: 'style3', label: 'Style 3' },
+export const listType = [
+  { value: 'type1', label: 'Type 1' },
+  { value: 'type2', label: 'Type 2' },
+  { value: 'type3', label: 'Type 3' },
 ];
 export enum keyRole {
   P_AUTH_DELETE_IMAGE_TEMP = '11cc566b-b109-49f8-983f-84ff08f9849e',

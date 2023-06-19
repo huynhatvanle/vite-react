@@ -12,7 +12,6 @@ import { DataTableModel, PaginationQuery, TableGet, TableRefObject } from '@mode
 import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
 import { Calendar, CheckCircle, CheckSquare, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
-import { DefaultTFuncReturn } from 'i18next';
 
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
@@ -33,12 +32,12 @@ const checkTextToShort = (text: string) => {
 const getQueryStringParams = (query: string) => {
   return query
     ? (/^[?#]/.test(query) ? query.slice(1) : query)
-      .split('&')
-      .reduce((params: { [selector: string]: string }, param: string) => {
-        const [key, value] = param.split('=');
-        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-        return params;
-      }, {})
+        .split('&')
+        .reduce((params: { [selector: string]: string }, param: string) => {
+          const [key, value] = param.split('=');
+          params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+          return params;
+        }, {})
     : {}; // Trim - from end of text
 };
 
@@ -50,7 +49,7 @@ export const DataTable = forwardRef(
       footer,
       defaultRequest = {
         page: 1,
-        perPage: 10,
+        perPage: 1,
       },
       showPagination = true,
       leftHeader,
@@ -161,6 +160,7 @@ export const DataTable = forwardRef(
       </div>
     );
     const valueFilter = useRef<{ [selector: string]: boolean }>({});
+    const [filterDropdownOpen, setFilterDropdownOpen] = useState<any>({});
     const columnSearch = (get: TableGet, fullTextSearch = '', value?: any, facade: any = {}) => {
       if (get?.facade) {
         const params = get.params ? get.params(fullTextSearch, value) : { fullTextSearch };
@@ -264,7 +264,9 @@ export const DataTable = forwardRef(
       filterIcon: (filtered: boolean) => (
         <Search className={classNames('h-4 w-4', { 'fill-[#3699FF]': filtered, 'fill-gray-600': !filtered })} />
       ),
+      filterDropdownOpen: !!filterDropdownOpen[key],
       onFilterDropdownOpenChange: (visible: boolean) => {
+        setFilterDropdownOpen({ [key]: visible });
         if (visible) {
           setTimeout(
             () => (document.getElementById(idTable.current + '_input_filter_' + key) as HTMLInputElement).select(),
@@ -346,7 +348,7 @@ export const DataTable = forwardRef(
 
     const handleTableChange = (
       pagination?: { page?: number; perPage?: number },
-      filters = params.filter,
+      filters = {},
       sorts?: SorterResult<any>,
       tempFullTextSearch?: string,
     ) => {
@@ -356,11 +358,11 @@ export const DataTable = forwardRef(
       const tempSort =
         sorts && sorts?.field && sorts?.order
           ? {
-            [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
-          }
+              [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
+            }
           : sorts?.field
-            ? ''
-            : sorts;
+          ? null
+          : sorts;
 
       if (tempFullTextSearch !== params.fullTextSearch) tempPageIndex = 1;
       const tempParams = cleanObjectKeyNull({
@@ -368,7 +370,7 @@ export const DataTable = forwardRef(
         page: tempPageIndex,
         perPage: tempPageSize,
         sorts: JSON.stringify(tempSort),
-        filter: JSON.stringify(cleanObjectKeyNull({ ...params.filter as Object, ...filters as Object })),
+        filter: JSON.stringify(cleanObjectKeyNull(filters)),
         fullTextSearch: tempFullTextSearch,
       });
       onChange && onChange(tempParams);
@@ -437,7 +439,7 @@ export const DataTable = forwardRef(
               )}
             </div>
           ) : (
-            ''
+            <div />
           )}
           {!!leftHeader && <div className={'mt-2 sm:mt-0'}>{leftHeader}</div>}
           {!!rightHeader && <div className={'mt-2 sm:mt-0'}>{rightHeader}</div>}
@@ -498,7 +500,7 @@ type Type = {
   rightHeader?: JSX.Element;
   showSearch?: boolean;
   save?: boolean;
-  searchPlaceholder?: string | DefaultTFuncReturn;
+  searchPlaceholder?: string;
   subHeader?: (count: number) => any;
   xScroll?: string | number | true;
   yScroll?: string | number;
