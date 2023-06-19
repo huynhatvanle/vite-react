@@ -1,19 +1,23 @@
 // The step definitions will use the page objects
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, Before } from '@badeball/cypress-cucumber-preprocessor';
 import Common from '../page_objects/Common';
 
 const common = new Common();
 
-Given('User go to login page', () => cy.visit('/auth/login'));
+Before(() => { common.state = {}; });
+Given('User go to login page', () => cy.visit('/vn/auth/login'));
 When('Click "{}" button', common.clickTextButton);
 When('Click "{}" icon button', common.clickIconButton);
 When('Click "{}" menu', common.clickTextMenu);
 When('Click "{}" sub menu to "{}"', common.clickTextSubMenu);
 When('Click "{}" tab button', common.clickTextTabBtn);
 When('Click on the "{}" button in the "{}" table line', common.clickButtonTableByName);
+When('Select on the "{}" item line', common.clickItemByName);
+When('Click on the "{}" button in the "{}" item line', common.clickButtonItemByName);
 Then('User look message "{}" popup', common.verifyMessageSwal2);
 
 When('Enter "{}" in "{}" with "{}"', common.typeInputByName);
+When('Enter "{}" in placeholder "{}" with "{}"', common.typeInputByPlaceholder);
 When('Enter "{}" in textarea "{}" with "{}"', common.typeTextareaByName);
 When('Enter "{}" in editor "{}" with "{}"', common.typeEditorByName);
 When('Enter "{}" in editor HTML "{}" with "{}"', common.typeEditorHtmlByName);
