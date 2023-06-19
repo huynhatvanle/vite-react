@@ -40,6 +40,7 @@ const Page = () => {
   const invoiceRevenueFacade = InvoiceRevenueFacade()
   const { data, isLoading, queryParams, status } = storeFacade;
   const categoryFacade = CategoryFacade()
+  const supplierStoreFacade = SupplierStoreFacade()
 
   const isBack = useRef(true);
   const isReload = useRef(false);
@@ -210,7 +211,25 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    if (!isRevenueByOrder) {
+    if (activeKey == '2' && isBalance || activeKey == '6') {
+      supplierStoreFacade.get({
+        type: 'BALANCE',
+        storeId: id
+      })
+    }
+    if (activeKey == '2' && !isBalance) {
+      supplierStoreFacade.get({
+        type: 'NON_BALANCE',
+        storeId: id
+      })
+    }
+  }, [activeKey, isBalance])
+
+  const listSupplierStore = supplierStoreFacade.result?.data
+
+  useEffect(() => {
+    if (activeKey == '5' && !isRevenueByOrder) {
+      console.log(activeKey)
       connectSupplierFacade.get({
         page: 1,
         perPage: 10,
@@ -218,7 +237,7 @@ const Page = () => {
       })
       subStoreFacade.get({ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'NON_BALANCE' } })
     }
-  }, [isRevenueByOrder])
+  }, [activeKey, isRevenueByOrder])
 
   const supplierInvoice = subStoreFacade.result?.data ? subStoreFacade.result?.data.map((item) => { return { id: item.id, name: item.name } }) : []
   const supplierInvoice1 = connectSupplierFacade.result?.data ? connectSupplierFacade.result?.data.map((item) => { return { id: item.supplier!.id, name: item.supplier!.name } }) : []
@@ -695,18 +714,22 @@ const Page = () => {
                           placeholder: 'placeholder.Choose a supplier',
                           col: 5,
                           type: 'select',
-                          get: {
-                            facade: SupplierStoreFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch, value) => ({
-                              fullTextSearch,
-                              storeId: id,
-                              type: value().type,
-                            }),
-                          },
+                          list: listSupplierStore?.map((item) => ({
+                            label: item.name,
+                            value: item.id!
+                          })),
+                          // get: {
+                          //   facade: SupplierStoreFacade,
+                          //   format: (item: any) => ({
+                          //     label: item.name,
+                          //     value: item.id,
+                          //   }),
+                          //   params: (fullTextSearch, value) => ({
+                          //     fullTextSearch,
+                          //     storeId: id,
+                          //     type: value().type,
+                          //   }),
+                          // },
                           onChange(value, form) {
                             dataTableRefProduct?.current?.onChange({
                               page: 1,
@@ -1995,17 +2018,21 @@ const Page = () => {
                         formItem: {
                           placeholder: 'placeholder.Choose a supplier',
                           type: 'select',
-                          get: {
-                            facade: SupplierStoreFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch: string) => ({
-                              type: 'BALANCE',
-                              storeId: id,
-                            }),
-                          },
+                          list: listSupplierStore?.map((item) => ({
+                            label: item.name,
+                            value: item.id!
+                          })),
+                          // get: {
+                          //   facade: SupplierStoreFacade,
+                          //   format: (item: any) => ({
+                          //     label: item.name,
+                          //     value: item.id,
+                          //   }),
+                          //   params: (fullTextSearch: string) => ({
+                          //     type: 'BALANCE',
+                          //     storeId: id,
+                          //   }),
+                          // },
                           onChange(value, form) {
                             dataTableRefInventory?.current?.onChange({
                               page: 1,
