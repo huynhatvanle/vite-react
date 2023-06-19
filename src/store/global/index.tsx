@@ -85,15 +85,14 @@ export class User extends CommonEntity {
     public status?: string,
     public subOrgId?: number,
     public userRoleId?: number,
-    public profileImage?: string, // public subOrgName?: string,
-  ) // public roleName?: string,
-  {
+    public profileImage?: string, // public subOrgName?: string, // public roleName?: string,
+  ) {
     super();
   }
 }
 
 const checkLanguage = (language: string) => {
-  const formatDate = language === 'vn' ? 'DD-MM-YYYY' : 'DD-MM-YYYY';
+  const formatDate = language === 'vn' ? 'DD/MM/YYYY' : 'DD/MM/YYYY';
   const locale = language === 'vn' ? viVN : enUS;
   dayjs.locale(language === 'vn' ? 'vi' : language);
   localStorage.setItem('i18nextLng', language);

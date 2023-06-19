@@ -50,6 +50,7 @@ const Page = () => {
   const inventoryProduct = InventoryListProductFacade();
   const categoryFacade = CategoryFacade();
   const documentsub = DocumentsubFacade();
+  const InventorySupplier = InventorySupplierFacade();
   const { putSub } = documentsub;
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
@@ -58,15 +59,18 @@ const Page = () => {
   const [categoryId1, setCategoryId1] = useState('');
   const [categoryId2, setCategoryId2] = useState('');
   const category1 = categoryFacade.result?.data;
-  console.log(category1);
+  const inven = InventorySupplier.result?.data;
 
   const category2 = categoryFacade.result2?.data;
   const category3 = categoryFacade.result3?.data;
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
-    if (id) supplierFacade.getById({ id });
-    if (id) documentsub.get({ id });
+    if (id) {
+      supplierFacade.getById({ id });
+      documentsub.get({ id });
+      InventorySupplier.get({ id });
+    }
     categoryFacade.get({});
 
     return () => {
@@ -175,6 +179,7 @@ const Page = () => {
   }
 
   const columnproduct: IExcelColumn[] = [
+    { title: t('STT'), key: 'stt', dataIndex: 'stt' },
     { title: t('product.Code'), key: 'code', dataIndex: 'code' },
     { title: t('product.Name'), key: 'name', dataIndex: 'name' },
     { title: t('product.Storecode'), key: 'barcode', dataIndex: 'barcode' },
@@ -639,6 +644,7 @@ const Page = () => {
                               onClick={() => {
                                 const dataProduct = productFacade?.result?.data?.map((item) => {
                                   return {
+                                    stt: i++,
                                     code: item.code,
                                     name: item.name,
                                     barcode: item.barcode,
@@ -653,8 +659,44 @@ const Page = () => {
                                   };
                                 });
                                 const excel = new Excel();
+
                                 excel
                                   .addSheet('test')
+                                  .addColumns([
+                                    { title: 'Danh muc chính', dataIndex: '' },
+                                    {
+                                      title: getFilter(productFacade.queryParams, 'categoryId1')
+                                        ? `${
+                                            categoryFacade.result?.data?.find((item) => {
+                                              return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                            })?.name
+                                          }`
+                                        : '',
+                                      dataIndex: '',
+                                    },
+                                    { title: 'Danh muc cấp 1', dataIndex: '' },
+                                    {
+                                      title: getFilter(productFacade.queryParams, 'categoryId2')
+                                        ? `${
+                                            categoryFacade.result2?.data?.find((item) => {
+                                              return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                            })?.name
+                                          }`
+                                        : '',
+                                      dataIndex: '',
+                                    },
+                                    { title: 'Danh muc cấp 2', dataIndex: '' },
+                                    {
+                                      title: getFilter(productFacade.queryParams, 'categoryId3')
+                                        ? `${
+                                            categoryFacade.result3?.data?.find((item) => {
+                                              return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                            })?.name
+                                          }`
+                                        : '',
+                                      dataIndex: '',
+                                    },
+                                  ])
                                   .addColumns(columnproduct)
                                   .addDataSource(dataProduct ?? [], {
                                     str2Percent: true,
@@ -908,16 +950,20 @@ const Page = () => {
                                   placeholder: 'placeholder.Choose a store',
                                   type: 'select',
                                   col: 6,
-                                  get: {
-                                    facade: InventorySupplierFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                    params: (fullTextSearch, value) => ({
-                                      id: id,
-                                    }),
-                                  },
+                                  list: inven?.map((item) => ({
+                                    label: item?.name!,
+                                    value: item?.id!,
+                                  })),
+                                  // get: {
+                                  //   facade: InventorySupplierFacade,
+                                  //   format: (item: any) => ({
+                                  //     label: item.name,
+                                  //     value: item.id,
+                                  //   }),
+                                  //   params: (fullTextSearch, value) => ({
+                                  //     id: id,
+                                  //   }),
+                                  // },
                                   onChange(value, form) {
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
@@ -980,9 +1026,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -1022,9 +1068,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1051,10 +1097,11 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(inventoryOrders.queryParams || '{}').page != 1
-                                ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
-                                JSON.parse(inventoryOrders.queryParams || '{}').perPage +
-                                stt1++
-                                }`
+                                ? `${
+                                    JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                      JSON.parse(inventoryOrders.queryParams || '{}').perPage +
+                                    stt1++
+                                  }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1326,9 +1373,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: '',
@@ -1378,9 +1425,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1570,10 +1617,11 @@ const Page = () => {
                           sorter: true,
                           render: (value: any, item: any) =>
                             JSON.parse(inventoryProduct.queryParams || '{}').page != 1
-                              ? `${JSON.parse(inventoryProduct.queryParams || '{}').page *
-                              JSON.parse(inventoryProduct.queryParams || '{}').perPage +
-                              stt2++
-                              }`
+                              ? `${
+                                  JSON.parse(inventoryProduct.queryParams || '{}').page *
+                                    JSON.parse(inventoryProduct.queryParams || '{}').perPage +
+                                  stt2++
+                                }`
                               : `${stt2++}`,
                         },
                       },
@@ -1716,10 +1764,11 @@ const Page = () => {
                           width: 110,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
-                              JSON.parse(discountFacade.queryParams || '{}').perPage +
-                              stt++
-                              }`
+                              ? `${
+                                  JSON.parse(discountFacade.queryParams || '{}').page *
+                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                  stt++
+                                }`
                               : `${stt++}`,
                         },
                       },
@@ -1820,9 +1869,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -1861,9 +1910,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1947,8 +1996,6 @@ const Page = () => {
                             status: item.status === 'NOT_PAID' ? t('supplier.Order.Paid') : t('supplier.Order.Unpaid'),
                           };
                         });
-                        console.log(discountFacade?.result?.data);
-
                         const excel = new Excel();
                         excel
                           .addSheet('test')

@@ -15,14 +15,8 @@ const action = {
   //   name + '/get',
   //   async (params: PaginationQuery<Category>) => await API.get(routerLinks(name, 'api'), params),
   // ),
-  get2: createAsyncThunk(
-    name + '/get2',
-    async (id: string) => await API.get(routerLinks(name, 'api'), { id }),
-  ),
-  get3: createAsyncThunk(
-    name + '/get3',
-    async (id: string) => await API.get(routerLinks(name, 'api'), { id }),
-  ),
+  get2: createAsyncThunk(name + '/get2', async (id: string) => await API.get(routerLinks(name, 'api'), { id })),
+  get3: createAsyncThunk(name + '/get3', async (id: string) => await API.get(routerLinks(name, 'api'), { id })),
 };
 
 export const categorySlice = createSlice(
