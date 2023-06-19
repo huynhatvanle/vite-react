@@ -160,6 +160,7 @@ export const DataTable = forwardRef(
       </div>
     );
     const valueFilter = useRef<{ [selector: string]: boolean }>({});
+    const [filterDropdownOpen, setFilterDropdownOpen] = useState<any>({});
     const columnSearch = (get: TableGet, fullTextSearch = '', value?: any, facade: any = {}) => {
       if (get?.facade) {
         const params = get.params ? get.params(fullTextSearch, value) : { fullTextSearch };
@@ -263,7 +264,9 @@ export const DataTable = forwardRef(
       filterIcon: (filtered: boolean) => (
         <Search className={classNames('h-4 w-4', { 'fill-[#3699FF]': filtered, 'fill-gray-600': !filtered })} />
       ),
+      filterDropdownOpen: !!filterDropdownOpen[key],
       onFilterDropdownOpenChange: (visible: boolean) => {
+        setFilterDropdownOpen({ [key]: visible });
         if (visible) {
           setTimeout(
             () => (document.getElementById(idTable.current + '_input_filter_' + key) as HTMLInputElement).select(),
