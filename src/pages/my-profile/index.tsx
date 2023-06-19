@@ -159,70 +159,72 @@ const Page = () => {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('routes.admin.Layout.Change Password')} key="2">
-              <Form
-                values={{ ...user }}
-                className=''
-                columns={[
-                  {
-                    title: 'columns.auth.login.Password',
-                    name: 'password',
-                    formItem: {
-                      notDefaultValid: true,
-                      col: 12,
-                      type: 'password',
-                      rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }],
-                      placeholder: t('columns.auth.placeholder.Password').toString(),
+              <div className='form-profile-password'>
+                <Form
+                  values={{ ...user }}
+                  className=''
+                  columns={[
+                    {
+                      title: 'columns.auth.login.Password',
+                      name: 'password',
+                      formItem: {
+                        notDefaultValid: true,
+                        col: 12,
+                        type: 'password',
+                        rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }],
+                        placeholder: t('columns.auth.placeholder.Password').toString(),
+                      },
                     },
-                  },
-                  {
-                    title: 'columns.auth.login.newPassword',
-                    name: 'passwordNew',
-                    formItem: {
-                      col: 12,
-                      type: 'password',
-                      rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }],
-                      placeholder: t('columns.auth.placeholder.newPassword').toString(),
+                    {
+                      title: 'columns.auth.login.newPassword',
+                      name: 'passwordNew',
+                      formItem: {
+                        col: 12,
+                        type: 'password',
+                        rules: [{ type: 'required', message: ('components.form.ruleRequiredPassword') }],
+                        placeholder: t('columns.auth.placeholder.newPassword').toString(),
+                      },
                     },
-                  },
-                  {
-                    title: 'columns.auth.login.Confirm Password',
-                    name: 'passwordComfirm',
-                    formItem: {
-                      notDefaultValid: true,
-                      col: 12,
-                      type: 'password',
-                      rules: [
-                        {
-                          type: 'custom',
-                          validator: ({ getFieldValue }) => ({
-                            validator(rule, value: string) {
-                              const errorMsg = t('columns.auth.placeholder.subConfirm');
-                              if (!value || getFieldValue('passwordNew') === value) {
-                                return Promise.resolve();
-                              }
-                              return Promise.reject(new Error(errorMsg));
-                            },
-                          }),
-                        },
-                        { type: 'required', message: ('components.form.ruleRequiredPassword') }
-                      ],
-                      placeholder: t('columns.auth.placeholder.Confirm Password').toString(),
+                    {
+                      title: 'columns.auth.login.Confirm Password',
+                      name: 'passwordComfirm',
+                      formItem: {
+                        notDefaultValid: true,
+                        col: 12,
+                        type: 'password',
+                        rules: [
+                          {
+                            type: 'custom',
+                            validator: ({ getFieldValue }) => ({
+                              validator(rule, value: string) {
+                                const errorMsg = t('columns.auth.placeholder.subConfirm');
+                                if (!value || getFieldValue('passwordNew') === value) {
+                                  return Promise.resolve();
+                                }
+                                return Promise.reject(new Error(errorMsg));
+                              },
+                            }),
+                          },
+                          { type: 'required', message: ('components.form.ruleRequiredPassword') }
+                        ],
+                        placeholder: t('columns.auth.placeholder.Confirm Password').toString(),
+                      },
                     },
-                  },
-                ]}
-                disableSubmit={isLoading}
-                extendButton={(form) => (
-                  <Button
-                    text={t('components.button.Cancel')}
-                    className={'md:min-w-[8rem] justify-center out-line max-sm:w-3/5'}
-                    onClick={() => {
-                      navigate(`/${lang}${routerLinks('MyProfile')}`)
-                    }}
-                  />
-                )}
-                textSubmit='routes.admin.Layout.Change Password'
-                handSubmit={setPassword}
-              />
+                  ]}
+                  disableSubmit={isLoading}
+                  extendButton={(form) => (
+                    <Button
+                      text={t('components.button.Cancel')}
+                      className={'md:min-w-[8rem] justify-center out-line max-sm:w-3/5'}
+                      onClick={() => {
+                        navigate(`/${lang}${routerLinks('MyProfile')}`)
+                      }}
+                    />
+                  )}
+                  textSubmit='routes.admin.Layout.Change Password'
+                  handSubmit={setPassword}
+                />
+              </div>
             </Tabs.TabPane>
           </Tabs>
         </div>
