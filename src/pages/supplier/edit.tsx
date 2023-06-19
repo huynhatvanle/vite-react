@@ -50,6 +50,7 @@ const Page = () => {
   const inventoryProduct = InventoryListProductFacade();
   const categoryFacade = CategoryFacade();
   const documentsub = DocumentsubFacade();
+  const InventorySupplier = InventorySupplierFacade();
   const { putSub } = documentsub;
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
@@ -58,14 +59,18 @@ const Page = () => {
   const [categoryId1, setCategoryId1] = useState('');
   const [categoryId2, setCategoryId2] = useState('');
   const category1 = categoryFacade.result?.data;
+  const inven = InventorySupplier.result?.data;
 
   const category2 = categoryFacade.result2?.data;
   const category3 = categoryFacade.result3?.data;
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
-    if (id) supplierFacade.getById({ id });
-    if (id) documentsub.get({ id });
+    if (id) {
+      supplierFacade.getById({ id });
+      documentsub.get({ id });
+      InventorySupplier.get({ id });
+    }
     categoryFacade.get({});
 
     return () => {
@@ -649,10 +654,7 @@ const Page = () => {
                               onClick={() => {
                                 const dataProduct = productFacade?.result?.data?.map((item) => {
                                   return {
-                                    categoryId1: item.categoryId1,
-                                    categoryId2: item.categoryId2,
-                                    categoryId3: item.categoryId3,
-                                    stt: stt++,
+                                    stt: i++,
                                     code: item.code,
                                     name: item.name,
                                     barcode: item.barcode,
@@ -667,9 +669,41 @@ const Page = () => {
                                   };
                                 });
                                 const excel = new Excel();
+
                                 excel
                                   .addSheet('test')
-                                  .addColumns(columnheaderproduct)
+                                  .addColumns([
+                                    { title: 'Danh muc chính', dataIndex: '' },
+                                    {
+                                      title: getFilter(productFacade.queryParams, 'categoryId1')
+                                        ? `${categoryFacade.result?.data?.find((item) => {
+                                          return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                        })?.name
+                                        }`
+                                        : '',
+                                      dataIndex: '',
+                                    },
+                                    { title: 'Danh muc cấp 1', dataIndex: '' },
+                                    {
+                                      title: getFilter(productFacade.queryParams, 'categoryId2')
+                                        ? `${categoryFacade.result2?.data?.find((item) => {
+                                          return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                        })?.name
+                                        }`
+                                        : '',
+                                      dataIndex: '',
+                                    },
+                                    { title: 'Danh muc cấp 2', dataIndex: '' },
+                                    {
+                                      title: getFilter(productFacade.queryParams, 'categoryId3')
+                                        ? `${categoryFacade.result3?.data?.find((item) => {
+                                          return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                        })?.name
+                                        }`
+                                        : '',
+                                      dataIndex: '',
+                                    },
+                                  ])
                                   .addColumns(columnproduct)
                                   .addDataSource(dataProduct ?? [], {
                                     str2Percent: true,
@@ -923,16 +957,20 @@ const Page = () => {
                                   placeholder: 'placeholder.Choose a store',
                                   type: 'select',
                                   col: 6,
-                                  get: {
-                                    facade: InventorySupplierFacade,
-                                    format: (item: any) => ({
-                                      label: item.name,
-                                      value: item.id,
-                                    }),
-                                    params: (fullTextSearch, value) => ({
-                                      id: id,
-                                    }),
-                                  },
+                                  list: inven?.map((item) => ({
+                                    label: item?.name!,
+                                    value: item?.id!,
+                                  })),
+                                  // get: {
+                                  //   facade: InventorySupplierFacade,
+                                  //   format: (item: any) => ({
+                                  //     label: item.name,
+                                  //     value: item.id,
+                                  //   }),
+                                  //   params: (fullTextSearch, value) => ({
+                                  //     id: id,
+                                  //   }),
+                                  // },
                                   onChange(value, form) {
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
@@ -1962,8 +2000,6 @@ const Page = () => {
                             status: item.status === 'NOT_PAID' ? t('supplier.Order.Paid') : t('supplier.Order.Unpaid'),
                           };
                         });
-                        console.log(discountFacade?.result?.data);
-
                         const excel = new Excel();
                         excel
                           .addSheet('test')
