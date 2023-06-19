@@ -173,8 +173,19 @@ const Page = () => {
     key: string;
     dataIndex: string;
   }
-
+  const columnheaderproduct: IExcelColumn[] = [
+    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t(''), key: '', dataIndex: '' },
+    { title: t(''), key: '', dataIndex: '' },
+    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t(''), key: '', dataIndex: '' },
+    { title: t(''), key: '', dataIndex: '' },
+    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t(''), key: '', dataIndex: '' },
+    { title: t(''), key: '', dataIndex: '' },
+  ];
   const columnproduct: IExcelColumn[] = [
+    { title: t('product.STT'), key: 'stt', dataIndex: 'stt' },
     { title: t('product.Code'), key: 'code', dataIndex: 'code' },
     { title: t('product.Name'), key: 'name', dataIndex: 'name' },
     { title: t('product.Storecode'), key: 'barcode', dataIndex: 'barcode' },
@@ -639,6 +650,7 @@ const Page = () => {
                               onClick={() => {
                                 const dataProduct = productFacade?.result?.data?.map((item) => {
                                   return {
+                                    stt: stt++,
                                     code: item.code,
                                     name: item.name,
                                     barcode: item.barcode,
@@ -654,7 +666,10 @@ const Page = () => {
                                 });
                                 const excel = new Excel();
                                 excel
-                                  .addSheet('test')
+                                  .addSheet(t('titles.Listofgoods'))
+                                  // .addheaders(columnheaderproduct)
+                                  // .addRow('2')
+                                  .addColumns(columnheaderproduct)
                                   .addColumns(columnproduct)
                                   .addDataSource(dataProduct ?? [], {
                                     str2Percent: true,
