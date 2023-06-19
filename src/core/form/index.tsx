@@ -52,7 +52,7 @@ export const Form = ({
         _columns.map(({ name, formItem }: FormModel) => ({
           name,
           formItem: {
-            list: formItem?.list?.map(({ value, disabled }: any) => ({ value, disabled })) || [],
+            list: formItem?.list,
             disabled: formItem?.disabled ? formItem?.disabled(values, form) : false,
           },
         })),
@@ -61,7 +61,7 @@ export const Form = ({
         columns.map(({ name, formItem }: FormModel) => ({
           name,
           formItem: {
-            list: formItem?.list?.map(({ value, disabled }: any) => ({ value, disabled })) || [],
+            list: formItem?.list,
             disabled: formItem?.disabled ? formItem?.disabled(values, form) : false,
           },
         })),
@@ -74,7 +74,7 @@ export const Form = ({
   useEffect(() => {
     if (form && refLoad.current) {
       form.resetFields();
-      form.setFieldsValue(values);
+      form.setFieldsValue(convertFormValue(columns, values, false));
     }
     refLoad.current = true;
   }, [values]);
@@ -598,7 +598,6 @@ export const Form = ({
         failed?.errorFields?.length && form?.scrollToField(failed?.errorFields[0].name, { behavior: 'smooth' })
       }
       onFinish={handFinish}
-      initialValues={convertFormValue(columns, values, false)}
       onValuesChange={async (objValue) => {
         if (form && checkHidden) {
           clearTimeout(timeout.current);
@@ -639,6 +638,7 @@ export const Form = ({
               ),
           )}
         </div>
+
         {extendForm && extendForm(values)}
       </div>
 
