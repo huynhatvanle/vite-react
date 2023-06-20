@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { CommonEntity, Responses } from '@models';
+import { CommonEntity } from '@models';
 import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
@@ -11,7 +11,7 @@ const action = {
   getStoreConnectSupplier: createAsyncThunk(
     name + '/getStoreConnectSupplier',
     async ({ page, perPage, filter, fullTextSearch }: { page: number, perPage: number, fullTextSearch?: string, filter: { idSuppiler?: string, supplierType?: string } }) => {
-      const filterStoreConnectSupplier = JSON.parse(filter.toString() || '{}')
+      const filterStoreConnectSupplier = typeof filter != 'object' ? JSON.parse(filter || '{}') : filter
       const data = await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({
         page,
         perPage,

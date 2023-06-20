@@ -115,7 +115,7 @@
     "Ordermanagement": "Quản lý đơn hàng",
     "Discount": "Chiết Khấu",
     "Contract": "Hợp đồng",
-    "Upload contract":"Đăng tải hợp đồng",
+    "Upload contract": "Đăng tải hợp đồng",
     "Contract-View": "Hợp đồng kết nối"
   },
   "pages": {
@@ -151,8 +151,8 @@
         "Confirm Password": "Xác nhận mật khẩu",
         "Password": "Mật khẩu hiện tại",
         "newPassword": "Mật khẩu mới",
-        "Forgot Password":"Quên Mật Khẩu",
-        "Change Password":"Đổi mật khẩu"
+        "Forgot Password": "Quên Mật Khẩu",
+        "Change Password": "Đổi mật khẩu"
       },
       "register": {
         "firstName": "Tên",
@@ -167,7 +167,7 @@
         "Confirm Password": "Xác nhận mật khẩu",
         "Password": "Nhập mật khẩu",
         "newPassword": "Nhập mật khẩu mới",
-        "subConfirm":"Xác nhận mật khẩu không chính xác!"
+        "subConfirm": "Xác nhận mật khẩu không chính xác!"
       }
     }
   },
@@ -192,14 +192,14 @@
         "Recovery Email": "Email khôi phục",
         "Submit": "Gửi đi",
         "subTitle": "Vui lòng nhập e-mail của bạn. Mã xác minh OTP sẽ được gửi cho bạn",
-        "subEmail":"Vui lòng nhập mã OTP đã gửi đến email của bạn",
-        "subReset":"Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường,",
-        "subReset1":"1 chữ số và 1 kí tự đặc biệt.",
+        "subEmail": "Vui lòng nhập mã OTP đã gửi đến email của bạn",
+        "subReset": "Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường,",
+        "subReset1": "1 chữ số và 1 kí tự đặc biệt.",
         "OTP": "Lấy Mã OTP",
-        "Go back to login":"Quay trở lại đăng nhập",
-        "Code OTP":"Mã OTP",
-        "Send code":"Gửi mã OTP",
-        "Reset Password":"Đặt lại mật khẩu"
+        "Go back to login": "Quay trở lại đăng nhập",
+        "Code OTP": "Mã OTP",
+        "Send code": "Gửi mã OTP",
+        "Reset Password": "Đặt lại mật khẩu"
       }
     },
     "admin": {
@@ -247,7 +247,7 @@
     }
   },
   "supplier": {
-    "Supplier Address":"Địa chỉ nhà cung cấp",
+    "Supplier Address": "Địa chỉ nhà cung cấp",
     "Code": "Mã NCC",
     "SupplierCode": "Mã nhà cung cấp",
     "Name": "Tên nhà cung cấp",
@@ -256,18 +256,18 @@
     "Representative": "Người đại diện",
     "Phone Number": "Số điện thoại",
     "Status": "Trạng thái",
-    "status":{
-      "delivered":"Đã giao",
-      "wait for confirmation":"Chờ xác nhận",
-      "delivering":"Đang giao",
-      "waiting for the goods":"Chờ lấy hàng",
-      "canceled":"Đã huỷ",
-      "on sale":"Đang bán",
-      "stop selling":"Ngưng bán"
+    "status": {
+      "delivered": "Đã giao",
+      "wait for confirmation": "Chờ xác nhận",
+      "delivering": "Đang giao",
+      "waiting for the goods": "Chờ lấy hàng",
+      "canceled": "Đã huỷ",
+      "on sale": "Đang bán",
+      "stop selling": "Ngưng bán"
     },
-    "Supplier revenue Order":"Doanh thu nhà cung cấp theo đơn hàng.xlsx",
-    "Supplier revenue product":"Doanh thu nhà cung cấp theo sản phẩm.xlsx",
-    "Discount supplier":"Chiết khấu nhà cung cấp.xlsx",
+    "Supplier revenue Order": "Doanh thu nhà cung cấp theo đơn hàng.xlsx",
+    "Supplier revenue product": "Doanh thu nhà cung cấp theo sản phẩm.xlsx",
+    "Discount supplier": "Chiết khấu nhà cung cấp.xlsx",
     "CodeName": "Mã nhà cung cấp",
     "Order": {
       "STT": "STT",
@@ -275,7 +275,7 @@
       "Discount": "Chiết khấu (VND)",
       "Paid": "Đã thanh toán",
       "Unpaid": "Chưa thanh toán",
-      "Unfinish":"Chưa hoàn tất",
+      "Unfinish": "Chưa hoàn tất",
       "Order ID": "Mã đơn hàng",
       "Store Name": "Tên cửa hàng",
       "Recipient": "Người nhận",
@@ -291,16 +291,16 @@
       "Order Type": "Loại đơn"
     },
     "Sup-Revenue": {
-      "Revenue":"Doanh thu",
-      "Total number of successful orders":"Tổng số đơn thành công",
-      "Total number of returned orders":"Tổng số đơn trả",
-      "Total number of canceled orders":"Tổng số đơn bị hủy"
+      "Revenue": "Doanh thu",
+      "Total number of successful orders": "Tổng số đơn thành công",
+      "Total number of returned orders": "Tổng số đơn trả",
+      "Total number of canceled orders": "Tổng số đơn bị hủy"
     },
     "Sup-Discount": {
       "Discounts to be paid": "Chiết khấu cần thanh toán"
     },
-    "Sup-Status":{
-      "Signed":"Đã ký",
+    "Sup-Status": {
+      "Signed": "Đã ký",
       "Waiting": "Chờ ký",
       "Selling": "Đang bán",
       "Discontinued": "Ngưng bán",
@@ -312,43 +312,43 @@
       "Return goods": "Trả hàng",
       "Sell goods": "Bán hàng"
     },
-    "Contract":{
-      "Contract details":"Chi tiết hợp đồng",
-      "Contract Code":"Mã hợp đồng",
-      "Date created":"Ngày tạo",
-      "Contract information":"Thông tin hợp đồng",
-      "Supplier Information":"Thông tin nhà cung cấp",
-      "Click here":"Nhấn vào đây",
-      "Signed file":"Tệp đã ký",
-      "Manager name":"Tên chủ quản lý",
-      "Upload contract":"Tải lên hợp đồng đã ký",
-      "Upload file":"Kéo thả tệp mà bạn muốn tải lên",
-      "Select file":"Chọn tệp",
-      "or":"hoặc",
-      "File system":"Tệp trên hệ thống",
-      "File form system":"Chưa có hình hợp đồng trên hệ thống"
+    "Contract": {
+      "Contract details": "Chi tiết hợp đồng",
+      "Contract Code": "Mã hợp đồng",
+      "Date created": "Ngày tạo",
+      "Contract information": "Thông tin hợp đồng",
+      "Supplier Information": "Thông tin nhà cung cấp",
+      "Click here": "Nhấn vào đây",
+      "Signed file": "Tệp đã ký",
+      "Manager name": "Tên chủ quản lý",
+      "Upload contract": "Tải lên hợp đồng đã ký",
+      "Upload file": "Kéo thả tệp mà bạn muốn tải lên",
+      "Select file": "Chọn tệp",
+      "or": "hoặc",
+      "File system": "Tệp trên hệ thống",
+      "File form system": "Chưa có hình hợp đồng trên hệ thống"
     },
-    "Contract-View":{
-      "SOCIALIST REPUBLIC OF VIETNAM":"CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM",
-      "Independence-Freedom-Happiness":"Độc lập - Tự do - Hạnh phúc",
-      "Contract":"HỢP ĐỒNG",
-      "Referred A":"Gọi tắt là bên A",
-      "Referred B":"Gọi tắt là bên B",
-      "ID":"Số CMND/CCCD/Passport",
-      "Date Range":"Ngày cấp",
-      "Issued by":"Nơi cấp",
-      "DKTT":"Nơi ĐKTT",
-      "SUPPLIER":"NHÀ CUNG CẤP",
-      "Contract with code":"Căn cứ vào hợp đồng có mã",
-      "Today":"Hôm nay ngày 05-07-2022 tại ...... Chúng tôi gồm",
-      "Contract from the date":"Hai bên đồng ý ký kết hợp đồng từ ngày",
-      "Contract content":"Chúng tôi đã đọc và hiểu rõ nội dung hợp đồng và đồng ý ký tên",
-      "Contract Minutes":"Biên bản hợp đồng này sau khi ký tên sẽ có giá trị theo luật định",
-      "Contract name":"Hợp đồng được ký bởi tên chủ cung cấp ngày 1/7/2022",
-      "Sign":"Ký tên",
-      "A side":"Bên A",
-      "B side":"Bên B",
-      "Export contract":"Xuất hợp đồng"
+    "Contract-View": {
+      "SOCIALIST REPUBLIC OF VIETNAM": "CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM",
+      "Independence-Freedom-Happiness": "Độc lập - Tự do - Hạnh phúc",
+      "Contract": "HỢP ĐỒNG",
+      "Referred A": "Gọi tắt là bên A",
+      "Referred B": "Gọi tắt là bên B",
+      "ID": "Số CMND/CCCD/Passport",
+      "Date Range": "Ngày cấp",
+      "Issued by": "Nơi cấp",
+      "DKTT": "Nơi ĐKTT",
+      "SUPPLIER": "NHÀ CUNG CẤP",
+      "Contract with code": "Căn cứ vào hợp đồng có mã",
+      "Today": "Hôm nay ngày 05-07-2022 tại ...... Chúng tôi gồm",
+      "Contract from the date": "Hai bên đồng ý ký kết hợp đồng từ ngày",
+      "Contract content": "Chúng tôi đã đọc và hiểu rõ nội dung hợp đồng và đồng ý ký tên",
+      "Contract Minutes": "Biên bản hợp đồng này sau khi ký tên sẽ có giá trị theo luật định",
+      "Contract name": "Hợp đồng được ký bởi tên chủ cung cấp ngày 1/7/2022",
+      "Sign": "Ký tên",
+      "A side": "Bên A",
+      "B side": "Bên B",
+      "Export contract": "Xuất hợp đồng"
     }
   },
   "store": {
@@ -370,15 +370,15 @@
     "Name management": "Tên quản lý",
     "Revenue by product": "Doanh thu theo sản phẩm",
     "Revenue by order": "Doanh thu theo đơn hàng",
-    "Store Address":"Địa chỉ cửa hàng",
-    "Representative information":"Thông tin người đại diện",
-    "Connect KiotViet":"Kết nối KiotViet",
-    "Get branch DS":"Lấy DS chi nhánh",
-    "Since":"Từ ngày",
-    "To date":"Đến ngày",
-    "Barcode":"Mã vạch",
-    "Active":"Đang hoặt động",
-    "NoActive":"Ngưng hoạt động",
+    "Store Address": "Địa chỉ cửa hàng",
+    "Representative information": "Thông tin người đại diện",
+    "Connect KiotViet": "Kết nối KiotViet",
+    "Get branch DS": "Lấy DS chi nhánh",
+    "Since": "Từ ngày",
+    "To date": "Đến ngày",
+    "Barcode": "Mã vạch",
+    "Active": "Đang hoặt động",
+    "NoActive": "Ngưng hoạt động",
     "Inventory management": {
       "Product code": "Mã sản phẩm",
       "Barcode (Supplier)": "Mã vạch (NCC)",
@@ -415,19 +415,20 @@
     "PriceBalance": "Giá bán lẻ của NCC (VND)",
     "PriceNonBalance": "Giá nhập (VND)",
     "SellingPrice": "Giá bán lẻ của CH (VND)",
-    "Price":"Giá bán lẻ (VND",
+    "Price": "Giá bán lẻ (VND",
     "Status": "Tình trạng",
     "Barcode": "Mã vạch",
-    "Revenue":"Doanh thu",
-    "Image link":"Link hình ảnh",
+    "Revenue": "Doanh thu",
+    "Image link": "Link hình ảnh",
     "status": "Trạng thái",
-    "List Balance":"Danh sách hàng hóa Balance.xlsx",
-    "List":"Danh sách hàng hóa.xlsx"
+    "List Balance": "Danh sách hàng hóa Balance.xlsx",
+    "List": "Danh sách hàng hóa.xlsx",
+    "Image": "Link hình ảnh"
   },
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",
     "Select order type": "Chọn loại đơn hàng",
-    "Choose a store":"Chọn cửa hàng",
+    "Choose a store": "Chọn cửa hàng",
     "Main categories": "Danh mục chính",
     "Category level 1": "Danh mục cấp 1",
     "Category level 2": "Danh mục cấp 2",
