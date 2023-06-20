@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { CommonEntity } from '@models';
 import { Product } from '@store/product';
-import { API, routerLinks } from '@utils';
+import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
 const name = 'InventoryOrders';
@@ -10,7 +10,7 @@ const name = 'InventoryOrders';
 const action = {
   ...new Action<InventoryOrders>(name),
   getOrder: createAsyncThunk(
-    name + '/get',
+    name + '/getOrder',
     async ({
       page,
       perPage,
@@ -28,22 +28,52 @@ const action = {
       fullTextSearch: string;
     }) => {
       const filterInven = JSON.parse(filter.toString() || '{}');
-      const data = await API.get(routerLinks(name, 'api'), {
-        page,
-        perPage,
-        idSupplier: filterInven.idSupplier,
-        idStore: filterInven.idStore,
-        type: filterInven.type,
-        fullTextSearch: fullTextSearch,
-        filterDate: { dateFrom: filterInven.filterDate.dateFrom, dateTo: filterInven.filterDate.dateTo },
-      });
+      const data = await API.get(
+        routerLinks(name, 'api'),
+        cleanObjectKeyNull({
+          page,
+          perPage,
+          idSupplier: filterInven.idSupplier,
+          idStore: filterInven.idStore,
+          type: filterInven.type,
+          fullTextSearch: fullTextSearch,
+          filterDate: { dateFrom: filterInven.filterDate.dateFrom, dateTo: filterInven.filterDate.dateTo },
+        }),
+      );
 
       return data;
     },
   ),
 };
 
-export const inventoryOrdersSlice = createSlice(new Slice<InventoryOrders>(action));
+export const inventoryOrdersSlice = createSlice(
+  new Slice<InventoryOrders>(action, { result: {} }, (builder) =>
+    builder
+      .addCase(
+        action.getOrder.pending,
+        (
+          state: State<InventoryOrders>,
+          action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+          state.queryParams = JSON.stringify(action.meta.arg);
+          state.isLoading = true;
+          state.status = 'getOrder.pending';
+        },
+      )
+      .addCase(action.getOrder.fulfilled, (state: State<InventoryOrders>, action: any) => {
+        if (action.payload.data) {
+          state.result = action.payload;
+          state.status = 'getOrder.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
+      .addCase(action.getOrder.rejected, (state: State) => {
+        state.status = 'getOrder.rejected';
+        state.isLoading = false;
+      }),
+  ),
+);
 
 export const inventoryOrdersFacade = () => {
   const dispatch = useAppDispatch();
