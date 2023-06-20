@@ -40,6 +40,7 @@ const Page = () => {
   const invoiceRevenueFacade = InvoiceRevenueFacade()
   const { data, isLoading, queryParams, status } = storeFacade;
   const categoryFacade = CategoryFacade()
+  const supplierStoreFacade = SupplierStoreFacade()
 
   const isBack = useRef(true);
   const isReload = useRef(false);
@@ -210,7 +211,24 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    if (!isRevenueByOrder) {
+    if (activeKey == '2' && isBalance || activeKey == '6') {
+      supplierStoreFacade.get({
+        type: 'BALANCE',
+        storeId: id
+      })
+    }
+    if (activeKey == '2' && !isBalance) {
+      supplierStoreFacade.get({
+        type: 'NON_BALANCE',
+        storeId: id
+      })
+    }
+  }, [activeKey, isBalance])
+  const listSupplierStore = supplierStoreFacade.result?.data
+
+  useEffect(() => {
+    if (activeKey == '5' && !isRevenueByOrder) {
+      console.log(activeKey)
       connectSupplierFacade.get({
         page: 1,
         perPage: 10,
@@ -218,13 +236,14 @@ const Page = () => {
       })
       subStoreFacade.get({ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'NON_BALANCE' } })
     }
-  }, [isRevenueByOrder])
+  }, [activeKey, isRevenueByOrder])
 
   const supplierInvoice = subStoreFacade.result?.data ? subStoreFacade.result?.data.map((item) => { return { id: item.id, name: item.name } }) : []
   const supplierInvoice1 = connectSupplierFacade.result?.data ? connectSupplierFacade.result?.data.map((item) => { return { id: item.supplier!.id, name: item.supplier!.name } }) : []
   const supplierInvoice2 = [...supplierInvoice, ...supplierInvoice1]
 
   const columnproduct: IExcelColumn[] = [
+    { title: 'STT', key: 'stt', dataIndex: 'stt' },
     { title: t('product.Code'), key: 'code', dataIndex: 'code' },
     { title: t('product.StoreCode'), key: 'storeBarcode', dataIndex: 'storeBarcode' },
     { title: t('product.SupplierCode'), key: 'barcode', dataIndex: 'barcode' },
@@ -232,8 +251,11 @@ const Page = () => {
     { title: t('product.Category'), key: 'category', dataIndex: 'category' },
     { title: t('product.SupplierName'), key: 'supplierName', dataIndex: 'supplierName' },
     { title: t('product.Unit'), key: 'basicUnit', dataIndex: 'basicUnit' },
+    { title: 'Giá nhập', key: 'price', dataIndex: 'price' },
     { title: isBalance ? t('product.PriceBalance') : t('product.PriceNonBalance'), key: 'productPrice', dataIndex: 'productPrice' },
-    { title: t('product.SellingPrice'), key: 'sellingPrice', dataIndex: 'sellingPrice' },
+    // { title: t('product.SellingPrice'), key: 'sellingPrice', dataIndex: 'sellingPrice' },
+    { title: t('product.Status'), key: 'status', dataIndex: 'status' },
+    { title: t('product.Image'), key: 'linkImage', dataIndex: 'linkImage' },
   ];
 
   return (
@@ -650,20 +672,80 @@ const Page = () => {
                         text={t('titles.Export Excel file')}
                         disabled={productFacade.result?.data?.length === 0 ? true : false}
                         onClick={() => {
+                          // productFacade.get({
+                          //   page: 1,
+                          //   perPage: 10,
+                          //   filter: {
+                          //     storeId: id,
+                          //     type: 'BALANCE',
+                          //     isGetAll: true
+                          //   }
+                          // })
+                          let stt = 0
                           const excel = new Excel();
-                          excel
-                            .addSheet("test")
+                          const sheet = excel.addSheet("test")
+                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
+                          sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                          sheet.addColumns([
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
+                          ])
+                          sheet.addRow();
+                          sheet.addColumns([
+                            { title: 'Danh mục chính', dataIndex: '' },
+                            {
+                              title: getFilter(productFacade.queryParams, 'categoryId1')
+                                ? `${categoryFacade.result?.data?.find((item) => {
+                                  return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                })?.name
+                                }`
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                            { title: 'Danh mục cấp 1', dataIndex: '' },
+                            {
+                              title: getFilter(productFacade.queryParams, 'categoryId2')
+                                ? `${categoryFacade.result2?.data?.find((item) => {
+                                  return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                })?.name
+                                }`
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                            { title: 'Danh mục cấp 2', dataIndex: '' },
+                            {
+                              title: getFilter(productFacade.queryParams, 'categoryId3')
+                                ? `${categoryFacade.result3?.data?.find((item) => {
+                                  return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                })?.name
+                                }`
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                          ]);
+                          sheet.addRow()
+                          sheet.currentCol
+                          sheet
                             .addColumns(columnproduct)
                             .addDataSource(productFacade?.result?.data?.map((item) => ({
-                              productPrice: item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()),
+                              stt: ++stt,
+                              productPrice: item?.productPrice!.length > 0 ? item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()) : '0',
                               basicUnit: item?.basicUnit,
-                              supplierName: item?.supplierName,
+                              supplierName: item?.supplierName ? item?.supplierName : item.subOrg?.name,
                               category: item?.category?.child?.name,
                               name: item?.name,
                               barcode: item?.barcode,
                               storeBarcode: item?.storeBarcode,
                               code: item?.code,
-                              sellingPrice: item?.sellingPrice ? parseInt(item?.sellingPrice).toLocaleString() : ''
+                              // sellingPrice: item?.sellingPrice ? parseInt(item?.sellingPrice).toLocaleString() : ''
+                              price: item.price ? parseInt(item?.price).toLocaleString() : '',
+                              status: item.approveStatus == 'APPROVED' ? 'Đang bán' : '',
+                              linkImage: item?.photos?.map((i) => i.url)
                             })) ?? [], {
                               str2Percent: true
                             })
@@ -695,18 +777,22 @@ const Page = () => {
                           placeholder: 'placeholder.Choose a supplier',
                           col: 5,
                           type: 'select',
-                          get: {
-                            facade: SupplierStoreFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch, value) => ({
-                              fullTextSearch,
-                              storeId: id,
-                              type: value().type,
-                            }),
-                          },
+                          list: listSupplierStore?.map((item) => ({
+                            label: item.name,
+                            value: item.id!
+                          })),
+                          // get: {
+                          //   facade: SupplierStoreFacade,
+                          //   format: (item: any) => ({
+                          //     label: item.name,
+                          //     value: item.id,
+                          //   }),
+                          //   params: (fullTextSearch, value) => ({
+                          //     fullTextSearch,
+                          //     storeId: id,
+                          //     type: value().type,
+                          //   }),
+                          // },
                           onChange(value, form) {
                             dataTableRefProduct?.current?.onChange({
                               page: 1,
@@ -1995,17 +2081,21 @@ const Page = () => {
                         formItem: {
                           placeholder: 'placeholder.Choose a supplier',
                           type: 'select',
-                          get: {
-                            facade: SupplierStoreFacade,
-                            format: (item: any) => ({
-                              label: item.name,
-                              value: item.id,
-                            }),
-                            params: (fullTextSearch: string) => ({
-                              type: 'BALANCE',
-                              storeId: id,
-                            }),
-                          },
+                          list: listSupplierStore?.map((item) => ({
+                            label: item.name,
+                            value: item.id!
+                          })),
+                          // get: {
+                          //   facade: SupplierStoreFacade,
+                          //   format: (item: any) => ({
+                          //     label: item.name,
+                          //     value: item.id,
+                          //   }),
+                          //   params: (fullTextSearch: string) => ({
+                          //     type: 'BALANCE',
+                          //     storeId: id,
+                          //   }),
+                          // },
                           onChange(value, form) {
                             dataTableRefInventory?.current?.onChange({
                               page: 1,

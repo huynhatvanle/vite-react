@@ -11,7 +11,7 @@ const action = {
   getSubStore: createAsyncThunk(
     name + '/get',
     async ({ page, perPage, filter, fullTextSearch }: { page: number, perPage: number, fullTextSearch?: string, filter: { storeId?: string, supplierType?: string } }) => {
-      const filterSubStore = JSON.parse(filter.toString() || '{}')
+      const filterSubStore = typeof filter != 'object' ? JSON.parse(filter || '{}') : filter
       const data = await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({
         page,
         perPage,

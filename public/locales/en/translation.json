@@ -404,6 +404,7 @@
     }
   },
   "product": {
+    "STT":"STT",
     "Code": "Product code",
     "StoreCode": "Store barcode(CH)",
     "Storecode": "Store barcode",

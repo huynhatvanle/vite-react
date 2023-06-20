@@ -177,9 +177,19 @@ const Page = () => {
     key: string;
     dataIndex: string;
   }
-
+  const columnheaderproduct: IExcelColumn[] = [
+    { title: t('placeholder.Main categories'), key: 'categoryId1', dataIndex: 'categoryId1' },
+    { title: t(''), key: '', dataIndex: '' },
+    { title: t(''), key: '', dataIndex: '' },
+    { title: t('placeholder.Category level 1'), key: 'categoryId2', dataIndex: 'categoryId2' },
+    { title: t(''), key: '', dataIndex: '' },
+    { title: t(''), key: '', dataIndex: '' },
+    { title: t('placeholder.Category level 2'), key: 'categoryId3', dataIndex: 'categoryId3' },
+    { title: t(''), key: '', dataIndex: '' },
+    { title: t(''), key: '', dataIndex: '' },
+  ];
   const columnproduct: IExcelColumn[] = [
-    { title: t('STT'), key: 'stt', dataIndex: 'stt' },
+    { title: t('product.STT'), key: 'stt', dataIndex: 'stt' },
     { title: t('product.Code'), key: 'code', dataIndex: 'code' },
     { title: t('product.Name'), key: 'name', dataIndex: 'name' },
     { title: t('product.Storecode'), key: 'barcode', dataIndex: 'barcode' },
@@ -637,33 +647,30 @@ const Page = () => {
                                     { title: 'Danh muc chính', dataIndex: '' },
                                     {
                                       title: getFilter(productFacade.queryParams, 'categoryId1')
-                                        ? `${
-                                            categoryFacade.result?.data?.find((item) => {
-                                              return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-                                            })?.name
-                                          }`
+                                        ? `${categoryFacade.result?.data?.find((item) => {
+                                          return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                        })?.name
+                                        }`
                                         : '',
                                       dataIndex: '',
                                     },
                                     { title: 'Danh muc cấp 1', dataIndex: '' },
                                     {
                                       title: getFilter(productFacade.queryParams, 'categoryId2')
-                                        ? `${
-                                            categoryFacade.result2?.data?.find((item) => {
-                                              return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-                                            })?.name
-                                          }`
+                                        ? `${categoryFacade.result2?.data?.find((item) => {
+                                          return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                        })?.name
+                                        }`
                                         : '',
                                       dataIndex: '',
                                     },
                                     { title: 'Danh muc cấp 2', dataIndex: '' },
                                     {
                                       title: getFilter(productFacade.queryParams, 'categoryId3')
-                                        ? `${
-                                            categoryFacade.result3?.data?.find((item) => {
-                                              return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-                                            })?.name
-                                          }`
+                                        ? `${categoryFacade.result3?.data?.find((item) => {
+                                          return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                        })?.name
+                                        }`
                                         : '',
                                       dataIndex: '',
                                     },
@@ -991,9 +998,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -1032,9 +1039,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1060,11 +1067,10 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(inventoryOrders.queryParams || '{}').page != 1
-                                ? `${
-                                    JSON.parse(inventoryOrders.queryParams || '{}').page *
-                                      JSON.parse(inventoryOrders.queryParams || '{}').perPage +
-                                    stt1++
-                                  }`
+                                ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                JSON.parse(inventoryOrders.queryParams || '{}').perPage +
+                                stt1++
+                                }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1327,9 +1333,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                       },
@@ -1376,9 +1382,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1563,11 +1569,10 @@ const Page = () => {
                           sorter: true,
                           render: (value: any, item: any) =>
                             JSON.parse(inventoryProduct.queryParams || '{}').page != 1
-                              ? `${
-                                  JSON.parse(inventoryProduct.queryParams || '{}').page *
-                                    JSON.parse(inventoryProduct.queryParams || '{}').perPage +
-                                  stt2++
-                                }`
+                              ? `${JSON.parse(inventoryProduct.queryParams || '{}').page *
+                              JSON.parse(inventoryProduct.queryParams || '{}').perPage +
+                              stt2++
+                              }`
                               : `${stt2++}`,
                         },
                       },
@@ -1709,11 +1714,10 @@ const Page = () => {
                           width: 110,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${
-                                  JSON.parse(discountFacade.queryParams || '{}').page *
-                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
-                                  stt++
-                                }`
+                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
+                              JSON.parse(discountFacade.queryParams || '{}').perPage +
+                              stt++
+                              }`
                               : `${stt++}`,
                         },
                       },
@@ -1814,9 +1818,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -1854,9 +1858,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },

@@ -26,26 +26,27 @@ const action = {
         categoryId3?: string;
         isGetAll: boolean;
       };
-      sorts: {};
+      sorts?: {};
     }) => {
-      const filterProduct = JSON.parse(filter.toString() || '{}');
+      console.log(typeof filter)
+      const filterProduct = typeof filter != 'object' ? JSON.parse(filter || '{}') : filter;
       const sortProduct = sorts ? JSON.parse(sorts.toString() || '{}') : '';
       cleanObjectKeyNull(sortProduct);
       const data = await API.get(
         routerLinks(name, 'api'),
         cleanObjectKeyNull({
-          page,
-          perPage,
+          page: page,
+          perPage: perPage,
           storeId: filterProduct.storeId,
           type: filterProduct.type,
           supplierId: filterProduct.supplierId,
           categoryId: filterProduct.categoryId3
             ? filterProduct.categoryId3
             : filterProduct.categoryId2
-            ? filterProduct.categoryId2
-            : filterProduct.categoryId1
-            ? filterProduct.categoryId1
-            : null,
+              ? filterProduct.categoryId2
+              : filterProduct.categoryId1
+                ? filterProduct.categoryId1
+                : null,
           categoryId1: filterProduct.categoryId1,
           categoryId2: filterProduct.categoryId2,
           categoryId3: filterProduct.categoryId3,
@@ -82,12 +83,12 @@ export const ProductFacade = () => {
         supplierId?: string;
         storeId?: string;
         type: string;
-        categoryId1: string;
-        categoryId2: string;
-        categoryId3: string;
+        categoryId1?: string;
+        categoryId2?: string;
+        categoryId3?: string;
         isGetAll: boolean;
       };
-      sorts: {};
+      sorts?: {};
     }) => {
       return dispatch(action.getProduct({ page, perPage, filter, sorts }));
     },
@@ -101,6 +102,10 @@ export const ProductFacade = () => {
 
 export class Product extends CommonEntity {
   constructor(
+    public stt?: number,
+    public categoryId1?: string,
+    public categoryId2?: string,
+    public categoryId3?: string,
     public id?: string,
     public code?: string,
     public barcode?: string,
@@ -113,7 +118,7 @@ export class Product extends CommonEntity {
     public stockQuantity?: string,
     public supplierName?: string,
     public basicUnit?: string,
-    public price?: number,
+    public price?: string,
     public sellingPrice?: string,
     public category?: {
       child: {
@@ -131,12 +136,17 @@ export class Product extends CommonEntity {
       },
     ],
     public child?: {},
-    public photos?: {
-      0: {
-        url?: string;
-      };
-    },
+    public photos?: [
+      {
+        url?: string
+      }
+    ],
     public approveStatus?: string,
+    public subOrg?: {
+      id: string,
+      name: string
+    },
+    public capitalCost?: string,
   ) {
     super();
   }
