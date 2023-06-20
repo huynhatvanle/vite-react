@@ -8,6 +8,7 @@ import { Form } from '@core/form';
 import { Button } from '@core/button';
 import { GlobalFacade } from '@store';
 import { languages, language, routerLinks } from '@utils';
+import { Upload } from '@core/upload';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -44,12 +45,9 @@ const Page = () => {
     localStorage.setItem('activeStoreTab', key);
     navigate(`/${lang}${routerLinks('MyProfile')}?tab=${key}`);
   };
-
+  const [image, setImage] = useState(globalFacade.user?.profileImage)
   const handleSubmit = (values: any) => {
-    const profileImage = forms.getFieldValue('profileImage');
-    const image = (profileImage[(profileImage.length) - 1]?.[0]).length <= 1 ? profileImage :
-      profileImage[(profileImage.length) - 1]?.[0]
-    globalFacade.putProfile({ ...values, image, profileImage });
+    globalFacade.putProfile({ ...values, image });
   }
 
   return (
@@ -68,6 +66,11 @@ const Page = () => {
                   type: 'upload',
                   mode: 'multiple',
                   onlyImage: true,
+                  render: (form, values) => {
+                    return (
+                      <Upload multiple value={image} onChange={(values => setImage(values[values.length - 1]?.[0]))} />
+                    )
+                  }
                 },
               },
               {
@@ -159,7 +162,6 @@ const Page = () => {
               <div className='form-profile-password'>
                 <Form
                   values={{ ...user }}
-                  className=''
                   columns={[
                     {
                       title: 'columns.auth.login.Password',
