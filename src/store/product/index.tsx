@@ -102,6 +102,10 @@ export const ProductFacade = () => {
 
 export class Product extends CommonEntity {
   constructor(
+    public stt?: number,
+    public categoryId1?: string,
+    public categoryId2?: string,
+    public categoryId3?: string,
     public id?: string,
     public code?: string,
     public barcode?: string,

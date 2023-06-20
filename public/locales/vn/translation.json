@@ -403,6 +403,7 @@
     }
   },
   "product": {
+    "STT":"STT",
     "Code": "Mã sản phẩm",
     "StoreCode": "Mã vạch (CH)",
     "Storecode": "Mã vạch",
