@@ -103,7 +103,7 @@ const Page = () => {
     return () => {
       isReload.current && documentsub.get({ id });
     };
-  }, [documentsub.data]);
+  }, [documentsub.result?.data]);
 
   const data1 = documentsub.result?.data;
   const revenueTotal = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
