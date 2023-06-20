@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CommonEntity } from '@models';
-import { API, routerLinks } from '@utils';
+import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
 const name = 'Suborgcommision';
@@ -19,12 +19,15 @@ const action = {
       perPage?: number;
     }) => {
       const filterDis = JSON.parse(filter.toString() || '{}');
-      const data = await API.get<Discount>(`${routerLinks(name, 'api')}/${filterDis.id}`, {
-        page,
-        perPage,
-        filter: { dateFrom: filterDis.filter.dateFrom, dateTo: filterDis.filter.dateTo },
-        status: filterDis.status,
-      });
+      const data = await API.get<Discount>(
+        `${routerLinks(name, 'api')}/${filterDis.id}`,
+        cleanObjectKeyNull({
+          page,
+          perPage,
+          filter: { dateFrom: filterDis.filter.dateFrom, dateTo: filterDis.filter.dateTo },
+          status: filterDis.status,
+        }),
+      );
       let dataDiscount = Object.entries(data.data as Object)[0]?.[1];
       const totalCommissionSupplier = data.data?.totalCommissionSupplier;
       data.data = dataDiscount;

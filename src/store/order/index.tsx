@@ -1,9 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { API, routerLinks } from '@utils';
+import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { CommonEntity, PaginationQuery } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
-
-
 
 const name = 'Orders';
 
@@ -23,12 +21,16 @@ const action = {
       fullTextSearch: string;
     }) => {
       const filterOrder = JSON.parse(filter.toString() || '{}');
-      const data = await API.get(routerLinks(name, 'api'), {
-        page,
-        perPage,
-        filterSupplier: filterOrder.filterSupplier,
-        fullTextSearch: fullTextSearch,
-      });
+
+      const data = await API.get(
+        routerLinks(name, 'api'),
+        cleanObjectKeyNull({
+          page,
+          perPage,
+          filterSupplier: filterOrder.filterSupplier,
+          fullTextSearch: fullTextSearch,
+        }),
+      );
       return data;
     },
   ),
