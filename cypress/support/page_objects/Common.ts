@@ -1,9 +1,7 @@
-import slug from 'slug';
 export default class Common {
   state: any = {};
   elements = {
-    textButton: (text: string) => cy.get('button').contains(text).should('not.be.disabled'),
-    iconButton: (text: string) => cy.get(`button[title="${text}"]`).should('not.be.disabled'),
+    textButton: (text: string) => cy.get(`button[title="${text}"]`).should('not.be.disabled'),
     textMenu: (text: string) => cy.get('li.menu').contains(text),
     textSubMenu: (text: string) => cy.get('a.sub-menu').contains(text),
     textTabBtn: (text: string) => cy.get('.ant-tabs-tab-btn').contains(text),
@@ -50,10 +48,6 @@ export default class Common {
     this.elements.textButton(text).click();
     this.clickSubmitPopover();
   };
-  clickIconButton = (text: string) => {
-    this.elements.iconButton(text).click();
-    this.clickSubmitPopover();
-  };
   clickTextMenu = (text: string) => this.elements.textMenu(text).click();
   clickTextSubMenu = (text: string, url: string) => {
     this.spin();
@@ -63,15 +57,13 @@ export default class Common {
   clickTextTabBtn = (text: string) => this.elements.textTabBtn(text).click();
   clickButtonTableByName = (text: string, name: string) => {
     this.spin();
-    const val = this.state[slug(name)];
-    this.elements.buttonTableByName(val, text).click();
+    this.elements.buttonTableByName(this.state[name], text).click();
     this.clickSubmitPopover();
   };
   clickItemByName = (text: string) => this.elements.itemByName(text).click();
   clickButtonItemByName = (text: string, name: string) => {
     this.spin();
-    const val = this.state[slug(name)];
-    this.elements.buttonItemByName(val, text).click();
+    this.elements.buttonItemByName(this.state[name], text).click();
     this.clickSubmitPopover();
   };
 
@@ -79,8 +71,7 @@ export default class Common {
     if (message.indexOf('_@') > -1 && message.indexOf('@_') > -1) {
       const arrayValue = message.match(/(_@[A-Z])\w+\s+\w+@_/g);
       arrayValue?.forEach((text, index) => {
-        const val = this.state[slug(text.replace('_@', '').replace('@_', ''))];
-        message = message.replace(text, val);
+        message = message.replace(text, this.state[text.replace('_@', '').replace('@_', '')]);
         if (arrayValue?.length - 1 === index) this.elements.messageSwal2().should('have.text', message);
       });
     } else this.elements.messageSwal2().should('have.text', message);
@@ -89,38 +80,36 @@ export default class Common {
 
   typeInputByName = (type: inputType, name: string, text: string) => {
     const input = this.elements.inputByName(name).typeRandom(text, this.state, type);
-    if (text) input.invoke('val').then((val) => (this.state[slug(name)] = val));
+    if (text) input.invoke('val').then((val) => (this.state[name] = val));
   };
   typeTextareaByName = (type: inputType, name: string, text: string) => {
     const input = this.elements.textareaByName(name).typeRandom(text, this.state, type);
-    if (text) input.invoke('val').then((val) => (this.state[slug(name)] = val));
+    if (text) input.invoke('val').then((val) => (this.state[name] = val));
   };
   typeEditorByName = (type: inputType, name: string, text: string) => {
     const input = this.elements.editorByName(name).typeRandom(text, this.state, type);
-    if (text) input.invoke('val').then((val) => (this.state[slug(name)] = val));
+    if (text) input.invoke('val').then((val) => (this.state[name] = val));
   };
   typeEditorHtmlByName = (type: inputType, name: string, text: string) => {
     const input = this.elements.editorHtmlByName(name).typeRandom(text, this.state, type);
-    if (text) input.invoke('val').then((val) => (this.state[slug(name)] = val));
+    if (text) input.invoke('val').then((val) => (this.state[name] = val));
   };
   typeInputByPlaceholder = (type: inputType, placeholder: string, text: string) => {
     const input = this.elements.inputByPlaceholder(placeholder).typeRandom(text, this.state, type);
-    if (text) input.invoke('val').then((val) => (this.state[slug(placeholder)] = val));
+    if (text) input.invoke('val').then((val) => (this.state[placeholder] = val));
   };
   selectFileByName = (name: string, text: string) =>
     this.elements.fileByName(name).selectFile(
       text.split(',').map((item) => 'cypress/upload/' + item),
       { force: true },
     );
-  typePickerInputByName = (name: string) =>
-    this.elements.pickerInputByName(name).click().typeRandom('_RANDOM_', this.state, 'date');
+  typePickerInputByName = (name: string, text: string) =>
+    this.elements.pickerInputByName(name).click().typeRandom(text, this.state, 'date');
   clickSwitchByName = (name: string) => this.elements.switchByName(name).click();
   clickRadioByName = (text: string, name: string) => this.elements.radioByName(name, text).click();
   clickSelectByName = (name: string, text: string) => {
     const newText =
-      text.indexOf('_@') > -1 && text.indexOf('@_') > -1
-        ? this.state[slug(text.replace('_@', '').replace('@_', ''))]
-        : text;
+      text.indexOf('_@') > -1 && text.indexOf('@_') > -1 ? this.state[text.replace('_@', '').replace('@_', '')] : text;
     this.elements.selectByName(name).type(newText);
     window.scrollY > 0 && cy.scrollTo('top');
     cy.get(`.ant-select-item-option[title='${newText}']`).should('be.visible').click();
@@ -133,9 +122,7 @@ export default class Common {
   };
   clickTreeSelectByName = (name: string, text: string) => {
     const newText =
-      text.indexOf('_@') > -1 && text.indexOf('@_') > -1
-        ? this.state[slug(text.replace('_@', '').replace('@_', ''))]
-        : text;
+      text.indexOf('_@') > -1 && text.indexOf('@_') > -1 ? this.state[text.replace('_@', '').replace('@_', '')] : text;
     this.elements.treeSelectByName(name).type(newText);
     this.elements.treeSelectSelectionTitle(newText).then((e) => {
       cy.get('.ant-select-tree-list-holder-inner').scrollIntoView({ offset: { top: e[0].offsetTop, left: 0 } });
@@ -144,14 +131,12 @@ export default class Common {
   };
   clickTreeByName = (name: string) => {
     this.spin();
-    const val = this.state[slug(name)];
-    this.elements.treeByName(val.toString()).click();
+    this.elements.treeByName(this.state[name].toString()).click();
   };
   clickRemoveTreeByName = (name: string) => {
     this.spin();
-    const val = this.state[slug(name)];
-    this.elements.removeTreeByName(val).click({ force: true });
+    this.elements.removeTreeByName(this.state[name]).click({ force: true });
     this.clickSubmitPopover();
   };
 }
-type inputType = 'text' | 'words' | 'number' | 'email' | 'percentage' | 'color' | 'phone';
+type inputType = 'test name' | 'text' | 'word' | 'paragraph' | 'number' | 'email' | 'percentage' | 'color' | 'phone';
