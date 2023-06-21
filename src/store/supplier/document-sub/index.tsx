@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { CommonEntity } from '@models';
 import { Product } from '@store/product';
@@ -21,15 +21,42 @@ const action = {
       return { data, keyState };
     },
   ),
-  putSub: createAsyncThunk(name + '/put', async ({ id }: Documentsub) => {
-    const status ='SIGNED_CONTRACT'
-    const { data, message } = await API.put<Documentsub>(`${routerLinks(name, 'api')}/${id}`, {status:"SIGNED_CONTRACT"});
+  putSub: createAsyncThunk(name + '/putSub', async ({ id }: Documentsub) => {
+    const status = 'SIGNED_CONTRACT'
+    const { statusCode, message } = await API.put<Documentsub>(`${routerLinks(name, 'api')}/${id}`, { status: "SIGNED_CONTRACT" });
     if (message) await Message.success({ text: message });
-    return data;
+    return statusCode;
   }),
 };
 
-export const documentsubSlice = createSlice(new Slice<Documentsub>(action));
+export const documentsubSlice = createSlice(new Slice<Documentsub>(action, { result: {} }, (builder) =>
+  builder
+    .addCase(
+      action.putSub.pending,
+      (
+        state: State<Documentsub>,
+        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+      ) => {
+        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+        state.queryParams = JSON.stringify(action.meta.arg);
+        state.isLoading = true;
+        state.status = 'putSub.pending';
+      },
+    )
+
+    .addCase(action.putSub.fulfilled, (state: State<Documentsub>, action: any) => {
+      if (action.payload) {
+        state.result = action.payload;
+        state.status = 'putSub.fulfilled';
+        console.log(state.status)
+      } else state.status = 'idle';
+      state.isLoading = false;
+    })
+    .addCase(action.putSub.rejected, (state: State) => {
+      state.status = 'putSub.rejected';
+      state.isLoading = false;
+    })
+));
 
 export const DocumentsubFacade = () => {
   const dispatch = useAppDispatch();
