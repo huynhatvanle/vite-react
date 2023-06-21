@@ -464,7 +464,7 @@ export const DataTable = forwardRef(
               columns={cols.current}
               summary={() =>
                 facade?.result?.message === 'Lấy danh sách chiết khấu với nhà cung cấp.' &&
-                facade?.result?.data?.length != 0 ? (
+                  facade?.result?.data?.length != 0 ? (
                   <tr className="text-black">
                     <td></td>
                     <td className="ant-table-cell">
