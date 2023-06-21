@@ -46,6 +46,7 @@ export const DataTable = forwardRef(
   (
     {
       columns = [],
+      // row = [],
       showList = true,
       footer,
       defaultRequest = {
@@ -85,6 +86,7 @@ export const DataTable = forwardRef(
     const idTable = useRef(idElement);
     const timeoutSearch = useRef<ReturnType<typeof setTimeout>>();
     const cols = useRef<DataTableModel[]>();
+    // const rows = useRef<DataTableModel[]>();
     const refPageSizeOptions = useRef<number[]>();
     const { result, isLoading, queryParams, time } = facade;
     // eslint-disable-next-line prefer-const
@@ -206,6 +208,7 @@ export const DataTable = forwardRef(
       },
       filterIcon: () => <CheckCircle className="h-4 w-4 fill-gray-600" />,
     });
+
     // noinspection JSUnusedGlobalSymbols
     const getColumnSearchCheckbox = (filters: any, key: any, get: TableGet = {}) => ({
       onFilterDropdownOpenChange: async (visible: boolean) => (valueFilter.current[key] = visible),
@@ -381,6 +384,8 @@ export const DataTable = forwardRef(
       array
         ? array.map((item) => ({ ...item, key: item.id || v4(), children: item.children && loopData(item.children) }))
         : [];
+    console.log('facade', facade);
+
     return (
       <div className={classNames(className, 'intro-x')}>
         <div className="lg:flex justify-between mb-2.5 responsive-header">
@@ -457,6 +462,68 @@ export const DataTable = forwardRef(
               }}
               loading={isLoading}
               columns={cols.current}
+              summary={() =>
+                facade?.result?.message === 'Lấy danh sách chiết khấu với nhà cung cấp.' &&
+                facade?.result?.data?.length != 0 ? (
+                  <tr className="text-black">
+                    <td></td>
+                    <td className="ant-table-cell">
+                      <span className="font-bold text-base">Tổng cộng</span>
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {facade?.result?.total?.totalCommission.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {facade?.result?.total?.totalPaid.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {facade?.result?.total?.totalNopay.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base"></td>
+                  </tr>
+                ) : facade?.status === 'getOrder.fulfilled' && facade?.result?.data?.length != 0 ? (
+                  <tr className="text-black">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td className="ant-table-cell">
+                      <span className="font-bold text-base">Tổng cộng</span>
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {facade?.result?.total?.sumSubTotal.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {facade?.result?.total?.sumTotal.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {facade?.result?.total?.sumVoucherAmount.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {facade?.result?.total?.sumMoney.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base"></td>
+                  </tr>
+                ) : facade?.status === 'getProduct.fulfilled' && facade?.result?.data?.length != 0 ? (
+                  <tr className="text-black">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td className="ant-table-cell">
+                      <span className="font-bold text-base">Tổng cộng</span>
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {facade?.result?.total?.subTotal.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {facade?.result?.total?.total.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base"></td>
+                  </tr>
+                ) : (
+                  <tr className="hidden"></tr>
+                )
+              }
               pagination={false}
               dataSource={loopData(data)}
               onChange={(pagination, filters, sorts) =>
@@ -493,6 +560,7 @@ export const DataTable = forwardRef(
 DataTable.displayName = 'HookTable';
 type Type = {
   columns: DataTableModel[];
+  // row?: DataTableModel[];
   showList?: boolean;
   footer?: (result: any) => any;
   defaultRequest?: PaginationQuery;

@@ -103,7 +103,7 @@ const Page = () => {
     return () => {
       isReload.current && documentsub.get({ id });
     };
-  }, [documentsub.data]);
+  }, [documentsub.result?.data]);
 
   const data1 = documentsub.result?.data;
   const revenueTotal = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
@@ -440,7 +440,7 @@ const Page = () => {
                     defaultRequest={{
                       page: 1,
                       perPage: 10,
-                      filter: { supplierId: id, type: 'BALANCE', storeId: '' },
+                      filter: { supplierId: id, type: 'BALANCE' },
                     }}
                     xScroll="895px"
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -541,7 +541,6 @@ const Page = () => {
                                     page: 1,
                                     perPage: 10,
                                     filter: {
-                                      storeId: '',
                                       type: 'BALANCE',
                                       categoryId1: value ? value : '',
                                       supplierId: id,
@@ -563,19 +562,6 @@ const Page = () => {
                                 })),
                                 disabled: (values: any, form: any) =>
                                   categoryId1 ? (category2?.length === 0 ? true : category2 ? false : true) : true,
-                                // get: {
-                                //   facade: CategoryFacade,
-                                //   key: 'result2',
-                                //   method: 'get2',
-                                //   format: (item: any) => ({
-                                //     label: item.name,
-                                //     value: item.id,
-                                //   }),
-                                //   params: (fullTextSearch, value) => ({
-                                //     fullTextSearch,
-                                //     id: value().categoryId1,
-                                //   }),
-                                // },
                                 onChange(value, form) {
                                   setCategoryId2(value);
                                   form.resetFields(['categoryId3']);
@@ -583,7 +569,6 @@ const Page = () => {
                                     page: 1,
                                     perPage: 10,
                                     filter: {
-                                      storeId: '',
                                       supplierId: id,
                                       type: 'BALANCE',
                                       categoryId2: value ? value : '',
@@ -606,25 +591,11 @@ const Page = () => {
                                 })),
                                 disabled: (values: any, form: any) =>
                                   categoryId2 ? (category3?.length === 0 ? true : category3 ? false : true) : true,
-                                // get: {
-                                //   facade: CategoryFacade,
-                                //   key: 'result3',
-                                //   method: 'get3',
-                                //   format: (item: any) => ({
-                                //     label: item.name,
-                                //     value: item.id,
-                                //   }),
-                                //   params: (fullTextSearch, value) => ({
-                                //     fullTextSearch,
-                                //     id: value().categoryId2,
-                                //   }),
-                                // },
                                 onChange(value, form) {
                                   dataTableRefProduct?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
                                     filter: {
-                                      storeId: '',
                                       supplierId: id,
                                       type: 'BALANCE',
                                       categoryId3: value ? value : '',
@@ -746,7 +717,7 @@ const Page = () => {
                 <div className="px-5 pt-6 pb-4">
                   <DataTable
                     facade={ordersFacade}
-                    defaultRequest={{ page: 1, perPage: 10, filter: { filterSupplier: id }, fullTextSearch: '' }}
+                    defaultRequest={{ page: 1, perPage: 10, filter: { filterSupplier: id } }}
                     xScroll="1400px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
@@ -911,11 +882,7 @@ const Page = () => {
                             dateFrom: `${dayjs().subtract(1, 'month').format('MM/DD/YYYY 00:00:00')}`,
                             dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
                           },
-                          idStore: '',
-                          type: '',
                         },
-
-                        fullTextSearch: '',
                       }}
                       xScroll="1400px"
                       pageSizeRender={(sizePage: number) => sizePage}
@@ -958,7 +925,6 @@ const Page = () => {
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
                                         type: value ? value : '',
                                       },
-                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -999,7 +965,6 @@ const Page = () => {
                                         },
                                         type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
                                       },
-                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -1054,7 +1019,6 @@ const Page = () => {
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
                                         type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
                                       },
-                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -1097,7 +1061,6 @@ const Page = () => {
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
                                         type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
                                       },
-                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -1363,18 +1326,11 @@ const Page = () => {
                       perPage: 10,
                       filter: {
                         idSupplier: data?.id,
-                        categoryId: '',
-                        idStore: '',
-                        status: '',
-                        categoryId1: '',
-                        categoryId2: '',
-                        categoryId3: '',
                         filterDate: {
                           dateFrom: `${dayjs().subtract(1, 'month').format('MM/DD/YYYY 00:00:00')}`,
                           dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
                         },
                       },
-                      fullTextSearch: '',
                     }}
                     xScroll="1400px"
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -1428,7 +1384,6 @@ const Page = () => {
                                           dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
                                         },
                                       },
-                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -1473,7 +1428,6 @@ const Page = () => {
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
-                                        categoryId: '',
                                         categoryId1: form.getFieldValue('categoryId1')
                                           ? form.getFieldValue('categoryId1')
                                           : '',
@@ -1493,9 +1447,7 @@ const Page = () => {
                                               .replace(/-/g, '/')
                                             : '',
                                         },
-                                        idStore: '',
                                       },
-                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -1526,7 +1478,6 @@ const Page = () => {
                                       perPage: 10,
                                       filter: {
                                         idSupplier: id,
-                                        categoryId: '',
                                         categoryId1: form.getFieldValue('categoryId1')
                                           ? form.getFieldValue('categoryId1')
                                           : '',
@@ -1546,9 +1497,7 @@ const Page = () => {
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
-                                        idStore: '',
                                       },
-                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -1596,16 +1545,13 @@ const Page = () => {
                                     perPage: 10,
                                     filter: {
                                       idSupplier: id,
-                                      categoryId: '',
                                       categoryId1: value ? value : '',
                                       status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                       filterDate: {
                                         dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
                                         dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
                                       },
-                                      idStore: '',
                                     },
-                                    fullTextSearch: '',
                                   });
                                 },
                               },
@@ -1925,7 +1871,6 @@ const Page = () => {
                           dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 00:00:00')}`,
                           dateTo: `${dayjs().endOf('month').format('MM/DD/YYYY 23:59:59')}`,
                         },
-                        status: '',
                       },
                     }}
                     onRow={(data: any) => ({
@@ -2056,7 +2001,6 @@ const Page = () => {
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                       },
-                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -2098,7 +2042,6 @@ const Page = () => {
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                       },
-                                      fullTextSearch: '',
                                     });
                                   },
                                 },
@@ -2202,17 +2145,6 @@ const Page = () => {
                             dataIndex: '',
                           },
                           { title: '', dataIndex: '' },
-                          // { title: 'Danh mục cấp 2', dataIndex: '' },
-                          // {
-                          //   title: getFilter(inventoryProduct.queryParams, 'categoryId3')
-                          //     ? `${categoryFacade.result3?.data?.find((item) => {
-                          //       return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
-                          //     })?.name
-                          //     }`
-                          //     : '',
-                          //   dataIndex: '',
-                          // },
-                          // { title: '', dataIndex: '' },
                         ]);
                         sheet.addRow();
                         sheet.addColumns([
@@ -2361,15 +2293,6 @@ const Page = () => {
                                 >
                                   {t('supplier.Contract.Click here')}
                                 </a>
-                                {/* <div className="font-semibold text-teal-900 ml-4">{t('supplier.Contract.Signed file')}:</div>
-                                <a
-                                  onClick={(activeKey: any) =>
-                                    navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
-                                  }
-                                  className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
-                                >
-                                  {t('supplier.Contract.Click here')}
-                                </a> */}
                               </div>
                             );
                           },
@@ -2383,15 +2306,6 @@ const Page = () => {
                           render: (form, values) => {
                             return (
                               <div className="flex items-center h-10 text-base lg:mt-0 mt-4">
-                                {/* <div className="font-semibold text-teal-900">{t('supplier.Contract.Contract information')}:</div>
-                                <a
-                                  onClick={(activeKey: any) =>
-                                    navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)
-                                  }
-                                  className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
-                                >
-                                  {t('supplier.Contract.Click here')}
-                                </a> */}
                                 <div className="font-semibold text-teal-900">{t('supplier.Contract.Signed file')}:</div>
                                 <a
                                   onClick={(activeKey: any) =>
