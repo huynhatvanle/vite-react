@@ -97,13 +97,17 @@ const Page = () => {
         break;
     }
   }, [status]);
-  useEffect(() => {
-    if (id) documentsub.get({ id });
 
-    return () => {
-      isReload.current && documentsub.get({ id });
-    };
-  }, [documentsub.result?.data]);
+  useEffect(() => {
+    switch (documentsub.status) {
+      case 'putSub.fulfilled':
+        if (id) documentsub.get({ id });
+        return () => {
+          isReload.current && documentsub.get({ id })
+        };
+        break;
+    }
+  }, [documentsub.result]);
 
   const data1 = documentsub.result?.data;
   const revenueTotal = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
@@ -2259,7 +2263,9 @@ const Page = () => {
                                   <div className="w-60 py-2.5 px-4 rounded-2xl border-gray-200 ml-4 flex justify-between">
                                     <Select value={values?.status} className="py-2" style={{ width: '100%' }}>
                                       <Select.Option value="SIGNED_CONTRACT">
-                                        <div onClick={() => putSub({ id: values?.id })}>
+                                        <div onClick={() => {
+                                          putSub({ id: values?.id })
+                                        }}>
                                           {t('supplier.Sup-Status.Signed')}
                                         </div>
                                       </Select.Option>
