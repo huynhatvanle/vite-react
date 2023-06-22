@@ -384,7 +384,6 @@ export const DataTable = forwardRef(
       array
         ? array.map((item) => ({ ...item, key: item.id || v4(), children: item.children && loopData(item.children) }))
         : [];
-    console.log('facade', facade);
 
     return (
       <div className={classNames(className, 'intro-x')}>

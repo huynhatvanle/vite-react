@@ -28,7 +28,6 @@ const action = {
       };
       sorts?: {};
     }) => {
-      console.log(typeof filter)
       const filterProduct = typeof filter != 'object' ? JSON.parse(filter || '{}') : filter;
       const sortProduct = sorts ? JSON.parse(sorts.toString() || '{}') : '';
       cleanObjectKeyNull(sortProduct);
