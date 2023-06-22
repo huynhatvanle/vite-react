@@ -53,7 +53,7 @@ const Page = () => {
   const categoryFacade = CategoryFacade();
   const documentsub = DocumentsubFacade();
   const InventorySupplier = InventorySupplierFacade();
-  const { putSub, uploadSub } = documentsub;
+  const { putSub, uploadSub, deleteSub, downloadSub, downloadSubZip } = documentsub;
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
   const [cap1, setCap1] = useState(true);
@@ -2474,34 +2474,88 @@ const Page = () => {
                             data1?.filePhoto.length > 0 ?
                               (
                                 <div>
-                                  <div className='flex flex-col items-center gap-2'>
-                                    <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
-                                      <a href={data1?.filePhoto?.[0]?.url} className='mr-3'>
-                                        <img src={data1?.filePhoto?.[0]?.url}
-                                          alt={data1?.filePhoto?.[0]?.fileName}
-                                          className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                      </a>
+                                  {
+                                    data1?.filePhoto?.map((item: any) => (
                                       <div>
-                                        <h1>{data1?.filePhoto?.[0]?.fileName}</h1>
-                                        <h1>{(dayjs(data1?.filePhoto?.[0]?.createdAt).format(formatDateTime))}</h1>
-                                      </div>
-                                      <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                        <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                          <Trash className='w-5 h-5'
-                                          onClick={() => null}/>
+                                        <div className='flex flex-col items-center gap-2'>
+                                          {
+                                            item.fileName.endsWith('.xlsx') || item.fileName.endsWith('.xls')
+                                              ?
+                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
+                                              <a href={item.url} className='mr-5'>
+                                                <img src={'http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'}
+                                                  alt={item.fileName}
+                                                  className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                              </a>
+                                              <div>
+                                                <h1>{item.fileName}</h1>
+                                                <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
+                                              </div>
+                                              <div className='flex items-center gap-2 ml-auto z-[999]'>
+                                                <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                  <Trash className='w-5 h-5'
+                                                    onClick={() => deleteSub({ id: item.id })} />
+                                                </div>
+                                                <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                  <Download className='w-5 h-5'
+                                                    onClick={() => downloadSub({ id: item.id, url: item.url })} />
+                                                </div>
+                                              </div>
+                                            </div>
+                                              : item.fileName.endsWith('.doc') || item.fileName.endsWith('.docx') ?
+                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
+                                                <a href={item.url} className='mr-3'>
+                                                  <img src={'http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'}
+                                                    alt={item.fileName}
+                                                    className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                </a>
+                                                <div>
+                                                  <h1>{item.fileName}</h1>
+                                                  <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
+                                                </div>
+                                                <div className='flex items-center gap-2 ml-auto z-[999]'>
+                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                    <Trash className='w-5 h-5'
+                                                      onClick={() => deleteSub({ id: item.id })} />
+                                                  </div>
+                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                    <Download className='w-5 h-5'
+                                                      onClick={() => downloadSub({ id: item.id, url: item.url })} />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              :
+                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
+                                                <a href={item.url} className='mr-3'>
+                                                  <img src={item.url}
+                                                    alt={item.fileName}
+                                                    className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                </a>
+                                                <div>
+                                                  <h1>{item.fileName}</h1>
+                                                  <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
+                                                </div>
+                                                <div className='flex items-center gap-2 ml-auto z-[999]'>
+                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                    <Trash className='w-5 h-5'
+                                                      onClick={() => deleteSub({ id: item.id })} />
+                                                  </div>
+                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                    <Download className='w-5 h-5'
+                                                      onClick={() => downloadSub({ id: item.id, url: item.url })} />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                          }
                                         </div>
-                                        <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                          <Download className='w-5 h-5'
-                                          onClick={() => null}/>
-                                        </div>
                                       </div>
-                                    </div>
-                                  </div>
+                                    ))
+                                  }
                                   <div className='flex justify-center'>
-                                    <Button className='!bg-red-400 mt-4'
+                                    <Button className='!bg-red-500 mt-4'
                                       text={'Tải tệp hợp đồng'}
                                       icon={<Download className='w-5 h-5' />}
-                                      onClick={() => null}
+                                      onClick={() => downloadSubZip({ id: data1?.filePhoto?.id, url: data1?.filePhoto?.url })}
                                     />
                                   </div>
                                 </div>
@@ -2509,7 +2563,6 @@ const Page = () => {
                               :
                               <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
                           }
-
 
                           <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 mt-5">
                             <Button
