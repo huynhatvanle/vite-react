@@ -42,10 +42,10 @@ const action = {
           categoryId: filterProduct.categoryId3
             ? filterProduct.categoryId3
             : filterProduct.categoryId2
-              ? filterProduct.categoryId2
-              : filterProduct.categoryId1
-                ? filterProduct.categoryId1
-                : null,
+            ? filterProduct.categoryId2
+            : filterProduct.categoryId1
+            ? filterProduct.categoryId1
+            : null,
           categoryId1: filterProduct.categoryId1,
           categoryId2: filterProduct.categoryId2,
           categoryId3: filterProduct.categoryId3,
@@ -154,24 +154,41 @@ export class Product extends CommonEntity {
         id: string;
         name: string;
       };
+      id: string;
+      name: string;
+    },
+    public exportTax?: {
+      id: string;
+      name: string;
+    },
+    public importTax?: {
+      id: string;
+      name: string;
     },
     public productPrice?: [
       {
         price: string;
+        priceType: string;
+        minQuantity: string;
       },
     ],
     public child?: {},
     public photos?: [
       {
-        url?: string
-      }
+        url?: string;
+      },
     ],
     public approveStatus?: string,
     public subOrg?: {
-      id: string,
-      name: string
+      id: string;
+      name: string;
     },
     public capitalCost?: string,
+    public abilitySupply?: {
+      quarter: string;
+      month: string;
+      year: string;
+    },
   ) {
     super();
   }
