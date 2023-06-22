@@ -33,12 +33,12 @@ const checkTextToShort = (text: string) => {
 const getQueryStringParams = (query: string) => {
   return query
     ? (/^[?#]/.test(query) ? query.slice(1) : query)
-      .split('&')
-      .reduce((params: { [selector: string]: string }, param: string) => {
-        const [key, value] = param.split('=');
-        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-        return params;
-      }, {})
+        .split('&')
+        .reduce((params: { [selector: string]: string }, param: string) => {
+          const [key, value] = param.split('=');
+          params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+          return params;
+        }, {})
     : {}; // Trim - from end of text
 };
 
@@ -362,11 +362,11 @@ export const DataTable = forwardRef(
       const tempSort =
         sorts && sorts?.field && sorts?.order
           ? {
-            [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
-          }
+              [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
+            }
           : sorts?.field
-            ? ''
-            : sorts;
+          ? ''
+          : sorts;
 
       if (tempFullTextSearch !== params.fullTextSearch) tempPageIndex = 1;
       const tempParams = cleanObjectKeyNull({
@@ -374,7 +374,7 @@ export const DataTable = forwardRef(
         page: tempPageIndex,
         perPage: tempPageSize,
         sorts: JSON.stringify(tempSort),
-        filter: JSON.stringify(cleanObjectKeyNull({ ...params.filter as Object, ...filters as Object })),
+        filter: JSON.stringify(cleanObjectKeyNull({ ...(params.filter as Object), ...(filters as Object) })),
         fullTextSearch: tempFullTextSearch,
       });
       onChange && onChange(tempParams);
@@ -462,8 +462,7 @@ export const DataTable = forwardRef(
               loading={isLoading}
               columns={cols.current}
               summary={() =>
-                facade?.result?.message === 'Lấy danh sách chiết khấu với nhà cung cấp.' &&
-                  facade?.result?.data?.length != 0 ? (
+                facade?.status === 'getDiscount.fulfilled' && facade?.result?.data?.length != 0 ? (
                   <tr className="text-black">
                     <td></td>
                     <td className="ant-table-cell">

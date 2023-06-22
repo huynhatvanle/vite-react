@@ -56,8 +56,6 @@ const Page = () => {
   const { putSub, uploadSub, deleteSub, downloadSub, downloadSubZip } = documentsub;
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
-  const [cap1, setCap1] = useState(true);
-  const [cap2, setCap2] = useState(true);
   const [categoryId1, setCategoryId1] = useState('');
   const [categoryId2, setCategoryId2] = useState('');
   const category1 = categoryFacade.result?.data;
@@ -66,6 +64,7 @@ const Page = () => {
   const category2 = categoryFacade.result2?.data;
   const category3 = categoryFacade.result3?.data;
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const [test, setTest] = useState(false);
 
   const [forms] = AntForm.useForm();
 
@@ -81,6 +80,20 @@ const Page = () => {
       isReload.current && supplierFacade.get(param);
     };
   }, [id]);
+
+  useEffect(() => {
+    if (test == true) {
+      productFacade.get({
+        page: 1,
+        perPage: 10,
+        filter: { supplierId: id, type: 'BALANCE', isGetAll: true },
+      });
+    }
+    return () => {
+      isReload.current && productFacade.get(param);
+      setTest(false);
+    };
+  }, [test == true]);
 
   useEffect(() => {
     if (categoryId1) {
@@ -107,7 +120,7 @@ const Page = () => {
       case 'putSub.fulfilled':
         if (id) documentsub.get({ id });
         return () => {
-          isReload.current && documentsub.get({ id })
+          isReload.current && documentsub.get({ id });
         };
         break;
     }
@@ -236,10 +249,10 @@ const Page = () => {
   let i = 1;
 
   const handleSubmitUpload = (values: Documentsub) => {
-    const subOrgId = id
-    const docSubOrgId = data1?.id
+    const subOrgId = id;
+    const docSubOrgId = data1?.id;
     const files = forms.getFieldValue('files');
-    console.log(files)
+    console.log(files);
     documentsub.uploadSub({ subOrgId, docSubOrgId, files });
   };
 
@@ -450,6 +463,10 @@ const Page = () => {
                     xScroll="895px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
+                    onRow={(data: any) => ({
+                      onDoubleClick: () =>
+                        navigate(`/${lang}${routerLinks('Merchandise-Managerment/Product/Detail')}/${data.id}`),
+                    })}
                     paginationDescription={(from: number, to: number, total: number) =>
                       t('routes.admin.Layout.PaginationProduct', { from, to, total })
                     }
@@ -628,6 +645,12 @@ const Page = () => {
                               text={t('titles.Export Excel file')}
                               disabled={productFacade.result?.data?.length === 0 ? true : false}
                               onClick={() => {
+                                // productFacade.get({
+                                //   page: 1,
+                                //   perPage: 10,
+                                //   filter: { supplierId: id, type: 'BALANCE', isGetAll: true },
+                                // });
+                                setTest(true);
                                 const dataProduct = productFacade?.result?.data?.map((item) => {
                                   return {
                                     stt: i++,
@@ -645,15 +668,20 @@ const Page = () => {
                                   };
                                 });
                                 const excel = new Excel();
-                                const sheet = excel.addSheet("Sheet1")
-                                sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
-                                sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                                const sheet = excel.addSheet('Sheet1');
+                                sheet.setTHeadStyle({
+                                  background: 'FFFFFFFF',
+                                  borderColor: 'C0C0C0C0',
+                                  wrapText: false,
+                                  width: 50,
+                                });
+                                sheet.setTBodyStyle({ wrapText: false, width: 50 });
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
-                                ])
+                                ]);
                                 sheet.addRow();
                                 sheet.addColumns([
                                   { title: 'Danh mục chính', dataIndex: '' },
@@ -690,8 +718,8 @@ const Page = () => {
                                   },
                                   { title: '', dataIndex: '' },
                                 ]);
-                                sheet.addRow()
-                                sheet.currentCol
+                                sheet.addRow();
+                                sheet.currentCol;
                                 sheet
                                   .addColumns(columnproduct)
                                   .addDataSource(dataProduct ?? [], {
@@ -1214,9 +1242,14 @@ const Page = () => {
                           });
 
                           const excel = new Excel();
-                          const sheet = excel.addSheet("Sheet1")
-                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
-                          sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                          const sheet = excel.addSheet('Sheet1');
+                          sheet.setTHeadStyle({
+                            background: 'FFFFFFFF',
+                            borderColor: 'C0C0C0C0',
+                            wrapText: false,
+                            width: 50,
+                          });
+                          sheet.setTBodyStyle({ wrapText: false, width: 50 });
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
@@ -1260,7 +1293,9 @@ const Page = () => {
                             { title: 'Từ ngày', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
-                                ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format('MM/DD/YYYY')
+                                ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format(
+                                  'MM/DD/YYYY',
+                                )
                                 : '',
                               dataIndex: '',
                             },
@@ -1269,7 +1304,9 @@ const Page = () => {
                             { title: 'Đến ngày', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
-                                ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format('MM/DD/YYYY')
+                                ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format(
+                                  'MM/DD/YYYY',
+                                )
                                 : '',
                               dataIndex: '',
                             },
@@ -1279,9 +1316,7 @@ const Page = () => {
                           sheet.addColumns([
                             { title: 'Doanh thu', dataIndex: '' },
                             {
-                              title: revenueTotal
-                                ? revenueTotal + ' VND'
-                                : '',
+                              title: revenueTotal ? revenueTotal + ' VND' : '',
                               dataIndex: '',
                             },
                             { title: '', dataIndex: '' },
@@ -1315,6 +1350,24 @@ const Page = () => {
                             .addDataSource(inventory ?? [], {
                               str2Percent: true,
                             })
+                            .addColumns([
+                              { title: '', dataIndex: '' },
+                              { title: '', dataIndex: '' },
+                              { title: '', dataIndex: '' },
+                              { title: '', dataIndex: '' },
+                              { title: 'Tổng cộng', dataIndex: '' },
+                              { title: inventoryOrders.result?.total?.sumSubTotal?.toLocaleString(), dataIndex: '' },
+                              {
+                                title: inventoryOrders.result?.total?.sumTotal?.toLocaleString(),
+                                dataIndex: '',
+                              },
+                              {
+                                title: inventoryOrders.result?.total?.sumVoucherAmount?.toLocaleString(),
+                                dataIndex: '',
+                              },
+                              { title: inventoryOrders.result?.total?.sumMoney?.toLocaleString(), dataIndex: '' },
+                              { title: '', dataIndex: '' },
+                            ])
                             .saveAs(t('supplier.Supplier revenue Order'));
                         }}
                       />
@@ -1773,9 +1826,14 @@ const Page = () => {
                           };
                         });
                         const excel = new Excel();
-                        const sheet = excel.addSheet("Sheet1")
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
-                        sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                        const sheet = excel.addSheet('Sheet1');
+                        sheet.setTHeadStyle({
+                          background: 'FFFFFFFF',
+                          borderColor: 'C0C0C0C0',
+                          wrapText: false,
+                          width: 50,
+                        });
+                        sheet.setTBodyStyle({ wrapText: false, width: 50 });
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: '', dataIndex: '' },
@@ -1846,6 +1904,18 @@ const Page = () => {
                           .addDataSource(product ?? [], {
                             str2Percent: true,
                           })
+                          .addColumns([
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: 'Tổng cộng', dataIndex: '' },
+                            { title: inventoryProduct.result?.total?.subTotal?.toLocaleString(), dataIndex: '' },
+                            {
+                              title: inventoryProduct.result?.total?.total?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                          ])
                           .saveAs(t('supplier.Supplier revenue product'));
                       }}
                     />
@@ -2125,9 +2195,14 @@ const Page = () => {
                           };
                         });
                         const excel = new Excel();
-                        const sheet = excel.addSheet("Sheet1")
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
-                        sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                        const sheet = excel.addSheet('Sheet1');
+                        sheet.setTHeadStyle({
+                          background: 'FFFFFFFF',
+                          borderColor: 'C0C0C0C0',
+                          wrapText: false,
+                          width: 50,
+                        });
+                        sheet.setTBodyStyle({ wrapText: false, width: 50 });
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
@@ -2179,6 +2254,17 @@ const Page = () => {
                           .addDataSource(discount ?? [], {
                             str2Percent: true,
                           })
+                          .addColumns([
+                            { title: '', dataIndex: '' },
+                            { title: 'Tổng cộng', dataIndex: '' },
+                            { title: discountFacade.result?.total?.totalCommission?.toLocaleString(), dataIndex: '' },
+                            {
+                              title: discountFacade.result?.total?.totalPaid?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            { title: discountFacade.result?.total?.totalNopay?.toLocaleString(), dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                          ])
                           .saveAs(t('supplier.Discount supplier'));
                       }}
                     />
@@ -2407,81 +2493,82 @@ const Page = () => {
                         },
                       },
                     ]}
-                    extendForm={
-                      (values) => (
-                        <>
-                          <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">
-                            {t('supplier.Contract.Upload contract')}:
-                          </p>
-                          <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
-                            <Form
-                              formAnt={forms}
-                              columns={[
+                    extendForm={(values) => (
+                      <>
+                        <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">
+                          {t('supplier.Contract.Upload contract')}:
+                        </p>
+                        <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
+                          <Form
+                            formAnt={forms}
+                            columns={[
+                              {
+                                title: '',
+                                name: 'uploadFile',
+                                formItem: {
+                                  render: (form, values) => {
+                                    return (
+                                      // <Upload
+                                      //   accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                      //   multiple
+                                      //   viewGrid
+                                      // >
+                                      //   <div className="bg-white -my-4">
+                                      //     <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
+                                      //     <p className="mb-4">
+                                      //       {t('supplier.Contract.Upload file')} <br />
+                                      //       {t('supplier.Contract.or')}{' '}
+                                      //     </p>
+                                      //     <Button
+                                      //       className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
+                                      //       text={t('supplier.Contract.Select file')}
+                                      //     />
+                                      //   </div>
+                                      // </Upload>
+                                      <Upload
+                                        style={{ border: 'none' }}
+                                        listType="picture"
+                                        type="drag"
+                                        accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                        multiple
+                                        name="files"
+                                        action="/util/upload"
+                                      >
+                                        <div className="bg-white -my-4">
+                                          <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
+                                          <p className="mb-4">
+                                            {t('supplier.Contract.Upload file')} <br />
+                                            {t('supplier.Contract.or')}{' '}
+                                          </p>
+                                          <Button
+                                            className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
+                                            text={t('supplier.Contract.Select file')}
+                                          />
+                                        </div>
+                                      </Upload>
+                                    );
+                                  },
+                                },
+                              },
+                            ]}
+                          />
+                        </div>
+                        <p className="text-base text-teal-900 font-bold px-6 py-4">
+                          {t('supplier.Contract.File system')}:
+                        </p>
+
+                        {
+                          data1?.filePhoto.length > 0 ?
+                            (
+                              <div>
                                 {
-                                  title: '',
-                                  name: 'uploadFile',
-                                  formItem: {
-                                    render: (form, values) => {
-                                      return (
-                                        // <Upload
-                                        //   accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                        //   multiple
-                                        //   viewGrid
-                                        // >
-                                        //   <div className="bg-white -my-4">
-                                        //     <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
-                                        //     <p className="mb-4">
-                                        //       {t('supplier.Contract.Upload file')} <br />
-                                        //       {t('supplier.Contract.or')}{' '}
-                                        //     </p>
-                                        //     <Button
-                                        //       className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
-                                        //       text={t('supplier.Contract.Select file')}
-                                        //     />
-                                        //   </div>
-                                        // </Upload>
-                                        <Upload
-                                          style={{ border: 'none' }}
-                                          listType="picture"
-                                          type="drag"
-                                          accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                          multiple
-                                          name='files'
-                                          action='/util/upload'
-                                        >
-                                          <div className="bg-white -my-4">
-                                            <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
-                                            <p className="mb-4">
-                                              {t('supplier.Contract.Upload file')} <br />
-                                              {t('supplier.Contract.or')}{' '}
-                                            </p>
-                                            <Button
-                                              className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
-                                              text={t('supplier.Contract.Select file')}
-                                            />
-                                          </div>
-                                        </Upload>
-                                      );
-                                    },
-                                  }
-                                }
-                              ]} />
-
-                          </div>
-                          <p className="text-base text-teal-900 font-bold px-6 py-4">{t('supplier.Contract.File system')}:</p>
-
-                          {
-                            data1?.filePhoto.length > 0 ?
-                              (
-                                <div>
-                                  {
-                                    data1?.filePhoto?.map((item: any) => (
-                                      <div>
-                                        <div className='flex flex-col items-center gap-2'>
-                                          {
-                                            item.fileName.endsWith('.xlsx') || item.fileName.endsWith('.xls')
-                                              ?
-                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
+                                  data1?.filePhoto?.map((item: any) => (
+                                    <div>
+                                      <div className='flex flex-col items-center gap-2'>
+                                        {
+                                          item.fileName.endsWith('.xlsx') || item.fileName.endsWith('.xls')
+                                            ?
+                                            <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
                                               <a href={item.url} className='mr-5'>
                                                 <img src={'http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'}
                                                   alt={item.fileName}
@@ -2502,7 +2589,7 @@ const Page = () => {
                                                 </div>
                                               </div>
                                             </div>
-                                              : item.fileName.endsWith('.doc') || item.fileName.endsWith('.docx') ?
+                                            : item.fileName.endsWith('.doc') || item.fileName.endsWith('.docx') ?
                                               <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
                                                 <a href={item.url} className='mr-3'>
                                                   <img src={'http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'}
@@ -2546,42 +2633,41 @@ const Page = () => {
                                                   </div>
                                                 </div>
                                               </div>
-                                          }
-                                        </div>
+                                        }
                                       </div>
-                                    ))
-                                  }
-                                  <div className='flex justify-center'>
-                                    <Button className='!bg-red-500 mt-4'
-                                      text={'Tải tệp hợp đồng'}
-                                      icon={<Download className='w-5 h-5' />}
-                                      onClick={() => downloadSubZip({ id: data1?.filePhoto?.id, url: data1?.filePhoto?.url })}
-                                    />
-                                  </div>
+                                    </div>
+                                  ))
+                                }
+                                <div className='flex justify-center'>
+                                  <Button className='!bg-red-500 mt-4'
+                                    text={'Tải tệp hợp đồng'}
+                                    icon={<Download className='w-5 h-5' />}
+                                    onClick={() => downloadSubZip({ id: data1?.filePhoto?.id, url: data1?.filePhoto?.url })}
+                                  />
                                 </div>
-                              )
-                              :
-                              <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
-                          }
+                              </div>
+                            )
+                            :
+                            <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
+                        }
 
-                          <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 mt-5">
-                            <Button
-                              text={t('components.form.modal.cancel')}
-                              className={'z-10 !block out-line border-teal-800 !w-40 sm:!w-28 !font-normal'}
-                              onClick={() => navigate(`/${lang}${routerLinks('Supplier')}`)}
-                            />
-                            <Button
-                              // disabled={true}
-                              text={t('titles.Upload contract')}
-                              className={
-                                'flex bg-teal-900 text-white rounded-xl items-center justify-center disabled:opacity-20'
-                              }
-                              onClick={() => handleSubmitUpload(values)}
-                            />
-                          </div>
-                        </>
-                      )
-                    }
+                        <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 mt-5">
+                          <Button
+                            text={t('components.form.modal.cancel')}
+                            className={'z-10 !block out-line border-teal-800 !w-40 sm:!w-28 !font-normal'}
+                            onClick={() => navigate(`/${lang}${routerLinks('Supplier')}`)}
+                          />
+                          <Button
+                            // disabled={true}
+                            text={t('titles.Upload contract')}
+                            className={
+                              'flex bg-teal-900 text-white rounded-xl items-center justify-center disabled:opacity-20'
+                            }
+                            onClick={() => handleSubmitUpload(values)}
+                          />
+                        </div>
+                      </>
+                    )}
                   />
                 </div>
               </div>
