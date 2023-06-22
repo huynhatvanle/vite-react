@@ -1,11 +1,11 @@
 *** Settings ***
 Resource               ../keywords/common.robot
 Test Setup             Setup
-#Test Teardown          Tear Down
+Test Teardown          Tear Down
 
 *** Test Cases ***
 DA-01 Verify that Add New successfully with enter the data
-  [Tags]             smoketest
+  [Tags]                @smoketest               @regression
   When Background Happy paths
   When Click on the "Xóa" button in the "Email" table line
 
