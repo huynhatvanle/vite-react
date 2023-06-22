@@ -60,6 +60,7 @@ const Page = () => {
   const [categoryId2, setCategoryId2] = useState('');
   const category1 = categoryFacade.result?.data;
   const inven = InventorySupplier.result?.data;
+  console.log(inven);
 
   const category2 = categoryFacade.result2?.data;
   const category3 = categoryFacade.result3?.data;
@@ -181,17 +182,6 @@ const Page = () => {
     key: string;
     dataIndex: string;
   }
-  const columnheaderproduct: IExcelColumn[] = [
-    { title: t('placeholder.Main categories'), key: 'categoryId1', dataIndex: 'categoryId1' },
-    { title: t(''), key: '', dataIndex: '' },
-    { title: t(''), key: '', dataIndex: '' },
-    { title: t('placeholder.Category level 1'), key: 'categoryId2', dataIndex: 'categoryId2' },
-    { title: t(''), key: '', dataIndex: '' },
-    { title: t(''), key: '', dataIndex: '' },
-    { title: t('placeholder.Category level 2'), key: 'categoryId3', dataIndex: 'categoryId3' },
-    { title: t(''), key: '', dataIndex: '' },
-    { title: t(''), key: '', dataIndex: '' },
-  ];
   const columnproduct: IExcelColumn[] = [
     { title: t('product.STT'), key: 'stt', dataIndex: 'stt' },
     { title: t('product.Code'), key: 'code', dataIndex: 'code' },
@@ -644,41 +634,54 @@ const Page = () => {
                                   };
                                 });
                                 const excel = new Excel();
-
-                                excel
-                                  .addSheet('test')
-                                  .addColumns([
-                                    { title: 'Danh muc chính', dataIndex: '' },
-                                    {
-                                      title: getFilter(productFacade.queryParams, 'categoryId1')
-                                        ? `${categoryFacade.result?.data?.find((item) => {
-                                          return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-                                        })?.name
-                                        }`
-                                        : '',
-                                      dataIndex: '',
-                                    },
-                                    { title: 'Danh muc cấp 1', dataIndex: '' },
-                                    {
-                                      title: getFilter(productFacade.queryParams, 'categoryId2')
-                                        ? `${categoryFacade.result2?.data?.find((item) => {
-                                          return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-                                        })?.name
-                                        }`
-                                        : '',
-                                      dataIndex: '',
-                                    },
-                                    { title: 'Danh muc cấp 2', dataIndex: '' },
-                                    {
-                                      title: getFilter(productFacade.queryParams, 'categoryId3')
-                                        ? `${categoryFacade.result3?.data?.find((item) => {
-                                          return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-                                        })?.name
-                                        }`
-                                        : '',
-                                      dataIndex: '',
-                                    },
-                                  ])
+                                const sheet = excel.addSheet("Sheet1")
+                                sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
+                                sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                                sheet.addColumns([
+                                  { title: '', dataIndex: '' },
+                                  { title: '', dataIndex: '' },
+                                  { title: '', dataIndex: '' },
+                                  { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
+                                ])
+                                sheet.addRow();
+                                sheet.addColumns([
+                                  { title: 'Danh mục chính', dataIndex: '' },
+                                  {
+                                    title: getFilter(productFacade.queryParams, 'categoryId1')
+                                      ? `${categoryFacade.result?.data?.find((item) => {
+                                        return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                      })?.name
+                                      }`
+                                      : '',
+                                    dataIndex: '',
+                                  },
+                                  { title: '', dataIndex: '' },
+                                  { title: 'Danh mục cấp 1', dataIndex: '' },
+                                  {
+                                    title: getFilter(productFacade.queryParams, 'categoryId2')
+                                      ? `${categoryFacade.result2?.data?.find((item) => {
+                                        return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                      })?.name
+                                      }`
+                                      : '',
+                                    dataIndex: '',
+                                  },
+                                  { title: '', dataIndex: '' },
+                                  { title: 'Danh mục cấp 2', dataIndex: '' },
+                                  {
+                                    title: getFilter(productFacade.queryParams, 'categoryId3')
+                                      ? `${categoryFacade.result3?.data?.find((item) => {
+                                        return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                      })?.name
+                                      }`
+                                      : '',
+                                    dataIndex: '',
+                                  },
+                                  { title: '', dataIndex: '' },
+                                ]);
+                                sheet.addRow()
+                                sheet.currentCol
+                                sheet
                                   .addColumns(columnproduct)
                                   .addDataSource(dataProduct ?? [], {
                                     str2Percent: true,
@@ -1198,9 +1201,105 @@ const Page = () => {
                                   : t('supplier.Sup-Status.Return goods'),
                             };
                           });
+
                           const excel = new Excel();
-                          excel
-                            .addSheet('test')
+                          const sheet = excel.addSheet("Sheet1")
+                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
+                          sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                          sheet.addColumns([
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
+                          ]);
+                          sheet.addRow();
+                          sheet.addColumns([
+                            { title: 'Tìm kiếm:', dataIndex: '' },
+                            {
+                              title: JSON.parse(inventoryOrders.queryParams || '{}').fullTextSearch || '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+
+                            { title: 'Chọn loại đơn hàng:', dataIndex: '' },
+                            {
+                              title: getFilter(inventoryOrders.queryParams, 'type')
+                                ? `${statusCategory.find((item) => {
+                                  return item.value === getFilter(inventoryOrders.queryParams, 'type');
+                                })?.label
+                                }`
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+
+                            { title: 'Chọn cửa hàng:', dataIndex: '' },
+                            {
+                              title: getFilter(inventoryOrders.queryParams, 'idStore')
+                                ? `${inven?.find((item) => {
+                                  return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
+                                })?.name
+                                }`
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                          ]);
+                          sheet.addRow();
+                          sheet.addColumns([
+                            { title: 'Từ ngày', dataIndex: '' },
+                            {
+                              title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
+                                ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format('MM/DD/YYYY')
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+
+                            { title: 'Đến ngày', dataIndex: '' },
+                            {
+                              title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
+                                ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format('MM/DD/YYYY')
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                          ]);
+                          sheet.addRow();
+                          sheet.addColumns([
+                            { title: 'Doanh thu', dataIndex: '' },
+                            {
+                              title: revenueTotal
+                                ? revenueTotal + ' VND'
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+
+                            { title: 'Tổng số đơn thành công', dataIndex: '' },
+                            {
+                              title: inventoryOrders.result?.statistical?.totalOderSuccess?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                          ]);
+                          sheet.addRow();
+                          sheet.addColumns([
+                            { title: 'Tổng số đơn trả', dataIndex: '' },
+                            {
+                              title: inventoryOrders.result?.statistical?.totalOderReturn?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+
+                            { title: 'Tổng số đơn bị hủy', dataIndex: '' },
+                            {
+                              title: inventoryOrders.result?.statistical?.totalOderCancel?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                          ]);
+                          sheet.addRow();
+                          sheet
                             .addColumns(columnrevenue)
                             .addDataSource(inventory ?? [], {
                               str2Percent: true,
@@ -1663,8 +1762,75 @@ const Page = () => {
                           };
                         });
                         const excel = new Excel();
-                        excel
-                          .addSheet('test')
+                        const sheet = excel.addSheet("Sheet1")
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
+                        sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                        sheet.addColumns([
+                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '' },
+                          { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO SẢN PHẨM', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Tìm kiếm:', dataIndex: '' },
+                          {
+                            title: JSON.parse(inventoryProduct.queryParams || '{}').fullTextSearch || '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+
+                          { title: 'Chọn trạng thái:', dataIndex: '' },
+                          {
+                            title: getFilter(inventoryProduct.queryParams, 'status')
+                              ? `${statusRevenue.find((item) => {
+                                return item.value === getFilter(inventoryProduct.queryParams, 'status');
+                              })?.label
+                              }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Danh mục chính', dataIndex: '' },
+                          {
+                            title: getFilter(inventoryProduct.queryParams, 'categoryId1')
+                              ? `${categoryFacade.result?.data?.find((item) => {
+                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
+                              })?.name
+                              }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                          { title: 'Danh mục cấp 1', dataIndex: '' },
+                          {
+                            title: getFilter(inventoryProduct.queryParams, 'categoryId2')
+                              ? `${categoryFacade.result2?.data?.find((item) => {
+                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
+                              })?.name
+                              }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                          { title: 'Danh mục cấp 2', dataIndex: '' },
+                          {
+                            title: getFilter(inventoryProduct.queryParams, 'categoryId3')
+                              ? `${categoryFacade.result3?.data?.find((item) => {
+                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
+                              })?.name
+                              }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addRow();
+                        sheet.addRow();
+                        sheet
                           .addColumns(columnInventoryProduct)
                           .addDataSource(product ?? [], {
                             str2Percent: true,
@@ -1948,8 +2114,56 @@ const Page = () => {
                           };
                         });
                         const excel = new Excel();
-                        excel
-                          .addSheet('test')
+                        const sheet = excel.addSheet("Sheet1")
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
+                        sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                        sheet.addColumns([
+                          { title: '', dataIndex: '' },
+                          { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Kỳ hạn từ', dataIndex: '' },
+                          {
+                            title: getFilter(discountFacade.queryParams, 'filter')?.dateFrom
+                              ? dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateFrom).format('MM/DD/YYYY')
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                          { title: 'đến', dataIndex: '' },
+                          {
+                            title: getFilter(discountFacade.queryParams, 'filter')?.dateTo
+                              ? dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateTo).format('MM/DD/YYYY')
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Chọn trạng thái', dataIndex: '' },
+                          {
+                            title: getFilter(discountFacade.queryParams, 'status')
+                              ? `${listStatusDiscount.find((item) => {
+                                return item.value === getFilter(discountFacade.queryParams, 'status');
+                              })?.label
+                              }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Chiết khấu cần thanh toán:', dataIndex: '' },
+                          {
+                            title: discountFacade.result?.totalCommissionSupplier?.toLocaleString() + 'VND',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet
                           .addColumns(columnDiscount)
                           .addDataSource(discount ?? [], {
                             str2Percent: true,

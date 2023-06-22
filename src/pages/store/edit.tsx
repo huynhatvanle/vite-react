@@ -672,26 +672,30 @@ const Page = () => {
                         text={t('titles.Export Excel file')}
                         disabled={productFacade.result?.data?.length === 0 ? true : false}
                         onClick={() => {
-                          // productFacade.get({
-                          //   page: 1,
-                          //   perPage: 10,
-                          //   filter: {
-                          //     storeId: id,
-                          //     type: 'BALANCE',
-                          //     isGetAll: true
-                          //   }
-                          // })
                           let stt = 0
                           const excel = new Excel();
-                          const sheet = excel.addSheet("test")
+                          const sheet = excel.addSheet("Sheet1")
                           sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
                           sheet.setTBodyStyle({ wrapText: false, width: 50 })
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
-                            { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
-                          ])
+                            { title: 'DANH SÁCH HÀNG HÓA BALANCE', dataIndex: '' },
+                          ]);
+                          sheet.addRow();
+                          sheet.addColumns([
+                            { title: 'Chọn nhà cung cấp:', dataIndex: '' },
+                            {
+                              title: getFilter(productFacade.queryParams, 'supplierId')
+                                ? `${supplierStoreFacade.result?.data?.find((item) => {
+                                  return item.id === getFilter(productFacade.queryParams, 'supplierId');
+                                })?.name
+                                }`
+                                : '',
+                              dataIndex: '',
+                            },
+                          ]);
                           sheet.addRow();
                           sheet.addColumns([
                             { title: 'Danh mục chính', dataIndex: '' },
@@ -729,7 +733,6 @@ const Page = () => {
                             { title: '', dataIndex: '' },
                           ]);
                           sheet.addRow()
-                          sheet.currentCol
                           sheet
                             .addColumns(columnproduct)
                             .addDataSource(productFacade?.result?.data?.map((item) => ({
