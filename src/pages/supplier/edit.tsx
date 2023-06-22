@@ -15,16 +15,18 @@ import {
   InventorySupplierFacade,
   InventoryListProductFacade,
   DocumentsubFacade,
+  Documentsub,
 } from '@store';
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
-import { DownArrow, Download, UploadIcon } from '@svgs';
-import { Dropdown, Select, Tabs } from 'antd';
+import { Down, DownArrow, Download, Trash, UploadIcon } from '@svgs';
+import { Form as AntForm, Dropdown, Select, Tabs } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
+//import { Upload } from '@core/upload';
 import { Excel } from 'antd-table-saveas-excel';
 
 const Page = () => {
@@ -36,7 +38,7 @@ const Page = () => {
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const { formatDate } = GlobalFacade();
+  const { formatDate, formatDateTime } = GlobalFacade();
 
   const dataTableRefProduct = useRef<TableRefObject>(null);
   const dataTableRefDiscount = useRef<TableRefObject>(null);
@@ -51,7 +53,7 @@ const Page = () => {
   const categoryFacade = CategoryFacade();
   const documentsub = DocumentsubFacade();
   const InventorySupplier = InventorySupplierFacade();
-  const { putSub } = documentsub;
+  const { putSub, uploadSub } = documentsub;
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
   const [categoryId1, setCategoryId1] = useState('');
@@ -63,6 +65,8 @@ const Page = () => {
   const category3 = categoryFacade.result3?.data;
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const [test, setTest] = useState(false);
+
+  const [forms] = AntForm.useForm();
 
   useEffect(() => {
     if (id) {
@@ -122,7 +126,7 @@ const Page = () => {
     }
   }, [documentsub.result]);
 
-  const data1 = documentsub.result?.data;
+  const data1 = documentsub?.result?.data;
   const revenueTotal = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
   const discountTotal = discountFacade.result?.totalCommissionSupplier?.toLocaleString();
 
@@ -243,6 +247,14 @@ const Page = () => {
   let stt1 = 1;
   let stt2 = 1;
   let i = 1;
+
+  const handleSubmitUpload = (values: Documentsub) => {
+    const subOrgId = id;
+    const docSubOrgId = data1?.id;
+    const files = forms.getFieldValue('files');
+    console.log(files);
+    documentsub.uploadSub({ subOrgId, docSubOrgId, files });
+  };
 
   return (
     <div className={'w-full'}>
@@ -2351,11 +2363,7 @@ const Page = () => {
                                   <div className="w-60 py-2.5 px-4 rounded-2xl border-gray-200 ml-4 flex justify-between">
                                     <Select value={values?.status} className="py-2" style={{ width: '100%' }}>
                                       <Select.Option value="SIGNED_CONTRACT">
-                                        <div
-                                          onClick={() => {
-                                            putSub({ id: values?.id });
-                                          }}
-                                        >
+                                        <div onClick={() => putSub({ id: values?.id })}>
                                           {t('supplier.Sup-Status.Signed')}
                                         </div>
                                       </Select.Option>
@@ -2498,49 +2506,126 @@ const Page = () => {
                         },
                       },
                     ]}
-                  />
-                  <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">
-                    {t('supplier.Contract.Upload contract')}:
-                  </p>
-                  <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
-                    <Upload
-                      style={{ border: 'none' }}
-                      listType="picture"
-                      type="drag"
-                      accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                      multiple
-                    >
-                      <div className="bg-white -my-4">
-                        <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
-                        <p className="mb-4">
-                          {t('supplier.Contract.Upload file')} <br />
-                          {t('supplier.Contract.or')}{' '}
+                    extendForm={(values) => (
+                      <>
+                        <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">
+                          {t('supplier.Contract.Upload contract')}:
                         </p>
-                        <Button
-                          className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
-                          text={t('supplier.Contract.Select file')}
-                        />
-                      </div>
-                    </Upload>
-                  </div>
-                  <p className="text-base text-teal-900 font-bold px-6 py-4">{t('supplier.Contract.File system')}:</p>
-                  <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
+                        <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
+                          <Form
+                            formAnt={forms}
+                            columns={[
+                              {
+                                title: '',
+                                name: 'uploadFile',
+                                formItem: {
+                                  render: (form, values) => {
+                                    return (
+                                      // <Upload
+                                      //   accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                      //   multiple
+                                      //   viewGrid
+                                      // >
+                                      //   <div className="bg-white -my-4">
+                                      //     <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
+                                      //     <p className="mb-4">
+                                      //       {t('supplier.Contract.Upload file')} <br />
+                                      //       {t('supplier.Contract.or')}{' '}
+                                      //     </p>
+                                      //     <Button
+                                      //       className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
+                                      //       text={t('supplier.Contract.Select file')}
+                                      //     />
+                                      //   </div>
+                                      // </Upload>
+                                      <Upload
+                                        style={{ border: 'none' }}
+                                        listType="picture"
+                                        type="drag"
+                                        accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                        multiple
+                                        name="files"
+                                        action="/util/upload"
+                                      >
+                                        <div className="bg-white -my-4">
+                                          <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
+                                          <p className="mb-4">
+                                            {t('supplier.Contract.Upload file')} <br />
+                                            {t('supplier.Contract.or')}{' '}
+                                          </p>
+                                          <Button
+                                            className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
+                                            text={t('supplier.Contract.Select file')}
+                                          />
+                                        </div>
+                                      </Upload>
+                                    );
+                                  },
+                                },
+                              },
+                            ]}
+                          />
+                        </div>
+                        <p className="text-base text-teal-900 font-bold px-6 py-4">
+                          {t('supplier.Contract.File system')}:
+                        </p>
 
-                  <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 mt-5">
-                    <Button
-                      text={t('components.form.modal.cancel')}
-                      className={'z-10 !block out-line border-teal-800 !w-40 sm:!w-28 !font-normal'}
-                      onClick={() => navigate(`/${lang}${routerLinks('Supplier')}`)}
-                    />
-                    <Button
-                      disabled={true}
-                      text={t('titles.Upload contract')}
-                      className={
-                        'flex bg-teal-900 text-white rounded-xl items-center justify-center disabled:opacity-20'
-                      }
-                      onClick={() => null}
-                    />
-                  </div>
+                        {data1?.filePhoto.length > 0 ? (
+                          <div>
+                            <div className="flex flex-col items-center gap-2">
+                              <div className="flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative">
+                                <a href={data1?.filePhoto?.[0]?.url} className="mr-3">
+                                  <img
+                                    src={data1?.filePhoto?.[0]?.url}
+                                    alt={data1?.filePhoto?.[0]?.fileName}
+                                    className="w-[50px] h-[50px] aspect-square object-cover"
+                                  ></img>
+                                </a>
+                                <div>
+                                  <h1>{data1?.filePhoto?.[0]?.fileName}</h1>
+                                  <h1>{dayjs(data1?.filePhoto?.[0]?.createdAt).format(formatDateTime)}</h1>
+                                </div>
+                                <div className="flex items-center gap-2 ml-auto z-[999]">
+                                  <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                    <Trash className="w-5 h-5" onClick={() => null} />
+                                  </div>
+                                  <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                    <Download className="w-5 h-5" onClick={() => null} />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex justify-center">
+                              <Button
+                                className="!bg-red-400 mt-4"
+                                text={'Tải tệp hợp đồng'}
+                                icon={<Download className="w-5 h-5" />}
+                                onClick={() => null}
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
+                        )}
+
+                        <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 mt-5">
+                          <Button
+                            text={t('components.form.modal.cancel')}
+                            className={'z-10 !block out-line border-teal-800 !w-40 sm:!w-28 !font-normal'}
+                            onClick={() => navigate(`/${lang}${routerLinks('Supplier')}`)}
+                          />
+                          <Button
+                            // disabled={true}
+                            text={t('titles.Upload contract')}
+                            className={
+                              'flex bg-teal-900 text-white rounded-xl items-center justify-center disabled:opacity-20'
+                            }
+                            onClick={() => handleSubmitUpload(values)}
+                          />
+                        </div>
+                      </>
+                    )}
+                  />
                 </div>
               </div>
             </Tabs.TabPane>

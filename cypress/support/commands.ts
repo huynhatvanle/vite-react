@@ -1,5 +1,4 @@
 import { faker } from '@faker-js/faker';
-import slug from 'slug';
 import dayjs from 'dayjs';
 
 Cypress.Commands.add(
@@ -11,18 +10,22 @@ Cypress.Commands.add('typeRandom', { prevSubject: 'element' }, (element, text, s
   const random = '_RANDOM_';
   const input = cy.wrap(element).clear();
 
-  if (text.indexOf('_@') > -1 && text.indexOf('@_') > -1) input.type(state[slug(text.replace('_@', '').replace('@_', ''))].toString())
+  if (text.indexOf('_@') > -1 && text.indexOf('@_') > -1)
+    input.type(state[text.replace('_@', '').replace('@_', '')].toString());
   else {
     if (text.indexOf(random) > -1) {
       switch (type) {
+        case 'test name':
+          text = text.replace(random, `${Cypress.currentTest.title.split(' ')[0]} ${faker.lorem.sentence(3)}`);
+          break;
         case 'number':
           text = text.replace(random, faker.number.int({ min: 1, max: 100000000 }).toString());
           break;
         case 'percentage':
           text = text.replace(random, faker.number.int({ min: 1, max: 100 }).toString());
           break;
-        case 'words':
-          text = text.replace(random, faker.word.words(5));
+        case 'paragraph':
+          text = text.replace(random, faker.lorem.paragraph());
           break;
         case 'email':
           text = text.replace(random, faker.internet.email().toLowerCase());
@@ -36,8 +39,11 @@ Cypress.Commands.add('typeRandom', { prevSubject: 'element' }, (element, text, s
         case 'date':
           text = text.replace(random, dayjs(faker.date.anytime()).format('DD-MM-YYYY'));
           break;
+        case 'word':
+          text = text.replace(random, faker.lorem.sentence(2));
+          break;
         default:
-          text = text.replace(random, faker.word.sample());
+          text = text.replace(random, faker.lorem.sentence());
           break;
       }
     }
