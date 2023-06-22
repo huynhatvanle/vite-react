@@ -48,7 +48,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
             })}
             onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
           >
-            {t(`titles.${subItem.name}`)}
+            <span>{t(`titles.${subItem.name}`)}</span>
           </a>
         ))}
     </ul>

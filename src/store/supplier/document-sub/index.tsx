@@ -1,7 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { CommonEntity } from '@models';
-import { Product } from '@store/product';
 import { API, routerLinks } from '@utils';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 import { Message } from '@core/message';
@@ -26,6 +25,11 @@ const action = {
     const { statusCode, message } = await API.put<Documentsub>(`${routerLinks(name, 'api')}/${id}`, { status: "SIGNED_CONTRACT" });
     if (message) await Message.success({ text: message });
     return statusCode;
+  }),
+  uploadSub: createAsyncThunk(name + '/uploadSub', async (values: Documentsub) => {
+    const { data, message } = await API.put<Documentsub>(`/file-doc-contract`, { ...values });
+    if (message) await Message.success({ text: message });
+    return data || {};
   }),
 };
 
@@ -65,13 +69,22 @@ export const DocumentsubFacade = () => {
     set: (values: State<Documentsub>) => dispatch(action.set(values)),
     get: ({ id }: { id?: string }) => dispatch(action.getSub({ id })),
     putSub: (values: Documentsub) => dispatch(action.putSub(values)),
+    uploadSub: (values: Documentsub) => dispatch(action.uploadSub(values)),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Documentsub> }) =>
       dispatch(action.getByIdSub({ id, keyState })),
   };
 };
 
 export class Documentsub extends CommonEntity {
-  constructor(public id?: string, public name?: string, public code?: string, public totalCommissionSupplier?: number) {
+  constructor(
+    public id?: string,
+    public name?: string,
+    public code?: string,
+    public subOrgId?: string,
+    public docSubOrgId?: string,
+    public files?: string,
+    public filePhoto?: string,
+    public totalCommissionSupplier?: number) {
     super();
   }
 }
