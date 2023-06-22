@@ -399,7 +399,7 @@ export const DataTable = forwardRef(
                         undefined,
                         params.filter,
                         params.sorts as SorterResult<any>,
-                        (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value,
+                        (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value.trim(),
                       ),
                     500,
                   );
@@ -410,7 +410,7 @@ export const DataTable = forwardRef(
                       undefined,
                       params.filter,
                       params.sorts as SorterResult<any>,
-                      (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value,
+                      (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value.trim(),
                     );
                 }}
               />

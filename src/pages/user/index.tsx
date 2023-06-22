@@ -229,15 +229,15 @@ const Page = () => {
                     sorter: true,
                   },
                 },
-                {
-                  title: 'user.Date of birth',
-                  name: 'dob',
-                  tableItem: {
-                    filter: { type: 'date' },
-                    sorter: true,
-                    render: (text: string) => dayjs(text).format(formatDate),
-                  },
-                },
+                // {
+                //   title: 'user.Date of birth',
+                //   name: 'dob',
+                //   tableItem: {
+                //     filter: { type: 'date' },
+                //     sorter: true,
+                //     render: (text: string) => dayjs(text).format(formatDate),
+                //   },
+                // },
                 {
                   title: 'user.Start Date',
                   name: 'startDate',
