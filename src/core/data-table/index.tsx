@@ -384,7 +384,6 @@ export const DataTable = forwardRef(
       array
         ? array.map((item) => ({ ...item, key: item.id || v4(), children: item.children && loopData(item.children) }))
         : [];
-    console.log('facade', facade);
 
     return (
       <div className={classNames(className, 'intro-x')}>
@@ -464,7 +463,7 @@ export const DataTable = forwardRef(
               columns={cols.current}
               summary={() =>
                 facade?.result?.message === 'Lấy danh sách chiết khấu với nhà cung cấp.' &&
-                facade?.result?.data?.length != 0 ? (
+                  facade?.result?.data?.length != 0 ? (
                   <tr className="text-black">
                     <td></td>
                     <td className="ant-table-cell">
