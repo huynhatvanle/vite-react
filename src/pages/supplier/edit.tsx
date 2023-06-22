@@ -54,17 +54,15 @@ const Page = () => {
   const { putSub } = documentsub;
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
-  const [cap1, setCap1] = useState(true);
-  const [cap2, setCap2] = useState(true);
   const [categoryId1, setCategoryId1] = useState('');
   const [categoryId2, setCategoryId2] = useState('');
   const category1 = categoryFacade.result?.data;
   const inven = InventorySupplier.result?.data;
-  console.log(inven);
 
   const category2 = categoryFacade.result2?.data;
   const category3 = categoryFacade.result3?.data;
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const [test, setTest] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -78,6 +76,20 @@ const Page = () => {
       isReload.current && supplierFacade.get(param);
     };
   }, [id]);
+
+  useEffect(() => {
+    if (test == true) {
+      productFacade.get({
+        page: 1,
+        perPage: 10,
+        filter: { supplierId: id, type: 'BALANCE', isGetAll: true },
+      });
+    }
+    return () => {
+      isReload.current && productFacade.get(param);
+      setTest(false);
+    };
+  }, [test == true]);
 
   useEffect(() => {
     if (categoryId1) {
@@ -104,7 +116,7 @@ const Page = () => {
       case 'putSub.fulfilled':
         if (id) documentsub.get({ id });
         return () => {
-          isReload.current && documentsub.get({ id })
+          isReload.current && documentsub.get({ id });
         };
         break;
     }
@@ -439,6 +451,10 @@ const Page = () => {
                     xScroll="895px"
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
+                    onRow={(data: any) => ({
+                      onDoubleClick: () =>
+                        navigate(`/${lang}${routerLinks('Merchandise-Managerment/Product/Detail')}/${data.id}`),
+                    })}
                     paginationDescription={(from: number, to: number, total: number) =>
                       t('routes.admin.Layout.PaginationProduct', { from, to, total })
                     }
@@ -617,6 +633,12 @@ const Page = () => {
                               text={t('titles.Export Excel file')}
                               disabled={productFacade.result?.data?.length === 0 ? true : false}
                               onClick={() => {
+                                // productFacade.get({
+                                //   page: 1,
+                                //   perPage: 10,
+                                //   filter: { supplierId: id, type: 'BALANCE', isGetAll: true },
+                                // });
+                                setTest(true);
                                 const dataProduct = productFacade?.result?.data?.map((item) => {
                                   return {
                                     stt: i++,
@@ -634,24 +656,30 @@ const Page = () => {
                                   };
                                 });
                                 const excel = new Excel();
-                                const sheet = excel.addSheet("Sheet1")
-                                sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
-                                sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                                const sheet = excel.addSheet('Sheet1');
+                                sheet.setTHeadStyle({
+                                  background: 'FFFFFFFF',
+                                  borderColor: 'C0C0C0C0',
+                                  wrapText: false,
+                                  width: 50,
+                                });
+                                sheet.setTBodyStyle({ wrapText: false, width: 50 });
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
-                                ])
+                                ]);
                                 sheet.addRow();
                                 sheet.addColumns([
                                   { title: 'Danh mục chính', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId1')
-                                      ? `${categoryFacade.result?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -659,10 +687,11 @@ const Page = () => {
                                   { title: 'Danh mục cấp 1', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId2')
-                                      ? `${categoryFacade.result2?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result2?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -670,17 +699,18 @@ const Page = () => {
                                   { title: 'Danh mục cấp 2', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId3')
-                                      ? `${categoryFacade.result3?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result3?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
                                   { title: '', dataIndex: '' },
                                 ]);
-                                sheet.addRow()
-                                sheet.currentCol
+                                sheet.addRow();
+                                sheet.currentCol;
                                 sheet
                                   .addColumns(columnproduct)
                                   .addDataSource(dataProduct ?? [], {
@@ -1005,9 +1035,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -1046,9 +1076,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1074,10 +1104,11 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(inventoryOrders.queryParams || '{}').page != 1
-                                ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
-                                JSON.parse(inventoryOrders.queryParams || '{}').perPage +
-                                stt1++
-                                }`
+                                ? `${
+                                    JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                      JSON.parse(inventoryOrders.queryParams || '{}').perPage +
+                                    stt1++
+                                  }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1203,9 +1234,14 @@ const Page = () => {
                           });
 
                           const excel = new Excel();
-                          const sheet = excel.addSheet("Sheet1")
-                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
-                          sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                          const sheet = excel.addSheet('Sheet1');
+                          sheet.setTHeadStyle({
+                            background: 'FFFFFFFF',
+                            borderColor: 'C0C0C0C0',
+                            wrapText: false,
+                            width: 50,
+                          });
+                          sheet.setTBodyStyle({ wrapText: false, width: 50 });
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
@@ -1223,10 +1259,11 @@ const Page = () => {
                             { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'type')
-                                ? `${statusCategory.find((item) => {
-                                  return item.value === getFilter(inventoryOrders.queryParams, 'type');
-                                })?.label
-                                }`
+                                ? `${
+                                    statusCategory.find((item) => {
+                                      return item.value === getFilter(inventoryOrders.queryParams, 'type');
+                                    })?.label
+                                  }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1235,10 +1272,11 @@ const Page = () => {
                             { title: 'Chọn cửa hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'idStore')
-                                ? `${inven?.find((item) => {
-                                  return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
-                                })?.name
-                                }`
+                                ? `${
+                                    inven?.find((item) => {
+                                      return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
+                                    })?.name
+                                  }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1249,7 +1287,9 @@ const Page = () => {
                             { title: 'Từ ngày', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
-                                ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format('MM/DD/YYYY')
+                                ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format(
+                                    'MM/DD/YYYY',
+                                  )
                                 : '',
                               dataIndex: '',
                             },
@@ -1258,7 +1298,9 @@ const Page = () => {
                             { title: 'Đến ngày', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
-                                ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format('MM/DD/YYYY')
+                                ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format(
+                                    'MM/DD/YYYY',
+                                  )
                                 : '',
                               dataIndex: '',
                             },
@@ -1268,9 +1310,7 @@ const Page = () => {
                           sheet.addColumns([
                             { title: 'Doanh thu', dataIndex: '' },
                             {
-                              title: revenueTotal
-                                ? revenueTotal + ' VND'
-                                : '',
+                              title: revenueTotal ? revenueTotal + ' VND' : '',
                               dataIndex: '',
                             },
                             { title: '', dataIndex: '' },
@@ -1304,6 +1344,24 @@ const Page = () => {
                             .addDataSource(inventory ?? [], {
                               str2Percent: true,
                             })
+                            .addColumns([
+                              { title: '', dataIndex: '' },
+                              { title: '', dataIndex: '' },
+                              { title: '', dataIndex: '' },
+                              { title: '', dataIndex: '' },
+                              { title: 'Tổng cộng', dataIndex: '' },
+                              { title: inventoryOrders.result?.total?.sumSubTotal?.toLocaleString(), dataIndex: '' },
+                              {
+                                title: inventoryOrders.result?.total?.sumTotal?.toLocaleString(),
+                                dataIndex: '',
+                              },
+                              {
+                                title: inventoryOrders.result?.total?.sumVoucherAmount?.toLocaleString(),
+                                dataIndex: '',
+                              },
+                              { title: inventoryOrders.result?.total?.sumMoney?.toLocaleString(), dataIndex: '' },
+                              { title: '', dataIndex: '' },
+                            ])
                             .saveAs(t('supplier.Supplier revenue Order'));
                         }}
                       />
@@ -1436,9 +1494,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                       },
@@ -1485,9 +1543,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1672,10 +1730,11 @@ const Page = () => {
                           sorter: true,
                           render: (value: any, item: any) =>
                             JSON.parse(inventoryProduct.queryParams || '{}').page != 1
-                              ? `${JSON.parse(inventoryProduct.queryParams || '{}').page *
-                              JSON.parse(inventoryProduct.queryParams || '{}').perPage +
-                              stt2++
-                              }`
+                              ? `${
+                                  JSON.parse(inventoryProduct.queryParams || '{}').page *
+                                    JSON.parse(inventoryProduct.queryParams || '{}').perPage +
+                                  stt2++
+                                }`
                               : `${stt2++}`,
                         },
                       },
@@ -1762,9 +1821,14 @@ const Page = () => {
                           };
                         });
                         const excel = new Excel();
-                        const sheet = excel.addSheet("Sheet1")
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
-                        sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                        const sheet = excel.addSheet('Sheet1');
+                        sheet.setTHeadStyle({
+                          background: 'FFFFFFFF',
+                          borderColor: 'C0C0C0C0',
+                          wrapText: false,
+                          width: 50,
+                        });
+                        sheet.setTBodyStyle({ wrapText: false, width: 50 });
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: '', dataIndex: '' },
@@ -1782,10 +1846,11 @@ const Page = () => {
                           { title: 'Chọn trạng thái:', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'status')
-                              ? `${statusRevenue.find((item) => {
-                                return item.value === getFilter(inventoryProduct.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  statusRevenue.find((item) => {
+                                    return item.value === getFilter(inventoryProduct.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1796,10 +1861,11 @@ const Page = () => {
                           { title: 'Danh mục chính', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId1')
-                              ? `${categoryFacade.result?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1807,10 +1873,11 @@ const Page = () => {
                           { title: 'Danh mục cấp 1', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId2')
-                              ? `${categoryFacade.result2?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result2?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1818,10 +1885,11 @@ const Page = () => {
                           { title: 'Danh mục cấp 2', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId3')
-                              ? `${categoryFacade.result3?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result3?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1835,6 +1903,18 @@ const Page = () => {
                           .addDataSource(product ?? [], {
                             str2Percent: true,
                           })
+                          .addColumns([
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: 'Tổng cộng', dataIndex: '' },
+                            { title: inventoryProduct.result?.total?.subTotal?.toLocaleString(), dataIndex: '' },
+                            {
+                              title: inventoryProduct.result?.total?.total?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                          ])
                           .saveAs(t('supplier.Supplier revenue product'));
                       }}
                     />
@@ -1884,10 +1964,11 @@ const Page = () => {
                           width: 110,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
-                              JSON.parse(discountFacade.queryParams || '{}').perPage +
-                              stt++
-                              }`
+                              ? `${
+                                  JSON.parse(discountFacade.queryParams || '{}').page *
+                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                  stt++
+                                }`
                               : `${stt++}`,
                         },
                       },
@@ -1988,9 +2069,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -2028,9 +2109,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -2114,9 +2195,14 @@ const Page = () => {
                           };
                         });
                         const excel = new Excel();
-                        const sheet = excel.addSheet("Sheet1")
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, width: 50 })
-                        sheet.setTBodyStyle({ wrapText: false, width: 50 })
+                        const sheet = excel.addSheet('Sheet1');
+                        sheet.setTHeadStyle({
+                          background: 'FFFFFFFF',
+                          borderColor: 'C0C0C0C0',
+                          wrapText: false,
+                          width: 50,
+                        });
+                        sheet.setTBodyStyle({ wrapText: false, width: 50 });
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
@@ -2145,10 +2231,11 @@ const Page = () => {
                           { title: 'Chọn trạng thái', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'status')
-                              ? `${listStatusDiscount.find((item) => {
-                                return item.value === getFilter(discountFacade.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  listStatusDiscount.find((item) => {
+                                    return item.value === getFilter(discountFacade.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -2168,6 +2255,17 @@ const Page = () => {
                           .addDataSource(discount ?? [], {
                             str2Percent: true,
                           })
+                          .addColumns([
+                            { title: '', dataIndex: '' },
+                            { title: 'Tổng cộng', dataIndex: '' },
+                            { title: discountFacade.result?.total?.totalCommission?.toLocaleString(), dataIndex: '' },
+                            {
+                              title: discountFacade.result?.total?.totalPaid?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            { title: discountFacade.result?.total?.totalNopay?.toLocaleString(), dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                          ])
                           .saveAs(t('supplier.Discount supplier'));
                       }}
                     />
@@ -2253,9 +2351,11 @@ const Page = () => {
                                   <div className="w-60 py-2.5 px-4 rounded-2xl border-gray-200 ml-4 flex justify-between">
                                     <Select value={values?.status} className="py-2" style={{ width: '100%' }}>
                                       <Select.Option value="SIGNED_CONTRACT">
-                                        <div onClick={() => {
-                                          putSub({ id: values?.id })
-                                        }}>
+                                        <div
+                                          onClick={() => {
+                                            putSub({ id: values?.id });
+                                          }}
+                                        >
                                           {t('supplier.Sup-Status.Signed')}
                                         </div>
                                       </Select.Option>
