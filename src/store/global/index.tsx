@@ -93,11 +93,10 @@ export class User extends CommonEntity {
 
 const checkLanguage = (language: string) => {
   const formatDate = language === 'vn' ? 'DD/MM/YYYY' : 'DD/MM/YYYY';
-  const formatDateTime = language === 'vn' ? 'DD/MM/YYYY - hh:mm' : 'DD/MM/YYYY - hh:mm';
   const locale = language === 'vn' ? viVN : enUS;
   dayjs.locale(language === 'vn' ? 'vi' : language);
   localStorage.setItem('i18nextLng', language);
-  return { language: language, formatDate, formatDateTime, locale };
+  return { language: language, formatDate, locale };
 };
 const initialState: State = {
   data: {},
@@ -284,7 +283,6 @@ interface State {
   language?: string;
   locale?: typeof viVN | typeof enUS;
   formatDate?: string;
-  formatDateTime?: string;
 }
 
 const clearTempLocalStorage = () => {

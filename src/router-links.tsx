@@ -20,7 +20,6 @@ export const routerLinks = (name: string, type?: string) => {
     'Supplier/Edit': '/supplier/edit',
     'Contract-View': '/contract-view',
     'Discount-Detail': '/discount-detail',
-    'Merchandise-Managerment/Product/Detail': '/merchandise-managerment/product/detail',
 
     Store: '/store-managerment',
     'store-managerment/create': '/store-managerment/create',

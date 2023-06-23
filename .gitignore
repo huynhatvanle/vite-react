@@ -27,4 +27,3 @@ cypress/videos
 cypress/reports
 cypress/downloads
 cypress/screenshots
-test/result

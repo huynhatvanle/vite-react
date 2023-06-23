@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CommonEntity } from '@models';
 import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
@@ -8,7 +8,7 @@ const name = 'Suborgcommision';
 const action = {
   ...new Action<Discount>(name),
   getDiscount: createAsyncThunk(
-    name + '/getDiscount',
+    name + '/get',
     async ({
       filter,
       page,
@@ -42,34 +42,7 @@ const action = {
   }),
 };
 
-export const DiscountSlice = createSlice(
-  new Slice<Discount>(action, { result: {} }, (builder) =>
-    builder
-      .addCase(
-        action.getDiscount.pending,
-        (
-          state: State<Discount>,
-          action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
-        ) => {
-          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-          state.queryParams = JSON.stringify(action.meta.arg);
-          state.isLoading = true;
-          state.status = 'getDiscount.pending';
-        },
-      )
-      .addCase(action.getDiscount.fulfilled, (state: State<Discount>, action: any) => {
-        if (action.payload.data) {
-          state.result = action.payload;
-          state.status = 'getDiscount.fulfilled';
-        } else state.status = 'idle';
-        state.isLoading = false;
-      })
-      .addCase(action.getDiscount.rejected, (state: State) => {
-        state.status = 'getDiscount.rejected';
-        state.isLoading = false;
-      }),
-  ),
-);
+export const DiscountSlice = createSlice(new Slice<Discount>(action));
 
 export const DiscountFacade = () => {
   const dispatch = useAppDispatch();

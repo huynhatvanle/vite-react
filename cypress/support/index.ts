@@ -27,17 +27,7 @@ declare global {
       typeRandom(
         value: string,
         state: any,
-        type?:
-          | 'test name'
-          | 'text'
-          | 'word'
-          | 'paragraph'
-          | 'number'
-          | 'email'
-          | 'percentage'
-          | 'color'
-          | 'phone'
-          | 'date',
+        type?: 'text' | 'words' | 'number' | 'email' | 'percentage' | 'color' | 'phone' | 'date',
       ): Chainable<JQueryWithSelector>;
     }
   }

@@ -17,11 +17,6 @@ export class Responses<T> {
       sumSubTotal?: number;
       sumTotal?: number;
       sumVoucherAmount?: number;
-      totalCommission?: number;
-      totalNopay?: number;
-      totalPaid?: number;
-      total?: number;
-      subTotal?: number;
     },
     public address?: {
       province?: Province;
@@ -52,8 +47,10 @@ export class PaginationQuery<T = object> {
     public sorts?: string | T,
     public extend?: string | T,
     public skip?: string | T,
-    public fullTextSearch?: string, // public type?: string, // public storeId?: string,
-  ) // public supplierId?: string,
+    public fullTextSearch?: string,
+  ) // public type?: string,
+  // public storeId?: string,
+  // public supplierId?: string,
   // public filterSupplier?: string,
   // public supplierType?: string,
   // public idSuppiler?: string,

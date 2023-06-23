@@ -1,11 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { CommonEntity } from '@models';
+import { Product } from '@store/product';
 import { API, routerLinks } from '@utils';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 import { Message } from '@core/message';
-import { saveAs } from 'file-saver';
-import JSZip from 'jszip';
 
 const name = 'documentsuborganiztion';
 
@@ -28,12 +27,8 @@ const action = {
     if (message) await Message.success({ text: message });
     return statusCode;
   }),
-  uploadSub: createAsyncThunk(name + '/uploadSub', async (values: FormData) => {
-    console.log(values)
-    const subOrgId = values.get('subOrgId')
-    const docSubOrgId = values.get('docSubOrgId')
-    const files = values.get('files')
-    const { data, message } = await API.post<any>('/file-doc-contract', { values });
+  uploadSub: createAsyncThunk(name + '/uploadSub', async (values: Documentsub) => {
+    const { data, message } = await API.post<Documentsub>(`/file-doc-contract`, { ...values });
     if (message) await Message.success({ text: message });
     return data || {};
   }),
@@ -146,7 +141,7 @@ export const DocumentsubFacade = () => {
     set: (values: State<Documentsub>) => dispatch(action.set(values)),
     get: ({ id }: { id?: string }) => dispatch(action.getSub({ id })),
     putSub: (values: Documentsub) => dispatch(action.putSub(values)),
-    uploadSub: (values: FormData) => dispatch(action.uploadSub(values)),
+    uploadSub: (values: Documentsub) => dispatch(action.uploadSub(values)),
     deleteSub: (id: Documentsub) => dispatch(action.delete(id)),
     downloadSub: (id: Documentsub) => dispatch(action.downloadSub(id)),
     downloadSubZip: (id: Documentsub) => dispatch(action.downloadSubZip(id)),
@@ -156,16 +151,7 @@ export const DocumentsubFacade = () => {
 };
 
 export class Documentsub extends CommonEntity {
-  constructor(
-    public id?: string,
-    public name?: string,
-    public code?: string,
-    public subOrgId?: string,
-    public docSubOrgId?: string,
-    public files?: string,
-    public url?: string,
-    public filePhoto?: string,
-    public totalCommissionSupplier?: number) {
+  constructor(public id?: string, public name?: string, public code?: string, public totalCommissionSupplier?: number) {
     super();
   }
 }

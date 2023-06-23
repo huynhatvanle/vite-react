@@ -120,11 +120,6 @@ const pages = [
         component: React.lazy(() => import('@pages/supplier/discountDetail/discountDetail')),
         title: 'Discount-Detail',
       },
-      {
-        path: routerLinks('Merchandise-Managerment/Product/Detail') + '/:id',
-        component: React.lazy(() => import('@pages/supplier/productDetail/index')),
-        title: 'Merchandise-Managerment/Product/Detail',
-      },
     ], // 💬 generate link to here
   },
 ];
