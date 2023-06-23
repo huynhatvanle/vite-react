@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import { Supplier, SupplierFacade } from '@store/supplier';
 import { DistrictFacade } from '@store/address/district';
 import { WardFacade } from '@store/address/ward';
-import { getFilter, language, languages, routerLinks } from '@utils';
+import { API, getFilter, language, languages, routerLinks } from '@utils';
 import {
   CategoryFacade,
   GlobalFacade,
@@ -247,13 +247,15 @@ const Page = () => {
   let stt1 = 1;
   let stt2 = 1;
   let i = 1;
-
-  const handleSubmitUpload = (values: Documentsub) => {
+  const [upload, setUpload] = useState<FormData>()
+  const handleSubmitUpload = (values: any) => {
+    console.log(values)
     const subOrgId = id;
-    const docSubOrgId = data1?.id;
-    const files = forms.getFieldValue('files');
-    console.log(files);
-    documentsub.uploadSub({ subOrgId, docSubOrgId, files });
+    const docSubOrgId = values.id;
+    values.upload.append('subOrgId', subOrgId)
+    values.upload.append('docSubOrgId', docSubOrgId)
+    // const files = forms.getFieldValue('uploadFile');
+    documentsub.uploadSub(values.upload);
   };
 
   return (
@@ -2533,6 +2535,26 @@ const Page = () => {
                                         multiple
                                         name="files"
                                         action="/util/upload"
+                                        customRequest={(options) => {
+                                          const { file } = options
+                                          const formData = new FormData();
+                                          formData.append('files', file);
+                                          formData.append('type', 'SUPPLIER')
+                                          const data = API.responsible<any>(
+                                            "/util/upload",
+                                            {},
+                                            {
+                                              ...API.init(),
+                                              method: 'post',
+                                              body: formData,
+                                              headers: {
+                                                authorization: 'Bearer ' + (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
+                                                'Accept-Language': localStorage.getItem('i18nextLng') || '',
+                                              },
+                                            },
+                                          );
+                                          setUpload(formData)
+                                        }}
                                       >
                                         <div className="bg-white -my-4">
                                           <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
@@ -2663,7 +2685,7 @@ const Page = () => {
                             className={
                               'flex bg-teal-900 text-white rounded-xl items-center justify-center disabled:opacity-20'
                             }
-                            onClick={() => handleSubmitUpload(values)}
+                            onClick={() => handleSubmitUpload({ ...values, upload })}
                           />
                         </div>
                       </>

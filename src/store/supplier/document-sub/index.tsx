@@ -28,8 +28,12 @@ const action = {
     if (message) await Message.success({ text: message });
     return statusCode;
   }),
-  uploadSub: createAsyncThunk(name + '/uploadSub', async (values: Documentsub) => {
-    const { data, message } = await API.post<Documentsub>(`/file-doc-contract`, { ...values });
+  uploadSub: createAsyncThunk(name + '/uploadSub', async (values: FormData) => {
+    console.log(values)
+    const subOrgId = values.get('subOrgId')
+    const docSubOrgId = values.get('docSubOrgId')
+    const files = values.get('files')
+    const { data, message } = await API.post<any>('/file-doc-contract', { values });
     if (message) await Message.success({ text: message });
     return data || {};
   }),
@@ -142,7 +146,7 @@ export const DocumentsubFacade = () => {
     set: (values: State<Documentsub>) => dispatch(action.set(values)),
     get: ({ id }: { id?: string }) => dispatch(action.getSub({ id })),
     putSub: (values: Documentsub) => dispatch(action.putSub(values)),
-    uploadSub: (values: Documentsub) => dispatch(action.uploadSub(values)),
+    uploadSub: (values: FormData) => dispatch(action.uploadSub(values)),
     deleteSub: (id: Documentsub) => dispatch(action.delete(id)),
     downloadSub: (id: Documentsub) => dispatch(action.downloadSub(id)),
     downloadSubZip: (id: Documentsub) => dispatch(action.downloadSubZip(id)),
