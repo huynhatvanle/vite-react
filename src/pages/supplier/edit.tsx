@@ -678,7 +678,6 @@ const Page = () => {
                                 const sheet = excel.addSheet('Sheet1');
                                 sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
                                 sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
-                                // sheet.drawCell(9, 0, '')
                                 sheet.setRowHeight(0.8, 'cm')
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
@@ -686,6 +685,7 @@ const Page = () => {
                                   { title: '', dataIndex: '' },
                                   { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
                                 ]);
+                                sheet.drawCell(10, 0, '')
                                 sheet.addRow();
                                 sheet.addColumns([
                                   { title: 'Danh mục chính', dataIndex: '' },
@@ -723,14 +723,14 @@ const Page = () => {
                                   { title: '', dataIndex: '' },
                                 ]);
                                 sheet.addRow();
-                                sheet.currentCol;
                                 sheet
                                   .addColumns(columnproduct)
                                   .addDataSource(dataProduct ?? [], {
                                     str2Percent: true,
                                   })
-                                  .saveAs(t('product.List'));
-                              }}
+                                  .saveAs(t('product.List'))
+                              }
+                              }
                             />
                           }
                         </div>
@@ -1255,6 +1255,7 @@ const Page = () => {
                             { title: '', dataIndex: '' },
                             { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
                           ]);
+                          sheet.drawCell(10, 0, '')
                           sheet.addRow();
                           sheet.addColumns([
                             { title: 'Tìm kiếm:', dataIndex: '' },
@@ -1835,6 +1836,7 @@ const Page = () => {
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO SẢN PHẨM', dataIndex: '' },
                         ]);
+                        sheet.drawCell(10, 0, '')
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Tìm kiếm:', dataIndex: '' },
@@ -2199,6 +2201,7 @@ const Page = () => {
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
                         ]);
+                        sheet.drawCell(10, 0, '')
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Kỳ hạn từ', dataIndex: '' },

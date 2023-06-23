@@ -236,6 +236,7 @@ const Page = () => {
         { title: '', dataIndex: '' },
         { title: 'DANH SÁCH HÀNG HÓA BALANCE', dataIndex: '' },
       ]);
+      sheet.drawCell(10, 0, '')
       sheet.addRow();
       sheet.addColumns([
         { title: 'Chọn nhà cung cấp:', dataIndex: '' },
