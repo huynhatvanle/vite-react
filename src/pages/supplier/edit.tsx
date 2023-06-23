@@ -124,7 +124,7 @@ const Page = () => {
           isReload.current && documentsub.get({ id });
         };
       case 'uploadSub.fulfilled':
-        // setListFile([])
+        setUpload(undefined)
         if (id) documentsub.get({ id });
         return () => {
           isReload.current && documentsub.get({ id });
@@ -2697,7 +2697,7 @@ const Page = () => {
                             onClick={() => navigate(`/${lang}${routerLinks('Supplier')}`)}
                           />
                           <Button
-                            // disabled={true}
+                            disabled={upload?.get('files') ? false : true}
                             text={t('titles.Upload contract')}
                             className={
                               'flex bg-teal-900 text-white rounded-xl items-center justify-center disabled:opacity-20'
