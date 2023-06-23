@@ -374,7 +374,7 @@ export const DataTable = forwardRef(
         page: tempPageIndex,
         perPage: tempPageSize,
         sorts: JSON.stringify(tempSort),
-        filter: JSON.stringify(cleanObjectKeyNull({ ...params.filter as Object, ...filters as Object })),
+        filter: JSON.stringify(cleanObjectKeyNull({ ...(params.filter as Object), ...(filters as Object) })),
         fullTextSearch: tempFullTextSearch,
       });
       onChange && onChange(tempParams);
@@ -384,7 +384,6 @@ export const DataTable = forwardRef(
       array
         ? array.map((item) => ({ ...item, key: item.id || v4(), children: item.children && loopData(item.children) }))
         : [];
-    console.log('facade', facade);
 
     return (
       <div className={classNames(className, 'intro-x')}>
@@ -463,8 +462,7 @@ export const DataTable = forwardRef(
               loading={isLoading}
               columns={cols.current}
               summary={() =>
-                facade?.result?.message === 'Lấy danh sách chiết khấu với nhà cung cấp.' &&
-                  facade?.result?.data?.length != 0 ? (
+                facade?.status === 'getDiscount.fulfilled' && facade?.result?.data?.length != 0 ? (
                   <tr className="text-black">
                     <td></td>
                     <td className="ant-table-cell">
@@ -504,7 +502,7 @@ export const DataTable = forwardRef(
                     </td>
                     <td className="ant-table-cell font-bold text-base"></td>
                   </tr>
-                ) : facade?.status === 'getProduct.fulfilled' && facade?.result?.data?.length != 0 ? (
+                ) : facade?.status === 'getInventoryListProduct.fulfilled' && facade?.result?.data?.length != 0 ? (
                   <tr className="text-black">
                     <td></td>
                     <td></td>
