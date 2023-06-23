@@ -258,7 +258,6 @@ const Page = () => {
   let i = 1;
   const [upload, setUpload] = useState<FormData>()
   const handleSubmitUpload = (values: any) => {
-    console.log(values)
     const subOrgId = id;
     const docSubOrgId = values.id;
     values.upload.append('subOrgId', subOrgId)
@@ -2511,7 +2510,7 @@ const Page = () => {
                         </p>
                         <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
                           <Form
-                            formAnt={forms}
+                            // formAnt={forms}
                             columns={[
                               {
                                 title: '',
@@ -2537,6 +2536,11 @@ const Page = () => {
                                       //   </div>
                                       // </Upload>
                                       <Upload
+                                        onChange={({ file, fileList }) => {
+                                          if (file.status == 'uploading') {
+                                            file.status = 'done'
+                                          }
+                                        }}
                                         style={{ border: 'none' }}
                                         listType="picture"
                                         type="drag"

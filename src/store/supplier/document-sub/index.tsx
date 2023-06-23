@@ -164,7 +164,6 @@ export const documentsubSlice = createSlice(new Slice<Documentsub>(action, { res
       if (action.payload) {
         state.result = action.payload;
         state.status = 'uploadSub.fulfilled';
-        console.log(state.status)
       } else state.status = 'idle';
       state.isLoading = false;
     })
@@ -189,7 +188,6 @@ export const documentsubSlice = createSlice(new Slice<Documentsub>(action, { res
       if (action.payload) {
         state.result = action.payload;
         state.status = 'deleteSub.fulfilled';
-        console.log(state.status)
       } else state.status = 'idle';
       state.isLoading = false;
     })
