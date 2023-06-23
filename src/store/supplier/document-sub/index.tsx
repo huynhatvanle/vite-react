@@ -4,6 +4,8 @@ import { CommonEntity } from '@models';
 import { API, routerLinks } from '@utils';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 import { Message } from '@core/message';
+import { saveAs } from 'file-saver';
+import JSZip from 'jszip';
 
 const name = 'documentsuborganiztion';
 
@@ -27,9 +29,80 @@ const action = {
     return statusCode;
   }),
   uploadSub: createAsyncThunk(name + '/uploadSub', async (values: Documentsub) => {
-    const { data, message } = await API.put<Documentsub>(`/file-doc-contract`, { ...values });
+    const { data, message } = await API.post<Documentsub>(`/file-doc-contract`, { ...values });
     if (message) await Message.success({ text: message });
     return data || {};
+  }),
+  delete: createAsyncThunk(name + '/deleteSub', async ({ id }: Documentsub) => {
+    const { data, message } = await API.delete<Documentsub>(`/file-doc-contract/${id}`);
+    if (message) await Message.success({ text: message });
+    return data || {};
+  }),
+
+  downloadSub: createAsyncThunk(name + '/downloadSub', async ({ url }: Documentsub) => {
+
+    let extension;
+    let filename;
+
+    if (url) {
+      extension = url.substring(url.lastIndexOf('.') + 1);
+    } else {
+    }
+
+    switch (extension) {
+      case 'png':
+        filename = 'File hợp đồng.png';
+        break;
+      case 'pdf':
+        filename = 'File hợp đồng.pdf';
+        break;
+      case 'doc':
+        filename = 'File hợp đồng.doc';
+        break;
+      case 'docx':
+        filename = 'File hợp đồng.docx';
+        break;
+      default:
+        filename = 'File hợp đồng';
+    }
+
+    saveAs(url as string, filename);
+  }),
+
+  downloadSubZip: createAsyncThunk(name + '/downloadSub', async ({ urls }: { urls: string[] }) => {
+    const zip = new JSZip();
+    let filename;
+
+    for (let i = 0; i < urls.length; i++) {
+      const url = urls[i];
+      const extension = url.substring(url.lastIndexOf('.') + 1);
+
+      switch (extension) {
+        case 'png':
+          filename = 'File hợp đồng.png';
+          break;
+        case 'pdf':
+          filename = 'File hợp đồng.pdf';
+          break;
+        case 'doc':
+          filename = 'File hợp đồng.doc';
+          break;
+        case 'docx':
+          filename = 'File hợp đồng.docx';
+          break;
+        default:
+          filename = 'File hợp đồng';
+      }
+
+      const response = await fetch(url);
+      const blob = await response.blob();
+
+      zip.file(filename, blob);
+    }
+
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      saveAs(content, 'files.zip');
+    });
   }),
 };
 
@@ -70,6 +143,9 @@ export const DocumentsubFacade = () => {
     get: ({ id }: { id?: string }) => dispatch(action.getSub({ id })),
     putSub: (values: Documentsub) => dispatch(action.putSub(values)),
     uploadSub: (values: Documentsub) => dispatch(action.uploadSub(values)),
+    deleteSub: (id: Documentsub) => dispatch(action.delete(id)),
+    downloadSub: (id: Documentsub) => dispatch(action.downloadSub(id)),
+    downloadSubZip: (id: Documentsub) => dispatch(action.downloadSubZip(id)),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Documentsub> }) =>
       dispatch(action.getByIdSub({ id, keyState })),
   };
@@ -83,6 +159,7 @@ export class Documentsub extends CommonEntity {
     public subOrgId?: string,
     public docSubOrgId?: string,
     public files?: string,
+    public url?: string,
     public filePhoto?: string,
     public totalCommissionSupplier?: number) {
     super();
