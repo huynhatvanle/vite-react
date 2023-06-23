@@ -23,7 +23,7 @@ import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
 import { Down, DownArrow, Download, Trash, UploadIcon } from '@svgs';
-import { Form as AntForm, Dropdown, Select, Tabs } from 'antd';
+import { Form as AntForm, Dropdown, Select, Tabs, UploadFile } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
 //import { Upload } from '@core/upload';
@@ -67,6 +67,7 @@ const Page = () => {
   const [test, setTest] = useState(false);
 
   const [forms] = AntForm.useForm();
+  const [listFile, setListFile] = useState<UploadFile[]>()
 
   useEffect(() => {
     if (id) {
@@ -123,6 +124,7 @@ const Page = () => {
           isReload.current && documentsub.get({ id });
         };
       case 'uploadSub.fulfilled':
+        // setListFile([])
         if (id) documentsub.get({ id });
         return () => {
           isReload.current && documentsub.get({ id });
@@ -2510,7 +2512,7 @@ const Page = () => {
                         </p>
                         <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
                           <Form
-                            // formAnt={forms}
+                            formAnt={forms}
                             columns={[
                               {
                                 title: '',
@@ -2536,10 +2538,12 @@ const Page = () => {
                                       //   </div>
                                       // </Upload>
                                       <Upload
+                                      // fileList={listFile}
                                         onChange={({ file, fileList }) => {
                                           if (file.status == 'uploading') {
                                             file.status = 'done'
                                           }
+                                          // setListFile(fileList)
                                         }}
                                         style={{ border: 'none' }}
                                         listType="picture"
