@@ -28,19 +28,28 @@ const action = {
     if (message) await Message.success({ text: message });
     return statusCode;
   }),
-  uploadSub: createAsyncThunk(name + '/uploadSub', async (values: FormData) => {
-    console.log(values)
-    const subOrgId = values.get('subOrgId')
-    const docSubOrgId = values.get('docSubOrgId')
-    const files = values.get('files')
-    const { data, message } = await API.post<any>('/file-doc-contract', { values });
+  uploadSub: createAsyncThunk(name + '/uploadSub', async (values: any) => {
+    // const { data, message } = await API.post<any>('/file-doc-contract', values);
+    const { statusCode, message } = await API.responsible<any>(
+      "/file-doc-contract",
+      {},
+      {
+        ...API.init(),
+        method: 'post',
+        body: values,
+        headers: {
+          authorization: 'Bearer ' + (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
+          'Accept-Language': localStorage.getItem('i18nextLng') || '',
+        },
+      },
+    );
     if (message) await Message.success({ text: message });
-    return data || {};
+    return statusCode;
   }),
-  delete: createAsyncThunk(name + '/deleteSub', async ({ id }: Documentsub) => {
-    const { data, message } = await API.delete<Documentsub>(`/file-doc-contract/${id}`);
+  deleteSub: createAsyncThunk(name + '/deleteSub', async ({ id }: Documentsub) => {
+    const { statusCode, message } = await API.delete<Documentsub>(`/file-doc-contract/${id}`);
     if (message) await Message.success({ text: message });
-    return data || {};
+    return statusCode;
   }),
 
   downloadSub: createAsyncThunk(name + '/downloadSub', async ({ url }: Documentsub) => {
@@ -137,6 +146,57 @@ export const documentsubSlice = createSlice(new Slice<Documentsub>(action, { res
       state.status = 'putSub.rejected';
       state.isLoading = false;
     })
+
+    .addCase(
+      action.uploadSub.pending,
+      (
+        state: State<Documentsub>,
+        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+      ) => {
+        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+        state.queryParams = JSON.stringify(action.meta.arg);
+        state.isLoading = true;
+        state.status = 'uploadSub.pending';
+      },
+    )
+
+    .addCase(action.uploadSub.fulfilled, (state: State<Documentsub>, action: any) => {
+      if (action.payload) {
+        state.result = action.payload;
+        state.status = 'uploadSub.fulfilled';
+        console.log(state.status)
+      } else state.status = 'idle';
+      state.isLoading = false;
+    })
+    .addCase(action.uploadSub.rejected, (state: State) => {
+      state.status = 'uploadSub.rejected';
+      state.isLoading = false;
+    })
+    .addCase(
+      action.deleteSub.pending,
+      (
+        state: State<Documentsub>,
+        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+      ) => {
+        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+        state.queryParams = JSON.stringify(action.meta.arg);
+        state.isLoading = true;
+        state.status = 'deleteSub.pending';
+      },
+    )
+
+    .addCase(action.deleteSub.fulfilled, (state: State<Documentsub>, action: any) => {
+      if (action.payload) {
+        state.result = action.payload;
+        state.status = 'deleteSub.fulfilled';
+        console.log(state.status)
+      } else state.status = 'idle';
+      state.isLoading = false;
+    })
+    .addCase(action.deleteSub.rejected, (state: State) => {
+      state.status = 'deleteSub.rejected';
+      state.isLoading = false;
+    })
 ));
 
 export const DocumentsubFacade = () => {
@@ -147,7 +207,7 @@ export const DocumentsubFacade = () => {
     get: ({ id }: { id?: string }) => dispatch(action.getSub({ id })),
     putSub: (values: Documentsub) => dispatch(action.putSub(values)),
     uploadSub: (values: FormData) => dispatch(action.uploadSub(values)),
-    deleteSub: (id: Documentsub) => dispatch(action.delete(id)),
+    deleteSub: (id: Documentsub) => dispatch(action.deleteSub(id)),
     downloadSub: (id: Documentsub) => dispatch(action.downloadSub(id)),
     downloadSubZip: (id: Documentsub) => dispatch(action.downloadSubZip(id)),
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Documentsub> }) =>
