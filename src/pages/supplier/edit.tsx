@@ -122,7 +122,16 @@ const Page = () => {
         return () => {
           isReload.current && documentsub.get({ id });
         };
-        break;
+      case 'uploadSub.fulfilled':
+        if (id) documentsub.get({ id });
+        return () => {
+          isReload.current && documentsub.get({ id });
+        };
+      case 'deleteSub.fulfilled':
+        if (id) documentsub.get({ id });
+        return () => {
+          isReload.current && documentsub.get({ id });
+        };
     }
   }, [documentsub.result]);
 
@@ -2634,14 +2643,14 @@ const Page = () => {
                                                 </div>
                                               </div>
                                               :
-                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
+                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
                                                 <a href={item.url} className='mr-3'>
                                                   <img src={item.url}
                                                     alt={item.fileName}
                                                     className='w-[50px] h-[50px] aspect-square object-cover'></img>
                                                 </a>
-                                                <div>
-                                                  <h1>{item.fileName}</h1>
+                                                <div className='w-full sm:w-2/5'>
+                                                  <h1 className=' truncate'>{item.fileName}</h1>
                                                   <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
                                                 </div>
                                                 <div className='flex items-center gap-2 ml-auto z-[999]'>
