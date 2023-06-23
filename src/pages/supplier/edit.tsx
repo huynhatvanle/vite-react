@@ -2414,7 +2414,7 @@ const Page = () => {
                   </div>
                   <Form
                     values={{ ...data1 }}
-                    className="intro-x border-b form-supplier-contract"
+                    className="intro-x border-b form-col-tab7 form-supplier-contract"
                     columns={[
                       {
                         title: '',
@@ -2440,7 +2440,7 @@ const Page = () => {
                           col: 7,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
+                              <div className="flex items-center h-full text-base lg:mt-0 mt-3">
                                 <div className="font-semibold text-teal-900 ">
                                   {t('supplier.Contract.Manager name')}:{' '}
                                 </div>
