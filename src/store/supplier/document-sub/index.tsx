@@ -21,8 +21,10 @@ const action = {
     },
   ),
   putSub: createAsyncThunk(name + '/putSub', async ({ id }: Documentsub) => {
-    const status = 'SIGNED_CONTRACT'
-    const { statusCode, message } = await API.put<Documentsub>(`${routerLinks(name, 'api')}/${id}`, { status: "SIGNED_CONTRACT" });
+    const status = 'SIGNED_CONTRACT';
+    const { statusCode, message } = await API.put<Documentsub>(`${routerLinks(name, 'api')}/${id}`, {
+      status: 'SIGNED_CONTRACT',
+    });
     if (message) await Message.success({ text: message });
     return statusCode;
   }),
@@ -33,34 +35,36 @@ const action = {
   }),
 };
 
-export const documentsubSlice = createSlice(new Slice<Documentsub>(action, { result: {} }, (builder) =>
-  builder
-    .addCase(
-      action.putSub.pending,
-      (
-        state: State<Documentsub>,
-        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
-      ) => {
-        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-        state.queryParams = JSON.stringify(action.meta.arg);
-        state.isLoading = true;
-        state.status = 'putSub.pending';
-      },
-    )
+export const documentsubSlice = createSlice(
+  new Slice<Documentsub>(action, { result: {} }, (builder) =>
+    builder
+      .addCase(
+        action.putSub.pending,
+        (
+          state: State<Documentsub>,
+          action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+          state.queryParams = JSON.stringify(action.meta.arg);
+          state.isLoading = true;
+          state.status = 'putSub.pending';
+        },
+      )
 
-    .addCase(action.putSub.fulfilled, (state: State<Documentsub>, action: any) => {
-      if (action.payload) {
-        state.result = action.payload;
-        state.status = 'putSub.fulfilled';
-        console.log(state.status)
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
-    .addCase(action.putSub.rejected, (state: State) => {
-      state.status = 'putSub.rejected';
-      state.isLoading = false;
-    })
-));
+      .addCase(action.putSub.fulfilled, (state: State<Documentsub>, action: any) => {
+        if (action.payload) {
+          state.result = action.payload;
+          state.status = 'putSub.fulfilled';
+          console.log(state.status);
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
+      .addCase(action.putSub.rejected, (state: State) => {
+        state.status = 'putSub.rejected';
+        state.isLoading = false;
+      }),
+  ),
+);
 
 export const DocumentsubFacade = () => {
   const dispatch = useAppDispatch();
@@ -83,8 +87,14 @@ export class Documentsub extends CommonEntity {
     public subOrgId?: string,
     public docSubOrgId?: string,
     public files?: string,
-    public filePhoto?: string,
-    public totalCommissionSupplier?: number) {
+    public filePhoto?: {
+      length: string;
+      0: {
+        url: string;
+      };
+    },
+    public totalCommissionSupplier?: number,
+  ) {
     super();
   }
 }

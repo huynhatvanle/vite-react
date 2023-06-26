@@ -2570,7 +2570,7 @@ const Page = () => {
                           {t('supplier.Contract.File system')}:
                         </p>
 
-                        {data1?.filePhoto.length > 0 ? (
+                        {data1?.filePhoto?.length > 0 ? (
                           <div>
                             <div className="flex flex-col items-center gap-2">
                               <div className="flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative">
