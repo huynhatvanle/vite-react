@@ -305,7 +305,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       )}
 
       <footer
-        className={classNames('text-lefts pt-9 z-50 mt-10  bg-white p-4 !mr-0', {
+        className={classNames('text-center mx-2 sm:text-left pt-9 z-50 mt-10 bg-white p-4 !mr-0', {
           'ml-64': !isCollapsed && isDesktop,
           'ml-16': isCollapsed && isDesktop,
         })}

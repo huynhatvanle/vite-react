@@ -2058,7 +2058,7 @@ const Page = () => {
                               dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                               status: getFilter(discountFacade.queryParams, 'status'),
                             }}
-                            className="intro-x items-end rounded-lg w-full flex justify-between form-store"
+                            className="intro-x items-end rounded-lg w-full mb-5 form-store"
                             columns={[
                               {
                                 title: '',
