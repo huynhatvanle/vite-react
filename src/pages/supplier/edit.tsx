@@ -869,7 +869,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-2 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4'}
                   onClick={handleBack}
                 />
               </div>
@@ -1939,7 +1939,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 flex '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 flex '}
                   onClick={handleBack}
                 />
               </div>
@@ -2286,7 +2286,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 flex '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 flex '}
                   onClick={handleBack}
                 />
               </div>
@@ -2430,7 +2430,7 @@ const Page = () => {
                   </div>
                   <Form
                     values={{ ...data1 }}
-                    className="intro-x border-b form-supplier-contract form-col-tab6-span5 form-col-tab6-span7"
+                    className="intro-x border-b form-supplier-contract"
                     columns={[
                       {
                         title: '',
@@ -2466,7 +2466,7 @@ const Page = () => {
                                       </div>
                                       <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.name}</div>
                                     </div>
-                                    <div className="mb-5 flex items-center w-full">
+                                    <div className="mb-5 flex lg:items-center items-start w-full">
                                       <div className="font-semibold text-teal-900 w-auto h-full whitespace-nowrap">
                                         {t('supplier.Address')}:
                                       </div>
@@ -2496,7 +2496,6 @@ const Page = () => {
                         <div className="text-center border-2 p-11 border-dashed rounded-md m-5 ">
                           <Form
                             formAnt={forms}
-                            className='form-upload-tab6'
                             columns={[
                               {
                                 title: '',
@@ -2541,7 +2540,7 @@ const Page = () => {
                                           setUpload(formData);
                                         }}
                                       >
-                                        <div className="bg-white -my-4">
+                                        <div className="bg-white -my-4 w-2/3 sm:w-auto">
                                           <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
                                           <p className="mb-4">
                                             {t('supplier.Contract.Upload file')} <br />
@@ -2560,7 +2559,7 @@ const Page = () => {
                             ]}
                           />
                         </div>
-                        <p className="text-base text-teal-900 font-bold px-6 py-4">
+                        <p className="text-base text-teal-900 font-bold py-4">
                           {t('supplier.Contract.File system')}:
                         </p>
 
