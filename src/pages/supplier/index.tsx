@@ -41,6 +41,10 @@ const Page = () => {
           name: 'name',
           tableItem: {
             width: 230,
+            onCell: (data: any) => ({
+              style: { cursor: 'pointer' },
+              onClick: () => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${data.id}`)
+            })
           },
         },
         {
@@ -62,13 +66,14 @@ const Page = () => {
                 <div>
                   {address}
                   {address.length >= 60 ?
-                  <Tooltip title={address} className='text-black' >
-                    <Infor className='w-4 h-4 mt-1'/>
-                  </Tooltip>
-                  : null
+                    <Tooltip title={address} className='text-black' >
+                      <Infor className='w-4 h-4 mt-1' />
+                    </Tooltip>
+                    : null
                   }
                 </div>
-            )}
+              )
+            }
           },
         },
         {

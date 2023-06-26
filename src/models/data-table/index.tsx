@@ -12,7 +12,7 @@ export class TableItem {
   width?: number;
   fixed?: string;
   sorter?: boolean;
-  onCell?: () => { style: any; onClick?: any };
+  onCell?: (data: any) => { style: any; onClick?: any };
   align?: 'left' | 'right' | 'center' | null;
   onClick?: any;
   render?: (text: any, item: any) => JSX.Element | string | void;
@@ -40,5 +40,5 @@ export class TableItemFilterList {
   value?: string | number;
 }
 export class TableRefObject {
-  constructor(public onChange: (request?: any) => void, public handleDelete: (id: string) => void) {}
+  constructor(public onChange: (request?: any) => void, public handleDelete: (id: string) => void) { }
 }

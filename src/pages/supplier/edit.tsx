@@ -2505,12 +2505,12 @@ const Page = () => {
                                   render: (form, values) => {
                                     return (
                                       <Upload
-                                      // fileList={listFile}
-                                      
                                         onChange={({ file, fileList }) => {
                                           if (file.status == 'uploading') {
                                             file.status = 'done'
                                           }
+                                          if (file?.size! > 25600)
+                                            file.error
                                           // setListFile(fileList)
                                         }}
                                         style={{ border: 'none' }}
@@ -2538,6 +2538,7 @@ const Page = () => {
                                               },
                                             },
                                           );
+                                          console.log(data)
                                           setUpload(formData)
                                         }}
                                       >
