@@ -284,7 +284,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       )}
       <section
         id={'main'}
-        className={classNames('px-2 sm:px-5 min-h-screen transition-all duration-300 ease-in-out z-10 relative', {
+        className={classNames('px-2 sm:px-0 min-h-screen transition-all duration-300 ease-in-out z-10 relative', {
           'ml-64': !isCollapsed && isDesktop,
           'ml-16': isCollapsed && isDesktop,
         })}
