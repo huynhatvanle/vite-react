@@ -67,7 +67,7 @@ const Page = () => {
   const [test, setTest] = useState(false);
 
   const [forms] = AntForm.useForm();
-  const [listFile, setListFile] = useState<UploadFile[]>()
+  const [listFile, setListFile] = useState<UploadFile[]>();
 
   useEffect(() => {
     if (id) {
@@ -124,7 +124,7 @@ const Page = () => {
           isReload.current && documentsub.get({ id });
         };
       case 'uploadSub.fulfilled':
-        setUpload(undefined)
+        setUpload(undefined);
         if (id) documentsub.get({ id });
         return () => {
           isReload.current && documentsub.get({ id });
@@ -264,12 +264,11 @@ const Page = () => {
   let stt2 = 1;
   let i = 1;
   const [upload, setUpload] = useState<FormData>()
-
   const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
     const docSubOrgId = values.id;
-    values.upload.append('subOrgId', subOrgId)
-    values.upload.append('docSubOrgId', docSubOrgId)
+    values.upload.append('subOrgId', subOrgId);
+    values.upload.append('docSubOrgId', docSubOrgId);
     // const files = forms.getFieldValue('uploadFile');
     documentsub.uploadSub(values.upload);
   };
@@ -690,25 +689,30 @@ const Page = () => {
                                 });
                                 const excel = new Excel();
                                 const sheet = excel.addSheet('Sheet1');
-                                sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
-                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
-                                sheet.setRowHeight(0.8, 'cm')
+                                sheet.setTHeadStyle({
+                                  background: 'FFFFFFFF',
+                                  borderColor: 'C0C0C0C0',
+                                  wrapText: false,
+                                });
+                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                                sheet.setRowHeight(0.8, 'cm');
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
                                 ]);
-                                sheet.drawCell(10, 0, '')
+                                sheet.drawCell(10, 0, '');
                                 sheet.addRow();
                                 sheet.addColumns([
                                   { title: 'Danh mục chính', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId1')
-                                      ? `${categoryFacade.result?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -716,10 +720,11 @@ const Page = () => {
                                   { title: 'Danh mục cấp 1', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId2')
-                                      ? `${categoryFacade.result2?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result2?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -727,10 +732,11 @@ const Page = () => {
                                   { title: 'Danh mục cấp 2', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId3')
-                                      ? `${categoryFacade.result3?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result3?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -742,9 +748,8 @@ const Page = () => {
                                   .addDataSource(dataProduct ?? [], {
                                     str2Percent: true,
                                   })
-                                  .saveAs(t('product.List'))
-                              }
-                              }
+                                  .saveAs(t('product.List'));
+                              }}
                             />
                           }
                         </div>
@@ -1062,9 +1067,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -1103,9 +1108,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1131,10 +1136,11 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(inventoryOrders.queryParams || '{}').page != 1
-                                ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
-                                JSON.parse(inventoryOrders.queryParams || '{}').perPage +
-                                stt1++
-                                }`
+                                ? `${
+                                    JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                      JSON.parse(inventoryOrders.queryParams || '{}').perPage +
+                                    stt1++
+                                  }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1261,15 +1267,15 @@ const Page = () => {
 
                           const excel = new Excel();
                           const sheet = excel.addSheet('Sheet1');
-                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
-                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
-                          sheet.setRowHeight(0.8, 'cm')
+                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                          sheet.setRowHeight(0.8, 'cm');
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
                             { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
                           ]);
-                          sheet.drawCell(10, 0, '')
+                          sheet.drawCell(10, 0, '');
                           sheet.addRow();
                           sheet.addColumns([
                             { title: 'Tìm kiếm:', dataIndex: '' },
@@ -1282,10 +1288,11 @@ const Page = () => {
                             { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'type')
-                                ? `${statusCategory.find((item) => {
-                                  return item.value === getFilter(inventoryOrders.queryParams, 'type');
-                                })?.label
-                                }`
+                                ? `${
+                                    statusCategory.find((item) => {
+                                      return item.value === getFilter(inventoryOrders.queryParams, 'type');
+                                    })?.label
+                                  }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1294,10 +1301,11 @@ const Page = () => {
                             { title: 'Chọn cửa hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'idStore')
-                                ? `${inven?.find((item) => {
-                                  return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
-                                })?.name
-                                }`
+                                ? `${
+                                    inven?.find((item) => {
+                                      return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
+                                    })?.name
+                                  }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1309,8 +1317,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format(
-                                  'MM/DD/YYYY',
-                                )
+                                    'MM/DD/YYYY',
+                                  )
                                 : '',
                               dataIndex: '',
                             },
@@ -1320,8 +1328,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format(
-                                  'MM/DD/YYYY',
-                                )
+                                    'MM/DD/YYYY',
+                                  )
                                 : '',
                               dataIndex: '',
                             },
@@ -1515,9 +1523,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                       },
@@ -1564,9 +1572,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1751,10 +1759,11 @@ const Page = () => {
                           sorter: true,
                           render: (value: any, item: any) =>
                             JSON.parse(inventoryProduct.queryParams || '{}').page != 1
-                              ? `${JSON.parse(inventoryProduct.queryParams || '{}').page *
-                              JSON.parse(inventoryProduct.queryParams || '{}').perPage +
-                              stt2++
-                              }`
+                              ? `${
+                                  JSON.parse(inventoryProduct.queryParams || '{}').page *
+                                    JSON.parse(inventoryProduct.queryParams || '{}').perPage +
+                                  stt2++
+                                }`
                               : `${stt2++}`,
                         },
                       },
@@ -1842,15 +1851,15 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
-                        sheet.setRowHeight(0.8, 'cm')
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                        sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO SẢN PHẨM', dataIndex: '' },
                         ]);
-                        sheet.drawCell(10, 0, '')
+                        sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Tìm kiếm:', dataIndex: '' },
@@ -1863,10 +1872,11 @@ const Page = () => {
                           { title: 'Chọn trạng thái:', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'status')
-                              ? `${statusRevenue.find((item) => {
-                                return item.value === getFilter(inventoryProduct.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  statusRevenue.find((item) => {
+                                    return item.value === getFilter(inventoryProduct.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1877,10 +1887,11 @@ const Page = () => {
                           { title: 'Danh mục chính', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId1')
-                              ? `${categoryFacade.result?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1888,10 +1899,11 @@ const Page = () => {
                           { title: 'Danh mục cấp 1', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId2')
-                              ? `${categoryFacade.result2?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result2?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1899,10 +1911,11 @@ const Page = () => {
                           { title: 'Danh mục cấp 2', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId3')
-                              ? `${categoryFacade.result3?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result3?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1977,10 +1990,11 @@ const Page = () => {
                           width: 110,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
-                              JSON.parse(discountFacade.queryParams || '{}').perPage +
-                              stt++
-                              }`
+                              ? `${
+                                  JSON.parse(discountFacade.queryParams || '{}').page *
+                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                  stt++
+                                }`
                               : `${stt++}`,
                         },
                       },
@@ -2081,9 +2095,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -2121,9 +2135,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -2208,14 +2222,14 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
-                        sheet.setRowHeight(0.8, 'cm')
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                        sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
                         ]);
-                        sheet.drawCell(10, 0, '')
+                        sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Kỳ hạn từ', dataIndex: '' },
@@ -2240,10 +2254,11 @@ const Page = () => {
                           { title: 'Chọn trạng thái', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'status')
-                              ? `${listStatusDiscount.find((item) => {
-                                return item.value === getFilter(discountFacade.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  listStatusDiscount.find((item) => {
+                                    return item.value === getFilter(discountFacade.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -2519,10 +2534,11 @@ const Page = () => {
                                   render: (form, values) => {
                                     return (
                                       <Upload
-                                        //fileList={listFile}
+                                      // fileList={listFile}
+
                                         onChange={({ file, fileList }) => {
                                           if (file.status == 'uploading') {
-                                            file.status = 'done'
+                                            file.status = 'done';
                                           }
                                           //setListFile(fileList)
                                         }}
@@ -2534,23 +2550,26 @@ const Page = () => {
                                         name="files"
                                         action="/util/upload"
                                         customRequest={(options) => {
-                                          const { file } = options
+                                          const { file } = options;
                                           const formData = new FormData();
                                           formData.append('files', file);
+                                          formData.append('type', 'SUPPLIER')
                                           const data = API.responsible<any>(
-                                            "/util/upload",
+                                            '/util/upload',
                                             {},
                                             {
                                               ...API.init(),
                                               method: 'post',
                                               body: formData,
                                               headers: {
-                                                authorization: 'Bearer ' + (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
+                                                authorization:
+                                                  'Bearer ' +
+                                                  (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
                                                 'Accept-Language': localStorage.getItem('i18nextLng') || '',
                                               },
                                             },
                                           );
-                                          setUpload(formData)
+                                          setUpload(formData);
                                         }}
                                       >
                                         <div className="bg-white -my-4">
@@ -2630,50 +2649,28 @@ const Page = () => {
                                                   </div>
                                                 </div>
                                               </div>
-                                              : item.fileName.endsWith('.pdf') ?
-                                                <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
-                                                  <a href={item.url} className='mr-3'>
-                                                    <img src={'http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'}
-                                                      alt={item.fileName}
-                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                                  </a>
-                                                  <div className='w-full sm:w-2/5'>
-                                                    <h1 className=' truncate'>{item.fileName}</h1>
-                                                    <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
+                                              :
+                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
+                                                <a href={item.url} className='mr-3'>
+                                                  <img src={item.url}
+                                                    alt={item.fileName}
+                                                    className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                </a>
+                                                <div className='w-full sm:w-2/5'>
+                                                  <h1 className=' truncate'>{item.fileName}</h1>
+                                                  <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
+                                                </div>
+                                                <div className='flex items-center gap-2 ml-auto z-[999]'>
+                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                    <Trash className='w-5 h-5'
+                                                      onClick={() => deleteSub({ id: item.id })} />
                                                   </div>
-                                                  <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Trash className='w-5 h-5'
-                                                        onClick={() => deleteSub({ id: item.id })} />
-                                                    </div>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Download className='w-5 h-5'
-                                                        onClick={() => downloadSub({ id: item.id, url: item.url })} />
-                                                    </div>
+                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                    <Download className='w-5 h-5'
+                                                      onClick={() => downloadSub({ id: item.id, url: item.url })} />
                                                   </div>
                                                 </div>
-                                                :
-                                                <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
-                                                  <a href={item.url} className='mr-3'>
-                                                    <img src={item.url}
-                                                      alt={item.fileName}
-                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                                  </a>
-                                                  <div className='w-full sm:w-2/5'>
-                                                    <h1 className=' truncate'>{item.fileName}</h1>
-                                                    <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                                  </div>
-                                                  <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Trash className='w-5 h-5'
-                                                        onClick={() => deleteSub({ id: item.id })} />
-                                                    </div>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Download className='w-5 h-5'
-                                                        onClick={() => downloadSub({ id: item.id, url: item.url })} />
-                                                    </div>
-                                                  </div>
-                                                </div>
+                                              </div>
                                         }
                                       </div>
                                     </div>
@@ -2683,7 +2680,7 @@ const Page = () => {
                                   <Button className='!bg-red-500 mt-4'
                                     text={'Tải tệp hợp đồng'}
                                     icon={<Download className='w-5 h-5' />}
-                                    onClick={() => handleSubmitZip(values)}
+                                    onClick={() => downloadSubZip({ id: data1?.filePhoto?.id, url: data1?.filePhoto?.url })}
                                   />
                                 </div>
                               </div>

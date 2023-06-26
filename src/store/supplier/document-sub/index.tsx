@@ -23,15 +23,17 @@ const action = {
     },
   ),
   putSub: createAsyncThunk(name + '/putSub', async ({ id }: Documentsub) => {
-    const status = 'SIGNED_CONTRACT'
-    const { statusCode, message } = await API.put<Documentsub>(`${routerLinks(name, 'api')}/${id}`, { status: "SIGNED_CONTRACT" });
+    const status = 'SIGNED_CONTRACT';
+    const { statusCode, message } = await API.put<Documentsub>(`${routerLinks(name, 'api')}/${id}`, {
+      status: 'SIGNED_CONTRACT',
+    });
     if (message) await Message.success({ text: message });
     return statusCode;
   }),
 
   uploadSub: createAsyncThunk(name + '/uploadSub', async (values: any) => {
     const { statusCode, message } = await API.responsible<any>(
-      "/file-doc-contract",
+      '/file-doc-contract',
       {},
       {
         ...API.init(),
@@ -54,7 +56,6 @@ const action = {
   }),
 
   downloadSub: createAsyncThunk(name + '/downloadSub', async ({ url }: Documentsub) => {
-
     let extension;
     let filename;
 
@@ -139,83 +140,85 @@ const action = {
 
 };
 
-export const documentsubSlice = createSlice(new Slice<Documentsub>(action, { result: {} }, (builder) =>
-  builder
-    .addCase(
-      action.putSub.pending,
-      (
-        state: State<Documentsub>,
-        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
-      ) => {
-        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-        state.queryParams = JSON.stringify(action.meta.arg);
-        state.isLoading = true;
-        state.status = 'putSub.pending';
-      },
-    )
+export const documentsubSlice = createSlice(
+  new Slice<Documentsub>(action, { result: {} }, (builder) =>
+    builder
+      .addCase(
+        action.putSub.pending,
+        (
+          state: State<Documentsub>,
+          action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+          state.queryParams = JSON.stringify(action.meta.arg);
+          state.isLoading = true;
+          state.status = 'putSub.pending';
+        },
+      )
 
-    .addCase(action.putSub.fulfilled, (state: State<Documentsub>, action: any) => {
-      if (action.payload) {
-        state.result = action.payload;
-        state.status = 'putSub.fulfilled';
-        console.log(state.status)
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
-    .addCase(action.putSub.rejected, (state: State) => {
-      state.status = 'putSub.rejected';
-      state.isLoading = false;
-    })
+      .addCase(action.putSub.fulfilled, (state: State<Documentsub>, action: any) => {
+        if (action.payload) {
+          state.result = action.payload;
+          state.status = 'putSub.fulfilled';
+          console.log(state.status);
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
+      .addCase(action.putSub.rejected, (state: State) => {
+        state.status = 'putSub.rejected';
+        state.isLoading = false;
+      })
 
-    .addCase(
-      action.uploadSub.pending,
-      (
-        state: State<Documentsub>,
-        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
-      ) => {
-        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-        state.queryParams = JSON.stringify(action.meta.arg);
-        state.isLoading = true;
-        state.status = 'uploadSub.pending';
-      },
-    )
+      .addCase(
+        action.uploadSub.pending,
+        (
+          state: State<Documentsub>,
+          action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+          state.queryParams = JSON.stringify(action.meta.arg);
+          state.isLoading = true;
+          state.status = 'uploadSub.pending';
+        },
+      )
 
-    .addCase(action.uploadSub.fulfilled, (state: State<Documentsub>, action: any) => {
-      if (action.payload) {
-        state.result = action.payload;
-        state.status = 'uploadSub.fulfilled';
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
-    .addCase(action.uploadSub.rejected, (state: State) => {
-      state.status = 'uploadSub.rejected';
-      state.isLoading = false;
-    })
-    .addCase(
-      action.deleteSub.pending,
-      (
-        state: State<Documentsub>,
-        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
-      ) => {
-        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-        state.queryParams = JSON.stringify(action.meta.arg);
-        state.isLoading = true;
-        state.status = 'deleteSub.pending';
-      },
-    )
+      .addCase(action.uploadSub.fulfilled, (state: State<Documentsub>, action: any) => {
+        if (action.payload) {
+          state.result = action.payload;
+          state.status = 'uploadSub.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
+      .addCase(action.uploadSub.rejected, (state: State) => {
+        state.status = 'uploadSub.rejected';
+        state.isLoading = false;
+      })
+      .addCase(
+        action.deleteSub.pending,
+        (
+          state: State<Documentsub>,
+          action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+          state.queryParams = JSON.stringify(action.meta.arg);
+          state.isLoading = true;
+          state.status = 'deleteSub.pending';
+        },
+      )
 
-    .addCase(action.deleteSub.fulfilled, (state: State<Documentsub>, action: any) => {
-      if (action.payload) {
-        state.result = action.payload;
-        state.status = 'deleteSub.fulfilled';
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
-    .addCase(action.deleteSub.rejected, (state: State) => {
-      state.status = 'deleteSub.rejected';
-      state.isLoading = false;
-    })
-));
+      .addCase(action.deleteSub.fulfilled, (state: State<Documentsub>, action: any) => {
+        if (action.payload) {
+          state.result = action.payload;
+          state.status = 'deleteSub.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
+      .addCase(action.deleteSub.rejected, (state: State) => {
+        state.status = 'deleteSub.rejected';
+        state.isLoading = false;
+      }),
+  ),
+);
 
 export const DocumentsubFacade = () => {
   const dispatch = useAppDispatch();
@@ -244,7 +247,8 @@ export class Documentsub extends CommonEntity {
     public url?: string,
     public urls?: string,
     public filePhoto?: string,
-    public totalCommissionSupplier?: number) {
+    public totalCommissionSupplier?: number,
+  ) {
     super();
   }
 }
