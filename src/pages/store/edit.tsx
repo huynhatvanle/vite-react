@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form as AntForm, Select, Switch, Tabs, Dropdown } from 'antd';
+import { Form as AntForm, Select, Switch, Tabs, Dropdown, Tooltip } from 'antd';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -9,7 +9,7 @@ import { TableRefObject } from '@models';
 import { Form } from '@core/form';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-import { Arrow, Download, Plus } from '@svgs';
+import { Arrow, Download, Infor, Plus } from '@svgs';
 import { getFilter, language, languages, routerLinks } from '@utils';
 import {
   DistrictFacade,
@@ -952,7 +952,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 '}
                   onClick={() => {
                     handleBack();
                   }}
@@ -994,14 +994,26 @@ const Page = () => {
                     title: 'store.Address',
                     name: 'address',
                     tableItem: {
-                      render: (value: any, item: any) =>
-                        item.address?.street +
+                      render: (value: any, item: any) => {
+                        const address = item.address?.street +
                         ', ' +
                         item.address?.wardName +
                         ', ' +
                         item.address?.districtName +
                         ', ' +
-                        item.address?.provinceName,
+                        item.address?.provinceName
+                        return (
+                          <div className='flex'>
+                            {address}
+                            {address.length >= 60 ?
+                            <Tooltip title={address} className='text-black' >
+                              <Infor className='w-4 h-4 mt-1 ml-1'/>
+                            </Tooltip>
+                            : null
+                            }
+                          </div>
+                      )
+                     }
                     },
                   },
                   {
@@ -1052,7 +1064,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 '}
                   onClick={() => {
                     handleBack();
                   }}
@@ -1138,14 +1150,26 @@ const Page = () => {
                           title: 'store.Address',
                           name: 'supplier',
                           tableItem: {
-                            render: (value: any, item: any) =>
-                              item.supplier.address?.street +
+                            render: (value: any, item: any) => {
+                              const address = item.supplier.address?.street +
                               ', ' +
                               item.supplier.address?.ward.name +
                               ', ' +
                               item.supplier.address?.district.name +
                               ', ' +
-                              item.supplier.address?.province.name,
+                              item.supplier.address?.province.name
+                              return (
+                                <div className='flex'>
+                                  {address}
+                                  {address.length >= 60 ?
+                                  <Tooltip title={address} className='text-black' >
+                                    <Infor className='w-4 h-4 mt-1 ml-1'/>
+                                  </Tooltip>
+                                  : null
+                                  }
+                                </div>
+                            )
+                           }
                           },
                         },
                         {
@@ -1236,7 +1260,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 '}
                   onClick={() => {
                     handleBack();
                   }}
@@ -1914,7 +1938,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 '}
                   onClick={() => {
                     handleBack();
                   }}
@@ -2096,7 +2120,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 '}
                   onClick={() => {
                     handleBack();
                   }}

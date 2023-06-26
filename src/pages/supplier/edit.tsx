@@ -22,11 +22,10 @@ import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
-import { Down, DownArrow, DownLoad, Download, Trash, UploadFile, UploadIcon } from '@svgs';
-import { Form as AntForm, Dropdown, Select, Tabs, UploadFile } from 'antd';
+import { Down, DownArrow, DownLoad, Download, Trash, UploadIcon } from '@svgs';
+import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
-//import { Upload } from '@core/upload';
 import { Excel } from 'antd-table-saveas-excel';
 
 const Page = () => {
@@ -125,16 +124,12 @@ const Page = () => {
         };
       case 'uploadSub.fulfilled':
         setUpload(undefined);
+        setA([]);
         if (id) documentsub.get({ id });
         return () => {
           isReload.current && documentsub.get({ id });
         };
       case 'deleteSub.fulfilled':
-        if (id) documentsub.get({ id });
-        return () => {
-          isReload.current && documentsub.get({ id });
-        };
-      case 'uploadSub.fulfilled':
         if (id) documentsub.get({ id });
         return () => {
           isReload.current && documentsub.get({ id });
@@ -278,6 +273,9 @@ const Page = () => {
     data1?.filePhoto?.map((item: any) => urls.push(item.url));
     documentsub.downloadSubZip({ urls });
   };
+
+  const [a, setA] = useState<UploadFile[]>();
+  useEffect(() => {}, []);
 
   return (
     <div className={'w-full'}>
@@ -2521,7 +2519,6 @@ const Page = () => {
                                           if (file.status == 'uploading') {
                                             file.status = 'done';
                                           }
-                                          //setListFile(fileList)
                                         }}
                                         style={{ border: 'none' }}
                                         listType="picture"
@@ -2553,7 +2550,7 @@ const Page = () => {
                                           setUpload(formData);
                                         }}
                                       >
-                                        <div className="bg-white -my-4">
+                                        <div className="bg-white -my-4 w-2/3 sm:w-auto">
                                           <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
                                           <p className="mb-4">
                                             {t('supplier.Contract.Upload file')} <br />
@@ -2582,21 +2579,23 @@ const Page = () => {
                               <div>
                                 <div className="flex flex-col items-center gap-2">
                                   {item.fileName.endsWith('.xlsx') || item.fileName.endsWith('.xls') ? (
-                                    <div className="flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative">
+                                    <div className="flex items-center justify-between mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative">
                                       <a href={item.url} className="mr-5">
                                         <img
                                           src={
                                             'http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'
                                           }
                                           alt={item.fileName}
-                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                          className="w-12 h-12 aspect-square object-cover"
                                         ></img>
                                       </a>
-                                      <div>
-                                        <h1>{item.fileName}</h1>
+                                      <div className="absolute left-16 w-full">
+                                        <h1 className="font-bold text-ellipsis overflow-hidden whitespace-nowrap w-1/2">
+                                          {item.fileName}
+                                        </h1>
                                         <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
                                       </div>
-                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                      <div className="flex items-center gap-2 ml-auto z-50">
                                         <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
                                           <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
                                         </div>
@@ -2609,21 +2608,23 @@ const Page = () => {
                                       </div>
                                     </div>
                                   ) : item.fileName.endsWith('.doc') || item.fileName.endsWith('.docx') ? (
-                                    <div className="flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative">
-                                      <a href={item.url} className="mr-3">
+                                    <div className="flex items-center justify-between mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative">
+                                      <a href={item.url} className="mr-5">
                                         <img
                                           src={
                                             'http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'
                                           }
                                           alt={item.fileName}
-                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                          className="w-12 h-12 aspect-square object-cover"
                                         ></img>
                                       </a>
-                                      <div>
-                                        <h1>{item.fileName}</h1>
+                                      <div className="absolute left-16 w-full">
+                                        <h1 className="font-bold text-ellipsis overflow-hidden whitespace-nowrap w-1/2">
+                                          {item.fileName}
+                                        </h1>
                                         <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
                                       </div>
-                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                      <div className="flex items-center gap-2 ml-auto z-50">
                                         <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
                                           <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
                                         </div>
@@ -2636,21 +2637,23 @@ const Page = () => {
                                       </div>
                                     </div>
                                   ) : item.fileName.endsWith('.pdf') ? (
-                                    <div className="flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative">
-                                      <a href={item.url} className="mr-3">
+                                    <div className="flex items-center justify-between mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative">
+                                      <a href={item.url} className="mr-5">
                                         <img
                                           src={
                                             'http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'
                                           }
                                           alt={item.fileName}
-                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                          className="w-12 h-12 aspect-square object-cover"
                                         ></img>
                                       </a>
-                                      <div className="w-full sm:w-2/5">
-                                        <h1 className=" truncate">{item.fileName}</h1>
+                                      <div className="absolute left-16 w-full">
+                                        <h1 className="font-bold text-ellipsis overflow-hidden whitespace-nowrap w-1/2">
+                                          {item.fileName}
+                                        </h1>
                                         <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
                                       </div>
-                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                      <div className="flex items-center gap-2 ml-auto z-50">
                                         <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
                                           <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
                                         </div>
@@ -2664,18 +2667,20 @@ const Page = () => {
                                     </div>
                                   ) : (
                                     <div className="flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative">
-                                      <a href={item.url} className="mr-3">
+                                      <a href={item.url} className="mr-5">
                                         <img
                                           src={item.url}
                                           alt={item.fileName}
-                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                          className="w-12 h-12 aspect-square object-cover"
                                         ></img>
                                       </a>
-                                      <div className="w-full sm:w-2/5">
-                                        <h1 className=" truncate">{item.fileName}</h1>
+                                      <div className="absolute left-16 w-full">
+                                        <h1 className="font-bold text-ellipsis overflow-hidden whitespace-nowrap w-[50%]">
+                                          {item.fileName}
+                                        </h1>
                                         <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
                                       </div>
-                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                      <div className="flex items-center gap-2 ml-auto z-50">
                                         <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
                                           <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
                                         </div>
