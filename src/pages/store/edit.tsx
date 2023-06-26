@@ -42,7 +42,7 @@ const Page = () => {
   const categoryFacade = CategoryFacade()
   const supplierStoreFacade = SupplierStoreFacade()
 
-  const isBack = useRef(true);
+  // const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
@@ -1678,7 +1678,7 @@ const Page = () => {
                           disableSubmit={isLoading}
                         />
                         <Form
-                          className='intro-x rounded-lg w-full sm:flex justify-between form-store ml-2 mb-2 '
+                          className='intro-x rounded-lg w-full sm:flex justify-between form-store mb-2 '
                           values={{
                             dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
                             dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
