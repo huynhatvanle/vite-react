@@ -67,7 +67,7 @@ const Page = () => {
   const [test, setTest] = useState(false);
 
   const [forms] = AntForm.useForm();
-  const [listFile, setListFile] = useState<UploadFile[]>()
+  const [listFile, setListFile] = useState<UploadFile[]>();
 
   useEffect(() => {
     if (id) {
@@ -124,12 +124,17 @@ const Page = () => {
           isReload.current && documentsub.get({ id });
         };
       case 'uploadSub.fulfilled':
-        setUpload(undefined)
+        setUpload(undefined);
         if (id) documentsub.get({ id });
         return () => {
           isReload.current && documentsub.get({ id });
         };
       case 'deleteSub.fulfilled':
+        if (id) documentsub.get({ id });
+        return () => {
+          isReload.current && documentsub.get({ id });
+        };
+      case 'uploadSub.fulfilled':
         if (id) documentsub.get({ id });
         return () => {
           isReload.current && documentsub.get({ id });
@@ -262,10 +267,18 @@ const Page = () => {
   const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
     const docSubOrgId = values.id;
-    values.upload.append('subOrgId', subOrgId)
-    values.upload.append('docSubOrgId', docSubOrgId)
+    values.upload.append('subOrgId', subOrgId);
+    values.upload.append('docSubOrgId', docSubOrgId);
     // const files = forms.getFieldValue('uploadFile');
     documentsub.uploadSub(values.upload);
+  };
+
+  const handleSubmitZip = (values: any) => {
+    let urls: string[] = [];
+    data1?.filePhoto?.map((item: any) => (
+      urls.push(item.url)
+    ));
+    documentsub.downloadSubZip({ urls });
   };
 
   return (
@@ -676,16 +689,20 @@ const Page = () => {
                                 });
                                 const excel = new Excel();
                                 const sheet = excel.addSheet('Sheet1');
-                                sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
-                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
-                                sheet.setRowHeight(0.8, 'cm')
+                                sheet.setTHeadStyle({
+                                  background: 'FFFFFFFF',
+                                  borderColor: 'C0C0C0C0',
+                                  wrapText: false,
+                                });
+                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                                sheet.setRowHeight(0.8, 'cm');
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
                                 ]);
-                                sheet.drawCell(10, 0, '')
+                                sheet.drawCell(10, 0, '');
                                 sheet.addRow();
                                 sheet.addColumns([
                                   { title: 'Danh mục chính', dataIndex: '' },
@@ -728,9 +745,8 @@ const Page = () => {
                                   .addDataSource(dataProduct ?? [], {
                                     str2Percent: true,
                                   })
-                                  .saveAs(t('product.List'))
-                              }
-                              }
+                                  .saveAs(t('product.List'));
+                              }}
                             />
                           }
                         </div>
@@ -1247,15 +1263,15 @@ const Page = () => {
 
                           const excel = new Excel();
                           const sheet = excel.addSheet('Sheet1');
-                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
-                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
-                          sheet.setRowHeight(0.8, 'cm')
+                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                          sheet.setRowHeight(0.8, 'cm');
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
                             { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
                           ]);
-                          sheet.drawCell(10, 0, '')
+                          sheet.drawCell(10, 0, '');
                           sheet.addRow();
                           sheet.addColumns([
                             { title: 'Tìm kiếm:', dataIndex: '' },
@@ -1828,15 +1844,15 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
-                        sheet.setRowHeight(0.8, 'cm')
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                        sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO SẢN PHẨM', dataIndex: '' },
                         ]);
-                        sheet.drawCell(10, 0, '')
+                        sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Tìm kiếm:', dataIndex: '' },
@@ -2194,14 +2210,14 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
-                        sheet.setRowHeight(0.8, 'cm')
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                        sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
                         ]);
-                        sheet.drawCell(10, 0, '')
+                        sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Kỳ hạn từ', dataIndex: '' },
@@ -2507,11 +2523,9 @@ const Page = () => {
                                       <Upload
                                         onChange={({ file, fileList }) => {
                                           if (file.status == 'uploading') {
-                                            file.status = 'done'
+                                            file.status = 'done';
                                           }
-                                          if (file?.size! > 25600)
-                                            file.error
-                                          // setListFile(fileList)
+                                          //setListFile(fileList)
                                         }}
                                         style={{ border: 'none' }}
                                         listType="picture"
@@ -2521,25 +2535,26 @@ const Page = () => {
                                         name="files"
                                         action="/util/upload"
                                         customRequest={(options) => {
-                                          const { file } = options
+                                          const { file } = options;
                                           const formData = new FormData();
                                           formData.append('files', file);
                                           formData.append('type', 'SUPPLIER')
                                           const data = API.responsible<any>(
-                                            "/util/upload",
+                                            '/util/upload',
                                             {},
                                             {
                                               ...API.init(),
                                               method: 'post',
                                               body: formData,
                                               headers: {
-                                                authorization: 'Bearer ' + (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
+                                                authorization:
+                                                  'Bearer ' +
+                                                  (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
                                                 'Accept-Language': localStorage.getItem('i18nextLng') || '',
                                               },
                                             },
                                           );
-                                          console.log(data)
-                                          setUpload(formData)
+                                          setUpload(formData);
                                         }}
                                       >
                                         <div className="bg-white -my-4">
@@ -2619,28 +2634,50 @@ const Page = () => {
                                                   </div>
                                                 </div>
                                               </div>
-                                              :
-                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
-                                                <a href={item.url} className='mr-3'>
-                                                  <img src={item.url}
-                                                    alt={item.fileName}
-                                                    className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                                </a>
-                                                <div className='w-full sm:w-2/5'>
-                                                  <h1 className=' truncate'>{item.fileName}</h1>
-                                                  <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                                </div>
-                                                <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                    <Trash className='w-5 h-5'
-                                                      onClick={() => deleteSub({ id: item.id })} />
+                                              : item.fileName.endsWith('.pdf') ?
+                                                <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
+                                                  <a href={item.url} className='mr-3'>
+                                                    <img src={'http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'}
+                                                      alt={item.fileName}
+                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                  </a>
+                                                  <div className='w-full sm:w-2/5'>
+                                                    <h1 className=' truncate'>{item.fileName}</h1>
+                                                    <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
                                                   </div>
-                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                    <Download className='w-5 h-5'
-                                                      onClick={() => downloadSub({ id: item.id, url: item.url })} />
+                                                  <div className='flex items-center gap-2 ml-auto z-[999]'>
+                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                      <Trash className='w-5 h-5'
+                                                        onClick={() => deleteSub({ id: item.id })} />
+                                                    </div>
+                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                      <Download className='w-5 h-5'
+                                                        onClick={() => downloadSub({ id: item.id, url: item.url })} />
+                                                    </div>
                                                   </div>
                                                 </div>
-                                              </div>
+                                                :
+                                                <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
+                                                  <a href={item.url} className='mr-3'>
+                                                    <img src={item.url}
+                                                      alt={item.fileName}
+                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                  </a>
+                                                  <div className='w-full sm:w-2/5'>
+                                                    <h1 className=' truncate'>{item.fileName}</h1>
+                                                    <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
+                                                  </div>
+                                                  <div className='flex items-center gap-2 ml-auto z-[999]'>
+                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                      <Trash className='w-5 h-5'
+                                                        onClick={() => deleteSub({ id: item.id })} />
+                                                    </div>
+                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                      <Download className='w-5 h-5'
+                                                        onClick={() => downloadSub({ id: item.id, url: item.url })} />
+                                                    </div>
+                                                  </div>
+                                                </div>
                                         }
                                       </div>
                                     </div>
@@ -2650,7 +2687,7 @@ const Page = () => {
                                   <Button className='!bg-red-500 mt-4'
                                     text={'Tải tệp hợp đồng'}
                                     icon={<Download className='w-5 h-5' />}
-                                    onClick={() => downloadSubZip({ id: data1?.filePhoto?.id, url: data1?.filePhoto?.url })}
+                                    onClick={() => handleSubmitZip(values)}
                                   />
                                 </div>
                               </div>

@@ -383,7 +383,7 @@ const Page = () => {
           </div>
           <DataTable
             // ref={dataTableRefDiscount}
-            facade={data}
+            data={productFacade.data?.productPrice}
             xScroll="1370px"
             pageSizeRender={(sizePage: number) => sizePage}
             pageSizeWidth={'50px'}
@@ -393,7 +393,7 @@ const Page = () => {
             columns={[
               {
                 title: `supplier.Order.STT`,
-                name: 'barcode',
+                name: 'id',
                 tableItem: {
                   width: 110,
                   // render: (value: any, item: any) => item?.id && console.log(item),
