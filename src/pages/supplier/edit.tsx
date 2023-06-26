@@ -22,11 +22,10 @@ import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
-import { Down, DownArrow, Download, Trash, UploadIcon } from '@svgs';
-import { Form as AntForm, Dropdown, Select, Tabs, UploadFile } from 'antd';
+import { DownArrow, Download, Trash, UploadIcon } from '@svgs';
+import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
-//import { Upload } from '@core/upload';
 import { Excel } from 'antd-table-saveas-excel';
 
 const Page = () => {
@@ -130,11 +129,6 @@ const Page = () => {
           isReload.current && documentsub.get({ id });
         };
       case 'deleteSub.fulfilled':
-        if (id) documentsub.get({ id });
-        return () => {
-          isReload.current && documentsub.get({ id });
-        };
-      case 'uploadSub.fulfilled':
         if (id) documentsub.get({ id });
         return () => {
           isReload.current && documentsub.get({ id });
@@ -708,11 +702,10 @@ const Page = () => {
                                   { title: 'Danh mục chính', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId1')
-                                      ? `${
-                                          categoryFacade.result?.data?.find((item) => {
-                                            return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-                                          })?.name
-                                        }`
+                                      ? `${categoryFacade.result?.data?.find((item) => {
+                                        return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                      })?.name
+                                      }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -720,11 +713,10 @@ const Page = () => {
                                   { title: 'Danh mục cấp 1', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId2')
-                                      ? `${
-                                          categoryFacade.result2?.data?.find((item) => {
-                                            return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-                                          })?.name
-                                        }`
+                                      ? `${categoryFacade.result2?.data?.find((item) => {
+                                        return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                      })?.name
+                                      }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -732,11 +724,10 @@ const Page = () => {
                                   { title: 'Danh mục cấp 2', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId3')
-                                      ? `${
-                                          categoryFacade.result3?.data?.find((item) => {
-                                            return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-                                          })?.name
-                                        }`
+                                      ? `${categoryFacade.result3?.data?.find((item) => {
+                                        return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                      })?.name
+                                      }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -1067,9 +1058,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -1108,9 +1099,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1136,11 +1127,10 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(inventoryOrders.queryParams || '{}').page != 1
-                                ? `${
-                                    JSON.parse(inventoryOrders.queryParams || '{}').page *
-                                      JSON.parse(inventoryOrders.queryParams || '{}').perPage +
-                                    stt1++
-                                  }`
+                                ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                JSON.parse(inventoryOrders.queryParams || '{}').perPage +
+                                stt1++
+                                }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1288,11 +1278,10 @@ const Page = () => {
                             { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'type')
-                                ? `${
-                                    statusCategory.find((item) => {
-                                      return item.value === getFilter(inventoryOrders.queryParams, 'type');
-                                    })?.label
-                                  }`
+                                ? `${statusCategory.find((item) => {
+                                  return item.value === getFilter(inventoryOrders.queryParams, 'type');
+                                })?.label
+                                }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1301,11 +1290,10 @@ const Page = () => {
                             { title: 'Chọn cửa hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'idStore')
-                                ? `${
-                                    inven?.find((item) => {
-                                      return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
-                                    })?.name
-                                  }`
+                                ? `${inven?.find((item) => {
+                                  return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
+                                })?.name
+                                }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1317,8 +1305,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format(
-                                    'MM/DD/YYYY',
-                                  )
+                                  'MM/DD/YYYY',
+                                )
                                 : '',
                               dataIndex: '',
                             },
@@ -1328,8 +1316,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format(
-                                    'MM/DD/YYYY',
-                                  )
+                                  'MM/DD/YYYY',
+                                )
                                 : '',
                               dataIndex: '',
                             },
@@ -1523,9 +1511,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                       },
@@ -1572,9 +1560,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1759,11 +1747,10 @@ const Page = () => {
                           sorter: true,
                           render: (value: any, item: any) =>
                             JSON.parse(inventoryProduct.queryParams || '{}').page != 1
-                              ? `${
-                                  JSON.parse(inventoryProduct.queryParams || '{}').page *
-                                    JSON.parse(inventoryProduct.queryParams || '{}').perPage +
-                                  stt2++
-                                }`
+                              ? `${JSON.parse(inventoryProduct.queryParams || '{}').page *
+                              JSON.parse(inventoryProduct.queryParams || '{}').perPage +
+                              stt2++
+                              }`
                               : `${stt2++}`,
                         },
                       },
@@ -1872,11 +1859,10 @@ const Page = () => {
                           { title: 'Chọn trạng thái:', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'status')
-                              ? `${
-                                  statusRevenue.find((item) => {
-                                    return item.value === getFilter(inventoryProduct.queryParams, 'status');
-                                  })?.label
-                                }`
+                              ? `${statusRevenue.find((item) => {
+                                return item.value === getFilter(inventoryProduct.queryParams, 'status');
+                              })?.label
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -1887,11 +1873,10 @@ const Page = () => {
                           { title: 'Danh mục chính', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId1')
-                              ? `${
-                                  categoryFacade.result?.data?.find((item) => {
-                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
-                                  })?.name
-                                }`
+                              ? `${categoryFacade.result?.data?.find((item) => {
+                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -1899,11 +1884,10 @@ const Page = () => {
                           { title: 'Danh mục cấp 1', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId2')
-                              ? `${
-                                  categoryFacade.result2?.data?.find((item) => {
-                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
-                                  })?.name
-                                }`
+                              ? `${categoryFacade.result2?.data?.find((item) => {
+                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -1911,11 +1895,10 @@ const Page = () => {
                           { title: 'Danh mục cấp 2', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId3')
-                              ? `${
-                                  categoryFacade.result3?.data?.find((item) => {
-                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
-                                  })?.name
-                                }`
+                              ? `${categoryFacade.result3?.data?.find((item) => {
+                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -1990,11 +1973,10 @@ const Page = () => {
                           width: 110,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${
-                                  JSON.parse(discountFacade.queryParams || '{}').page *
-                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
-                                  stt++
-                                }`
+                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
+                              JSON.parse(discountFacade.queryParams || '{}').perPage +
+                              stt++
+                              }`
                               : `${stt++}`,
                         },
                       },
@@ -2095,9 +2077,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -2135,9 +2117,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -2254,11 +2236,10 @@ const Page = () => {
                           { title: 'Chọn trạng thái', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'status')
-                              ? `${
-                                  listStatusDiscount.find((item) => {
-                                    return item.value === getFilter(discountFacade.queryParams, 'status');
-                                  })?.label
-                                }`
+                              ? `${listStatusDiscount.find((item) => {
+                                return item.value === getFilter(discountFacade.queryParams, 'status');
+                              })?.label
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -2534,7 +2515,7 @@ const Page = () => {
                                   render: (form, values) => {
                                     return (
                                       <Upload
-                                      // fileList={listFile}
+                                        // fileList={listFile}
 
                                         onChange={({ file, fileList }) => {
                                           if (file.status == 'uploading') {
@@ -2601,99 +2582,38 @@ const Page = () => {
                               <div>
                                 {
                                   data1?.filePhoto?.map((item: any) => (
-                                    <div>
-                                      <div className='flex flex-col items-center gap-2'>
-                                        {
-                                          item.fileName.endsWith('.xlsx') || item.fileName.endsWith('.xls')
-                                            ?
-                                            <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
-                                              <a href={item.url} className='mr-5'>
-                                                <img src={'http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'}
-                                                  alt={item.fileName}
-                                                  className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                              </a>
-                                              <div>
-                                                <h1>{item.fileName}</h1>
-                                                <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                              </div>
-                                              <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                  <Trash className='w-5 h-5'
-                                                    onClick={() => deleteSub({ id: item.id })} />
-                                                </div>
-                                                <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                  <Download className='w-5 h-5'
-                                                    onClick={() => downloadSub({ id: item.id, url: item.url })} />
-                                                </div>
-                                              </div>
+                                    <div className='flex flex-col items-center gap-2'>
+                                      <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
+                                        <a href={item.url} className='mr-5'>
+                                          <img src={item.fileName.endsWith('.xlsx') || item.fileName.endsWith('.xls') ?
+                                            'http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'
+                                            : item.fileName.endsWith('.doc') || item.fileName.endsWith('.docx') ? 'http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'
+                                              : item.fileName.endsWith('.pdf') ? 'http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'
+                                                : item.url}
+                                            alt={item.fileName}
+                                            className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                        </a>
+                                        <div>
+                                          <Tooltip title={item.fileName} className='text-black' >
+                                            <h1 className='font-medium'>{item.fileName}</h1>
+                                          </Tooltip>
+                                          <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
+                                        </div>
+                                        <div className='flex items-center gap-2 ml-auto z-[999]'>
+                                          <Tooltip title={'Xóa File'} className='text-black' >
+                                            <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                              <Trash className='w-5 h-5'
+                                                onClick={() => deleteSub({ id: item.id })} />
                                             </div>
-                                            : item.fileName.endsWith('.doc') || item.fileName.endsWith('.docx') ?
-                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
-                                                <a href={item.url} className='mr-3'>
-                                                  <img src={'http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'}
-                                                    alt={item.fileName}
-                                                    className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                                </a>
-                                                <div>
-                                                  <h1>{item.fileName}</h1>
-                                                  <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                                </div>
-                                                <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                    <Trash className='w-5 h-5'
-                                                      onClick={() => deleteSub({ id: item.id })} />
-                                                  </div>
-                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                    <Download className='w-5 h-5'
-                                                      onClick={() => downloadSub({ id: item.id, url: item.url })} />
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              : item.fileName.endsWith('.pdf') ?
-                                                <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
-                                                  <a href={item.url} className='mr-3'>
-                                                    <img src={'http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'}
-                                                      alt={item.fileName}
-                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                                  </a>
-                                                  <div className='w-full sm:w-2/5'>
-                                                    <h1 className=' truncate'>{item.fileName}</h1>
-                                                    <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                                  </div>
-                                                  <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Trash className='w-5 h-5'
-                                                        onClick={() => deleteSub({ id: item.id })} />
-                                                    </div>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Download className='w-5 h-5'
-                                                        onClick={() => downloadSub({ id: item.id, url: item.url })} />
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                :
-                                                <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
-                                                  <a href={item.url} className='mr-3'>
-                                                    <img src={item.url}
-                                                      alt={item.fileName}
-                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                                  </a>
-                                                  <div className='w-full sm:w-2/5'>
-                                                    <h1 className=' truncate'>{item.fileName}</h1>
-                                                    <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                                  </div>
-                                                  <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Trash className='w-5 h-5'
-                                                        onClick={() => deleteSub({ id: item.id })} />
-                                                    </div>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Download className='w-5 h-5'
-                                                        onClick={() => downloadSub({ id: item.id, url: item.url })} />
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                        }
+                                          </Tooltip>
+                                          <Tooltip title={'Tải File'} className='text-black' >
+                                            <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                              <Download className='w-5 h-5'
+                                                onClick={() => downloadSub({ id: item.id, url: item.url })} />
+                                            </div>
+                                          </Tooltip>
+
+                                        </div>
                                       </div>
                                     </div>
                                   ))
