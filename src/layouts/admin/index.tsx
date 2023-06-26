@@ -131,7 +131,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                   label: (
                     <div className="flex">
                       <Avatar src={user?.profileImage || ''} size={8} />
-                      <div className="text-left leading-none mr-3 hidden sm:block pl-2">
+                      <div className="text-left leading-none mr-3 block pl-2">
                         <div className="font-semibold text-black text-sm leading-snug mb-0.5">{user?.name}</div>
                         <div className="text-gray-500 text-[10px]">{user?.email}</div>
                       </div>
