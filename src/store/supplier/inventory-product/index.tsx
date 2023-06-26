@@ -10,7 +10,7 @@ const name = 'InventoryListProduct';
 const action = {
   ...new Action<InventoryListProduct>(name),
   getProduct: createAsyncThunk(
-    name + '/getProduct',
+    name + '/getInventoryListProduct',
     async ({
       page,
       perPage,
@@ -42,10 +42,10 @@ const action = {
           categoryId: filterProduct.categoryId3
             ? filterProduct.categoryId3
             : filterProduct.categoryId2
-            ? filterProduct.categoryId2
-            : filterProduct.categoryId1
-            ? filterProduct.categoryId1
-            : '',
+              ? filterProduct.categoryId2
+              : filterProduct.categoryId1
+                ? filterProduct.categoryId1
+                : '',
           idStore: filterProduct.idStore,
           status: filterProduct.status,
           categoryId1: filterProduct.categoryId1,
@@ -73,18 +73,18 @@ export const inventoryListProductSlice = createSlice(
           state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
           state.queryParams = JSON.stringify(action.meta.arg);
           state.isLoading = true;
-          state.status = 'getProduct.pending';
+          state.status = 'getInventoryListProduct.pending';
         },
       )
       .addCase(action.getProduct.fulfilled, (state: State<InventoryListProduct>, action: any) => {
         if (action.payload.data) {
           state.result = action.payload;
-          state.status = 'getProduct.fulfilled';
+          state.status = 'getInventoryListProduct.fulfilled';
         } else state.status = 'idle';
         state.isLoading = false;
       })
       .addCase(action.getProduct.rejected, (state: State) => {
-        state.status = 'getProduct.rejected';
+        state.status = 'getInventoryListProduct.rejected';
         state.isLoading = false;
       }),
   ),

@@ -30,30 +30,30 @@ export const Upload = ({
   const [listFiles, set_listFiles] = useState(
     multiple && value && typeof value === 'object'
       ? value.map((_item: any) => {
-          if (_item.status) return _item;
-          return {
-            ..._item,
-            status: 'done',
-          };
-        })
+        if (_item.status) return _item;
+        return {
+          ..._item,
+          status: 'done',
+        };
+      })
       : typeof value === 'string'
-      ? [{ [keyImage]: value }]
-      : value || [],
+        ? [{ [keyImage]: value }]
+        : value || [],
   );
 
   useEffect(() => {
     const tempData =
       !multiple && value && typeof value === 'object'
         ? value.map((_item: any) => {
-            if (_item.status) return _item;
-            return {
-              ..._item,
-              status: 'done',
-            };
-          })
+          if (_item.status) return _item;
+          return {
+            ..._item,
+            status: 'done',
+          };
+        })
         : typeof value === 'string'
-        ? [{ [keyImage]: value }]
-        : value || [];
+          ? [{ [keyImage]: value }]
+          : value || [];
     if (
       JSON.stringify(listFiles) !== JSON.stringify(tempData) &&
       listFiles.filter((item: any) => item.status === 'uploading').length === 0
@@ -134,11 +134,11 @@ export const Upload = ({
           if (data) {
             const files = multiple
               ? listFiles.map((item: any) => {
-                  if (item.id === dataFile.id) {
-                    item = { ...item, ...data, status: 'done' };
-                  }
-                  return item;
-                })
+                if (item.id === dataFile.id) {
+                  item = { ...item, ...data, status: 'done' };
+                }
+                return item;
+              })
               : [{ ...data, status: 'done' }];
             set_listFiles(files);
             onChange && (await onChange(files));
@@ -162,11 +162,11 @@ export const Upload = ({
             });
             const files = multiple
               ? listFiles.map((item: any) => {
-                  if (item.id === dataFile.id) {
-                    item = { ...item, ...data.data, status: 'done' };
-                  }
-                  return item;
-                })
+                if (item.id === dataFile.id) {
+                  item = { ...item, ...data.data, status: 'done' };
+                }
+                return item;
+              })
               : [{ ...data.data, status: 'done' }];
             set_listFiles(files);
             onChange && (await onChange(files));
@@ -183,8 +183,6 @@ export const Upload = ({
     }
     ref.current.value = '';
   };
-
-  console.log(listFiles);
 
   return (
     <Spin spinning={isLoading}>

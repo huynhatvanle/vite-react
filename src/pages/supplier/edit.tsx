@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import { Supplier, SupplierFacade } from '@store/supplier';
 import { DistrictFacade } from '@store/address/district';
 import { WardFacade } from '@store/address/ward';
-import { getFilter, language, languages, routerLinks } from '@utils';
+import { API, getFilter, language, languages, routerLinks } from '@utils';
 import {
   CategoryFacade,
   GlobalFacade,
@@ -23,7 +23,7 @@ import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
 import { Down, DownArrow, Download, Trash, UploadIcon } from '@svgs';
-import { Form as AntForm, Dropdown, Select, Tabs } from 'antd';
+import { Form as AntForm, Dropdown, Select, Tabs, UploadFile } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
 //import { Upload } from '@core/upload';
@@ -53,7 +53,7 @@ const Page = () => {
   const categoryFacade = CategoryFacade();
   const documentsub = DocumentsubFacade();
   const InventorySupplier = InventorySupplierFacade();
-  const { putSub, uploadSub } = documentsub;
+  const { putSub, uploadSub, deleteSub, downloadSub, downloadSubZip } = documentsub;
   // const inventorySupplier = InventorySupplierFacade();
   const [revenue, setRevenue] = useState(true);
   const [categoryId1, setCategoryId1] = useState('');
@@ -67,6 +67,7 @@ const Page = () => {
   const [test, setTest] = useState(false);
 
   const [forms] = AntForm.useForm();
+  const [listFile, setListFile] = useState<UploadFile[]>();
 
   useEffect(() => {
     if (id) {
@@ -122,7 +123,17 @@ const Page = () => {
         return () => {
           isReload.current && documentsub.get({ id });
         };
-        break;
+      case 'uploadSub.fulfilled':
+        setUpload(undefined);
+        if (id) documentsub.get({ id });
+        return () => {
+          isReload.current && documentsub.get({ id });
+        };
+      case 'deleteSub.fulfilled':
+        if (id) documentsub.get({ id });
+        return () => {
+          isReload.current && documentsub.get({ id });
+        };
     }
   }, [documentsub.result]);
 
@@ -247,13 +258,14 @@ const Page = () => {
   let stt1 = 1;
   let stt2 = 1;
   let i = 1;
-
-  const handleSubmitUpload = (values: Documentsub) => {
+  const [upload, setUpload] = useState<FormData>();
+  const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
-    const docSubOrgId = data1?.id;
-    const files = forms.getFieldValue('files');
-    console.log(files);
-    documentsub.uploadSub({ subOrgId, docSubOrgId, files });
+    const docSubOrgId = values.id;
+    values.upload.append('subOrgId', subOrgId);
+    values.upload.append('docSubOrgId', docSubOrgId);
+    // const files = forms.getFieldValue('uploadFile');
+    documentsub.uploadSub(values.upload);
   };
 
   return (
@@ -631,7 +643,7 @@ const Page = () => {
                           ]}
                           disableSubmit={isLoading}
                         />
-                        <div className={'h-10 w-36 mt-6 lg:flex '}>
+                        <div className={'h-10 w-36 mt-5 lg:flex '}>
                           {
                             <Button
                               className={
@@ -645,11 +657,6 @@ const Page = () => {
                               text={t('titles.Export Excel file')}
                               disabled={productFacade.result?.data?.length === 0 ? true : false}
                               onClick={() => {
-                                // productFacade.get({
-                                //   page: 1,
-                                //   perPage: 10,
-                                //   filter: { supplierId: id, type: 'BALANCE', isGetAll: true },
-                                // });
                                 setTest(true);
                                 const dataProduct = productFacade?.result?.data?.map((item) => {
                                   return {
@@ -673,15 +680,16 @@ const Page = () => {
                                   background: 'FFFFFFFF',
                                   borderColor: 'C0C0C0C0',
                                   wrapText: false,
-                                  width: 50,
                                 });
-                                sheet.setTBodyStyle({ wrapText: false, width: 50 });
+                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                                sheet.setRowHeight(0.8, 'cm');
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
                                 ]);
+                                sheet.drawCell(10, 0, '');
                                 sheet.addRow();
                                 sheet.addColumns([
                                   { title: 'Danh mục chính', dataIndex: '' },
@@ -722,7 +730,6 @@ const Page = () => {
                                   { title: '', dataIndex: '' },
                                 ]);
                                 sheet.addRow();
-                                sheet.currentCol;
                                 sheet
                                   .addColumns(columnproduct)
                                   .addDataSource(dataProduct ?? [], {
@@ -1247,18 +1254,15 @@ const Page = () => {
 
                           const excel = new Excel();
                           const sheet = excel.addSheet('Sheet1');
-                          sheet.setTHeadStyle({
-                            background: 'FFFFFFFF',
-                            borderColor: 'C0C0C0C0',
-                            wrapText: false,
-                            width: 50,
-                          });
-                          sheet.setTBodyStyle({ wrapText: false, width: 50 });
+                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                          sheet.setRowHeight(0.8, 'cm');
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
                             { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
                           ]);
+                          sheet.drawCell(10, 0, '');
                           sheet.addRow();
                           sheet.addColumns([
                             { title: 'Tìm kiếm:', dataIndex: '' },
@@ -1834,18 +1838,15 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({
-                          background: 'FFFFFFFF',
-                          borderColor: 'C0C0C0C0',
-                          wrapText: false,
-                          width: 50,
-                        });
-                        sheet.setTBodyStyle({ wrapText: false, width: 50 });
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                        sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO SẢN PHẨM', dataIndex: '' },
                         ]);
+                        sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Tìm kiếm:', dataIndex: '' },
@@ -2208,17 +2209,14 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({
-                          background: 'FFFFFFFF',
-                          borderColor: 'C0C0C0C0',
-                          wrapText: false,
-                          width: 50,
-                        });
-                        sheet.setTBodyStyle({ wrapText: false, width: 50 });
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                        sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
                         ]);
+                        sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Kỳ hạn từ', dataIndex: '' },
@@ -2262,6 +2260,7 @@ const Page = () => {
                           },
                           { title: '', dataIndex: '' },
                         ]);
+                        sheet.addRow();
                         sheet
                           .addColumns(columnDiscount)
                           .addDataSource(discount ?? [], {
@@ -2508,7 +2507,7 @@ const Page = () => {
                     ]}
                     extendForm={(values) => (
                       <>
-                        <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">
+                        <p className="text-base text-teal-900 font-bold mt-5 px-2">
                           {t('supplier.Contract.Upload contract')}:
                         </p>
                         <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
@@ -2521,24 +2520,15 @@ const Page = () => {
                                 formItem: {
                                   render: (form, values) => {
                                     return (
-                                      // <Upload
-                                      //   accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                      //   multiple
-                                      //   viewGrid
-                                      // >
-                                      //   <div className="bg-white -my-4">
-                                      //     <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
-                                      //     <p className="mb-4">
-                                      //       {t('supplier.Contract.Upload file')} <br />
-                                      //       {t('supplier.Contract.or')}{' '}
-                                      //     </p>
-                                      //     <Button
-                                      //       className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
-                                      //       text={t('supplier.Contract.Select file')}
-                                      //     />
-                                      //   </div>
-                                      // </Upload>
                                       <Upload
+                                        // fileList={listFile}
+
+                                        onChange={({ file, fileList }) => {
+                                          if (file.status == 'uploading') {
+                                            file.status = 'done';
+                                          }
+                                          // setListFile(fileList)
+                                        }}
                                         style={{ border: 'none' }}
                                         listType="picture"
                                         type="drag"
@@ -2546,6 +2536,28 @@ const Page = () => {
                                         multiple
                                         name="files"
                                         action="/util/upload"
+                                        customRequest={(options) => {
+                                          const { file } = options;
+                                          const formData = new FormData();
+                                          formData.append('files', file);
+                                          formData.append('type', 'SUPPLIER');
+                                          const data = API.responsible<any>(
+                                            '/util/upload',
+                                            {},
+                                            {
+                                              ...API.init(),
+                                              method: 'post',
+                                              body: formData,
+                                              headers: {
+                                                authorization:
+                                                  'Bearer ' +
+                                                  (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
+                                                'Accept-Language': localStorage.getItem('i18nextLng') || '',
+                                              },
+                                            },
+                                          );
+                                          setUpload(formData);
+                                        }}
                                       >
                                         <div className="bg-white -my-4">
                                           <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
@@ -2570,37 +2582,100 @@ const Page = () => {
                           {t('supplier.Contract.File system')}:
                         </p>
 
-                        {data1?.filePhoto?.length > 0 ? (
+                        {data1?.filePhoto.length > 0 ? (
                           <div>
-                            <div className="flex flex-col items-center gap-2">
-                              <div className="flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative">
-                                <a href={data1?.filePhoto?.[0]?.url} className="mr-3">
-                                  <img
-                                    src={data1?.filePhoto?.[0]?.url}
-                                    alt={data1?.filePhoto?.[0]?.fileName}
-                                    className="w-[50px] h-[50px] aspect-square object-cover"
-                                  ></img>
-                                </a>
-                                <div>
-                                  <h1>{data1?.filePhoto?.[0]?.fileName}</h1>
-                                  <h1>{dayjs(data1?.filePhoto?.[0]?.createdAt).format(formatDateTime)}</h1>
-                                </div>
-                                <div className="flex items-center gap-2 ml-auto z-[999]">
-                                  <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
-                                    <Trash className="w-5 h-5" onClick={() => null} />
-                                  </div>
-                                  <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
-                                    <Download className="w-5 h-5" onClick={() => null} />
-                                  </div>
+                            {data1?.filePhoto?.map((item: any) => (
+                              <div>
+                                <div className="flex flex-col items-center gap-2">
+                                  {item.fileName.endsWith('.xlsx') || item.fileName.endsWith('.xls') ? (
+                                    <div className="flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative">
+                                      <a href={item.url} className="mr-5">
+                                        <img
+                                          src={
+                                            'http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'
+                                          }
+                                          alt={item.fileName}
+                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                        ></img>
+                                      </a>
+                                      <div>
+                                        <h1>{item.fileName}</h1>
+                                        <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
+                                      </div>
+                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
+                                        </div>
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <Download
+                                            className="w-5 h-5"
+                                            onClick={() => downloadSub({ id: item.id, url: item.url })}
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ) : item.fileName.endsWith('.doc') || item.fileName.endsWith('.docx') ? (
+                                    <div className="flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative">
+                                      <a href={item.url} className="mr-3">
+                                        <img
+                                          src={
+                                            'http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'
+                                          }
+                                          alt={item.fileName}
+                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                        ></img>
+                                      </a>
+                                      <div>
+                                        <h1>{item.fileName}</h1>
+                                        <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
+                                      </div>
+                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
+                                        </div>
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <Download
+                                            className="w-5 h-5"
+                                            onClick={() => downloadSub({ id: item.id, url: item.url })}
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <div className="flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative">
+                                      <a href={item.url} className="mr-3">
+                                        <img
+                                          src={item.url}
+                                          alt={item.fileName}
+                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                        ></img>
+                                      </a>
+                                      <div className="w-full sm:w-2/5">
+                                        <h1 className=" truncate">{item.fileName}</h1>
+                                        <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
+                                      </div>
+                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
+                                        </div>
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <Download
+                                            className="w-5 h-5"
+                                            onClick={() => downloadSub({ id: item.id, url: item.url })}
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
                               </div>
-                            </div>
+                            ))}
                             <div className="flex justify-center">
                               <Button
-                                className="!bg-red-400 mt-4"
+                                className="!bg-red-500 mt-4"
                                 text={'Tải tệp hợp đồng'}
                                 icon={<Download className="w-5 h-5" />}
-                                onClick={() => null}
+                                onClick={() => downloadSubZip({ id: data1?.filePhoto?.id, url: data1?.filePhoto?.url })}
                               />
                             </div>
                           </div>
@@ -2615,12 +2690,12 @@ const Page = () => {
                             onClick={() => navigate(`/${lang}${routerLinks('Supplier')}`)}
                           />
                           <Button
-                            // disabled={true}
+                            disabled={upload?.get('files') ? false : true}
                             text={t('titles.Upload contract')}
                             className={
                               'flex bg-teal-900 text-white rounded-xl items-center justify-center disabled:opacity-20'
                             }
-                            onClick={() => handleSubmitUpload(values)}
+                            onClick={() => handleSubmitUpload({ ...values, upload })}
                           />
                         </div>
                       </>

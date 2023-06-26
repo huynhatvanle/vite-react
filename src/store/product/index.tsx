@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { CommonEntity, PaginationQuery } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
@@ -8,7 +8,7 @@ const name = 'Product';
 const action = {
   ...new Action<Product>(name),
   getProduct: createAsyncThunk(
-    name + '/get',
+    name + '/getProduct',
     async ({
       page,
       perPage,
@@ -62,7 +62,33 @@ const action = {
   ),
 };
 
-export const productSlice = createSlice(new Slice<Product>(action));
+export const productSlice = createSlice(new Slice<Product>(action, { result: {}, result2: {} }, (builder) =>
+  builder
+    .addCase(
+      action.getProduct.pending,
+      (
+        state: State<Product>,
+        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+      ) => {
+        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+        state.queryParams = JSON.stringify(action.meta.arg);
+        state.isLoading = true;
+        state.status = 'getProduct.pending';
+      },
+    )
+
+    .addCase(action.getProduct.fulfilled, (state: State<Product>, action: any) => {
+      if (action.payload.data) {
+        typeof action.meta.arg.filter == 'string' ? state.result = action.payload : state.result2 = action.payload;
+        state.status = 'getProduct.fulfilled';
+      } else state.status = 'idle';
+      state.isLoading = false;
+    })
+    .addCase(action.getProduct.rejected, (state: State) => {
+      state.status = 'getProduct.rejected';
+      state.isLoading = false;
+    })
+));
 
 export const ProductFacade = () => {
   const dispatch = useAppDispatch();
