@@ -54,6 +54,10 @@ const Page = () => {
           title: 'store.Name',
           name: 'name',
           tableItem: {
+            onCell: (data: any) => ({
+              style: { cursor: 'pointer' },
+              onClick: () => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${data.id}?tab=1`)
+            })
           },
         },
         {
@@ -66,13 +70,14 @@ const Page = () => {
                 <div className='flex'>
                   {address}
                   {address.length >= 60 ?
-                  <Tooltip title={address} className='text-black' >
-                    <Infor className='w-4 h-4 mt-1 ml-1'/>
-                  </Tooltip>
-                  : null
+                    <Tooltip title={address} className='text-black' >
+                      <Infor className='w-4 h-4 mt-1 ml-1' />
+                    </Tooltip>
+                    : null
                   }
                 </div>
-            )}
+              )
+            }
           },
         },
         {
