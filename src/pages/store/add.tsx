@@ -50,218 +50,218 @@ const Page = () => {
 
   return (
     <Fragment>
-        <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Storeinformation')}</div>
-        <Form
-          formAnt={forms}
-          values={{ ...data }}
-          className="intro-x form-responsive"
-          columns={[
-            {
-              title: 'store.Name',
-              name: 'name',
-              formItem: {
-                tabIndex: 1,
-                col: 6,
-                rules: [{ type: 'required' }],
+      <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Storeinformation')}</div>
+      <Form
+        formAnt={forms}
+        values={{ ...data }}
+        className="intro-x form-responsive"
+        columns={[
+          {
+            title: 'store.Name',
+            name: 'name',
+            formItem: {
+              tabIndex: 1,
+              col: 6,
+              rules: [{ type: 'required' }],
+            },
+          },
+          {
+            title: 'store.Fax',
+            name: 'fax',
+            formItem: {
+              tabIndex: 2,
+              col: 6,
+              rules: [{ type: 'phone', min: 8, max: 12 }],
+            },
+          },
+          {
+            title: '',
+            name: 'address',
+            formItem: {
+              render() {
+                return (
+                  <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>
+                )
+              },
+            }
+          },
+          {
+            title: 'store.Province',
+            name: 'provinceId',
+            formItem: {
+              tabIndex: 3,
+              col: 3,
+              type: 'select',
+              rules: [{ type: 'required' }],
+              get: {
+                facade: ProvinceFacade,
+                format: (item: any) => ({
+                  label: item.name,
+                  value: item.id + '|' + item.code,
+                }),
+              },
+              onChange(value, form) {
+                form.resetFields(['districtId', 'wardId'])
               },
             },
-            {
-              title: 'store.Fax',
-              name: 'fax',
-              formItem: {
-                tabIndex: 2,
-                col: 6,
-                rules: [{ type: 'phone', min: 8, max: 12 }],
+          },
+          {
+            name: 'districtId',
+            title: 'store.District',
+            formItem: {
+              type: 'select',
+              rules: [{ type: 'required' }],
+              col: 3,
+              get: {
+                facade: DistrictFacade,
+                format: (item: any) => ({
+                  label: item.name,
+                  value: item.id + '|' + item.code,
+                }),
+                params: (fullTextSearch, value) => ({
+                  fullTextSearch,
+                  code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
+                }),
+              },
+              onChange(value, form) {
+                form.resetFields(['wardId'])
               },
             },
-            {
-              title: '',
-              name: 'address',
-              formItem: {
-                render() {
-                  return (
-                    <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>
-                  )
-                },
+          },
+          {
+            name: 'wardId',
+            title: 'store.Ward',
+            formItem: {
+              type: 'select',
+              rules: [{ type: 'required' }],
+              col: 3,
+              get: {
+                facade: WardFacade,
+                format: (item: any) => ({
+                  label: item.name,
+                  value: item.id,
+                }),
+                params: (fullTextSearch, value) => ({
+                  fullTextSearch,
+                  code: value().districtId.slice(value().districtId.indexOf('|') + 1),
+                })
               }
             },
-            {
-              title: 'store.Province',
-              name: 'provinceId',
-              formItem: {
-                tabIndex: 3,
-                col: 3,
-                type: 'select',
-                rules: [{ type: 'required' }],
-                get: {
-                  facade: ProvinceFacade,
-                  format: (item: any) => ({
-                    label: item.name,
-                    value: item.id + '|' + item.code,
-                  }),
-                },
-                onChange(value, form) {
-                  form.resetFields(['districtId', 'wardId'])
-                },
-              },
+          },
+          {
+            name: 'street',
+            title: 'store.Street',
+            formItem: {
+              rules: [{ type: 'required' }],
+              col: 3,
             },
-            {
-              name: 'districtId',
-              title: 'store.District',
-              formItem: {
-                type: 'select',
-                rules: [{ type: 'required' }],
-                col: 3,
-                get: {
-                  facade: DistrictFacade,
-                  format: (item: any) => ({
-                    label: item.name,
-                    value: item.id + '|' + item.code,
-                  }),
-                  params: (fullTextSearch, value) => ({
-                    fullTextSearch,
-                    code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
-                  }),
-                },
-                onChange(value, form) {
-                  form.resetFields(['wardId'])
-                },
-              },
-            },
-            {
-              name: 'wardId',
-              title: 'store.Ward',
-              formItem: {
-                type: 'select',
-                rules: [{ type: 'required' }],
-                col: 3,
-                get: {
-                  facade: WardFacade,
-                  format: (item: any) => ({
-                    label: item.name,
-                    value: item.id,
-                  }),
-                  params: (fullTextSearch, value) => ({
-                    fullTextSearch,
-                    code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                  })
-                }
-              },
-            },
-            {
-              name: 'street',
-              title: 'store.Street',
-              formItem: {
-                rules: [{ type: 'required' }],
-                col: 3,
-              },
-            },
-            {
-              title: '',
-              name: '',
-              formItem: {
-                render() {
-                  return (
-                    <div className='text-xl text-teal-900 font-bold mb-2.5'>{t('store.Representative information')}</div>
-                  )
-                }
+          },
+          {
+            title: '',
+            name: '',
+            formItem: {
+              render() {
+                return (
+                  <div className='text-lg text-teal-900 font-bold mb-2.5'>{t('store.Representative information')}</div>
+                )
               }
+            }
+          },
+          {
+            name: 'nameContact',
+            title: 'store.ContactName',
+            formItem: {
+              col: 4,
+              type: 'name',
+              rules: [{ type: 'required' },],
             },
-            {
-              name: 'nameContact',
-              title: 'store.ContactName',
-              formItem: {
-                col: 4,
-                type: 'name',
-                rules: [{ type: 'required' },],
-              },
+          },
+          {
+            name: 'phoneNumber',
+            title: 'store.Contact Phone Number',
+            formItem: {
+              col: 4,
+              rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
             },
-            {
-              name: 'phoneNumber',
-              title: 'store.Contact Phone Number',
-              formItem: {
-                col: 4,
-                rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
-              },
+          },
+          {
+            name: 'emailContact',
+            title: 'store.Contact Email',
+            formItem: {
+              col: 4,
+              rules: [{ type: 'required' }, { type: 'email' }],
             },
-            {
-              name: 'emailContact',
-              title: 'store.Contact Email',
-              formItem: {
-                col: 4,
-                rules: [{ type: 'required' }, { type: 'email' }],
-              },
+          },
+          {
+            name: 'note',
+            title: 'store.Note',
+            formItem: {
+              type: 'textarea',
             },
-            {
-              name: 'note',
-              title: 'store.Note',
-              formItem: {
-                type: 'textarea',
-              },
-            },
-          ]}
+          },
+        ]}
 
-          extendForm=
-          {(values) => (
-            <>
-              <div className='sm:flex block items-center justify-between mb-2.5'>
-                <div className='flex'>
-                  <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
-                  <Switch className='mt-1' onClick={handleClick} />
-                </div>
-                {isChecked && (
-                  <Button className='!font-normal mt-2 sm:mt-0' text={t('store.Get branch DS')} />
-                )}
+        extendForm=
+        {(values) => (
+          <>
+            <div className='sm:flex block items-center justify-between mb-2.5'>
+              <div className='flex'>
+                <div className='text-xl text-teal-900 font-bold mr-6'>{t('store.Connect KiotViet')}</div>
+                <Switch className='mt-1' onClick={handleClick} />
               </div>
               {isChecked && (
-                <Form
-                  formAnt={forms}
-                  values={{ ...data }}
-                  columns={[
-                    {
-                      title: 'client_id',
-                      name: 'clientid',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 6,
-                        rules: [{ type: 'required' },],
-                      },
-                    },
-                    {
-                      title: 'client_secret',
-                      name: 'clientsecret',
-                      formItem: {
-                        tabIndex: 2,
-                        col: 6,
-                        rules: [{ type: 'required' },],
-                      },
-                    },
-                    {
-                      title: 'retailer',
-                      name: 'retailer',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 6,
-                        rules: [{ type: 'required' },],
-                      },
-                    },
-                    {
-                      title: 'branchId',
-                      name: 'branchid',
-                      formItem: {
-                        tabIndex: 2,
-                        col: 6,
-                        rules: [{ type: 'required' },],
-                      },
-                    },
-                  ]} />
+                <Button className='!font-normal mt-2 sm:mt-0' text={t('store.Get branch DS')} />
               )}
-            </>
-          )}
-          handSubmit={handleSubmit}
-          disableSubmit={isLoading}
-          handCancel={handleBack}
-        />
+            </div>
+            {isChecked && (
+              <Form
+                formAnt={forms}
+                values={{ ...data }}
+                columns={[
+                  {
+                    title: 'client_id',
+                    name: 'clientid',
+                    formItem: {
+                      tabIndex: 1,
+                      col: 6,
+                      rules: [{ type: 'required' },],
+                    },
+                  },
+                  {
+                    title: 'client_secret',
+                    name: 'clientsecret',
+                    formItem: {
+                      tabIndex: 2,
+                      col: 6,
+                      rules: [{ type: 'required' },],
+                    },
+                  },
+                  {
+                    title: 'retailer',
+                    name: 'retailer',
+                    formItem: {
+                      tabIndex: 1,
+                      col: 6,
+                      rules: [{ type: 'required' },],
+                    },
+                  },
+                  {
+                    title: 'branchId',
+                    name: 'branchid',
+                    formItem: {
+                      tabIndex: 2,
+                      col: 6,
+                      rules: [{ type: 'required' },],
+                    },
+                  },
+                ]} />
+            )}
+          </>
+        )}
+        handSubmit={handleSubmit}
+        disableSubmit={isLoading}
+        handCancel={handleBack}
+      />
     </Fragment>
   );
 };
