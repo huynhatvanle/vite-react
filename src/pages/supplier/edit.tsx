@@ -2575,9 +2575,9 @@ const Page = () => {
                                               <a href={item.url} className='mr-5'>
                                                 <img src={'http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'}
                                                   alt={item.fileName}
-                                                  className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                  className='w-12 h-12 aspect-square object-cover'></img>
                                               </a>
-                                              <div className='absolute left-20 w-full'>
+                                              <div className='absolute left-16 w-full'>
                                                 <h1 className='font-bold text-ellipsis overflow-hidden whitespace-nowrap w-1/2'>{item.fileName}</h1>
                                                 <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
                                               </div>
@@ -2597,9 +2597,9 @@ const Page = () => {
                                                 <a href={item.url} className='mr-5'>
                                                   <img src={'http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'}
                                                     alt={item.fileName}
-                                                    className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                    className='w-12 h-12 aspect-square object-cover'></img>
                                                 </a>
-                                                <div className='absolute left-20 w-full'>
+                                                <div className='absolute left-16 w-full'>
                                                   <h1 className='font-bold text-ellipsis overflow-hidden whitespace-nowrap w-1/2'>{item.fileName}</h1>
                                                   <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
                                                 </div>
@@ -2619,9 +2619,9 @@ const Page = () => {
                                                   <a href={item.url} className='mr-5'>
                                                     <img src={'http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'}
                                                       alt={item.fileName}
-                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                      className='w-12 h-12 aspect-square object-cover'></img>
                                                   </a>
-                                                  <div className='absolute left-20 w-full'>
+                                                  <div className='absolute left-16 w-full'>
                                                     <h1 className='font-bold text-ellipsis overflow-hidden whitespace-nowrap w-1/2'>{item.fileName}</h1>
                                                     <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
                                                   </div>
@@ -2641,9 +2641,9 @@ const Page = () => {
                                                   <a href={item.url} className='mr-5'>
                                                     <img src={item.url}
                                                       alt={item.fileName}
-                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                      className='w-12 h-12 aspect-square object-cover'></img>
                                                   </a>
-                                                  <div className='absolute left-20 w-full'>
+                                                  <div className='absolute left-16 w-full'>
                                                     <h1 className='font-bold text-ellipsis overflow-hidden whitespace-nowrap w-[50%]'>{item.fileName}</h1>
                                                     <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
                                                   </div>
