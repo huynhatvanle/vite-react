@@ -2520,25 +2520,9 @@ const Page = () => {
                                 formItem: {
                                   render: (form, values) => {
                                     return (
-                                      // <Upload
-                                      //   accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                      //   multiple
-                                      //   viewGrid
-                                      // >
-                                      //   <div className="bg-white -my-4">
-                                      //     <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
-                                      //     <p className="mb-4">
-                                      //       {t('supplier.Contract.Upload file')} <br />
-                                      //       {t('supplier.Contract.or')}{' '}
-                                      //     </p>
-                                      //     <Button
-                                      //       className="bg-teal-900 text-white text-[14px] px-4 py-2.5 !rounded-xl hover:bg-teal-700 inline-flex items-center"
-                                      //       text={t('supplier.Contract.Select file')}
-                                      //     />
-                                      //   </div>
-                                      // </Upload>
                                       <Upload
                                       // fileList={listFile}
+                                      
                                         onChange={({ file, fileList }) => {
                                           if (file.status == 'uploading') {
                                             file.status = 'done'
