@@ -496,7 +496,7 @@ const Page = () => {
                         title: `product.Code`,
                         name: 'code',
                         tableItem: {
-                          width: 170,
+                          width: 180,
                           sorter: true,
                           filter: { type: 'search' },
                         },

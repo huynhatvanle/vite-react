@@ -2057,7 +2057,7 @@ const Page = () => {
                   <div className={'w-auto'}>
                     {
                       <Button
-                        className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group"
+                        className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group h-9"
                         text={t('titles.synchronized')}
                         onClick={() => inventoryProductFacade.put({ ...inventoryProductFacade?.data!, id })}
                       />
@@ -2066,7 +2066,7 @@ const Page = () => {
                 }
                 leftHeader={
                   <Form
-                    className="intro-x rounded-lg md:flex"
+                    className="intro-x rounded-lg md:flex form-store"
                     values={{
                       supplierName: getFilter(inventoryProductFacade.queryParams, 'supplierId'),
                       productCode: getFilter(inventoryProductFacade.queryParams, 'productCode'),
