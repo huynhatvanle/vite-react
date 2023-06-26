@@ -2649,28 +2649,50 @@ const Page = () => {
                                                   </div>
                                                 </div>
                                               </div>
-                                              :
-                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
-                                                <a href={item.url} className='mr-3'>
-                                                  <img src={item.url}
-                                                    alt={item.fileName}
-                                                    className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                                </a>
-                                                <div className='w-full sm:w-2/5'>
-                                                  <h1 className=' truncate'>{item.fileName}</h1>
-                                                  <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                                </div>
-                                                <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                    <Trash className='w-5 h-5'
-                                                      onClick={() => deleteSub({ id: item.id })} />
+                                              : item.fileName.endsWith('.pdf') ?
+                                                <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
+                                                  <a href={item.url} className='mr-3'>
+                                                    <img src={'http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'}
+                                                      alt={item.fileName}
+                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                  </a>
+                                                  <div className='w-full sm:w-2/5'>
+                                                    <h1 className=' truncate'>{item.fileName}</h1>
+                                                    <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
                                                   </div>
-                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                    <Download className='w-5 h-5'
-                                                      onClick={() => downloadSub({ id: item.id, url: item.url })} />
+                                                  <div className='flex items-center gap-2 ml-auto z-[999]'>
+                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                      <Trash className='w-5 h-5'
+                                                        onClick={() => deleteSub({ id: item.id })} />
+                                                    </div>
+                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                      <Download className='w-5 h-5'
+                                                        onClick={() => downloadSub({ id: item.id, url: item.url })} />
+                                                    </div>
                                                   </div>
                                                 </div>
-                                              </div>
+                                                :
+                                                <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
+                                                  <a href={item.url} className='mr-3'>
+                                                    <img src={item.url}
+                                                      alt={item.fileName}
+                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
+                                                  </a>
+                                                  <div className='w-full sm:w-2/5'>
+                                                    <h1 className=' truncate'>{item.fileName}</h1>
+                                                    <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
+                                                  </div>
+                                                  <div className='flex items-center gap-2 ml-auto z-[999]'>
+                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                      <Trash className='w-5 h-5'
+                                                        onClick={() => deleteSub({ id: item.id })} />
+                                                    </div>
+                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
+                                                      <Download className='w-5 h-5'
+                                                        onClick={() => downloadSub({ id: item.id, url: item.url })} />
+                                                    </div>
+                                                  </div>
+                                                </div>
                                         }
                                       </div>
                                     </div>
@@ -2680,7 +2702,7 @@ const Page = () => {
                                   <Button className='!bg-red-500 mt-4'
                                     text={'Tải tệp hợp đồng'}
                                     icon={<Download className='w-5 h-5' />}
-                                    onClick={() => downloadSubZip({ id: data1?.filePhoto?.id, url: data1?.filePhoto?.url })}
+                                    onClick={() => handleSubmitZip(values)}
                                   />
                                 </div>
                               </div>
