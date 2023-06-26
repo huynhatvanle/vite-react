@@ -198,7 +198,7 @@ const Page = () => {
             formItem: {
               render() {
                 return (
-                  <div className="text-xl text-teal-900 font-bold mb-2.5">
+                  <div className="text-lg text-teal-900 font-bold mb-2.5">
                     {t('store.Representative information')}
                   </div>
                 );

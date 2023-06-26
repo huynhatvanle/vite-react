@@ -453,7 +453,7 @@ const Page = () => {
                       formItem: {
                         render() {
                           return (
-                            <div className="text-xl text-teal-900 font-bold mb-2.5">
+                            <div className="text-lg text-teal-900 font-bold mb-2.5">
                               {t('store.Representative information')}
                             </div>
                           );
@@ -637,7 +637,7 @@ const Page = () => {
                     title: 'product.Code',
                     name: 'code',
                     tableItem: {
-                      width: 180,
+                      width: 140,
                       sorter: true,
                       filter: { type: 'search' },
                     },
@@ -996,24 +996,24 @@ const Page = () => {
                     tableItem: {
                       render: (value: any, item: any) => {
                         const address = item.address?.street +
-                        ', ' +
-                        item.address?.wardName +
-                        ', ' +
-                        item.address?.districtName +
-                        ', ' +
-                        item.address?.provinceName
+                          ', ' +
+                          item.address?.wardName +
+                          ', ' +
+                          item.address?.districtName +
+                          ', ' +
+                          item.address?.provinceName
                         return (
                           <div className='flex'>
                             {address}
                             {address.length >= 60 ?
-                            <Tooltip title={address} className='text-black' >
-                              <Infor className='w-4 h-4 mt-1 ml-1'/>
-                            </Tooltip>
-                            : null
+                              <Tooltip title={address} className='text-black' >
+                                <Infor className='w-4 h-4 mt-1 ml-1' />
+                              </Tooltip>
+                              : null
                             }
                           </div>
-                      )
-                     }
+                        )
+                      }
                     },
                   },
                   {
@@ -1152,24 +1152,24 @@ const Page = () => {
                           tableItem: {
                             render: (value: any, item: any) => {
                               const address = item.supplier.address?.street +
-                              ', ' +
-                              item.supplier.address?.ward.name +
-                              ', ' +
-                              item.supplier.address?.district.name +
-                              ', ' +
-                              item.supplier.address?.province.name
+                                ', ' +
+                                item.supplier.address?.ward.name +
+                                ', ' +
+                                item.supplier.address?.district.name +
+                                ', ' +
+                                item.supplier.address?.province.name
                               return (
                                 <div className='flex'>
                                   {address}
                                   {address.length >= 60 ?
-                                  <Tooltip title={address} className='text-black' >
-                                    <Infor className='w-4 h-4 mt-1 ml-1'/>
-                                  </Tooltip>
-                                  : null
+                                    <Tooltip title={address} className='text-black' >
+                                      <Infor className='w-4 h-4 mt-1 ml-1' />
+                                    </Tooltip>
+                                    : null
                                   }
                                 </div>
-                            )
-                           }
+                              )
+                            }
                           },
                         },
                         {
