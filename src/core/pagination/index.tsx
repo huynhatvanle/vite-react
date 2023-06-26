@@ -132,7 +132,7 @@ export const Pagination: any = ({
   return (
     total > 0 && (
       <div className={classNames(className, 'flex flex-col lg:flex-row items-center justify-between mt-3 select-none')}>
-        <div className={'left relative '}>
+        <div className={'left relative flex items-center'}>
           <label htmlFor={idElement + '_page_size'}>
             {showSizeChanger && (
               <Select
@@ -149,7 +149,11 @@ export const Pagination: any = ({
               </Select>
             )}
           </label>
-          {showTotal && <span className="ml-3 text-black">{paginationDescription(ranges[0], ranges[1], total)}</span>}
+          {showTotal && (
+            <div className="ml-3 text-black">
+              <span>{paginationDescription(ranges[0], ranges[1], total)}</span>
+            </div>
+          )}
         </div>
         <div className="mt-3 sm:mt-0 right flex justify-center p-1 rounded-xl bg-white">
           <div className="flex sm:flex-wrap justify-center duration-300 transition-all">

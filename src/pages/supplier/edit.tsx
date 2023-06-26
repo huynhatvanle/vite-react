@@ -22,7 +22,7 @@ import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
-import { Down, DownArrow, Download, Trash, UploadIcon } from '@svgs';
+import { Down, DownArrow, DownLoad, Download, Trash, UploadFile, UploadIcon } from '@svgs';
 import { Form as AntForm, Dropdown, Select, Tabs, UploadFile } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
@@ -263,7 +263,7 @@ const Page = () => {
   let stt1 = 1;
   let stt2 = 1;
   let i = 1;
-  const [upload, setUpload] = useState<FormData>()
+  const [upload, setUpload] = useState<FormData>();
   const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
     const docSubOrgId = values.id;
@@ -275,9 +275,7 @@ const Page = () => {
 
   const handleSubmitZip = (values: any) => {
     let urls: string[] = [];
-    data1?.filePhoto?.map((item: any) => (
-      urls.push(item.url)
-    ));
+    data1?.filePhoto?.map((item: any) => urls.push(item.url));
     documentsub.downloadSubZip({ urls });
   };
 
@@ -708,10 +706,11 @@ const Page = () => {
                                   { title: 'Danh mục chính', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId1')
-                                      ? `${categoryFacade.result?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -719,10 +718,11 @@ const Page = () => {
                                   { title: 'Danh mục cấp 1', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId2')
-                                      ? `${categoryFacade.result2?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result2?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -730,10 +730,11 @@ const Page = () => {
                                   { title: 'Danh mục cấp 2', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId3')
-                                      ? `${categoryFacade.result3?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result3?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -866,10 +867,10 @@ const Page = () => {
                   />
                 </div>
               </div>
-              <div className=" flex items-center justify-center mt-2 sm:mt-2 sm:block">
+              <div className=" flex items-center sm:px-0 px-10 justify-center mt-2 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4'}
+                  className={'sm:w-32 justify-center out-line w-[64%] mt-4'}
                   onClick={handleBack}
                 />
               </div>
@@ -1064,9 +1065,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -1105,9 +1106,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1133,10 +1134,11 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(inventoryOrders.queryParams || '{}').page != 1
-                                ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
-                                JSON.parse(inventoryOrders.queryParams || '{}').perPage +
-                                stt1++
-                                }`
+                                ? `${
+                                    JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                      JSON.parse(inventoryOrders.queryParams || '{}').perPage +
+                                    stt1++
+                                  }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1284,10 +1286,11 @@ const Page = () => {
                             { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'type')
-                                ? `${statusCategory.find((item) => {
-                                  return item.value === getFilter(inventoryOrders.queryParams, 'type');
-                                })?.label
-                                }`
+                                ? `${
+                                    statusCategory.find((item) => {
+                                      return item.value === getFilter(inventoryOrders.queryParams, 'type');
+                                    })?.label
+                                  }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1296,10 +1299,11 @@ const Page = () => {
                             { title: 'Chọn cửa hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'idStore')
-                                ? `${inven?.find((item) => {
-                                  return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
-                                })?.name
-                                }`
+                                ? `${
+                                    inven?.find((item) => {
+                                      return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
+                                    })?.name
+                                  }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1311,8 +1315,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format(
-                                  'MM/DD/YYYY',
-                                )
+                                    'MM/DD/YYYY',
+                                  )
                                 : '',
                               dataIndex: '',
                             },
@@ -1322,8 +1326,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format(
-                                  'MM/DD/YYYY',
-                                )
+                                    'MM/DD/YYYY',
+                                  )
                                 : '',
                               dataIndex: '',
                             },
@@ -1517,9 +1521,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                       },
@@ -1566,9 +1570,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1753,10 +1757,11 @@ const Page = () => {
                           sorter: true,
                           render: (value: any, item: any) =>
                             JSON.parse(inventoryProduct.queryParams || '{}').page != 1
-                              ? `${JSON.parse(inventoryProduct.queryParams || '{}').page *
-                              JSON.parse(inventoryProduct.queryParams || '{}').perPage +
-                              stt2++
-                              }`
+                              ? `${
+                                  JSON.parse(inventoryProduct.queryParams || '{}').page *
+                                    JSON.parse(inventoryProduct.queryParams || '{}').perPage +
+                                  stt2++
+                                }`
                               : `${stt2++}`,
                         },
                       },
@@ -1865,10 +1870,11 @@ const Page = () => {
                           { title: 'Chọn trạng thái:', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'status')
-                              ? `${statusRevenue.find((item) => {
-                                return item.value === getFilter(inventoryProduct.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  statusRevenue.find((item) => {
+                                    return item.value === getFilter(inventoryProduct.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1879,10 +1885,11 @@ const Page = () => {
                           { title: 'Danh mục chính', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId1')
-                              ? `${categoryFacade.result?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1890,10 +1897,11 @@ const Page = () => {
                           { title: 'Danh mục cấp 1', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId2')
-                              ? `${categoryFacade.result2?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result2?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1901,10 +1909,11 @@ const Page = () => {
                           { title: 'Danh mục cấp 2', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId3')
-                              ? `${categoryFacade.result3?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result3?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1936,10 +1945,10 @@ const Page = () => {
                   </div>
                 </div>
               )}
-              <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
+              <div className=" flex items-center sm:px-0 px-10 justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 flex '}
+                  className={'sm:w-32 justify-center out-line w-[64%] mt-4 flex '}
                   onClick={handleBack}
                 />
               </div>
@@ -1979,10 +1988,11 @@ const Page = () => {
                           width: 110,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
-                              JSON.parse(discountFacade.queryParams || '{}').perPage +
-                              stt++
-                              }`
+                              ? `${
+                                  JSON.parse(discountFacade.queryParams || '{}').page *
+                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                  stt++
+                                }`
                               : `${stt++}`,
                         },
                       },
@@ -2083,9 +2093,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -2123,9 +2133,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -2242,10 +2252,11 @@ const Page = () => {
                           { title: 'Chọn trạng thái', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'status')
-                              ? `${listStatusDiscount.find((item) => {
-                                return item.value === getFilter(discountFacade.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  listStatusDiscount.find((item) => {
+                                    return item.value === getFilter(discountFacade.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -2283,10 +2294,10 @@ const Page = () => {
                   </div>
                 </div>
               </div>
-              <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
+              <div className=" flex items-center justify-center sm:px-0 px-10 mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 flex '}
+                  className={'sm:w-32 w-[64%] justify-center out-line  mt-4 flex '}
                   onClick={handleBack}
                 />
               </div>
@@ -2443,7 +2454,7 @@ const Page = () => {
                                 <div className="w-full lg:w-2/5">
                                   <div className=" h-full text-base ">
                                     <div className="mb-5 flex items-center">
-                                      <div className="font-semibold text-teal-900">
+                                      <div className="font-semibold text-teal-900 whitespace-nowrap">
                                         {t('store.Inventory management.Supplier')}:{' '}
                                       </div>
                                       <div className="ml-4">{values?.subOrg?.name}</div>
@@ -2453,7 +2464,9 @@ const Page = () => {
                                         {t('supplier.Contract.Manager name')}:{' '}
                                       </div>
                                       <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.name}</div> */}
-                                      <div className="font-semibold text-teal-900 ">{t('supplier.Phone Number')}: </div>{' '}
+                                      <div className="font-semibold text-teal-900 whitespace-nowrap">
+                                        {t('supplier.Phone Number')}:{' '}
+                                      </div>{' '}
                                       <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.phoneNumber}</div>
                                     </div>
                                   </div>
@@ -2461,12 +2474,12 @@ const Page = () => {
                                 <div className="w-full lg:w-3/5">
                                   <div className="h-full text-base sm:mt-0 mt-4 w-full">
                                     <div className="mb-5 flex items-center">
-                                      <div className="font-semibold text-teal-900 ">
+                                      <div className="font-semibold text-teal-900 whitespace-nowrap">
                                         {t('supplier.Contract.Manager name')}:{' '}
                                       </div>
                                       <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.name}</div>
                                     </div>
-                                    <div className="mb-5 flex items-center w-full">
+                                    <div className="mb-5 flex  w-full">
                                       <div className="font-semibold text-teal-900 w-auto h-full whitespace-nowrap">
                                         {t('supplier.Address')}:
                                       </div>
@@ -2490,10 +2503,10 @@ const Page = () => {
                     ]}
                     extendForm={(values) => (
                       <>
-                        <p className="text-base text-teal-900 font-bold mt-5 px-2">
+                        <p className="text-base text-teal-900 font-bold mt-5 px-3">
                           {t('supplier.Contract.Upload contract')}:
                         </p>
-                        <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
+                        <div className="text-center border-2 border-dashed rounded-md m-3">
                           <Form
                             formAnt={forms}
                             columns={[
@@ -2521,7 +2534,7 @@ const Page = () => {
                                           const { file } = options;
                                           const formData = new FormData();
                                           formData.append('files', file);
-                                          formData.append('type', 'SUPPLIER')
+                                          formData.append('type', 'SUPPLIER');
                                           const data = API.responsible<any>(
                                             '/util/upload',
                                             {},
@@ -2559,137 +2572,149 @@ const Page = () => {
                             ]}
                           />
                         </div>
-                        <p className="text-base text-teal-900 font-bold px-6 py-4">
+                        <p className="text-base text-teal-900 font-bold px-3 py-4">
                           {t('supplier.Contract.File system')}:
                         </p>
 
-                        {
-                          data1?.filePhoto.length > 0 ?
-                            (
+                        {data1?.filePhoto.length > 0 ? (
+                          <div className="px-3">
+                            {data1?.filePhoto?.map((item: any) => (
                               <div>
-                                {
-                                  data1?.filePhoto?.map((item: any) => (
-                                    <div>
-                                      <div className='flex flex-col items-center gap-2'>
-                                        {
-                                          item.fileName.endsWith('.xlsx') || item.fileName.endsWith('.xls')
-                                            ?
-                                            <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
-                                              <a href={item.url} className='mr-5'>
-                                                <img src={'http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'}
-                                                  alt={item.fileName}
-                                                  className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                              </a>
-                                              <div>
-                                                <h1>{item.fileName}</h1>
-                                                <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                              </div>
-                                              <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                  <Trash className='w-5 h-5'
-                                                    onClick={() => deleteSub({ id: item.id })} />
-                                                </div>
-                                                <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                  <Download className='w-5 h-5'
-                                                    onClick={() => downloadSub({ id: item.id, url: item.url })} />
-                                                </div>
-                                              </div>
-                                            </div>
-                                            : item.fileName.endsWith('.doc') || item.fileName.endsWith('.docx') ?
-                                              <div className='flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative'>
-                                                <a href={item.url} className='mr-3'>
-                                                  <img src={'http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'}
-                                                    alt={item.fileName}
-                                                    className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                                </a>
-                                                <div>
-                                                  <h1>{item.fileName}</h1>
-                                                  <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                                </div>
-                                                <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                    <Trash className='w-5 h-5'
-                                                      onClick={() => deleteSub({ id: item.id })} />
-                                                  </div>
-                                                  <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                    <Download className='w-5 h-5'
-                                                      onClick={() => downloadSub({ id: item.id, url: item.url })} />
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              : item.fileName.endsWith('.pdf') ?
-                                                <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
-                                                  <a href={item.url} className='mr-3'>
-                                                    <img src={'http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'}
-                                                      alt={item.fileName}
-                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                                  </a>
-                                                  <div className='w-full sm:w-2/5'>
-                                                    <h1 className=' truncate'>{item.fileName}</h1>
-                                                    <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                                  </div>
-                                                  <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Trash className='w-5 h-5'
-                                                        onClick={() => deleteSub({ id: item.id })} />
-                                                    </div>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Download className='w-5 h-5'
-                                                        onClick={() => downloadSub({ id: item.id, url: item.url })} />
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                :
-                                                <div className='flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative'>
-                                                  <a href={item.url} className='mr-3'>
-                                                    <img src={item.url}
-                                                      alt={item.fileName}
-                                                      className='w-[50px] h-[50px] aspect-square object-cover'></img>
-                                                  </a>
-                                                  <div className='w-full sm:w-2/5'>
-                                                    <h1 className=' truncate'>{item.fileName}</h1>
-                                                    <h1>{(dayjs(item.createdAt).format(formatDateTime))}</h1>
-                                                  </div>
-                                                  <div className='flex items-center gap-2 ml-auto z-[999]'>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Trash className='w-5 h-5'
-                                                        onClick={() => deleteSub({ id: item.id })} />
-                                                    </div>
-                                                    <div className='border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all'>
-                                                      <Download className='w-5 h-5'
-                                                        onClick={() => downloadSub({ id: item.id, url: item.url })} />
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                        }
+                                <div className="flex flex-col items-center gap-2">
+                                  {item.fileName.endsWith('.xlsx') || item.fileName.endsWith('.xls') ? (
+                                    <div className="flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative">
+                                      <a href={item.url} className="mr-5">
+                                        <img
+                                          src={
+                                            'http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'
+                                          }
+                                          alt={item.fileName}
+                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                        ></img>
+                                      </a>
+                                      <div>
+                                        <h1>{item.fileName}</h1>
+                                        <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
+                                      </div>
+                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
+                                        </div>
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <DownLoad
+                                            className="w-5 h-5"
+                                            onClick={() => downloadSub({ id: item.id, url: item.url })}
+                                          />
+                                        </div>
                                       </div>
                                     </div>
-                                  ))
-                                }
-                                <div className='flex justify-center'>
-                                  <Button className='!bg-red-500 mt-4'
-                                    text={'Tải tệp hợp đồng'}
-                                    icon={<Download className='w-5 h-5' />}
-                                    onClick={() => handleSubmitZip(values)}
-                                  />
+                                  ) : item.fileName.endsWith('.doc') || item.fileName.endsWith('.docx') ? (
+                                    <div className="flex items-center mt-2 border border-stone-200 sm:w-[40%] w-full px-2 gap-1 p-[5px] overflow-hidden relative">
+                                      <a href={item.url} className="mr-3">
+                                        <img
+                                          src={
+                                            'http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'
+                                          }
+                                          alt={item.fileName}
+                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                        ></img>
+                                      </a>
+                                      <div>
+                                        <h1>{item.fileName}</h1>
+                                        <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
+                                      </div>
+                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
+                                        </div>
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <DownLoad
+                                            className="w-5 h-5"
+                                            onClick={() => downloadSub({ id: item.id, url: item.url })}
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ) : item.fileName.endsWith('.pdf') ? (
+                                    <div className="flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative">
+                                      <a href={item.url} className="mr-3">
+                                        <img
+                                          src={
+                                            'http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'
+                                          }
+                                          alt={item.fileName}
+                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                        ></img>
+                                      </a>
+                                      <div className="w-full sm:w-2/5">
+                                        <h1 className=" truncate">{item.fileName}</h1>
+                                        <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
+                                      </div>
+                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
+                                        </div>
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <DownLoad
+                                            className="w-5 h-5"
+                                            onClick={() => downloadSub({ id: item.id, url: item.url })}
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <div className="flex items-center mt-2 border border-stone-200 sm:w-2/5 w-full px-2 gap-1 p-1.5 overflow-hidden relative">
+                                      <a href={item.url} className="mr-3">
+                                        <img
+                                          src={item.url}
+                                          alt={item.fileName}
+                                          className="w-[50px] h-[50px] aspect-square object-cover"
+                                        ></img>
+                                      </a>
+                                      <div className="w-full sm:w-2/5">
+                                        <h1 className=" truncate">{item.fileName}</h1>
+                                        <h1>{dayjs(item.createdAt).format(formatDateTime)}</h1>
+                                      </div>
+                                      <div className="flex items-center gap-2 ml-auto z-[999]">
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <Trash className="w-5 h-5" onClick={() => deleteSub({ id: item.id })} />
+                                        </div>
+                                        <div className="border border-stone-200 p-1 cursor-pointer hover:bg-stone-100 transition-all">
+                                          <DownLoad
+                                            className="w-5 h-5"
+                                            onClick={() => downloadSub({ id: item.id, url: item.url })}
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
                               </div>
-                            )
-                            :
-                            <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
-                        }
+                            ))}
+                            <div className="flex justify-center">
+                              <Button
+                                className="!bg-red-500 mt-4 !justify-center !rounded-xl w-56 relative text-center"
+                                text={'Tải tệp hợp đồng'}
+                                icon={<DownLoad className="w-3 h-5 absolute right-8" />}
+                                onClick={() => handleSubmitZip(values)}
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
+                        )}
 
-                        <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 mt-5">
+                        <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 -mt-2 sm:mt-5">
                           <Button
                             text={t('components.form.modal.cancel')}
-                            className={'z-10 !block out-line border-teal-800 !w-40 sm:!w-28 !font-normal'}
+                            className={'z-10 !block out-line border-teal-800 !w-56 sm:!w-28 !font-normal'}
                             onClick={() => navigate(`/${lang}${routerLinks('Supplier')}`)}
                           />
                           <Button
                             disabled={upload?.get('files') ? false : true}
                             text={t('titles.Upload contract')}
                             className={
-                              'flex bg-teal-900 text-white rounded-xl items-center justify-center disabled:opacity-20'
+                              'flex bg-teal-900 text-white rounded-xl w-56 items-center justify-center disabled:opacity-20'
                             }
                             onClick={() => handleSubmitUpload({ ...values, upload })}
                           />
