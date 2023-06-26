@@ -145,20 +145,20 @@ export const DataTable = forwardRef(
     if (params.sorts && typeof params.sorts === 'string') params.sorts = JSON.parse(params.sorts);
 
     const groupButton = (confirm: any, clearFilters: any, key: any, value: any) => (
-      <div className="grid grid-cols-2 gap-2 mt-1">
+      <div className="grid grid-cols-2 gap-2 sm:mt-1 mt-2">
         <Button
           text={t('components.datatable.reset')}
           onClick={() => {
             clearFilters();
             confirm();
           }}
-          className={'justify-center !bg-gray-300 !text-black'}
+          className={'justify-center !bg-gray-300 !text-black h-4/5 sm:h-auto !px-2 sm:px-4'}
         />
         <Button
-          icon={<Search className="fill-white h-4 w-4" />}
+          icon={<Search className="fill-white h-3 w-3" />}
           text={t('components.datatable.search')}
           onClick={() => confirm(value)}
-          className={'justify-center'}
+          className={'justify-center h-4/5 sm:h-auto !px-2 sm:px-4'}
         />
       </div>
     );

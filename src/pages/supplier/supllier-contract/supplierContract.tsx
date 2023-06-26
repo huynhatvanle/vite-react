@@ -108,9 +108,9 @@ const Page = () => {
             </div>
           </div>
         </div>
-        <div className="sm:flex sm:mt-7 mt-2">
+        <div className="flex sm:mt-7 mt-2">
           <div className="flex flex-col items-center mt-2" onClick={handBack}>
-            <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+            <button className="z-10 px-8 w-auto bg-white border-teal-900 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
               {t('components.form.modal.cancel')}
             </button>
           </div>

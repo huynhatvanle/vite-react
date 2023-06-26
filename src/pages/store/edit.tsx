@@ -952,7 +952,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 '}
                   onClick={() => {
                     handleBack();
                   }}
@@ -1064,7 +1064,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 '}
                   onClick={() => {
                     handleBack();
                   }}
@@ -1260,7 +1260,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 '}
                   onClick={() => {
                     handleBack();
                   }}
@@ -1938,7 +1938,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 '}
                   onClick={() => {
                     handleBack();
                   }}
@@ -2120,7 +2120,7 @@ const Page = () => {
               <div className=" flex items-center justify-center mt-9 sm:mt-2 sm:block">
                 <Button
                   text={t('components.form.modal.cancel')}
-                  className={'sm:w-32 justify-center out-line w-80 mt-4 '}
+                  className={'sm:w-32 justify-center out-line w-[50%] mt-4 '}
                   onClick={() => {
                     handleBack();
                   }}
