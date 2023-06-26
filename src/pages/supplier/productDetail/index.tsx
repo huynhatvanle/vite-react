@@ -44,15 +44,15 @@ const Page = () => {
   const handleBack = () => window.history.back();
   let i = 1;
 
-  const dl = [
-    {
-      key: '1',
-      stt: 1,
-      PriceType: `${data?.productPrice?.[0]?.priceType}`,
-      Quantity: data?.productPrice?.[0]?.minQuantity,
-      Price: data?.productPrice?.[0]?.price,
-    },
-  ];
+  const dl = data?.productPrice?.flat().map((item, index) => {
+    return {
+      key: index + 1,
+      stt: index + 1,
+      PriceType: item?.priceType,
+      Quantity: item?.minQuantity,
+      Price: item?.price,
+    };
+  });
 
   return (
     <div className={'w-full'}>
@@ -381,7 +381,7 @@ const Page = () => {
               // {...prop}
             />
           </div>
-          <DataTable
+          {/* <DataTable
             // ref={dataTableRefDiscount}
             data={productFacade.data?.productPrice}
             xScroll="1370px"
@@ -401,7 +401,7 @@ const Page = () => {
               },
             ]}
             showSearch={false}
-          />
+          /> */}
           <div className="flex items-left font-bold px-5 pb-4">
             <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Chiết khấu với Balance</p>
           </div>

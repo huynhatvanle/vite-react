@@ -2436,68 +2436,51 @@ const Page = () => {
                         title: '',
                         name: 'name',
                         formItem: {
-                          col: 5,
+                          col: 12,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-full text-base">
-                                <div className="font-semibold text-teal-900 ">
-                                  {t('store.Inventory management.Supplier')}:{' '}
+                              <div className="w-full lg:flex">
+                                <div className="w-full lg:w-2/5">
+                                  <div className=" h-full text-base ">
+                                    <div className="mb-5 flex items-center">
+                                      <div className="font-semibold text-teal-900">
+                                        {t('store.Inventory management.Supplier')}:{' '}
+                                      </div>
+                                      <div className="ml-4">{values?.subOrg?.name}</div>
+                                    </div>
+                                    <div className="mb-5 flex items-center">
+                                      {/* <div className="font-semibold text-teal-900 ">
+                                        {t('supplier.Contract.Manager name')}:{' '}
+                                      </div>
+                                      <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.name}</div> */}
+                                      <div className="font-semibold text-teal-900 ">{t('supplier.Phone Number')}: </div>{' '}
+                                      <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.phoneNumber}</div>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="ml-4">{values?.subOrg?.name}</div>
-                              </div>
-                            );
-                          },
-                        },
-                      },
-                      {
-                        title: '',
-                        name: 'name',
-                        formItem: {
-                          col: 7,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center h-full text-base sm:mt-0 mt-4">
-                                <div className="font-semibold text-teal-900 ">
-                                  {t('supplier.Contract.Manager name')}:{' '}
-                                </div>
-                                <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.name}</div>
-                              </div>
-                            );
-                          },
-                        },
-                      },
-                      {
-                        title: '',
-                        name: 'phoneNumber',
-                        formItem: {
-                          col: 5,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center h-full text-base mt-4">
-                                <div className="font-semibold text-teal-900 ">{t('supplier.Phone Number')}: </div>
-                                <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.phoneNumber}</div>
-                              </div>
-                            );
-                          },
-                        },
-                      },
-                      {
-                        title: '',
-                        name: 'createdAt',
-                        formItem: {
-                          col: 7,
-                          render: (form, values) => {
-                            return (
-                              <div className="flex items-center h-full text-base mt-4">
-                                <div className="font-semibold text-teal-900 w-16 h-full">{t('supplier.Address')}:</div>
-                                <div className="ml-4 h-full">
-                                  {values?.subOrg?.address?.street +
-                                    ', ' +
-                                    values?.subOrg?.address?.ward?.name +
-                                    ', ' +
-                                    values?.subOrg?.address?.district?.name +
-                                    ', ' +
-                                    values?.subOrg?.address?.province?.name}
+                                <div className="w-full lg:w-3/5">
+                                  <div className="h-full text-base sm:mt-0 mt-4 w-full">
+                                    <div className="mb-5 flex items-center">
+                                      <div className="font-semibold text-teal-900 ">
+                                        {t('supplier.Contract.Manager name')}:{' '}
+                                      </div>
+                                      <div className="ml-4">{values?.subOrg?.userRole[0]?.userAdmin?.name}</div>
+                                    </div>
+                                    <div className="mb-5 flex items-center w-full">
+                                      <div className="font-semibold text-teal-900 w-auto h-full whitespace-nowrap">
+                                        {t('supplier.Address')}:
+                                      </div>
+                                      <div className="ml-4 w-full h-full">
+                                        {values?.subOrg?.address?.street +
+                                          ', ' +
+                                          values?.subOrg?.address?.ward?.name +
+                                          ', ' +
+                                          values?.subOrg?.address?.district?.name +
+                                          ', ' +
+                                          values?.subOrg?.address?.province?.name}
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             );
