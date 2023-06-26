@@ -657,11 +657,6 @@ const Page = () => {
                               text={t('titles.Export Excel file')}
                               disabled={productFacade.result?.data?.length === 0 ? true : false}
                               onClick={() => {
-                                // productFacade.get({
-                                //   page: 1,
-                                //   perPage: 10,
-                                //   filter: { supplierId: id, type: 'BALANCE', isGetAll: true },
-                                // });
                                 setTest(true);
                                 const dataProduct = productFacade?.result?.data?.map((item) => {
                                   return {
@@ -681,19 +676,16 @@ const Page = () => {
                                 });
                                 const excel = new Excel();
                                 const sheet = excel.addSheet('Sheet1');
-                                sheet.setTHeadStyle({
-                                  background: 'FFFFFFFF',
-                                  borderColor: 'C0C0C0C0',
-                                  wrapText: false,
-                                  width: 50,
-                                });
-                                sheet.setTBodyStyle({ wrapText: false, width: 50 });
+                                sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
+                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
+                                sheet.setRowHeight(0.8, 'cm')
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: '', dataIndex: '' },
                                   { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
                                 ]);
+                                sheet.drawCell(10, 0, '')
                                 sheet.addRow();
                                 sheet.addColumns([
                                   { title: 'Danh mục chính', dataIndex: '' },
@@ -731,14 +723,14 @@ const Page = () => {
                                   { title: '', dataIndex: '' },
                                 ]);
                                 sheet.addRow();
-                                sheet.currentCol;
                                 sheet
                                   .addColumns(columnproduct)
                                   .addDataSource(dataProduct ?? [], {
                                     str2Percent: true,
                                   })
-                                  .saveAs(t('product.List'));
-                              }}
+                                  .saveAs(t('product.List'))
+                              }
+                              }
                             />
                           }
                         </div>
@@ -1255,18 +1247,15 @@ const Page = () => {
 
                           const excel = new Excel();
                           const sheet = excel.addSheet('Sheet1');
-                          sheet.setTHeadStyle({
-                            background: 'FFFFFFFF',
-                            borderColor: 'C0C0C0C0',
-                            wrapText: false,
-                            width: 50,
-                          });
-                          sheet.setTBodyStyle({ wrapText: false, width: 50 });
+                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
+                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
+                          sheet.setRowHeight(0.8, 'cm')
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
                             { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
                           ]);
+                          sheet.drawCell(10, 0, '')
                           sheet.addRow();
                           sheet.addColumns([
                             { title: 'Tìm kiếm:', dataIndex: '' },
@@ -1839,18 +1828,15 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({
-                          background: 'FFFFFFFF',
-                          borderColor: 'C0C0C0C0',
-                          wrapText: false,
-                          width: 50,
-                        });
-                        sheet.setTBodyStyle({ wrapText: false, width: 50 });
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
+                        sheet.setRowHeight(0.8, 'cm')
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO SẢN PHẨM', dataIndex: '' },
                         ]);
+                        sheet.drawCell(10, 0, '')
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Tìm kiếm:', dataIndex: '' },
@@ -2208,17 +2194,14 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({
-                          background: 'FFFFFFFF',
-                          borderColor: 'C0C0C0C0',
-                          wrapText: false,
-                          width: 50,
-                        });
-                        sheet.setTBodyStyle({ wrapText: false, width: 50 });
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
+                        sheet.setRowHeight(0.8, 'cm')
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
                         ]);
+                        sheet.drawCell(10, 0, '')
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Kỳ hạn từ', dataIndex: '' },
@@ -2261,6 +2244,7 @@ const Page = () => {
                           },
                           { title: '', dataIndex: '' },
                         ]);
+                        sheet.addRow();
                         sheet
                           .addColumns(columnDiscount)
                           .addDataSource(discount ?? [], {
@@ -2507,7 +2491,7 @@ const Page = () => {
                     ]}
                     extendForm={(values) => (
                       <>
-                        <p className="text-base text-teal-900 font-bold px-6 pt-1 mt-4">
+                        <p className="text-base text-teal-900 font-bold mt-5 px-2">
                           {t('supplier.Contract.Upload contract')}:
                         </p>
                         <div className="text-center border-2 p-11 border-dashed rounded-md m-5">
