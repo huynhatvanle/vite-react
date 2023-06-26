@@ -42,6 +42,7 @@
     "@shopify/draggable": "^1.0.0-beta.8",
     "antd": "^5.5.0",
     "antd-table-saveas-excel": "^2.2.1",
+    "axios": "^1.4.0",
     "echarts": "^5.4.2",
     "file-saver": "^2.0.5",
     "glightbox": "^3.2.0",
