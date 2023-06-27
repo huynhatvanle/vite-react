@@ -284,12 +284,12 @@ const Layout = ({ children }: PropsWithChildren) => {
       )}
       <section
         id={'main'}
-        className={classNames('px-2 sm:px-0 min-h-screen transition-all duration-300 ease-in-out z-10 relative', {
+        className={classNames('px-2 mt-2 sm:px-0 min-h-screen transition-all duration-300 ease-in-out z-10 relative', {
           'ml-64': !isCollapsed && isDesktop,
           'ml-16': isCollapsed && isDesktop,
         })}
       >
-        <div className={'mx-5'}>
+        <div className={'mx-0 sm:mx-5'}>
           {title !== 'Dashboard' && (
             <h1 className={'text-2xl text-teal-900 font-bold block pb-5'}>{t('titles.' + title)}</h1>
           )}
