@@ -1,5 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Form as AntForm, Checkbox, Radio, Switch, Slider, DatePicker as DateAntDesign, FormInstance, ConfigProvider } from 'antd';
+import {
+  Form as AntForm,
+  Checkbox,
+  Radio,
+  Switch,
+  Slider,
+  DatePicker as DateAntDesign,
+  FormInstance,
+  ConfigProvider,
+} from 'antd';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -191,27 +200,29 @@ export const Form = ({
         );
       case 'month_year':
         return (
-          <DatePicker
-            tabIndex={formItem.tabIndex || index}
-            format={
-              !formItem.picker || formItem.picker === 'month'
-                ? ('MM/YYYY' || '') + (formItem.showTime ? ' HH:mm' : '')
-                : 'MM/YYYY' || ''
-            }
-            onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
-            // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
-            disabledDate={(current) => {
-              const now = dayjs();
-              const currentMonth = dayjs(current);
-              return now.isBefore(currentMonth, 'month');
-            }}
-            showTime={!!formItem.showTime}
-            picker={formItem.picker || 'month'}
-            disabled={!!formItem.disabled && formItem.disabled(values, form)}
-            form={form}
-            name={item.name}
-            placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
-          />
+          <ConfigProvider locale={locale}>
+            <DatePicker
+              tabIndex={formItem.tabIndex || index}
+              format={
+                !formItem.picker || formItem.picker === 'month'
+                  ? ('MM/YYYY' || '') + (formItem.showTime ? ' HH:mm' : '')
+                  : 'MM/YYYY' || ''
+              }
+              onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
+              // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
+              disabledDate={(current) => {
+                const now = dayjs();
+                const currentMonth = dayjs(current);
+                return now.isBefore(currentMonth, 'month');
+              }}
+              showTime={!!formItem.showTime}
+              picker={formItem.picker || 'month'}
+              disabled={!!formItem.disabled && formItem.disabled(values, form)}
+              form={form}
+              name={item.name}
+              placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
+            />
+          </ConfigProvider>
         );
       case 'date_range':
         return (
@@ -649,11 +660,14 @@ export const Form = ({
       <div
         className={classNames('gap-2 flex sm:block', {
           'justify-center': !extendButton && !handCancel,
-          '!mt-5 items-center w-full flex-col-reverse sm:flex-row sm:inline-flex justify-between': handCancel && handSubmit,
+          '!mt-5 items-center w-full flex-col-reverse sm:flex-row sm:inline-flex justify-between':
+            handCancel && handSubmit,
           //'md:inline-flex w-full justify-between md:float-right': handCancel,
           'md:inline-flex w-full justify-between relative': handSubmit,
-          'sm:w-auto sm:inline-flex !justify-end text-center items-center sm:flex-row flex-col mt-5': handSubmit && extendButton,
-          '!w-full sm:inline-flex text-center justify-between items-center sm:flex-row flex-col-reverse mt-5': handCancel || extendButton,
+          'sm:w-auto sm:inline-flex !justify-end text-center items-center sm:flex-row flex-col mt-5':
+            handSubmit && extendButton,
+          '!w-full sm:inline-flex text-center justify-between items-center sm:flex-row flex-col-reverse mt-5':
+            handCancel || extendButton,
         })}
       >
         {handCancel && (
