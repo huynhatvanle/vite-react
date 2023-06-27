@@ -2310,7 +2310,7 @@ const Page = () => {
                     {t('supplier.Contract.Contract details')}
                   </p>
                 </div>
-                <div className="form-supplied-tab6 items-center">
+                <div className="items-center">
                   <Form
                     values={{ ...data1 }}
                     className="intro-x border-b form-col-tab6"
@@ -2503,11 +2503,12 @@ const Page = () => {
                     ]}
                     extendForm={(values) => (
                       <>
-                        <p className="text-base text-teal-900 font-bold mt-5 px-3">
+                        <p className="text-base text-teal-900 font-bold mt-5 pb-4">
                           {t('supplier.Contract.Upload contract')}:
                         </p>
-                        <div className="text-center border-2 border-dashed rounded-md m-3">
+                        <div className="text-center rounded-md">
                           <Form
+                            className="form-store"
                             formAnt={forms}
                             columns={[
                               {
@@ -2522,7 +2523,7 @@ const Page = () => {
                                             file.status = 'done';
                                           }
                                         }}
-                                        style={{ border: 'none' }}
+                                        style={{ width: '100%', padding: '42px' }}
                                         listType="picture"
                                         type="drag"
                                         accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
