@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Form as AntForm, Checkbox, Radio, Switch, Slider, DatePicker as DateAntDesign, FormInstance } from 'antd';
+import { Form as AntForm, Checkbox, Radio, Switch, Slider, DatePicker as DateAntDesign, FormInstance, ConfigProvider } from 'antd';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -13,6 +13,8 @@ import { Upload } from '../upload';
 import { Button } from '../button';
 import { Editor } from '../editor';
 import { DraggableLayout } from '../draggable/layout';
+import 'dayjs/locale/vi';
+import locale from 'antd/locale/vi_VN';
 
 export const Form = ({
   className,
@@ -163,27 +165,29 @@ export const Form = ({
         );
       case 'date':
         return (
-          <DatePicker
-            tabIndex={formItem.tabIndex || index}
-            format={
-              !formItem.picker || formItem.picker === 'date'
-                ? (formatDate || '') + (formItem.showTime ? ' HH:mm' : '')
-                : formatDate || ''
-            }
-            onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
-            // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
-            disabledDate={(current) => {
-              const now = dayjs();
-              const currentDate = dayjs(current);
-              return now.isBefore(currentDate, 'date');
-            }}
-            showTime={!!formItem.showTime}
-            picker={formItem.picker || 'date'}
-            disabled={!!formItem.disabled && formItem.disabled(values, form)}
-            form={form}
-            name={item.name}
-            placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
-          />
+          <ConfigProvider locale={locale}>
+            <DatePicker
+              tabIndex={formItem.tabIndex || index}
+              format={
+                !formItem.picker || formItem.picker === 'date'
+                  ? (formatDate || '') + (formItem.showTime ? ' HH:mm' : '')
+                  : formatDate || ''
+              }
+              onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
+              // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
+              disabledDate={(current) => {
+                const now = dayjs();
+                const currentDate = dayjs(current);
+                return now.isBefore(currentDate, 'date');
+              }}
+              showTime={!!formItem.showTime}
+              picker={formItem.picker || 'date'}
+              disabled={!!formItem.disabled && formItem.disabled(values, form)}
+              form={form}
+              name={item.name}
+              placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
+            />
+          </ConfigProvider>
         );
       case 'month_year':
         return (
