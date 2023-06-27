@@ -496,7 +496,7 @@ const Page = () => {
                         title: `product.Code`,
                         name: 'code',
                         tableItem: {
-                          width: 170,
+                          width: 180,
                           sorter: true,
                           filter: { type: 'search' },
                         },
@@ -922,6 +922,7 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
+                      className='form-supplied-tab4'
                       ref={dataTableRefRevenue}
                       facade={inventoryOrders}
                       defaultRequest={{
@@ -950,7 +951,7 @@ const Page = () => {
                               type: getFilter(inventoryOrders.queryParams, 'type'),
                               Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                             }}
-                            className="intro-x sm:flex justify-start sm:mt-2 lg:justify-end lg:mt-0 form-store"
+                            className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store"
                             columns={[
                               {
                                 title: '',

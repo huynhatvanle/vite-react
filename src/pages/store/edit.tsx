@@ -1323,6 +1323,7 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
+                      className='form-supplied-tab4'
                       ref={dataTableRefInvoiceRevenue}
                       facade={invoiceRevenueFacade}
                       defaultRequest={{
@@ -1396,7 +1397,7 @@ const Page = () => {
                       rightHeader={
                         <div className="flex sm:justify-end text-left flex-col">
                           <Form
-                            className="intro-x sm:flex lg:justify-end form-store mt-2 sm:mt-4 lg:mt-0"
+                            className="intro-x sm:flex xl:justify-end form-store mt-2 sm:mt-4 xl:mt-0"
                             values={{
                               status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
                               dateFrom: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
@@ -1525,6 +1526,7 @@ const Page = () => {
               ) : (
                 <div className='bg-white rounded-xl p-5'>
                   <DataTable
+                    className='form-supplied-tab4'
                     ref={dataTableRefInvoiceKiot}
                     facade={invoiceKiotVietFacade}
                     defaultRequest={{
@@ -1607,7 +1609,7 @@ const Page = () => {
                     rightHeader={
                       <div className="flex justify-end text-left flex-col w-full ">
                         <Form
-                          className="intro-x sm:flex justify-start lg:justify-end lg:mt-0 form-store mt-2 sm:mt-4"
+                          className="intro-x sm:flex justify-start xl:justify-end xl:mt-0 form-store mt-2 sm:mt-4"
                           values={{
                             dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
                             dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
@@ -2066,7 +2068,7 @@ const Page = () => {
                 }
                 leftHeader={
                   <Form
-                    className="intro-x rounded-lg md:flex"
+                    className="intro-x rounded-lg md:flex form-store"
                     values={{
                       supplierName: getFilter(inventoryProductFacade.queryParams, 'supplierId'),
                       productCode: getFilter(inventoryProductFacade.queryParams, 'productCode'),
