@@ -2698,9 +2698,9 @@ const Page = () => {
                             ))}
                             <div className="flex justify-center">
                               <Button
-                                className="!bg-red-500 mt-4 !justify-center !rounded-xl w-56 relative text-center"
+                                className="!bg-red-500 mt-4 !justify-center !rounded-xl w-56 relative text-center text-base !font-normal flex-row-reverse !gap-3"
                                 text={'Tải tệp hợp đồng'}
-                                icon={<DownLoad className="w-3 h-5 absolute right-8" />}
+                                icon={<DownLoad className="w-3 h-5 right-8" />}
                                 onClick={() => handleSubmitZip(values)}
                               />
                             </div>
