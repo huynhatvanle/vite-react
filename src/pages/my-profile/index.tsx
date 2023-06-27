@@ -101,7 +101,7 @@ const Page = () => {
             disableSubmit={isLoading}
           />
         </div>
-        <div className='flex-1 lg:rounded-xl w-auto tab-wrapper'>
+        <div className='flex-1 lg:rounded-xl w-auto'>
           <Tabs
             onTabClick={(key: string) => onChangeTab(key)}
             activeKey={activeKey}
