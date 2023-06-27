@@ -517,7 +517,9 @@ const Page = () => {
                         tableItem: {
                           width: 205,
                           render: (value: any, item: any) =>
-                            item?.category?.child?.child?.name || item?.category?.child?.name,
+                            item?.category?.child
+                              ? item?.category?.child?.child?.name || item?.category?.child?.name
+                              : item?.category?.name,
                         },
                       },
                       {
