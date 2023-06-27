@@ -174,55 +174,55 @@ export const Form = ({
         );
       case 'date':
         return (
-          <ConfigProvider locale={locale}>
-            <DatePicker
-              tabIndex={formItem.tabIndex || index}
-              format={
-                !formItem.picker || formItem.picker === 'date'
-                  ? (formatDate || '') + (formItem.showTime ? ' HH:mm' : '')
-                  : formatDate || ''
-              }
-              onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
-              // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
-              disabledDate={(current) => {
-                const now = dayjs();
-                const currentDate = dayjs(current);
-                return now.isBefore(currentDate, 'date');
-              }}
-              showTime={!!formItem.showTime}
-              picker={formItem.picker || 'date'}
-              disabled={!!formItem.disabled && formItem.disabled(values, form)}
-              form={form}
-              name={item.name}
-              placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
-            />
-          </ConfigProvider>
+          // <ConfigProvider locale={locale}>
+          <DatePicker
+            tabIndex={formItem.tabIndex || index}
+            format={
+              !formItem.picker || formItem.picker === 'date'
+                ? (formatDate || '') + (formItem.showTime ? ' HH:mm' : '')
+                : formatDate || ''
+            }
+            onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
+            // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
+            disabledDate={(current) => {
+              const now = dayjs();
+              const currentDate = dayjs(current);
+              return now.isBefore(currentDate, 'date');
+            }}
+            showTime={!!formItem.showTime}
+            picker={formItem.picker || 'date'}
+            disabled={!!formItem.disabled && formItem.disabled(values, form)}
+            form={form}
+            name={item.name}
+            placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
+          />
+          // </ConfigProvider>
         );
       case 'month_year':
         return (
-          <ConfigProvider locale={locale}>
-            <DatePicker
-              tabIndex={formItem.tabIndex || index}
-              format={
-                !formItem.picker || formItem.picker === 'month'
-                  ? ('MM/YYYY' || '') + (formItem.showTime ? ' HH:mm' : '')
-                  : 'MM/YYYY' || ''
-              }
-              onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
-              // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
-              disabledDate={(current) => {
-                const now = dayjs();
-                const currentMonth = dayjs(current);
-                return now.isBefore(currentMonth, 'month');
-              }}
-              showTime={!!formItem.showTime}
-              picker={formItem.picker || 'month'}
-              disabled={!!formItem.disabled && formItem.disabled(values, form)}
-              form={form}
-              name={item.name}
-              placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
-            />
-          </ConfigProvider>
+          // <ConfigProvider locale={locale}>
+          <DatePicker
+            tabIndex={formItem.tabIndex || index}
+            format={
+              !formItem.picker || formItem.picker === 'month'
+                ? ('MM/YYYY' || '') + (formItem.showTime ? ' HH:mm' : '')
+                : 'MM/YYYY' || ''
+            }
+            onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
+            // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
+            disabledDate={(current) => {
+              const now = dayjs();
+              const currentMonth = dayjs(current);
+              return now.isBefore(currentMonth, 'month');
+            }}
+            showTime={!!formItem.showTime}
+            picker={formItem.picker || 'month'}
+            disabled={!!formItem.disabled && formItem.disabled(values, form)}
+            form={form}
+            name={item.name}
+            placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
+          />
+          // </ConfigProvider>
         );
       case 'date_range':
         return (
