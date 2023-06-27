@@ -45,6 +45,7 @@ const Page = () => {
     localStorage.setItem('activeStoreTab', key);
     navigate(`/${lang}${routerLinks('MyProfile')}?tab=${key}`);
   };
+
   const [image, setImage] = useState(globalFacade.user?.profileImage)
   const handleSubmit = (values: any) => {
     globalFacade.putProfile({ ...values, image });
@@ -100,10 +101,11 @@ const Page = () => {
             disableSubmit={isLoading}
           />
         </div>
-        <div className='flex-1 lg:rounded-xl w-auto'>
+        <div className='flex-1 lg:rounded-xl w-auto tab-wrapper'>
           <Tabs
             onTabClick={(key: string) => onChangeTab(key)}
             activeKey={activeKey}
+            type="card"
             size="large"
             className='profile'>
             <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1">

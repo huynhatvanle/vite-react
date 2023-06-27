@@ -2054,10 +2054,10 @@ const Page = () => {
                 ]}
                 showSearch={false}
                 rightHeader={
-                  <div className={'w-auto'}>
+                  <div className={'w-auto -mt-2 sm:mt-0'}>
                     {
                       <Button
-                        className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group h-9"
+                        className="!bg-teal-900 !font-normal !text-white hover:!bg-teal-700 group w-28 !block !py-2 !rounded-xl"
                         text={t('titles.synchronized')}
                         onClick={() => inventoryProductFacade.put({ ...inventoryProductFacade?.data!, id })}
                       />
