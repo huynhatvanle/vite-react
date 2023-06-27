@@ -38,7 +38,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const [scroll, setScroll] = useState(false);
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 700) {
+    if (window.scrollY > 450) {
       setScroll(true);
     } else {
       setScroll(false);
