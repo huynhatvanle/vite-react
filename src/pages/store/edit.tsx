@@ -971,7 +971,7 @@ const Page = () => {
                 })}
                 defaultRequest={{ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'BALANCE' } }}
                 xScroll="1270px"
-                className=" bg-white p-5 rounded-lg form-store"
+                className=" bg-white p-5 rounded-lg form-store form-store-tab3"
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -1050,7 +1050,7 @@ const Page = () => {
                     {storeFacade?.data?.storeId === null ?
                       (
                         <Button
-                          className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full"
+                          className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9"
                           icon={<Plus className="icon-cud !h-5 !w-5" />}
                           text={t('titles.Store/SubStore')}
                           onClick={() => navigate(`/${lang}${routerLinks('store-managerment/branch-management/create')}/${id}`)}
