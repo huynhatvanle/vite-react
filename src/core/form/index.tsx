@@ -220,7 +220,7 @@ export const Form = ({
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             form={form}
             name={item.name}
-            placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
+            placeholder={t(formItem.placeholder || '') || t('placeholder.Choose a time') || ''}
           />
           // </ConfigProvider>
         );
@@ -638,13 +638,13 @@ export const Form = ({
                   className={classNames(
                     column?.formItem?.classItem,
                     'col-span-12 col-store' +
-                    (' sm:col-span-' +
-                      (column?.formItem?.colTablet
-                        ? column?.formItem?.colTablet
-                        : column?.formItem?.col
+                      (' sm:col-span-' +
+                        (column?.formItem?.colTablet
+                          ? column?.formItem?.colTablet
+                          : column?.formItem?.col
                           ? column?.formItem?.col
                           : 12)) +
-                    (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
+                      (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
                   )}
                   key={index}
                 >
