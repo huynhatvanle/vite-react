@@ -666,16 +666,16 @@ const Page = () => {
                   },
                   {
                     title: 'product.Category',
-                    name: 'category',
+                    name: 'productCategory',
                     tableItem: {
-                      render: (value: any, item: any) => item?.category?.child?.name,
+                      render: (value: any, item: any) => item?.productCategory[0]?.category?.name,
                     },
                   },
                   {
                     title: 'product.SupplierName',
                     name: 'supplierName',
                     tableItem: {
-                      render: (value: any, item: any) => item?.subOrg?.name,
+                      // render: (value: any, item: any) => item?.subOrg?.name,
                     },
                   },
                   {
