@@ -66,7 +66,7 @@ const Page = () => {
   const [test, setTest] = useState(false);
 
   const [forms] = AntForm.useForm();
-  const [listFile, setListFile] = useState<UploadFile[]>();
+  const [listFile, setListFile] = useState<UploadFile<any>[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -124,7 +124,6 @@ const Page = () => {
         };
       case 'uploadSub.fulfilled':
         setUpload(undefined);
-        setA([]);
         if (id) documentsub.get({ id });
         return () => {
           isReload.current && documentsub.get({ id });
@@ -274,8 +273,6 @@ const Page = () => {
     documentsub.downloadSubZip({ urls });
   };
 
-  const [a, setA] = useState<UploadFile[]>();
-  useEffect(() => { }, []);
 
   return (
     <div className={'w-full'}>
@@ -2507,9 +2504,15 @@ const Page = () => {
                                     return (
                                       <Upload
                                         onChange={({ file, fileList }) => {
+                                          // const formData = new FormData();
                                           if (file.status == 'uploading') {
                                             file.status = 'done';
                                           }
+                                          setListFile(fileList)
+                                          fileList = fileList.slice(fileList.length - 1)
+                                          // formData.append('files', new Blob([JSON.stringify(fileList[0])]))
+                                          // formData.append('type', 'SUPPLIER')
+                                          fileList.length > 0 ? '' : setUpload(undefined)
                                         }}
                                         style={{ width: '100%', padding: '42px' }}
                                         listType="picture"
@@ -2519,7 +2522,7 @@ const Page = () => {
                                         name="files"
                                         action="/util/upload"
                                         customRequest={(options) => {
-                                          const { file } = options;
+                                          const { file, onError } = options;
                                           const formData = new FormData();
                                           formData.append('files', file);
                                           formData.append('type', 'SUPPLIER');
