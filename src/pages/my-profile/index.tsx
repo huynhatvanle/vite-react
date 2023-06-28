@@ -39,8 +39,12 @@ const Page = () => {
       setActiveKey(tab);
     }
     const navList = document.querySelector<HTMLElement>('.ant-tabs-nav-list')!;
-    if (tab === "2") {
+    const mediaQuery = window.matchMedia('(max-width: 375px)');
+
+    if (tab === "2" && mediaQuery.matches) {
       navList.style.transform = 'translate(-49px, 0px)';
+    } else {
+      navList.style.transform = 'translate(0px, 0px)';
     }
   }, [tab]);
 
