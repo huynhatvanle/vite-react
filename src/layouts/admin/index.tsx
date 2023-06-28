@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, { Fragment, PropsWithChildren, useEffect, useState } from 'react';
 import { BackTop, Dropdown, Image, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -21,6 +21,7 @@ import {
   User,
   UserProfile,
   Backtop,
+  Arrow,
 } from '@svgs';
 import { routerLinks, language, languages } from '@utils';
 import Logo1 from '../../assets/images/logo.png';
@@ -289,12 +290,13 @@ const Layout = ({ children }: PropsWithChildren) => {
           'ml-16': isCollapsed && isDesktop,
         })}
       >
-        <div className={'mx-0 sm:mx-5'}>
+        <div className={'overflow-y-auto lg:overflow-x-hidden mx-0 sm:mx-5'}>
           {title !== 'Dashboard' && (
             <h1 className={'text-2xl text-teal-900 font-bold block pb-5'}>{t('titles.' + title)}</h1>
           )}
           {children}
         </div>
+
       </section>
       {scroll ? (
         <BackTop visibilityHeight={300} className="right-3">
