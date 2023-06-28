@@ -1954,7 +1954,7 @@ const Page = () => {
                 facade={inventoryProductFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
                 xScroll="1270px"
-                className=" bg-white p-5 rounded-lg form-store"
+                className=" bg-white p-5 rounded-lg form-store form-store-tab3"
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
