@@ -675,7 +675,7 @@ const Page = () => {
                     title: 'product.SupplierName',
                     name: 'supplierName',
                     tableItem: {
-                      // render: (value: any, item: any) => item?.subOrg?.name,
+                      render: (value: any, item: any) => isBalance ? item?.supplierName : item?.subOrg?.name,
                     },
                   },
                   {
