@@ -705,8 +705,9 @@ const Page = () => {
                                   background: 'FFFFFFFF',
                                   borderColor: 'C0C0C0C0',
                                   wrapText: false,
+                                  fontName: 'Calibri',
                                 });
-                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
                                 sheet.setRowHeight(0.8, 'cm');
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
@@ -714,7 +715,7 @@ const Page = () => {
                                   { title: '', dataIndex: '' },
                                   { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
                                 ]);
-                                sheet.drawCell(10, 0, '');
+                                // sheet.drawCell(10, 0, '');
                                 sheet.addRow();
                                 sheet.addColumns([
                                   { title: 'Danh mục chính', dataIndex: '' },
@@ -939,7 +940,7 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
-                      className="form-supplied-tab4"
+                      className="form-supplier-tab4"
                       ref={dataTableRefRevenue}
                       facade={inventoryOrders}
                       defaultRequest={{
@@ -960,7 +961,7 @@ const Page = () => {
                         t('routes.admin.Layout.PaginationOrder', { from, to, total })
                       }
                       rightHeader={
-                        <div className="flex justify-end text-left flex-col w-full">
+                        <div className="flex justify-end text-left flex-col w-full xl:pt-0 pt-1">
                           <Form
                             values={{
                               dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
@@ -968,7 +969,7 @@ const Page = () => {
                               type: getFilter(inventoryOrders.queryParams, 'type'),
                               Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                             }}
-                            className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store"
+                            className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store form-supplier-tab5"
                             columns={[
                               {
                                 title: '',
@@ -1255,7 +1256,7 @@ const Page = () => {
                         },
                       ]}
                       subHeader={() => (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-2 sm:mb-3 mb-4">
                           {subHeader.map((e) => (
                             <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
                               <h1 className="font-bold mb-3">{e.title}</h1>
@@ -1297,15 +1298,20 @@ const Page = () => {
 
                           const excel = new Excel();
                           const sheet = excel.addSheet('Sheet1');
-                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
-                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                          sheet.setTHeadStyle({
+                            background: 'FFFFFFFF',
+                            borderColor: 'C0C0C0C0',
+                            wrapText: false,
+                            fontName: 'Calibri',
+                          });
+                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
                           sheet.setRowHeight(0.8, 'cm');
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
                             { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
                           ]);
-                          sheet.drawCell(10, 0, '');
+                          // sheet.drawCell(10, 0, '');
                           sheet.addRow();
                           sheet.addColumns([
                             { title: 'Tìm kiếm:', dataIndex: '' },
@@ -1451,7 +1457,7 @@ const Page = () => {
                     }
                     subHeader={() => (
                       <>
-                        <div className="flex justify-start text-left flex-col xl:flex-row w-full">
+                        <div className="flex justify-start text-left flex-col xl:flex-row w-full pt-1 xl:pt-0">
                           <Form
                             values={{
                               categoryId1: getFilter(inventoryProduct.queryParams, 'categoryId1'),
@@ -1511,7 +1517,7 @@ const Page = () => {
                               dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
                               status: getFilter(inventoryProduct.queryParams, 'status'),
                             }}
-                            className="intro-x w-full sm:flex mt-2 form-store items-center"
+                            className="intro-x w-full sm:flex form-store items-center"
                             columns={[
                               {
                                 title: '',
@@ -1890,15 +1896,20 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                        sheet.setTHeadStyle({
+                          background: 'FFFFFFFF',
+                          borderColor: 'C0C0C0C0',
+                          wrapText: false,
+                          fontName: 'Calibri',
+                        });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO SẢN PHẨM', dataIndex: '' },
                         ]);
-                        sheet.drawCell(10, 0, '');
+                        // sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Tìm kiếm:', dataIndex: '' },
@@ -2251,7 +2262,7 @@ const Page = () => {
                             />
                           </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:w-64 sm:gap-4 mt-10 sm:mb-3 mb-4">
+                        <div className="grid grid-cols-1 sm:w-64 sm:gap-4 mt-2 sm:mb-3 mb-4">
                           <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
                             <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
                             <span className="text-teal-900 text-xl font-bold mt-auto">{discountTotal} VND</span>
@@ -2284,14 +2295,19 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                        sheet.setTHeadStyle({
+                          background: 'FFFFFFFF',
+                          borderColor: 'C0C0C0C0',
+                          wrapText: false,
+                          fontName: 'Calibri',
+                        });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
                         ]);
-                        sheet.drawCell(10, 0, '');
+                        // sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Kỳ hạn từ', dataIndex: '' },
