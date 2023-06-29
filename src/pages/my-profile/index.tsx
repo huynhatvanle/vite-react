@@ -12,7 +12,7 @@ import { Upload } from '@core/upload';
 
 const Page = () => {
   const { t } = useTranslation();
-  const { user, isLoading, putProfile, setPassword, profile, status } = GlobalFacade();
+  const { user, isLoading, setPassword, profile, status } = GlobalFacade();
   const globalFacade = GlobalFacade();
   const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
@@ -37,6 +37,14 @@ const Page = () => {
   useEffect(() => {
     if (tab) {
       setActiveKey(tab);
+    }
+    const navList = document.querySelector<HTMLElement>('.ant-tabs-nav-list')!;
+    const mediaQuery = window.matchMedia('(max-width: 375px)');
+
+    if (tab === "2" && mediaQuery.matches) {
+      navList.style.transform = 'translate(-49px, 0px)';
+    } else {
+      navList.style.transform = 'translate(0px, 0px)';
     }
   }, [tab]);
 
@@ -105,7 +113,6 @@ const Page = () => {
           <Tabs
             onTabClick={(key: string) => onChangeTab(key)}
             activeKey={activeKey}
-            type="card"
             size="large"
             className='profile'>
             <Tabs.TabPane tab={t('routes.admin.Layout.My Profile')} key="1">

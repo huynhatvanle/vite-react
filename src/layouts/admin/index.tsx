@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, { Fragment, PropsWithChildren, useEffect, useState } from 'react';
 import { BackTop, Dropdown, Image, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -21,6 +21,7 @@ import {
   User,
   UserProfile,
   Backtop,
+  Arrow,
 } from '@svgs';
 import { routerLinks, language, languages } from '@utils';
 import Logo1 from '../../assets/images/logo.png';
@@ -38,7 +39,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const [scroll, setScroll] = useState(false);
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 700) {
+    if (window.scrollY > 450) {
       setScroll(true);
     } else {
       setScroll(false);
@@ -284,17 +285,18 @@ const Layout = ({ children }: PropsWithChildren) => {
       )}
       <section
         id={'main'}
-        className={classNames('px-2 sm:px-0 min-h-screen transition-all duration-300 ease-in-out z-10 relative', {
+        className={classNames('px-2 mt-2 sm:px-0 min-h-screen transition-all duration-300 ease-in-out z-10 relative', {
           'ml-64': !isCollapsed && isDesktop,
           'ml-16': isCollapsed && isDesktop,
         })}
       >
-        <div className={'mx-0 sm:mx-5'}>
+        <div className={'overflow-y-auto lg:overflow-x-hidden mx-0 sm:mx-5'}>
           {title !== 'Dashboard' && (
             <h1 className={'text-2xl text-teal-900 font-bold block pb-5'}>{t('titles.' + title)}</h1>
           )}
           {children}
         </div>
+
       </section>
       {scroll ? (
         <BackTop visibilityHeight={300} className="right-3">

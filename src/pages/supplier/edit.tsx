@@ -66,6 +66,7 @@ const Page = () => {
   const [test, setTest] = useState(false);
 
   const [forms] = AntForm.useForm();
+  const [listFile, setListFile] = useState<UploadFile<any>[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -123,7 +124,6 @@ const Page = () => {
         };
       case 'uploadSub.fulfilled':
         setUpload(undefined);
-        setA([]);
         if (id) documentsub.get({ id });
         return () => {
           isReload.current && documentsub.get({ id });
@@ -274,9 +274,6 @@ const Page = () => {
     data1?.filePhoto?.map((item: any) => urls.push(item.url));
     documentsub.downloadSubZip({ urls });
   };
-
-  const [a, setA] = useState<UploadFile[]>();
-  useEffect(() => {}, []);
 
   return (
     <div className={'w-full'}>
@@ -497,7 +494,7 @@ const Page = () => {
                         title: `product.Code`,
                         name: 'code',
                         tableItem: {
-                          width: 170,
+                          width: 180,
                           sorter: true,
                           filter: { type: 'search' },
                         },
@@ -926,6 +923,7 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
+                      className="form-supplied-tab4"
                       ref={dataTableRefRevenue}
                       facade={inventoryOrders}
                       defaultRequest={{
@@ -954,7 +952,7 @@ const Page = () => {
                               type: getFilter(inventoryOrders.queryParams, 'type'),
                               Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                             }}
-                            className="intro-x sm:flex justify-start sm:mt-2 lg:justify-end lg:mt-0 form-store"
+                            className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store"
                             columns={[
                               {
                                 title: '',
@@ -2509,7 +2507,7 @@ const Page = () => {
                         </p>
                         <div className="text-center rounded-md">
                           <Form
-                            className="form-store"
+                            className="form-store form-upload-tab6"
                             formAnt={forms}
                             columns={[
                               {
@@ -2521,12 +2519,15 @@ const Page = () => {
                                       <Upload
                                         ref={fileInputRef}
                                         onChange={({ file, fileList }) => {
-                                          console.log('fileList', fileList);
-
+                                          // const formData = new FormData();
                                           if (file.status == 'uploading') {
                                             file.status = 'done';
                                           }
-                                          setFileList(fileList);
+                                          setListFile(fileList);
+                                          fileList = fileList.slice(fileList.length - 1);
+                                          // formData.append('files', new Blob([JSON.stringify(fileList[0])]))
+                                          // formData.append('type', 'SUPPLIER')
+                                          fileList.length > 0 ? '' : setUpload(undefined);
                                         }}
                                         fileList={fileList1}
                                         style={{ width: '100%', padding: '42px' }}
@@ -2537,7 +2538,7 @@ const Page = () => {
                                         name="files"
                                         action="/util/upload"
                                         customRequest={(options) => {
-                                          const { file } = options;
+                                          const { file, onError } = options;
                                           const formData = new FormData();
                                           formData.append('files', file);
                                           formData.append('type', 'SUPPLIER');

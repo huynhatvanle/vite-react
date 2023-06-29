@@ -666,16 +666,16 @@ const Page = () => {
                   },
                   {
                     title: 'product.Category',
-                    name: 'category',
+                    name: 'productCategory',
                     tableItem: {
-                      render: (value: any, item: any) => item?.category?.child?.name,
+                      render: (value: any, item: any) => item?.productCategory[0]?.category?.name,
                     },
                   },
                   {
                     title: 'product.SupplierName',
                     name: 'supplierName',
                     tableItem: {
-                      render: (value: any, item: any) => item?.subOrg?.name,
+                      render: (value: any, item: any) => isBalance ? item?.supplierName : item?.subOrg?.name,
                     },
                   },
                   {
@@ -971,7 +971,7 @@ const Page = () => {
                 })}
                 defaultRequest={{ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'BALANCE' } }}
                 xScroll="1270px"
-                className=" bg-white p-5 rounded-lg form-store"
+                className=" bg-white p-5 rounded-lg form-store form-store-tab3"
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -1050,7 +1050,7 @@ const Page = () => {
                     {storeFacade?.data?.storeId === null ?
                       (
                         <Button
-                          className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9 mt-2 lg:mt-1 lg:w-full"
+                          className="!bg-teal-800 !font-normal !text-white hover:!bg-teal-700 group !rounded-xl !h-9"
                           icon={<Plus className="icon-cud !h-5 !w-5" />}
                           text={t('titles.Store/SubStore')}
                           onClick={() => navigate(`/${lang}${routerLinks('store-managerment/branch-management/create')}/${id}`)}
@@ -1323,6 +1323,7 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
+                      className='form-supplied-tab4'
                       ref={dataTableRefInvoiceRevenue}
                       facade={invoiceRevenueFacade}
                       defaultRequest={{
@@ -1396,7 +1397,7 @@ const Page = () => {
                       rightHeader={
                         <div className="flex sm:justify-end text-left flex-col">
                           <Form
-                            className="intro-x sm:flex lg:justify-end form-store mt-2 sm:mt-4 lg:mt-0"
+                            className="intro-x sm:flex xl:justify-end form-store mt-2 sm:mt-4 xl:mt-0"
                             values={{
                               status: getFilter(invoiceRevenueFacade.queryParams, 'status'),
                               dateFrom: getFilter(invoiceRevenueFacade.queryParams, 'dateFrom'),
@@ -1525,6 +1526,7 @@ const Page = () => {
               ) : (
                 <div className='bg-white rounded-xl p-5'>
                   <DataTable
+                    className='form-supplied-tab4'
                     ref={dataTableRefInvoiceKiot}
                     facade={invoiceKiotVietFacade}
                     defaultRequest={{
@@ -1607,7 +1609,7 @@ const Page = () => {
                     rightHeader={
                       <div className="flex justify-end text-left flex-col w-full ">
                         <Form
-                          className="intro-x sm:flex justify-start lg:justify-end lg:mt-0 form-store mt-2 sm:mt-4"
+                          className="intro-x sm:flex justify-start xl:justify-end xl:mt-0 form-store mt-2 sm:mt-4"
                           values={{
                             dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
                             dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
@@ -1952,7 +1954,7 @@ const Page = () => {
                 facade={inventoryProductFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
                 xScroll="1270px"
-                className=" bg-white p-5 rounded-lg form-store"
+                className=" bg-white p-5 rounded-lg form-store form-store-tab3"
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -2066,7 +2068,7 @@ const Page = () => {
                 }
                 leftHeader={
                   <Form
-                    className="intro-x rounded-lg md:flex"
+                    className="intro-x rounded-lg md:flex form-store"
                     values={{
                       supplierName: getFilter(inventoryProductFacade.queryParams, 'supplierId'),
                       productCode: getFilter(inventoryProductFacade.queryParams, 'productCode'),

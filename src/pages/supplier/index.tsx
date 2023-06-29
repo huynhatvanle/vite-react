@@ -21,7 +21,7 @@ const Page = () => {
       facade={supplierFacade}
       defaultRequest={{ page: 1, perPage: 10, filter: { type: 'SUPPLIER' }, fullTextSearch: '' }}
       xScroll="1380px"
-      className=" bg-white p-5 rounded-lg"
+      className=" bg-white p-5 rounded-lg form-store-tab3"
       onRow={(data: any) => ({ onDoubleClick: () => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${data.id}`) })}
       pageSizeRender={(sizePage: number) => sizePage}
       pageSizeWidth={'50px'}
@@ -112,7 +112,7 @@ const Page = () => {
         },
       ]}
       rightHeader={
-        <div className={'flex gap-2 mt-2.5 lg:mt-0'}>
+        <div className={'flex gap-2'}>{/* mt-2.5 lg:mt-0 */}
           <Button
             icon={<Plus className="icon-cud !h-5 !w-5" />}
             text={t('titles.Supplier/Add')}
