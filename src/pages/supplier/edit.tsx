@@ -302,10 +302,7 @@ const Page = () => {
             activeKey={activeKey}
             type="card"
             size="large"
-            onTabClick={(activeKey: any) => {
-              setDate(false);
-              return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
-            }}
+            onTabClick={(key: string) => onChangeTab(key)}
           >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
