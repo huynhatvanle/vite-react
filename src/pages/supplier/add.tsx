@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-
+import { Form as AntForm } from 'antd';
 
 import { Form } from '@core/form';
 import { WardFacade } from '@store/address/ward';
@@ -20,6 +20,8 @@ const Page = () => {
 
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
+  const [forms] = AntForm.useForm();
+
   console.log('statusSupplier', status);
 
   const data = Supplier;
@@ -34,13 +36,21 @@ const Page = () => {
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
-    supplierFace.post(values);
+    const name = forms.getFieldValue('name')
+    const fax = forms.getFieldValue('fax')
+    const provinceId = forms.getFieldValue('provinceId')
+    const districtId = forms.getFieldValue('districtId')
+    const wardId = forms.getFieldValue('wardId')
+    const street = forms.getFieldValue('street')
+    supplierFace.post({ ...values, name, fax, provinceId, districtId, wardId, street });
   };
 
   return (
     <div className={''}>
       <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Supplierinformation')}</div>
+
       <Form
+        formAnt={forms}
         values={{ ...data }}
         className="intro-x form-responsive"
         columns={[
@@ -72,6 +82,13 @@ const Page = () => {
               },
             },
           },
+        ]}
+      />
+      <Form
+      formAnt={forms}
+        values={{ ...data }}
+        className="intro-x form-responsive"
+        columns={[
           {
             title: 'store.Province',
             name: 'provinceId',
@@ -156,6 +173,13 @@ const Page = () => {
               },
             },
           },
+        ]}
+      />
+       <Form
+       formAnt={forms}
+        values={{ ...data }}
+        className="intro-x form-responsive"
+        columns={[
           {
             title: 'store.ContactName',
             name: 'nameContact',
