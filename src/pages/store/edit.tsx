@@ -1004,7 +1004,7 @@ const Page = () => {
                           item.address?.provinceName
                         return (
                           <div className='flex'>
-                            {address}
+                            {address.slice(0, 60)}
                             {address.length >= 60 ?
                               <Tooltip title={address} className='text-black' >
                                 <Infor className='w-4 h-4 mt-1 ml-1' />
@@ -1160,7 +1160,7 @@ const Page = () => {
                                 item.supplier.address?.province.name
                               return (
                                 <div className='flex'>
-                                  {address}
+                                  {address.slice(0, 60)}
                                   {address.length >= 60 ?
                                     <Tooltip title={address} className='text-black' >
                                       <Infor className='w-4 h-4 mt-1 ml-1' />

@@ -117,7 +117,8 @@
     "Contract": "Hợp đồng",
     "Upload contract": "Đăng tải hợp đồng",
     "Contract-View": "Hợp đồng kết nối",
-    "Discount-Detail": "Chi tiết nhà cung cấp"
+    "Discount-Detail": "Chi tiết nhà cung cấp",
+    "Merchandise-Managerment/Product/Detail": "Sản phẩm"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -137,7 +138,8 @@
     "Supplier": "Quản Lý Nhà Cung Cấp",
     "Supplier/Add": "Quản Lý Nhà Cung Cấp",
     "Supplier/Edit": "Quản Lý Nhà Cung Cấp",
-    "Contract-View": "Quản Lý Hợp Đồng"
+    "Contract-View": "Quản Lý Hợp Đồng",
+    "Merchandise-Managerment/Product/Detail": "Quản lý hàng hóa"
   },
   "columns": {
     "auth": {
