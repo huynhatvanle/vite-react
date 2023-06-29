@@ -250,7 +250,23 @@ const Page = () => {
   const [upload, setUpload] = useState<FormData>();
   const [fileList1, setFileList] = useState<UploadFile[]>();
   const fileInputRef = useRef<UploadFile[]>(null);
-  console.log('aaa', fileList1);
+
+  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeSupplierTab') || '1');
+
+  const onChangeTab = (key: string) => {
+    setActiveKey(key);
+    localStorage.setItem('activeSupplierTab', key);
+    navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${key}`);
+  };
+  const urlParams = new URLSearchParams(window.location.search);
+  const tab = urlParams.get('tab');
+  useEffect(() => {
+    if (tab) {
+      setActiveKey(tab);
+    } else {
+      setActiveKey('1');
+    }
+  }, []);
 
   const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
@@ -280,11 +296,11 @@ const Page = () => {
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
-            onChange={(key) => sessionStorage.setItem('activeTab', key)}
+            defaultActiveKey="1"
+            activeKey={activeKey}
             type="card"
             size="large"
-            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)}
+            onTabClick={(key: string) => onChangeTab(key)}
           >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
