@@ -22,8 +22,8 @@ import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
-import { Down, DownArrow, DownLoad, Download, Trash, UploadFile, UploadIcon } from '@svgs';
-import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile } from 'antd';
+import { Down, DownArrow, DownLoad, Download, Trash, UploadIcon } from '@svgs';
+import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile, message } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
 import { Excel } from 'antd-table-saveas-excel';
@@ -2564,6 +2564,11 @@ const Page = () => {
                                       <Upload
                                         ref={fileInputRef}
                                         onChange={({ file, fileList }) => {
+                                          if (file.status === 'uploading') {
+                                            file.status = 'done';
+                                          }
+                                          setListFile(fileList);
+                                          fileList = fileList.slice(fileList.length - 1);
                                           const allowedFormats = ['docx', 'pdf', 'jpg', 'jpeg', 'csv', 'xlsx', 'xls'];
                                           const fileExtension = (file.name.split('.').pop() || '') as string;
                                           if (!allowedFormats.includes(fileExtension)) {
@@ -2574,52 +2579,45 @@ const Page = () => {
                                               showCloseButton: true,
                                               showCancelButton: true,
                                             });
-                                            file = null;
                                             return;
                                           }
-                                          // const formData = new FormData();
-                                          if (file.status == 'uploading') {
-                                            file.status = 'done';
-                                          }
-                                          setListFile(fileList);
-                                          fileList = fileList.slice(fileList.length - 1);
-                                          // formData.append('files', new Blob([JSON.stringify(fileList[0])]))
-                                          // formData.append('type', 'SUPPLIER')
                                           fileList.length > 0 ? '' : setUpload(undefined);
                                         }}
                                         fileList={fileList1}
                                         style={{ width: '100%', padding: '42px' }}
+                                        // isImageUrl={(file) => {
+                                        //   const imageExtensions = ['jpg', 'jpeg'];
+                                        //   return imageExtensions.includes(file) ? true : false;
+                                        // }}
                                         listType="picture"
                                         type="drag"
-                                        accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                        accept=".docx,.pdf,.jpg,.jpeg,.csv,.xlsx,.xls"
                                         multiple
                                         name="files"
                                         action="/util/upload"
+                                        // fileList={[]}
                                         customRequest={(options) => {
                                           const allowedFormats = ['docx', 'pdf', 'jpg', 'jpeg', 'csv', 'xlsx', 'xls'];
                                           const { file, onError } = options;
                                           const formData = new FormData();
                                           formData.append('files', file);
                                           formData.append('type', 'SUPPLIER');
-                                          if (allowedFormats.includes(file?.type.slice(file?.type.indexOf('/') + 1))) {
-                                            const data = API.responsible<any>(
-                                              '/util/upload',
-                                              {},
-                                              {
-                                                ...API.init(),
-                                                method: 'post',
-                                                body: formData,
-                                                headers: {
-                                                  authorization:
-                                                    'Bearer ' +
-                                                    (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') ||
-                                                      ''),
-                                                  'Accept-Language': localStorage.getItem('i18nextLng') || '',
-                                                },
+                                          const data = API.responsible(
+                                            '/util/upload',
+                                            {},
+                                            {
+                                              ...API.init(),
+                                              method: 'post',
+                                              body: formData,
+                                              headers: {
+                                                authorization:
+                                                  'Bearer ' +
+                                                  (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
+                                                'Accept-Language': localStorage.getItem('i18nextLng') || '',
                                               },
-                                            );
-                                            setUpload(formData);
-                                          }
+                                            }
+                                          );
+                                          setUpload(formData);
                                         }}
                                       >
                                         <div className="bg-white -my-4 sm:w-auto">
