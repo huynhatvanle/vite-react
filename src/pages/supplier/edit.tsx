@@ -312,7 +312,7 @@ const Page = () => {
                   values={{
                     ...data,
                   }}
-                  className="intro-x form-responsive"
+                  className="intro-x form-store2"
                   columns={[
                     {
                       title: 'supplier.CodeName',
@@ -359,7 +359,7 @@ const Page = () => {
                     ...data,
                     street: data?.address?.street,
                   }}
-                  className="intro-x form-responsive"
+                  className="intro-x form-store1"
                   columns={[
                     {
                       title: 'store.Province',
@@ -459,7 +459,7 @@ const Page = () => {
                     emailContact: data?.userRole?.[0].userAdmin.email,
                     phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
                   }}
-                  className="intro-x form-responsive"
+                  className="intro-x form-responsive form-store3"
                   columns={[
                     {
                       title: 'store.ContactName',
