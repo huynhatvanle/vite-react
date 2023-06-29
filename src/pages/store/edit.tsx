@@ -311,9 +311,6 @@ const Page = () => {
   }, [productFacade.result2?.data])
 
   const [date, setDate] = useState<boolean>()
-  useEffect(() => {
-
-  }, [])
 
   return (
     <div className="w-full">
@@ -322,7 +319,11 @@ const Page = () => {
           <Tabs
             defaultActiveKey='1'
             activeKey={activeKey} type="card" size="large"
-            onTabClick={(key: string) => onChangeTab(key)}
+            onTabClick={(key: string) => {
+              setDate(false)
+              onChangeTab(key)
+            }
+            }
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key="1" className="">
               {!isLoading && (

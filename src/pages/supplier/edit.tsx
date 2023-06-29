@@ -23,7 +23,7 @@ import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
 import { Down, DownArrow, DownLoad, Download, Trash, UploadIcon } from '@svgs';
-import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile, message } from 'antd';
+import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
 import { Excel } from 'antd-table-saveas-excel';
@@ -193,6 +193,16 @@ const Page = () => {
       value: 'STOP_SELLING',
     },
   ];
+  const statusContract = [
+    {
+      label: t('supplier.Sup-Status.Signed'),
+      value: 'SIGNED_CONTRACT',
+    },
+    {
+      label: t('supplier.Sup-Status.Waiting'),
+      value: 'STOP_SELLING',
+    },
+  ];
 
   interface IExcelColumn {
     title: string;
@@ -249,26 +259,6 @@ const Page = () => {
   let stt2 = 1;
   let i = 1;
   const [upload, setUpload] = useState<FormData>();
-  const [fileList1, setFileList] = useState<UploadFile[]>();
-  const fileInputRef = useRef<UploadFile[]>(null);
-
-  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeSupplierTab') || '1');
-
-  const onChangeTab = (key: string) => {
-    setActiveKey(key);
-    localStorage.setItem('activeSupplierTab', key);
-    navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${key}`);
-  };
-  const urlParams = new URLSearchParams(window.location.search);
-  const tab = urlParams.get('tab');
-  useEffect(() => {
-    if (tab) {
-      setActiveKey(tab);
-    } else {
-      setActiveKey('1');
-    }
-  }, []);
-
   const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
     const docSubOrgId = values.id;
@@ -276,33 +266,30 @@ const Page = () => {
     values.upload.append('docSubOrgId', docSubOrgId);
     // const files = forms.getFieldValue('uploadFile');
     documentsub.uploadSub(values.upload);
-
-    setFileList([]);
-    if (fileInputRef.current?.fileList.length > 0) {
-      return (fileInputRef.current!.fileList = []);
-    }
   };
-  console.log('fileList1', fileList1);
-
-  console.log('current', fileInputRef.current?.fileList);
 
   const handleSubmitZip = (values: any) => {
     let urls: string[] = [];
     data1?.filePhoto?.map((item: any) => urls.push(item.url));
     documentsub.downloadSubZip({ urls });
   };
-  const [date, setDate] = useState<boolean>();
+  const [date, setDate] = useState<boolean>()
+
 
   return (
     <div className={'w-full'}>
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey="1"
-            activeKey={activeKey}
+            defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
+            onChange={(key) => sessionStorage.setItem('activeTab', key)}
             type="card"
             size="large"
-            onTabClick={(key: string) => onChangeTab(key)}
+            onTabClick={(activeKey: any) => {
+              setDate(false)
+              return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)
+            }
+            }
           >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
@@ -707,9 +694,8 @@ const Page = () => {
                                   background: 'FFFFFFFF',
                                   borderColor: 'C0C0C0C0',
                                   wrapText: false,
-                                  fontName: 'Calibri'
                                 });
-                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
                                 sheet.setRowHeight(0.8, 'cm');
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
@@ -717,7 +703,7 @@ const Page = () => {
                                   { title: '', dataIndex: '' },
                                   { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
                                 ]);
-                                // sheet.drawCell(10, 0, '');
+                                sheet.drawCell(10, 0, '');
                                 sheet.addRow();
                                 sheet.addColumns([
                                   { title: 'Danh mục chính', dataIndex: '' },
@@ -939,7 +925,7 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
-                      className='form-supplier-tab4'
+                      className='form-supplied-tab4'
                       ref={dataTableRefRevenue}
                       facade={inventoryOrders}
                       defaultRequest={{
@@ -960,7 +946,7 @@ const Page = () => {
                         t('routes.admin.Layout.PaginationOrder', { from, to, total })
                       }
                       rightHeader={
-                        <div className="flex justify-end text-left flex-col w-full xl:pt-0 pt-1">
+                        <div className="flex justify-end text-left flex-col w-full">
                           <Form
                             values={{
                               dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
@@ -968,7 +954,7 @@ const Page = () => {
                               type: getFilter(inventoryOrders.queryParams, 'type'),
                               Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                             }}
-                            className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store form-supplier-tab5"
+                            className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store"
                             columns={[
                               {
                                 title: '',
@@ -1071,9 +1057,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
-                                      ? setDate(true)
-                                      : setDate(false);
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1116,7 +1100,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1141,11 +1125,7 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
-                          {date && (
-                            <span className="md:w-[512px] text-center md:text-right text-red-500">
-                              Ngày kết thúc phải lớn hơn ngày bắt đầu
-                            </span>
-                          )}
+                          {date && (<span className='md:w-[512px] text-center md:text-right text-red-500'>Ngày kết thúc phải lớn hơn ngày bắt đầu</span>)}
                         </div>
                       }
                       searchPlaceholder={t('placeholder.Search by order number')}
@@ -1246,7 +1226,7 @@ const Page = () => {
                         },
                       ]}
                       subHeader={() => (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-2 sm:mb-3 mb-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
                           {subHeader.map((e) => (
                             <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
                               <h1 className="font-bold mb-3">{e.title}</h1>
@@ -1288,15 +1268,15 @@ const Page = () => {
 
                           const excel = new Excel();
                           const sheet = excel.addSheet('Sheet1');
-                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' });
-                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
                           sheet.setRowHeight(0.8, 'cm');
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
                             { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
                           ]);
-                          // sheet.drawCell(10, 0, '');
+                          sheet.drawCell(10, 0, '');
                           sheet.addRow();
                           sheet.addColumns([
                             { title: 'Tìm kiếm:', dataIndex: '' },
@@ -1440,7 +1420,7 @@ const Page = () => {
                     }
                     subHeader={() => (
                       <>
-                        <div className="flex justify-start text-left flex-col xl:flex-row w-full pt-1 xl:pt-0">
+                        <div className="flex justify-start text-left flex-col xl:flex-row w-full">
                           <Form
                             values={{
                               categoryId1: getFilter(inventoryProduct.queryParams, 'categoryId1'),
@@ -1500,7 +1480,7 @@ const Page = () => {
                               dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
                               status: getFilter(inventoryProduct.queryParams, 'status'),
                             }}
-                            className="intro-x w-full sm:flex form-store items-center"
+                            className="intro-x w-full sm:flex mt-2 form-store items-center"
                             columns={[
                               {
                                 title: '',
@@ -1523,9 +1503,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
-                                      ? setDate(true)
-                                      : setDate(false);
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
                                     dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1576,7 +1554,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                     dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1609,11 +1587,7 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
-                          {date && (
-                            <span className="md:w-[512px] text-center md:text-right text-red-500">
-                              Ngày kết thúc phải lớn hơn ngày bắt đầu
-                            </span>
-                          )}
+                          {date && (<span className='md:w-[512px] text-center md:text-right text-red-500'>Ngày kết thúc phải lớn hơn ngày bắt đầu</span>)}
                         </div>
                         <Form
                           className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
@@ -1878,15 +1852,15 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO SẢN PHẨM', dataIndex: '' },
                         ]);
-                        // sheet.drawCell(10, 0, '');
+                        sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Tìm kiếm:', dataIndex: '' },
@@ -2077,14 +2051,14 @@ const Page = () => {
                     showSearch={false}
                     subHeader={() => (
                       <>
-                        <div className="flex flex-col lg:flex-row">
+                        <div className="flex my-5 flex-col lg:flex-row">
                           <Form
                             values={{
                               dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
                               dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                               status: getFilter(discountFacade.queryParams, 'status'),
                             }}
-                            className="intro-x items-end rounded-lg w-full form-store sm:flex"
+                            className="intro-x items-end rounded-lg w-full mb-5 form-store"
                             columns={[
                               {
                                 title: '',
@@ -2108,9 +2082,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'month_year',
                                   onChange(value, form) {
-                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
-                                      ? setDate(true)
-                                      : setDate(false);
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -2152,7 +2124,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'month_year',
                                   onChange(value, form) {
-                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -2176,11 +2148,7 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
-                          {date && (
-                            <span className="md:w-[512px] text-center md:text-right text-red-500">
-                              Tháng kết thúc phải lớn hơn ngày bắt đầu
-                            </span>
-                          )}
+                          {date && (<span className='md:w-[512px] text-center md:text-right text-red-500'>Tháng kết thúc phải lớn hơn ngày bắt đầu</span>)}
                           <div className="sm:flex lg:justify-end w-full">
                             <Form
                               values={{
@@ -2220,7 +2188,7 @@ const Page = () => {
                             />
                           </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:w-64 sm:gap-4 mt-2 sm:mb-3 mb-4">
+                        <div className="grid grid-cols-1 sm:w-64 sm:gap-4 mt-10 sm:mb-3 mb-4">
                           <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
                             <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
                             <span className="text-teal-900 text-xl font-bold mt-auto">{discountTotal} VND</span>
@@ -2253,14 +2221,14 @@ const Page = () => {
                         });
                         const excel = new Excel();
                         const sheet = excel.addSheet('Sheet1');
-                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
                         ]);
-                        // sheet.drawCell(10, 0, '');
+                        sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Kỳ hạn từ', dataIndex: '' },
@@ -2550,13 +2518,7 @@ const Page = () => {
                                   render: (form, values) => {
                                     return (
                                       <Upload
-                                        ref={fileInputRef}
                                         onChange={({ file, fileList }) => {
-                                          if (file.status === 'uploading') {
-                                            file.status = 'done';
-                                          }
-                                          setListFile(fileList);
-                                          fileList = fileList.slice(fileList.length - 1);
                                           const allowedFormats = ['docx', 'pdf', 'jpg', 'jpeg', 'csv', 'xlsx', 'xls'];
                                           const fileExtension = (file.name.split('.').pop() || '') as string;
                                           if (!allowedFormats.includes(fileExtension)) {
@@ -2566,46 +2528,52 @@ const Page = () => {
                                               cancelButtonColor: '',
                                               showCloseButton: true,
                                               showCancelButton: true,
-                                            });
+                                            }
+                                            );
+                                            fileList = []
                                             return;
                                           }
-                                          fileList.length > 0 ? '' : setUpload(undefined);
+                                          // const formData = new FormData();
+                                          if (file.status == 'uploading') {
+                                            file.status = 'done';
+                                          }
+                                          setListFile(fileList)
+                                          fileList = fileList.slice(fileList.length - 1)
+                                          // formData.append('files', new Blob([JSON.stringify(fileList[0])]))
+                                          // formData.append('type', 'SUPPLIER')
+                                          fileList.length > 0 ? '' : setUpload(undefined)
                                         }}
-                                        fileList={fileList1}
                                         style={{ width: '100%', padding: '42px' }}
-                                        // isImageUrl={(file) => {
-                                        //   const imageExtensions = ['jpg', 'jpeg'];
-                                        //   return imageExtensions.includes(file) ? true : false;
-                                        // }}
                                         listType="picture"
                                         type="drag"
-                                        accept=".docx,.pdf,.jpg,.jpeg,.csv,.xlsx,.xls"
+                                        accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                         multiple
                                         name="files"
                                         action="/util/upload"
-                                        // fileList={[]}
                                         customRequest={(options) => {
                                           const allowedFormats = ['docx', 'pdf', 'jpg', 'jpeg', 'csv', 'xlsx', 'xls'];
                                           const { file, onError } = options;
                                           const formData = new FormData();
                                           formData.append('files', file);
                                           formData.append('type', 'SUPPLIER');
-                                          const data = API.responsible(
-                                            '/util/upload',
-                                            {},
-                                            {
-                                              ...API.init(),
-                                              method: 'post',
-                                              body: formData,
-                                              headers: {
-                                                authorization:
-                                                  'Bearer ' +
-                                                  (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
-                                                'Accept-Language': localStorage.getItem('i18nextLng') || '',
+                                          if (allowedFormats.includes(file?.type.slice(file?.type.indexOf('/') + 1))) {
+                                            const data = API.responsible<any>(
+                                              '/util/upload',
+                                              {},
+                                              {
+                                                ...API.init(),
+                                                method: 'post',
+                                                body: formData,
+                                                headers: {
+                                                  authorization:
+                                                    'Bearer ' +
+                                                    (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
+                                                  'Accept-Language': localStorage.getItem('i18nextLng') || '',
+                                                },
                                               },
-                                            }
-                                          );
-                                          setUpload(formData);
+                                            );
+                                            setUpload(formData);
+                                          }
                                         }}
                                       >
                                         <div className="bg-white -my-4 sm:w-auto">
