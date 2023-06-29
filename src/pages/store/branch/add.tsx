@@ -61,7 +61,7 @@ const Page = () => {
       <Form
         formAnt={forms}
         values={{ ...data }}
-        className="intro-x form-responsive"
+        className="intro-x form-store2"
         columns={[
           {
             title: 'store.Name',
@@ -84,13 +84,13 @@ const Page = () => {
         ]}
       />
       <div>
-        <h3 className='text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white'>{t('store.Store Address')}</h3>
+        <h3 className='text-lg text-black font-normal block pl-5 pb-2 bg-white'>{t('store.Store Address')}</h3>
       </div>
 
       <Form
         formAnt={forms}
         values={{ ...data }}
-        className="intro-x form-responsive"
+        className="intro-x form-store1"
         columns={[
           {
             title: 'store.Province',
@@ -166,11 +166,10 @@ const Page = () => {
         ]}
       />
 
-
       <Form
         formAnt={forms}
         values={{ ...data }}
-        className="intro-x form-responsive"
+        className="intro-x form-responsive form-store3"
         columns={[
           {
             title: '',
@@ -216,7 +215,6 @@ const Page = () => {
             },
           },
         ]}
-
         extendForm=
         {(values) => (
           <>
@@ -233,6 +231,7 @@ const Page = () => {
               <Form
                 formAnt={forms}
                 values={{ ...data }}
+                className='forms-store'
                 columns={[
                   {
                     title: 'client_id',
