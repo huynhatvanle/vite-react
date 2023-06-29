@@ -310,6 +310,11 @@ const Page = () => {
     }
   }, [productFacade.result2?.data])
 
+  const [date, setDate] = useState<boolean>()
+  useEffect(() => {
+
+  }, [])
+
   return (
     <div className="w-full">
       <Fragment>
@@ -508,6 +513,7 @@ const Page = () => {
                       </div>
                       {isChecked && (
                         <Form
+                          className='form-store'
                           formAnt={forms}
                           values={{ ...data }}
                           columns={[
@@ -1004,7 +1010,7 @@ const Page = () => {
                           item.address?.provinceName
                         return (
                           <div className='flex'>
-                            {address}
+                            {address.slice(0, 60)}
                             {address.length >= 60 ?
                               <Tooltip title={address} className='text-black' >
                                 <Infor className='w-4 h-4 mt-1 ml-1' />
@@ -1160,7 +1166,7 @@ const Page = () => {
                                 item.supplier.address?.province.name
                               return (
                                 <div className='flex'>
-                                  {address}
+                                  {address.slice(0, 60)}
                                   {address.length >= 60 ?
                                     <Tooltip title={address} className='text-black' >
                                       <Infor className='w-4 h-4 mt-1 ml-1' />
@@ -1458,6 +1464,7 @@ const Page = () => {
                                   type: 'date',
                                   placeholder: 'placeholder.Choose a time',
                                   onChange(value, form) {
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
                                     dataTableRefInvoiceRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1493,6 +1500,7 @@ const Page = () => {
                                   type: 'date',
                                   placeholder: 'placeholder.Choose a time',
                                   onChange(value, form) {
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                     dataTableRefInvoiceRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1508,6 +1516,7 @@ const Page = () => {
                               },
                             ]}
                           />
+                          {date && (<span className='md:w-[512px] text-center md:text-right text-red-500 -mt-2 z-40'>Ngày kết thúc phải lớn hơn ngày bắt đầu</span>)}
                         </div>
                       }
                     />
@@ -1713,8 +1722,7 @@ const Page = () => {
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
                                 onChange(value, form) {
-                                  console.log(value);
-
+                                  form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
                                   dataTableRefInvoiceKiot?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
@@ -1754,6 +1762,7 @@ const Page = () => {
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
                                 onChange(value, form) {
+                                  value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                   dataTableRefInvoiceKiot?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
@@ -1773,6 +1782,7 @@ const Page = () => {
                             },
                           ]}
                         />
+                        {date && (<span className='md:w-[520px] text-center md:text-right text-red-500 -mt-4 mb-4 z-40'>Ngày kết thúc phải lớn hơn ngày bắt đầu</span>)}
                       </div>
                     }
                     subHeader={() => (

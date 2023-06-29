@@ -115,7 +115,8 @@
     "Contract": "Contract",
     "Upload contract":"Upload contract",
     "Contract-View": "Contract View",
-    "Discount-Detail": "Supplier Details"
+    "Discount-Detail": "Supplier Details",
+    "Merchandise-Managerment/Product/Detail": "Product"
   },
   "pages": {
     "Dashboard": "Dashboard",
@@ -135,7 +136,8 @@
     "Supplier": "Supplier",
     "Supplier/Add": "Supplier",
     "Supplier/Edit": "Supplier",
-    "Contract-View": "Contract Management"
+    "Contract-View": "Contract Management",
+    "Merchandise-Managerment/Product/Detail": "Inventory Management"
   },
   "columns": {
     "auth": {

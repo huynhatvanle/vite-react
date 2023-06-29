@@ -68,7 +68,7 @@ const Page = () => {
               const address = item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name
               return (
                 <div className='flex'>
-                  {address}
+                  {address.slice(0, 60)}
                   {address.length >= 60 ?
                     <Tooltip title={address} className='text-black' >
                       <Infor className='w-4 h-4 mt-1 ml-1' />
