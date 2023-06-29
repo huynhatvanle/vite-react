@@ -215,6 +215,7 @@ const Page = () => {
             </div>
             {isChecked && (
               <Form
+                className='form-store'
                 formAnt={forms}
                 values={{ ...data }}
                 columns={[
