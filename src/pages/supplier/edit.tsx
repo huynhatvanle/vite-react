@@ -277,14 +277,11 @@ const Page = () => {
     // const files = forms.getFieldValue('uploadFile');
     documentsub.uploadSub(values.upload);
 
-    setFileList([]);
-    if (fileInputRef.current?.fileList.length > 0) {
-      return (fileInputRef.current!.fileList = []);
-    }
+    // setFileList([]);
+    // if (fileInputRef.current?.fileList.length > 0) {
+    //   return (fileInputRef.current!.fileList = []);
+    // }
   };
-  console.log('fileList1', fileList1);
-
-  console.log('current', fileInputRef.current?.fileList);
 
   const handleSubmitZip = (values: any) => {
     let urls: string[] = [];
@@ -292,6 +289,7 @@ const Page = () => {
     documentsub.downloadSubZip({ urls });
   };
   const [date, setDate] = useState<boolean>();
+  const [month, setMonth] = useState<boolean>();
 
   return (
     <div className={'w-full'}>
@@ -1043,111 +1041,119 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
-                          <Form
-                            values={{
-                              dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
-                              dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
-                              type: getFilter(inventoryOrders.queryParams, 'type'),
-                              Store: getFilter(inventoryOrders.queryParams, 'idStore'),
-                            }}
-                            className="intro-x rounded-lg w-full sm:flex justify-between form-store"
-                            columns={[
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 2,
-                                  render: () => (
-                                    <div className="flex h-10 items-center">
-                                      <p>{t('store.Since')}</p>
-                                    </div>
-                                  ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: 'dateFrom',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 4,
-                                  type: 'date',
-                                  onChange(value, form) {
-                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
-                                      ? setDate(true)
-                                      : setDate(false);
-                                    dataTableRefRevenue?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        idSupplier: id,
-                                        filterDate: {
-                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                          dateTo: form.getFieldValue('dateTo')
-                                            ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
-                                            : '',
-                                        },
-                                        idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
-                                        type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                                      },
-                                    });
+                          <div className="w-full">
+                            <Form
+                              values={{
+                                dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
+                                dateTo: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo,
+                                type: getFilter(inventoryOrders.queryParams, 'type'),
+                                Store: getFilter(inventoryOrders.queryParams, 'idStore'),
+                              }}
+                              className="intro-x rounded-lg w-full sm:flex justify-between form-store"
+                              columns={[
+                                {
+                                  title: '',
+                                  name: '',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 2,
+                                    render: () => (
+                                      <div className="flex h-10 items-center">
+                                        <p className="whitespace-nowrap">{t('store.Since')}</p>
+                                      </div>
+                                    ),
                                   },
                                 },
-                              },
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 2,
-                                  render: () => (
-                                    <div className="flex h-10 items-center">
-                                      <p>{t('store.To date')}</p>
-                                    </div>
-                                  ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: 'dateTo',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 4,
-                                  type: 'date',
-                                  onChange(value, form) {
-                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
-                                    dataTableRefRevenue?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        idSupplier: id,
-                                        filterDate: {
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
-                                            : '',
-                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                {
+                                  title: '',
+                                  name: 'dateFrom',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 4,
+                                    type: 'date',
+                                    onChange(value, form) {
+                                      form.getFieldValue('dateFrom') && value > form.getFieldValue('dateTo')
+                                        ? setDate(true)
+                                        : setDate(false);
+                                      dataTableRefRevenue?.current?.onChange({
+                                        page: 1,
+                                        perPage: 10,
+                                        filter: {
+                                          idSupplier: id,
+                                          filterDate: {
+                                            dateFrom: value
+                                              ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
+                                              : '',
+                                            dateTo: form.getFieldValue('dateTo')
+                                              ? form
+                                                  .getFieldValue('dateTo')
+                                                  .format('MM/DD/YYYY 23:59:59')
+                                                  .replace(/-/g, '/')
+                                              : '',
+                                          },
+                                          idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
+                                          type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
                                         },
-                                        idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
-                                        type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
-                                      },
-                                    });
+                                      });
+                                    },
                                   },
                                 },
-                              },
-                            ]}
-                            disableSubmit={isLoading}
-                          />
-                          {date && (
-                            <span className="md:w-[512px] text-center md:text-right text-red-500">
-                              Ngày kết thúc phải lớn hơn ngày bắt đầu
-                            </span>
-                          )}
+                                {
+                                  title: '',
+                                  name: '',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 2,
+                                    render: () => (
+                                      <div className="flex h-10 items-center">
+                                        <p className="whitespace-nowrap">{t('store.To date')}</p>
+                                      </div>
+                                    ),
+                                  },
+                                },
+                                {
+                                  title: '',
+                                  name: 'dateTo',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 4,
+                                    type: 'date',
+                                    onChange(value, form) {
+                                      value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
+                                        ? setDate(true)
+                                        : setDate(false);
+                                      dataTableRefRevenue?.current?.onChange({
+                                        page: 1,
+                                        perPage: 10,
+                                        filter: {
+                                          idSupplier: id,
+                                          filterDate: {
+                                            dateFrom: form.getFieldValue('dateFrom')
+                                              ? form
+                                                  .getFieldValue('dateFrom')
+                                                  .format('MM/DD/YYYY 00:00:00')
+                                                  .replace(/-/g, '/')
+                                              : '',
+                                            dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                          },
+                                          idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
+                                          type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
+                                        },
+                                      });
+                                    },
+                                  },
+                                },
+                              ]}
+                              disableSubmit={isLoading}
+                            />
+                            {date && (
+                              <div className="w-full flex">
+                                <span className="sm:w-[526px] text-center sm:text-right text-red-500">
+                                  Ngày kết thúc phải lớn hơn ngày bắt đầu
+                                </span>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       }
                       searchPlaceholder={t('placeholder.Search by order number')}
@@ -2089,109 +2095,123 @@ const Page = () => {
                     subHeader={() => (
                       <>
                         <div className="flex my-5 flex-col lg:flex-row">
-                          <Form
-                            values={{
-                              dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
-                              dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
-                              status: getFilter(discountFacade.queryParams, 'status'),
-                            }}
-                            className="intro-x items-end rounded-lg w-full mb-5 form-store"
-                            columns={[
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 2,
-                                  render: () => (
-                                    <div className="flex h-10 text-xs items-center">
-                                      {/* whitespace-nowrap */}
-                                      <p>{t('Kỳ hạn từ')}</p>
-                                    </div>
-                                  ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: 'dateFrom',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 4,
-                                  type: 'month_year',
-                                  onChange(value, form) {
-                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
-                                      ? setDate(true)
-                                      : setDate(false);
-                                    dataTableRefDiscount?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        id: id,
-                                        filter: {
-                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                          dateTo: form.getFieldValue('dateTo')
-                                            ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
-                                            : '',
-                                        },
-                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      },
-                                    });
+                          <div className="w-full">
+                            <Form
+                              values={{
+                                dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
+                                dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
+                                status: getFilter(discountFacade.queryParams, 'status'),
+                              }}
+                              className="intro-x rounded-lg w-full sm:flex justify-between form-store"
+                              // className="intro-x items-end rounded-lg w-full mb-5 form-store"
+                              columns={[
+                                {
+                                  title: '',
+                                  name: '',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 2,
+                                    render: () => (
+                                      <div className="flex h-10 text-xs items-center">
+                                        {/* whitespace-nowrap */}
+                                        <p>{t('Kỳ hạn từ')}</p>
+                                      </div>
+                                    ),
                                   },
                                 },
-                              },
-                              {
-                                title: '',
-                                name: '',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 1,
-                                  render: () => (
-                                    <div className="flex h-10 text-xs items-center">
-                                      <p>{t('đến')}</p>
-                                    </div>
-                                  ),
-                                },
-                              },
-                              {
-                                title: '',
-                                name: 'dateTo',
-                                formItem: {
-                                  tabIndex: 3,
-                                  col: 4,
-                                  type: 'month_year',
-                                  onChange(value, form) {
-                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
-                                    dataTableRefDiscount?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        id: id,
+                                {
+                                  title: '',
+                                  name: 'dateFrom',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 4,
+                                    type: 'month_year',
+                                    onChange(value, form) {
+                                      console.log('value1', value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
+
+                                      value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
+                                        ? setMonth(true)
+                                        : setMonth(false);
+                                      dataTableRefDiscount?.current?.onChange({
+                                        page: 1,
+                                        perPage: 10,
                                         filter: {
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
-                                            : '',
-                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                          id: id,
+                                          filter: {
+                                            dateFrom: value
+                                              ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
+                                              : '',
+                                            dateTo: form.getFieldValue('dateTo')
+                                              ? form
+                                                  .getFieldValue('dateTo')
+                                                  .format('MM/DD/YYYY 23:59:59')
+                                                  .replace(/-/g, '/')
+                                              : '',
+                                          },
+                                          status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                         },
-                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      },
-                                    });
+                                      });
+                                    },
                                   },
                                 },
-                              },
-                            ]}
-                            disableSubmit={isLoading}
-                          />
-                          {date && (
-                            <span className="md:w-[512px] text-center md:text-right text-red-500">
-                              Tháng kết thúc phải lớn hơn ngày bắt đầu
-                            </span>
-                          )}
+                                {
+                                  title: '',
+                                  name: '',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 2,
+                                    render: () => (
+                                      <div className="flex h-10 text-xs items-center">
+                                        <p>{t('đến')}</p>
+                                      </div>
+                                    ),
+                                  },
+                                },
+                                {
+                                  title: '',
+                                  name: 'dateTo',
+                                  formItem: {
+                                    tabIndex: 3,
+                                    col: 4,
+                                    type: 'month_year',
+                                    onChange(value, form) {
+                                      // console.log('1', form.getFieldValue('dateFrom'));
+                                      // console.log('2', form.getFieldValue('dateFrom'));
+                                      // console.log('value2', value.format('MM/DD/YYYY'));
+                                      value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
+                                        ? setMonth(true)
+                                        : setMonth(false);
+                                      dataTableRefDiscount?.current?.onChange({
+                                        page: 1,
+                                        perPage: 10,
+                                        filter: {
+                                          id: id,
+                                          filter: {
+                                            dateFrom: form.getFieldValue('dateFrom')
+                                              ? form
+                                                  .getFieldValue('dateFrom')
+                                                  .format('MM/DD/YYYY 00:00:00')
+                                                  .replace(/-/g, '/')
+                                              : '',
+                                            dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                          },
+                                          status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                        },
+                                      });
+                                    },
+                                  },
+                                },
+                              ]}
+                              disableSubmit={isLoading}
+                            />
+                            {month && (
+                              <div className="w-full flex">
+                                <span className="sm:w-[526px] text-center sm:text-right text-red-500">
+                                  Tháng kết thúc phải lớn hơn Tháng bắt đầu
+                                </span>
+                              </div>
+                            )}
+                          </div>
                           <div className="sm:flex lg:justify-end w-full">
                             <Form
                               values={{
@@ -2199,7 +2219,7 @@ const Page = () => {
                                 dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                                 status: getFilter(discountFacade.queryParams, 'status'),
                               }}
-                              className="form-store"
+                              className="form-store mt-5"
                               columns={[
                                 {
                                   title: '',
@@ -2615,7 +2635,7 @@ const Page = () => {
                                                   (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
                                                 'Accept-Language': localStorage.getItem('i18nextLng') || '',
                                               },
-                                            }
+                                            },
                                           );
                                           setUpload(formData);
                                         }}
