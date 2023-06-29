@@ -236,7 +236,6 @@ const Page = () => {
         { title: '', dataIndex: '' },
         { title: 'DANH SÁCH HÀNG HÓA BALANCE', dataIndex: '' },
       ]);
-      sheet.drawCell(10, 0, '')
       sheet.addRow();
       sheet.addColumns([
         { title: 'Chọn nhà cung cấp:', dataIndex: '' },
@@ -309,6 +308,11 @@ const Page = () => {
         .saveAs(t('product.List Balance'))
     }
   }, [productFacade.result2?.data])
+
+  const [date, setDate] = useState<boolean>()
+  useEffect(() => {
+
+  }, [])
 
   return (
     <div className="w-full">
@@ -508,6 +512,7 @@ const Page = () => {
                       </div>
                       {isChecked && (
                         <Form
+                          className='form-store'
                           formAnt={forms}
                           values={{ ...data }}
                           columns={[
@@ -1458,6 +1463,7 @@ const Page = () => {
                                   type: 'date',
                                   placeholder: 'placeholder.Choose a time',
                                   onChange(value, form) {
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
                                     dataTableRefInvoiceRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1493,6 +1499,7 @@ const Page = () => {
                                   type: 'date',
                                   placeholder: 'placeholder.Choose a time',
                                   onChange(value, form) {
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                     dataTableRefInvoiceRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1508,6 +1515,7 @@ const Page = () => {
                               },
                             ]}
                           />
+                          {date && (<span className='md:w-[512px] text-center md:text-right text-red-500 -mt-2 z-40'>Ngày kết thúc phải lớn hơn ngày bắt đầu</span>)}
                         </div>
                       }
                     />
@@ -1713,8 +1721,7 @@ const Page = () => {
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
                                 onChange(value, form) {
-                                  console.log(value);
-
+                                  form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
                                   dataTableRefInvoiceKiot?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
@@ -1754,6 +1761,7 @@ const Page = () => {
                                 type: 'date',
                                 placeholder: 'placeholder.Choose a time',
                                 onChange(value, form) {
+                                  value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                   dataTableRefInvoiceKiot?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
@@ -1773,6 +1781,7 @@ const Page = () => {
                             },
                           ]}
                         />
+                        {date && (<span className='md:w-[520px] text-center md:text-right text-red-500 -mt-4 mb-4 z-40'>Ngày kết thúc phải lớn hơn ngày bắt đầu</span>)}
                       </div>
                     }
                     subHeader={() => (

@@ -22,11 +22,12 @@ import { Form } from '@core/form';
 import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
-import { Down, DownArrow, DownLoad, Download, Trash, UploadIcon } from '@svgs';
+import { Down, DownArrow, DownLoad, Download, Trash, UploadFile, UploadIcon } from '@svgs';
 import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
 import { Excel } from 'antd-table-saveas-excel';
+import { Message } from '@core/message';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -272,6 +273,7 @@ const Page = () => {
     data1?.filePhoto?.map((item: any) => urls.push(item.url));
     documentsub.downloadSubZip({ urls });
   };
+  const [date, setDate] = useState<boolean>()
 
 
   return (
@@ -283,7 +285,11 @@ const Page = () => {
             onChange={(key) => sessionStorage.setItem('activeTab', key)}
             type="card"
             size="large"
-            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)}
+            onTabClick={(activeKey: any) => {
+              setDate(false)
+              return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)
+            }
+            }
           >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
@@ -1051,6 +1057,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1093,6 +1100,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1117,6 +1125,7 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
+                          {date && (<span className='md:w-[512px] text-center md:text-right text-red-500'>Ngày kết thúc phải lớn hơn ngày bắt đầu</span>)}
                         </div>
                       }
                       searchPlaceholder={t('placeholder.Search by order number')}
@@ -1494,6 +1503,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
                                     dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1544,6 +1554,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                     dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1576,6 +1587,7 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
+                          {date && (<span className='md:w-[512px] text-center md:text-right text-red-500'>Ngày kết thúc phải lớn hơn ngày bắt đầu</span>)}
                         </div>
                         <Form
                           className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
@@ -2070,6 +2082,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'month_year',
                                   onChange(value, form) {
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -2111,6 +2124,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'month_year',
                                   onChange(value, form) {
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -2134,6 +2148,7 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
+                          {date && (<span className='md:w-[512px] text-center md:text-right text-red-500'>Tháng kết thúc phải lớn hơn ngày bắt đầu</span>)}
                           <div className="sm:flex lg:justify-end w-full">
                             <Form
                               values={{
@@ -2504,6 +2519,20 @@ const Page = () => {
                                     return (
                                       <Upload
                                         onChange={({ file, fileList }) => {
+                                          const allowedFormats = ['docx', 'pdf', 'jpg', 'jpeg', 'csv', 'xlsx', 'xls'];
+                                          const fileExtension = (file.name.split('.').pop() || '') as string;
+                                          if (!allowedFormats.includes(fileExtension)) {
+                                            Message.error({
+                                              text: 'File tải lên không đúng định dạng. Vui lòng tải lên hợp đồng có định dạng là docx, pdf, jpg, jpeg, csv, xlsx, xls',
+                                              confirmButtonColor: '#d33',
+                                              cancelButtonColor: '',
+                                              showCloseButton: true,
+                                              showCancelButton: true,
+                                            }
+                                            );
+                                            file = null
+                                            return;
+                                          }
                                           // const formData = new FormData();
                                           if (file.status == 'uploading') {
                                             file.status = 'done';
@@ -2522,26 +2551,29 @@ const Page = () => {
                                         name="files"
                                         action="/util/upload"
                                         customRequest={(options) => {
+                                          const allowedFormats = ['docx', 'pdf', 'jpg', 'jpeg', 'csv', 'xlsx', 'xls'];
                                           const { file, onError } = options;
                                           const formData = new FormData();
                                           formData.append('files', file);
                                           formData.append('type', 'SUPPLIER');
-                                          const data = API.responsible<any>(
-                                            '/util/upload',
-                                            {},
-                                            {
-                                              ...API.init(),
-                                              method: 'post',
-                                              body: formData,
-                                              headers: {
-                                                authorization:
-                                                  'Bearer ' +
-                                                  (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
-                                                'Accept-Language': localStorage.getItem('i18nextLng') || '',
+                                          if (allowedFormats.includes(file?.type.slice(file?.type.indexOf('/') + 1))) {
+                                            const data = API.responsible<any>(
+                                              '/util/upload',
+                                              {},
+                                              {
+                                                ...API.init(),
+                                                method: 'post',
+                                                body: formData,
+                                                headers: {
+                                                  authorization:
+                                                    'Bearer ' +
+                                                    (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
+                                                  'Accept-Language': localStorage.getItem('i18nextLng') || '',
+                                                },
                                               },
-                                            },
-                                          );
-                                          setUpload(formData);
+                                            );
+                                            setUpload(formData);
+                                          }
                                         }}
                                       >
                                         <div className="bg-white -my-4 sm:w-auto">
