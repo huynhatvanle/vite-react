@@ -227,16 +227,16 @@ const Page = () => {
       let stt = 0
       const excel = new Excel();
       const sheet = excel.addSheet("Sheet1")
-      sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false })
-      sheet.setTBodyStyle({ wrapText: false, fontSize: 10 })
+      sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' })
+      sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' })
       sheet.setRowHeight(0.8, 'cm')
+      // sheet.drawCell(12, 0, '')
       sheet.addColumns([
         { title: '', dataIndex: '' },
         { title: '', dataIndex: '' },
         { title: '', dataIndex: '' },
         { title: 'DANH SÁCH HÀNG HÓA BALANCE', dataIndex: '' },
       ]);
-      sheet.drawCell(10, 0, '')
       sheet.addRow();
       sheet.addColumns([
         { title: 'Chọn nhà cung cấp:', dataIndex: '' },
@@ -971,7 +971,7 @@ const Page = () => {
                 })}
                 defaultRequest={{ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'BALANCE' } }}
                 xScroll="1270px"
-                className=" bg-white p-5 rounded-lg form-store form-store-tab3"
+                className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-supplier-index"
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
                 paginationDescription={(from: number, to: number, total: number) =>
@@ -1323,7 +1323,7 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
-                      className='form-supplied-tab4'
+                      className='form-supplier-tab4'
                       ref={dataTableRefInvoiceRevenue}
                       facade={invoiceRevenueFacade}
                       defaultRequest={{
@@ -1526,7 +1526,7 @@ const Page = () => {
               ) : (
                 <div className='bg-white rounded-xl p-5'>
                   <DataTable
-                    className='form-supplied-tab4'
+                    className='form-supplier-tab4'
                     ref={dataTableRefInvoiceKiot}
                     facade={invoiceKiotVietFacade}
                     defaultRequest={{

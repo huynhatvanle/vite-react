@@ -21,7 +21,7 @@ const Page = () => {
       facade={supplierFacade}
       defaultRequest={{ page: 1, perPage: 10, filter: { type: 'SUPPLIER' }, fullTextSearch: '' }}
       xScroll="1380px"
-      className=" bg-white p-5 rounded-lg form-store-tab3"
+      className=" bg-white p-5 rounded-lg form-store-tab3 form-supplier-index"
       onRow={(data: any) => ({ onDoubleClick: () => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${data.id}`) })}
       pageSizeRender={(sizePage: number) => sizePage}
       pageSizeWidth={'50px'}
