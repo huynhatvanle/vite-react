@@ -193,16 +193,6 @@ const Page = () => {
       value: 'STOP_SELLING',
     },
   ];
-  const statusContract = [
-    {
-      label: t('supplier.Sup-Status.Signed'),
-      value: 'SIGNED_CONTRACT',
-    },
-    {
-      label: t('supplier.Sup-Status.Waiting'),
-      value: 'STOP_SELLING',
-    },
-  ];
 
   interface IExcelColumn {
     title: string;
@@ -259,6 +249,26 @@ const Page = () => {
   let stt2 = 1;
   let i = 1;
   const [upload, setUpload] = useState<FormData>();
+  const [fileList1, setFileList] = useState<UploadFile[]>();
+  const fileInputRef = useRef<UploadFile[]>(null);
+
+  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeSupplierTab') || '1');
+
+  const onChangeTab = (key: string) => {
+    setActiveKey(key);
+    localStorage.setItem('activeSupplierTab', key);
+    navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${key}`);
+  };
+  const urlParams = new URLSearchParams(window.location.search);
+  const tab = urlParams.get('tab');
+  useEffect(() => {
+    if (tab) {
+      setActiveKey(tab);
+    } else {
+      setActiveKey('1');
+    }
+  }, []);
+
   const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
     const docSubOrgId = values.id;
@@ -266,25 +276,36 @@ const Page = () => {
     values.upload.append('docSubOrgId', docSubOrgId);
     // const files = forms.getFieldValue('uploadFile');
     documentsub.uploadSub(values.upload);
+
+    setFileList([]);
+    if (fileInputRef.current?.fileList.length > 0) {
+      return (fileInputRef.current!.fileList = []);
+    }
   };
+  console.log('fileList1', fileList1);
+
+  console.log('current', fileInputRef.current?.fileList);
 
   const handleSubmitZip = (values: any) => {
     let urls: string[] = [];
     data1?.filePhoto?.map((item: any) => urls.push(item.url));
     documentsub.downloadSubZip({ urls });
   };
-
+  const [date, setDate] = useState<boolean>();
 
   return (
     <div className={'w-full'}>
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
-            onChange={(key) => sessionStorage.setItem('activeTab', key)}
+            defaultActiveKey="1"
+            activeKey={activeKey}
             type="card"
             size="large"
-            onTabClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)}
+            onTabClick={(activeKey: any) => {
+              setDate(false);
+              return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+            }}
           >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
@@ -704,10 +725,11 @@ const Page = () => {
                                   { title: 'Danh mục chính', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId1')
-                                      ? `${categoryFacade.result?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -715,10 +737,11 @@ const Page = () => {
                                   { title: 'Danh mục cấp 1', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId2')
-                                      ? `${categoryFacade.result2?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result2?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -726,10 +749,11 @@ const Page = () => {
                                   { title: 'Danh mục cấp 2', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId3')
-                                      ? `${categoryFacade.result3?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result3?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -920,7 +944,7 @@ const Page = () => {
                 <div className={'w-full mx-auto '}>
                   <div className="px-5 bg-white pt-6 pb-4 rounded-xl">
                     <DataTable
-                      className='form-supplied-tab4'
+                      className="form-supplied-tab4"
                       ref={dataTableRefRevenue}
                       facade={inventoryOrders}
                       defaultRequest={{
@@ -1052,6 +1076,9 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
+                                      ? setDate(true)
+                                      : setDate(false);
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1061,9 +1088,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -1094,6 +1121,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
                                     dataTableRefRevenue?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1102,9 +1130,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1118,6 +1146,11 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
+                          {date && (
+                            <span className="md:w-[512px] text-center md:text-right text-red-500">
+                              Ngày kết thúc phải lớn hơn ngày bắt đầu
+                            </span>
+                          )}
                         </div>
                       }
                       searchPlaceholder={t('placeholder.Search by order number')}
@@ -1130,10 +1163,11 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(inventoryOrders.queryParams || '{}').page != 1
-                                ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
-                                JSON.parse(inventoryOrders.queryParams || '{}').perPage +
-                                stt1++
-                                }`
+                                ? `${
+                                    JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                      JSON.parse(inventoryOrders.queryParams || '{}').perPage +
+                                    stt1++
+                                  }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1281,10 +1315,11 @@ const Page = () => {
                             { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'type')
-                                ? `${statusCategory.find((item) => {
-                                  return item.value === getFilter(inventoryOrders.queryParams, 'type');
-                                })?.label
-                                }`
+                                ? `${
+                                    statusCategory.find((item) => {
+                                      return item.value === getFilter(inventoryOrders.queryParams, 'type');
+                                    })?.label
+                                  }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1293,10 +1328,11 @@ const Page = () => {
                             { title: 'Chọn cửa hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'idStore')
-                                ? `${inven?.find((item) => {
-                                  return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
-                                })?.name
-                                }`
+                                ? `${
+                                    inven?.find((item) => {
+                                      return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
+                                    })?.name
+                                  }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1308,8 +1344,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format(
-                                  'MM/DD/YYYY',
-                                )
+                                    'MM/DD/YYYY',
+                                  )
                                 : '',
                               dataIndex: '',
                             },
@@ -1319,8 +1355,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format(
-                                  'MM/DD/YYYY',
-                                )
+                                    'MM/DD/YYYY',
+                                  )
                                 : '',
                               dataIndex: '',
                             },
@@ -1495,6 +1531,9 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
+                                      ? setDate(true)
+                                      : setDate(false);
                                     dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1514,9 +1553,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                       },
@@ -1545,6 +1584,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
                                     dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1563,9 +1603,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1577,6 +1617,11 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
+                          {date && (
+                            <span className="md:w-[512px] text-center md:text-right text-red-500">
+                              Ngày kết thúc phải lớn hơn ngày bắt đầu
+                            </span>
+                          )}
                         </div>
                         <Form
                           className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
@@ -1750,10 +1795,11 @@ const Page = () => {
                           sorter: true,
                           render: (value: any, item: any) =>
                             JSON.parse(inventoryProduct.queryParams || '{}').page != 1
-                              ? `${JSON.parse(inventoryProduct.queryParams || '{}').page *
-                              JSON.parse(inventoryProduct.queryParams || '{}').perPage +
-                              stt2++
-                              }`
+                              ? `${
+                                  JSON.parse(inventoryProduct.queryParams || '{}').page *
+                                    JSON.parse(inventoryProduct.queryParams || '{}').perPage +
+                                  stt2++
+                                }`
                               : `${stt2++}`,
                         },
                       },
@@ -1862,10 +1908,11 @@ const Page = () => {
                           { title: 'Chọn trạng thái:', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'status')
-                              ? `${statusRevenue.find((item) => {
-                                return item.value === getFilter(inventoryProduct.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  statusRevenue.find((item) => {
+                                    return item.value === getFilter(inventoryProduct.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1876,10 +1923,11 @@ const Page = () => {
                           { title: 'Danh mục chính', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId1')
-                              ? `${categoryFacade.result?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1887,10 +1935,11 @@ const Page = () => {
                           { title: 'Danh mục cấp 1', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId2')
-                              ? `${categoryFacade.result2?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result2?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1898,10 +1947,11 @@ const Page = () => {
                           { title: 'Danh mục cấp 2', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId3')
-                              ? `${categoryFacade.result3?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result3?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1976,10 +2026,11 @@ const Page = () => {
                           width: 110,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
-                              JSON.parse(discountFacade.queryParams || '{}').perPage +
-                              stt++
-                              }`
+                              ? `${
+                                  JSON.parse(discountFacade.queryParams || '{}').page *
+                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                  stt++
+                                }`
                               : `${stt++}`,
                         },
                       },
@@ -2071,6 +2122,9 @@ const Page = () => {
                                   col: 4,
                                   type: 'month_year',
                                   onChange(value, form) {
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
+                                      ? setDate(true)
+                                      : setDate(false);
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -2080,9 +2134,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                         status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -2112,6 +2166,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'month_year',
                                   onChange(value, form) {
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
                                     dataTableRefDiscount?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -2120,9 +2175,9 @@ const Page = () => {
                                         filter: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -2135,6 +2190,11 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
+                          {date && (
+                            <span className="md:w-[512px] text-center md:text-right text-red-500">
+                              Tháng kết thúc phải lớn hơn ngày bắt đầu
+                            </span>
+                          )}
                           <div className="sm:flex lg:justify-end w-full">
                             <Form
                               values={{
@@ -2239,10 +2299,11 @@ const Page = () => {
                           { title: 'Chọn trạng thái', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'status')
-                              ? `${listStatusDiscount.find((item) => {
-                                return item.value === getFilter(discountFacade.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  listStatusDiscount.find((item) => {
+                                    return item.value === getFilter(discountFacade.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -2504,6 +2565,7 @@ const Page = () => {
                                   render: (form, values) => {
                                     return (
                                       <Upload
+                                        ref={fileInputRef}
                                         onChange={({ file, fileList }) => {
                                           if (file.status === 'uploading') {
                                             file.status = 'done';
@@ -2524,6 +2586,7 @@ const Page = () => {
                                           }
                                           fileList.length > 0 ? '' : setUpload(undefined);
                                         }}
+                                        fileList={fileList1}
                                         style={{ width: '100%', padding: '42px' }}
                                         // isImageUrl={(file) => {
                                         //   const imageExtensions = ['jpg', 'jpeg'];
@@ -2537,6 +2600,7 @@ const Page = () => {
                                         action="/util/upload"
                                         // fileList={[]}
                                         customRequest={(options) => {
+                                          const allowedFormats = ['docx', 'pdf', 'jpg', 'jpeg', 'csv', 'xlsx', 'xls'];
                                           const { file, onError } = options;
                                           const formData = new FormData();
                                           formData.append('files', file);

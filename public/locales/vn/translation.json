@@ -377,7 +377,7 @@
     "Representative information": "Thông tin người đại diện",
     "Connect KiotViet": "Kết nối KiotViet",
     "Get branch DS": "Lấy DS chi nhánh",
-    "Since": "Từ ngày",
+    "Since": "Từn ngày",
     "To date": "Đến ngày",
     "Barcode": "Mã vạch",
     "Active": "Đang hoặt động",
@@ -406,7 +406,7 @@
     }
   },
   "product": {
-    "STT":"STT",
+    "STT": "STT",
     "Code": "Mã sản phẩm",
     "StoreCode": "Mã vạch (CH)",
     "Storecode": "Mã vạch",
