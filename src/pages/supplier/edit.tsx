@@ -66,7 +66,6 @@ const Page = () => {
   const [test, setTest] = useState(false);
 
   const [forms] = AntForm.useForm();
-  const [listFile, setListFile] = useState<UploadFile[]>();
 
   useEffect(() => {
     if (id) {
@@ -193,16 +192,6 @@ const Page = () => {
       value: 'STOP_SELLING',
     },
   ];
-  const statusContract = [
-    {
-      label: t('supplier.Sup-Status.Signed'),
-      value: 'SIGNED_CONTRACT',
-    },
-    {
-      label: t('supplier.Sup-Status.Waiting'),
-      value: 'STOP_SELLING',
-    },
-  ];
 
   interface IExcelColumn {
     title: string;
@@ -259,6 +248,10 @@ const Page = () => {
   let stt2 = 1;
   let i = 1;
   const [upload, setUpload] = useState<FormData>();
+  const [fileList1, setFileList] = useState<UploadFile[]>();
+  const fileInputRef = useRef<UploadFile[]>(null);
+  console.log('aaa', fileList1);
+
   const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
     const docSubOrgId = values.id;
@@ -266,7 +259,15 @@ const Page = () => {
     values.upload.append('docSubOrgId', docSubOrgId);
     // const files = forms.getFieldValue('uploadFile');
     documentsub.uploadSub(values.upload);
+
+    setFileList([]);
+    if (fileInputRef.current?.fileList.length > 0) {
+      return (fileInputRef.current!.fileList = []);
+    }
   };
+  console.log('fileList1', fileList1);
+
+  console.log('current', fileInputRef.current?.fileList);
 
   const handleSubmitZip = (values: any) => {
     let urls: string[] = [];
@@ -2518,11 +2519,16 @@ const Page = () => {
                                   render: (form, values) => {
                                     return (
                                       <Upload
+                                        ref={fileInputRef}
                                         onChange={({ file, fileList }) => {
+                                          console.log('fileList', fileList);
+
                                           if (file.status == 'uploading') {
                                             file.status = 'done';
                                           }
+                                          setFileList(fileList);
                                         }}
+                                        fileList={fileList1}
                                         style={{ width: '100%', padding: '42px' }}
                                         listType="picture"
                                         type="drag"
@@ -2550,6 +2556,7 @@ const Page = () => {
                                               },
                                             },
                                           );
+
                                           setUpload(formData);
                                         }}
                                       >
