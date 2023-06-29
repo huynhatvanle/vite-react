@@ -39,7 +39,13 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const connectKiot = forms.getFieldsValue()
-    storeFace.post({ ...values, connectKiot });
+    const name = forms.getFieldValue('name')
+    const fax = forms.getFieldValue('fax')
+    const provinceId = forms.getFieldValue('provinceId')
+    const districtId = forms.getFieldValue('districtId')
+    const wardId = forms.getFieldValue('wardId')
+    const street = forms.getFieldValue('street')
+    storeFace.post({ ...values, connectKiot, name, fax, provinceId, districtId, wardId, street });
   };
 
   const [isChecked, setIsChecked] = useState(false);
@@ -74,17 +80,18 @@ const Page = () => {
               rules: [{ type: 'phone', min: 8, max: 12 }],
             },
           },
-          {
-            title: '',
-            name: 'address',
-            formItem: {
-              render() {
-                return (
-                  <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>
-                )
-              },
-            }
-          },
+        ]}
+      />
+
+      <div>
+        <h3 className='text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white'>{t('store.Store Address')}</h3>
+      </div>
+
+      <Form
+        formAnt={forms}
+        values={{ ...data }}
+        className="intro-x form-responsive"
+        columns={[
           {
             title: 'store.Province',
             name: 'provinceId',
@@ -167,6 +174,14 @@ const Page = () => {
               }
             }
           },
+        ]}
+      />
+
+      <Form
+        formAnt={forms}
+        values={{ ...data }}
+        className="intro-x form-responsive"
+        columns={[
           {
             name: 'nameContact',
             title: 'store.ContactName',
