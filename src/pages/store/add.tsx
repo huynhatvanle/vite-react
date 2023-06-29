@@ -60,7 +60,7 @@ const Page = () => {
       <Form
         formAnt={forms}
         values={{ ...data }}
-        className="intro-x form-responsive"
+        className="intro-x form-store2"
         columns={[
           {
             title: 'store.Name',
@@ -90,7 +90,7 @@ const Page = () => {
       <Form
         formAnt={forms}
         values={{ ...data }}
-        className="intro-x form-responsive"
+        className="intro-x form-store1"
         columns={[
           {
             title: 'store.Province',
@@ -180,7 +180,7 @@ const Page = () => {
       <Form
         formAnt={forms}
         values={{ ...data }}
-        className="intro-x form-responsive"
+        className="intro-x form-responsive form-store3"
         columns={[
           {
             name: 'nameContact',
