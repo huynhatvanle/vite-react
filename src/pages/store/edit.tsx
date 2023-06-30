@@ -122,7 +122,13 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const connectKiot = forms.getFieldsValue()
-    storeFacade.put({ ...values, id, connectKiot });
+    const name = forms.getFieldValue('name')
+    const fax = forms.getFieldValue('fax')
+    const provinceId = forms.getFieldValue('provinceId')
+    const districtId = forms.getFieldValue('districtId')
+    const wardId = forms.getFieldValue('wardId')
+    const street = forms.getFieldValue('street')
+    storeFacade.put({ ...values, id, connectKiot, name, fax, provinceId, districtId, wardId, street });
   };
 
   const handleClick = () => {
@@ -327,13 +333,11 @@ const Page = () => {
           >
             <Tabs.TabPane tab={t('titles.store-managerment/edit')} key="1" className="">
               {!isLoading && (
+                <div>
                 <Form
                   formAnt={forms}
                   values={{
                     ...data,
-                    emailContact: data?.userRole?.[0].userAdmin?.email,
-                    phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
-                    nameContact: data?.userRole?.[0].userAdmin.name,
                   }}
                   className="intro-x form-responsive"
                   columns={[
@@ -376,6 +380,15 @@ const Page = () => {
                         },
                       },
                     },
+                  ]}
+                />
+                <Form
+                  formAnt={forms}
+                  values={{
+                    ...data,
+                  }}
+                  className="intro-x form-responsive"
+                  columns={[
                     {
                       title: 'store.Province',
                       name: 'provinceId',
@@ -466,6 +479,18 @@ const Page = () => {
                         },
                       },
                     },
+                  ]}
+                />
+                <Form
+                  formAnt={forms}
+                  values={{
+                    ...data,
+                    emailContact: data?.userRole?.[0].userAdmin?.email,
+                    phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
+                    nameContact: data?.userRole?.[0].userAdmin.name,
+                  }}
+                  className="intro-x form-responsive"
+                  columns={[
                     {
                       title: 'store.ContactName',
                       name: 'nameContact',
@@ -563,6 +588,7 @@ const Page = () => {
                   disableSubmit={isLoading}
                   handCancel={handleBack}
                 />
+                </div>
               )}
             </Tabs.TabPane>
 
