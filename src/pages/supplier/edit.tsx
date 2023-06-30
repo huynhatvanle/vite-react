@@ -2696,7 +2696,7 @@ const Page = () => {
                             ]}
                           />
                         </div>
-                        <p className="text-base text-teal-900 font-bold px-3 py-4">
+                        <p className="text-base text-teal-900 font-bold">
                           {t('supplier.Contract.File system')}:
                         </p>
 
@@ -2833,7 +2833,7 @@ const Page = () => {
                             </div>
                           </div>
                         ) : (
-                          <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
+                          <div className="text-sm py-2">{t('supplier.Contract.File form system')}.</div>
                         )}
 
                         <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 -mt-2 sm:mt-5">
