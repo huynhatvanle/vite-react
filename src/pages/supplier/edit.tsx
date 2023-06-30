@@ -251,7 +251,10 @@ const Page = () => {
     { title: t('product.status'), key: 'status', dataIndex: 'status' },
   ];
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => {
+    sessionStorage.setItem('activeTab', '1')
+    navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`)
+  };
 
   const handleSubmit = (values: Supplier) => {
     const code = forms.getFieldValue('code')
@@ -2236,7 +2239,7 @@ const Page = () => {
                                 dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                                 status: getFilter(discountFacade.queryParams, 'status'),
                               }}
-                              className="form-store mt-5"
+                              className="form-store"
                               columns={[
                                 {
                                   title: '',
