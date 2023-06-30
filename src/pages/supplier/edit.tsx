@@ -307,202 +307,202 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
                 <div>
-                <Form
-                formAnt={forms}
-                  values={{
-                    ...data,
-                  }}
-                  className="intro-x form-store2"
-                  columns={[
-                    {
-                      title: 'supplier.CodeName',
-                      name: 'code',
-                      formItem: {
-                        disabled: () => true,
-                        tabIndex: 1,
-                        col: 4,
-                      },
-                    },
-                    {
-                      title: 'supplier.Name',
-                      name: 'name',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 4,
-                        rules: [{ type: 'required' }],
-                      },
-                    },
-                    {
-                      title: 'store.Fax',
-                      name: 'fax',
-                      formItem: {
-                        tabIndex: 2,
-                        col: 4,
-                        rules: [{ type: 'phone', min: 8, max: 12 }],
-                      },
-                    },
-                    {
-                      title: '',
-                      name: 'address',
-                      formItem: {
-                        rules: [{ type: 'required' }],
-                        render() {
-                          return <h3 className="mb-2.5 text-base ">{t('store.Store Address')}</h3>;
-                        },
-                      },
-                    },
-                  ]}
-                />
                   <Form
-                  formAnt={forms}
-                  values={{
-                    ...data,
-                    street: data?.address?.street,
-                  }}
-                  className="intro-x form-store1"
-                  columns={[
-                    {
-                      title: 'store.Province',
-                      name: 'provinceId',
-                      formItem: {
-                        firstLoad: () => ({}),
-                        tabIndex: 3,
-                        col: 3,
-                        rules: [{ type: 'requiredSelect' }],
-                        type: 'select',
-                        get: {
-                          facade: ProvinceFacade,
-                          format: (item: any) => ({
-                            label: item.name,
-                            value: item.id + '|' + item.code,
-                          }),
-                        },
-                        onChange(value, form) {
-                          form.resetFields(['districtId', 'wardId']);
+                    formAnt={forms}
+                    values={{
+                      ...data,
+                    }}
+                    className="intro-x form-store2"
+                    columns={[
+                      {
+                        title: 'supplier.CodeName',
+                        name: 'code',
+                        formItem: {
+                          disabled: () => true,
+                          tabIndex: 1,
+                          col: 4,
                         },
                       },
-                    },
-                    {
-                      title: 'store.District',
-                      name: 'districtId',
-                      formItem: {
-                        firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
-                        type: 'select',
-                        rules: [{ type: 'requiredSelect' }],
-                        col: 3,
-                        get: {
-                          facade: DistrictFacade,
-                          format: (item: any) => ({
-                            label: item.name,
-                            value: item.id + '|' + item.code,
-                          }),
-                          params: (fullTextSearch, value) => ({
-                            fullTextSearch,
-                            code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
-                          }),
-                        },
-                        onChange(value, form) {
-                          form.resetFields(['wardId']);
+                      {
+                        title: 'supplier.Name',
+                        name: 'name',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          rules: [{ type: 'required' }],
                         },
                       },
-                    },
-                    {
-                      title: 'store.Ward',
-                      name: 'wardId',
-                      formItem: {
-                        firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
-                        type: 'select',
-                        rules: [{ type: 'requiredSelect' }],
-                        col: 3,
-                        get: {
-                          facade: WardFacade,
-                          format: (item: any) => ({
-                            label: item.name,
-                            value: item.id,
-                          }),
-                          params: (fullTextSearch, value) => ({
-                            fullTextSearch,
-                            code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                          }),
+                      {
+                        title: 'store.Fax',
+                        name: 'fax',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 4,
+                          rules: [{ type: 'phone', min: 8, max: 12 }],
                         },
                       },
-                    },
-                    {
-                      title: 'store.Street',
-                      name: 'street',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 3,
-                        rules: [{ type: 'required' }],
-                      },
-                    },
-                    {
-                      title: '',
-                      name: '',
-                      formItem: {
-                        render() {
-                          return (
-                            <div className="text-xl text-teal-900 font-bold mb-2.5">
-                              {t('store.Representative information')}
-                            </div>
-                          );
+                      {
+                        title: '',
+                        name: 'address',
+                        formItem: {
+                          rules: [{ type: 'required' }],
+                          render() {
+                            return <h3 className="mb-2.5 text-base ">{t('store.Store Address')}</h3>;
+                          },
                         },
                       },
-                    },
-                  ]}
-                />
+                    ]}
+                  />
                   <Form
-                  formAnt={forms}
-                  values={{
-                    ...data,
-                    nameContact: data?.userRole?.[0].userAdmin.name,
-                    emailContact: data?.userRole?.[0].userAdmin.email,
-                    phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
-                  }}
-                  className="intro-x form-responsive form-store3"
-                  columns={[
-                    {
-                      title: 'store.ContactName',
-                      name: 'nameContact',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 4,
-                        type: 'name',
-                        rules: [{ type: 'required' }],
+                    formAnt={forms}
+                    values={{
+                      ...data,
+                      street: data?.address?.street,
+                    }}
+                    className="intro-x form-store1"
+                    columns={[
+                      {
+                        title: 'store.Province',
+                        name: 'provinceId',
+                        formItem: {
+                          firstLoad: () => ({}),
+                          tabIndex: 3,
+                          col: 3,
+                          rules: [{ type: 'requiredSelect' }],
+                          type: 'select',
+                          get: {
+                            facade: ProvinceFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id + '|' + item.code,
+                            }),
+                          },
+                          onChange(value, form) {
+                            form.resetFields(['districtId', 'wardId']);
+                          },
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Contact Phone Number',
-                      name: 'phoneNumber',
-                      formItem: {
-                        tabIndex: 2,
-                        col: 4,
-                        rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
+                      {
+                        title: 'store.District',
+                        name: 'districtId',
+                        formItem: {
+                          firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
+                          type: 'select',
+                          rules: [{ type: 'requiredSelect' }],
+                          col: 3,
+                          get: {
+                            facade: DistrictFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id + '|' + item.code,
+                            }),
+                            params: (fullTextSearch, value) => ({
+                              fullTextSearch,
+                              code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
+                            }),
+                          },
+                          onChange(value, form) {
+                            form.resetFields(['wardId']);
+                          },
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Contact Email',
-                      name: 'emailContact',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 4,
-                        rules: [{ type: 'required' }, { type: 'email' }],
+                      {
+                        title: 'store.Ward',
+                        name: 'wardId',
+                        formItem: {
+                          firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
+                          type: 'select',
+                          rules: [{ type: 'requiredSelect' }],
+                          col: 3,
+                          get: {
+                            facade: WardFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id,
+                            }),
+                            params: (fullTextSearch, value) => ({
+                              fullTextSearch,
+                              code: value().districtId.slice(value().districtId.indexOf('|') + 1),
+                            }),
+                          },
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Note',
-                      name: 'note',
-                      formItem: {
-                        type: 'textarea',
-                        tabIndex: 1,
-                        col: 12,
+                      {
+                        title: 'store.Street',
+                        name: 'street',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 3,
+                          rules: [{ type: 'required' }],
+                        },
                       },
-                    },
-                  ]}
-                  handSubmit={handleSubmit}
-                  disableSubmit={isLoading}
-                  handCancel={handleBack}
-                />
+                      {
+                        title: '',
+                        name: '',
+                        formItem: {
+                          render() {
+                            return (
+                              <div className="text-xl text-teal-900 font-bold mb-2.5">
+                                {t('store.Representative information')}
+                              </div>
+                            );
+                          },
+                        },
+                      },
+                    ]}
+                  />
+                  <Form
+                    formAnt={forms}
+                    values={{
+                      ...data,
+                      nameContact: data?.userRole?.[0].userAdmin.name,
+                      emailContact: data?.userRole?.[0].userAdmin.email,
+                      phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
+                    }}
+                    className="intro-x form-responsive form-store3"
+                    columns={[
+                      {
+                        title: 'store.ContactName',
+                        name: 'nameContact',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          type: 'name',
+                          rules: [{ type: 'required' }],
+                        },
+                      },
+                      {
+                        title: 'store.Contact Phone Number',
+                        name: 'phoneNumber',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 4,
+                          rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
+                        },
+                      },
+                      {
+                        title: 'store.Contact Email',
+                        name: 'emailContact',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          rules: [{ type: 'required' }, { type: 'email' }],
+                        },
+                      },
+                      {
+                        title: 'store.Note',
+                        name: 'note',
+                        formItem: {
+                          type: 'textarea',
+                          tabIndex: 1,
+                          col: 12,
+                        },
+                      },
+                    ]}
+                    handSubmit={handleSubmit}
+                    disableSubmit={isLoading}
+                    handCancel={handleBack}
+                  />
                 </div>
               )}
             </Tabs.TabPane>
@@ -2144,6 +2144,7 @@ const Page = () => {
                                     type: 'month_year',
                                     onChange(value, form) {
                                       console.log('value1', value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
+
                                       value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
                                         ? setMonth(true)
                                         : setMonth(false);
@@ -2190,7 +2191,9 @@ const Page = () => {
                                     col: 4,
                                     type: 'month_year',
                                     onChange(value, form) {
-                                      console.log('value1', value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
+                                      // console.log('1', form.getFieldValue('dateFrom'));
+                                      // console.log('2', form.getFieldValue('dateFrom'));
+                                      // console.log('value2', value.format('MM/DD/YYYY'));
                                       value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
                                         ? setMonth(true)
                                         : setMonth(false);
@@ -2232,7 +2235,7 @@ const Page = () => {
                                 dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                                 status: getFilter(discountFacade.queryParams, 'status'),
                               }}
-                              className="form-store"
+                              className="form-store mt-5"
                               columns={[
                                 {
                                   title: '',
@@ -2607,7 +2610,7 @@ const Page = () => {
                                           fileList = fileList.slice(fileList.length - 1)
                                           fileList.length > 0 ? setUpload(undefined) : '';
                                         }}
-                                        beforeUpload= {(file) => {
+                                        beforeUpload={(file) => {
                                           if (
                                             file.type !== 'image/png' &&
                                             file.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
@@ -2642,24 +2645,23 @@ const Page = () => {
                                           const formData = new FormData();
                                           formData.append('files', file);
                                           formData.append('type', 'SUPPLIER');
-                                            const data = API.responsible<any>(
-                                              '/util/upload',
-                                              {},
-                                              {
-                                                ...API.init(),
-                                                method: 'post',
-                                                body: formData,
-                                                headers: {
-                                                  authorization:
-                                                    'Bearer ' +
-                                                    (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
-                                                  'Accept-Language': localStorage.getItem('i18nextLng') || '',
-                                                },
+                                          const data = API.responsible<any>(
+                                            '/util/upload',
+                                            {},
+                                            {
+                                              ...API.init(),
+                                              method: 'post',
+                                              body: formData,
+                                              headers: {
+                                                authorization:
+                                                  'Bearer ' +
+                                                  (localStorage.getItem('b7a2bdf4-ac40-4012-9635-ff4b7e55eae0') || ''),
+                                                'Accept-Language': localStorage.getItem('i18nextLng') || '',
                                               },
-                                            );
-                                            setUpload(formData);
-                                          }
-                                        }
+                                            },
+                                          );
+                                          setUpload(formData);
+                                        }}
                                       >
                                         <div className="bg-white -my-4 sm:w-auto">
                                           <UploadIcon className="w-20 h-28 text-gray-400 mx-auto" />
