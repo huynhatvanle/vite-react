@@ -228,7 +228,7 @@ const Page = () => {
       const excel = new Excel();
       const sheet = excel.addSheet("Sheet1")
       sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' })
-      sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' })
+      sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' })
       sheet.setRowHeight(0.8, 'cm')
       // sheet.drawCell(12, 0, '')
       sheet.addColumns([
@@ -371,7 +371,7 @@ const Page = () => {
                         rules: [{ type: 'required' }],
                         render() {
                           return (
-                            <h3 className="mb-2.5 text-base text-black font-medium">{t('store.Store Address')}</h3>
+                            <h3 className="text-base font-medium">{t('store.Store Address')}</h3>
                           );
                         },
                       },
@@ -1451,7 +1451,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center !w-full">
-                                      <p className="text-sm">{t('store.Since')}</p>
+                                      <p className="text-sm whitespace-nowrap">{t('store.Since')}</p>
                                     </div>
                                   ),
                                 },
@@ -1487,7 +1487,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center !w-full">
-                                      <p className="text-sm">{t('store.To date')}</p>
+                                      <p className="text-sm whitespace-nowrap">{t('store.To date')}</p>
                                     </div>
                                   ),
                                 },
@@ -1709,7 +1709,7 @@ const Page = () => {
                                 col: 2,
                                 render: () => (
                                   <div className="flex h-10 items-center !w-full">
-                                    <p className="text-sm">{t('store.Since')}</p>
+                                    <p className="text-sm whitespace-nowrap">{t('store.Since')}</p>
                                   </div>
                                 ),
                               },
@@ -1749,7 +1749,7 @@ const Page = () => {
                                 col: 2,
                                 render: () => (
                                   <div className="flex h-10 items-center !w-full">
-                                    <p className="text-sm">{t('store.To date')}</p>
+                                    <p className="text-sm whitespace-nowrap">{t('store.To date')}</p>
                                   </div>
                                 ),
                               },

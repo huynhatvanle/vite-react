@@ -307,202 +307,202 @@ const Page = () => {
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
                 <div>
-                <Form
-                formAnt={forms}
-                  values={{
-                    ...data,
-                  }}
-                  className="intro-x form-store2"
-                  columns={[
-                    {
-                      title: 'supplier.CodeName',
-                      name: 'code',
-                      formItem: {
-                        disabled: () => true,
-                        tabIndex: 1,
-                        col: 4,
-                      },
-                    },
-                    {
-                      title: 'supplier.Name',
-                      name: 'name',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 4,
-                        rules: [{ type: 'required' }],
-                      },
-                    },
-                    {
-                      title: 'store.Fax',
-                      name: 'fax',
-                      formItem: {
-                        tabIndex: 2,
-                        col: 4,
-                        rules: [{ type: 'phone', min: 8, max: 12 }],
-                      },
-                    },
-                    {
-                      title: '',
-                      name: 'address',
-                      formItem: {
-                        rules: [{ type: 'required' }],
-                        render() {
-                          return <h3 className="mb-2.5 text-base ">{t('store.Store Address')}</h3>;
-                        },
-                      },
-                    },
-                  ]}
-                />
                   <Form
-                  formAnt={forms}
-                  values={{
-                    ...data,
-                    street: data?.address?.street,
-                  }}
-                  className="intro-x form-store1"
-                  columns={[
-                    {
-                      title: 'store.Province',
-                      name: 'provinceId',
-                      formItem: {
-                        firstLoad: () => ({}),
-                        tabIndex: 3,
-                        col: 3,
-                        rules: [{ type: 'requiredSelect' }],
-                        type: 'select',
-                        get: {
-                          facade: ProvinceFacade,
-                          format: (item: any) => ({
-                            label: item.name,
-                            value: item.id + '|' + item.code,
-                          }),
-                        },
-                        onChange(value, form) {
-                          form.resetFields(['districtId', 'wardId']);
+                    formAnt={forms}
+                    values={{
+                      ...data,
+                    }}
+                    className="intro-x form-store2"
+                    columns={[
+                      {
+                        title: 'supplier.CodeName',
+                        name: 'code',
+                        formItem: {
+                          disabled: () => true,
+                          tabIndex: 1,
+                          col: 4,
                         },
                       },
-                    },
-                    {
-                      title: 'store.District',
-                      name: 'districtId',
-                      formItem: {
-                        firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
-                        type: 'select',
-                        rules: [{ type: 'requiredSelect' }],
-                        col: 3,
-                        get: {
-                          facade: DistrictFacade,
-                          format: (item: any) => ({
-                            label: item.name,
-                            value: item.id + '|' + item.code,
-                          }),
-                          params: (fullTextSearch, value) => ({
-                            fullTextSearch,
-                            code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
-                          }),
-                        },
-                        onChange(value, form) {
-                          form.resetFields(['wardId']);
+                      {
+                        title: 'supplier.Name',
+                        name: 'name',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          rules: [{ type: 'required' }],
                         },
                       },
-                    },
-                    {
-                      title: 'store.Ward',
-                      name: 'wardId',
-                      formItem: {
-                        firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
-                        type: 'select',
-                        rules: [{ type: 'requiredSelect' }],
-                        col: 3,
-                        get: {
-                          facade: WardFacade,
-                          format: (item: any) => ({
-                            label: item.name,
-                            value: item.id,
-                          }),
-                          params: (fullTextSearch, value) => ({
-                            fullTextSearch,
-                            code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                          }),
+                      {
+                        title: 'store.Fax',
+                        name: 'fax',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 4,
+                          rules: [{ type: 'phone', min: 8, max: 12 }],
                         },
                       },
-                    },
-                    {
-                      title: 'store.Street',
-                      name: 'street',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 3,
-                        rules: [{ type: 'required' }],
-                      },
-                    },
-                    {
-                      title: '',
-                      name: '',
-                      formItem: {
-                        render() {
-                          return (
-                            <div className="text-xl text-teal-900 font-bold mb-2.5">
-                              {t('store.Representative information')}
-                            </div>
-                          );
+                      {
+                        title: '',
+                        name: 'address',
+                        formItem: {
+                          rules: [{ type: 'required' }],
+                          render() {
+                            return <h3 className="mb-2.5 text-base">{t('store.Store Address')}</h3>;
+                          },
                         },
                       },
-                    },
-                  ]}
-                />
+                    ]}
+                  />
                   <Form
-                  formAnt={forms}
-                  values={{
-                    ...data,
-                    nameContact: data?.userRole?.[0].userAdmin.name,
-                    emailContact: data?.userRole?.[0].userAdmin.email,
-                    phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
-                  }}
-                  className="intro-x form-responsive form-store3"
-                  columns={[
-                    {
-                      title: 'store.ContactName',
-                      name: 'nameContact',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 4,
-                        type: 'name',
-                        rules: [{ type: 'required' }],
+                    formAnt={forms}
+                    values={{
+                      ...data,
+                      street: data?.address?.street,
+                    }}
+                    className="intro-x form-store1"
+                    columns={[
+                      {
+                        title: 'store.Province',
+                        name: 'provinceId',
+                        formItem: {
+                          firstLoad: () => ({}),
+                          tabIndex: 3,
+                          col: 3,
+                          rules: [{ type: 'requiredSelect' }],
+                          type: 'select',
+                          get: {
+                            facade: ProvinceFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id + '|' + item.code,
+                            }),
+                          },
+                          onChange(value, form) {
+                            form.resetFields(['districtId', 'wardId']);
+                          },
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Contact Phone Number',
-                      name: 'phoneNumber',
-                      formItem: {
-                        tabIndex: 2,
-                        col: 4,
-                        rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
+                      {
+                        title: 'store.District',
+                        name: 'districtId',
+                        formItem: {
+                          firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
+                          type: 'select',
+                          rules: [{ type: 'requiredSelect' }],
+                          col: 3,
+                          get: {
+                            facade: DistrictFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id + '|' + item.code,
+                            }),
+                            params: (fullTextSearch, value) => ({
+                              fullTextSearch,
+                              code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
+                            }),
+                          },
+                          onChange(value, form) {
+                            form.resetFields(['wardId']);
+                          },
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Contact Email',
-                      name: 'emailContact',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 4,
-                        rules: [{ type: 'required' }, { type: 'email' }],
+                      {
+                        title: 'store.Ward',
+                        name: 'wardId',
+                        formItem: {
+                          firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
+                          type: 'select',
+                          rules: [{ type: 'requiredSelect' }],
+                          col: 3,
+                          get: {
+                            facade: WardFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id,
+                            }),
+                            params: (fullTextSearch, value) => ({
+                              fullTextSearch,
+                              code: value().districtId.slice(value().districtId.indexOf('|') + 1),
+                            }),
+                          },
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Note',
-                      name: 'note',
-                      formItem: {
-                        type: 'textarea',
-                        tabIndex: 1,
-                        col: 12,
+                      {
+                        title: 'store.Street',
+                        name: 'street',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 3,
+                          rules: [{ type: 'required' }],
+                        },
                       },
-                    },
-                  ]}
-                  handSubmit={handleSubmit}
-                  disableSubmit={isLoading}
-                  handCancel={handleBack}
-                />
+                      {
+                        title: '',
+                        name: '',
+                        formItem: {
+                          render() {
+                            return (
+                              <div className="text-lg text-teal-900 font-bold mb-2.5">
+                                {t('store.Representative information')}
+                              </div>
+                            );
+                          },
+                        },
+                      },
+                    ]}
+                  />
+                  <Form
+                    formAnt={forms}
+                    values={{
+                      ...data,
+                      nameContact: data?.userRole?.[0].userAdmin.name,
+                      emailContact: data?.userRole?.[0].userAdmin.email,
+                      phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
+                    }}
+                    className="intro-x form-responsive form-store3"
+                    columns={[
+                      {
+                        title: 'store.ContactName',
+                        name: 'nameContact',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          type: 'name',
+                          rules: [{ type: 'required' }],
+                        },
+                      },
+                      {
+                        title: 'store.Contact Phone Number',
+                        name: 'phoneNumber',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 4,
+                          rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
+                        },
+                      },
+                      {
+                        title: 'store.Contact Email',
+                        name: 'emailContact',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          rules: [{ type: 'required' }, { type: 'email' }],
+                        },
+                      },
+                      {
+                        title: 'store.Note',
+                        name: 'note',
+                        formItem: {
+                          type: 'textarea',
+                          tabIndex: 1,
+                          col: 12,
+                        },
+                      },
+                    ]}
+                    handSubmit={handleSubmit}
+                    disableSubmit={isLoading}
+                    handCancel={handleBack}
+                  />
                 </div>
               )}
             </Tabs.TabPane>
@@ -730,7 +730,7 @@ const Page = () => {
                                   wrapText: false,
                                   fontName: 'Calibri',
                                 });
-                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                                sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                                 sheet.setRowHeight(0.8, 'cm');
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
@@ -981,7 +981,7 @@ const Page = () => {
                         t('routes.admin.Layout.PaginationOrder', { from, to, total })
                       }
                       rightHeader={
-                        <div className="flex justify-end text-left flex-col w-full">
+                        <div className="flex justify-end text-left flex-col w-full mt-1.5 xl:mt-0">
                           <Form
                             values={{
                               dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
@@ -1275,7 +1275,7 @@ const Page = () => {
                         },
                       ]}
                       subHeader={() => (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-2 sm:mb-3 mb-4">
                           {subHeader.map((e) => (
                             <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
                               <h1 className="font-bold mb-3">{e.title}</h1>
@@ -1323,14 +1323,14 @@ const Page = () => {
                             wrapText: false,
                             fontName: 'Calibri',
                           });
-                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                          sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                           sheet.setRowHeight(0.8, 'cm');
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
                             { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
                           ]);
-                          sheet.drawCell(10, 0, '');
+                          // sheet.drawCell(10, 0, '');
                           sheet.addRow();
                           sheet.addColumns([
                             { title: 'Tìm kiếm:', dataIndex: '' },
@@ -1474,7 +1474,7 @@ const Page = () => {
                     }
                     subHeader={() => (
                       <>
-                        <div className="flex justify-start text-left flex-col xl:flex-row w-full">
+                        <div className="flex justify-start text-left flex-col xl:flex-row w-full mt-1.5 xl:m-0">
                           <Form
                             values={{
                               categoryId1: getFilter(inventoryProduct.queryParams, 'categoryId1'),
@@ -1534,7 +1534,7 @@ const Page = () => {
                               dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
                               status: getFilter(inventoryProduct.queryParams, 'status'),
                             }}
-                            className="intro-x w-full sm:flex mt-2 form-store items-center"
+                            className="intro-x w-full sm:flex form-store items-center"
                             columns={[
                               {
                                 title: '',
@@ -1544,7 +1544,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center xl:ml-4 ml-0">
-                                      <p>{t('store.Since')}</p>
+                                      <p className='whitespace-nowrap'>{t('store.Since')}</p>
                                     </div>
                                   ),
                                 },
@@ -1595,7 +1595,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center">
-                                      <p>{t('store.To date')}</p>
+                                      <p className='whitespace-nowrap'>{t('store.To date')}</p>
                                     </div>
                                   ),
                                 },
@@ -1912,14 +1912,14 @@ const Page = () => {
                           wrapText: false,
                           fontName: 'Calibri',
                         });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO SẢN PHẨM', dataIndex: '' },
                         ]);
-                        sheet.drawCell(10, 0, '');
+                        // sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Tìm kiếm:', dataIndex: '' },
@@ -2130,7 +2130,7 @@ const Page = () => {
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
                                         {/* whitespace-nowrap */}
-                                        <p>{t('Kỳ hạn từ')}</p>
+                                        <p className='whitespace-nowrap'>{t('Kỳ hạn từ')}</p>
                                       </div>
                                     ),
                                   },
@@ -2177,7 +2177,7 @@ const Page = () => {
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
-                                        <p>{t('đến')}</p>
+                                        <p className='whitespace-nowrap'>{t('đến')}</p>
                                       </div>
                                     ),
                                   },
@@ -2264,7 +2264,7 @@ const Page = () => {
                             />
                           </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:w-64 sm:gap-4 mt-10 sm:mb-3 mb-4">
+                        <div className="grid grid-cols-1 sm:w-64 sm:gap-4 mt-2 sm:mb-3 mb-4">
                           <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
                             <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
                             <span className="text-teal-900 text-xl font-bold mt-auto">{discountTotal} VND</span>
@@ -2303,13 +2303,13 @@ const Page = () => {
                           wrapText: false,
                           fontName: 'Calibri',
                         });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
                         ]);
-                        sheet.drawCell(10, 0, '');
+                        // sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Kỳ hạn từ', dataIndex: '' },

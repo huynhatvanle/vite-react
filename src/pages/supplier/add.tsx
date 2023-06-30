@@ -85,7 +85,7 @@ const Page = () => {
         ]}
       />
       <Form
-      formAnt={forms}
+        formAnt={forms}
         values={{ ...data }}
         className="intro-x form-store1"
         columns={[
@@ -166,7 +166,7 @@ const Page = () => {
             formItem: {
               render() {
                 return (
-                  <div className="text-xl text-teal-900 font-bold mb-2.5">
+                  <div className="text-lg text-teal-900 font-bold mb-2.5">
                     {t('store.Representative information')}
                   </div>
                 );
@@ -175,8 +175,8 @@ const Page = () => {
           },
         ]}
       />
-       <Form
-       formAnt={forms}
+      <Form
+        formAnt={forms}
         values={{ ...data }}
         className="intro-x form-responsive form-store3"
         columns={[

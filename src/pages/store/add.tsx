@@ -84,7 +84,7 @@ const Page = () => {
       />
 
       <div>
-        <h3 className='text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white'>{t('store.Store Address')}</h3>
+        <h3 className='text-base pl-5 pb-3 bg-white'>{t('store.Store Address')}</h3>
       </div>
 
       <Form
