@@ -68,6 +68,7 @@ const Page = () => {
 
   const [forms] = AntForm.useForm();
   const [listFile, setListFile] = useState<UploadFile<any>[]>([]);
+  const [isFile, setIsFile] = useState<boolean>();
 
   useEffect(() => {
     if (id) {
@@ -2606,9 +2607,8 @@ const Page = () => {
                                           if (file.status == 'uploading') {
                                             file.status = 'done';
                                           }
-                                          setListFile(fileList)
                                           fileList = fileList.slice(fileList.length - 1)
-                                          fileList.length > 0 ? setUpload(undefined) : '';
+                                          fileList.length > 0 ? '' : setUpload(undefined);
                                         }}
                                         beforeUpload={(file) => {
                                           if (
