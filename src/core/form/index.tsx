@@ -174,7 +174,6 @@ export const Form = ({
         );
       case 'date':
         return (
-          // <ConfigProvider locale={locale}>
           <DatePicker
             tabIndex={formItem.tabIndex || index}
             format={
@@ -196,7 +195,6 @@ export const Form = ({
             name={item.name}
             placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
           />
-          // </ConfigProvider>
         );
       case 'month_year':
         return (

@@ -251,7 +251,10 @@ const Page = () => {
     { title: t('product.status'), key: 'status', dataIndex: 'status' },
   ];
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => {
+    sessionStorage.setItem('activeTab', '1')
+    navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`)
+  };
 
   const handleSubmit = (values: Supplier) => {
     const code = forms.getFieldValue('code')
@@ -443,7 +446,7 @@ const Page = () => {
                         formItem: {
                           render() {
                             return (
-                              <div className="text-xl text-teal-900 font-bold mb-2.5">
+                              <div className="text-lg text-teal-900 font-bold mb-2.5">
                                 {t('store.Representative information')}
                               </div>
                             );
@@ -731,7 +734,7 @@ const Page = () => {
                                   wrapText: false,
                                   fontName: 'Calibri',
                                 });
-                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10 });
+                                sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                                 sheet.setRowHeight(0.8, 'cm');
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
@@ -982,7 +985,7 @@ const Page = () => {
                         t('routes.admin.Layout.PaginationOrder', { from, to, total })
                       }
                       rightHeader={
-                        <div className="flex justify-end text-left flex-col w-full">
+                        <div className="flex justify-end text-left flex-col w-full mt-1.5 xl:mt-0">
                           <Form
                             values={{
                               dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
@@ -1276,7 +1279,7 @@ const Page = () => {
                         },
                       ]}
                       subHeader={() => (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-10 sm:mb-3 mb-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-2 sm:mb-3 mb-4">
                           {subHeader.map((e) => (
                             <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
                               <h1 className="font-bold mb-3">{e.title}</h1>
@@ -1324,14 +1327,14 @@ const Page = () => {
                             wrapText: false,
                             fontName: 'Calibri',
                           });
-                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                          sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                           sheet.setRowHeight(0.8, 'cm');
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
                             { title: '', dataIndex: '' },
                             { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
                           ]);
-                          sheet.drawCell(10, 0, '');
+                          // sheet.drawCell(10, 0, '');
                           sheet.addRow();
                           sheet.addColumns([
                             { title: 'Tìm kiếm:', dataIndex: '' },
@@ -1475,7 +1478,7 @@ const Page = () => {
                     }
                     subHeader={() => (
                       <>
-                        <div className="flex justify-start text-left flex-col xl:flex-row w-full">
+                        <div className="flex justify-start text-left flex-col xl:flex-row w-full mt-1.5 xl:m-0">
                           <Form
                             values={{
                               categoryId1: getFilter(inventoryProduct.queryParams, 'categoryId1'),
@@ -1535,7 +1538,7 @@ const Page = () => {
                               dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
                               status: getFilter(inventoryProduct.queryParams, 'status'),
                             }}
-                            className="intro-x w-full sm:flex mt-2 form-store items-center"
+                            className="intro-x w-full sm:flex form-store items-center"
                             columns={[
                               {
                                 title: '',
@@ -1545,7 +1548,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center xl:ml-4 ml-0">
-                                      <p>{t('store.Since')}</p>
+                                      <p className='whitespace-nowrap'>{t('store.Since')}</p>
                                     </div>
                                   ),
                                 },
@@ -1596,7 +1599,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center">
-                                      <p>{t('store.To date')}</p>
+                                      <p className='whitespace-nowrap'>{t('store.To date')}</p>
                                     </div>
                                   ),
                                 },
@@ -1913,14 +1916,14 @@ const Page = () => {
                           wrapText: false,
                           fontName: 'Calibri',
                         });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO SẢN PHẨM', dataIndex: '' },
                         ]);
-                        sheet.drawCell(10, 0, '');
+                        // sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Tìm kiếm:', dataIndex: '' },
@@ -2131,7 +2134,7 @@ const Page = () => {
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
                                         {/* whitespace-nowrap */}
-                                        <p>{t('Kỳ hạn từ')}</p>
+                                        <p className='whitespace-nowrap'>{t('Kỳ hạn từ')}</p>
                                       </div>
                                     ),
                                   },
@@ -2146,7 +2149,7 @@ const Page = () => {
                                     onChange(value, form) {
                                       console.log('value1', value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
 
-                                      value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
+                                      form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
                                         ? setMonth(true)
                                         : setMonth(false);
                                       dataTableRefDiscount?.current?.onChange({
@@ -2179,7 +2182,7 @@ const Page = () => {
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
-                                        <p>{t('đến')}</p>
+                                        <p className='whitespace-nowrap'>{t('đến')}</p>
                                       </div>
                                     ),
                                   },
@@ -2195,7 +2198,7 @@ const Page = () => {
                                       // console.log('1', form.getFieldValue('dateFrom'));
                                       // console.log('2', form.getFieldValue('dateFrom'));
                                       // console.log('value2', value.format('MM/DD/YYYY'));
-                                      value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
+                                      value && form.getFieldValue('dateFrom') > value
                                         ? setMonth(true)
                                         : setMonth(false);
                                       dataTableRefDiscount?.current?.onChange({
@@ -2236,7 +2239,7 @@ const Page = () => {
                                 dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                                 status: getFilter(discountFacade.queryParams, 'status'),
                               }}
-                              className="form-store mt-5"
+                              className="form-store"
                               columns={[
                                 {
                                   title: '',
@@ -2268,7 +2271,7 @@ const Page = () => {
                             />
                           </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:w-64 sm:gap-4 mt-10 sm:mb-3 mb-4">
+                        <div className="grid grid-cols-1 sm:w-64 sm:gap-4 mt-2 sm:mb-3 mb-4">
                           <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
                             <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
                             <span className="text-teal-900 text-xl font-bold mt-auto">{discountTotal} VND</span>
@@ -2307,13 +2310,13 @@ const Page = () => {
                           wrapText: false,
                           fontName: 'Calibri',
                         });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
                           { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
                         ]);
-                        sheet.drawCell(10, 0, '');
+                        // sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
                           { title: 'Kỳ hạn từ', dataIndex: '' },
@@ -2611,17 +2614,17 @@ const Page = () => {
                                           fileList.length > 0 ? '' : setUpload(undefined);
                                         }}
                                         iconRender={(file) => {
-                                          if (file.type == 'application/vnd.ms-excel' ||file.type == 'text/csv' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ) {
+                                          if (file.type == 'application/vnd.ms-excel' || file.type == 'text/csv' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
                                             return <img src='http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'
-                                          />
+                                            />
                                           }
                                           if (file.type == 'application/pdf') {
                                             return <img src='http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'
-                                          />
+                                            />
                                           }
                                           if (file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
                                             return <img src='http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'
-                                          />
+                                            />
                                           }
                                         }}
                                         beforeUpload={(file) => {
@@ -2696,7 +2699,7 @@ const Page = () => {
                             ]}
                           />
                         </div>
-                        <p className="text-base text-teal-900 font-bold px-3 py-4">
+                        <p className="text-base text-teal-900 font-bold">
                           {t('supplier.Contract.File system')}:
                         </p>
 
@@ -2833,7 +2836,7 @@ const Page = () => {
                             </div>
                           </div>
                         ) : (
-                          <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
+                          <div className="text-sm py-2">{t('supplier.Contract.File form system')}.</div>
                         )}
 
                         <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 -mt-2 sm:mt-5">
