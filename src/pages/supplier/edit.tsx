@@ -2149,7 +2149,7 @@ const Page = () => {
                                     onChange(value, form) {
                                       console.log('value1', value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
 
-                                      value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
+                                      form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
                                         ? setMonth(true)
                                         : setMonth(false);
                                       dataTableRefDiscount?.current?.onChange({
@@ -2198,7 +2198,7 @@ const Page = () => {
                                       // console.log('1', form.getFieldValue('dateFrom'));
                                       // console.log('2', form.getFieldValue('dateFrom'));
                                       // console.log('value2', value.format('MM/DD/YYYY'));
-                                      value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
+                                      value && form.getFieldValue('dateFrom') > value
                                         ? setMonth(true)
                                         : setMonth(false);
                                       dataTableRefDiscount?.current?.onChange({
@@ -2614,17 +2614,17 @@ const Page = () => {
                                           fileList.length > 0 ? '' : setUpload(undefined);
                                         }}
                                         iconRender={(file) => {
-                                          if (file.type == 'application/vnd.ms-excel' ||file.type == 'text/csv' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ) {
+                                          if (file.type == 'application/vnd.ms-excel' || file.type == 'text/csv' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
                                             return <img src='http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'
-                                          />
+                                            />
                                           }
                                           if (file.type == 'application/pdf') {
                                             return <img src='http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'
-                                          />
+                                            />
                                           }
                                           if (file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
                                             return <img src='http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'
-                                          />
+                                            />
                                           }
                                         }}
                                         beforeUpload={(file) => {
