@@ -2603,9 +2603,24 @@ const Page = () => {
                                     return (
                                       <Upload
                                         onChange={({ file, fileList }) => {
-                                          const allowedFormats = ['docx', 'pdf', 'jpg', 'jpeg', 'csv', 'xlsx', 'xls'];
-                                          const fileExtension = (file.name.split('.').pop() || '') as string;
-                                          if (!allowedFormats.includes(fileExtension)) {
+                                          if (file.status == 'uploading') {
+                                            file.status = 'done';
+                                          }
+                                          setListFile(fileList)
+                                          fileList = fileList.slice(fileList.length - 1)
+                                          fileList.length > 0 ? setUpload(undefined) : '';
+                                        }}
+                                        beforeUpload={(file) => {
+                                          if (
+                                            file.type !== 'image/png' &&
+                                            file.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
+                                            file.type !== 'application/pdf' &&
+                                            file.type !== 'image/jpeg' &&
+                                            file.type !== 'image/jpg' &&
+                                            file.type !== 'text/csv' &&
+                                            file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
+                                            file.type !== 'application/vnd.ms-excel'
+                                          ) {
                                             Message.error({
                                               text: 'File tải lên không đúng định dạng. Vui lòng tải lên hợp đồng có định dạng là docx, pdf, jpg, jpeg, csv, xlsx, xls',
                                               confirmButtonColor: '#d33',
@@ -2614,16 +2629,9 @@ const Page = () => {
                                               showCancelButton: true,
                                             }
                                             );
-                                            fileList = []
-                                            return;
+                                            return Upload.LIST_IGNORE;
                                           }
-                                          // const formData = new FormData();
-                                          if (file.status == 'uploading') {
-                                            file.status = 'done';
-                                          }
-                                          setListFile(fileList)
-                                          fileList = fileList.slice(fileList.length - 1)
-                                          fileList.length > 0 ? '' : setUpload(undefined)
+                                          return true;
                                         }}
                                         style={{ width: '100%', padding: '42px' }}
                                         listType="picture"
