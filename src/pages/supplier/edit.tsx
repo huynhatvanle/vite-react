@@ -2711,7 +2711,9 @@ const Page = () => {
                             ]}
                           />
                         </div>
-                        <p className="text-base text-teal-900 font-bold">{t('supplier.Contract.File system')}:</p>
+                        <p className="text-base text-teal-900 font-bold my-5">
+                          {t('supplier.Contract.File system')}:
+                        </p>
 
                         {data1?.filePhoto.length > 0 ? (
                           <div className="px-3">
@@ -2849,7 +2851,7 @@ const Page = () => {
                           <div className="text-sm py-2">{t('supplier.Contract.File form system')}.</div>
                         )}
 
-                        <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 -mt-2 sm:mt-5">
+                        <div className="flex-col-reverse md:flex-row flex items-center pt-5 justify-between gap-2.5 -mt-2 sm:mt-5">
                           <Button
                             text={t('components.form.modal.cancel')}
                             className={'z-10 !block out-line border-teal-800 !w-56 sm:!w-28 !font-normal'}
@@ -2859,7 +2861,7 @@ const Page = () => {
                             disabled={upload?.get('files') ? false : true}
                             text={t('titles.Upload contract')}
                             className={
-                              'flex bg-teal-900 text-white rounded-xl w-56 items-center justify-center disabled:opacity-20'
+                              'flex bg-teal-900 text-white rounded-xl w-52 items-center justify-center disabled:opacity-20'
                             }
                             onClick={() => handleSubmitUpload({ ...values, upload })}
                           />
