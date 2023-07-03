@@ -252,18 +252,18 @@ const Page = () => {
   ];
 
   const handleBack = () => {
-    sessionStorage.setItem('activeTab', '1')
-    navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`)
+    sessionStorage.setItem('activeTab', '1');
+    navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
   };
 
   const handleSubmit = (values: Supplier) => {
-    const code = forms.getFieldValue('code')
-    const name = forms.getFieldValue('name')
-    const fax = forms.getFieldValue('fax')
-    const provinceId = forms.getFieldValue('provinceId')
-    const districtId = forms.getFieldValue('districtId')
-    const wardId = forms.getFieldValue('wardId')
-    const street = forms.getFieldValue('street')
+    const code = forms.getFieldValue('code');
+    const name = forms.getFieldValue('name');
+    const fax = forms.getFieldValue('fax');
+    const provinceId = forms.getFieldValue('provinceId');
+    const districtId = forms.getFieldValue('districtId');
+    const wardId = forms.getFieldValue('wardId');
+    const street = forms.getFieldValue('street');
     supplierFacade.put({ ...values, id, code, name, fax, provinceId, districtId, wardId, street });
   };
   let stt = 1;
@@ -303,10 +303,9 @@ const Page = () => {
             type="card"
             size="large"
             onTabClick={(activeKey: any) => {
-              setDate(false)
-              return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)
-            }
-            }
+              setDate(false);
+              return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+            }}
           >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
@@ -748,10 +747,11 @@ const Page = () => {
                                   { title: 'Danh mục chính', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId1')
-                                      ? `${categoryFacade.result?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -759,10 +759,11 @@ const Page = () => {
                                   { title: 'Danh mục cấp 1', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId2')
-                                      ? `${categoryFacade.result2?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result2?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -770,10 +771,11 @@ const Page = () => {
                                   { title: 'Danh mục cấp 2', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId3')
-                                      ? `${categoryFacade.result3?.data?.find((item) => {
-                                        return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-                                      })?.name
-                                      }`
+                                      ? `${
+                                          categoryFacade.result3?.data?.find((item) => {
+                                            return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                          })?.name
+                                        }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -1111,9 +1113,9 @@ const Page = () => {
                                               : '',
                                             dateTo: form.getFieldValue('dateTo')
                                               ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                                  .getFieldValue('dateTo')
+                                                  .format('MM/DD/YYYY 23:59:59')
+                                                  .replace(/-/g, '/')
                                               : '',
                                           },
                                           idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -1155,9 +1157,9 @@ const Page = () => {
                                           filterDate: {
                                             dateFrom: form.getFieldValue('dateFrom')
                                               ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                                  .getFieldValue('dateFrom')
+                                                  .format('MM/DD/YYYY 00:00:00')
+                                                  .replace(/-/g, '/')
                                               : '',
                                             dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                           },
@@ -1191,10 +1193,11 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(inventoryOrders.queryParams || '{}').page != 1
-                                ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
-                                JSON.parse(inventoryOrders.queryParams || '{}').perPage +
-                                stt1++
-                                }`
+                                ? `${
+                                    JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                      JSON.parse(inventoryOrders.queryParams || '{}').perPage +
+                                    stt1++
+                                  }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1347,10 +1350,11 @@ const Page = () => {
                             { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'type')
-                                ? `${statusCategory.find((item) => {
-                                  return item.value === getFilter(inventoryOrders.queryParams, 'type');
-                                })?.label
-                                }`
+                                ? `${
+                                    statusCategory.find((item) => {
+                                      return item.value === getFilter(inventoryOrders.queryParams, 'type');
+                                    })?.label
+                                  }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1359,10 +1363,11 @@ const Page = () => {
                             { title: 'Chọn cửa hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'idStore')
-                                ? `${inven?.find((item) => {
-                                  return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
-                                })?.name
-                                }`
+                                ? `${
+                                    inven?.find((item) => {
+                                      return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
+                                    })?.name
+                                  }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1374,8 +1379,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format(
-                                  'MM/DD/YYYY',
-                                )
+                                    'MM/DD/YYYY',
+                                  )
                                 : '',
                               dataIndex: '',
                             },
@@ -1385,8 +1390,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format(
-                                  'MM/DD/YYYY',
-                                )
+                                    'MM/DD/YYYY',
+                                  )
                                 : '',
                               dataIndex: '',
                             },
@@ -1548,7 +1553,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center xl:ml-4 ml-0">
-                                      <p className='whitespace-nowrap'>{t('store.Since')}</p>
+                                      <p className="whitespace-nowrap">{t('store.Since')}</p>
                                     </div>
                                   ),
                                 },
@@ -1561,7 +1566,9 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
+                                      ? setDate(true)
+                                      : setDate(false);
                                     dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1581,9 +1588,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                              .getFieldValue('dateTo')
-                                              .format('MM/DD/YYYY 23:59:59')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                             : '',
                                         },
                                       },
@@ -1599,7 +1606,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center">
-                                      <p className='whitespace-nowrap'>{t('store.To date')}</p>
+                                      <p className="whitespace-nowrap">{t('store.To date')}</p>
                                     </div>
                                   ),
                                 },
@@ -1612,7 +1619,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
                                     dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1631,9 +1638,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                              .getFieldValue('dateFrom')
-                                              .format('MM/DD/YYYY 00:00:00')
-                                              .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1645,7 +1652,11 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
-                          {date && (<span className='md:w-[512px] text-center md:text-right text-red-500'>Ngày kết thúc phải lớn hơn ngày bắt đầu</span>)}
+                          {date && (
+                            <span className="md:w-[512px] text-center md:text-right text-red-500">
+                              Ngày kết thúc phải lớn hơn ngày bắt đầu
+                            </span>
+                          )}
                         </div>
                         <Form
                           className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
@@ -1819,10 +1830,11 @@ const Page = () => {
                           sorter: true,
                           render: (value: any, item: any) =>
                             JSON.parse(inventoryProduct.queryParams || '{}').page != 1
-                              ? `${JSON.parse(inventoryProduct.queryParams || '{}').page *
-                              JSON.parse(inventoryProduct.queryParams || '{}').perPage +
-                              stt2++
-                              }`
+                              ? `${
+                                  JSON.parse(inventoryProduct.queryParams || '{}').page *
+                                    JSON.parse(inventoryProduct.queryParams || '{}').perPage +
+                                  stt2++
+                                }`
                               : `${stt2++}`,
                         },
                       },
@@ -1936,10 +1948,11 @@ const Page = () => {
                           { title: 'Chọn trạng thái:', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'status')
-                              ? `${statusRevenue.find((item) => {
-                                return item.value === getFilter(inventoryProduct.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  statusRevenue.find((item) => {
+                                    return item.value === getFilter(inventoryProduct.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1950,10 +1963,11 @@ const Page = () => {
                           { title: 'Danh mục chính', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId1')
-                              ? `${categoryFacade.result?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1961,10 +1975,11 @@ const Page = () => {
                           { title: 'Danh mục cấp 1', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId2')
-                              ? `${categoryFacade.result2?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result2?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -1972,10 +1987,11 @@ const Page = () => {
                           { title: 'Danh mục cấp 2', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId3')
-                              ? `${categoryFacade.result3?.data?.find((item) => {
-                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
-                              })?.name
-                              }`
+                              ? `${
+                                  categoryFacade.result3?.data?.find((item) => {
+                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -2050,10 +2066,11 @@ const Page = () => {
                           width: 110,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
-                              JSON.parse(discountFacade.queryParams || '{}').perPage +
-                              stt++
-                              }`
+                              ? `${
+                                  JSON.parse(discountFacade.queryParams || '{}').page *
+                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                  stt++
+                                }`
                               : `${stt++}`,
                         },
                       },
@@ -2134,7 +2151,7 @@ const Page = () => {
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
                                         {/* whitespace-nowrap */}
-                                        <p className='whitespace-nowrap'>{t('Kỳ hạn từ')}</p>
+                                        <p className="whitespace-nowrap">{t('Kỳ hạn từ')}</p>
                                       </div>
                                     ),
                                   },
@@ -2147,9 +2164,7 @@ const Page = () => {
                                     col: 4,
                                     type: 'month_year',
                                     onChange(value, form) {
-                                      console.log('value1', value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
-
-                                      form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
+                                      value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
                                         ? setMonth(true)
                                         : setMonth(false);
                                       dataTableRefDiscount?.current?.onChange({
@@ -2163,9 +2178,9 @@ const Page = () => {
                                               : '',
                                             dateTo: form.getFieldValue('dateTo')
                                               ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                                  .getFieldValue('dateTo')
+                                                  .format('MM/DD/YYYY 23:59:59')
+                                                  .replace(/-/g, '/')
                                               : '',
                                           },
                                           status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -2182,7 +2197,7 @@ const Page = () => {
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
-                                        <p className='whitespace-nowrap'>{t('đến')}</p>
+                                        <p className="whitespace-nowrap">{t('đến')}</p>
                                       </div>
                                     ),
                                   },
@@ -2195,10 +2210,7 @@ const Page = () => {
                                     col: 4,
                                     type: 'month_year',
                                     onChange(value, form) {
-                                      // console.log('1', form.getFieldValue('dateFrom'));
-                                      // console.log('2', form.getFieldValue('dateFrom'));
-                                      // console.log('value2', value.format('MM/DD/YYYY'));
-                                      value && form.getFieldValue('dateFrom') > value
+                                      value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
                                         ? setMonth(true)
                                         : setMonth(false);
                                       dataTableRefDiscount?.current?.onChange({
@@ -2209,9 +2221,9 @@ const Page = () => {
                                           filter: {
                                             dateFrom: form.getFieldValue('dateFrom')
                                               ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                                  .getFieldValue('dateFrom')
+                                                  .format('MM/DD/YYYY 00:00:00')
+                                                  .replace(/-/g, '/')
                                               : '',
                                             dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                           },
@@ -2341,10 +2353,11 @@ const Page = () => {
                           { title: 'Chọn trạng thái', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'status')
-                              ? `${listStatusDiscount.find((item) => {
-                                return item.value === getFilter(discountFacade.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  listStatusDiscount.find((item) => {
+                                    return item.value === getFilter(discountFacade.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -2610,32 +2623,45 @@ const Page = () => {
                                           if (file.status == 'uploading') {
                                             file.status = 'done';
                                           }
-                                          fileList = fileList.slice(fileList.length - 1)
+                                          fileList = fileList.slice(fileList.length - 1);
                                           fileList.length > 0 ? '' : setUpload(undefined);
                                         }}
                                         iconRender={(file) => {
-                                          if (file.type == 'application/vnd.ms-excel' || file.type == 'text/csv' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-                                            return <img src='http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'
-                                            />
+                                          if (
+                                            file.type == 'application/vnd.ms-excel' ||
+                                            file.type == 'text/csv' ||
+                                            file.type ==
+                                              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                                          ) {
+                                            return (
+                                              <img src="http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png" />
+                                            );
                                           }
                                           if (file.type == 'application/pdf') {
-                                            return <img src='http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'
-                                            />
+                                            return (
+                                              <img src="http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png" />
+                                            );
                                           }
-                                          if (file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-                                            return <img src='http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'
-                                            />
+                                          if (
+                                            file.type ==
+                                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                                          ) {
+                                            return (
+                                              <img src="http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png" />
+                                            );
                                           }
                                         }}
                                         beforeUpload={(file) => {
                                           if (
                                             file.type !== 'image/png' &&
-                                            file.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
+                                            file.type !==
+                                              'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
                                             file.type !== 'application/pdf' &&
                                             file.type !== 'image/jpeg' &&
                                             file.type !== 'image/jpg' &&
                                             file.type !== 'text/csv' &&
-                                            file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
+                                            file.type !==
+                                              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
                                             file.type !== 'application/vnd.ms-excel'
                                           ) {
                                             Message.error({
@@ -2644,8 +2670,7 @@ const Page = () => {
                                               cancelButtonColor: '',
                                               showCloseButton: true,
                                               showCancelButton: true,
-                                            }
-                                            );
+                                            });
                                             return Upload.LIST_IGNORE;
                                           }
                                           return true;
@@ -2699,9 +2724,7 @@ const Page = () => {
                             ]}
                           />
                         </div>
-                        <p className="text-base text-teal-900 font-bold">
-                          {t('supplier.Contract.File system')}:
-                        </p>
+                        <p className="text-base text-teal-900 font-bold">{t('supplier.Contract.File system')}:</p>
 
                         {data1?.filePhoto.length > 0 ? (
                           <div className="px-3">
