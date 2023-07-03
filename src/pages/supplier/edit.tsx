@@ -1487,7 +1487,7 @@ const Page = () => {
                               dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
                               status: getFilter(inventoryProduct.queryParams, 'status'),
                             }}
-                            className="intro-x sm:flex justify-start items-center rounded-lg form-store "
+                            className="intro-x sm:flex justify-start items-center rounded-lg form-store pt-1.5"
                             columns={[
                               {
                                 title: '',
@@ -1537,7 +1537,7 @@ const Page = () => {
                               dateTo: getFilter(inventoryProduct.queryParams, 'filterDate')?.dateTo,
                               status: getFilter(inventoryProduct.queryParams, 'status'),
                             }}
-                            className="intro-x w-full sm:flex form-store items-center"
+                            className="intro-x w-full sm:flex form-store items-center xl:pt-1.5 pt-0"
                             columns={[
                               {
                                 title: '',
