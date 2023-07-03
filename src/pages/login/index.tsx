@@ -62,7 +62,7 @@ const Page = () => {
             disableSubmit={isLoading}
           />
         </Spin>
-        <div className="absolute right-6 top-2/3 sm:right-0 text-right">
+        <div className="absolute  top-2/3 right-0 text-right">
           <button
             className={'text-teal-900 font-normal underline hover:no-underline mt-2'}
             onClick={() => navigate(`/${lang}${routerLinks('ForgetPassword')}`)}

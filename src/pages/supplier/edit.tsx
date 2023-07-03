@@ -2149,7 +2149,7 @@ const Page = () => {
                                     onChange(value, form) {
                                       console.log('value1', value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
 
-                                      value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
+                                      form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
                                         ? setMonth(true)
                                         : setMonth(false);
                                       dataTableRefDiscount?.current?.onChange({
@@ -2198,7 +2198,7 @@ const Page = () => {
                                       // console.log('1', form.getFieldValue('dateFrom'));
                                       // console.log('2', form.getFieldValue('dateFrom'));
                                       // console.log('value2', value.format('MM/DD/YYYY'));
-                                      value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
+                                      value && form.getFieldValue('dateFrom') > value
                                         ? setMonth(true)
                                         : setMonth(false);
                                       dataTableRefDiscount?.current?.onChange({
