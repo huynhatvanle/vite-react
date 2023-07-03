@@ -51,9 +51,15 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const connectKiot = forms.getFieldsValue()
+    const name = forms.getFieldValue('name')
+    const fax = forms.getFieldValue('fax')
+    const provinceId = forms.getFieldValue('provinceId')
+    const districtId = forms.getFieldValue('districtId')
+    const wardId = forms.getFieldValue('wardId')
+    const street = forms.getFieldValue('street')
     const storeId = id ? id : '';
     const isStore = storeId
-    storeFace.put({ ...values, connectKiot, isStore, id });
+    storeFace.put({ ...values, connectKiot, isStore, id, name, fax, provinceId, districtId, wardId, street });
   };
 
 
@@ -66,31 +72,18 @@ const Page = () => {
   return (
     <Fragment>
       <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Storeinformation')}</div>
+
       <Form
         formAnt={forms}
-        values={{
-          ...data,
-          emailContact: data?.userRole?.[0].userAdmin?.email,
-          phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
-          nameContact: data?.userRole?.[0].userAdmin.name,
-        }}
-        className="intro-x form-responsive"
+        values={{ ...data }}
+        className="intro-x form-store2"
         columns={[
-          {
-            title: 'store.Code',
-            name: 'code',
-            formItem: {
-              tabIndex: 1,
-              col: 4,
-              disabled: () => true,
-            },
-          },
           {
             title: 'store.Name',
             name: 'name',
             formItem: {
-              tabIndex: 2,
-              col: 4,
+              tabIndex: 1,
+              col: 6,
               rules: [{ type: 'required' }],
             },
           },
@@ -98,11 +91,19 @@ const Page = () => {
             title: 'store.Fax',
             name: 'fax',
             formItem: {
-              tabIndex: 3,
-              col: 4,
+              tabIndex: 2,
+              col: 6,
               rules: [{ type: 'phone', min: 8, max: 12 }],
             },
           },
+        ]}
+      />
+
+      <Form
+        formAnt={forms}
+        values={{ ...data }}
+        className="intro-x form-store1"
+        columns={[
           {
             title: '',
             name: 'address',
@@ -110,7 +111,7 @@ const Page = () => {
               rules: [{ type: 'required' }],
               render() {
                 return (
-                  <h3 className="mb-2.5 text-base text-black font-medium">{t('store.Store Address')}</h3>
+                  <h3 className="text-base font-medium mb-3">{t('store.Store Address')}</h3>
                 );
               },
             },
@@ -119,11 +120,10 @@ const Page = () => {
             title: 'store.Province',
             name: 'provinceId',
             formItem: {
-              firstLoad: () => ({}),
-              tabIndex: 4,
+              tabIndex: 3,
               col: 3,
-              rules: [{ type: 'requiredSelect' }],
               type: 'select',
+              rules: [{ type: 'required' }],
               get: {
                 facade: ProvinceFacade,
                 format: (item: any) => ({
@@ -132,18 +132,16 @@ const Page = () => {
                 }),
               },
               onChange(value, form) {
-                form.resetFields(['districtId', 'wardId']);
+                form.resetFields(['districtId', 'wardId'])
               },
             },
           },
           {
-            title: 'store.District',
             name: 'districtId',
+            title: 'store.District',
             formItem: {
-              firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
               type: 'select',
-              rules: [{ type: 'requiredSelect' }],
-              tabIndex: 5,
+              rules: [{ type: 'required' }],
               col: 3,
               get: {
                 facade: DistrictFacade,
@@ -157,18 +155,16 @@ const Page = () => {
                 }),
               },
               onChange(value, form) {
-                form.resetFields(['wardId']);
+                form.resetFields(['wardId'])
               },
             },
           },
           {
-            title: 'store.Ward',
             name: 'wardId',
+            title: 'store.Ward',
             formItem: {
-              firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
               type: 'select',
-              rules: [{ type: 'requiredSelect' }],
-              tabIndex: 6,
+              rules: [{ type: 'required' }],
               col: 3,
               get: {
                 facade: WardFacade,
@@ -179,56 +175,64 @@ const Page = () => {
                 params: (fullTextSearch, value) => ({
                   fullTextSearch,
                   code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                }),
-              },
+                })
+              }
             },
           },
           {
-            title: 'store.Street',
             name: 'street',
+            title: 'store.Street',
             formItem: {
               rules: [{ type: 'required' }],
-              tabIndex: 7,
               col: 3,
             },
           },
+        ]}
+      />
+
+
+      <Form
+        formAnt={forms}
+        values={{
+          ...data,
+          emailContact: data?.userRole?.[0].userAdmin?.email,
+          phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
+          nameContact: data?.userRole?.[0].userAdmin.name,
+        }}
+        className="intro-x form-responsive form-store3"
+        columns={[
           {
             title: '',
             name: '',
             formItem: {
               render() {
                 return (
-                  <div className="text-lg text-teal-900 font-bold mb-2.5">
-                    {t('store.Representative information')}
-                  </div>
-                );
-              },
-            },
+                  <div className='text-lg text-teal-900 font-bold mb-2.5'>{t('store.Representative information')}</div>
+                )
+              }
+            }
           },
           {
-            title: 'store.ContactName',
             name: 'nameContact',
+            title: 'store.ContactName',
             formItem: {
-              tabIndex: 8,
               col: 4,
               type: 'name',
-              rules: [{ type: 'required' }],
+              rules: [{ type: 'required' },],
             },
           },
           {
-            title: 'store.Contact Phone Number',
             name: 'phoneNumber',
+            title: 'store.Contact Phone Number',
             formItem: {
-              tabIndex: 9,
               col: 4,
               rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
             },
           },
           {
-            title: 'store.Contact Email',
             name: 'emailContact',
+            title: 'store.Contact Email',
             formItem: {
-              tabIndex: 10,
               col: 4,
               rules: [{ type: 'required' }, { type: 'email' }],
             },
@@ -237,7 +241,6 @@ const Page = () => {
             name: 'note',
             title: 'store.Note',
             formItem: {
-              tabIndex: 11,
               type: 'textarea',
             },
           },
@@ -312,7 +315,7 @@ const Page = () => {
                 text={t('components.button.CancelAction')}
                 className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5'}
                 onClick={() => Message.confirm({
-                  text: 'Bạn có chắc muốn kích hoạt chi nhánh này ?',
+                  text: 'Bạn có chắc hủy kích hoạt chi nhánh này ?',
                   confirmButtonColor: '#d33',
                   cancelButtonColor: '',
                   showCloseButton: true,
@@ -328,7 +331,7 @@ const Page = () => {
                 text={t('components.button.Action')}
                 className={'md:min-w-[8rem] justify-center !bg-yellow-500 max-sm:w-3/5 '}//ml-[60rem]
                 onClick={() => Message.confirm({
-                  text: 'Bạn có chắc hủy kích hoạt chi nhánh này ?',
+                  text: 'Bạn có chắc muốn kích hoạt chi nhánh này ?',
                   confirmButtonColor: '#d33',
                   cancelButtonColor: '',
                   showCloseButton: true,
@@ -344,8 +347,9 @@ const Page = () => {
         )}
         handSubmit={handleSubmit}
         disableSubmit={isLoading}
-      // handCancel={handleBack}
       />
+
+
     </Fragment>
   );
 };

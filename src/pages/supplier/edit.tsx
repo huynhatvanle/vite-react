@@ -23,7 +23,7 @@ import { DataTable } from '@core/data-table';
 import { Button } from '@core/button';
 import { ProvinceFacade } from '@store/address/province';
 import { Down, DownArrow, DownLoad, Download, Trash, UploadIcon } from '@svgs';
-import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile, message } from 'antd';
+import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile } from 'antd';
 import dayjs from 'dayjs';
 import Upload from 'antd/es/upload/Upload';
 import { Excel } from 'antd-table-saveas-excel';
@@ -68,6 +68,7 @@ const Page = () => {
 
   const [forms] = AntForm.useForm();
   const [listFile, setListFile] = useState<UploadFile<any>[]>([]);
+  const [isFile, setIsFile] = useState<boolean>();
 
   useEffect(() => {
     if (id) {
@@ -193,6 +194,16 @@ const Page = () => {
       value: 'STOP_SELLING',
     },
   ];
+  const statusContract = [
+    {
+      label: t('supplier.Sup-Status.Signed'),
+      value: 'SIGNED_CONTRACT',
+    },
+    {
+      label: t('supplier.Sup-Status.Waiting'),
+      value: 'STOP_SELLING',
+    },
+  ];
 
   interface IExcelColumn {
     title: string;
@@ -240,35 +251,26 @@ const Page = () => {
     { title: t('product.status'), key: 'status', dataIndex: 'status' },
   ];
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => {
+    sessionStorage.setItem('activeTab', '1');
+    navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
+  };
+
   const handleSubmit = (values: Supplier) => {
-    supplierFacade.put({ ...values, id });
+    const code = forms.getFieldValue('code');
+    const name = forms.getFieldValue('name');
+    const fax = forms.getFieldValue('fax');
+    const provinceId = forms.getFieldValue('provinceId');
+    const districtId = forms.getFieldValue('districtId');
+    const wardId = forms.getFieldValue('wardId');
+    const street = forms.getFieldValue('street');
+    supplierFacade.put({ ...values, id, code, name, fax, provinceId, districtId, wardId, street });
   };
   let stt = 1;
   let stt1 = 1;
   let stt2 = 1;
   let i = 1;
   const [upload, setUpload] = useState<FormData>();
-  const [fileList1, setFileList] = useState<UploadFile[]>();
-  const fileInputRef = useRef<UploadFile[]>(null);
-
-  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeSupplierTab') || '1');
-
-  const onChangeTab = (key: string) => {
-    setActiveKey(key);
-    localStorage.setItem('activeSupplierTab', key);
-    navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${key}`);
-  };
-  const urlParams = new URLSearchParams(window.location.search);
-  const tab = urlParams.get('tab');
-  useEffect(() => {
-    if (tab) {
-      setActiveKey(tab);
-    } else {
-      setActiveKey('1');
-    }
-  }, []);
-
   const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
     const docSubOrgId = values.id;
@@ -296,191 +298,215 @@ const Page = () => {
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey="1"
-            activeKey={activeKey}
+            defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
+            onChange={(key) => sessionStorage.setItem('activeTab', key)}
             type="card"
             size="large"
-            onTabClick={(key: string) => onChangeTab(key)}
+            onTabClick={(activeKey: any) => {
+              setDate(false);
+              return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+            }}
           >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
-                <Form
-                  values={{
-                    ...data,
-                    street: data?.address?.street,
-                    nameContact: data?.userRole?.[0].userAdmin.name,
-                    emailContact: data?.userRole?.[0].userAdmin.email,
-                    phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
-                  }}
-                  className="intro-x form-responsive"
-                  columns={[
-                    {
-                      title: 'supplier.CodeName',
-                      name: 'code',
-                      formItem: {
-                        disabled: () => true,
-                        tabIndex: 1,
-                        col: 4,
-                      },
-                    },
-                    {
-                      title: 'supplier.Name',
-                      name: 'name',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 4,
-                        rules: [{ type: 'required' }],
-                      },
-                    },
-                    {
-                      title: 'store.Fax',
-                      name: 'fax',
-                      formItem: {
-                        tabIndex: 2,
-                        col: 4,
-                        rules: [{ type: 'phone', min: 8, max: 12 }],
-                      },
-                    },
-                    {
-                      title: '',
-                      name: 'address',
-                      formItem: {
-                        rules: [{ type: 'required' }],
-                        render() {
-                          return <h3 className="mb-2.5 text-base ">{t('store.Store Address')}</h3>;
+                <div>
+                  <Form
+                    formAnt={forms}
+                    values={{
+                      ...data,
+                    }}
+                    className="intro-x form-store2"
+                    columns={[
+                      {
+                        title: 'supplier.CodeName',
+                        name: 'code',
+                        formItem: {
+                          disabled: () => true,
+                          tabIndex: 1,
+                          col: 4,
                         },
                       },
-                    },
-                    {
-                      title: 'store.Province',
-                      name: 'provinceId',
-                      formItem: {
-                        firstLoad: () => ({}),
-                        tabIndex: 3,
-                        col: 3,
-                        rules: [{ type: 'requiredSelect' }],
-                        type: 'select',
-                        get: {
-                          facade: ProvinceFacade,
-                          format: (item: any) => ({
-                            label: item.name,
-                            value: item.id + '|' + item.code,
-                          }),
-                        },
-                        onChange(value, form) {
-                          form.resetFields(['districtId', 'wardId']);
+                      {
+                        title: 'supplier.Name',
+                        name: 'name',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          rules: [{ type: 'required' }],
                         },
                       },
-                    },
-                    {
-                      title: 'store.District',
-                      name: 'districtId',
-                      formItem: {
-                        firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
-                        type: 'select',
-                        rules: [{ type: 'requiredSelect' }],
-                        col: 3,
-                        get: {
-                          facade: DistrictFacade,
-                          format: (item: any) => ({
-                            label: item.name,
-                            value: item.id + '|' + item.code,
-                          }),
-                          params: (fullTextSearch, value) => ({
-                            fullTextSearch,
-                            code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
-                          }),
-                        },
-                        onChange(value, form) {
-                          form.resetFields(['wardId']);
+                      {
+                        title: 'store.Fax',
+                        name: 'fax',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 4,
+                          rules: [{ type: 'phone', min: 8, max: 12 }],
                         },
                       },
-                    },
-                    {
-                      title: 'store.Ward',
-                      name: 'wardId',
-                      formItem: {
-                        firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
-                        type: 'select',
-                        rules: [{ type: 'requiredSelect' }],
-                        col: 3,
-                        get: {
-                          facade: WardFacade,
-                          format: (item: any) => ({
-                            label: item.name,
-                            value: item.id,
-                          }),
-                          params: (fullTextSearch, value) => ({
-                            fullTextSearch,
-                            code: value().districtId.slice(value().districtId.indexOf('|') + 1),
-                          }),
+                      {
+                        title: '',
+                        name: 'address',
+                        formItem: {
+                          rules: [{ type: 'required' }],
+                          render() {
+                            return <h3 className="mb-2.5 text-base ">{t('store.Store Address')}</h3>;
+                          },
                         },
                       },
-                    },
-                    {
-                      title: 'store.Street',
-                      name: 'street',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 3,
-                        rules: [{ type: 'required' }],
-                      },
-                    },
-                    {
-                      title: '',
-                      name: '',
-                      formItem: {
-                        render() {
-                          return (
-                            <div className="text-xl text-teal-900 font-bold mb-2.5">
-                              {t('store.Representative information')}
-                            </div>
-                          );
+                    ]}
+                  />
+                  <Form
+                    formAnt={forms}
+                    values={{
+                      ...data,
+                      street: data?.address?.street,
+                    }}
+                    className="intro-x form-store1"
+                    columns={[
+                      {
+                        title: 'store.Province',
+                        name: 'provinceId',
+                        formItem: {
+                          firstLoad: () => ({}),
+                          tabIndex: 3,
+                          col: 3,
+                          rules: [{ type: 'requiredSelect' }],
+                          type: 'select',
+                          get: {
+                            facade: ProvinceFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id + '|' + item.code,
+                            }),
+                          },
+                          onChange(value, form) {
+                            form.resetFields(['districtId', 'wardId']);
+                          },
                         },
                       },
-                    },
-                    {
-                      title: 'store.ContactName',
-                      name: 'nameContact',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 4,
-                        type: 'name',
-                        rules: [{ type: 'required' }],
+                      {
+                        title: 'store.District',
+                        name: 'districtId',
+                        formItem: {
+                          firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
+                          type: 'select',
+                          rules: [{ type: 'requiredSelect' }],
+                          col: 3,
+                          get: {
+                            facade: DistrictFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id + '|' + item.code,
+                            }),
+                            params: (fullTextSearch, value) => ({
+                              fullTextSearch,
+                              code: value().provinceId.slice(value().provinceId.indexOf('|') + 1),
+                            }),
+                          },
+                          onChange(value, form) {
+                            form.resetFields(['wardId']);
+                          },
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Contact Phone Number',
-                      name: 'phoneNumber',
-                      formItem: {
-                        tabIndex: 2,
-                        col: 4,
-                        rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
+                      {
+                        title: 'store.Ward',
+                        name: 'wardId',
+                        formItem: {
+                          firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
+                          type: 'select',
+                          rules: [{ type: 'requiredSelect' }],
+                          col: 3,
+                          get: {
+                            facade: WardFacade,
+                            format: (item: any) => ({
+                              label: item.name,
+                              value: item.id,
+                            }),
+                            params: (fullTextSearch, value) => ({
+                              fullTextSearch,
+                              code: value().districtId.slice(value().districtId.indexOf('|') + 1),
+                            }),
+                          },
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Contact Email',
-                      name: 'emailContact',
-                      formItem: {
-                        tabIndex: 1,
-                        col: 4,
-                        rules: [{ type: 'required' }, { type: 'email' }],
+                      {
+                        title: 'store.Street',
+                        name: 'street',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 3,
+                          rules: [{ type: 'required' }],
+                        },
                       },
-                    },
-                    {
-                      title: 'store.Note',
-                      name: 'note',
-                      formItem: {
-                        type: 'textarea',
-                        tabIndex: 1,
-                        col: 12,
+                      {
+                        title: '',
+                        name: '',
+                        formItem: {
+                          render() {
+                            return (
+                              <div className="text-lg text-teal-900 font-bold mb-2.5">
+                                {t('store.Representative information')}
+                              </div>
+                            );
+                          },
+                        },
                       },
-                    },
-                  ]}
-                  handSubmit={handleSubmit}
-                  disableSubmit={isLoading}
-                  handCancel={handleBack}
-                />
+                    ]}
+                  />
+                  <Form
+                    formAnt={forms}
+                    values={{
+                      ...data,
+                      nameContact: data?.userRole?.[0].userAdmin.name,
+                      emailContact: data?.userRole?.[0].userAdmin.email,
+                      phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
+                    }}
+                    className="intro-x form-responsive form-store3"
+                    columns={[
+                      {
+                        title: 'store.ContactName',
+                        name: 'nameContact',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          type: 'name',
+                          rules: [{ type: 'required' }],
+                        },
+                      },
+                      {
+                        title: 'store.Contact Phone Number',
+                        name: 'phoneNumber',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 4,
+                          rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
+                        },
+                      },
+                      {
+                        title: 'store.Contact Email',
+                        name: 'emailContact',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          rules: [{ type: 'required' }, { type: 'email' }],
+                        },
+                      },
+                      {
+                        title: 'store.Note',
+                        name: 'note',
+                        formItem: {
+                          type: 'textarea',
+                          tabIndex: 1,
+                          col: 12,
+                        },
+                      },
+                    ]}
+                    handSubmit={handleSubmit}
+                    disableSubmit={isLoading}
+                    handCancel={handleBack}
+                  />
+                </div>
               )}
             </Tabs.TabPane>
 
@@ -707,7 +733,7 @@ const Page = () => {
                                   wrapText: false,
                                   fontName: 'Calibri',
                                 });
-                                sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                                sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                                 sheet.setRowHeight(0.8, 'cm');
                                 sheet.addColumns([
                                   { title: '', dataIndex: '' },
@@ -715,7 +741,7 @@ const Page = () => {
                                   { title: '', dataIndex: '' },
                                   { title: 'DANH SÁCH HÀNG HÓA', dataIndex: '' },
                                 ]);
-                                // sheet.drawCell(10, 0, '');
+                                sheet.drawCell(10, 0, '');
                                 sheet.addRow();
                                 sheet.addColumns([
                                   { title: 'Danh mục chính', dataIndex: '' },
@@ -961,7 +987,7 @@ const Page = () => {
                         t('routes.admin.Layout.PaginationOrder', { from, to, total })
                       }
                       rightHeader={
-                        <div className="flex justify-end text-left flex-col w-full xl:pt-0 pt-1">
+                        <div className="flex justify-end text-left flex-col w-full mt-1.5 xl:mt-0">
                           <Form
                             values={{
                               dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
@@ -969,7 +995,7 @@ const Page = () => {
                               type: getFilter(inventoryOrders.queryParams, 'type'),
                               Store: getFilter(inventoryOrders.queryParams, 'idStore'),
                             }}
-                            className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store form-supplier-tab5"
+                            className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store"
                             columns={[
                               {
                                 title: '',
@@ -1304,7 +1330,7 @@ const Page = () => {
                             wrapText: false,
                             fontName: 'Calibri',
                           });
-                          sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                          sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                           sheet.setRowHeight(0.8, 'cm');
                           sheet.addColumns([
                             { title: '', dataIndex: '' },
@@ -1457,7 +1483,7 @@ const Page = () => {
                     }
                     subHeader={() => (
                       <>
-                        <div className="flex justify-start text-left flex-col xl:flex-row w-full pt-1 xl:pt-0">
+                        <div className="flex justify-start text-left flex-col xl:flex-row w-full mt-1.5 xl:m-0">
                           <Form
                             values={{
                               categoryId1: getFilter(inventoryProduct.queryParams, 'categoryId1'),
@@ -1527,7 +1553,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center xl:ml-4 ml-0">
-                                      <p>{t('store.Since')}</p>
+                                      <p className="whitespace-nowrap">{t('store.Since')}</p>
                                     </div>
                                   ),
                                 },
@@ -1580,7 +1606,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center">
-                                      <p>{t('store.To date')}</p>
+                                      <p className="whitespace-nowrap">{t('store.To date')}</p>
                                     </div>
                                   ),
                                 },
@@ -1902,7 +1928,7 @@ const Page = () => {
                           wrapText: false,
                           fontName: 'Calibri',
                         });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
@@ -2125,7 +2151,7 @@ const Page = () => {
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
                                         {/* whitespace-nowrap */}
-                                        <p>{t('Kỳ hạn từ')}</p>
+                                        <p className="whitespace-nowrap">{t('Kỳ hạn từ')}</p>
                                       </div>
                                     ),
                                   },
@@ -2171,7 +2197,7 @@ const Page = () => {
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
-                                        <p>{t('đến')}</p>
+                                        <p className="whitespace-nowrap">{t('đến')}</p>
                                       </div>
                                     ),
                                   },
@@ -2225,7 +2251,7 @@ const Page = () => {
                                 dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
                                 status: getFilter(discountFacade.queryParams, 'status'),
                               }}
-                              className="form-store mt-5"
+                              className="form-store"
                               columns={[
                                 {
                                   title: '',
@@ -2296,7 +2322,7 @@ const Page = () => {
                           wrapText: false,
                           fontName: 'Calibri',
                         });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 10, fontName: 'Calibri' });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
@@ -2593,16 +2619,51 @@ const Page = () => {
                                   render: (form, values) => {
                                     return (
                                       <Upload
-                                        ref={fileInputRef}
                                         onChange={({ file, fileList }) => {
-                                          if (file.status === 'uploading') {
+                                          if (file.status == 'uploading') {
                                             file.status = 'done';
                                           }
-                                          setListFile(fileList);
                                           fileList = fileList.slice(fileList.length - 1);
-                                          const allowedFormats = ['docx', 'pdf', 'jpg', 'jpeg', 'csv', 'xlsx', 'xls'];
-                                          const fileExtension = (file.name.split('.').pop() || '') as string;
-                                          if (!allowedFormats.includes(fileExtension)) {
+                                          fileList.length > 0 ? '' : setUpload(undefined);
+                                        }}
+                                        iconRender={(file) => {
+                                          if (
+                                            file.type == 'application/vnd.ms-excel' ||
+                                            file.type == 'text/csv' ||
+                                            file.type ==
+                                              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                                          ) {
+                                            return (
+                                              <img src="http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png" />
+                                            );
+                                          }
+                                          if (file.type == 'application/pdf') {
+                                            return (
+                                              <img src="http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png" />
+                                            );
+                                          }
+                                          if (
+                                            file.type ==
+                                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                                          ) {
+                                            return (
+                                              <img src="http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png" />
+                                            );
+                                          }
+                                        }}
+                                        beforeUpload={(file) => {
+                                          if (
+                                            file.type !== 'image/png' &&
+                                            file.type !==
+                                              'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
+                                            file.type !== 'application/pdf' &&
+                                            file.type !== 'image/jpeg' &&
+                                            file.type !== 'image/jpg' &&
+                                            file.type !== 'text/csv' &&
+                                            file.type !==
+                                              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
+                                            file.type !== 'application/vnd.ms-excel'
+                                          ) {
                                             Message.error({
                                               text: 'File tải lên không đúng định dạng. Vui lòng tải lên hợp đồng có định dạng là docx, pdf, jpg, jpeg, csv, xlsx, xls',
                                               confirmButtonColor: '#d33',
@@ -2610,30 +2671,23 @@ const Page = () => {
                                               showCloseButton: true,
                                               showCancelButton: true,
                                             });
-                                            return;
+                                            return Upload.LIST_IGNORE;
                                           }
-                                          fileList.length > 0 ? '' : setUpload(undefined);
+                                          return true;
                                         }}
-                                        fileList={fileList1}
                                         style={{ width: '100%', padding: '42px' }}
-                                        // isImageUrl={(file) => {
-                                        //   const imageExtensions = ['jpg', 'jpeg'];
-                                        //   return imageExtensions.includes(file) ? true : false;
-                                        // }}
                                         listType="picture"
                                         type="drag"
-                                        accept=".docx,.pdf,.jpg,.jpeg,.csv,.xlsx,.xls"
+                                        accept="image/*,.pdf,.docx,.doc,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                         multiple
                                         name="files"
                                         action="/util/upload"
-                                        // fileList={[]}
                                         customRequest={(options) => {
-                                          const allowedFormats = ['docx', 'pdf', 'jpg', 'jpeg', 'csv', 'xlsx', 'xls'];
-                                          const { file, onError } = options;
+                                          const { file } = options;
                                           const formData = new FormData();
                                           formData.append('files', file);
                                           formData.append('type', 'SUPPLIER');
-                                          const data = API.responsible(
+                                          const data = API.responsible<any>(
                                             '/util/upload',
                                             {},
                                             {
@@ -2670,9 +2724,7 @@ const Page = () => {
                             ]}
                           />
                         </div>
-                        <p className="text-base text-teal-900 font-bold px-3 py-4">
-                          {t('supplier.Contract.File system')}:
-                        </p>
+                        <p className="text-base text-teal-900 font-bold">{t('supplier.Contract.File system')}:</p>
 
                         {data1?.filePhoto.length > 0 ? (
                           <div className="px-3">
@@ -2807,7 +2859,7 @@ const Page = () => {
                             </div>
                           </div>
                         ) : (
-                          <div className="text-base px-6">{t('supplier.Contract.File form system')}.</div>
+                          <div className="text-sm py-2">{t('supplier.Contract.File form system')}.</div>
                         )}
 
                         <div className="flex-col-reverse md:flex-row flex items-center p-5 justify-between gap-2.5 -mt-2 sm:mt-5">

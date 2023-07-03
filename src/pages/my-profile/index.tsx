@@ -66,7 +66,7 @@ const Page = () => {
           <Form
             values={{ ...user }}
             formAnt={forms}
-            className="text-center items-centers text-xl font-bold text-slate-700 form-profile"
+            className="text-center items-centers text-xl font-bold text-slate-700 form-profile form-myprofile"
             columns={[
               {
                 title: '',
@@ -109,7 +109,7 @@ const Page = () => {
             disableSubmit={isLoading}
           />
         </div>
-        <div className='flex-1 lg:rounded-xl w-auto'>
+        <div className='flex-1 lg:rounded-xl w-auto form-myprofile'>
           <Tabs
             onTabClick={(key: string) => onChangeTab(key)}
             activeKey={activeKey}

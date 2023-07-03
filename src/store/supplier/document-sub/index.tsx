@@ -94,50 +94,23 @@ const action = {
   }),
 
   downloadSubZip: createAsyncThunk(name + '/downloadSub', async ({ urls }: { urls: string[] }) => {
-
     const zip = new JSZip();
-    let filename;
 
     for (let i = 0; i < urls.length; i++) {
       const url = urls[i];
       const extension = url.substring(url.lastIndexOf('.') + 1);
+      const uniqueFilename = `File hợp đồng_${Date.now()}.${extension}`;
 
-      switch (extension) {
-        case 'png':
-          filename = 'File hợp đồng.png';
-          break;
-        case 'pdf':
-          filename = 'File hợp đồng.pdf';
-          break;
-        case 'docx':
-          filename = 'File hợp đồng.docx';
-          break;
-        case 'jpg':
-          filename = 'File hợp đồng.jpg';
-          break;
-        case 'csv':
-          filename = 'File hợp đồng.csv';
-          break;
-        case 'xlsx':
-          filename = 'File hợp đồng.xlsx';
-          break;
-        case 'xls':
-          filename = 'File hợp đồng.xls';
-          break;
-        default:
-          filename = 'File hợp đồng';
-      }
       const response = await fetch(url);
       const blob = await response.blob();
 
-      zip.file(filename, blob);
+      zip.file(uniqueFilename, blob);
     }
 
     zip.generateAsync({ type: 'blob' }).then((content) => {
       saveAs(content, 'Tệp hợp đồng.zip');
     });
-  }),
-
+  })
 };
 
 export const documentsubSlice = createSlice(

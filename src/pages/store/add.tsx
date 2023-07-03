@@ -39,7 +39,13 @@ const Page = () => {
 
   const handleSubmit = (values: any) => {
     const connectKiot = forms.getFieldsValue()
-    storeFace.post({ ...values, connectKiot });
+    const name = forms.getFieldValue('name')
+    const fax = forms.getFieldValue('fax')
+    const provinceId = forms.getFieldValue('provinceId')
+    const districtId = forms.getFieldValue('districtId')
+    const wardId = forms.getFieldValue('wardId')
+    const street = forms.getFieldValue('street')
+    storeFace.post({ ...values, connectKiot, name, fax, provinceId, districtId, wardId, street });
   };
 
   const [isChecked, setIsChecked] = useState(false);
@@ -54,7 +60,7 @@ const Page = () => {
       <Form
         formAnt={forms}
         values={{ ...data }}
-        className="intro-x form-responsive"
+        className="intro-x form-store2"
         columns={[
           {
             title: 'store.Name',
@@ -74,16 +80,24 @@ const Page = () => {
               rules: [{ type: 'phone', min: 8, max: 12 }],
             },
           },
+        ]}
+      />
+      <Form
+        formAnt={forms}
+        values={{ ...data }}
+        className="intro-x form-store1"
+        columns={[
           {
             title: '',
             name: 'address',
             formItem: {
+              rules: [{ type: 'required' }],
               render() {
                 return (
-                  <h3 className='mb-2.5 text-base text-black font-medium'>{t('store.Store Address')}</h3>
-                )
+                  <h3 className="text-base font-medium mb-3">{t('store.Store Address')}</h3>
+                );
               },
-            }
+            },
           },
           {
             title: 'store.Province',
@@ -167,6 +181,14 @@ const Page = () => {
               }
             }
           },
+        ]}
+      />
+
+      <Form
+        formAnt={forms}
+        values={{ ...data }}
+        className="intro-x form-responsive form-store3"
+        columns={[
           {
             name: 'nameContact',
             title: 'store.ContactName',

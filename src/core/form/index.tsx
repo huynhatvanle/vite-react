@@ -174,7 +174,6 @@ export const Form = ({
         );
       case 'date':
         return (
-          // <ConfigProvider locale={locale}>
           <DatePicker
             tabIndex={formItem.tabIndex || index}
             format={
@@ -198,7 +197,6 @@ export const Form = ({
             name={item.name}
             placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
           />
-          // </ConfigProvider>
         );
       case 'month_year':
         return (
@@ -632,7 +630,7 @@ export const Form = ({
         }
       }}
     >
-      <div className={'group-input group-input-profile p-5 bg-white lg:!rounded-b-2xl'}>
+      <div className={'group-input group-input-profile p-5 bg-white '}>
         <div className={'grid gap-x-5 grid-cols-12 group-input'}>
           {_columns.map(
             (column: any, index: number) =>
