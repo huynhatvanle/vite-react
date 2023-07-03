@@ -2052,7 +2052,7 @@ const Page = () => {
                         title: `supplier.Order.STT`,
                         name: 'stt',
                         tableItem: {
-                          width: 110,
+                          width: 80,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
                               ? `${JSON.parse(discountFacade.queryParams || '{}').page *
@@ -2066,7 +2066,7 @@ const Page = () => {
                         title: `supplier.Order.Time`,
                         name: 'time',
                         tableItem: {
-                          width: 300,
+                          width: 150,
                           render: (value: any, item: any) =>
                             dayjs(item?.datefrom, 'YYYY-MM-DDTHH:mm:ss').format('MM/YYYY').replace(/-/g, '/') +
                             '-' +
@@ -2077,7 +2077,7 @@ const Page = () => {
                         title: `supplier.Order.Discount`,
                         name: 'noPay',
                         tableItem: {
-                          width: 245,
+                          width: 150,
                           render: (value: any, item: any) => item?.noPay.toLocaleString(),
                         },
                       },
@@ -2085,7 +2085,7 @@ const Page = () => {
                         title: t(`supplier.Order.Paid`) + ' (VND)',
                         name: 'paid',
                         tableItem: {
-                          width: 245,
+                          width: 150,
                           render: (value: any, item: any) => (item?.paid ? item?.paid.toLocaleString() : '0'),
                         },
                       },
@@ -2093,7 +2093,7 @@ const Page = () => {
                         title: t(`supplier.Order.Unpaid`) + ' (VND)',
                         name: 'noPay',
                         tableItem: {
-                          width: 245,
+                          width: 150,
                           render: (value: any, item: any) => item?.noPay.toLocaleString(),
                         },
                       },
@@ -2101,7 +2101,7 @@ const Page = () => {
                         title: `supplier.Status`,
                         name: 'status',
                         tableItem: {
-                          width: 240,
+                          width: 150,
                           align: 'center',
                           render: (text: string) =>
                             text !== 'NOT_PAID' ? (
