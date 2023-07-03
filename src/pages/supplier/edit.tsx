@@ -67,8 +67,6 @@ const Page = () => {
   const [test, setTest] = useState(false);
 
   const [forms] = AntForm.useForm();
-  const [listFile, setListFile] = useState<UploadFile<any>[]>([]);
-  const [isFile, setIsFile] = useState<boolean>();
 
   useEffect(() => {
     if (id) {
@@ -252,7 +250,7 @@ const Page = () => {
   ];
 
   const handleBack = () => {
-    sessionStorage.setItem('activeTab', '1');
+    // sessionStorage.setItem('activeTab', '1');
     navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
   };
 
@@ -271,6 +269,25 @@ const Page = () => {
   let stt2 = 1;
   let i = 1;
   const [upload, setUpload] = useState<FormData>();
+
+  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeSupplierTab') || 'tab');
+  const onChangeTab = (key: string) => {
+    setActiveKey(key);
+    localStorage.setItem('activeSupplierTab', key);
+    console.log(localStorage);
+
+    navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${key}`);
+  };
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const tab = urlParams.get('tab');
+
+  useEffect(() => {
+    if (tab) {
+      setActiveKey(tab);
+    }
+  }, []);
+
   const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
     const docSubOrgId = values.id;
@@ -298,13 +315,29 @@ const Page = () => {
       <Fragment>
         <div className="">
           <Tabs
-            defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
-            onChange={(key) => sessionStorage.setItem('activeTab', key)}
+            // defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
+            // onChange={(key) => {
+            //   console.log('key', key);
+
+            //   sessionStorage.setItem('activeTab', key);
+            // }}
+            // type="card"
+            // size="large"
+            // onTabClick={(activeKey: any) => {
+            //   console.log('localStorage', localStorage);
+
+            //   console.log('activeKey', activeKey);
+            //   sessionStorage.setItem('activeTab', activeKey);
+            //   setDate(false);
+            //   return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+            // }}
+            defaultActiveKey="1"
+            activeKey={activeKey}
             type="card"
             size="large"
-            onTabClick={(activeKey: any) => {
+            onTabClick={(key: string) => {
               setDate(false);
-              return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+              onChangeTab(key);
             }}
           >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">

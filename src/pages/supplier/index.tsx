@@ -22,7 +22,9 @@ const Page = () => {
       defaultRequest={{ page: 1, perPage: 10, filter: { type: 'SUPPLIER' }, fullTextSearch: '' }}
       xScroll="1380px"
       className=" bg-white p-5 rounded-lg form-store-tab3 form-supplier-index"
-      onRow={(data: any) => ({ onDoubleClick: () => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${data.id}`) })}
+      onRow={(data: any) => ({
+        onDoubleClick: () => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${data.id}?tab=1`),
+      })}
       pageSizeRender={(sizePage: number) => sizePage}
       pageSizeWidth={'50px'}
       paginationDescription={(from: number, to: number, total: number) =>
@@ -43,8 +45,8 @@ const Page = () => {
             width: 230,
             onCell: (data: any) => ({
               style: { cursor: 'pointer' },
-              onClick: () => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${data.id}`)
-            })
+              onClick: () => navigate(`/${lang}${routerLinks('Supplier/Edit')}/${data.id}?tab=1`),
+            }),
           },
         },
         {
@@ -61,19 +63,25 @@ const Page = () => {
             //   ', ' +
             //   item?.address?.province?.name,
             render: (value: any, item: any) => {
-              const address = item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name
+              const address =
+                item?.address?.street +
+                ', ' +
+                item?.address?.ward?.name +
+                ', ' +
+                item?.address?.district?.name +
+                ', ' +
+                item?.address?.province?.name;
               return (
-                <div className='flex'>
+                <div className="flex">
                   {address.slice(0, 60)}
-                  {address.length >= 60 ?
-                    <Tooltip title={address} className='text-black' >
-                      <Infor className='w-4 h-4 mt-1 ml-1' />
+                  {address.length >= 60 ? (
+                    <Tooltip title={address} className="text-black">
+                      <Infor className="w-4 h-4 mt-1 ml-1" />
                     </Tooltip>
-                    : null
-                  }
+                  ) : null}
                 </div>
-              )
-            }
+              );
+            },
           },
         },
         {
@@ -112,7 +120,8 @@ const Page = () => {
         },
       ]}
       rightHeader={
-        <div className={'flex gap-2'}>{/* mt-2.5 lg:mt-0 */}
+        <div className={'flex gap-2'}>
+          {/* mt-2.5 lg:mt-0 */}
           <Button
             icon={<Plus className="icon-cud !h-5 !w-5" />}
             text={t('titles.Supplier/Add')}
