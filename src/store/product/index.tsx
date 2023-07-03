@@ -24,7 +24,7 @@ const action = {
         categoryId1?: string;
         categoryId2?: string;
         categoryId3?: string;
-        isGetAll: boolean;
+        isGetAll?: boolean;
       };
       sorts?: {};
     }) => {
@@ -111,7 +111,7 @@ export const ProductFacade = () => {
         categoryId1?: string;
         categoryId2?: string;
         categoryId3?: string;
-        isGetAll: boolean;
+        isGetAll?: boolean;
       };
       sorts?: {};
     }) => {

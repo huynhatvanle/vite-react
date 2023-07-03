@@ -176,11 +176,21 @@ const Page = () => {
         type: 'BALANCE',
         storeId: id
       })
+      dataTableRefProduct.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter:{ storeId: id, type: 'BALANCE' },
+      })
     }
     if (activeKey == '2' && !isBalance) {
       supplierStoreFacade.get({
         type: 'NON_BALANCE',
         storeId: id
+      })
+      dataTableRefProduct.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter:{ storeId: id, type: 'NON_BALANCE' },
       })
     }
   }, [activeKey, isBalance])
