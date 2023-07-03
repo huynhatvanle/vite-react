@@ -252,18 +252,18 @@ const Page = () => {
   ];
 
   const handleBack = () => {
-    sessionStorage.setItem('activeTab', '1')
-    navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`)
+    sessionStorage.setItem('activeTab', '1');
+    navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
   };
 
   const handleSubmit = (values: Supplier) => {
-    const code = forms.getFieldValue('code')
-    const name = forms.getFieldValue('name')
-    const fax = forms.getFieldValue('fax')
-    const provinceId = forms.getFieldValue('provinceId')
-    const districtId = forms.getFieldValue('districtId')
-    const wardId = forms.getFieldValue('wardId')
-    const street = forms.getFieldValue('street')
+    const code = forms.getFieldValue('code');
+    const name = forms.getFieldValue('name');
+    const fax = forms.getFieldValue('fax');
+    const provinceId = forms.getFieldValue('provinceId');
+    const districtId = forms.getFieldValue('districtId');
+    const wardId = forms.getFieldValue('wardId');
+    const street = forms.getFieldValue('street');
     supplierFacade.put({ ...values, id, code, name, fax, provinceId, districtId, wardId, street });
   };
   let stt = 1;
@@ -303,10 +303,9 @@ const Page = () => {
             type="card"
             size="large"
             onTabClick={(activeKey: any) => {
-              setDate(false)
-              return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`)
-            }
-            }
+              setDate(false);
+              return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+            }}
           >
             <Tabs.TabPane tab={t('titles.Supplierinformation')} key="1" className="">
               {!isLoading && (
@@ -985,7 +984,7 @@ const Page = () => {
                         t('routes.admin.Layout.PaginationOrder', { from, to, total })
                       }
                       rightHeader={
-                        <div className="flex justify-end text-left flex-col w-full mt-1.5 xl:mt-0">
+                        <div className="flex justify-end text-left flex-col w-full mt-4 sm:mt-1.5 xl:mt-0">
                           <Form
                             values={{
                               dateFrom: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom,
@@ -1548,7 +1547,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center xl:ml-4 ml-0">
-                                      <p className='whitespace-nowrap'>{t('store.Since')}</p>
+                                      <p className="whitespace-nowrap">{t('store.Since')}</p>
                                     </div>
                                   ),
                                 },
@@ -1561,7 +1560,9 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo') ? setDate(true) : setDate(false)
+                                    form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
+                                      ? setDate(true)
+                                      : setDate(false);
                                     dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1599,7 +1600,7 @@ const Page = () => {
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center">
-                                      <p className='whitespace-nowrap'>{t('store.To date')}</p>
+                                      <p className="whitespace-nowrap">{t('store.To date')}</p>
                                     </div>
                                   ),
                                 },
@@ -1612,7 +1613,7 @@ const Page = () => {
                                   col: 4,
                                   type: 'date',
                                   onChange(value, form) {
-                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
+                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
                                     dataTableRefListProduct?.current?.onChange({
                                       page: 1,
                                       perPage: 10,
@@ -1645,7 +1646,11 @@ const Page = () => {
                             ]}
                             disableSubmit={isLoading}
                           />
-                          {date && (<span className='md:w-[512px] text-center md:text-right text-red-500'>Ngày kết thúc phải lớn hơn ngày bắt đầu</span>)}
+                          {date && (
+                            <span className="md:w-[512px] text-center md:text-right text-red-500">
+                              Ngày kết thúc phải lớn hơn ngày bắt đầu
+                            </span>
+                          )}
                         </div>
                         <Form
                           className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
@@ -2134,7 +2139,7 @@ const Page = () => {
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
                                         {/* whitespace-nowrap */}
-                                        <p className='whitespace-nowrap'>{t('Kỳ hạn từ')}</p>
+                                        <p className="whitespace-nowrap">{t('Kỳ hạn từ')}</p>
                                       </div>
                                     ),
                                   },
@@ -2147,9 +2152,7 @@ const Page = () => {
                                     col: 4,
                                     type: 'month_year',
                                     onChange(value, form) {
-                                      console.log('value1', value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/'));
-
-                                      form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
+                                      value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
                                         ? setMonth(true)
                                         : setMonth(false);
                                       dataTableRefDiscount?.current?.onChange({
@@ -2182,7 +2185,7 @@ const Page = () => {
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
-                                        <p className='whitespace-nowrap'>{t('đến')}</p>
+                                        <p className="whitespace-nowrap">{t('đến')}</p>
                                       </div>
                                     ),
                                   },
@@ -2195,10 +2198,7 @@ const Page = () => {
                                     col: 4,
                                     type: 'month_year',
                                     onChange(value, form) {
-                                      // console.log('1', form.getFieldValue('dateFrom'));
-                                      // console.log('2', form.getFieldValue('dateFrom'));
-                                      // console.log('value2', value.format('MM/DD/YYYY'));
-                                      value && form.getFieldValue('dateFrom') > value
+                                      value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
                                         ? setMonth(true)
                                         : setMonth(false);
                                       dataTableRefDiscount?.current?.onChange({
@@ -2392,9 +2392,9 @@ const Page = () => {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
-              <div className={'w-full mx-auto bg-white rounded-xl pt-6'}>
-                <div className="flex items-left font-bold px-6">
-                  <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">
+              <div className={'w-full mx-auto bg-white rounded-xl pt-4'}>
+                <div className="flex items-left font-bold px-4">
+                  <p className="sm:text-xl text-base text-teal-900 pt-2 mr-5">
                     {t('supplier.Contract.Contract details')}
                   </p>
                 </div>
@@ -2483,7 +2483,7 @@ const Page = () => {
                           col: 4,
                           render: (form, values) => {
                             return (
-                              <div className="flex items-center h-10 text-base lg:mt-0 mt-4">
+                              <div className="flex items-center h-10 text-base mt-4 lg:mt-0">
                                 <div className="font-semibold text-teal-900">
                                   {t('supplier.Contract.Contract information')}:
                                 </div>
@@ -2524,7 +2524,7 @@ const Page = () => {
                       },
                     ]}
                   />
-                  <div className="flex items-left font-bold px-6 pt-1">
+                  <div className="flex items-left font-bold px-4 pt-1">
                     <p className="text-base text-teal-900 mt-4">{t('supplier.Contract.Supplier Information')}</p>
                   </div>
                   <Form
@@ -2610,32 +2610,45 @@ const Page = () => {
                                           if (file.status == 'uploading') {
                                             file.status = 'done';
                                           }
-                                          fileList = fileList.slice(fileList.length - 1)
+                                          fileList = fileList.slice(fileList.length - 1);
                                           fileList.length > 0 ? '' : setUpload(undefined);
                                         }}
                                         iconRender={(file) => {
-                                          if (file.type == 'application/vnd.ms-excel' || file.type == 'text/csv' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-                                            return <img src='http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png'
-                                            />
+                                          if (
+                                            file.type == 'application/vnd.ms-excel' ||
+                                            file.type == 'text/csv' ||
+                                            file.type ==
+                                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                                          ) {
+                                            return (
+                                              <img src="http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png" />
+                                            );
                                           }
                                           if (file.type == 'application/pdf') {
-                                            return <img src='http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png'
-                                            />
+                                            return (
+                                              <img src="http://stag.balance.ari.com.vn/static/media/pdf_cover.d977f2dfe877147ef60e.png" />
+                                            );
                                           }
-                                          if (file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-                                            return <img src='http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png'
-                                            />
+                                          if (
+                                            file.type ==
+                                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                                          ) {
+                                            return (
+                                              <img src="http://stag.balance.ari.com.vn/static/media/word.c5d9314821d0e55d2244.png" />
+                                            );
                                           }
                                         }}
                                         beforeUpload={(file) => {
                                           if (
                                             file.type !== 'image/png' &&
-                                            file.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
+                                            file.type !==
+                                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
                                             file.type !== 'application/pdf' &&
                                             file.type !== 'image/jpeg' &&
                                             file.type !== 'image/jpg' &&
                                             file.type !== 'text/csv' &&
-                                            file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
+                                            file.type !==
+                                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
                                             file.type !== 'application/vnd.ms-excel'
                                           ) {
                                             Message.error({
@@ -2644,8 +2657,7 @@ const Page = () => {
                                               cancelButtonColor: '',
                                               showCloseButton: true,
                                               showCancelButton: true,
-                                            }
-                                            );
+                                            });
                                             return Upload.LIST_IGNORE;
                                           }
                                           return true;

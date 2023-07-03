@@ -98,24 +98,25 @@ const Page = () => {
           },
         ]}
       />
+      <div><h3 className="text-base font-medium bg-white pl-5 pb-3">{t('store.Store Address')}</h3></div>
 
       <Form
         formAnt={forms}
         values={{ ...data }}
         className="intro-x form-store1"
         columns={[
-          {
-            title: '',
-            name: 'address',
-            formItem: {
-              rules: [{ type: 'required' }],
-              render() {
-                return (
-                  <h3 className="text-base font-medium mb-3">{t('store.Store Address')}</h3>
-                );
-              },
-            },
-          },
+          // {
+          //   title: '',
+          //   name: 'address',
+          //   formItem: {
+          //     rules: [{ type: 'required' }],
+          //     render() {
+          //       return (
+          //         <h3 className="text-base font-medium mb-3">{t('store.Store Address')}</h3>
+          //       );
+          //     },
+          //   },
+          // },
           {
             title: 'store.Province',
             name: 'provinceId',

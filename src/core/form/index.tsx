@@ -181,7 +181,9 @@ export const Form = ({
                 ? (formatDate || '') + (formItem.showTime ? ' HH:mm' : '')
                 : formatDate || ''
             }
-            onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
+            onChange={(date: any) => {
+              formItem.onChange && formItem.onChange(date, form, reRender);
+            }}
             // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
             disabledDate={(current) => {
               const now = dayjs();
@@ -206,7 +208,9 @@ export const Form = ({
                 ? ('MM/YYYY' || '') + (formItem.showTime ? ' HH:mm' : '')
                 : 'MM/YYYY' || ''
             }
-            onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
+            onChange={(date: any) => {
+              formItem.onChange && formItem.onChange(date, form, reRender);
+            }}
             // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
             disabledDate={(current) => {
               const now = dayjs();
@@ -217,7 +221,7 @@ export const Form = ({
             picker={formItem.picker || 'month'}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             form={form}
-            name={item.name}
+            // name={item.name}
             placeholder={t(formItem.placeholder || '') || t('placeholder.Choose a time') || ''}
           />
           // </ConfigProvider>
@@ -636,13 +640,13 @@ export const Form = ({
                   className={classNames(
                     column?.formItem?.classItem,
                     'col-span-12 col-store' +
-                    (' sm:col-span-' +
-                      (column?.formItem?.colTablet
-                        ? column?.formItem?.colTablet
-                        : column?.formItem?.col
+                      (' sm:col-span-' +
+                        (column?.formItem?.colTablet
+                          ? column?.formItem?.colTablet
+                          : column?.formItem?.col
                           ? column?.formItem?.col
                           : 12)) +
-                    (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
+                      (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
                   )}
                   key={index}
                 >

@@ -42,10 +42,10 @@ const action = {
           categoryId: filterProduct.categoryId3
             ? filterProduct.categoryId3
             : filterProduct.categoryId2
-            ? filterProduct.categoryId2
-            : filterProduct.categoryId1
-            ? filterProduct.categoryId1
-            : null,
+              ? filterProduct.categoryId2
+              : filterProduct.categoryId1
+                ? filterProduct.categoryId1
+                : null,
           categoryId1: filterProduct.categoryId1,
           categoryId2: filterProduct.categoryId2,
           categoryId3: filterProduct.categoryId3,
@@ -189,6 +189,13 @@ export class Product extends CommonEntity {
       month: string;
       year: string;
     },
+    public productCategory?: [
+      {
+        category: {
+          name: string
+        },
+      }
+    ]
   ) {
     super();
   }

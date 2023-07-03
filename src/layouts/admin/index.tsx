@@ -264,12 +264,12 @@ const Layout = ({ children }: PropsWithChildren) => {
       <div
         onMouseEnter={() => {
           const offsetWidth = document.body.offsetWidth;
-          document.body.style.overflowY = 'hidden';
-          document.body.style.paddingRight = document.body.offsetWidth - offsetWidth + 'px';
+          // document.body.style.overflowY = 'hidden';
+          // document.body.style.paddingRight = document.body.offsetWidth - offsetWidth + 'px';
         }}
         onMouseLeave={() => {
           document.body.style.overflowY = 'auto';
-          document.body.style.paddingRight = '';
+          // document.body.style.paddingRight = '';
         }}
         className={classNames('fixed z-30 top-20 left-0 h-screen bg-teal-900 transition-all duration-300 ease-in-out', {
           'w-64': !isCollapsed,
@@ -290,13 +290,12 @@ const Layout = ({ children }: PropsWithChildren) => {
           'ml-16': isCollapsed && isDesktop,
         })}
       >
-        <div className={'overflow-y-auto lg:overflow-x-hidden mx-0 sm:mx-5'}>
+        <div className={'overflow-y-auto overflow-x-hidden mx-0 sm:mx-5'}>
           {title !== 'Dashboard' && (
             <h1 className={'text-2xl text-teal-900 font-bold block pb-5'}>{t('titles.' + title)}</h1>
           )}
           {children}
         </div>
-
       </section>
       {scroll ? (
         <BackTop visibilityHeight={300} className="right-3">

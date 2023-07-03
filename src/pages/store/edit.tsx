@@ -300,7 +300,7 @@ const Page = () => {
           productPrice: item?.productPrice!.length > 0 ? item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()) : '0',
           basicUnit: item?.basicUnit,
           supplierName: item?.supplierName ? item?.supplierName : item.subOrg?.name,
-          category: item?.category?.child?.name,
+          category: item?.productCategory!.length > 0 ? item?.productCategory!.map((item) => item.category?.name) : '',
           name: item?.name,
           barcode: item?.barcode,
           storeBarcode: item?.storeBarcode,
