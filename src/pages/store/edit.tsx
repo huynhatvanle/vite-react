@@ -141,7 +141,7 @@ const Page = () => {
     dataIndex: string;
   }
 
-  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeStoreTab') || '1');
+  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeStoreTab') || 'tab');
 
   const onChangeTab = (key: string) => {
     setActiveKey(key);
@@ -164,9 +164,10 @@ const Page = () => {
   useEffect(() => {
     if (tab) {
       setActiveKey(tab);
-    } else {
-      setActiveKey('1');
-    }
+    } 
+    // else {
+    //   setActiveKey('1');
+    // }
   }, []);
 
   useEffect(() => {
@@ -193,6 +194,18 @@ const Page = () => {
         filter: { idSuppiler: id },
       })
       subStoreFacade.get({ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'NON_BALANCE' } })
+    }
+    if(activeKey == '5' && isRevenueByOrder) {
+      invoiceRevenueFacade.get({
+        page: 1,
+        perPage: 10,
+        filter: {
+          idStore: id,
+          dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+          dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
+        },
+        fullTextSearch: ''
+      })
     }
   }, [activeKey, isRevenueByOrder])
 
@@ -300,7 +313,7 @@ const Page = () => {
           productPrice: item?.productPrice!.length > 0 ? item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()) : '0',
           basicUnit: item?.basicUnit,
           supplierName: item?.supplierName ? item?.supplierName : item.subOrg?.name,
-          category: item?.category?.child?.name,
+          category: item?.productCategory!.length > 0 ? item?.productCategory!.map((item) => item.category?.name) : '',
           name: item?.name,
           barcode: item?.barcode,
           storeBarcode: item?.storeBarcode,
