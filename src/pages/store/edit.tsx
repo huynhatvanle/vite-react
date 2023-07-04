@@ -206,7 +206,7 @@ const Page = () => {
       subStoreFacade.get({ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'NON_BALANCE' } })
     }
     if(activeKey == '5' && isRevenueByOrder) {
-      invoiceRevenueFacade.get({
+      dataTableRefInvoiceRevenue.current?.onChange({
         page: 1,
         perPage: 10,
         filter: {
@@ -214,11 +214,25 @@ const Page = () => {
           dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
           dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
         },
-        fullTextSearch: ''
       })
     }
     setDate(false)
   }, [activeKey, isRevenueByOrder])
+
+  useEffect(() => {
+    if(activeKey == '3')
+    navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`);
+  },[subStoreFacade.result?.data])
+
+  useEffect(() => {
+    if(activeKey == '4')
+    navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`);
+  },[connectSupplierFacade.result?.data, subStoreFacade.result?.data])
+
+  useEffect(() => {
+    if(activeKey == '6')
+    navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`);
+  },[inventoryProductFacade.result?.data])
 
   const supplierInvoice = subStoreFacade.result?.data ? subStoreFacade.result?.data.map((item) => { return { id: item.id, name: item.name } }) : []
   const supplierInvoice1 = connectSupplierFacade.result?.data ? connectSupplierFacade.result?.data.map((item) => { return { id: item.supplier!.id, name: item.supplier!.name } }) : []
