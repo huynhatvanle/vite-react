@@ -290,62 +290,74 @@ const Page = () => {
   }, []);
   useEffect(() => {
     if (activeKey == '2') {
-      navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
-      // dataTableRefProduct.current?.onChange({
-      //   page: 1,
-      //   perPage: 10,
-      //   filter: { supplierId: id, type: 'BALANCE' },
-      // });
+      // navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+      dataTableRefProduct.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter: { supplierId: id, type: 'BALANCE' },
+      });
     }
-    // if (activeKey == '3') {
-    //   orderRef.current?.onChange({
-    //     page: 1,
-    //     perPage: 10,
-    //     filter: { filterSupplier: id },
-    //     // fullTextSearch: '',
-    //   });
-    // }
-    // if (activeKey == '4' && revenue) {
-    //   dataTableRefRevenue.current?.onChange({
-    //     page: 1,
-    //     perPage: 10,
-    //     filter: {
-    //       idSupplier: id,
-    //       filterDate: {
-    //         dateFrom: `${dayjs().subtract(1, 'month').format('MM/DD/YYYY 00:00:00')}`,
-    //         dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
-    //       },
-    //     },
-    //   });
-    // } else {
-    //   if (activeKey == '4' && !revenue) {
-    //     dataTableRefListProduct.current?.onChange({
-    //       page: 1,
-    //       perPage: 10,
-    //       filter: {
-    //         idSupplier: data?.id,
-    //         filterDate: {
-    //           dateFrom: `${dayjs().subtract(1, 'month').format('MM/DD/YYYY 00:00:00')}`,
-    //           dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
-    //         },
-    //       },
-    //     });
-    //   }
-    // }
-    // if (activeKey == '5') {
-    //   dataTableRefDiscount.current?.onChange({
-    //     page: 1,
-    //     perPage: 10,
-    //     filter: {
-    //       id: id,
-    //       filter: {
-    //         dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 00:00:00')}`,
-    //         dateTo: `${dayjs().endOf('month').format('MM/DD/YYYY 23:59:59')}`,
-    //       },
-    //     },
-    //   });
-    // }
+    if (activeKey == '3') {
+      orderRef.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter: { filterSupplier: id },
+        // fullTextSearch: '',
+      });
+    }
+    if (activeKey == '4' && revenue) {
+      dataTableRefRevenue.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter: {
+          idSupplier: id,
+          filterDate: {
+            dateFrom: `${dayjs().subtract(1, 'month').format('MM/DD/YYYY 00:00:00')}`,
+            dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
+          },
+        },
+      });
+    } else {
+      if (activeKey == '4' && !revenue) {
+        dataTableRefListProduct.current?.onChange({
+          page: 1,
+          perPage: 10,
+          filter: {
+            idSupplier: data?.id,
+            filterDate: {
+              dateFrom: `${dayjs().subtract(1, 'month').format('MM/DD/YYYY 00:00:00')}`,
+              dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
+            },
+          },
+        });
+      }
+    }
+    if (activeKey == '5') {
+      dataTableRefDiscount.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter: {
+          id: id,
+          filter: {
+            dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 00:00:00')}`,
+            dateTo: `${dayjs().endOf('month').format('MM/DD/YYYY 23:59:59')}`,
+          },
+        },
+      });
+    }
   }, [activeKey]);
+
+  useEffect(() => {
+    if (activeKey == '3') navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+  }, [ordersFacade.result?.data]);
+
+  useEffect(() => {
+    if (activeKey == '4') navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+  }, [inventoryOrders?.result?.data, inventoryProduct?.result?.data]);
+
+  useEffect(() => {
+    if (activeKey == '5') navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+  }, [discountFacade?.result?.data]);
 
   const handleSubmitUpload = (values: any) => {
     const subOrgId = id;
