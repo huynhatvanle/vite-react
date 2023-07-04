@@ -217,6 +217,7 @@ const Page = () => {
         fullTextSearch: ''
       })
     }
+    setDate(false)
   }, [activeKey, isRevenueByOrder])
 
   const supplierInvoice = subStoreFacade.result?.data ? subStoreFacade.result?.data.map((item) => { return { id: item.id, name: item.name } }) : []
