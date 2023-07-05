@@ -22,7 +22,7 @@ Feature: Login
 
     Scenario: SI-03 Verify that Login unsuccessfully with invalid Password
       When Enter "text" in "Tên đăng nhập" with "admin@admin.com"
-      When Enter "text" in "Mật khẩu" with "Password12"
+      When Enter "text" in "Mật khẩu" with "_RANDOM_"
       When Click "Đăng nhập" button
       Then User look message "Thông tin đăng nhập không hợp lệ cho người dùng _@Tên đăng nhập@_" popup
 
