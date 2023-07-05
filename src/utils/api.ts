@@ -34,7 +34,7 @@ export const API = {
     const res: Responses<T> = await response.json();
     if (response.ok) {
       return res;
-    } else if (res.message) {
+    } else if (res.message && response.status !== 401) {
       await Message.error({ text: res.message });
     }
 
@@ -52,6 +52,7 @@ export const API = {
       }
     }
     if (response.status === 401 && url !== `${routerLinks('Auth', 'api')}/login`) {
+      if (res.message) await Message.error({ text: res.message });
       localStorage.removeItem(keyUser);
       window.location.href = routerLinks('Login');
     }
