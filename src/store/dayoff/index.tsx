@@ -12,13 +12,13 @@ const action = {
     values.dateLeaveStart = dateLeave![0];
     values.dateLeaveEnd = dateLeave![1];
     const { data, message } = await API.post<DayOff>(routerLinks(name, 'api'), values);
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return data;
   }),
   putStatus: createAsyncThunk(name + '/putStatus', async ({ id, ...values }: DayOff) => {
     if (!values.status) values.status = -1;
     const { data, message } = await API.put<DayOff>(`${routerLinks(name, 'api')}/${id}/status`, values);
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return data;
   }),
 };
