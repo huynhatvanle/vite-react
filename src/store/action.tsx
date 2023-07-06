@@ -34,17 +34,17 @@ export class Action<T extends CommonEntity> {
     );
     this.post = createAsyncThunk(name + '/post', async (values: T) => {
       const { data, message } = await API.post<T>(routerLinks(name, 'api'), values);
-      if (message) await Message.success({ text: message });
+      if (message) Message.success({ text: message });
       return data;
     });
     this.put = createAsyncThunk(name + '/put', async ({ id, ...values }: T) => {
       const { data, message } = await API.put<T>(`${routerLinks(name, 'api')}/${id}`, values);
-      if (message) await Message.success({ text: message });
+      if (message) Message.success({ text: message });
       return data;
     });
     this.delete = createAsyncThunk(name + '/delete', async (id: string) => {
       const { data, message } = await API.delete<T>(`${routerLinks(name, 'api')}/${id}`);
-      if (message) await Message.success({ text: message });
+      if (message) Message.success({ text: message });
       return data;
     });
   }

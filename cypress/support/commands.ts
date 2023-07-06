@@ -8,7 +8,7 @@ Cypress.Commands.add(
 );
 Cypress.Commands.add('typeRandom', { prevSubject: 'element' }, (element, text, state, type): any => {
   const random = '_RANDOM_';
-  const input = cy.wrap(element).clear();
+  const input = cy.wrap(element).wait(0).clear();
 
   if (text.indexOf('_@') > -1 && text.indexOf('@_') > -1)
     input.type(state[text.replace('_@', '').replace('@_', '')].toString());

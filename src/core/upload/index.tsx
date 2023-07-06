@@ -77,7 +77,7 @@ export const Upload = ({
     for (let i = 0; i < target.files.length; i++) {
       const file = target.files[i];
       if (maxSize && file.size > maxSize * 1024 * 1024) {
-        await Message.error({
+        Message.error({
           text: `${file.name} (${(file.size / (1024 * 1024)).toFixed(1)}mb): ${t('components.form.ruleMaxSize', {
             max: maxSize,
           })}`,

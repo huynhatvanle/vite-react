@@ -33,11 +33,7 @@ export const API = {
       .join('&');
     const response = await fetch(linkApi + url + (linkParam && '?' + linkParam), config);
     const res: Responses<T> = await response.json();
-    if (response.ok) {
-      return res;
-    } else if (res.message) {
-      await Message.error({ text: res.message });
-    }
+    if (response.ok) return res;
 
     if (
       response.status === 401 &&
@@ -51,7 +47,8 @@ export const API = {
         const response = await fetch(linkApi + url + (linkParam && '?' + linkParam), config);
         return (await response.json()) as Responses<T>;
       }
-    }
+    } else if (res.message) Message.error({ text: res.message });
+
     if (response.status === 401 && url !== `${routerLinks('Auth', 'api')}/login`) {
       localStorage.removeItem(keyUser);
       window.location.href = routerLinks('Login');
