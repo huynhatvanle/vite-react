@@ -177,22 +177,22 @@ const Page = () => {
         type: 'BALANCE',
         storeId: id
       })
-      dataTableRefProduct.current?.onChange({
-        page: 1,
-        perPage: 10,
-        filter: { storeId: id, type: 'BALANCE' },
-      })
+      // dataTableRefProduct.current?.onChange({
+      //   page: 1,
+      //   perPage: 10,
+      //   filter: { storeId: id, type: 'BALANCE' },
+      // })
     }
     if (activeKey == '2' && !isBalance) {
       supplierStoreFacade.get({
         type: 'NON_BALANCE',
         storeId: id
       })
-      dataTableRefProduct.current?.onChange({
-        page: 1,
-        perPage: 10,
-        filter: { storeId: id, type: 'NON_BALANCE' },
-      })
+      // dataTableRefProduct.current?.onChange({
+      //   page: 1,
+      //   perPage: 10,
+      //   filter: { storeId: id, type: 'NON_BALANCE' },
+      // })
     }
   }, [activeKey, isBalance])
   const listSupplierStore = supplierStoreFacade.result?.data
@@ -792,19 +792,19 @@ const Page = () => {
                         text={t('titles.Export Excel file')}
                         disabled={productFacade.result?.data?.length === 0 ? true : false}
                         onClick={() => {
-                          productFacade.get({
-                            page: 1,
-                            perPage: 10,
-                            filter: {
-                              storeId: id,
-                              supplierId: getFilter(productFacade.queryParams, 'supplierId'),
-                              categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
-                              categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
-                              categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
-                              type: getFilter(productFacade.queryParams, 'type'),
-                              isGetAll: true
-                            }
-                          })
+                          // productFacade.get({
+                          //   page: 1,
+                          //   perPage: 10,
+                          //   filter: {
+                          //     storeId: id,
+                          //     supplierId: getFilter(productFacade.queryParams, 'supplierId'),
+                          //     categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
+                          //     categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
+                          //     categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
+                          //     type: getFilter(productFacade.queryParams, 'type'),
+                          //     isGetAll: true
+                          //   }
+                          // })
                           let stt = 0
                           const excel = new Excel();
                           const sheet = excel.addSheet("Sheet1")
