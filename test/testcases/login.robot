@@ -18,7 +18,7 @@ DN-02 Verify that Login unsuccessfully with invalid Email
 DN-03 Verify that Đăng nhập unsuccessfully with invalid Email
   [Tags]                @smoketest               @regression
   When Enter "email" in "Tên đăng nhập" with "admin@admin.com"
-  When Enter "text" in "Mật khẩu" with "_RANDOM_"
+  When Enter "text" in "Mật khẩu" with "Password1!!"
   When Click "Đăng nhập" button
   Then User look message "Thông tin đăng nhập không hợp lệ cho người dùng _@Tên đăng nhập@_" popup
 
