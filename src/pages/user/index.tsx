@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import dayjs from 'dayjs';
-import {Popconfirm, Spin, Tooltip} from 'antd';
+import { Popconfirm, Spin, Tooltip } from 'antd';
 
 import { Avatar } from '@core/avatar';
 import { Button } from '@core/button';
@@ -12,7 +12,7 @@ import { TableRefObject } from '@models';
 import { UserFacade, GlobalFacade, CodeFacade, UserTeamFacade, ManagerFacade, UserRoleFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { keyRole, routerLinks, lang } from '@utils';
-import classNames from "classnames";
+import classNames from 'classnames';
 
 const Page = () => {
   const userRoleFacade = UserRoleFacade();
@@ -58,15 +58,19 @@ const Page = () => {
               {userRoleFacade?.result?.data?.map((data, index) => (
                 <div
                   key={data.id}
-                  className={classNames({'bg-gray-100': request.filter.roleCode === data.code},'item text-gray-700 font-medium hover:bg-gray-100 flex justify-between items-center border-b border-gray-100 w-full text-left  group')}
+                  className={classNames(
+                    { 'bg-gray-100': request.filter.roleCode === data.code },
+                    'item text-gray-700 font-medium hover:bg-gray-100 flex justify-between items-center border-b border-gray-100 w-full text-left  group',
+                  )}
                 >
                   <div
                     onClick={() => {
                       if (request.filter.roleCode !== data.code) request.filter.roleCode = data.code;
                       else delete request.filter.roleCode;
-                      dataTableRef?.current?.onChange(request)
+                      dataTableRef?.current?.onChange(request);
                     }}
-                    className="truncate cursor-pointer flex-1 hover:text-blue-500 item-text px-4 py-2">
+                    className="truncate cursor-pointer flex-1 hover:text-blue-500 item-text px-4 py-2"
+                  >
                     {index + 1}. {data.name}
                   </div>
                   {/*<span className="w-16 flex justify-end gap-1">*/}
@@ -125,7 +129,7 @@ const Page = () => {
                   name: 'name',
                   tableItem: {
                     filter: { type: 'search' },
-                    width: 200,
+                    width: 210,
                     fixed: window.innerWidth > 767 ? 'left' : '',
                     sorter: true,
                     onCell: () => ({
@@ -139,6 +143,7 @@ const Page = () => {
                   title: 'user.Position',
                   name: 'position',
                   tableItem: {
+                    width: 200,
                     filter: {
                       type: 'checkbox',
                       name: 'positionCode',
@@ -163,6 +168,7 @@ const Page = () => {
                   title: 'user.Role',
                   name: 'role',
                   tableItem: {
+                    width: 110,
                     sorter: true,
                     render: (item) => item?.name,
                   },
