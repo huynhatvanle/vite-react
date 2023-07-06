@@ -25,7 +25,7 @@ const action = {
   }),
   putProfile: createAsyncThunk(name + '/putProfile', async (values: User) => {
     const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}`, { ...values });
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return data || {};
   }),
   login: createAsyncThunk(name + '/sign-in', async (values: { password: string; username: string }) => {
@@ -34,7 +34,7 @@ const action = {
       values,
     );
     if (data) {
-      if (message) await Message.success({ text: message });
+      if (message) Message.success({ text: message });
       localStorage.setItem(keyToken, data?.accessToken);
       localStorage.setItem(keyRefreshToken, data?.refreshToken);
     }
@@ -42,7 +42,7 @@ const action = {
   }),
   forgotPassword: createAsyncThunk(name + '/forgot-password', async (values: { email: string }) => {
     const { data, message } = await API.put<verify>(`${routerLinks(name, 'api')}/forgot-password`, values);
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return data?.uuid;
   }),
   verifyForgotPassword: createAsyncThunk(name + '/verify-forgot-password', async (values: verify) => {
@@ -55,7 +55,7 @@ const action = {
   }),
   setPassword: createAsyncThunk(name + '/update-password-my-acc', async (values: setPassword) => {
     const { data, message } = await API.put(`${routerLinks(name, 'api')}/update-password-my-acc`, values);
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return data;
   }),
 };
@@ -75,7 +75,6 @@ interface Breadcrumb {
   title: string;
   link: string;
 }
-
 
 export class User extends CommonEntity {
   constructor(

@@ -61,7 +61,7 @@ const action = {
       supplierType,
       type,
     });
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return statusCode;
   }),
   putSup: createAsyncThunk(name + '/put', async ({ id, ...values }: Supplier) => {
@@ -78,7 +78,7 @@ const action = {
     delete rs.wardId;
 
     const { statusCode, message } = await API.put<Supplier>(`${routerLinks(name, 'api')}/${id}`, rs);
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return statusCode;
   }),
 };

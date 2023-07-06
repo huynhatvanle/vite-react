@@ -10,17 +10,23 @@ const name = 'User';
 export const action = {
   ...new Action<User>(name),
   post: createAsyncThunk(name + '/post', async (values: User) => {
-    const addressDto = { city: null, country: null, district: null, postCode: null, street: 'dien bien phu' }
+    const addressDto = { city: null, country: null, district: null, postCode: null, street: 'dien bien phu' };
     const subOrgId = null;
     const orgId = null;
     const roleId = 1;
-    const { data, message } = await API.post<User>(`${routerLinks(name, 'api')}/register`, { ...values, addressDto, subOrgId, orgId, roleId });
-    if (message) await Message.success({ text: message });
+    const { data, message } = await API.post<User>(`${routerLinks(name, 'api')}/register`, {
+      ...values,
+      addressDto,
+      subOrgId,
+      orgId,
+      roleId,
+    });
+    if (message) Message.success({ text: message });
     return data;
   }),
   put: createAsyncThunk(name + '/put', async ({ id, ...values }: User) => {
     const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}/${id}`, values);
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return data;
   }),
 };

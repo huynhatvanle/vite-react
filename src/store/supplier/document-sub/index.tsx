@@ -12,7 +12,7 @@ const name = 'documentsuborganiztion';
 const action = {
   ...new Action<Documentsub>(name),
   getSub: createAsyncThunk(name + '/get', async ({ id }: { id?: string }) => {
-    let data = await API.get<Documentsub>(`${routerLinks(name, 'api')}/${id}`);
+    const data = await API.get<Documentsub>(`${routerLinks(name, 'api')}/${id}`);
     return data;
   }),
   getByIdSub: createAsyncThunk(
@@ -27,7 +27,7 @@ const action = {
     const { statusCode, message } = await API.put<Documentsub>(`${routerLinks(name, 'api')}/${id}`, {
       status: 'SIGNED_CONTRACT',
     });
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return statusCode;
   }),
 
@@ -45,13 +45,13 @@ const action = {
         },
       },
     );
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return statusCode;
   }),
 
   deleteSub: createAsyncThunk(name + '/deleteSub', async ({ id }: Documentsub) => {
     const { statusCode, message } = await API.delete<Documentsub>(`/file-doc-contract/${id}`);
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return statusCode;
   }),
 
@@ -66,28 +66,28 @@ const action = {
 
     switch (extension) {
       case 'png':
-          filename = 'File hợp đồng.png';
-          break;
-        case 'pdf':
-          filename = 'File hợp đồng.pdf';
-          break;
-        case 'docx':
-          filename = 'File hợp đồng.docx';
-          break;
-        case 'jpg':
-          filename = 'File hợp đồng.jpg';
-          break;
-        case 'csv':
-          filename = 'File hợp đồng.csv';
-          break;
-        case 'xlsx':
-          filename = 'File hợp đồng.xlsx';
-          break;
-        case 'xls':
-          filename = 'File hợp đồng.xls';
-          break;
-        default:
-          filename = 'File hợp đồng';
+        filename = 'File hợp đồng.png';
+        break;
+      case 'pdf':
+        filename = 'File hợp đồng.pdf';
+        break;
+      case 'docx':
+        filename = 'File hợp đồng.docx';
+        break;
+      case 'jpg':
+        filename = 'File hợp đồng.jpg';
+        break;
+      case 'csv':
+        filename = 'File hợp đồng.csv';
+        break;
+      case 'xlsx':
+        filename = 'File hợp đồng.xlsx';
+        break;
+      case 'xls':
+        filename = 'File hợp đồng.xls';
+        break;
+      default:
+        filename = 'File hợp đồng';
     }
 
     saveAs(url as string, filename);
@@ -110,7 +110,7 @@ const action = {
     zip.generateAsync({ type: 'blob' }).then((content) => {
       saveAs(content, 'Tệp hợp đồng.zip');
     });
-  })
+  }),
 };
 
 export const documentsubSlice = createSlice(
