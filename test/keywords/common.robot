@@ -5,7 +5,7 @@ Library             String
 
 *** Variables ***
 ${BROWSER}          chromium
-${HEADLESS}         ${False}
+${HEADLESS}         ${True}
 ${BROWSER_TIMEOUT}  60 seconds
 ${SHOULD_TIMEOUT}   0.1 seconds
 
@@ -260,7 +260,6 @@ User look message "${message}" popup
   IF    '${passed}' == 'True'
         Click               ${element}
   END
-  Wait Until Element Spin
 
 Click Confirm To Action
   ${element}                Set Variable                      xpath=//*[contains(@class, "ant-popover")]//*[contains(@class, "ant-btn-primary")]

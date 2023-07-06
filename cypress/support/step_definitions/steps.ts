@@ -28,6 +28,13 @@ Given('User go to login page', () => {
   cy.visit('/vn/auth/login');
 });
 When('Click "{}" button', common.clickTextButton);
+When('Login to admin', () => {
+  cy.visit('/vn/auth/login');
+  common.typeInputByName('email', 'Tên đăng nhập', 'admin@admin.com');
+  common.typeInputByName('text', 'Mật khẩu', 'Password1!');
+  common.clickTextButton('Đăng nhập');
+  common.verifyMessageSwal2('Thành công');
+});
 When('Click "{}" menu', common.clickTextMenu);
 When('Click "{}" sub menu to "{}"', common.clickTextSubMenu);
 When('Click "{}" tab button', common.clickTextTabBtn);

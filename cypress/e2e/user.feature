@@ -2,11 +2,7 @@ Feature: User
 
   Rule: Happy paths
     Background:
-      Given User go to login page
-      When Enter "text" in "Tên đăng nhập" with "admin@admin.com"
-      When Enter "text" in "Mật khẩu" with "Password1!"
-      When Click "Đăng nhập" button
-      Then User look message "Thành công" popup
+      When Login to admin
       When Click "Người Dùng" menu
       When Click "Tạo mới" sub menu to "/vn/user/add"
       When Enter "text" in "Họ và tên" with "_RANDOM_"
