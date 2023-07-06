@@ -62,6 +62,7 @@ const Page = () => {
   const [isRevenueByOrder, setIsRevenueByOrder] = useState(true);
   const [categoryId1, setCategoryId1] = useState('')
   const [categoryId2, setCategoryId2] = useState('')
+  const [exportExcel, setExportExcel] = useState(false)
 
   const category1 = categoryFacade.result?.data
   const category2 = categoryFacade.result2?.data
@@ -164,7 +165,7 @@ const Page = () => {
   useEffect(() => {
     if (tab) {
       setActiveKey(tab);
-    } 
+    }
     // else {
     //   setActiveKey('1');
     // }
@@ -179,7 +180,7 @@ const Page = () => {
       dataTableRefProduct.current?.onChange({
         page: 1,
         perPage: 10,
-        filter:{ storeId: id, type: 'BALANCE' },
+        filter: { storeId: id, type: 'BALANCE' },
       })
     }
     if (activeKey == '2' && !isBalance) {
@@ -190,7 +191,7 @@ const Page = () => {
       dataTableRefProduct.current?.onChange({
         page: 1,
         perPage: 10,
-        filter:{ storeId: id, type: 'NON_BALANCE' },
+        filter: { storeId: id, type: 'NON_BALANCE' },
       })
     }
   }, [activeKey, isBalance])
@@ -205,7 +206,7 @@ const Page = () => {
       })
       subStoreFacade.get({ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'NON_BALANCE' } })
     }
-    if(activeKey == '5' && isRevenueByOrder) {
+    if (activeKey == '5' && isRevenueByOrder) {
       dataTableRefInvoiceRevenue.current?.onChange({
         page: 1,
         perPage: 10,
@@ -220,19 +221,19 @@ const Page = () => {
   }, [activeKey, isRevenueByOrder])
 
   useEffect(() => {
-    if(activeKey == '3')
-    navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`);
-  },[subStoreFacade.result?.data])
+    if (activeKey == '3')
+      navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`);
+  }, [subStoreFacade.result?.data])
 
   useEffect(() => {
-    if(activeKey == '4')
-    navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`);
-  },[connectSupplierFacade.result?.data, subStoreFacade.result?.data])
+    if (activeKey == '4')
+      navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`);
+  }, [connectSupplierFacade.result?.data, subStoreFacade.result?.data])
 
   useEffect(() => {
-    if(activeKey == '6')
-    navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`);
-  },[inventoryProductFacade.result?.data])
+    if (activeKey == '6')
+      navigate(`/${lang}${routerLinks('store-managerment/edit')}/${id}?tab=${activeKey}`);
+  }, [inventoryProductFacade.result?.data])
 
   const supplierInvoice = subStoreFacade.result?.data ? subStoreFacade.result?.data.map((item) => { return { id: item.id, name: item.name } }) : []
   const supplierInvoice1 = connectSupplierFacade.result?.data ? connectSupplierFacade.result?.data.map((item) => { return { id: item.supplier!.id, name: item.supplier!.name } }) : []
@@ -263,96 +264,94 @@ const Page = () => {
       { title: 'Giá nhập', key: 'price', dataIndex: 'price' },
       { title: t('product.Status'), key: 'status', dataIndex: 'status' },
       { title: t('product.Image'), key: 'linkImage', dataIndex: 'linkImage' },
-    ]
-    ;
-
-  useEffect(() => {
-    if (productFacade.result2?.data) {
-      let stt = 0
-      const excel = new Excel();
-      const sheet = excel.addSheet("Sheet1")
-      sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' })
-      sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' })
-      sheet.setRowHeight(0.8, 'cm')
-      // sheet.drawCell(12, 0, '')
-      sheet.addColumns([
-        { title: '', dataIndex: '' },
-        { title: '', dataIndex: '' },
-        { title: '', dataIndex: '' },
-        { title: 'DANH SÁCH HÀNG HÓA BALANCE', dataIndex: '' },
-      ]);
-      sheet.addRow();
-      sheet.addColumns([
-        { title: 'Chọn nhà cung cấp:', dataIndex: '' },
-        {
-          title: getFilter(productFacade.queryParams, 'supplierId')
-            ? `${supplierStoreFacade.result?.data?.find((item) => {
-              return item.id === getFilter(productFacade.queryParams, 'supplierId');
-            })?.name
-            }`
-            : '',
-          dataIndex: '',
-        },
-      ]);
-      sheet.addRow();
-      sheet.addColumns([
-        { title: 'Danh mục chính', dataIndex: '' },
-        {
-          title: getFilter(productFacade.queryParams, 'categoryId1')
-            ? `${categoryFacade.result?.data?.find((item) => {
-              return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-            })?.name
-            }`
-            : '',
-          dataIndex: '',
-        },
-        { title: '', dataIndex: '' },
-        { title: 'Danh mục cấp 1', dataIndex: '' },
-        {
-          title: getFilter(productFacade.queryParams, 'categoryId2')
-            ? `${categoryFacade.result2?.data?.find((item) => {
-              return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-            })?.name
-            }`
-            : '',
-          dataIndex: '',
-        },
-        { title: '', dataIndex: '' },
-        { title: 'Danh mục cấp 2', dataIndex: '' },
-        {
-          title: getFilter(productFacade.queryParams, 'categoryId3')
-            ? `${categoryFacade.result3?.data?.find((item) => {
-              return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-            })?.name
-            }`
-            : '',
-          dataIndex: '',
-        },
-        { title: '', dataIndex: '' },
-      ]);
-      sheet.addRow()
-      sheet
-        .addColumns(columnproduct)
-        .addDataSource(productFacade?.result2?.data?.map((item) => ({
-          stt: ++stt,
-          productPrice: item?.productPrice!.length > 0 ? item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()) : '0',
-          basicUnit: item?.basicUnit,
-          supplierName: item?.supplierName ? item?.supplierName : item.subOrg?.name,
-          category: item?.productCategory!.length > 0 ? item?.productCategory!.map((item) => item.category?.name) : '',
-          name: item?.name,
-          barcode: item?.barcode,
-          storeBarcode: item?.storeBarcode,
-          code: item?.code,
-          // sellingPrice: item?.sellingPrice ? parseInt(item?.sellingPrice).toLocaleString() : ''
-          price: item.price ? parseInt(item?.price).toLocaleString() : '',
-          status: item.approveStatus == 'APPROVED' ? 'Đang bán' : '',
-          linkImage: item?.photos?.map((i) => i.url)
-        })) ?? [], {
-          str2Percent: true
-        })
-        .saveAs(t('product.List Balance'))
-    }
-  }, [productFacade.result2?.data])
+    ];
+  // useEffect(() => {
+  //   if (productFacade.result2?.data) {
+  //     let stt = 0
+  //     const excel = new Excel();
+  //     const sheet = excel.addSheet("Sheet1")
+  //     sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' })
+  //     sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' })
+  //     sheet.setRowHeight(0.8, 'cm')
+  //     // sheet.drawCell(12, 0, '')
+  //     sheet.addColumns([
+  //       { title: '', dataIndex: '' },
+  //       { title: '', dataIndex: '' },
+  //       { title: '', dataIndex: '' },
+  //       { title: 'DANH SÁCH HÀNG HÓA BALANCE', dataIndex: '' },
+  //     ]);
+  //     sheet.addRow();
+  //     sheet.addColumns([
+  //       { title: 'Chọn nhà cung cấp:', dataIndex: '' },
+  //       {
+  //         title: getFilter(productFacade.queryParams, 'supplierId')
+  //           ? `${supplierStoreFacade.result?.data?.find((item) => {
+  //             return item.id === getFilter(productFacade.queryParams, 'supplierId');
+  //           })?.name
+  //           }`
+  //           : '',
+  //         dataIndex: '',
+  //       },
+  //     ]);
+  //     sheet.addRow();
+  //     sheet.addColumns([
+  //       { title: 'Danh mục chính', dataIndex: '' },
+  //       {
+  //         title: getFilter(productFacade.queryParams, 'categoryId1')
+  //           ? `${categoryFacade.result?.data?.find((item) => {
+  //             return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+  //           })?.name
+  //           }`
+  //           : '',
+  //         dataIndex: '',
+  //       },
+  //       { title: '', dataIndex: '' },
+  //       { title: 'Danh mục cấp 1', dataIndex: '' },
+  //       {
+  //         title: getFilter(productFacade.queryParams, 'categoryId2')
+  //           ? `${categoryFacade.result2?.data?.find((item) => {
+  //             return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+  //           })?.name
+  //           }`
+  //           : '',
+  //         dataIndex: '',
+  //       },
+  //       { title: '', dataIndex: '' },
+  //       { title: 'Danh mục cấp 2', dataIndex: '' },
+  //       {
+  //         title: getFilter(productFacade.queryParams, 'categoryId3')
+  //           ? `${categoryFacade.result3?.data?.find((item) => {
+  //             return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+  //           })?.name
+  //           }`
+  //           : '',
+  //         dataIndex: '',
+  //       },
+  //       { title: '', dataIndex: '' },
+  //     ]);
+  //     sheet.addRow()
+  //     sheet
+  //       .addColumns(columnproduct)
+  //       .addDataSource(productFacade?.result2?.data?.map((item) => ({
+  //         stt: ++stt,
+  //         productPrice: item?.productPrice!.length > 0 ? item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()) : '0',
+  //         basicUnit: item?.basicUnit,
+  //         supplierName: item?.supplierName ? item?.supplierName : item.subOrg?.name,
+  //         category: item?.productCategory!.length > 0 ? item?.productCategory!.map((item) => item.category?.name) : '',
+  //         name: item?.name,
+  //         barcode: item?.barcode,
+  //         storeBarcode: item?.storeBarcode,
+  //         code: item?.code,
+  //         // sellingPrice: item?.sellingPrice ? parseInt(item?.sellingPrice).toLocaleString() : ''
+  //         price: item.price ? parseInt(item?.price).toLocaleString() : '',
+  //         status: item.approveStatus == 'APPROVED' ? 'Đang bán' : '',
+  //         linkImage: item?.photos?.map((i) => i.url)
+  //       })) ?? [], {
+  //         str2Percent: true
+  //       })
+  //       .saveAs(t('product.List Balance'))
+  //   }
+  // }, [productFacade.result2?.data])
 
   const [date, setDate] = useState<boolean>()
 
@@ -806,6 +805,89 @@ const Page = () => {
                               isGetAll: true
                             }
                           })
+                          let stt = 0
+                          const excel = new Excel();
+                          const sheet = excel.addSheet("Sheet1")
+                          sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' })
+                          sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' })
+                          sheet.setRowHeight(0.8, 'cm')
+                          // sheet.drawCell(12, 0, '')
+                          sheet.addColumns([
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: 'DANH SÁCH HÀNG HÓA BALANCE', dataIndex: '' },
+                          ]);
+                          sheet.addRow();
+                          sheet.addColumns([
+                            { title: 'Chọn nhà cung cấp:', dataIndex: '' },
+                            {
+                              title: getFilter(productFacade.queryParams, 'supplierId')
+                                ? `${supplierStoreFacade.result?.data?.find((item) => {
+                                  return item.id === getFilter(productFacade.queryParams, 'supplierId');
+                                })?.name
+                                }`
+                                : '',
+                              dataIndex: '',
+                            },
+                          ]);
+                          sheet.addRow();
+                          sheet.addColumns([
+                            { title: 'Danh mục chính', dataIndex: '' },
+                            {
+                              title: getFilter(productFacade.queryParams, 'categoryId1')
+                                ? `${categoryFacade.result?.data?.find((item) => {
+                                  return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                })?.name
+                                }`
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                            { title: 'Danh mục cấp 1', dataIndex: '' },
+                            {
+                              title: getFilter(productFacade.queryParams, 'categoryId2')
+                                ? `${categoryFacade.result2?.data?.find((item) => {
+                                  return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                })?.name
+                                }`
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                            { title: 'Danh mục cấp 2', dataIndex: '' },
+                            {
+                              title: getFilter(productFacade.queryParams, 'categoryId3')
+                                ? `${categoryFacade.result3?.data?.find((item) => {
+                                  return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                })?.name
+                                }`
+                                : '',
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                          ]);
+                          sheet.addRow()
+                          sheet
+                            .addColumns(columnproduct)
+                            .addDataSource(productFacade?.result?.data?.map((item) => ({
+                              stt: ++stt,
+                              productPrice: item?.productPrice!.length > 0 ? item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()) : '0',
+                              basicUnit: item?.basicUnit,
+                              supplierName: item?.supplierName ? item?.supplierName : item.subOrg?.name,
+                              category: item?.productCategory!.length > 0 ? item?.productCategory!.map((item) => item.category?.name) : '',
+                              name: item?.name,
+                              barcode: item?.barcode,
+                              storeBarcode: item?.storeBarcode,
+                              code: item?.code,
+                              // sellingPrice: item?.sellingPrice ? parseInt(item?.sellingPrice).toLocaleString() : ''
+                              price: item.price ? parseInt(item?.price).toLocaleString() : '',
+                              status: item.approveStatus == 'APPROVED' ? 'Đang bán' : '',
+                              linkImage: item?.photos?.map((i) => i.url)
+                            })) ?? [], {
+                              str2Percent: true
+                            })
+                            .saveAs(t('product.List Balance'))
                         }
                         }
                       />
