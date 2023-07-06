@@ -34,6 +34,8 @@ const Page = () => {
   const { t } = useTranslation();
   const supplierFacade = SupplierFacade();
   const { data, isLoading, queryParams, status } = supplierFacade;
+  console.log("data", data?.address?.street);
+
   const navigate = useNavigate();
   const isBack = useRef(true);
   const isReload = useRef(false);
@@ -566,6 +568,7 @@ const Page = () => {
                       nameContact: data?.userRole?.[0].userAdmin.name,
                       emailContact: data?.userRole?.[0].userAdmin.email,
                       phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
+                      street: data?.address?.street,
                     }}
                     className="intro-x form-responsive form-store3"
                     columns={[
