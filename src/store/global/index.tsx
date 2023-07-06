@@ -36,7 +36,7 @@ const action = {
       values,
     );
     if (data) {
-      if (message) await Message.success({ text: message });
+      if (message) Message.success({ text: message });
       localStorage.setItem(keyToken, data?.accessToken);
       localStorage.setItem(keyRefreshToken, data?.refreshToken);
     }
@@ -44,7 +44,7 @@ const action = {
   }),
   forgottenPassword: createAsyncThunk(name + '/forgotten-password', async (values: { email: string }) => {
     const { data, message } = await API.post(`${routerLinks(name, 'api')}/forgotten-password`, values);
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return !!data;
   }),
   resetPassword: createAsyncThunk(name + '/reset-password', async ({ token, ...values }: resetPassword) => {
@@ -54,7 +54,7 @@ const action = {
       {},
       { authorization: 'Bearer ' + token },
     );
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return !!data;
   }),
 };
