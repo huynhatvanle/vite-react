@@ -106,7 +106,7 @@ export default class Common {
   typePickerInputByName = (name: string, text: string) =>
     this.elements.pickerInputByName(name).click().typeRandom(text, this.state, 'date');
   clickSwitchByName = (name: string) => this.elements.switchByName(name).click();
-  clickRadioByName = (text: string, name: string) => this.elements.radioByName(name, text).click();
+  clickRadioByName = (name: string, text: string) => this.elements.radioByName(name, text).click();
   clickSelectByName = (name: string, text: string) => {
     const newText =
       text.indexOf('_@') > -1 && text.indexOf('@_') > -1 ? this.state[text.replace('_@', '').replace('@_', '')] : text;

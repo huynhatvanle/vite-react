@@ -160,7 +160,7 @@ Select file in "${name}" with "${text}"
   ${element}=               Get Element Form Item By Name     ${name}                       //input[@type = "file"]
   Upload File By Selector   ${element}                        test/upload/${text}
 
-Click radio "${text}" in line "${name}"
+Click radio "${name}" in line "${text}"
   ${element}=               Get Element Form Item By Name     ${name}                       //*[contains(@class, "ant-radio-button-wrapper")]/span[contains(text(), "${text}")]
   Click                     ${element}
 
