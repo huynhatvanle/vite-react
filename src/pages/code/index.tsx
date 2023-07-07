@@ -9,7 +9,7 @@ import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
 import { Popconfirm, Spin, Tooltip } from 'antd';
 import { useNavigate } from 'react-router';
-import classNames from "classnames";
+import classNames from 'classnames';
 
 const Page = () => {
   const { user, setBreadcrumbs } = GlobalFacade();
@@ -58,13 +58,16 @@ const Page = () => {
               {result?.data?.map((data, index) => (
                 <div
                   key={data.id}
-                  className={classNames({'bg-gray-100': request.filter.type === data.code},'item text-gray-700 font-medium hover:bg-gray-100 flex justify-between items-center border-b border-gray-100 w-full text-left  group')}
+                  className={classNames(
+                    { 'bg-gray-100': request.filter.type === data.code },
+                    'item text-gray-700 font-medium hover:bg-gray-100 flex justify-between items-center border-b border-gray-100 w-full text-left  group',
+                  )}
                 >
                   <div
                     onClick={() => {
                       if (request.filter.type !== data.code) request.filter.type = data.code;
                       else delete request.filter.type;
-                      dataTableRef?.current?.onChange(request)
+                      dataTableRef?.current?.onChange(request);
                     }}
                     className="truncate cursor-pointer flex-1 hover:text-blue-500 item-text px-4 py-2"
                   >

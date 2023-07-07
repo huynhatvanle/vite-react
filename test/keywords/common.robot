@@ -270,6 +270,7 @@ Click Confirm To Action
   END
 
 Wait Until Element Spin
+  Sleep                     ${SHOULD_TIMEOUT}
   ${element}                Set Variable                      xpath=//*[contains(@class, "ant-spin-spinning")]
   ${count}=                 Get Element Count                 ${element}
   IF    ${count} > 0
