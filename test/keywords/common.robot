@@ -5,7 +5,7 @@ Library             String
 
 *** Variables ***
 ${BROWSER}          chromium
-${HEADLESS}         ${True}
+${HEADLESS}         ${False}
 ${BROWSER_TIMEOUT}  60 seconds
 ${SHOULD_TIMEOUT}   0.1 seconds
 
