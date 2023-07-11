@@ -174,7 +174,7 @@ DN-33 Verify that account edit successfully when change name
   When Click "Người Dùng" menu
   Then Wait 5 seconds
   When Click "Danh sách" sub menu to "/vn/user/list"
-  # When Click on the "Sửa" button in the "1" item line
+  # When Click on the "Sửa" button in the "Hoạt động" item line
   When Click "Sửa" button
   When Enter "text" in "Họ và tên" with "_RANDOM_"
   When Click "Lưu lại" button
