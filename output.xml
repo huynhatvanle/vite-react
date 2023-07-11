@@ -1,276 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1 (Python 3.11.4 on win32)" generated="20230710 13:52:37.115" rpa="false" schemaversion="4">
-<suite id="s1" name="Login" source="D:\Vscode\vite-react\test\testcases\login.robot">
-<test id="s1-t1" name="DN-01 Verify that Đăng nhập successfully with valid Email and Mật khẩu" line="7">
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20230710 16:45:17.542" rpa="false" schemaversion="3">
+<suite id="s1" name="User" source="d:\Vscode\vite-react\test\testcases\user.robot">
+<test id="s1-t1" name="DN-02 Verify that creating accounts when add image1" line="34">
 <kw name="Setup" library="common" type="SETUP">
 <kw name="Set Browser Timeout">
 <arg>${BROWSER_TIMEOUT}</arg>
-<msg timestamp="20230710 13:52:37.742" level="FAIL">No keyword with name 'Set Browser Timeout' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.742" endtime="20230710 13:52:37.742"/>
+<msg timestamp="20230710 16:45:17.674" level="FAIL">No keyword with name 'Set Browser Timeout' found.</msg>
+<status status="FAIL" starttime="20230710 16:45:17.673" endtime="20230710 16:45:17.676"/>
 </kw>
 <kw name="New Browser">
 <arg>${BROWSER}</arg>
 <arg>headless=${HEADLESS}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.746" endtime="20230710 13:52:37.747"/>
+<status status="NOT RUN" starttime="20230710 16:45:17.680" endtime="20230710 16:45:17.680"/>
 </kw>
 <kw name="New Page">
 <arg>${URL_DEFAULT}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.750" endtime="20230710 13:52:37.750"/>
+<status status="NOT RUN" starttime="20230710 16:45:17.683" endtime="20230710 16:45:17.683"/>
 </kw>
 <kw name="Evaluate" library="BuiltIn">
 <var>${STATE}</var>
 <arg>json.loads('''{}''')</arg>
 <arg>json</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" starttime="20230710 13:52:37.751" endtime="20230710 13:52:37.751"/>
+<status status="NOT RUN" starttime="20230710 16:45:17.683" endtime="20230710 16:45:17.684"/>
 </kw>
-<status status="FAIL" starttime="20230710 13:52:37.737" endtime="20230710 13:52:37.751"/>
+<status status="FAIL" starttime="20230710 16:45:17.670" endtime="20230710 16:45:17.684"/>
 </kw>
 <kw name="Tear Down" library="common" type="TEARDOWN">
 <kw name="Close Browser">
 <arg>ALL</arg>
-<msg timestamp="20230710 13:52:37.756" level="FAIL">No keyword with name 'Close Browser' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.756" endtime="20230710 13:52:37.756"/>
+<msg timestamp="20230710 16:45:17.689" level="FAIL">No keyword with name 'Close Browser' found.</msg>
+<status status="FAIL" starttime="20230710 16:45:17.689" endtime="20230710 16:45:17.689"/>
 </kw>
-<status status="FAIL" starttime="20230710 13:52:37.751" endtime="20230710 13:52:37.757">No keyword with name 'Close Browser' found.</status>
+<status status="FAIL" starttime="20230710 16:45:17.686" endtime="20230710 16:45:17.690">No keyword with name 'Close Browser' found.</status>
 </kw>
 <tag>@regression</tag>
 <tag>@smoketest</tag>
-<status status="FAIL" starttime="20230710 13:52:37.736" endtime="20230710 13:52:37.757">Setup failed:
+<status status="FAIL" starttime="20230710 16:45:17.668" endtime="20230710 16:45:17.691">Setup failed:
 No keyword with name 'Set Browser Timeout' found.
 
 Also teardown failed:
 No keyword with name 'Close Browser' found.</status>
 </test>
-<test id="s1-t2" name="DN-02 Verify that Login unsuccessfully with invalid Email" line="11">
-<kw name="Setup" library="common" type="SETUP">
-<kw name="Set Browser Timeout">
-<arg>${BROWSER_TIMEOUT}</arg>
-<msg timestamp="20230710 13:52:37.764" level="FAIL">No keyword with name 'Set Browser Timeout' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.764" endtime="20230710 13:52:37.764"/>
-</kw>
-<kw name="New Browser">
-<arg>${BROWSER}</arg>
-<arg>headless=${HEADLESS}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.770" endtime="20230710 13:52:37.770"/>
-</kw>
-<kw name="New Page">
-<arg>${URL_DEFAULT}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.775" endtime="20230710 13:52:37.775"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${STATE}</var>
-<arg>json.loads('''{}''')</arg>
-<arg>json</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" starttime="20230710 13:52:37.776" endtime="20230710 13:52:37.776"/>
-</kw>
-<status status="FAIL" starttime="20230710 13:52:37.759" endtime="20230710 13:52:37.776"/>
-</kw>
-<kw name="Tear Down" library="common" type="TEARDOWN">
-<kw name="Close Browser">
-<arg>ALL</arg>
-<msg timestamp="20230710 13:52:37.780" level="FAIL">No keyword with name 'Close Browser' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.780" endtime="20230710 13:52:37.780"/>
-</kw>
-<status status="FAIL" starttime="20230710 13:52:37.776" endtime="20230710 13:52:37.780">No keyword with name 'Close Browser' found.</status>
-</kw>
-<tag>@regression</tag>
-<tag>@smoketest</tag>
-<status status="FAIL" starttime="20230710 13:52:37.759" endtime="20230710 13:52:37.781">Setup failed:
-No keyword with name 'Set Browser Timeout' found.
-
-Also teardown failed:
-No keyword with name 'Close Browser' found.</status>
-</test>
-<test id="s1-t3" name="DN-03 Verify that Đăng nhập unsuccessfully with invalid Email" line="18">
-<kw name="Setup" library="common" type="SETUP">
-<kw name="Set Browser Timeout">
-<arg>${BROWSER_TIMEOUT}</arg>
-<msg timestamp="20230710 13:52:37.787" level="FAIL">No keyword with name 'Set Browser Timeout' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.786" endtime="20230710 13:52:37.787"/>
-</kw>
-<kw name="New Browser">
-<arg>${BROWSER}</arg>
-<arg>headless=${HEADLESS}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.791" endtime="20230710 13:52:37.791"/>
-</kw>
-<kw name="New Page">
-<arg>${URL_DEFAULT}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.796" endtime="20230710 13:52:37.796"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${STATE}</var>
-<arg>json.loads('''{}''')</arg>
-<arg>json</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" starttime="20230710 13:52:37.796" endtime="20230710 13:52:37.796"/>
-</kw>
-<status status="FAIL" starttime="20230710 13:52:37.782" endtime="20230710 13:52:37.796"/>
-</kw>
-<kw name="Tear Down" library="common" type="TEARDOWN">
-<kw name="Close Browser">
-<arg>ALL</arg>
-<msg timestamp="20230710 13:52:37.801" level="FAIL">No keyword with name 'Close Browser' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.801" endtime="20230710 13:52:37.801"/>
-</kw>
-<status status="FAIL" starttime="20230710 13:52:37.797" endtime="20230710 13:52:37.801">No keyword with name 'Close Browser' found.</status>
-</kw>
-<tag>@regression</tag>
-<tag>@smoketest</tag>
-<status status="FAIL" starttime="20230710 13:52:37.782" endtime="20230710 13:52:37.802">Setup failed:
-No keyword with name 'Set Browser Timeout' found.
-
-Also teardown failed:
-No keyword with name 'Close Browser' found.</status>
-</test>
-<test id="s1-t4" name="DN-04 Verify that Đăng nhập unsuccessfully with invalid Mật khẩu" line="25">
-<kw name="Setup" library="common" type="SETUP">
-<kw name="Set Browser Timeout">
-<arg>${BROWSER_TIMEOUT}</arg>
-<msg timestamp="20230710 13:52:37.809" level="FAIL">No keyword with name 'Set Browser Timeout' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.809" endtime="20230710 13:52:37.809"/>
-</kw>
-<kw name="New Browser">
-<arg>${BROWSER}</arg>
-<arg>headless=${HEADLESS}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.814" endtime="20230710 13:52:37.814"/>
-</kw>
-<kw name="New Page">
-<arg>${URL_DEFAULT}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.818" endtime="20230710 13:52:37.818"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${STATE}</var>
-<arg>json.loads('''{}''')</arg>
-<arg>json</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" starttime="20230710 13:52:37.819" endtime="20230710 13:52:37.819"/>
-</kw>
-<status status="FAIL" starttime="20230710 13:52:37.803" endtime="20230710 13:52:37.819"/>
-</kw>
-<kw name="Tear Down" library="common" type="TEARDOWN">
-<kw name="Close Browser">
-<arg>ALL</arg>
-<msg timestamp="20230710 13:52:37.823" level="FAIL">No keyword with name 'Close Browser' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.823" endtime="20230710 13:52:37.823"/>
-</kw>
-<status status="FAIL" starttime="20230710 13:52:37.819" endtime="20230710 13:52:37.823">No keyword with name 'Close Browser' found.</status>
-</kw>
-<tag>@regression</tag>
-<tag>@smoketest</tag>
-<status status="FAIL" starttime="20230710 13:52:37.803" endtime="20230710 13:52:37.824">Setup failed:
-No keyword with name 'Set Browser Timeout' found.
-
-Also teardown failed:
-No keyword with name 'Close Browser' found.</status>
-</test>
-<test id="s1-t5" name="DN-05 Verify that Đăng nhập unsuccessfully because no enter Email" line="31">
-<kw name="Setup" library="common" type="SETUP">
-<kw name="Set Browser Timeout">
-<arg>${BROWSER_TIMEOUT}</arg>
-<msg timestamp="20230710 13:52:37.831" level="FAIL">No keyword with name 'Set Browser Timeout' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.831" endtime="20230710 13:52:37.831"/>
-</kw>
-<kw name="New Browser">
-<arg>${BROWSER}</arg>
-<arg>headless=${HEADLESS}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.835" endtime="20230710 13:52:37.835"/>
-</kw>
-<kw name="New Page">
-<arg>${URL_DEFAULT}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.838" endtime="20230710 13:52:37.838"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${STATE}</var>
-<arg>json.loads('''{}''')</arg>
-<arg>json</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" starttime="20230710 13:52:37.838" endtime="20230710 13:52:37.839"/>
-</kw>
-<status status="FAIL" starttime="20230710 13:52:37.825" endtime="20230710 13:52:37.839"/>
-</kw>
-<kw name="Tear Down" library="common" type="TEARDOWN">
-<kw name="Close Browser">
-<arg>ALL</arg>
-<msg timestamp="20230710 13:52:37.845" level="FAIL">No keyword with name 'Close Browser' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.845" endtime="20230710 13:52:37.845"/>
-</kw>
-<status status="FAIL" starttime="20230710 13:52:37.839" endtime="20230710 13:52:37.845">No keyword with name 'Close Browser' found.</status>
-</kw>
-<tag>@regression</tag>
-<tag>@smoketest</tag>
-<status status="FAIL" starttime="20230710 13:52:37.825" endtime="20230710 13:52:37.845">Setup failed:
-No keyword with name 'Set Browser Timeout' found.
-
-Also teardown failed:
-No keyword with name 'Close Browser' found.</status>
-</test>
-<test id="s1-t6" name="DN-06 Verify that Đăng nhập unsuccessfully because no enter Password" line="37">
-<kw name="Setup" library="common" type="SETUP">
-<kw name="Set Browser Timeout">
-<arg>${BROWSER_TIMEOUT}</arg>
-<msg timestamp="20230710 13:52:37.851" level="FAIL">No keyword with name 'Set Browser Timeout' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.851" endtime="20230710 13:52:37.851"/>
-</kw>
-<kw name="New Browser">
-<arg>${BROWSER}</arg>
-<arg>headless=${HEADLESS}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.855" endtime="20230710 13:52:37.855"/>
-</kw>
-<kw name="New Page">
-<arg>${URL_DEFAULT}</arg>
-<status status="NOT RUN" starttime="20230710 13:52:37.858" endtime="20230710 13:52:37.859"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${STATE}</var>
-<arg>json.loads('''{}''')</arg>
-<arg>json</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" starttime="20230710 13:52:37.859" endtime="20230710 13:52:37.859"/>
-</kw>
-<status status="FAIL" starttime="20230710 13:52:37.847" endtime="20230710 13:52:37.859"/>
-</kw>
-<kw name="Tear Down" library="common" type="TEARDOWN">
-<kw name="Close Browser">
-<arg>ALL</arg>
-<msg timestamp="20230710 13:52:37.863" level="FAIL">No keyword with name 'Close Browser' found.</msg>
-<status status="FAIL" starttime="20230710 13:52:37.863" endtime="20230710 13:52:37.863"/>
-</kw>
-<status status="FAIL" starttime="20230710 13:52:37.859" endtime="20230710 13:52:37.863">No keyword with name 'Close Browser' found.</status>
-</kw>
-<tag>@regression</tag>
-<tag>@smoketest</tag>
-<status status="FAIL" starttime="20230710 13:52:37.847" endtime="20230710 13:52:37.864">Setup failed:
-No keyword with name 'Set Browser Timeout' found.
-
-Also teardown failed:
-No keyword with name 'Close Browser' found.</status>
-</test>
-<status status="FAIL" starttime="20230710 13:52:37.117" endtime="20230710 13:52:37.865"/>
+<status status="FAIL" starttime="20230710 16:45:17.552" endtime="20230710 16:45:17.693"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="6" skip="0">All Tests</stat>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="0" fail="6" skip="0">@regression</stat>
-<stat pass="0" fail="6" skip="0">@smoketest</stat>
+<stat pass="0" fail="1" skip="0">@regression</stat>
+<stat pass="0" fail="1" skip="0">@smoketest</stat>
 </tag>
 <suite>
-<stat pass="0" fail="6" skip="0" id="s1" name="Login">Login</stat>
+<stat pass="0" fail="1" skip="0" id="s1" name="User">User</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20230710 13:52:37.289" level="ERROR">Error in file 'D:\Vscode\vite-react\test\keywords\common.robot' on line 2: Initializing library 'Browser' with no arguments failed: Could not find node dependencies in installation directory `C:\Users\nmmmd\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper.` Run `rfbrowser init` to install the dependencies.
+<msg timestamp="20230710 16:45:17.646" level="ERROR">Error in file 'd:\Vscode\vite-react\test\keywords\common.robot' on line 2: Importing library 'Browser' failed: ModuleNotFoundError: No module named 'Browser'
 Traceback (most recent call last):
-  File "C:\Users\nmmmd\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\browser.py", line 827, in __init__
-    self.playwright = Playwright(
-                      ^^^^^^^^^^^
-  File "C:\Users\nmmmd\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\playwright.py", line 51, in __init__
-    self.ensure_node_dependencies()
-  File "C:\Users\nmmmd\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\playwright.py", line 81, in ensure_node_dependencies
-    raise RuntimeError(
-RuntimeError: Could not find node dependencies in installation directory `C:\Users\nmmmd\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper.` Run `rfbrowser init` to install the dependencies.</msg>
+  None
+PYTHONPATH:
+  c:\Users\nmmmd\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_debug_adapter
+  D:\Vscode\vite-react
+  c:\Users\nmmmd\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src
+  c:\Users\nmmmd\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_ls\vendored
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\python39.zip
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\DLLs
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\lib
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e
+  c:\ProgramData\robocorp\ht
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\lib\site-packages
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\lib\site-packages\win32
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\lib\site-packages\win32\lib
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\lib\site-packages\Pythonwin</msg>
+<msg timestamp="20230710 16:45:17.655" level="ERROR">Error in file 'd:\Vscode\vite-react\test\keywords\common.robot' on line 3: Importing library 'FakerLibrary' failed: ModuleNotFoundError: No module named 'FakerLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  c:\Users\nmmmd\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_debug_adapter
+  D:\Vscode\vite-react
+  c:\Users\nmmmd\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src
+  c:\Users\nmmmd\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_ls\vendored
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\python39.zip
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\DLLs
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\lib
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e
+  c:\ProgramData\robocorp\ht
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\lib\site-packages
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\lib\site-packages\win32
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\lib\site-packages\win32\lib
+  c:\ProgramData\robocorp\ht\8cf813c_b1f3c24_f8170f6e\lib\site-packages\Pythonwin</msg>
 </errors>
 </robot>
