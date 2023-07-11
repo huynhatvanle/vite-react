@@ -7,7 +7,7 @@ Library             String
 ${BROWSER}          chromium
 ${HEADLESS}         ${False}
 ${BROWSER_TIMEOUT}  60 seconds
-${SHOULD_TIMEOUT}   0.1 seconds
+${SHOULD_TIMEOUT}   0.3 seconds
 
 ${URL_DEFAULT}      http://localhost:5173
 ${STATE}            Evaluate  json.loads('''{}''')  json
@@ -184,6 +184,13 @@ Click assign list "${list}"
 
 
 ###  -----  Table  -----  ###
+
+Click on the "${text}" button
+  Wait Until Element Spin
+  ${element}=               Get Element Item By Name            //button[@title = "${text}"]
+  Click                     ${element}
+  Click Confirm To Action
+
 Get Element Item By Name
   [Arguments]               ${name}                           ${xpath}=${EMPTY}
   [Return]                  xpath=//*[contains(@class, "item-text") and contains(text(), "${name}")]/ancestor::*[contains(@class, "item")]${xpath}
