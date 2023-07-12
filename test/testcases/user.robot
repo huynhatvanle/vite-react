@@ -169,89 +169,62 @@ Test Teardown          Tear Down
 
 DN-33 Verify that account edit successfully when change name
   [Tags]                @smoketest               @regression
-  When Login to admin
-  When Click "Nghỉ phép" menu
-  When Click "Người Dùng" menu
-  Then Wait 5 seconds
-  When Click "Danh sách" sub menu to "/vn/user/list"
-  # When Click on the "Sửa" button in the "Hoạt động" item line
-  When Click "Sửa" button
-  When Enter "text" in "Họ và tên" with "_RANDOM_"
-  When Click "Lưu lại" button
-  Then User look message "Cập nhật thành công" popup  
-  
+     Edit User 1
+        When Enter "text" in "Họ và tên" with "_RANDOM_"
+     Edit User 2
 
-# DN-34 Verify that account edit successfully when change name
-#   [Tags]                @smoketest               @regression
-#   When Login to admin
-#   When Click "Người Dùng" menu
-#   When Click "Danh sách" sub menu to "/vn/user/list"
-#   # When Click on the "Sửa" button in the "1" item line
-#   When Click "Sửa" button
+DN-34 Verify that account edit successfully when change name
+  [Tags]                @smoketest               @regression
+     Edit User 1
+        When Enter "email" in "Email" with "_RANDOM_"
+     Edit User 2
 
-# DN-35 Verify that account edit successfully when change name
-#   [Tags]                @smoketest               @regression
-#   When Login to admin
-#   When Click "Người Dùng" menu
-#   When Click "Danh sách" sub menu to "/vn/user/list"
-#   # When Click on the "Sửa" button in the "1" item line
-#   When Click "Sửa" button
+DN-35 Verify that account edit successfully when change name
+  [Tags]                @smoketest               @regression
+     Edit User 1
+        When Enter "phone" in "Số điện thoại" with "_RANDOM_"
+     Edit User 2     
 
-# DN-36 Verify that account edit successfully when change name
-#   [Tags]                @smoketest               @regression
-#   When Login to admin
-#   When Click "Người Dùng" menu
-#   When Click "Danh sách" sub menu to "/vn/user/list"
-#   # When Click on the "Sửa" button in the "1" item line
-#   When Click "Sửa" button
+DN-36 Verify that account edit successfully when change name
+  [Tags]                @smoketest               @regression
+     Edit User 1
+        When Enter date in "Ngày sinh" with "_RANDOM_"
+     Edit User 2
 
-# DN-37 Verify that account edit successfully when change name
-#   [Tags]                @smoketest               @regression
-#   When Login to admin
-#   When Click "Người Dùng" menu
-#   When Click "Danh sách" sub menu to "/vn/user/list"
-#   # When Click on the "Sửa" button in the "1" item line
-#   When Click "Sửa" button        
+DN-37 Verify that account edit successfully when change name
+  [Tags]                @smoketest               @regression
+     Edit User 1
+        When Click select "Vị trí" with "Developer"
+     Edit User 2
 
-# DN-38 Verify that account edit successfully when change name
-#   [Tags]                @smoketest               @regression
-#   When Login to admin
-#   When Click "Người Dùng" menu
-#   When Click "Danh sách" sub menu to "/vn/user/list"
-#   # When Click on the "Sửa" button in the "1" item line
-#   When Click "Sửa" button       
+DN-38 Verify that account edit successfully when change name
+  [Tags]                @smoketest               @regression
+     Edit User 1
+        When Enter date in "Ngày đầu đi làm" with "_RANDOM_"
+     Edit User 2
 
-# DN-39 Verify that account edit successfully when change name
-#   [Tags]                @smoketest               @regression
-#   When Login to admin
-#   When Click "Người Dùng" menu
-#   When Click "Danh sách" sub menu to "/vn/user/list"
-#   # When Click on the "Sửa" button in the "1" item line
-#   When Click "Sửa" button       
+DN-39 Verify that account edit successfully when change name
+  [Tags]                @smoketest               @regression
+     Edit User 1
+        When Click select "Vai trò" with "Staff"
+     Edit User 2
 
-# DN-40 Verify that account edit successfully when change name
-#   [Tags]                @smoketest               @regression
-#   When Login to admin
-#   When Click "Người Dùng" menu
-#   When Click "Danh sách" sub menu to "/vn/user/list"
-#   # When Click on the "Sửa" button in the "1" item line
-#   When Click "Sửa" button  
+DN-40 Verify that account edit successfully when change name
+  [Tags]                @smoketest               @regression
+     Edit User 1
+     Edit User 2
 
 # DN-41 Verify that account edit successfully when change name
 #   [Tags]                @smoketest               @regression
-#   When Login to admin
-#   When Click "Người Dùng" menu
-#   When Click "Danh sách" sub menu to "/vn/user/list"
-#   # When Click on the "Sửa" button in the "1" item line
-#   When Click "Sửa" button  
-
+#      Edit User 1
+#         When Enter "text" in "Email" with "hoangdieu181021@gmail.com"
+#      Edit User 2
 
 *** Keywords ***
 Go to page create data
   When Login to admin
   When Click "Người Dùng" menu    
   When Click "Tạo mới" sub menu to "/vn/user/add"
-
 
 Background Happy paths
   When Go to page create data
@@ -270,73 +243,17 @@ Background Happy paths
   Then User look message "Tạo thành công" popup
   When Click "Huỷ bỏ" button
 
-# CRU-User-05
-#   When Go to page create data
-#   When Enter "email" in "Email" with "_RANDOM_"
-#   When Enter "text" in "Mật khẩu" with "Password1!"
-#   When Enter "text" in "Nhập lại mật khẩu" with "Password1!"
-#   When Enter "phone" in "Số điện thoại" with "_RANDOM_"
-#   When Enter date in "Ngày sinh" with "_RANDOM_"
-#   When Click select "Vị trí" with "Tester"
-#   When Enter date in "Ngày đầu đi làm" with "_RANDOM_"
-#   When Click select "Vai trò" with "Supper Admin"
-#   When Enter "words" in textarea "Mô tả" with "_RANDOM_"
-#   When Select file in "Tải ảnh lên" with "image.jpg"
-#   When Click "Lưu lại" button
-#   Then Required message "Họ và tên" displayed under "Xin vui lòng nhập họ và tên" field
-#   When Click "Huỷ bỏ" button
-
-# CRU-User-06
-#   When Go to page create data
-#   When Enter "email" in "Email" with "_RANDOM_"
-#   When Enter "text" in "Mật khẩu" with "Password1!"
-#   When Enter "text" in "Nhập lại mật khẩu" with "Password1!"
-#   When Enter "phone" in "Số điện thoại" with "_RANDOM_"
-#   When Enter date in "Ngày sinh" with "_RANDOM_"
-#   When Click select "Vị trí" with "Tester"
-#   When Enter date in "Ngày đầu đi làm" with "_RANDOM_"
-#   When Click select "Vai trò" with "Supper Admin"
-#   When Enter "words" in textarea "Mô tả" with "_RANDOM_"
-#   When Select file in "Tải ảnh lên" with "image.jpg"
-#   When Click "Lưu và tạo mới" button
-#   Then Required message "Họ và tên" displayed under "Xin vui lòng nhập họ và tên" field
-#   When Click "Huỷ bỏ" button  
-
-# CRU-User-07
-#   When Go to page create data
-#   When Enter "text" in "Họ và tên" with "_RANDOM_"
-#   When Enter "text" in "Mật khẩu" with "Password1!"
-#   When Enter "text" in "Nhập lại mật khẩu" with "Password1!"
-#   When Enter "phone" in "Số điện thoại" with "_RANDOM_"
-#   When Enter date in "Ngày sinh" with "_RANDOM_"
-#   When Click select "Vị trí" with "Tester"
-#   When Enter date in "Ngày đầu đi làm" with "_RANDOM_"
-#   When Click select "Vai trò" with "Supper Admin"
-#   When Enter "words" in textarea "Mô tả" with "_RANDOM_"
-#   When Select file in "Tải ảnh lên" with "image.jpg"
-#   When Click "Lưu lại" button
-#   Then Required message "Email" displayed under "Xin vui lòng nhập email" field
-#   When Click "Huỷ bỏ" button
-
-
-# CRU-User-08
-#   When Go to page create data
-#   When Enter "text" in "Họ và tên" with "_RANDOM_"
-#   When Enter "text" in "Mật khẩu" with "Password1!"
-#   When Enter "text" in "Nhập lại mật khẩu" with "Password1!"
-#   When Enter "phone" in "Số điện thoại" with "_RANDOM_"
-#   When Enter date in "Ngày sinh" with "_RANDOM_"
-#   When Click select "Vị trí" with "Tester"
-#   When Enter date in "Ngày đầu đi làm" with "_RANDOM_"
-#   When Click select "Vai trò" with "Supper Admin"
-#   When Enter "words" in textarea "Mô tả" with "_RANDOM_"
-#   When Select file in "Tải ảnh lên" with "image.jpg"
-#   When Click "Lưu và tạo mới" button
-#   Then Required message "Email" displayed under "Xin vui lòng nhập email" field
-#   When Click "Huỷ bỏ" button  
-
-
 Wait 5 seconds
-    Sleep    5s
-    
+    Sleep    3s
 
+Edit User 1
+  When Login to admin
+  When Click "Người Dùng" menu
+  When Click "Danh sách " sub menu to "/vn/user/list"
+  When Click "Sửa" button by "Hoàng Diệuu"
+
+Edit User 2
+  When Enter "text" in "Ngày nghỉ" with "5"
+  When Click "Lưu lại" button
+  Then User look message "Cập nhật thành công" popup
+  When Click "Danh sách " sub menu to "/vn/user/list"
