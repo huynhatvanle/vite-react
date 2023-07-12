@@ -1,0 +1,209 @@
+{"level":30,"time":"2023-07-12T01:34:51.093Z","pid":1208,"hostname":"Benindahouse","msg":"Listening on 51226"}
+{"level":30,"time":"2023-07-12T01:34:51.184Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-12T01:34:51.185Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-12T01:34:51.189Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-12T01:34:51.189Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getBrowserCatalog"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9969:59)
+    at PlaywrightServer.setTimeout (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10214:57)
+    at C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-12T01:34:51.205Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method newBrowser"}
+{"level":30,"time":"2023-07-12T01:34:51.610Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method newBrowser"}
+{"level":30,"time":"2023-07-12T01:34:51.616Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method newPage"}
+{"level":30,"time":"2023-07-12T01:34:51.617Z","pid":1208,"hostname":"Benindahouse","msg":"currentBrowser: [object Object]"}
+{"level":30,"time":"2023-07-12T01:34:51.632Z","pid":1208,"hostname":"Benindahouse","msg":"Changed active context"}
+{"level":30,"time":"2023-07-12T01:34:51.825Z","pid":1208,"hostname":"Benindahouse","msg":"Video path: undefined"}
+{"level":30,"time":"2023-07-12T01:34:51.826Z","pid":1208,"hostname":"Benindahouse","msg":"Changed active page"}
+{"level":30,"time":"2023-07-12T01:34:52.341Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method newPage"}
+{"level":30,"time":"2023-07-12T01:34:52.375Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-07-12T01:34:52.375Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-12T01:34:53.636Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method clearText"}
+{"level":30,"time":"2023-07-12T01:34:53.642Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-07-12T01:34:53.643Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-12T01:34:53.671Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method fillText"}
+{"level":30,"time":"2023-07-12T01:34:53.693Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-07-12T01:34:53.694Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-12T01:34:53.756Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method clearText"}
+{"level":30,"time":"2023-07-12T01:34:53.762Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-07-12T01:34:53.762Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-12T01:34:53.797Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method fillText"}
+{"level":30,"time":"2023-07-12T01:34:53.806Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method click"}
+{"level":30,"time":"2023-07-12T01:34:53.806Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with xpath=//button[@title = \"Đăng nhập\"] in page."}
+{"level":30,"time":"2023-07-12T01:34:53.923Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method click"}
+{"level":30,"time":"2023-07-12T01:34:53.931Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-07-12T01:34:53.934Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-popover\")]//*[contains(@class, \"ant-btn-primary\")] in page."}
+{"level":30,"time":"2023-07-12T01:34:53.948Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-07-12T01:34:53.958Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-12T01:34:53.966Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-12T01:34:53.970Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-12T01:34:53.973Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-12T01:34:53.976Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-12T01:34:53.979Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-12T01:34:53.982Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-12T01:34:53.985Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-12T01:34:53.987Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-12T01:34:53.991Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-12T01:34:54.001Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.002Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.334Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.334Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.350Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.351Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.379Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.379Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.394Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.394Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.419Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.419Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.436Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.436Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.460Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.460Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.477Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.477Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.505Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.505Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.520Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.520Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.560Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.560Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.573Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.574Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.589Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.589Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.602Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.602Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.632Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.632Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.645Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.645Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.671Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.671Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.685Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.685Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.710Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.711Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.727Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.727Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.750Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.750Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.763Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.764Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.787Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.787Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.803Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.803Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.824Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.824Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.837Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.837Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.853Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.853Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.866Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.866Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.894Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.894Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.908Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.908Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.927Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.928Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.941Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.942Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.962Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.962Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.976Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:54.976Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:54.992Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:54.992Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.004Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.004Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.020Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.020Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.032Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.032Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.048Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.048Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.060Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.060Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.075Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.075Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.087Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.087Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.103Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.103Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.115Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.116Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.131Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.131Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.144Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.144Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.165Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.165Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.178Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.178Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.195Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.195Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.211Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.211Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.235Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.235Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.247Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.247Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.263Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.263Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.276Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.276Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.295Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.295Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.308Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.309Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.327Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.327Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.340Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.340Z","pid":1208,"hostname":"Benindahouse","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-12T01:34:55.360Z","pid":1208,"hostname":"Benindahouse","msg":"Retrieved text for element id=swal2-html-container containing Người dùng admin12121@admin.com không tồn tại!"}
+{"level":30,"time":"2023-07-12T01:34:55.360Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-12T01:34:55.365Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method takeScreenshot"}
+{"level":30,"time":"2023-07-12T01:34:55.365Z","pid":1208,"hostname":"Benindahouse","Take screenshot with options: ":{"path":"D:\\vite-react\\browser\\screenshot\\fail-screenshot-1.png","fileType":"png","fullPage":false,"timeout":60000,"omitBackground":false}}
+{"level":30,"time":"2023-07-12T01:34:55.576Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method takeScreenshot"}
+{"level":30,"time":"2023-07-12T01:34:55.707Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2023-07-12T01:34:55.735Z","pid":1208,"hostname":"Benindahouse","msg":"Removed page=be967d96-2d65-43b6-9169-d78435d80649 from context=c6a0521b-d6e2-4bf5-bfc4-d2a36a03ba04 page stack"}
+{"level":30,"time":"2023-07-12T01:34:56.210Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method closeAllBrowsers"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9969:59)
+    at PlaywrightServer.setTimeout (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10214:57)
+    at C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-12T01:34:56.216Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-12T01:34:56.216Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getBrowserCatalog"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9969:59)
+    at PlaywrightServer.setTimeout (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10214:57)
+    at C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\HUY\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-12T01:34:56.225Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-12T01:34:56.226Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-12T01:34:58.288Z","pid":1208,"hostname":"Benindahouse","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2023-07-12T01:34:58.288Z","pid":1208,"hostname":"Benindahouse","msg":"End of node method closeAllBrowsers"}
