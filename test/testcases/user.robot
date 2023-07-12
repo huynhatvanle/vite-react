@@ -167,61 +167,81 @@ Test Teardown          Tear Down
 #   When Click "Lưu và tạo mới" button
 #   Then User look message "Tạo thành công" popup  
 
-DN-33 Verify that account edit successfully when change name
-  [Tags]                @smoketest               @regression
-     Edit User 1
-        When Enter "text" in "Họ và tên" with "_RANDOM_"
-     Edit User 2
+# DN-33 Verify that account edit successfully when change name
+#   [Tags]                @smoketest               @regression
+#      Edit User 1
+#         When Enter "text" in "Họ và tên" with "_RANDOM_"
+#      Edit User 2
 
-DN-34 Verify that account edit successfully when change name
-  [Tags]                @smoketest               @regression
-     Edit User 1
-        When Enter "email" in "Email" with "_RANDOM_"
-     Edit User 2
+# DN-34 Verify that account edit successfully when change Email
+#   [Tags]                @smoketest               @regression
+#      Edit User 1
+#         When Enter "email" in "Email" with "_RANDOM_"
+#      Edit User 2
 
-DN-35 Verify that account edit successfully when change name
-  [Tags]                @smoketest               @regression
-     Edit User 1
-        When Enter "phone" in "Số điện thoại" with "_RANDOM_"
-     Edit User 2     
+# DN-35 Verify that account edit successfully when change phone number
+#   [Tags]                @smoketest               @regression
+#      Edit User 1
+#         When Enter "phone" in "Số điện thoại" with "_RANDOM_"
+#      Edit User 2     
 
-DN-36 Verify that account edit successfully when change name
-  [Tags]                @smoketest               @regression
-     Edit User 1
-        When Enter date in "Ngày sinh" with "_RANDOM_"
-     Edit User 2
+# DN-36 Verify that account edit successfully when change date of birth
+#   [Tags]                @smoketest               @regression
+#      Edit User 1
+#         When Enter date in "Ngày sinh" with "_RANDOM_"
+#      Edit User 2
+# DN-37 Verify that account edit successfully when change location
+#   [Tags]                @smoketest               @regression
+#      Edit User 1
+#         When Click select "Vị trí" with "Developer"
+#      Edit User 2
 
-DN-37 Verify that account edit successfully when change name
-  [Tags]                @smoketest               @regression
-     Edit User 1
-        When Click select "Vị trí" with "Developer"
-     Edit User 2
+# DN-38 Verify that account edit successfully when change start date of work
+#   [Tags]                @smoketest               @regression
+#      Edit User 1
+#         When Enter date in "Ngày đầu đi làm" with "_RANDOM_"
+#      Edit User 2
 
-DN-38 Verify that account edit successfully when change name
-  [Tags]                @smoketest               @regression
-     Edit User 1
-        When Enter date in "Ngày đầu đi làm" with "_RANDOM_"
-     Edit User 2
+# DN-39 Verify that account edit successfully when change the role
+#   [Tags]                @smoketest               @regression
+#      Edit User 1
+#         When Click select "Vai trò" with "Staff"
+#      Edit User 2
 
-DN-39 Verify that account edit successfully when change name
-  [Tags]                @smoketest               @regression
-     Edit User 1
-        When Click select "Vai trò" with "Staff"
-     Edit User 2
+# DN-40 Verify that account edit successfully when change the vacation
+#   [Tags]                @smoketest               @regression
+#      Edit User 1
+#      Edit User 2
 
-DN-40 Verify that account edit successfully when change name
-  [Tags]                @smoketest               @regression
-     Edit User 1
-     Edit User 2
-
-# DN-41 Verify that account edit successfully when change name
+# DN-44 Verify that account edit successfully when change name
 #   [Tags]                @smoketest               @regression
 #      Edit User 1
 #         When Enter "text" in "Email" with "hoangdieu181021@gmail.com"
 #      Edit User 2
+# DN-46 Verify that delete successfully staff account 
+#   [Tags]                @smoketest               @regression
+#      Delete User Staff
+
+# DN-47 Verify that delete successfully manager account 
+#   [Tags]                @smoketest               @regression
+#      Delete User Manager
+
+# DN-48 Verify that delete successfully supper admin account 
+#   [Tags]                @smoketest               @regression
+#      Delete User Supper Admin      
+     
+
+# DN-50 Verify that error message can not delete account with no leave request approved yet
+#   [Tags]                @smoketest               @regression
+#      Delete User false                 
+
+DN-54 Verify that user can search an existing team when entering correct keyword to search box
+  [Tags]                @smoketest               @regression
+     View list of user               
+
 
 *** Keywords ***
-Go to page create data
+Go to page create data    
   When Login to admin
   When Click "Người Dùng" menu    
   When Click "Tạo mới" sub menu to "/vn/user/add"
@@ -243,17 +263,59 @@ Background Happy paths
   Then User look message "Tạo thành công" popup
   When Click "Huỷ bỏ" button
 
-Wait 5 seconds
-    Sleep    3s
+Wait 3 seconds
+    Sleep   3s
 
-Edit User 1
-  When Login to admin
-  When Click "Người Dùng" menu
-  When Click "Danh sách " sub menu to "/vn/user/list"
-  When Click "Sửa" button by "Hoàng Diệuu"
+# Edit User 1
+#   When Login to admin
+#   When Click "Người Dùng" menu
+#   When Click "Danh sách " sub menu to "/vn/user/list"
+#   When Click "Sửa" button by "Hoàng Diệuu"
+#   Wait 3 seconds
+# Edit User 2
+#   When Enter "text" in "Ngày nghỉ" with "5"
+#   When Click "Lưu lại" button
+#   Then User look message "Tạo thành công" popup
+#   When Click "Danh sách " sub menu to "/vn/user/list"
 
-Edit User 2
-  When Enter "text" in "Ngày nghỉ" with "5"
-  When Click "Lưu lại" button
-  Then User look message "Cập nhật thành công" popup
-  When Click "Danh sách " sub menu to "/vn/user/list"
+# Delete User Staff
+#    When Login to admin
+#    When Click "Người Dùng" menu
+#    When Click "Danh sách " sub menu to "/vn/user/list"
+#    When Click "Xóa" button by "nhan165"
+#    Then User look message "Xóa thành công" popup
+
+# Delete User Manager
+#    When Login to admin
+#    When Click "Người Dùng" menu
+#    When Click "Danh sách " sub menu to "/vn/user/list"
+#    When Click "Xóa" button by "Khanh4544"
+#    Then User look message "Xóa thành công" popup   
+
+# Delete User Supper Admin
+#    When Login to admin
+#    When Click "Người Dùng" menu
+#    When Click "Danh sách " sub menu to "/vn/user/list"
+#    When Click "Xóa" button by "Thannhh55"
+#    Then User look message "Xóa thành công" popup   
+
+# # Delete User
+# #    When Login to admin
+# #    When Click "Người Dùng" menu
+# #    When Click "Danh sách " sub menu to "/vn/user/list"
+# #    When Click "Xóa" button by "Dung4"
+# #    When Click "Hủy bỏ" button
+# #    # Then User look message "Xóa thành công" popup        
+
+# Delete User false
+#    When Login to admin
+#    When Click "Người Dùng" menu
+#    When Click "Danh sách " sub menu to "/vn/user/list"
+#    When Click "Xóa" button by "lê văn vũ quốc"
+#    Then User look message "Còn những yêu cầu nghỉ cần duyệt" popup       
+
+View list of user
+    When Login to admin
+    When Click "Người Dùng" menu
+    When Click "Danh sách " sub menu to "/vn/user/list"
+    When Enter "text" in input "Tìm kiếm" with "Diệu"         

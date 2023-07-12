@@ -2,8 +2,6 @@
 Library     Browser
 Library     FakerLibrary    locale=en_IN
 Library     String
-
-
 *** Variables ***
 ${BROWSER}              chromium
 ${HEADLESS}             ${False}
@@ -125,6 +123,14 @@ Enter "${type}" in textarea "${name}" with "${text}"
     ${cnt}=    Get Length    ${text}
     IF    ${cnt} > 0    Set Global Variable    ${STATE["${name}"]}    ${text}
 
+Enter "${type}" in input "${name}" with "${text}"
+    ${text}=    Get Random Text    ${type}    ${text}
+    ${element}=    Get Element Form Item By Name    ${name}    //input[@placeholder = ${name}]
+    Clear Text    ${element}
+    Fill Text    ${element}    ${text}
+    ${cnt}=    Get Length    ${text}
+    IF    ${cnt} > 0    Set Global Variable    ${STATE["${name}"]}    ${text}    
+
 Enter date in "${name}" with "${text}"
     ${text}=    Get Random Text    date    ${text}
     ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-picker-input")]/input
@@ -150,9 +156,16 @@ Click select "${name}" with "${text}"
 
 Enter "${type}" in editor "${name}" with "${text}"
     ${text}=    Get Random Text    ${type}    ${text}
+    ${element} =           //input[@placeholder = "${name}"]
+    Clear Text    ${element}
+    Fill Text    ${element}    ${text}
+
+Enter "${type}" in input "${name}" with "${text}"
+    ${text}=    Get Random Text    ${type}    ${text}
     ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ce-paragraph")]
     Clear Text    ${element}
     Fill Text    ${element}    ${text}
+
 
 Select file in "${name}" with "${text}"
     ${element}=    Get Element Form Item By Name    ${name}    //input[@type = "file"]
@@ -224,13 +237,10 @@ Click on the previously created "${name}" tree to edit
     Click    ${element}
 
 ###    -----    Element    -----    ###
-# Get Element Table Item By Name
-#     [Arguments]    ${name}    ${xpath}
-#     RETURN    xpath=//*[contains(@class, "ant-table-row")]//*[contains(text(), "${name}")]/ancestor::tr${xpath}
 
 Click "${text}" button by "${name}"
     # Wait Until Element Spin
-    ${element} =  Get Element Table Item By Name    ${name}     //button[@title = "${text}"]
+    ${element}=    Get Element Table Item By Name    ${name}    //button[@title = "${text}"]
     Click    ${element}
     Click Confirm To Action
     Scroll By    ${None}
