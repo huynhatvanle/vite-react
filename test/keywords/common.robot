@@ -163,7 +163,7 @@ Select file in "${name}" with "${text}"
 Click radio "${text}" in line "${name}"
   ${element}=               Get Element Form Item By Name     ${name}                       //*[contains(@class, "ant-radio-button-wrapper")]/span[contains(text(), "${text}")]
   Click                     ${element}
-
+ 
 Click switch "${name}" to be activated
   ${element}=               Get Element Form Item By Name     ${name}                       //button[contains(@class, "ant-switch")]
   Click                     ${element}
@@ -276,3 +276,18 @@ Wait Until Element Spin
   IF    ${count} > 0
     Wait Until Element Is Not Exist                           ${element}
   END
+
+Enter to "${name}" Login
+    ${element}=    Get Element Form Item By Name    ${name}    //input[contains(@class, "ant-input")]
+    Press Keys    ${element}    Enter 
+
+Click to "${name}"
+  ${element}=               Get Element Form Item By Name     ${name}    //input[contains(@class, "ant-input")] 
+  Click                     ${element}
+  Clear Text                ${element}
+  Press Keys                ${element}                        tab
+  Press Keys                ${element}                        tab
+
+Click "${text}" btn
+  Click                     xpath=//button[contains(@class, "text-blue-600")]
+  
