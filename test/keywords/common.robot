@@ -154,13 +154,13 @@ Click select "${name}" with "${text}"
     ${cnt}=    Get Length    ${text}
     IF    ${cnt} > 0    Set Global Variable    ${STATE["${name}"]}    ${text}
 
-Enter "${type}" in editor "${name}" with "${text}"
+Enter "${type}" in input "${name}" with "${text}"
     ${text}=    Get Random Text    ${type}    ${text}
-    ${element} =           //input[@placeholder = "${name}"]
+    ${element} =        ${name}   //input[@placeholder = "${name}"]
     Clear Text    ${element}
     Fill Text    ${element}    ${text}
 
-Enter "${type}" in input "${name}" with "${text}"
+Enter "${type}" in editor "${name}" with "${text}"
     ${text}=    Get Random Text    ${type}    ${text}
     ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ce-paragraph")]
     Clear Text    ${element}
