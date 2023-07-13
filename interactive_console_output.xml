@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20230712 09:03:37.845" rpa="false" schemaversion="3">
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20230713 13:50:20.147" rpa="false" schemaversion="3">
 <suite id="s1" name="Robot Interactive Console" source="c:\Users\nmmmd\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
 <test id="s1-t1" name="Default Task/Test" line="5">
 <kw name="Interpreter Main Loop" library="MainLoop">
-<kw name="Delete User Manager">
-<msg timestamp="20230712 09:03:38.505" level="FAIL">No keyword with name 'Delete User Manager' found.</msg>
-<status status="FAIL" starttime="20230712 09:03:38.505" endtime="20230712 09:03:38.506"/>
+<status status="PASS" starttime="20230713 13:50:20.180" endtime="20230713 13:50:23.691"/>
 </kw>
-<status status="PASS" starttime="20230712 09:03:37.874" endtime="20230712 09:03:42.756"/>
-</kw>
-<status status="PASS" starttime="20230712 09:03:37.873" endtime="20230712 09:03:42.756"/>
+<status status="PASS" starttime="20230713 13:50:20.179" endtime="20230713 13:50:23.691"/>
 </test>
-<status status="PASS" starttime="20230712 09:03:37.848" endtime="20230712 09:03:42.758"/>
+<status status="PASS" starttime="20230713 13:50:20.151" endtime="20230713 13:50:23.694"/>
 </suite>
 <statistics>
 <total>

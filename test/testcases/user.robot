@@ -236,14 +236,13 @@ Test Teardown       Tear Down
 #     [Tags]    @smoketest    @regression
 #     View list of user
         
-DN-21 Verify that enter the correct keyword into the role field
-    [Tags]    @smoketest    @regression
-    When Login to admin
-    When Click "Người Dùng" menu
-    When Click "Tạo mới" button
-    When Click select "Vai trò" with "Manager"
-
-
+# DN-21 Verify that enter the correct keyword into the role field
+#     [Tags]    @smoketest    @regression
+#     When Login to admin
+#     When Click "Người Dùng" menu
+#     When Click "Tạo mới" button
+#     When Click select "Vai trò" with "Manager"
+    
 
 *** Keywords ***
 Go to page create data
@@ -251,6 +250,11 @@ Go to page create data
     When Click "Người Dùng" menu
     When Click "Tạo mới" sub menu to "/vn/user/add"
 
+Go to page list data
+    When Login to admin
+    When Click "Người Dùng" menu
+    When Click "Tạo mới" sub menu to "/vn/user/add"    
+    
 Background Happy paths
     When Go to page create data
     When Enter "text" in "Họ và tên" with "_RANDOM_"

@@ -7,7 +7,7 @@ import { Cog, User, Coffee } from '@svgs';
 const Layout = [
   {
     icon: <User className="h-8 w-8" />,
-    name: 'User',
+    name: 'User/List',
     permission: keyRole.P_USER_LISTED,
     // child: [
     //   {
