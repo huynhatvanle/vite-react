@@ -235,37 +235,13 @@ Test Teardown       Tear Down
 # DN-54 Verify that user can search an existing team when entering correct keyword to search box
 #     [Tags]    @smoketest    @regression
 #     View list of user
-
-
-
-
-
-
-
-
-
-DN-16 Verify that creating accounts when entering the wrong password re-entry field
+        
+DN-21 Verify that enter the correct keyword into the role field
     [Tags]    @smoketest    @regression
     When Login to admin
     When Click "Người Dùng" menu
-    When Click "Tạo mới" sub menu to "/vn/user/add"
-    When Enter "text" in "Mật khẩu" with "Halan3112."
-    When Enter "text" in "Nhập lại mật khẩu" with "HALNA3112"
-    When Enter date in "Ngày sinh" with "_RANDOM_"
-    Then Required message "Nhập lại mật khẩu" displayed under "Hai mật khẩu bạn nhập không nhất quán!" field
-    Then Required message "Nhập lại mật khẩu" displayed under "Hai mật khẩu bạn nhập không nhất quán!" and "Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt" field
-
-# DN-21 Verify that enter the correct keyword into the role field
-#     [Tags]    @smoketest    @regression
-#     When Login to admin
-#     When Click "Người Dùng" menu
-#     When Click "Tạo mới" sub menu to "/vn/user/add"
-#     When Click select "Vai trò" with "Manager"
-
-
-
-
-
+    When Click "Tạo mới" button
+    When Click select "Vai trò" with "Manager"
 
 
 
