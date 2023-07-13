@@ -28,7 +28,8 @@ const action = {
     // if (values.avatar && typeof values.avatar === 'object') {
     //   values.avatar = values.avatar[0].url;
     // }
-    const { data } = await API.put<User>(`${routerLinks(name, 'api')}/profile`, values);
+    const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}/profile`, values);
+    if (message) Message.success({ text: message });
     return data || {};
   }),
   login: createAsyncThunk(name + '/login', async (values: { password: string; email: string }) => {
