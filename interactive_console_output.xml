@@ -1,13 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20230713 13:50:20.147" rpa="false" schemaversion="3">
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20230714 10:07:22.667" rpa="false" schemaversion="3">
 <suite id="s1" name="Robot Interactive Console" source="c:\Users\nmmmd\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
 <test id="s1-t1" name="Default Task/Test" line="5">
 <kw name="Interpreter Main Loop" library="MainLoop">
-<status status="PASS" starttime="20230713 13:50:20.180" endtime="20230713 13:50:23.691"/>
+<kw name="When Go to page create data">
+<msg timestamp="20230714 10:07:23.291" level="FAIL">No keyword with name 'When Go to page create data' found.</msg>
+<status status="FAIL" starttime="20230714 10:07:23.291" endtime="20230714 10:07:23.292"/>
 </kw>
-<status status="PASS" starttime="20230713 13:50:20.179" endtime="20230713 13:50:23.691"/>
+<kw name="Sleep" library="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" starttime="20230714 10:07:23.293" endtime="20230714 10:07:23.293"/>
+</kw>
+<kw name="When Enter &quot;email&quot; in &quot;Email&quot; with &quot;_RANDOM_&quot;">
+<status status="NOT RUN" starttime="20230714 10:07:23.294" endtime="20230714 10:07:23.294"/>
+</kw>
+<kw name="When Enter &quot;text&quot; in &quot;Mật khẩu&quot; with &quot;Password1!&quot;">
+<status status="NOT RUN" starttime="20230714 10:07:23.296" endtime="20230714 10:07:23.296"/>
+</kw>
+<kw name="When Enter &quot;text&quot; in &quot;Nhập lại mật khẩu&quot; with &quot;Password1!&quot;">
+<status status="NOT RUN" starttime="20230714 10:07:23.297" endtime="20230714 10:07:23.298"/>
+</kw>
+<kw name="When Enter &quot;phone&quot; in &quot;Số điện thoại&quot; with &quot;_RANDOM_&quot;">
+<status status="NOT RUN" starttime="20230714 10:07:23.299" endtime="20230714 10:07:23.299"/>
+</kw>
+<kw name="When Enter date in &quot;Ngày sinh&quot; with &quot;_RANDOM_&quot;">
+<status status="NOT RUN" starttime="20230714 10:07:23.300" endtime="20230714 10:07:23.300"/>
+</kw>
+<kw name="When Click select &quot;Vị trí&quot; with &quot;Tester&quot;">
+<status status="NOT RUN" starttime="20230714 10:07:23.302" endtime="20230714 10:07:23.302"/>
+</kw>
+<kw name="When Enter date in &quot;Ngày đầu đi làm&quot; with &quot;_RANDOM_&quot;">
+<status status="NOT RUN" starttime="20230714 10:07:23.303" endtime="20230714 10:07:23.303"/>
+</kw>
+<kw name="When Click select &quot;Vai trò&quot; with &quot;Supper Admin&quot;">
+<status status="NOT RUN" starttime="20230714 10:07:23.305" endtime="20230714 10:07:23.305"/>
+</kw>
+<kw name="When Enter &quot;words&quot; in textarea &quot;Mô tả&quot; with &quot;_RANDOM_&quot;">
+<status status="NOT RUN" starttime="20230714 10:07:23.306" endtime="20230714 10:07:23.306"/>
+</kw>
+<kw name="When Select file in &quot;Tải ảnh lên&quot; with &quot;image.jpg&quot;">
+<status status="NOT RUN" starttime="20230714 10:07:23.307" endtime="20230714 10:07:23.307"/>
+</kw>
+<kw name="When Click &quot;Lưu lại&quot; button">
+<status status="NOT RUN" starttime="20230714 10:07:23.310" endtime="20230714 10:07:23.310"/>
+</kw>
+<kw name="Then Required message &quot;Họ và tên&quot; displayed under &quot;Xin vui lòng nhập họ và tên&quot; field">
+<status status="NOT RUN" starttime="20230714 10:07:23.312" endtime="20230714 10:07:23.312"/>
+</kw>
+<kw name="When Click &quot;Huỷ bỏ&quot; button">
+<status status="NOT RUN" starttime="20230714 10:07:23.313" endtime="20230714 10:07:23.313"/>
+</kw>
+<status status="PASS" starttime="20230714 10:07:22.702" endtime="20230714 10:07:24.435"/>
+</kw>
+<status status="PASS" starttime="20230714 10:07:22.701" endtime="20230714 10:07:24.436"/>
 </test>
-<status status="PASS" starttime="20230713 13:50:20.151" endtime="20230713 13:50:23.694"/>
+<status status="PASS" starttime="20230714 10:07:22.670" endtime="20230714 10:07:24.437"/>
 </suite>
 <statistics>
 <total>

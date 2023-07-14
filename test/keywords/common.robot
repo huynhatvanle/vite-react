@@ -1,12 +1,15 @@
+
 *** Settings ***
 Library     Browser
 Library     FakerLibrary    locale=en_IN
 Library     String
+
+
 *** Variables ***
 ${BROWSER}              chromium
 ${HEADLESS}             ${False}
 ${BROWSER_TIMEOUT}      60 seconds
-${SHOULD_TIMEOUT}       0.3 seconds
+${SHOULD_TIMEOUT}       0.1 seconds
 
 ${URL_DEFAULT}          http://localhost:5173
 ${STATE}                Evaluate    json.loads('''{}''')    json
@@ -123,14 +126,6 @@ Enter "${type}" in textarea "${name}" with "${text}"
     ${cnt}=    Get Length    ${text}
     IF    ${cnt} > 0    Set Global Variable    ${STATE["${name}"]}    ${text}
 
-Enter "${type}" in input "${name}" with "${text}"
-    ${text}=    Get Random Text    ${type}    ${text}
-    ${element}=    Get Element Form Item By Name    ${name}    //input[@placeholder = ${name}]
-    Clear Text    ${element}
-    Fill Text    ${element}    ${text}
-    ${cnt}=    Get Length    ${text}
-    IF    ${cnt} > 0    Set Global Variable    ${STATE["${name}"]}    ${text}    
-
 Enter date in "${name}" with "${text}"
     ${text}=    Get Random Text    date    ${text}
     ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-picker-input")]/input
@@ -154,18 +149,11 @@ Click select "${name}" with "${text}"
     ${cnt}=    Get Length    ${text}
     IF    ${cnt} > 0    Set Global Variable    ${STATE["${name}"]}    ${text}
 
-Enter "${type}" in input "${name}" with "${text}"
-    ${text}=    Get Random Text    ${type}    ${text}
-    ${element} =        ${name}   //input[@placeholder = "${name}"]
-    Clear Text    ${element}
-    Fill Text    ${element}    ${text}
-
 Enter "${type}" in editor "${name}" with "${text}"
     ${text}=    Get Random Text    ${type}    ${text}
     ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ce-paragraph")]
     Clear Text    ${element}
     Fill Text    ${element}    ${text}
-
 
 Select file in "${name}" with "${text}"
     ${element}=    Get Element Form Item By Name    ${name}    //input[@type = "file"]
@@ -278,6 +266,7 @@ User look message "${message}" popup
     ${passed}=    Run Keyword And Return Status
     ...    Element Should Be Visible    ${element}
     IF    '${passed}' == 'True'    Click    ${element}
+    Wait Until Element Spin
 
 Click Confirm To Action
     ${element}=    Set Variable    xpath=//*[contains(@class, "ant-popover")]//*[contains(@class, "ant-btn-primary")]
@@ -291,3 +280,38 @@ Wait Until Element Spin
     ${element}=    Set Variable    xpath=//*[contains(@class, "ant-spin-spinning")]
     ${count}=    Get Element Count    ${element}
     IF    ${count} > 0    Wait Until Element Is Not Exist    ${element}
+
+Click on "${text}" Role
+    Click    xpath=//div[contains(@class, "truncate") and contains(text(), "${text}")]
+
+Table on "${name}" User
+    Click    //*[contains(@class, "ant-table-row")]//*[contains(text(), "${name}")]/ancestor::tr
+    # /ancestor::tr
+
+Enter "${name}" placeholder with "${text}"
+    ${element}=    Set Variable    xpath=//div[contains(@class,"relative")]/input[contains(@placeholder, "${name}")]
+    Fill Text    ${element}    ${text}
+
+Click on "${text}" pagination
+    Click
+    ...    xpath=//div[contains(@class,"right flex")]//button[contains(@aria-label,"${text}") and not (contains(@aria-label,"_"))]
+
+Click on "${text}" doublepagination
+    Click    xpath=//div[contains(@class,"right flex")]//button[contains(@aria-label,"${text}")]
+
+Required message "${name}" displayed under "${text}" field1
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //*[contains(@class, "ant-form-item-explain-error") and text()="${text}"]
+    Element Text Should Be    ${element}    ${text}
+
+Click "${text}" menuUser
+    Click    xpath=//li[contains(@class,"flex")]/span[contains(text(),"${text}")]
+
+Click "${text}" list
+    Click    xpath=//*[contains(@class,"ant-empty-description")and contains(text(),"${text}")]
+
+Enter "${name}" add with "${text}"
+    # ${element}=    Set Variable
+    # ...    xpath=//div[contains(@class,"ant-select-selector")]//input[contains(@value,"${name}")]
+    Fill Text    xpath=//*[contains(@class, "ant-select-selection-search")]/input[@id="positionCode"]    ${text}
