@@ -348,6 +348,9 @@ export const DataTable = forwardRef(
           item.defaultSortOrder =
             sorts[col!.name!] === 'ASC' ? 'ascend' : sorts[col!.name!] === 'DESC' ? 'descend' : '';
         if (!item?.render) item!.render = (text: string) => text && checkTextToShort(text);
+        if (item && !item?.onCell) item.onCell = (record) => ({
+          className: record?.id === facade?.data?.id ? '!bg-blue-100' : '',
+        })
         // noinspection JSUnusedGlobalSymbols
         return {
           title: t(col.title || ''),
@@ -464,7 +467,6 @@ export const DataTable = forwardRef(
                   <div className="bg-gray-100 text-gray-400 py-4">{t(`components.datatable.${emptyText}`)}</div>
                 ),
               }}
-              rowClassName={(record) => record.id === id ? 'bg-blue-100' : '' }
               loading={isLoading}
               columns={cols.current}
               pagination={false}
@@ -517,7 +519,7 @@ type Type = {
   xScroll?: number;
   yScroll?: number;
   emptyText?: JSX.Element | string;
-  onRow?: (data: any) => { onDoubleClick: () => void };
+  onRow?: (data: any) => { onDoubleClick?: () => void };
   pageSizeOptions?: number[];
   pageSizeRender?: (sizePage: number) => number | string;
   pageSizeWidth?: string;
