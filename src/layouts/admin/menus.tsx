@@ -12,6 +12,7 @@ const Layout = [
   {
     icon: <User className="h-8 w-8" />,
     name: 'User',
+    permission: keyRole.P_USER_LISTED,
   },
   {
     icon: <Cog className="h-8 w-8" />,
