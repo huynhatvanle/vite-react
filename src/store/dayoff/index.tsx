@@ -63,6 +63,7 @@ export const DayoffFacade = () => {
 export class DayOff extends CommonEntity {
   constructor(
     public dateLeave?: Date[],
+    public code?: string,
     public type?: number,
     public status: number = 0,
     public reason?: string,

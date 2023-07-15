@@ -77,6 +77,14 @@ const Page = () => {
       <div className={'max-w-4xl mx-auto bg-white p-4 shadow rounded-xl'}>
         <table className="w-full mx-auto text-sm text-left text-gray-500 border">
           <tbody>
+          <tr className={'border-b'}>
+            <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+              {t('titles.Code')}
+            </th>
+            <td className="py-4 px-6">
+              {data?.code}
+            </td>
+          </tr>
             <tr className={'border-b'}>
               <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
                 {t('dayoff.Fullname')}

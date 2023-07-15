@@ -61,9 +61,9 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
         listMenu
           .filter((item) => {
             return (
-              !item.child ||
-              item.child.filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
-                .length > 0
+              (!item.child && permission?.includes(item.permission)) ||
+              (item.child && item.child.filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
+                .length > 0)
             );
           })
           .map((item, index) => {

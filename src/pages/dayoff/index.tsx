@@ -57,7 +57,7 @@ const Page = () => {
             navigate(`/${lang}${routerLinks('DayOff/Detail')}/${data.id}`);
           },
         })}
-        xScroll={'1400px'}
+        xScroll={1400}
         pageSizeRender={(sizePage: number) => sizePage}
         pageSizeWidth={'50px'}
         paginationDescription={(from: number, to: number, total: number) =>
@@ -65,14 +65,17 @@ const Page = () => {
         }
         columns={[
           {
+            title: 'titles.Code',
+            name: 'code',
+            tableItem: {
+              sorter: true,
+            },
+          },
+          {
             title: 'dayoff.Fullname',
             name: 'staff',
             tableItem: {
               sorter: true,
-              onCell: () => ({
-                style: { paddingTop: '0.25rem', paddingBottom: 0 },
-                onClick: () => null,
-              }),
               render: (value, item) => item.staff?.name && <Avatar src={item.staff?.avatar} text={item.staff?.name} />,
             },
           },
