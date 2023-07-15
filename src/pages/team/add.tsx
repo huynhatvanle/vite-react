@@ -31,8 +31,6 @@ const Page = () => {
   useEffect(() => {
     switch (userTeamFacade.status) {
       case 'post.fulfilled':
-        navigate(`/${lang}${routerLinks('Team')}`);
-        break;
       case 'put.fulfilled':
         if (Object.keys(param).length > 0) isReload.current = true;
 

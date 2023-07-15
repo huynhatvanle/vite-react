@@ -36,9 +36,7 @@ const Page = () => {
       className={'max-w-5xl mx-auto'}
       facade={userTeamFacade}
       ref={dataTableRef}
-      onRow={() => ({
-        onDoubleClick: () => null,
-      })}
+      id={userTeamFacade?.data?.id}
       pageSizeRender={(sizePage: number) => sizePage}
       pageSizeWidth={'50px'}
       paginationDescription={(from: number, to: number, total: number) => t('team.Pagination', { from, to, total })}
