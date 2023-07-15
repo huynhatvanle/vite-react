@@ -12,16 +12,6 @@ const Layout = [
   {
     icon: <User className="h-8 w-8" />,
     name: 'User',
-    child: [
-      {
-        name: 'User/List',
-        permission: keyRole.P_USER_LISTED,
-      },
-      {
-        name: 'User/Add',
-        permission: keyRole.P_DATA_LISTED,
-      },
-    ],
   },
   {
     icon: <Cog className="h-8 w-8" />,

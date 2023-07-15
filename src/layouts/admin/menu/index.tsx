@@ -36,7 +36,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
   }, [isCollapsed]);
 
   const subMenu = (child: { name: string; permission: string }[]) => (
-    <ul>
+    <ul className={'menu'}>
       {child
         .filter((subItem) => !subItem.permission || permission?.includes(subItem.permission))
         .map((subItem, index: number) => (
@@ -45,6 +45,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
             className={classNames('sub-menu py-2 cursor-pointer', {
               'bg-white text-blue-600 !fill-blue-600':
                 location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
+              '!pl-1': isCollapsed
             })}
             onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
           >
@@ -69,7 +70,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
             if (!item.child) {
               return (
                 <li
-                  className={classNames('flex items-center h-11 my-2 px-5', {
+                  className={classNames('flex items-center h-11 my-2 px-3 mx-2', {
                     'bg-white text-blue-600 !fill-blue-600 rounded-2xl':
                       location.pathname === `/${lang}${routerLinks(item.name)}`,
                     'fill-gray-600': location.pathname !== `/${lang}${routerLinks(item.name)}`,

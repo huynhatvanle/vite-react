@@ -7,7 +7,7 @@ import { lang, keyRole, routerLinks } from '@utils';
 import { GlobalFacade, DataTypeFacade, DataFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
-import { Popconfirm, Spin, Tooltip } from 'antd';
+import {Popconfirm, Select, Spin, Tooltip} from 'antd';
 import { useNavigate } from 'react-router';
 import classNames from 'classnames';
 
@@ -54,7 +54,7 @@ const Page = () => {
             {/*</div>*/}
           </div>
           <Spin spinning={isLoading}>
-            <div className="h-[calc(100vh-13rem)] overflow-y-auto relative scroll">
+            <div className="h-[calc(100vh-13rem)] overflow-y-auto relative scroll hidden sm:block">
               {result?.data?.map((data, index) => (
                 <div
                   key={data.id}
@@ -107,12 +107,24 @@ const Page = () => {
                 </div>
               ))}
             </div>
+            <div className="p-2 sm:p-0">
+              <Select
+                value={request.filter.type}
+                className={'w-full'}
+                options={result?.data?.map((data) => ({label: data.name, value: data.code}))}
+                onChange={(e) => {
+                  if (request.filter.type !== e) request.filter.type = e;
+                  else delete request.filter.type;
+                  dataTableRef?.current?.onChange(request);
+                }}
+              />
+            </div>
           </Spin>
         </div>
       </div>
       <div className="col-span-12 md:col-span-8 lg:col-span-9 intro-x">
         <div className="shadow rounded-xl w-full overflow-auto bg-white">
-          <div className="h-[calc(100vh-9.5rem)] overflow-y-auto p-3">
+          <div className="sm:min-h-[calc(100vh-9.5rem)] overflow-y-auto p-3">
             <DataTable
               facade={dataFacade}
               ref={dataTableRef}

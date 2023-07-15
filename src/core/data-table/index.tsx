@@ -93,11 +93,11 @@ export const DataTable = forwardRef(
         : defaultRequest,
     );
 
+    const scroll = useRef<{x?: number; y?: number}>({x: xScroll, y: yScroll});
     useEffect(() => {
       if (pageSizeOptions?.length === 0) {
-        if (params?.perPage === 1) {
-          params.perPage = getSizePageByHeight();
-        }
+        if (params?.perPage === 1) params.perPage = getSizePageByHeight();
+        if (params.perPage! < 5) params.perPage = 5;
         refPageSizeOptions.current = [
           params.perPage || 10,
           (params.perPage || 10) * 2,
@@ -118,6 +118,15 @@ export const DataTable = forwardRef(
         if (!result?.data || new Date().getTime() > time || JSON.stringify(params) != queryParams)
           onChange(params, false);
       }
+      if (!scroll.current.x) {
+        scroll.current.x = 0;
+        columns.forEach((item) => {
+          if (item.tableItem) {
+            scroll.current.x! += item.tableItem?.width || 200;
+          }
+        });
+      }
+
       return () => localStorage.removeItem(idTable.current);
     }, []);
 
@@ -462,7 +471,7 @@ export const DataTable = forwardRef(
                 handleTableChange(undefined, filters, sorts as SorterResult<any>, params.fullTextSearch)
               }
               showSorterTooltip={false}
-              scroll={{ x: xScroll, y: yScroll }}
+              scroll={scroll.current}
               size="small"
               {...prop}
             />
@@ -502,8 +511,8 @@ type Type = {
   save?: boolean;
   searchPlaceholder?: string;
   subHeader?: (count: number) => any;
-  xScroll?: string | number | true;
-  yScroll?: string | number;
+  xScroll?: number;
+  yScroll?: number;
   emptyText?: JSX.Element | string;
   onRow?: (data: any) => { onDoubleClick: () => void };
   pageSizeOptions?: number[];
