@@ -129,6 +129,7 @@ const Page = () => {
               className={'container mx-auto'}
               facade={userFacade}
               ref={dataTableRef}
+              id={userFacade.data?.id}
               onRow={() => ({ onDoubleClick: () => null })}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
@@ -144,9 +145,8 @@ const Page = () => {
                     width: 210,
                     fixed: window.innerWidth > 767 ? 'left' : '',
                     sorter: true,
-                    onCell: () => ({
-                      style: { paddingTop: '0.25rem', paddingBottom: 0 },
-                      onClick: async () => null,
+                    onCell: (record) => ({
+                      className: record?.id === userFacade?.data?.id ? '!bg-blue-100' : '',
                     }),
                     render: (text: string, item: any) => text && <Avatar src={item.avatar} text={item.name} />,
                   },
@@ -210,19 +210,19 @@ const Page = () => {
                 //     render: (text: string) => dayjs(text).format(formatDate),
                 //   },
                 // },
-                {
-                  title: 'user.Start Date',
-                  name: 'startDate',
-                  tableItem: {
-                    filter: { type: 'search' },
-                    sorter: true,
-                    render: (text: string) => dayjs(text).format(formatDate),
-                  },
-                },
+                // {
+                //   title: 'user.Start Date',
+                //   name: 'startDate',
+                //   tableItem: {
+                //     filter: { type: 'search' },
+                //     sorter: true,
+                //     render: (text: string) => dayjs(text).format(formatDate),
+                //   },
+                // },
                 {
                   title: 'user.Action',
                   tableItem: {
-                    width: 80,
+                    width: 90,
                     align: 'center',
                     onCell: () => ({
                       style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' },

@@ -139,6 +139,15 @@ const Layout = ({ children }: PropsWithChildren) => {
             menu={{
               items: [
                 {
+                  key: '0',
+                  label: (
+                    <div className="leading-none my-1">
+                      <div className="font-bold text-black text-lg leading-snug mb-0.5">{user?.name}</div>
+                      <div className="text-gray-600">{user?.email}</div>
+                    </div>
+                  )
+                },
+                {
                   key: '1',
                   label: (
                     <div onClick={() => navigate(`/${lang}${routerLinks('MyProfile')}`, { replace: true })}>
@@ -159,10 +168,6 @@ const Layout = ({ children }: PropsWithChildren) => {
             placement="bottomRight"
           >
             <section className="flex items-center image-shine" id={'dropdown-profile'}>
-              <div className="text-right leading-none mr-3 hidden sm:block">
-                <div className="font-bold text-black text-lg leading-snug mb-0.5">{user?.name}</div>
-                <div className="text-gray-600">{user?.email}</div>
-              </div>
               <Avatar src="/assets/images/avatar.jpeg" size={10} />
             </section>
           </Dropdown>

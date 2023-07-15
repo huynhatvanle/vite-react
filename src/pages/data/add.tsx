@@ -31,8 +31,6 @@ const Page = () => {
   useEffect(() => {
     switch (dataFacade.status) {
       case 'post.fulfilled':
-        navigate(`/${lang}${routerLinks('Data')}/${dataFacade.data?.id}`);
-        break;
       case 'put.fulfilled':
         if (Object.keys(param).length > 0) isReload.current = true;
 

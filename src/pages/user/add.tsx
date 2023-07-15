@@ -30,8 +30,6 @@ const Page = () => {
   useEffect(() => {
     switch (userFacade.status) {
       case 'post.fulfilled':
-        navigate(`/${lang}${routerLinks('User')}/${userFacade.data?.id}/edit`);
-        break;
       case 'put.fulfilled':
         if (Object.keys(param).length > 0) isReload.current = true;
 
@@ -44,7 +42,9 @@ const Page = () => {
     }
   }, [userFacade.status]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('User/List')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => {
+    navigate(`/${lang}${routerLinks('User/List')}?${new URLSearchParams(param).toString()}`);
+  };
   const handleSubmit = (values: User) => {
     if (id) userFacade.put({ ...values, id });
     else userFacade.post(values);
