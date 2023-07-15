@@ -128,9 +128,7 @@ const Page = () => {
             <DataTable
               facade={dataFacade}
               ref={dataTableRef}
-              onRow={() => ({
-                onDoubleClick: () => null,
-              })}
+              id={dataFacade.data?.id}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
               paginationDescription={(from: number, to: number, total: number) =>

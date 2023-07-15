@@ -45,6 +45,7 @@ export const DataTable = forwardRef(
   (
     {
       columns = [],
+      id,
       showList = true,
       footer,
       defaultRequest = {
@@ -122,7 +123,7 @@ export const DataTable = forwardRef(
         scroll.current.x = 0;
         columns.forEach((item) => {
           if (item.tableItem) {
-            scroll.current.x! += item.tableItem?.width || 200;
+            scroll.current.x! += item.tableItem?.width || 150;
           }
         });
       }
@@ -463,6 +464,7 @@ export const DataTable = forwardRef(
                   <div className="bg-gray-100 text-gray-400 py-4">{t(`components.datatable.${emptyText}`)}</div>
                 ),
               }}
+              rowClassName={(record) => record.id === id ? 'bg-blue-100' : '' }
               loading={isLoading}
               columns={cols.current}
               pagination={false}
@@ -500,6 +502,7 @@ export const DataTable = forwardRef(
 );
 DataTable.displayName = 'HookTable';
 type Type = {
+  id?: string;
   columns: DataTableModel[];
   showList?: boolean;
   footer?: (result: any) => any;
