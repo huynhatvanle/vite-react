@@ -57,7 +57,6 @@ const Page = () => {
             navigate(`/${lang}${routerLinks('DayOff/Detail')}/${data.id}`);
           },
         })}
-        id={dayoffFacade?.data?.id}
         xScroll={1400}
         pageSizeRender={(sizePage: number) => sizePage}
         pageSizeWidth={'50px'}
