@@ -6,7 +6,7 @@ export const routerLinks = (name: string, type?: string) => {
     ResetPassword: '/auth/reset-password',
     MyProfile: '/my-profile',
     Dashboard: '/dashboard',
-    User: '/user',
+    User: '/user/list',
     'User/List': '/user/list',
     'User/Add': '/user/add',
     Setting: '/setting',

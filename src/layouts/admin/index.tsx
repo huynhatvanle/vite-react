@@ -82,7 +82,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   const Header = ({ isCollapsed, isDesktop }: { isCollapsed: boolean; isDesktop: boolean }) => (
     <header
       className={classNames(
-        'bg-blue-50 w-full header h-20 transition-all duration-300 ease-in-out sticky top-0 block z-10',
+        'bg-blue-50 w-full header h-20 transition-all duration-300 ease-in-out sticky top-0 block z-20',
         {
           'pl-60': !isCollapsed && isDesktop,
           'pl-32': isCollapsed && isDesktop,
@@ -176,7 +176,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       <Header isCollapsed={isCollapsed} isDesktop={isDesktop} />
       <div
         className={classNames(
-          'flex items-center justify-between text-gray-800 hover:text-gray-600 h-20 fixed top-0 left-0 px-5 font-bold transition-all duration-300 ease-in-out z-10',
+          'flex items-center justify-between text-gray-800 hover:text-gray-600 h-20 fixed top-0 left-0 px-5 font-bold transition-all duration-300 ease-in-out z-20',
           {
             'w-60': !isCollapsed && isDesktop,
             'w-20': isCollapsed,
@@ -214,6 +214,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           <span className="line" />
         </div>
       </div>
+
       {!isDesktop && (
         <div
           className={classNames('fixed h-full bg-black transition-all duration-500 ease-in-out w-full z-20', {
@@ -244,12 +245,12 @@ const Layout = ({ children }: PropsWithChildren) => {
 
       <section
         id={'main'}
-        className={classNames('px-5 transition-all duration-300 ease-in-out z-10 h-[calc(100vh-5rem)] relative', {
+        className={classNames('px-5 transition-all duration-300 ease-in-out z-10 h-[calc(100vh-5rem)] relative overflow-y-auto sm:overflow-y-hidden', {
           'ml-60': !isCollapsed && isDesktop,
           'ml-20': isCollapsed && isDesktop,
         })}
       >
-        <div className={'h-[calc(100vh-8rem)] overflow-y-auto lg:overflow-x-hidden'}>
+        <div className={'min-h-[calc(100vh-8rem)] overflow-y-auto lg:overflow-x-hidden'}>
           <h1 className={'text-xl font-bold block sm:hidden'}>{t('pages.' + title)}</h1>
           <div className={'flex items-center text-xs mt-0.5 pb-5 sm:hidden'}>
             {breadcrumbs?.map((item, i) => (

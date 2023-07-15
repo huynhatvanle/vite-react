@@ -1,4 +1,4 @@
-import React, {Fragment, ReactNode, useEffect, useState} from 'react';
+import React, { Fragment, ReactNode, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Popconfirm, Spin, Tooltip } from 'antd';
 
@@ -73,7 +73,7 @@ const PageC = () => {
   return (
     <Fragment>
       <div className="container mx-auto grid grid-cols-12 gap-3">
-        <div className="col-span-12 md:col-span-5 lg:col-span-4 -intro-x">
+        <div className="col-span-12 md:col-span-4 lg:col-span-3 -intro-x">
           <div className="shadow rounded-md w-full bg-white overflow-hidden">
             <div className="h-14 flex justify-between items-center border-b border-gray-100 px-2 py-2">
               <div className="relative">
@@ -142,12 +142,12 @@ const PageC = () => {
           </div>
         </div>
 
-        <div className="col-span-12 md:col-span-7 lg:col-span-8 intro-x">
+        <div className="col-span-12 md:col-span-8 lg:col-span-9 intro-x">
           <div className="shadow rounded-md w-full bg-white overflow-auto">
             <div className="h-14 flex justify-between items-center border-b border-gray-100 px-4 py-2">
               <h2 className="font-bold order-1 text-xl">{data?.key ? t('pages.Page/Edit') : t('pages.Page/Add')}</h2>
             </div>
-            <div className="overflow-x-hidden overflow-y-auto relative py-2 px-4 h-[calc(100vh-12rem)]">
+            <div className="overflow-x-hidden overflow-y-auto relative py-2 px-4 sm:min-h-[calc(100vh-12rem)]">
               <Spin spinning={pageFacade.isLoading}>
                 <Form
                   values={{ ...data }}
