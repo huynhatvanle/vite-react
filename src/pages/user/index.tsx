@@ -129,8 +129,7 @@ const Page = () => {
               className={'container mx-auto'}
               facade={userFacade}
               ref={dataTableRef}
-              id={userFacade.data?.id}
-              onRow={() => ({ onDoubleClick: () => null })}
+              onRow={(record) => ({ onDoubleClick: () => navigate(`/${lang}${routerLinks('User')}/${record.id}/edit`) })}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
               paginationDescription={(from: number, to: number, total: number) =>
@@ -145,9 +144,6 @@ const Page = () => {
                     width: 210,
                     fixed: window.innerWidth > 767 ? 'left' : '',
                     sorter: true,
-                    onCell: (record) => ({
-                      className: record?.id === userFacade?.data?.id ? '!bg-blue-100' : '',
-                    }),
                     render: (text: string, item: any) => text && <Avatar src={item.avatar} text={item.name} />,
                   },
                 },

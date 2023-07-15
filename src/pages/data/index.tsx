@@ -128,7 +128,6 @@ const Page = () => {
             <DataTable
               facade={dataFacade}
               ref={dataTableRef}
-              id={dataFacade.data?.id}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
               paginationDescription={(from: number, to: number, total: number) =>
