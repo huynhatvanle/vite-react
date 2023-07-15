@@ -8,20 +8,12 @@ const Layout = [
   {
     icon: <User className="h-8 w-8" />,
     name: 'User',
+    permission: keyRole.P_USER_LISTED,
   },
   {
     icon: <Coffee className="h-8 w-8" />,
     name: 'DayOff',
-    child: [
-      {
-        name: 'DayOff/List',
-        permission: keyRole.P_DAYOFF_LISTED,
-      },
-      {
-        name: 'DayOff/Add',
-        permission: keyRole.P_DAYOFF_CREATE,
-      },
-    ],
+    permission: keyRole.P_DAYOFF_LISTED,
   },
   {
     icon: <Cog className="h-8 w-8" />,

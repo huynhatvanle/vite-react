@@ -17,7 +17,7 @@ export const routerLinks = (name: string, type?: string) => {
     Page: '/setting/page',
     Team: '/team',
     'Team/Add': '/team/add',
-    DayOff: '/dayoff',
+    DayOff: '/dayoff/list',
     'DayOff/List': '/dayoff/list',
     'DayOff/Add': '/dayoff/add',
     'DayOff/Detail': '/dayoff/detail',
