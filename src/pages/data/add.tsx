@@ -7,6 +7,7 @@ import { routerLinks, lang } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 import slug from 'slug';
+import { Spin } from 'antd';
 const Page = () => {
   const { id } = useParams();
   const dataFacade = DataFacade();
@@ -55,125 +56,127 @@ const Page = () => {
   const { t } = useTranslation();
   return (
     <div className={'max-w-3xl mx-auto bg-white p-4 shadow rounded-xl'}>
-      <Form
-        values={{ ...dataFacade.data }}
-        className="intro-x"
-        columns={[
-          {
-            title: 'Data.Type',
-            name: 'type',
-            formItem: {
-              type: 'select',
-              col: 4,
-              rules: [{ type: 'required' }],
-              list: listType || [],
-            },
-          },
-          {
-            title: 'Data.Order',
-            name: 'order',
-            formItem: {
-              col: 4,
-              type: 'number',
-            },
-          },
-          {
-            title: 'Data.Created At',
-            name: 'createdAt',
-            formItem: {
-              col: 4,
-              type: 'date',
-            },
-          },
-          {
-            title: 'Data.Image',
-            name: 'image',
-            formItem: {
-              type: 'upload',
-              mode: 'multiple',
-            },
-          },
-          {
-            name: 'translations',
-            title: '',
-            formItem: {
-              type: 'tab',
-              tab: {
-                label: 'language',
-                value: 'language',
+      <Spin spinning={dataFacade.isLoading}>
+        <Form
+          values={{ ...dataFacade.data }}
+          className="intro-x"
+          columns={[
+            {
+              title: 'Data.Type',
+              name: 'type',
+              formItem: {
+                type: 'select',
+                col: 4,
+                rules: [{ type: 'required' }],
+                list: listType || [],
               },
-              list: [
-                { label: 'English', value: 'en' },
-                { label: 'Vietnam', value: 'vn' },
-              ],
-              column: [
-                {
-                  title: 'Name',
-                  name: 'name',
-                  formItem: {
-                    col: 6,
-                    rules: [{ type: 'required' }],
-                    onBlur: (e, form, name) => {
-                      if (e.target.value && !form.getFieldValue(['translations', name[0], 'slug'])) {
-                        form.setFieldValue(['translations', name[0], 'slug'], slug(e.target.value));
-                      }
+            },
+            {
+              title: 'Data.Order',
+              name: 'order',
+              formItem: {
+                col: 4,
+                type: 'number',
+              },
+            },
+            {
+              title: 'Data.Created At',
+              name: 'createdAt',
+              formItem: {
+                col: 4,
+                type: 'date',
+              },
+            },
+            {
+              title: 'Data.Image',
+              name: 'image',
+              formItem: {
+                type: 'upload',
+                mode: 'multiple',
+              },
+            },
+            {
+              name: 'translations',
+              title: '',
+              formItem: {
+                type: 'tab',
+                tab: {
+                  label: 'language',
+                  value: 'language',
+                },
+                list: [
+                  { label: 'English', value: 'en' },
+                  { label: 'Vietnam', value: 'vn' },
+                ],
+                column: [
+                  {
+                    title: 'Name',
+                    name: 'name',
+                    formItem: {
+                      col: 6,
+                      rules: [{ type: 'required' }],
+                      onBlur: (e, form, name) => {
+                        if (e.target.value && !form.getFieldValue(['translations', name[0], 'slug'])) {
+                          form.setFieldValue(['translations', name[0], 'slug'], slug(e.target.value));
+                        }
+                      },
                     },
                   },
-                },
-                {
-                  title: 'Slug',
-                  name: 'slug',
-                  formItem: {
-                    col: 6,
+                  {
+                    title: 'Slug',
+                    name: 'slug',
+                    formItem: {
+                      col: 6,
+                    },
                   },
-                },
-                {
-                  title: 'Description',
-                  name: 'description',
-                  formItem: {
-                    type: 'textarea',
+                  {
+                    title: 'Description',
+                    name: 'description',
+                    formItem: {
+                      type: 'textarea',
+                    },
                   },
-                },
-                {
-                  name: 'seoTitle',
-                  title: 'SEO Title',
-                  formItem: {
-                    col: 6,
+                  {
+                    name: 'seoTitle',
+                    title: 'SEO Title',
+                    formItem: {
+                      col: 6,
+                    },
                   },
-                },
-                {
-                  name: 'seoDescription',
-                  title: 'SEO Description',
-                  formItem: {
-                    col: 6,
+                  {
+                    name: 'seoDescription',
+                    title: 'SEO Description',
+                    formItem: {
+                      col: 6,
+                    },
                   },
-                },
 
-                {
-                  title: 'Content',
-                  name: 'content',
-                  formItem: {
-                    type: 'editor',
+                  {
+                    title: 'Content',
+                    name: 'content',
+                    formItem: {
+                      type: 'editor',
+                    },
                   },
-                },
-              ],
+                ],
+              },
             },
-          },
-        ]}
-        extendButton={(form) => (
-          <Button
-            text={t('components.button.Save and Add new')}
-            className={'md:min-w-[12rem] w-full justify-center out-line'}
-            onClick={() => {
-              form.submit();
-              isBack.current = false;
-            }}
-          />
-        )}
-        handSubmit={handleSubmit}
-        disableSubmit={dataFacade.isLoading}
-        handCancel={handleBack}
-      />
+          ]}
+          extendButton={(form) => (
+            <Button
+              text={t('components.button.Save and Add new')}
+              className={'md:min-w-[12rem] w-full justify-center out-line'}
+              onClick={() => {
+                form.submit();
+                isBack.current = false;
+              }}
+            />
+          )}
+          handSubmit={handleSubmit}
+          disableSubmit={dataFacade.isLoading}
+          handCancel={handleBack}
+        />
+      </Spin>
     </div>
   );
 };

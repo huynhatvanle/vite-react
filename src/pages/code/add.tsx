@@ -7,6 +7,7 @@ import { CodeFacade, Code, CodeTypeFacade, GlobalFacade } from '@store';
 import { routerLinks, lang } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
+import { Spin } from 'antd';
 
 const Page = () => {
   const { id } = useParams();
@@ -55,63 +56,65 @@ const Page = () => {
   const { t } = useTranslation();
   return (
     <div className={'max-w-2xl mx-auto bg-white p-4 shadow rounded-xl'}>
-      <Form
-        values={{ ...codeFacade.data }}
-        className="intro-x"
-        columns={[
-          {
-            title: 'Code.Name',
-            name: 'name',
-            formItem: {
-              col: 4,
-              rules: [{ type: 'required' }],
-              onBlur: (e, form) => {
-                if (e.target.value && !form.getFieldValue('code')) {
-                  form.setFieldValue('code', slug(e.target.value).toUpperCase());
-                }
+      <Spin spinning={codeFacade.isLoading}>
+        <Form
+          values={{ ...codeFacade.data }}
+          className="intro-x"
+          columns={[
+            {
+              title: 'Code.Name',
+              name: 'name',
+              formItem: {
+                col: 4,
+                rules: [{ type: 'required' }],
+                onBlur: (e, form) => {
+                  if (e.target.value && !form.getFieldValue('code')) {
+                    form.setFieldValue('code', slug(e.target.value).toUpperCase());
+                  }
+                },
               },
             },
-          },
-          {
-            title: 'Code.Type',
-            name: 'type',
-            formItem: {
-              type: 'select',
-              col: 4,
-              rules: [{ type: 'required' }],
-              list: listType || [],
+            {
+              title: 'Code.Type',
+              name: 'type',
+              formItem: {
+                type: 'select',
+                col: 4,
+                rules: [{ type: 'required' }],
+                list: listType || [],
+              },
             },
-          },
-          {
-            title: 'titles.Code',
-            name: 'code',
-            formItem: {
-              col: 4,
-              rules: [{ type: 'required' }],
+            {
+              title: 'titles.Code',
+              name: 'code',
+              formItem: {
+                col: 4,
+                rules: [{ type: 'required' }],
+              },
             },
-          },
-          {
-            title: 'user.Description',
-            name: 'description',
-            formItem: {
-              type: 'textarea',
+            {
+              title: 'user.Description',
+              name: 'description',
+              formItem: {
+                type: 'textarea',
+              },
             },
-          },
-        ]}
-        extendButton={(form) => (
-          <Button
-            text={t('components.button.Save and Add new')}
-            className={'md:min-w-[12rem] w-full justify-center out-line'}
-            onClick={() => {
-              form.submit();
-              isBack.current = false;
-            }}
-          />
-        )}
-        handSubmit={handleSubmit}
-        disableSubmit={codeFacade.isLoading}
-        handCancel={handleBack}
-      />
+          ]}
+          extendButton={(form) => (
+            <Button
+              text={t('components.button.Save and Add new')}
+              className={'md:min-w-[12rem] w-full justify-center out-line'}
+              onClick={() => {
+                form.submit();
+                isBack.current = false;
+              }}
+            />
+          )}
+          handSubmit={handleSubmit}
+          disableSubmit={codeFacade.isLoading}
+          handCancel={handleBack}
+        />
+      </Spin>
     </div>
   );
 };

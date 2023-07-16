@@ -145,7 +145,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                       <div className="font-bold text-black text-lg leading-snug mb-0.5">{user?.name}</div>
                       <div className="text-gray-600">{user?.email}</div>
                     </div>
-                  )
+                  ),
                 },
                 {
                   key: '1',
@@ -250,10 +250,13 @@ const Layout = ({ children }: PropsWithChildren) => {
 
       <section
         id={'main'}
-        className={classNames('px-5 transition-all duration-300 ease-in-out z-10 h-[calc(100vh-5rem)] relative overflow-y-auto sm:overflow-y-hidden', {
-          'ml-60': !isCollapsed && isDesktop,
-          'ml-20': isCollapsed && isDesktop,
-        })}
+        className={classNames(
+          'px-5 transition-all duration-300 ease-in-out z-10 h-[calc(100vh-5rem)] relative overflow-y-auto sm:overflow-y-hidden',
+          {
+            'ml-60': !isCollapsed && isDesktop,
+            'ml-20': isCollapsed && isDesktop,
+          },
+        )}
       >
         <div className={'min-h-[calc(100vh-8rem)] overflow-y-auto lg:overflow-x-hidden'}>
           <h1 className={'text-xl font-bold block sm:hidden'}>{t('pages.' + title)}</h1>

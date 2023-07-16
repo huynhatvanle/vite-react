@@ -94,7 +94,7 @@ export const DataTable = forwardRef(
         : defaultRequest,
     );
 
-    const scroll = useRef<{x?: number; y?: number}>({x: xScroll, y: yScroll});
+    const scroll = useRef<{ x?: number; y?: number }>({ x: xScroll, y: yScroll });
     useEffect(() => {
       if (pageSizeOptions?.length === 0) {
         if (params?.perPage === 1) params.perPage = getSizePageByHeight();
@@ -348,9 +348,10 @@ export const DataTable = forwardRef(
           item.defaultSortOrder =
             sorts[col!.name!] === 'ASC' ? 'ascend' : sorts[col!.name!] === 'DESC' ? 'descend' : '';
         if (!item?.render) item!.render = (text: string) => text && checkTextToShort(text);
-        if (item && !item?.onCell) item.onCell = (record) => ({
-          className: record?.id === facade?.data?.id ? '!bg-blue-100' : '',
-        })
+        if (item && !item?.onCell)
+          item.onCell = (record) => ({
+            className: record?.id && record?.id === (id || facade?.data?.id) ? '!bg-blue-100' : '',
+          });
         // noinspection JSUnusedGlobalSymbols
         return {
           title: t(col.title || ''),

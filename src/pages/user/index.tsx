@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import dayjs from 'dayjs';
 import { Popconfirm, Spin, Tooltip, Select } from 'antd';
 
 import { Avatar } from '@core/avatar';
@@ -16,7 +15,7 @@ import classNames from 'classnames';
 
 const Page = () => {
   const userRoleFacade = UserRoleFacade();
-  const { formatDate, user, setBreadcrumbs } = GlobalFacade();
+  const { user, setBreadcrumbs } = GlobalFacade();
   useEffect(() => {
     if (!userRoleFacade?.result?.data) userRoleFacade.get({});
     setBreadcrumbs([
@@ -111,7 +110,7 @@ const Page = () => {
               <Select
                 value={request.filter.roleCode}
                 className={'w-full'}
-                options={userRoleFacade?.result?.data?.map((data) => ({label: data.name, value: data.code}))}
+                options={userRoleFacade?.result?.data?.map((data) => ({ label: data.name, value: data.code }))}
                 onChange={(e) => {
                   if (request.filter.roleCode !== e) request.filter.roleCode = e;
                   else delete request.filter.roleCode;
@@ -129,7 +128,9 @@ const Page = () => {
               className={'container mx-auto'}
               facade={userFacade}
               ref={dataTableRef}
-              onRow={(record) => ({ onDoubleClick: () => navigate(`/${lang}${routerLinks('User')}/${record.id}/edit`) })}
+              onRow={(record) => ({
+                onDoubleClick: () => navigate(`/${lang}${routerLinks('User')}/${record.id}/edit`),
+              })}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
               paginationDescription={(from: number, to: number, total: number) =>
