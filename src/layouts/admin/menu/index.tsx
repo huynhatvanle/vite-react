@@ -45,7 +45,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
             className={classNames('sub-menu py-2 cursor-pointer', {
               'bg-white text-blue-600 !fill-blue-600':
                 location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
-              '!pl-1': isCollapsed
+              '!pl-1': isCollapsed,
             })}
             onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
           >

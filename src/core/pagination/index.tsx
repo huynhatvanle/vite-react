@@ -152,7 +152,9 @@ export const Pagination: any = ({
               </Select>
             )}
           </label>
-          {showTotal && <span className="sm:ml-3 text-black my-3">{paginationDescription(ranges[0], ranges[1], total)}</span>}
+          {showTotal && (
+            <span className="sm:ml-3 text-black my-3">{paginationDescription(ranges[0], ranges[1], total)}</span>
+          )}
         </div>
         <div className="mt-3 sm:mt-0 right flex justify-center border border-gray-100 p-1 rounded-xl bg-white">
           <div className="flex sm:flex-wrap justify-center duration-300 transition-all">

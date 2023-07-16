@@ -11,7 +11,6 @@ import { GlobalFacade, CodeFacade, CodeTypeFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
 
-
 const Page = () => {
   const { user, setBreadcrumbs } = GlobalFacade();
   const { result, get, isLoading } = CodeTypeFacade();
@@ -112,7 +111,7 @@ const Page = () => {
               <Select
                 value={request.filter.type}
                 className={'w-full'}
-                options={result?.data?.map((data) => ({label: data.name, value: data.code}))}
+                options={result?.data?.map((data) => ({ label: data.name, value: data.code }))}
                 onChange={(e) => {
                   if (request.filter.type !== e) request.filter.type = e;
                   else delete request.filter.type;

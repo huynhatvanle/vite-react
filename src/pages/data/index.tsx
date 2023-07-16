@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@core/button';
@@ -7,7 +7,7 @@ import { lang, keyRole, routerLinks } from '@utils';
 import { GlobalFacade, DataTypeFacade, DataFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
-import {Popconfirm, Select, Spin, Tooltip} from 'antd';
+import { Popconfirm, Select, Spin, Tooltip } from 'antd';
 import { useNavigate } from 'react-router';
 import classNames from 'classnames';
 
@@ -111,7 +111,7 @@ const Page = () => {
               <Select
                 value={request.filter.type}
                 className={'w-full'}
-                options={result?.data?.map((data) => ({label: data.name, value: data.code}))}
+                options={result?.data?.map((data) => ({ label: data.name, value: data.code }))}
                 onChange={(e) => {
                   if (request.filter.type !== e) request.filter.type = e;
                   else delete request.filter.type;
