@@ -1,40 +1,40 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Popconfirm, Select, Spin, Tooltip } from 'antd';
-import { useNavigate } from 'react-router';
-import classNames from 'classnames';
 
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { lang, keyRole, routerLinks } from '@utils';
-import { GlobalFacade, CodeFacade, CodeTypeFacade } from '@store';
+import { GlobalFacade, PostTypeFacade, PostFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
+import { Popconfirm, Select, Spin, Tooltip } from 'antd';
+import { useNavigate } from 'react-router';
+import classNames from 'classnames';
 
 const Page = () => {
   const { user, setBreadcrumbs } = GlobalFacade();
-  const { result, get, isLoading } = CodeTypeFacade();
-  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
+  const { result, get, isLoading } = PostTypeFacade();
+  const listType = (result?.data || []).map((item) => ({ value: item.slug, label: item.name }));
   useEffect(() => {
     if (!result?.data) get({});
     setBreadcrumbs([
       { title: 'titles.Setting', link: '' },
-      { title: 'titles.Code', link: '' },
+      { title: 'titles.Post', link: '' },
     ]);
   }, []);
 
-  const codeFacade = CodeFacade();
+  const dataFacade = PostFacade();
   useEffect(() => {
-    switch (codeFacade.status) {
+    switch (dataFacade.status) {
       case 'put.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
         dataTableRef?.current?.onChange!();
         break;
     }
-  }, [codeFacade.status]);
+  }, [dataFacade.status]);
 
-  const request = JSON.parse(codeFacade.queryParams || '{}');
+  const request = JSON.parse(dataFacade.queryParams || '{}');
   request.filter = JSON.parse(request?.filter || '{}');
   const { t } = useTranslation();
   const dataTableRef = useRef<TableRefObject>(null);
@@ -44,7 +44,7 @@ const Page = () => {
       <div className="col-span-12 md:col-span-4 lg:col-span-3 -intro-x">
         <div className="shadow rounded-xl w-full bg-white overflow-hidden">
           <div className="h-14 flex justify-between items-center border-b border-gray-100 px-4 py-2">
-            <h3 className={'font-bold text-lg'}>Type Code</h3>
+            <h3 className={'font-bold text-lg'}>Post Code</h3>
             {/*<div className="flex items-center">*/}
             {/*  <Button*/}
             {/*    icon={<Plus className="icon-cud !h-5 !w-5" />}*/}
@@ -59,13 +59,13 @@ const Page = () => {
                 <div
                   key={data.id}
                   className={classNames(
-                    { 'bg-gray-100': request.filter.type === data.code },
+                    { 'bg-gray-100': request.filter.type === data.slug },
                     'item text-gray-700 font-medium hover:bg-gray-100 flex justify-between items-center border-b border-gray-100 w-full text-left  group',
                   )}
                 >
                   <div
                     onClick={() => {
-                      if (request.filter.type !== data.code) request.filter.type = data.code;
+                      if (request.filter.type !== data.slug) request.filter.type = data.slug;
                       else delete request.filter.type;
                       dataTableRef?.current?.onChange(request);
                     }}
@@ -107,11 +107,11 @@ const Page = () => {
                 </div>
               ))}
             </div>
-            <div className="p-2 sm:p-0">
+            <div className="p-2 sm:p-0 block sm:hidden">
               <Select
                 value={request.filter.type}
                 className={'w-full'}
-                options={result?.data?.map((data) => ({ label: data.name, value: data.code }))}
+                options={result?.data?.map((data) => ({ label: data.name, value: data.slug }))}
                 onChange={(e) => {
                   if (request.filter.type !== e) request.filter.type = e;
                   else delete request.filter.type;
@@ -126,7 +126,7 @@ const Page = () => {
         <div className="shadow rounded-xl w-full overflow-auto bg-white">
           <div className="sm:min-h-[calc(100vh-9.5rem)] overflow-y-auto p-3">
             <DataTable
-              facade={codeFacade}
+              facade={dataFacade}
               ref={dataTableRef}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
@@ -135,25 +135,18 @@ const Page = () => {
               }
               columns={[
                 {
-                  title: 'titles.Code',
-                  name: 'code',
-                  tableItem: {
-                    width: 100,
-                    filter: { type: 'search' },
-                    sorter: true,
-                  },
-                },
-                {
-                  title: 'Code.Name',
-                  name: 'name',
+                  title: 'Post.Name',
+                  name: 'translations',
                   tableItem: {
                     filter: { type: 'search' },
                     sorter: true,
+                    render: (text) =>
+                      text?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0].name || '',
                   },
                 },
                 {
-                  title: 'user.Description',
-                  name: 'description',
+                  title: 'Post.Order',
+                  name: 'order',
                   tableItem: {
                     filter: { type: 'search' },
                     sorter: true,
@@ -173,7 +166,7 @@ const Page = () => {
                           <Tooltip title={t('routes.admin.Layout.Edit')}>
                             <button
                               title={t('routes.admin.Layout.Edit') || ''}
-                              onClick={() => navigate(`/${lang}${routerLinks('Code')}/${data.id}/edit`)}
+                              onClick={() => navigate(`/${lang}${routerLinks('Post')}/${data.id}/edit`)}
                             >
                               <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                             </button>
@@ -201,11 +194,11 @@ const Page = () => {
               ]}
               rightHeader={
                 <div className={'flex gap-2'}>
-                  {user?.role?.permissions?.includes(keyRole.P_CODE_CREATE) && (
+                  {user?.role?.permissions?.includes(keyRole.P_POST_CREATE) && (
                     <Button
                       icon={<Plus className="icon-cud !h-5 !w-5" />}
-                      text={t('routes.admin.Layout.Add')}
-                      onClick={() => navigate(`/${lang}${routerLinks('Code/Add')}`)}
+                      text={t('components.button.New')}
+                      onClick={() => navigate(`/${lang}${routerLinks('Post/Add')}`)}
                     />
                   )}
                 </div>

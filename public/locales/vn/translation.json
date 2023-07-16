@@ -81,7 +81,7 @@
     "Setting": "Thiết lập",
     "Code": "Mã",
     "Data": "Dữ liệu",
-    "Page": "Trang"
+    "Post": "Post"
   },
   "pages": {
     "Login": "Đăng nhập",
@@ -97,9 +97,8 @@
     "Code/Edit":"Chỉnh sửa mã",
     "Data": "Danh sách Dữ liệu",
     "Data/Add": "Tạo mới dữ liệu",
-    "Page": "Danh sách Trang",
-    "Page/Add": "Thêm mới trang",
-    "Page/Edit": "Chỉnh sửa trang"
+    "Post": "Danh sách post",
+    "Post/Add": "Tạo mới post"
   },
   "columns": {
     "auth": {
@@ -205,13 +204,14 @@
     "Image": "Ảnh",
     "Created At": "Ngày tạo"
   },
-  "Page": {
-    "Type" : "Loại",
+  "Post": {
+    "Type": "Loại dữ liệu",
+    "Type Data": "Thêm mới loại",
+    "Name": "Tên dữ liệu",
     "Order": "Order",
-    "ParentId": "ParentId",
-    "Title": "Tiêu đề",
-    "Slug": "Slug",
-    "Content": "Nội dung"
+    "Page": "Trang",
+    "Image": "Ảnh",
+    "Created At": "Ngày tạo"
   },
   "dashboard":{
     "Active Profile Report":"Báo cáo hồ sơ đang hoạt động",

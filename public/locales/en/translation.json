@@ -81,7 +81,7 @@
     "Setting": "Setting",
     "Code": "Code",
     "Data": "Data",
-    "Page": "Page"
+    "Post": "Post"
   },
   "pages": {
     "User/List": "List User",
@@ -97,9 +97,8 @@
     "Code/Edit":"Edit Code",
     "Data": "List Data",
     "Data/Add": "Add new Data",
-    "Page": "List Page",
-    "Page/Add": "Add new Page",
-    "Page/Edit": "Edit Page"
+    "Post": "List Data",
+    "Post/Add": "Add new Data"
   },
   "columns": {
     "auth": {
@@ -204,13 +203,14 @@
     "Image": "Image",
     "Create At": "Create At"
   },
-  "Page": {
-    "Type" : "Type",
+  "Post": {
+    "Type": "Type",
+    "Type Post": "Type Post",
+    "Name": "Name",
     "Order": "Order",
-    "ParentId": "ParentId",
-    "Title": "Title",
-    "Slug": "Slug",
-    "Content": "Content"
+    "Page": "Page",
+    "Image": "Image",
+    "Create At": "Create At"
   },
   "dashboard":{
     "Active Profile Report":"Active Profile Report",

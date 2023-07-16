@@ -107,7 +107,7 @@ const Page = () => {
                 </div>
               ))}
             </div>
-            <div className="p-2 sm:p-0">
+            <div className="p-2 sm:p-0 block sm:hidden">
               <Select
                 value={request.filter.type}
                 className={'w-full'}
@@ -134,19 +134,6 @@ const Page = () => {
                 t('routes.admin.Layout.Pagination', { from, to, total })
               }
               columns={[
-                {
-                  title: 'Data.Type',
-                  name: 'type',
-                  tableItem: {
-                    filter: {
-                      type: 'radio',
-                      list: listType || [],
-                    },
-                    width: 150,
-                    sorter: true,
-                    render: (text: string) => (text && listType.filter((item) => item.value === text)[0]?.label) || '',
-                  },
-                },
                 {
                   title: 'Data.Name',
                   name: 'translations',

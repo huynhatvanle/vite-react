@@ -19,7 +19,8 @@ export * from './code';
 export * from './code/type';
 export * from './data';
 export * from './data/type';
-export * from './page';
+export * from './post';
+export * from './post/type';
 import {
   globalSlice,
   userSlice,
@@ -28,7 +29,8 @@ import {
   codeTypeSlice,
   dataSlice,
   dataTypeSlice,
-  pageSlice,
+  postSlice,
+  postTypeSlice,
 } from './';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
@@ -38,5 +40,6 @@ const rootReducer = combineReducers({
   [codeTypeSlice.name]: codeTypeSlice.reducer,
   [dataSlice.name]: dataSlice.reducer,
   [dataTypeSlice.name]: dataTypeSlice.reducer,
-  [pageSlice.name]: pageSlice.reducer,
+  [postSlice.name]: postSlice.reducer,
+  [postTypeSlice.name]: postTypeSlice.reducer,
 });

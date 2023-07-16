@@ -12,9 +12,10 @@ export const routerLinks = (name: string, type?: string) => {
     Setting: '/setting',
     Data: '/setting/data',
     'Data/Add': '/setting/data/add',
+    Post: '/setting/post',
+    'Post/Add': '/setting/post/add',
     Code: '/setting/code',
     'Code/Add': '/setting/code/add',
-    Page: '/setting/page',
   }; // 💬 generate link to here
 
   const apis: {
@@ -25,9 +26,10 @@ export const routerLinks = (name: string, type?: string) => {
     Code: '/code',
     UserRole: '/user-role',
     User: '/user',
-    DataType: '/data-type',
     Data: '/data',
-    Page: '/page',
+    DataType: '/data-type',
+    Post: '/post',
+    PostType: '/post-type',
   }; // 💬 generate api to here
 
   switch (type) {
