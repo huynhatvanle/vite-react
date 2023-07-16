@@ -1,6 +1,7 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import { Spin } from 'antd';
 
 import { Button } from '@core/button';
 import { Form } from '@core/form';
@@ -63,7 +64,7 @@ const Page = () => {
   return (
     <div className={'max-w-2xl mx-auto bg-white p-4 shadow rounded-xl'}>
       {!!user && (
-        <Fragment>
+        <Spin spinning={dayoffFacade.isLoading}>
           <div className="text-xl font-bold hidden sm:block mb-5">
             {!id
               ? t('routes.admin.Layout.Apply for leave') +
@@ -241,7 +242,7 @@ const Page = () => {
             handSubmit={handleSubmit}
             disableSubmit={dayoffFacade.isLoading}
           />
-        </Fragment>
+        </Spin>
       )}
     </div>
   );

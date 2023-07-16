@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
-import { Popconfirm } from 'antd';
+import { Popconfirm, Spin } from 'antd';
 import { useNavigate, useParams } from 'react-router';
 
 import { Avatar } from '@core/avatar';
@@ -75,134 +75,136 @@ const Page = () => {
         idElement={'dayoff'}
       />
       <div className={'max-w-4xl mx-auto bg-white p-4 shadow rounded-xl'}>
-        <table className="w-full mx-auto text-sm text-left text-gray-500 border">
-          <tbody>
-          <tr className={'border-b'}>
-            <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-              {t('titles.Code')}
-            </th>
-            <td className="py-4 px-6">
-              {data?.code}
-            </td>
-          </tr>
-            <tr className={'border-b'}>
-              <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                {t('dayoff.Fullname')}
-              </th>
-              <td className="py-4 px-6">
-                {data?.staff?.name && <Avatar src={data.staff!.avatar!} text={data.staff?.name} />}
-              </td>
-            </tr>
-            <tr className={'border-b'}>
-              <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                {t('dayoff.Manager')}
-              </th>
-              <td className="py-4 px-6">
-                {data?.manager?.name && <Avatar src={data.manager!.avatar!} text={data.manager?.name} />}
-              </td>
-            </tr>
-            <tr className={'border-b'}>
-              <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                {t('dayoff.Type')}
-              </th>
-              <td className="py-4 px-6">{listType.filter((item: any) => item.value === data?.type)[0]?.label}</td>
-            </tr>
-            <tr className={'border-b'}>
-              <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                {t('dayoff.Time')}
-              </th>
-              <td className="py-4 px-6">{listTime.filter((item: any) => item.value === data?.time)[0]?.label}</td>
-            </tr>
-            <tr className={'border-b'}>
-              <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                {t('dayoff.Leave Date')}
-              </th>
-              <td className="py-4 px-6">{showDate(data?.dateLeaveStart, data?.dateLeaveEnd)}</td>
-            </tr>
-            <tr className={'border-b'}>
-              <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                {t('dayoff.Reason')}
-              </th>
-              <td className="py-4 px-6 whitespace-pre">{data?.reason}</td>
-            </tr>
-            {data?.status !== 0 && (
-              <Fragment>
-                <tr className={'border-b'}>
-                  <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                    {t('dayoff.Status')}
-                  </th>
-                  <td className=" px-6">
-                    {data?.status !== 0 &&
-                      (data?.status === 1 ? (
-                        <CheckCircle className="w-5 h-5 fill-green-500" />
-                      ) : (
-                        <Times className="w-5 h-5 fill-red-500" />
-                      ))}
-                  </td>
-                </tr>
-                <tr className={'border-b'}>
-                  <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                    {t('dayoff.Approved At')}
-                  </th>
-                  <td className="py-4 px-6">{data?.approvedAt && dayjs(data.approvedAt).format(formatDate)}</td>
-                </tr>
-                <tr className={'border-b'}>
-                  <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                    {t('dayoff.Approved By')}
-                  </th>
-                  <td className="py-4 px-6">
-                    {data?.approvedBy?.name && <Avatar src={data?.approvedBy?.avatar} text={data?.approvedBy?.name} />}
-                  </td>
-                </tr>
-              </Fragment>
-            )}
-            {data?.status === -1 && (
+        <Spin spinning={dayoffFacade.isLoading}>
+          <table className="w-full mx-auto text-sm text-left text-gray-500 border">
+            <tbody>
               <tr className={'border-b'}>
                 <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                  {t('dayoff.Reason Reject')}
+                  {t('titles.Code')}
                 </th>
-                <td className="py-4 px-6">{data.reasonReject}</td>
+                <td className="py-4 px-6">{data?.code}</td>
               </tr>
-            )}
-          </tbody>
-        </table>
-        <div className={'flex gap-2 justify-end mt-5'}>
-          <Button
-            className="right-32 md:min-w-[12rem] justify-center out-line"
-            text={t('components.button.Back')}
-            onClick={() => navigate(`/${lang}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`)}
-          />
-          {user?.role?.permissions?.includes(keyRole.P_DAYOFF_UPDATE_STATUS) &&
-            data?.status === 0 &&
-            data.manager?.id === user.id && (
-              <Popconfirm
-                placement="left"
-                title={t('Bạn có muốn duyệt?')}
-                onConfirm={() => {
-                  dayoffFacade.putStatus({ id: data.id, status: 1 }),
-                    navigate(`/${lang}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
-                }}
-                okText={t('components.datatable.ok')}
-                cancelText={t('components.datatable.cancel')}
-              >
+              <tr className={'border-b'}>
+                <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+                  {t('dayoff.Fullname')}
+                </th>
+                <td className="py-4 px-6">
+                  {data?.staff?.name && <Avatar src={data.staff!.avatar!} text={data.staff?.name} />}
+                </td>
+              </tr>
+              <tr className={'border-b'}>
+                <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+                  {t('dayoff.Manager')}
+                </th>
+                <td className="py-4 px-6">
+                  {data?.manager?.name && <Avatar src={data.manager!.avatar!} text={data.manager?.name} />}
+                </td>
+              </tr>
+              <tr className={'border-b'}>
+                <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+                  {t('dayoff.Type')}
+                </th>
+                <td className="py-4 px-6">{listType.filter((item: any) => item.value === data?.type)[0]?.label}</td>
+              </tr>
+              <tr className={'border-b'}>
+                <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+                  {t('dayoff.Time')}
+                </th>
+                <td className="py-4 px-6">{listTime.filter((item: any) => item.value === data?.time)[0]?.label}</td>
+              </tr>
+              <tr className={'border-b'}>
+                <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+                  {t('dayoff.Leave Date')}
+                </th>
+                <td className="py-4 px-6">{showDate(data?.dateLeaveStart, data?.dateLeaveEnd)}</td>
+              </tr>
+              <tr className={'border-b'}>
+                <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+                  {t('dayoff.Reason')}
+                </th>
+                <td className="py-4 px-6 whitespace-pre">{data?.reason}</td>
+              </tr>
+              {data?.status !== 0 && (
+                <Fragment>
+                  <tr className={'border-b'}>
+                    <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+                      {t('dayoff.Status')}
+                    </th>
+                    <td className=" px-6">
+                      {data?.status !== 0 &&
+                        (data?.status === 1 ? (
+                          <CheckCircle className="w-5 h-5 fill-green-500" />
+                        ) : (
+                          <Times className="w-5 h-5 fill-red-500" />
+                        ))}
+                    </td>
+                  </tr>
+                  <tr className={'border-b'}>
+                    <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+                      {t('dayoff.Approved At')}
+                    </th>
+                    <td className="py-4 px-6">{data?.approvedAt && dayjs(data.approvedAt).format(formatDate)}</td>
+                  </tr>
+                  <tr className={'border-b'}>
+                    <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+                      {t('dayoff.Approved By')}
+                    </th>
+                    <td className="py-4 px-6">
+                      {data?.approvedBy?.name && (
+                        <Avatar src={data?.approvedBy?.avatar} text={data?.approvedBy?.name} />
+                      )}
+                    </td>
+                  </tr>
+                </Fragment>
+              )}
+              {data?.status === -1 && (
+                <tr className={'border-b'}>
+                  <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
+                    {t('dayoff.Reason Reject')}
+                  </th>
+                  <td className="py-4 px-6">{data.reasonReject}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+          <div className={'flex gap-2 justify-end mt-5'}>
+            <Button
+              className="right-32 md:min-w-[12rem] justify-center out-line"
+              text={t('components.button.Back')}
+              onClick={() => navigate(`/${lang}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`)}
+            />
+            {user?.role?.permissions?.includes(keyRole.P_DAYOFF_UPDATE_STATUS) &&
+              data?.status === 0 &&
+              data.manager?.id === user.id && (
+                <Popconfirm
+                  placement="left"
+                  title={t('Bạn có muốn duyệt?')}
+                  onConfirm={() => {
+                    dayoffFacade.putStatus({ id: data.id, status: 1 }),
+                      navigate(`/${lang}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
+                  }}
+                  okText={t('components.datatable.ok')}
+                  cancelText={t('components.datatable.cancel')}
+                >
+                  <Button
+                    className={'bg-blue-500 text-white md:min-w-[12rem] justify-center'}
+                    icon={<CheckCircle className="w-5 h-5" />}
+                    text={t('dayoff.Approve')}
+                  />
+                </Popconfirm>
+              )}
+            {user?.role?.permissions?.includes(keyRole.P_DAYOFF_UPDATE_STATUS) &&
+              data?.status === 0 &&
+              data.manager?.id === user.id && (
                 <Button
-                  className={'bg-blue-500 text-white md:min-w-[12rem] justify-center'}
-                  icon={<CheckCircle className="w-5 h-5" />}
-                  text={t('dayoff.Approve')}
+                  className={'!bg-red-500 text-white md:min-w-[12rem] justify-center'}
+                  icon={<Times className="w-5 h-5" />}
+                  text={t('dayoff.Reject')}
+                  onClick={() => modalFormRejectRef?.current?.handleEdit(data, false)}
                 />
-              </Popconfirm>
-            )}
-          {user?.role?.permissions?.includes(keyRole.P_DAYOFF_UPDATE_STATUS) &&
-            data?.status === 0 &&
-            data.manager?.id === user.id && (
-              <Button
-                className={'!bg-red-500 text-white md:min-w-[12rem] justify-center'}
-                icon={<Times className="w-5 h-5" />}
-                text={t('dayoff.Reject')}
-                onClick={() => modalFormRejectRef?.current?.handleEdit(data, false)}
-              />
-            )}
-        </div>
+              )}
+          </div>
+        </Spin>
       </div>
     </Fragment>
   );
