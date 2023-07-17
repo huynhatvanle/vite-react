@@ -395,17 +395,38 @@ Test Teardown       Tear Down
 #     Then Required message "Số điện thoại" displayed under "Xin vui lòng chỉ nhập số" field
 #     When Click "Huỷ bỏ" button
 
+# CRU-21
+#    When Go to page create data
+#    Sleep    2
+#    When Enter "Vai trò" add in "Manager" with "roleCode"
+#    Sleep    2
+#    When Required message under "Manager" field user role
+
+# CRU-22
+#    When Go to page create data
+#    When Enter "Vai trò" add in "Guest" with "roleCode"
+#    Sleep    2
+#    When Required message under "Trống" field user
+
+# CRU-23
+#    When Go to page create data
+#    Sleep    2
+#    When Enter "Vị trí" add in "Dev" with "positionCode"
+#    Sleep    2
+#    When Required message under "Developer" field user role
+
+# CRU-24
+#    When Go to page create data
+#    When Enter "Vị trí" add in "1234" with "positionCode"
+#    Sleep    2
+#    When Required message under "Trống" field user
+
 # CRU-27 Verify that creating accounts when add image
 #     When Go to page create data
 #     When Select file in "Tải ảnh lên" with "image.jpg"
 #     Sleep    2
 #     When Click "Lưu lại" button
 #     Sleep    2
-
-CRU-28 Verify that creating accounts when paste image
-    When Go to page create data
-    When Click "Paste" button
-    Sleep    2   
 
 # CRU-29
 #     When Go to page create data
@@ -600,6 +621,10 @@ CRU-28 Verify that creating accounts when paste image
 #    When Click on "prev_10" doublepagination
 #    Sleep    4 seconds
 
+# CRU-58
+#    When Go to page list data
+#    When Click "24" pagination
+#    Sleep    6
 
 *** Keywords ***
 Go to page create data

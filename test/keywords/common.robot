@@ -110,6 +110,12 @@ Required message "${name}" displayed under "${text}" field
     ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-form-item-explain-error")]
     Element Text Should Be    ${element}    ${text}
 
+Required message under "${text}" field user
+    Element Text Should Be    //*[contains(@class,"ant-empty-description")]    ${text}
+
+Required message under "${text}" field user role
+    Element Should Be Visible    //div[contains(@class,"ant-select-item-option-content")]    ${text}
+
 Enter "${type}" in "${name}" with "${text}"
     ${text}=    Get Random Text    ${type}    ${text}
     ${element}=    Get Element Form Item By Name    ${name}    //input[contains(@class, "ant-input")]
@@ -125,6 +131,9 @@ Enter "${type}" in textarea "${name}" with "${text}"
     Fill Text    ${element}    ${text}
     ${cnt}=    Get Length    ${text}
     IF    ${cnt} > 0    Set Global Variable    ${STATE["${name}"]}    ${text}
+
+Enter "${name}" add in "${text}" with "${id}"
+    Fill Text    xpath=//*[contains(@class, "ant-select-selection-search")]/input[@id="${id}"]    ${text}
 
 Enter date in "${name}" with "${text}"
     ${text}=    Get Random Text    date    ${text}
@@ -175,6 +184,11 @@ Click tree select "${name}" with "${text}"
     Click    ${element}
     Fill Text    ${element}//input    ${text}
     Click    xpath=//*[contains(@class, "ant-select-tree-node-content-wrapper") and @title="${text}"]
+
+Click "${text}" pagination
+    Click
+    ...    xpath=//div[contains(@class,"left")]//div[contains(@class,"ant-select-selector")]
+    Click    xpath=//div[contains(@class,"ant-select-item-option-content") and text() = "${text}"]
 
 Click assign list "${list}"
     ${words}=    Split String    ${list}    ,${SPACE}
