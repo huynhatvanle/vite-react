@@ -109,10 +109,10 @@ Required message "${name}" displayed under "${text}" field
     ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-form-item-explain-error")]
     Element Text Should Be    ${element}    ${text}
 
-Required message under "${text}" field user
+Required message under "${text}" field empty 
     Element Text Should Be    //*[contains(@class,"ant-empty-description")]    ${text}
 
-Required message under "${text}" field user role
+Required message under "${text}" field user
     Element Should Be Visible    //div[contains(@class,"ant-select-item-option-content")]    ${text}
 
 Enter "${type}" in "${name}" with "${text}"
