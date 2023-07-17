@@ -402,6 +402,15 @@ Card count <tr> "${text}"
     ###
 # SignIn common
 
+Check displayed "${text}" menu
+    Wait Until Element Is Visible    //span[contains(@class, "transition-all") and contains(text(), "${text}")]
+
+Check displayed "${text}" title
+    Wait Until Element Is Visible    //div[contains(@class, "text-right")]/div[contains(text(), "${text}")]
+
+Click "${text}" btn
+    Click    xpath=//button[contains(@class, "text-blue-600") and text()="${text}"]
+
 Enter to "${name}" Login
     ${element}=    Get Element Form Item By Name    ${name}    //input[contains(@class, "ant-input")]
     Press Keys    ${element}    Enter
