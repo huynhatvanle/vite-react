@@ -2,7 +2,10 @@ export default class Common {
   state: any = {};
   elements = {
     textButton: (text: string) => cy.get(`button[title="${text}"]`).should('not.be.disabled'),
+    // textIcon:()=> cy.get('a.flex>svg'),
     textMenu: (text: string) => cy.get('li.menu').contains(text),
+    textHeader: (text: string) => cy.get('header.header').contains(text),
+    texttranslate: (text: string) => cy.get('div.ant-select-selector').contains(text),
     textSubMenu: (text: string) => cy.get('a.sub-menu').contains(text),
     textTabBtn: (text: string) => cy.get('.ant-tabs-tab-btn').contains(text),
     tableByName: (val: string) => cy.get('.ant-table-cell').contains(val),
@@ -49,6 +52,11 @@ export default class Common {
     this.clickSubmitPopover();
   };
   clickTextMenu = (text: string) => this.elements.textMenu(text).click();
+  clickHeader = (text: string) => this.elements.textHeader(text).should('have.text',text);
+  clickTranslate = (text: string) => this.elements.texttranslate(text).click();
+  checkuser = (text: string) => this.elements.textMenu(text);
+  checksetup = (text: string) => this.elements.textMenu(text);
+  // textIcon = () => this.elements.textIcon().should("be.visible");
   clickTextSubMenu = (text: string, url: string) => {
     this.spin();
     this.elements.textSubMenu(text).click();

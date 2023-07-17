@@ -18,6 +18,10 @@ Login to admin
   Enter "text" in "Mật khẩu" with "Password1!"
   Click "Đăng nhập" button
   User look message "Thành công" popup
+Login to staff
+  Enter "email" in "Tên đăng nhập" with "quang@123.com"
+  Enter "text" in "Mật khẩu" with "Quang1234@"
+  Click "Đăng nhập" button
 
 #### Setup e Teardown
 Setup
@@ -52,8 +56,25 @@ Element Should Not Be Visible
   [Arguments]               ${locator}  ${message}=${EMPTY}   ${timeout}=${SHOULD_TIMEOUT}
   Wait For Elements State   ${locator}  hidden                ${timeout}                    ${message}
 
-
+Title Should Be
+    [Arguments]    ${expectedTitle}
+    ${actualTitle}    Get Title
+    Should Be Equal As Strings    ${actualTitle}    ${expectedTitle}
+User look "${column}" column span
+    ${element}=        Set Variable         //span[contains(text(),'${column}')]
+    Wait Until Element Is Visible    ${element}
+    Element Text Should Be        ${element}        ${column}
+User look "${column}" column th
+    ${element}=        Set Variable         //th[contains(text(),'${column}')]
+    Wait Until Element Is Visible    ${element}
+    Element Text Should Be        ${element}        ${column}
+    
 ###  -----  Form  -----  ###
+User look title should be "${text}"
+    Sleep    1 seconds
+    Get Title    ==   ${text}
+    
+
 Get Random Text
   [Arguments]               ${type}                           ${text}
   ${symbol}                 Set Variable                      _RANDOM_
@@ -137,7 +158,24 @@ Enter date in "${name}" with "${text}"
   IF  ${cnt} > 0
       Set Global Variable   ${STATE["${name}"]}               ${text}
   END
-
+Enter dayoff in "${name}" dateFrom "${dateFrom}" with "${text}" dateTo "${dateTo}" with "${text1}"
+    ${text}=    Get Random Text    date    ${text}
+    ${text1}=    Get Random Text    date    ${text1}
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //*[contains(@class, "ant-picker-input")]/input[@placeholder="${dateFrom}"]
+    Click    ${element}
+    Clear Text    ${element}
+    Fill Text    ${element}    ${text}
+    ${element2}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //*[contains(@class, "ant-picker-input")]/input[@placeholder="${dateTo}"]
+    Click    ${element2}
+    Clear Text    ${element2}
+    Fill Text    ${element2}    ${text1}
+    Press Keys    ${element}    Tab
+    Press Keys    ${element}    Tab
+    
 Click select "${name}" with "${text}"
   ${text}=                  Get Random Text                   Text                          ${text}
   ${element}=               Get Element Form Item By Name     ${name}                       //*[contains(@class, "ant-select-show-arrow")]
@@ -229,6 +267,19 @@ Click "${text}" button
   Click                     xpath=//button[@title = "${text}"]
   Click Confirm To Action
   Scroll By                 ${None}
+Click "${text}" button Xoa
+  ${element}=    Get Elements    //button[@title = "${text}"]
+  Wait Until Element Is Visible     ${element}[0]
+  Click                    ${element}[0]
+  Click Confirm To Action
+Get Delete Dayoff
+    [Arguments]    ${name}    ${xpath}=${EMPTY}
+    RETURN    xpath=//*[contains(@class, "ant-table-row")]/td[text()="${name}"]/../${xpath}
+
+Click delete dayoff "${name}"
+    ${element}=    Get Delete Dayoff    ${name}    /button[contains(@title,"Xóa")]
+    Click    ${element}
+    Click    //button[contains(@type, "button")]/span[contains(text(),"Đồng ý")]
 
 Click "${text}" tab button
   Click                     xpath=//*[contains(@class, "ant-tabs-tab-btn") and contains(text(), "${text}")]
@@ -276,3 +327,14 @@ Wait Until Element Spin
   IF    ${count} > 0
     Wait Until Element Is Not Exist                           ${element}
   END
+
+View User List with "${role}"
+    ${user_list}=    Get Elements    xpath=//td[@class='ant-table-cell' and text()='${role}']
+    Run Keyword If  ${user_list}    View User List Loop    ${role}    ${user_list}
+    ...    ELSE    Log    Không tìm thấy user có vai trò là "${role}" nào!
+View User List Loop
+    [Arguments]    ${role}    ${user_list}
+    FOR    ${user}    IN    @{user_list}
+        ${user_role}    Get Text    ${user}
+        Run Keyword If    '${user_role}' == '${role}'    Log To Console     ${user_role}
+    END

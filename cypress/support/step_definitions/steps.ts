@@ -29,6 +29,11 @@ Given('User go to login page', () => {
 });
 When('Click "{}" button', common.clickTextButton);
 When('Click "{}" menu', common.clickTextMenu);
+When('Click "{}" translate', common.clickTranslate);
+When('Check "{}" header', common.clickHeader);
+When('Check "{}" user', common.checkuser);
+When('Check "{}" setup', common.checksetup);
+// When('Check "{}" icon', common.textIcon);
 When('Click "{}" sub menu to "{}"', common.clickTextSubMenu);
 When('Click "{}" tab button', common.clickTextTabBtn);
 When('Click on the "{}" button in the "{}" table line', common.clickButtonTableByName);

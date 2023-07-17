@@ -1,0 +1,902 @@
+{"level":30,"time":"2023-07-15T13:45:50.017Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Listening on 55680"}
+{"level":30,"time":"2023-07-15T13:45:50.220Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-15T13:45:50.221Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-15T13:45:50.223Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-15T13:45:50.223Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9969:59)
+    at PlaywrightServer.setTimeout (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10214:57)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-15T13:45:50.233Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newBrowser"}
+{"level":30,"time":"2023-07-15T13:45:50.571Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newBrowser"}
+{"level":30,"time":"2023-07-15T13:45:50.577Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newPage"}
+{"level":30,"time":"2023-07-15T13:45:50.577Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"currentBrowser: [object Object]"}
+{"level":30,"time":"2023-07-15T13:45:50.588Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active context"}
+{"level":30,"time":"2023-07-15T13:45:50.757Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Video path: undefined"}
+{"level":30,"time":"2023-07-15T13:45:50.757Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active page"}
+{"level":30,"time":"2023-07-15T13:45:51.633Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newPage"}
+{"level":30,"time":"2023-07-15T13:45:51.660Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-07-15T13:45:51.660Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-15T13:45:52.639Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-07-15T13:45:52.648Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-07-15T13:45:52.648Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-15T13:45:52.667Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-07-15T13:45:52.686Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-07-15T13:45:52.686Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-15T13:45:52.753Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-07-15T13:45:52.758Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-07-15T13:45:52.759Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-15T13:45:52.820Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-07-15T13:45:52.833Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-07-15T13:45:52.833Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//button[@title = \"Đăng nhập\"] in page."}
+{"level":30,"time":"2023-07-15T13:45:52.936Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-07-15T13:45:52.943Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-07-15T13:45:52.943Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-popover\")]//*[contains(@class, \"ant-btn-primary\")] in page."}
+{"level":30,"time":"2023-07-15T13:45:52.951Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-07-15T13:45:52.958Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-15T13:45:52.972Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-15T13:45:52.977Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-15T13:45:52.979Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-15T13:45:52.983Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-15T13:45:52.985Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-15T13:45:52.986Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-15T13:45:52.990Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-15T13:45:52.991Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-15T13:45:52.992Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-15T13:45:52.998Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-07-15T13:45:52.998Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
+{"level":30,"time":"2023-07-15T13:45:53.004Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-07-15T13:45:53.012Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method waitForElementState"}
+{"level":30,"time":"2023-07-15T13:45:53.012Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
+{"level":30,"time":"2023-07-15T13:45:59.523Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method waitForElementState"}
+{"level":30,"time":"2023-07-15T13:45:59.533Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-07-15T13:45:59.534Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//a[contains(@class, \"sub-menu\") and descendant::span[contains(text(), \"Tạo mới\")]] in page."}
+{"level":30,"time":"2023-07-15T13:46:02.074Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Removed page=51de0ffa-1c7d-43ba-a5cb-e2b9e68ad65c from context=d98c1427-71bb-4764-a03d-a2045bdf97c8 page stack"}
+{"level":40,"time":"2023-07-15T13:46:02.077Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Supress locator.click: Target closed error"}
+{"level":30,"time":"2023-07-15T13:46:02.077Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+================= Original suppressed error =================
+Error: No page open.
+    at PlaywrightServer.getActivePage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9974:15)
+    at PlaywrightServer.getUrl (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10230:42)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-15T13:46:03.104Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
+================= Original suppressed error =================
+Error: Tried to take screenshot, but no page was open.
+    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
+    at takeScreenshot (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8314:3)
+    at PlaywrightServer.takeScreenshot (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-15T13:46:03.105Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  takeScreenshot"}
+{"level":30,"time":"2023-07-15T13:46:03.196Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2023-07-15T13:46:03.463Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9969:59)
+    at PlaywrightServer.setTimeout (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10214:57)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-15T13:46:03.467Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-15T13:46:03.467Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9969:59)
+    at PlaywrightServer.setTimeout (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10214:57)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-15T13:46:03.472Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-15T13:46:03.472Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-15T13:46:05.537Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2023-07-15T13:46:05.537Z","pid":18440,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}

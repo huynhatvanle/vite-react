@@ -14,7 +14,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "test-storybook": "test-storybook",
-    "cy:run": "npx cypress run --e2e --browser chrome --config viewportWidth=1366,viewportHeight=768",
+    "cy:run": "npx cypress open --e2e --browser chrome --config viewportWidth=1366,viewportHeight=768",
     "pretest": "rimraf cypress/reports && rimraf cypress/screenshots && rimraf cypress/videos && rimraf cypress/downloads",
     "test": "npm run pretest && npm run cy:run",
     "allure:report": "allure generate ./cypress/reports/allure-results --clean -o ./cypress/reports/allure-report",
