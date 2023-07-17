@@ -290,4 +290,27 @@ Click to "${name}"
 
 Click "${text}" btn
   Click                     xpath=//button[contains(@class, "text-blue-600")]
-  
+
+Click "${text}" dn
+   Click                     xpath=//input[@id='email']
+
+Click "${text}" mk
+   Click                     xpath=//input[@id='email']
+
+Click "${text}" ds
+  Click                     xpath=//header/div[1]/div[1]/h1[1]
+
+Click "${text}" lang
+  Click                     xpath=//header/div[1]/div[2]/label[1]/div[1]
+
+Click account icon "${url}"
+    Click    //img[contains(@src, "${url}")]
+
+Click span "${text}"
+
+    Click    xpath=//span[contains(@class, "ant-dropdown-menu-title-content")]/div[contains(text(), "${text}")]
+Check Displayed "${text}" ds
+    ${element}=    Wait Until Element Is Visible   //div[contains(@class, "items-center")]//h1[contains(text(), "${text}")]
+
+Check Displayed "${url}"
+    ${element}=    Wait Until Element Is Visible   //img[contains(@src, "${url}")]
