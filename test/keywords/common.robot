@@ -317,6 +317,29 @@ Enter "${name}" add with "${text}"
 
 #### Team ####
 
+Click "${text}" button action table
+    Click    xpath=//*tr[1]/td[4]/div[1]//button[@title = "${text}"]
+    Click Confirm To Action
+    Scroll By    ${None}
+
+Click action "${text}" with "${name}" in table
+    Click
+    ...    xpath=//*[contains(@class, "ant-table-cell") and text()="${name}"]/../*[contains(@class, "ant-table-cell")]/div[1]//button[@title = "${text}"]
+    Click Confirm To Action
+    Scroll By    ${None}
+
+Enter select "${name}" with "${text}"
+    ${text}=    Get Random Text    Text    ${text}
+    ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-select-show-arrow")]
+    Click    ${element}
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //*[contains(@class, "ant-select-selection-search-input")]
+    Fill Text    ${element}    ${text}
+    Press Keys    ${element}    Enter
+    ${cnt}=    Get Length    ${text}
+    IF    ${cnt} > 0    Set Global Variable    ${STATE["${name}"]}    ${text}
+
 Get Element Table Form Item By Name
     [Arguments]    ${xpath}=${EMPTY}
     RETURN    xpath=//*[contains(@class, "ant-table-thead")]/tr/${xpath}
