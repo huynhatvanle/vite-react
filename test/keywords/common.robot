@@ -1,4 +1,3 @@
-
 *** Settings ***
 Library     Browser
 Library     FakerLibrary    locale=en_IN
@@ -329,3 +328,75 @@ Enter "${name}" add with "${text}"
     # ${element}=    Set Variable
     # ...    xpath=//div[contains(@class,"ant-select-selector")]//input[contains(@value,"${name}")]
     Fill Text    xpath=//*[contains(@class, "ant-select-selection-search")]/input[@id="positionCode"]    ${text}
+
+#### Team ####
+
+Click "${text}" button action table
+    Click    xpath=//*tr[1]/td[4]/div[1]//button[@title = "${text}"]
+    Click Confirm To Action
+    Scroll By    ${None}
+
+Click action "${text}" with "${name}" in table
+    Click
+    ...    xpath=//*[contains(@class, "ant-table-cell") and text()="${name}"]/../*[contains(@class, "ant-table-cell")]/div[1]//button[@title = "${text}"]
+    Click Confirm To Action
+    Scroll By    ${None}
+
+Enter select "${name}" with "${text}"
+    ${text}=    Get Random Text    Text    ${text}
+    ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-select-show-arrow")]
+    Click    ${element}
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //*[contains(@class, "ant-select-selection-search-input")]
+    Fill Text    ${element}    ${text}
+    Press Keys    ${element}    Enter
+    ${cnt}=    Get Length    ${text}
+    IF    ${cnt} > 0    Set Global Variable    ${STATE["${name}"]}    ${text}
+
+Get Element Table Form Item By Name
+    [Arguments]    ${xpath}=${EMPTY}
+    RETURN    xpath=//*[contains(@class, "ant-table-thead")]/tr/${xpath}
+
+Get Element Pagination
+    [Arguments]    ${xpath}=${EMPTY}
+    RETURN    xpath=//*[contains(@class, "flex sm:flex-wrap justify-center duration-300 transition-all")]/${xpath}
+
+Find "${name}" table
+    ${element}=    Get Element Table Form Item By Name    th[contains(text(), "${name}")]
+    Element Text Should Be    ${element}    ${name}
+
+Find "${name}" table1
+    ${element}=    Get Element Table Form Item By Name    th/div/span[contains(text(), "${name}")]
+    Element Text Should Be    ${element}    ${name}
+
+Find search "${text}"
+    Click    xpath=//*[@placeholder="Tìm kiếm"]
+    Fill Text    xpath=//*[@placeholder="Tìm kiếm"]    ${text}
+
+Search no data
+    Element Text Should Be
+    ...    xpath=//tbody/tr[contains(@class, "ant-table-placeholder")]/td[contains(@class, "ant-table-cell")]/div
+    ...    Trống
+
+Search have data
+    Element Should Not Be Visible
+    ...    xpath=//tbody/tr[contains(@class, "ant-table-placeholder")]/td[contains(@class, "ant-table-cell")]/div
+
+Click "${text}" pagination to "${page}"
+    ${element}=    Get Element Pagination    button[@aria-label="${text}"]
+    Click    ${element}
+    ${element1}=    Get Element Pagination    button[contains(@class, "bg-blue-600")]
+    Element Text Should Be    ${element1}    ${page}
+
+Check title "${text}" page
+    Element Text Should Be    xpath=//*[contains(@class, "text-xl font-bold hidden sm:block")]    ${text}
+
+Card count <tr> "${text}"
+    Click
+    ...    xpath=//div[contains(@class,"left")]//div[contains(@class,"ant-select-selector")]
+    Click    xpath=//div[contains(@class,"ant-select-item-option-content") and text() = "${text}"]
+    ${elements}=    Set Variable    xpath=//tbody/tr
+    ${row_count}=    Get Element Count    ${elements}
+    Should Be Equal    ${text}    ${row_count}
+    ###
