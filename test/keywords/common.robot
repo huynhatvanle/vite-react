@@ -2,6 +2,7 @@
 Library     Browser
 Library     FakerLibrary    locale=en_IN
 Library     String
+Resource    ../testcases/user.robot
 
 
 *** Variables ***
@@ -19,7 +20,7 @@ Login to admin
     Enter "email" in "Tên đăng nhập" with "admin_balan@getnada.com"
     Enter "text" in "Mật khẩu" with "Ari123456#"
     Click "Đăng nhập" button
-    User look message "Thành công" popup
+    User look message "Đăng nhập thành công" popup
 
 #### Setup e Teardown
 
