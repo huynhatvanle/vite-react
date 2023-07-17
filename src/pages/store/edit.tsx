@@ -501,21 +501,9 @@ const Page = () => {
                           col: 3,
                         },
                       },
-                      {
-                        title: '',
-                        name: '',
-                        formItem: {
-                          render() {
-                            return (
-                              <div className="text-lg text-teal-900 font-bold mb-2.5">
-                                {t('store.Representative information')}
-                              </div>
-                            );
-                          },
-                        },
-                      },
                     ]}
                   />
+                  <div className='bg-white text-lg text-teal-900 font-bold px-5 pb-2.5'>{t('store.Representative information')}</div>
                   <Form
                     formAnt={forms}
                     values={{

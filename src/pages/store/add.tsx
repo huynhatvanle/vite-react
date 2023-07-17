@@ -80,13 +80,6 @@ const Page = () => {
               rules: [{ type: 'phone', min: 8, max: 12 }],
             },
           },
-        ]}
-      />
-      <Form
-        formAnt={forms}
-        values={{ ...data }}
-        className="intro-x form-store1"
-        columns={[
           {
             title: '',
             name: 'address',
@@ -99,6 +92,13 @@ const Page = () => {
               },
             },
           },
+        ]}
+      />
+      <Form
+        formAnt={forms}
+        values={{ ...data }}
+        className="intro-x form-store1"
+        columns={[
           {
             title: 'store.Province',
             name: 'provinceId',
@@ -169,21 +169,10 @@ const Page = () => {
               rules: [{ type: 'required' }],
               col: 3,
             },
-          },
-          {
-            title: '',
-            name: '',
-            formItem: {
-              render() {
-                return (
-                  <div className='text-lg text-teal-900 font-bold mb-2.5'>{t('store.Representative information')}</div>
-                )
-              }
-            }
-          },
+          }
         ]}
       />
-
+      <div className='bg-white text-lg text-teal-900 font-bold px-5 pb-2.5'>{t('store.Representative information')}</div>
       <Form
         formAnt={forms}
         values={{ ...data }}
