@@ -14,10 +14,10 @@ ${STATE}            Evaluate  json.loads('''{}''')  json
 
 *** Keywords ***
 Login to admin
-  Enter "email" in "Tên đăng nhập" with "admin@admin.com"
-  Enter "text" in "Mật khẩu" with "Password1!"
+  Enter "email" in "Tên đăng nhập" with "admin_balan@getnada.com"
+  Enter "text" in "Mật khẩu" with "Ari123456#"
   Click "Đăng nhập" button
-  User look message "Thành công" popup
+  User look message "Đăng nhập thành công" popup
 
 #### Setup e Teardown
 Setup
@@ -240,6 +240,9 @@ Select on the "${text}" item line
 
 Click "${text}" menu
   Click                     xpath=//li[contains(@class, "menu") and descendant::span[contains(text(), "${text}")]]
+
+Click "${text}" menuUser
+    Click    xpath=//li[contains(@class,"flex")]/span[contains(text(),"${text}")]
 
 Click "${text}" sub menu to "${url}"
   Wait Until Element Spin

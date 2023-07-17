@@ -10,13 +10,14 @@ DA-01 Verify that Add New successfully with enter the data
   When Click on the "Xóa" button in the "Email" table line
 
 *** Keywords ***
-Go to page create data
+Go to page create user
   When Login to admin
-  When Click "Người Dùng" menu
-  When Click "Tạo mới" sub menu to "/vn/user/add"
+  When Click "Quản lý người dùng" menuUser
+  When Click "Thêm quản trị viên" button
+  # When Click "Thêm quản trị viên" sub menu to "/vn/user/add"
 
 Background Happy paths
-  When Go to page create data
+  When Go to page create user
   When Enter "text" in "Họ và tên" with "_RANDOM_"
   When Enter "email" in "Email" with "_RANDOM_"
   When Enter "text" in "Mật khẩu" with "Password1!"
