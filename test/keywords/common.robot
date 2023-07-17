@@ -109,7 +109,7 @@ Required message "${name}" displayed under "${text}" field
     ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-form-item-explain-error")]
     Element Text Should Be    ${element}    ${text}
 
-Required message under "${text}" field empty 
+Required message under "${text}" field empty
     Element Text Should Be    //*[contains(@class,"ant-empty-description")]    ${text}
 
 Required message under "${text}" field user
@@ -400,3 +400,40 @@ Card count <tr> "${text}"
     ${row_count}=    Get Element Count    ${elements}
     Should Be Equal    ${text}    ${row_count}
     ###
+# SignIn common
+
+Enter to "${name}" Login
+    ${element}=    Get Element Form Item By Name    ${name}    //input[contains(@class, "ant-input")]
+    Press Keys    ${element}    Enter
+
+Hover account icon "${url}"
+    Hover    //img[contains(@src, "${url}")]
+
+Click span "${text}"
+    Click    xpath=//span[contains(@class, "ant-dropdown-menu-title-content")]/div[contains(text(), "${text}")]
+    # //span[contains(@class, "ant-dropdown-menu-title-content")]
+
+Click "${name}" Eye icon
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //input[contains(@class, "ant-input")]//following-sibling::*
+    Click    ${element}
+
+Check Displayed "${text}" ds
+    ${element}=    Wait Until Element Is Visible
+    ...    //div[contains(@class, "items-center")]//h1[contains(text(), "${text}")]
+
+Check Displayed "${url}"
+    ${element}=    Wait Until Element Is Visible    //img[contains(@src, "${url}")]
+
+Click change language "${text}"
+    # ${keyword}=    Set Variable    ${text}
+    # ${element}=    Get Text    //span[contains(@class, "ant-select-selection-item") and contains(text(), "${text}")]
+    Click    //span[contains(@class, "ant-select-selection-item")]
+    Click    //*[contains(@class, "ant-select-item-option-content") and text()="${text}"]
+    # Sleep    2 seconds
+    # Click    //span[contains(@class, "ant-select-selection-item")]
+    # Click    //*[contains(@class, "ant-select-item-option-content") and text()="Vietnamese"]
+
+Check language "${text}"
+    Element Text Should Be    //span[contains(@class, "ant-select-selection-item")]    ${text}
