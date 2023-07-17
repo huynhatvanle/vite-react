@@ -159,19 +159,14 @@ SLM-18 Verify that user can view the list of leave request successfully
 
 SLM-21 Verify that painations is shortened when changing rows per page
     When Go to page list data
-    When Click Pagination "11" change "22"
-    Sleep    5
+    When Click Pagination "20"
 
 SLM-22 Verify that user can view the next/previous/first/last page when click on corresponding button in pagination navigate
     When Go to page list data
     When Click Next Page
-    Sleep    5
     When Click Previous Page
-    Sleep    5
     # When Click Last Page
-    # Sleep    5
     # When Click First Page
-    # Sleep    5
 
 
 *** Keywords ***

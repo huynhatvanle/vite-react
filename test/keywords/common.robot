@@ -446,3 +446,103 @@ Click change language "${text}"
 
 Check language "${text}"
     Element Text Should Be    //span[contains(@class, "ant-select-selection-item")]    ${text}
+
+Enter dayoff in "${name}" dateFrom "${dateFrom}" with "${text}" dateTo "${dateTo}" with "${text1}"
+    ${text}=    Get Random Text    date    ${text}
+    ${text1}=    Get Random Text    date    ${text1}
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //*[contains(@class, "ant-picker-input")]/input[@placeholder="${dateFrom}"]
+    Click    ${element}
+    Clear Text    ${element}
+    Fill Text    ${element}    ${text}
+    ${element2}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //*[contains(@class, "ant-picker-input")]/input[@placeholder="${dateTo}"]
+    Click    ${element2}
+    Clear Text    ${element2}
+    Fill Text    ${element2}    ${text1}
+    Press Keys    ${element2}    Tab
+    Press Keys    ${element2}    Tab
+
+Get Title
+    [Arguments]    ${name}    ${xpath}=${EMPTY}
+    RETURN    xpath=//div/div/h1[text()="${name}"]${xpath}
+
+Check title "${text}" in page
+    ${element}=    Get Title    ${text}
+    Element Text Should Be    ${element}    ${text}
+
+Get dayoff
+    RETURN    xpath=//div[contains(@class, 'max-w-2xl')]/div[contains(@class, 'text-xl')]
+
+Check remaining leave days in dayoff with "${type}"
+    ${day}=    Get dayoff
+    ${text}=    Get Text    ${day}
+    When Click select "Loại phép" with "${type}"
+    When Click select "Thời gian" with "Cả ngày"
+    When Enter dayoff in "Ngày nghỉ" dateFrom "Ngày bắt đầu" with "27-03-2023" dateTo "Ngày kết thúc" with "30-03-2023"
+    When Enter "text" in textarea "Lý do" with "Ốm"
+    When Click "Lưu lại" button
+    Then User look message "Tạo thành công" popup
+    Sleep    5
+    Then Check title "Chi tiết ngày nghỉ" in page
+    When Click "Tạo mới" sub menu to "/vn/dayoff/add"
+    ${day1}=    Get dayoff
+    ${text1}=    Get Text    ${day1}
+    IF    '${type}' == 'Nghỉ phép có lương'
+        Should Not Be Equal    ${text}    ${text1}
+    END
+
+    IF    '${type}' == 'Nghỉ phép không lương' or '${type}' == 'Làm remote'
+        Should Be Equal    ${text}    ${text1}
+    END
+
+Get Delete Dayoff
+    [Arguments]    ${name}    ${xpath}=${EMPTY}
+    RETURN    xpath=//*[contains(@class, "ant-table-row")]/td[text()="${name}"]/../${xpath}
+
+Click delete dayoff "${name}"
+    ${element}=    Get Delete Dayoff    ${name}    /button[contains(@title,"Xóa")]
+    Click    ${element}
+    Click    //button[contains(@type, "button")]/span[contains(text(),"Đồng ý")]
+
+Get Title Table Dayoff
+    [Arguments]    ${name}    ${xpath}=${EMPTY}
+    RETURN    xpath=//th[contains(@aria-label, "${name}")]${xpath}
+
+Check title table "${text}" in dayoff
+    ${element}=    Get Title Table Dayoff    ${text}
+    Element Text Should Be    ${element}    ${text}
+
+Get Title Table Dayoff Child
+    [Arguments]    ${name}    ${xpath}=${EMPTY}
+    RETURN    xpath=//th[contains(text(), "${name}")]${xpath}
+
+Check title table child "${text}" in dayoff
+    ${element}=    Get Title Table Dayoff Child    ${text}
+    Element Text Should Be    ${element}    ${text}
+
+Get Pagination
+    [Arguments]    ${name}    ${xpath}=${EMPTY}
+    RETURN    xpath=//div[contains(@class, "ant-select-selector")]/span[contains(text(), "${name}")]
+
+Click Pagination "${text}"
+    ${element}=    Get Pagination    ${text}
+    Click    ${element}
+    Wait Until Element Spin
+    ${data}=    Set Variable    //tbody/tr
+    ${count}=    Get Element Count    ${data}
+    Should Be Equal    ${text}    ${count}
+
+Click Previous Page
+    Click    //button[contains(@aria-label,"prev") and not(contains(@aria-label, "_"))]
+
+Click First Page
+    Click    //button[contains(@aria-label,"prev_10")]
+
+Click Next Page
+    Click    //button[contains(@aria-label,"next") and not(contains(@aria-label, "_"))]
+
+Click Last Page
+    Click    //button[contains(@aria-label,"next_10")]
