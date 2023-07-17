@@ -317,6 +317,10 @@ Enter "${name}" add with "${text}"
 
 #### Team ####
 
+Get Element Table Form Item By Name
+    [Arguments]    ${xpath}=${EMPTY}
+    RETURN    xpath=//*[contains(@class, "ant-table-thead")]/tr/${xpath}
+
 Get Element Pagination
     [Arguments]    ${xpath}=${EMPTY}
     RETURN    xpath=//*[contains(@class, "flex sm:flex-wrap justify-center duration-300 transition-all")]/${xpath}

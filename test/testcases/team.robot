@@ -170,20 +170,13 @@ DA-21 Verify that user can search an existing team when entering incorrect keywo
     When Search no data
 
 DA-22 Verify that user can view the next/previous/first/last page when click on corresponding button in pagination navigate
-
-When Login to admin
-
-When Click "Thiết lập" menu
-
-When Click "Nhóm" sub menu to "/vn/team"
-
-When Click "next" pagination to "2"
-
-When Click "prev" pagination to "1"
-
-When Click "next_10" pagination to "10"
-
-When Click "prev_10" pagination to "1"
+    When Login to admin
+    When Click "Thiết lập" menu
+    When Click "Nhóm" sub menu to "/vn/team"
+    When Click "next" pagination to "2"
+    When Click "prev" pagination to "1"
+    When Click "next_10" pagination to "10"
+    When Click "prev_10" pagination to "1"
 
 DA-23 Verify that painations is shortened when changing rows per page
     When Login to admin
