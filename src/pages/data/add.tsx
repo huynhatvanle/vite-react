@@ -38,7 +38,7 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('Data/Add')}`);
+          navigate(`/${lang}${routerLinks('Data')}/add`);
         }
         break;
     }

@@ -205,7 +205,7 @@ const Page = () => {
                     <Button
                       icon={<Plus className="icon-cud !h-5 !w-5" />}
                       text={t('routes.admin.Layout.Add')}
-                      onClick={() => navigate(`/${lang}${routerLinks('Code/Add')}`)}
+                      onClick={() => navigate(`/${lang}${routerLinks('Code')}/add`)}
                     />
                   )}
                 </div>

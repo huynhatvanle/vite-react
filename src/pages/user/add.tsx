@@ -37,14 +37,14 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('User/Add')}`);
+          navigate(`/${lang}${routerLinks('User')}/add`);
         }
         break;
     }
   }, [userFacade.status]);
 
   const handleBack = () => {
-    navigate(`/${lang}${routerLinks('User/List')}?${new URLSearchParams(param).toString()}`);
+    navigate(`/${lang}${routerLinks('User')}?${new URLSearchParams(param).toString()}`);
   };
   const handleSubmit = (values: User) => {
     if (id) userFacade.put({ ...values, id });

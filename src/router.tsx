@@ -47,7 +47,7 @@ const pages = [
         title: 'Code',
       },
       {
-        path: routerLinks('Code/Add'),
+        path: routerLinks('Code') + '/add',
         component: React.lazy(() => import('@pages/code/add')),
         title: 'Code/Add',
       },
@@ -62,7 +62,7 @@ const pages = [
         title: 'Data',
       },
       {
-        path: routerLinks('Data/Add'),
+        path: routerLinks('Data') + '/add',
         component: React.lazy(() => import('@pages/data/add')),
         title: 'Data/Add',
       },
@@ -72,12 +72,22 @@ const pages = [
         title: 'Data/Edit',
       },
       {
+        path: routerLinks('DataType') + '/add',
+        component: React.lazy(() => import('@pages/data/type/add')),
+        title: 'DataType/Add',
+      },
+      {
+        path: routerLinks('DataType') + '/:id/edit',
+        component: React.lazy(() => import('@pages/data/type/add')),
+        title: 'DataType/Edit',
+      },
+      {
         path: routerLinks('Post'),
         component: React.lazy(() => import('@pages/post')),
         title: 'Post',
       },
       {
-        path: routerLinks('Post/Add'),
+        path: routerLinks('Post') + '/add',
         component: React.lazy(() => import('@pages/post/add')),
         title: 'Post/Add',
       },
@@ -87,12 +97,22 @@ const pages = [
         title: 'Post/Edit',
       },
       {
-        path: routerLinks('User/List'),
+        path: routerLinks('PostType') + '/add',
+        component: React.lazy(() => import('@pages/post/type/add')),
+        title: 'PostType/Add',
+      },
+      {
+        path: routerLinks('PostType') + '/:id/edit',
+        component: React.lazy(() => import('@pages/post/type/add')),
+        title: 'PostType/Edit',
+      },
+      {
+        path: routerLinks('User'),
         component: React.lazy(() => import('@pages/user')),
         title: 'User/List',
       },
       {
-        path: routerLinks('User/Add'),
+        path: routerLinks('User') + '/add',
         component: React.lazy(() => import('@pages/user/add')),
         title: 'User/Add',
       },

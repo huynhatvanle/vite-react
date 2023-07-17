@@ -263,7 +263,7 @@ const Page = () => {
                     <Button
                       icon={<Plus className="icon-cud !h-5 !w-5" />}
                       text={t('components.button.New')}
-                      onClick={() => navigate(`/${lang}${routerLinks('User/Add')}`)}
+                      onClick={() => navigate(`/${lang}${routerLinks('User')}/add`)}
                     />
                   )}
                 </div>

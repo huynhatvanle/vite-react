@@ -14,7 +14,6 @@ import classNames from 'classnames';
 const Page = () => {
   const { user, setBreadcrumbs } = GlobalFacade();
   const { result, get, isLoading } = DataTypeFacade();
-  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
   useEffect(() => {
     if (!result?.data) get({});
     setBreadcrumbs([
@@ -45,13 +44,13 @@ const Page = () => {
         <div className="shadow rounded-xl w-full bg-white overflow-hidden">
           <div className="h-14 flex justify-between items-center border-b border-gray-100 px-4 py-2">
             <h3 className={'font-bold text-lg'}>Data Code</h3>
-            {/*<div className="flex items-center">*/}
-            {/*  <Button*/}
-            {/*    icon={<Plus className="icon-cud !h-5 !w-5" />}*/}
-            {/*    text={t('routes.admin.Layout.Add')}*/}
-            {/*    onClick={() => navigate(`/${lang}${routerLinks('Code/Add')}`)}*/}
-            {/*  />*/}
-            {/*</div>*/}
+            <div className="flex items-center">
+              <Button
+                icon={<Plus className="icon-cud !h-5 !w-5" />}
+                text={t('routes.admin.Layout.Add')}
+                onClick={() => navigate(`/${lang}${routerLinks('DataType')}/add`)}
+              />
+            </div>
           </div>
           <Spin spinning={isLoading}>
             <div className="h-[calc(100vh-13rem)] overflow-y-auto relative scroll hidden sm:block">
@@ -73,37 +72,37 @@ const Page = () => {
                   >
                     {index + 1}. {data.name}
                   </div>
-                  {/*<span className="w-16 flex justify-end gap-1">*/}
-                  {/*  {user?.role?.permissions?.includes(keyRole.P_CODE_TYPE_UPDATE) && (*/}
-                  {/*    <Tooltip title={t('routes.admin.Layout.Edit')}>*/}
-                  {/*      <button*/}
-                  {/*        className={'opacity-0 group-hover:opacity-100 transition-all duration-300 '}*/}
-                  {/*        title={t('routes.admin.Layout.Edit') || ''}*/}
-                  {/*        onClick={() => navigate(`/${lang}${routerLinks('Code')}/${data.id}/edit`)}*/}
-                  {/*      >*/}
-                  {/*        <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />*/}
-                  {/*      </button>*/}
-                  {/*    </Tooltip>*/}
-                  {/*  )}*/}
-                  {/*  {user?.role?.permissions?.includes(keyRole.P_CODE_TYPE_DELETE) && (*/}
-                  {/*    <Tooltip title={t('routes.admin.Layout.Delete')}>*/}
-                  {/*      <Popconfirm*/}
-                  {/*        placement="left"*/}
-                  {/*        title={t('components.datatable.areYouSureWant')}*/}
-                  {/*        onConfirm={() => dataTableRef?.current?.handleDelete!(data.id || '')}*/}
-                  {/*        okText={t('components.datatable.ok')}*/}
-                  {/*        cancelText={t('components.datatable.cancel')}*/}
-                  {/*      >*/}
-                  {/*        <button*/}
-                  {/*          className={'opacity-0 group-hover:opacity-100 transition-all duration-300'}*/}
-                  {/*          title={t('routes.admin.Layout.Delete') || ''}*/}
-                  {/*        >*/}
-                  {/*          <Trash className="icon-cud bg-red-600 hover:bg-red-400" />*/}
-                  {/*        </button>*/}
-                  {/*      </Popconfirm>*/}
-                  {/*    </Tooltip>*/}
-                  {/*  )}*/}
-                  {/*</span>*/}
+                  <span className="w-16 flex justify-end gap-1">
+                    {user?.role?.permissions?.includes(keyRole.P_CODE_TYPE_UPDATE) && (
+                      <Tooltip title={t('routes.admin.Layout.Edit')}>
+                        <button
+                          className={'opacity-0 group-hover:opacity-100 transition-all duration-300 '}
+                          title={t('routes.admin.Layout.Edit') || ''}
+                          onClick={() => navigate(`/${lang}${routerLinks('DataType')}/${data.id}/edit`)}
+                        >
+                          <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
+                        </button>
+                      </Tooltip>
+                    )}
+                    {user?.role?.permissions?.includes(keyRole.P_CODE_TYPE_DELETE) && (
+                      <Tooltip title={t('routes.admin.Layout.Delete')}>
+                        <Popconfirm
+                          placement="left"
+                          title={t('components.datatable.areYouSureWant')}
+                          onConfirm={() => dataTableRef?.current?.handleDelete!(data.id || '')}
+                          okText={t('components.datatable.ok')}
+                          cancelText={t('components.datatable.cancel')}
+                        >
+                          <button
+                            className={'opacity-0 group-hover:opacity-100 transition-all duration-300'}
+                            title={t('routes.admin.Layout.Delete') || ''}
+                          >
+                            <Trash className="icon-cud bg-red-600 hover:bg-red-400" />
+                          </button>
+                        </Popconfirm>
+                      </Tooltip>
+                    )}
+                  </span>
                 </div>
               ))}
             </div>
@@ -198,7 +197,7 @@ const Page = () => {
                     <Button
                       icon={<Plus className="icon-cud !h-5 !w-5" />}
                       text={t('components.button.New')}
-                      onClick={() => navigate(`/${lang}${routerLinks('Data/Add')}`)}
+                      onClick={() => navigate(`/${lang}${routerLinks('Data')}/add`)}
                     />
                   )}
                 </div>

@@ -6,16 +6,13 @@ export const routerLinks = (name: string, type?: string) => {
     ResetPassword: '/auth/reset-password',
     MyProfile: '/my-profile',
     Dashboard: '/dashboard',
-    User: '/user/list',
-    'User/List': '/user/list',
-    'User/Add': '/user/add',
+    User: '/user',
     Setting: '/setting',
     Data: '/setting/data',
-    'Data/Add': '/setting/data/add',
+    DataType: '/setting/data/type',
     Post: '/setting/post',
-    'Post/Add': '/setting/post/add',
+    PostType: '/setting/post/type',
     Code: '/setting/code',
-    'Code/Add': '/setting/code/add',
   }; // 💬 generate link to here
 
   const apis: {

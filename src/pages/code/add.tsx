@@ -39,7 +39,7 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('Code/Add')}`);
+          navigate(`/${lang}${routerLinks('Code')}/add`);
         }
         break;
     }

@@ -38,7 +38,7 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('Post/Add')}`);
+          navigate(`/${lang}${routerLinks('Post')}/add`);
         }
         break;
     }
