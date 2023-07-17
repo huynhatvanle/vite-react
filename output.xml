@@ -1,0 +1,2599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1 (Python 3.11.4 on win32)" generated="20230717 14:55:12.317" rpa="false" schemaversion="4">
+<suite id="s1" name="Dayoff Staff" source="c:\Users\Admin\Documents\GitHub\vite-react\test\testcases\dayoff_staff.robot">
+<test id="s1-t1" name="SLM-14 Verify that create a vacation successful when choosing &quot;Nghỉ phép có lương&quot;" line="124">
+<kw name="Setup" library="common" type="SETUP">
+<kw name="Set Browser Timeout" library="Browser">
+<arg>${BROWSER_TIMEOUT}</arg>
+<tag>Config</tag>
+<tag>Setter</tag>
+<doc>Sets the timeout used by most input and getter keywords.</doc>
+<status status="PASS" starttime="20230717 14:55:15.500" endtime="20230717 14:55:15.509"/>
+</kw>
+<kw name="New Browser" library="Browser">
+<arg>${BROWSER}</arg>
+<arg>headless=${HEADLESS}</arg>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+<doc>Create a new playwright Browser with specified options.</doc>
+<msg timestamp="20230717 14:55:15.511" level="INFO">{"browser": "chromium", "headless": false, "devtools": false, "handleSIGHUP": true, "handleSIGINT": true, "handleSIGTERM": true, "slowMo": 0.0, "timeout": 30000.0, "deprecated_pos_args": [], "tracesDir": "C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\traces\\bc87b864-1da3-40c3-b397-0d338f0b403a"}</msg>
+<msg timestamp="20230717 14:55:17.762" level="INFO">Successfully created browser with options: {"browser":"chromium","headless":false,"devtools":false,"handleSIGHUP":true,"handleSIGINT":true,"handleSIGTERM":true,"slowMo":0,"timeout":30000,"deprecated_pos_args":[],"tracesDir":"C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\traces\\bc87b864-1da3-40c3-b397-0d338f0b403a"}</msg>
+<status status="PASS" starttime="20230717 14:55:15.510" endtime="20230717 14:55:17.762"/>
+</kw>
+<kw name="New Page" library="Browser">
+<arg>${URL_DEFAULT}</arg>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+<doc>Open a new Page.</doc>
+<msg timestamp="20230717 14:55:21.524" level="INFO">Successfully initialized new page object and opened url: http://localhost:5173</msg>
+<msg timestamp="20230717 14:55:21.525" level="INFO">No context was open. New context was automatically opened when this page is created.</msg>
+<status status="PASS" starttime="20230717 14:55:17.762" endtime="20230717 14:55:21.525"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${STATE}</var>
+<arg>json.loads('''{}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230717 14:55:21.527" level="INFO">${STATE} = {}</msg>
+<status status="PASS" starttime="20230717 14:55:21.526" endtime="20230717 14:55:21.527"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:15.499" endtime="20230717 14:55:21.527"/>
+</kw>
+<kw name="When Go to page create data">
+<kw name="When Enter &quot;email&quot; in &quot;Tên đăng nhập&quot; with &quot;hoangdieu181021@gmail.com&quot;" library="common" sourcename="Enter &quot;${type}&quot; in &quot;${name}&quot; with &quot;${text}&quot;">
+<kw name="Get Random Text" library="common">
+<var>${text}</var>
+<arg>${type}</arg>
+<arg>${text}</arg>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>RANDOM</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:21.535" level="INFO">${symbol} = RANDOM</msg>
+<status status="PASS" starttime="20230717 14:55:21.535" endtime="20230717 14:55:21.536"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:21.541" level="INFO">${new_text} = </msg>
+<status status="PASS" starttime="20230717 14:55:21.538" endtime="20230717 14:55:21.541"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${containsS}</var>
+<arg>${text}</arg>
+<arg>@(.+)@</arg>
+<arg>1</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:21.542" level="INFO">${containsS} = []</msg>
+<status status="PASS" starttime="20230717 14:55:21.542" endtime="20230717 14:55:21.543"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cntS}</var>
+<arg>${containsS}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:21.543" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:21.544" level="INFO">${cntS} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:21.543" endtime="20230717 14:55:21.544"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${contains}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:21.545" level="INFO">${contains} = []</msg>
+<status status="PASS" starttime="20230717 14:55:21.544" endtime="20230717 14:55:21.545"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${contains}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:21.546" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:21.546" level="INFO">${cnt} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:21.545" endtime="20230717 14:55:21.546"/>
+</kw>
+<if>
+<branch type="IF" condition="${cntS} &gt; 0">
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${STATE["${containsS[0]}"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.547" endtime="20230717 14:55:21.548"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>@${containsS[0]}@</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.549" endtime="20230717 14:55:21.549"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.547" endtime="20230717 14:55:21.549"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'test name'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${random}</var>
+<arg>nb_words=3</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.550" endtime="20230717 14:55:21.550"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${words}</var>
+<arg>${TEST NAME}</arg>
+<arg>${SPACE}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.551" endtime="20230717 14:55:21.551"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${words[0]} ${random}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.551" endtime="20230717 14:55:21.551"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.550" endtime="20230717 14:55:21.551"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'number'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.553" endtime="20230717 14:55:21.556"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.556" endtime="20230717 14:55:21.557"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.552" endtime="20230717 14:55:21.557"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'percentage'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>max=100</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.558" endtime="20230717 14:55:21.558"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.559" endtime="20230717 14:55:21.559"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.557" endtime="20230717 14:55:21.559"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'paragraph'">
+<kw name="Paragraph" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a paragraph.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.560" endtime="20230717 14:55:21.560"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.559" endtime="20230717 14:55:21.560"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'email'">
+<kw name="Email" library="FakerLibrary">
+<var>${new_text}</var>
+<status status="NOT RUN" starttime="20230717 14:55:21.561" endtime="20230717 14:55:21.561"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.560" endtime="20230717 14:55:21.561"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'phone'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>min=55555555</arg>
+<arg>max=999999999999</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.562" endtime="20230717 14:55:21.562"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.562" endtime="20230717 14:55:21.562"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.561" endtime="20230717 14:55:21.562"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'color'">
+<kw name="Safe Hex Color" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a web-safe color formatted as a hex triplet.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.563" endtime="20230717 14:55:21.563"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.563" endtime="20230717 14:55:21.563"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'date'">
+<kw name="Date" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>pattern=%d-%m-%Y</arg>
+<doc>Get a date string between January 1, 1970 and now.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.564" endtime="20230717 14:55:21.564"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.563" endtime="20230717 14:55:21.564"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'word'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>nb_words=2</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.565" endtime="20230717 14:55:21.565"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.564" endtime="20230717 14:55:21.565"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:21.567" endtime="20230717 14:55:21.567"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:21.566" endtime="20230717 14:55:21.567"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:21.547" endtime="20230717 14:55:21.568"/>
+</if>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:21.568" level="INFO">Length is 25</msg>
+<msg timestamp="20230717 14:55:21.568" level="INFO">${cnt} = 25</msg>
+<status status="PASS" starttime="20230717 14:55:21.568" endtime="20230717 14:55:21.569"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Replace String" library="String">
+<var>${text}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<arg>${new_text}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20230717 14:55:21.574" level="INFO">${text} = hoangdieu181021@gmail.com</msg>
+<status status="PASS" starttime="20230717 14:55:21.573" endtime="20230717 14:55:21.574"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:21.570" endtime="20230717 14:55:21.574"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:21.570" endtime="20230717 14:55:21.574"/>
+</if>
+<return>
+<value>${text}</value>
+<status status="PASS" starttime="20230717 14:55:21.575" endtime="20230717 14:55:21.575"/>
+</return>
+<msg timestamp="20230717 14:55:21.575" level="INFO">${text} = hoangdieu181021@gmail.com</msg>
+<status status="PASS" starttime="20230717 14:55:21.533" endtime="20230717 14:55:21.575"/>
+</kw>
+<kw name="Get Element Form Item By Name" library="common">
+<var>${element}</var>
+<arg>${name}</arg>
+<arg>//input[contains(@class, "ant-input")]</arg>
+<return>
+<value>xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../*[contains(@class, "ant-form-item")]${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:21.576" endtime="20230717 14:55:21.577"/>
+</return>
+<msg timestamp="20230717 14:55:21.577" level="INFO">${element} = xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="Tên đăng nhập"]/../../*[contains(@class, "ant-form-item")]//input[contains(@class, "ant-input")]</msg>
+<status status="PASS" starttime="20230717 14:55:21.576" endtime="20230717 14:55:21.577"/>
+</kw>
+<kw name="Clear Text" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears the text field found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:21.578" endtime="20230717 14:55:22.809"/>
+</kw>
+<kw name="Fill Text" library="Browser">
+<arg>${element}</arg>
+<arg>${text}</arg>
+<arg>True</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:22.811" level="INFO">Fills the text 'hoangdieu181021@gmail.com' in the given field.</msg>
+<status status="PASS" starttime="20230717 14:55:22.810" endtime="20230717 14:55:22.876"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:22.877" level="INFO">Length is 25</msg>
+<msg timestamp="20230717 14:55:22.877" level="INFO">${cnt} = 25</msg>
+<status status="PASS" starttime="20230717 14:55:22.876" endtime="20230717 14:55:22.878"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${STATE["${name}"]}</arg>
+<arg>${text}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230717 14:55:22.881" level="INFO">${STATE["Tên đăng nhập"]} = hoangdieu181021@gmail.com</msg>
+<status status="PASS" starttime="20230717 14:55:22.879" endtime="20230717 14:55:22.881"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:22.878" endtime="20230717 14:55:22.881"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:22.878" endtime="20230717 14:55:22.882"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:21.532" endtime="20230717 14:55:22.882"/>
+</kw>
+<kw name="When Enter &quot;text&quot; in &quot;Mật khẩu&quot; with &quot;Na115689.&quot;" library="common" sourcename="Enter &quot;${type}&quot; in &quot;${name}&quot; with &quot;${text}&quot;">
+<kw name="Get Random Text" library="common">
+<var>${text}</var>
+<arg>${type}</arg>
+<arg>${text}</arg>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>RANDOM</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:22.889" level="INFO">${symbol} = RANDOM</msg>
+<status status="PASS" starttime="20230717 14:55:22.887" endtime="20230717 14:55:22.890"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:22.895" level="INFO">${new_text} = </msg>
+<status status="PASS" starttime="20230717 14:55:22.892" endtime="20230717 14:55:22.898"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${containsS}</var>
+<arg>${text}</arg>
+<arg>@(.+)@</arg>
+<arg>1</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:22.907" level="INFO">${containsS} = []</msg>
+<status status="PASS" starttime="20230717 14:55:22.901" endtime="20230717 14:55:22.908"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cntS}</var>
+<arg>${containsS}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:22.911" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:22.912" level="INFO">${cntS} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:22.909" endtime="20230717 14:55:22.913"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${contains}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:22.922" level="INFO">${contains} = []</msg>
+<status status="PASS" starttime="20230717 14:55:22.914" endtime="20230717 14:55:22.924"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${contains}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:22.929" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:22.930" level="INFO">${cnt} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:22.926" endtime="20230717 14:55:22.931"/>
+</kw>
+<if>
+<branch type="IF" condition="${cntS} &gt; 0">
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${STATE["${containsS[0]}"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:22.932" endtime="20230717 14:55:22.933"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>@${containsS[0]}@</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:22.935" endtime="20230717 14:55:22.937"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:22.931" endtime="20230717 14:55:22.938"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'test name'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${random}</var>
+<arg>nb_words=3</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:22.940" endtime="20230717 14:55:22.943"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${words}</var>
+<arg>${TEST NAME}</arg>
+<arg>${SPACE}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:22.945" endtime="20230717 14:55:22.946"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${words[0]} ${random}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:22.949" endtime="20230717 14:55:22.950"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:22.939" endtime="20230717 14:55:22.951"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'number'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:22.952" endtime="20230717 14:55:22.953"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:22.962" endtime="20230717 14:55:22.963"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:22.951" endtime="20230717 14:55:22.964"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'percentage'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>max=100</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:22.980" endtime="20230717 14:55:22.984"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:22.987" endtime="20230717 14:55:22.992"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:22.966" endtime="20230717 14:55:22.993"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'paragraph'">
+<kw name="Paragraph" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a paragraph.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:22.995" endtime="20230717 14:55:22.995"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:22.994" endtime="20230717 14:55:22.996"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'email'">
+<kw name="Email" library="FakerLibrary">
+<var>${new_text}</var>
+<status status="NOT RUN" starttime="20230717 14:55:22.997" endtime="20230717 14:55:23.005"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:22.996" endtime="20230717 14:55:23.006"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'phone'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>min=55555555</arg>
+<arg>max=999999999999</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:23.007" endtime="20230717 14:55:23.008"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:23.009" endtime="20230717 14:55:23.010"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:23.006" endtime="20230717 14:55:23.010"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'color'">
+<kw name="Safe Hex Color" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a web-safe color formatted as a hex triplet.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:23.012" endtime="20230717 14:55:23.013"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:23.011" endtime="20230717 14:55:23.013"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'date'">
+<kw name="Date" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>pattern=%d-%m-%Y</arg>
+<doc>Get a date string between January 1, 1970 and now.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:23.015" endtime="20230717 14:55:23.016"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:23.013" endtime="20230717 14:55:23.017"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'word'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>nb_words=2</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:23.018" endtime="20230717 14:55:23.018"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:23.017" endtime="20230717 14:55:23.022"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:23.023" endtime="20230717 14:55:23.025"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:23.022" endtime="20230717 14:55:23.025"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:22.931" endtime="20230717 14:55:23.026"/>
+</if>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:23.027" level="INFO">Length is 9</msg>
+<msg timestamp="20230717 14:55:23.027" level="INFO">${cnt} = 9</msg>
+<status status="PASS" starttime="20230717 14:55:23.026" endtime="20230717 14:55:23.028"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Replace String" library="String">
+<var>${text}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<arg>${new_text}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20230717 14:55:23.032" level="INFO">${text} = Na115689.</msg>
+<status status="PASS" starttime="20230717 14:55:23.029" endtime="20230717 14:55:23.032"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:23.028" endtime="20230717 14:55:23.033"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:23.028" endtime="20230717 14:55:23.033"/>
+</if>
+<return>
+<value>${text}</value>
+<status status="PASS" starttime="20230717 14:55:23.034" endtime="20230717 14:55:23.034"/>
+</return>
+<msg timestamp="20230717 14:55:23.042" level="INFO">${text} = Na115689.</msg>
+<status status="PASS" starttime="20230717 14:55:22.885" endtime="20230717 14:55:23.042"/>
+</kw>
+<kw name="Get Element Form Item By Name" library="common">
+<var>${element}</var>
+<arg>${name}</arg>
+<arg>//input[contains(@class, "ant-input")]</arg>
+<return>
+<value>xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../*[contains(@class, "ant-form-item")]${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:23.043" endtime="20230717 14:55:23.044"/>
+</return>
+<msg timestamp="20230717 14:55:23.045" level="INFO">${element} = xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="Mật khẩu"]/../../*[contains(@class, "ant-form-item")]//input[contains(@class, "ant-input")]</msg>
+<status status="PASS" starttime="20230717 14:55:23.042" endtime="20230717 14:55:23.045"/>
+</kw>
+<kw name="Clear Text" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears the text field found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:23.046" endtime="20230717 14:55:23.118"/>
+</kw>
+<kw name="Fill Text" library="Browser">
+<arg>${element}</arg>
+<arg>${text}</arg>
+<arg>True</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:23.121" level="INFO">Fills the text 'Na115689.' in the given field.</msg>
+<status status="PASS" starttime="20230717 14:55:23.120" endtime="20230717 14:55:23.209"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:23.210" level="INFO">Length is 9</msg>
+<msg timestamp="20230717 14:55:23.210" level="INFO">${cnt} = 9</msg>
+<status status="PASS" starttime="20230717 14:55:23.209" endtime="20230717 14:55:23.210"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${STATE["${name}"]}</arg>
+<arg>${text}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230717 14:55:23.212" level="INFO">${STATE["Mật khẩu"]} = Na115689.</msg>
+<status status="PASS" starttime="20230717 14:55:23.211" endtime="20230717 14:55:23.212"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:23.210" endtime="20230717 14:55:23.213"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:23.210" endtime="20230717 14:55:23.213"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:22.883" endtime="20230717 14:55:23.213"/>
+</kw>
+<kw name="When Click &quot;Đăng nhập&quot; button" library="common" sourcename="Click &quot;${text}&quot; button">
+<kw name="Click" library="Browser">
+<arg>xpath=//button[@title = "${text}"]</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:23.214" endtime="20230717 14:55:23.574"/>
+</kw>
+<kw name="Click Confirm To Action" library="common">
+<kw name="Set Variable" library="BuiltIn">
+<var>${element}</var>
+<arg>xpath=//*[contains(@class, "ant-popover")]//*[contains(@class, "ant-btn-primary")]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:23.575" level="INFO">${element} = xpath=//*[contains(@class, "ant-popover")]//*[contains(@class, "ant-btn-primary")]</msg>
+<status status="PASS" starttime="20230717 14:55:23.575" endtime="20230717 14:55:23.575"/>
+</kw>
+<kw name="Get Element Count" library="Browser">
+<var>${count}</var>
+<arg>${element}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the count of elements found with ``selector``.</doc>
+<msg timestamp="20230717 14:55:23.592" level="INFO">${count} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:23.576" endtime="20230717 14:55:23.593"/>
+</kw>
+<if>
+<branch type="IF" condition="${count} &gt; 0">
+<kw name="Click" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:23.593" endtime="20230717 14:55:23.594"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>${SHOULD_TIMEOUT}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:23.594" endtime="20230717 14:55:23.594"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:23.593" endtime="20230717 14:55:23.594"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:23.593" endtime="20230717 14:55:23.595"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:23.574" endtime="20230717 14:55:23.595"/>
+</kw>
+<kw name="Scroll By" library="Browser">
+<arg>${None}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Scrolls an element or the page relative from current position by the given values.</doc>
+<status status="PASS" starttime="20230717 14:55:23.595" endtime="20230717 14:55:23.623"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:23.214" endtime="20230717 14:55:23.624"/>
+</kw>
+<kw name="When Click &quot;Tạo mới&quot; sub menu to &quot;/vn/dayoff/add&quot;" library="common" sourcename="Click &quot;${text}&quot; sub menu to &quot;${url}&quot;">
+<kw name="Wait Until Element Spin" library="common">
+<kw name="Set Variable" library="BuiltIn">
+<var>${element}</var>
+<arg>xpath=//*[contains(@class, "ant-spin-spinning")]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:23.625" level="INFO">${element} = xpath=//*[contains(@class, "ant-spin-spinning")]</msg>
+<status status="PASS" starttime="20230717 14:55:23.625" endtime="20230717 14:55:23.625"/>
+</kw>
+<kw name="Get Element Count" library="Browser">
+<var>${count}</var>
+<arg>${element}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the count of elements found with ``selector``.</doc>
+<msg timestamp="20230717 14:55:23.632" level="INFO">${count} = 1</msg>
+<status status="PASS" starttime="20230717 14:55:23.626" endtime="20230717 14:55:23.632"/>
+</kw>
+<if>
+<branch type="IF" condition="${count} &gt; 0">
+<kw name="Wait Until Element Is Not Exist" library="common">
+<arg>${element}</arg>
+<kw name="Wait For Elements State" library="Browser">
+<arg>${locator}</arg>
+<arg>detached</arg>
+<arg>${timeout}</arg>
+<arg>${message}</arg>
+<tag>PageContent</tag>
+<tag>Wait</tag>
+<doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
+<msg timestamp="20230717 14:55:26.067" level="INFO">Waited for Element with selector xpath=//*[contains(@class, "ant-spin-spinning")] at state detached</msg>
+<status status="PASS" starttime="20230717 14:55:23.634" endtime="20230717 14:55:26.068"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:23.633" endtime="20230717 14:55:26.068"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:23.632" endtime="20230717 14:55:26.070"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:23.632" endtime="20230717 14:55:26.071"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:23.625" endtime="20230717 14:55:26.072"/>
+</kw>
+<kw name="Click" library="Browser">
+<arg>xpath=//a[contains(@class, "sub-menu") and descendant::span[contains(text(), "${text}")]]</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:26.073" endtime="20230717 14:55:27.197"/>
+</kw>
+<kw name="Get Url" library="Browser">
+<var>${curent_url}</var>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the current URL.</doc>
+<msg timestamp="20230717 14:55:27.201" level="INFO">${curent_url} = http://localhost:5173/vn/dayoff/add</msg>
+<status status="PASS" starttime="20230717 14:55:27.198" endtime="20230717 14:55:27.201"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${curent_url}</arg>
+<arg>${URL_DEFAULT}${url}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20230717 14:55:27.202" endtime="20230717 14:55:27.204"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:23.624" endtime="20230717 14:55:27.204"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>0.5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20230717 14:55:27.706" level="INFO">Slept 500 milliseconds</msg>
+<status status="PASS" starttime="20230717 14:55:27.205" endtime="20230717 14:55:27.707"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:21.531" endtime="20230717 14:55:27.707"/>
+</kw>
+<kw name="When Check remaining leave days in dayoff with &quot;Nghỉ phép có lương&quot;" library="common" sourcename="Check remaining leave days in dayoff with &quot;${type}&quot;">
+<kw name="Get dayoff" library="common">
+<var>${day}</var>
+<return>
+<value>xpath=//div[contains(@class, 'max-w-2xl')]/div[contains(@class, 'text-xl')]</value>
+<status status="PASS" starttime="20230717 14:55:27.710" endtime="20230717 14:55:27.710"/>
+</return>
+<msg timestamp="20230717 14:55:27.710" level="INFO">${day} = xpath=//div[contains(@class, 'max-w-2xl')]/div[contains(@class, 'text-xl')]</msg>
+<status status="PASS" starttime="20230717 14:55:27.709" endtime="20230717 14:55:27.710"/>
+</kw>
+<kw name="Get Text" library="Browser">
+<var>${text}</var>
+<arg>${day}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns text attribute of the element found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:27.897" level="INFO">Text: 'Ngày phép còn lại ( 6 Ngày phép)'</msg>
+<msg timestamp="20230717 14:55:27.897" level="INFO">${text} = Ngày phép còn lại ( 6 Ngày phép)</msg>
+<status status="PASS" starttime="20230717 14:55:27.711" endtime="20230717 14:55:27.897"/>
+</kw>
+<kw name="When Click select &quot;Loại phép&quot; with &quot;${type}&quot;" library="common" sourcename="Click select &quot;${name}&quot; with &quot;${text}&quot;">
+<kw name="Get Random Text" library="common">
+<var>${text}</var>
+<arg>Text</arg>
+<arg>${text}</arg>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>RANDOM</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:27.899" level="INFO">${symbol} = RANDOM</msg>
+<status status="PASS" starttime="20230717 14:55:27.899" endtime="20230717 14:55:27.899"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:27.900" level="INFO">${new_text} = </msg>
+<status status="PASS" starttime="20230717 14:55:27.899" endtime="20230717 14:55:27.900"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${containsS}</var>
+<arg>${text}</arg>
+<arg>@(.+)@</arg>
+<arg>1</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:27.900" level="INFO">${containsS} = []</msg>
+<status status="PASS" starttime="20230717 14:55:27.900" endtime="20230717 14:55:27.900"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cntS}</var>
+<arg>${containsS}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:27.901" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:27.901" level="INFO">${cntS} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:27.901" endtime="20230717 14:55:27.901"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${contains}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:27.902" level="INFO">${contains} = []</msg>
+<status status="PASS" starttime="20230717 14:55:27.902" endtime="20230717 14:55:27.902"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${contains}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:27.907" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:27.908" level="INFO">${cnt} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:27.904" endtime="20230717 14:55:27.908"/>
+</kw>
+<if>
+<branch type="IF" condition="${cntS} &gt; 0">
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${STATE["${containsS[0]}"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.910" endtime="20230717 14:55:27.911"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>@${containsS[0]}@</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.911" endtime="20230717 14:55:27.911"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.909" endtime="20230717 14:55:27.912"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'test name'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${random}</var>
+<arg>nb_words=3</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.912" endtime="20230717 14:55:27.913"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${words}</var>
+<arg>${TEST NAME}</arg>
+<arg>${SPACE}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.913" endtime="20230717 14:55:27.913"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${words[0]} ${random}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.913" endtime="20230717 14:55:27.914"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.912" endtime="20230717 14:55:27.914"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'number'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.914" endtime="20230717 14:55:27.915"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.915" endtime="20230717 14:55:27.915"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.914" endtime="20230717 14:55:27.916"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'percentage'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>max=100</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.916" endtime="20230717 14:55:27.917"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.917" endtime="20230717 14:55:27.917"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.916" endtime="20230717 14:55:27.917"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'paragraph'">
+<kw name="Paragraph" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a paragraph.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.918" endtime="20230717 14:55:27.918"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.918" endtime="20230717 14:55:27.918"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'email'">
+<kw name="Email" library="FakerLibrary">
+<var>${new_text}</var>
+<status status="NOT RUN" starttime="20230717 14:55:27.920" endtime="20230717 14:55:27.922"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.919" endtime="20230717 14:55:27.924"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'phone'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>min=55555555</arg>
+<arg>max=999999999999</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.926" endtime="20230717 14:55:27.926"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.926" endtime="20230717 14:55:27.927"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.924" endtime="20230717 14:55:27.927"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'color'">
+<kw name="Safe Hex Color" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a web-safe color formatted as a hex triplet.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.928" endtime="20230717 14:55:27.928"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.927" endtime="20230717 14:55:27.928"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'date'">
+<kw name="Date" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>pattern=%d-%m-%Y</arg>
+<doc>Get a date string between January 1, 1970 and now.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.929" endtime="20230717 14:55:27.929"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.928" endtime="20230717 14:55:27.929"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'word'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>nb_words=2</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.930" endtime="20230717 14:55:27.930"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.929" endtime="20230717 14:55:27.930"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:27.930" endtime="20230717 14:55:27.930"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:27.930" endtime="20230717 14:55:27.931"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:27.908" endtime="20230717 14:55:27.931"/>
+</if>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:27.931" level="INFO">Length is 18</msg>
+<msg timestamp="20230717 14:55:27.931" level="INFO">${cnt} = 18</msg>
+<status status="PASS" starttime="20230717 14:55:27.931" endtime="20230717 14:55:27.932"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Replace String" library="String">
+<var>${text}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<arg>${new_text}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20230717 14:55:27.932" level="INFO">${text} = Nghỉ phép có lương</msg>
+<status status="PASS" starttime="20230717 14:55:27.932" endtime="20230717 14:55:27.933"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:27.932" endtime="20230717 14:55:27.933"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:27.932" endtime="20230717 14:55:27.933"/>
+</if>
+<return>
+<value>${text}</value>
+<status status="PASS" starttime="20230717 14:55:27.933" endtime="20230717 14:55:27.933"/>
+</return>
+<msg timestamp="20230717 14:55:27.934" level="INFO">${text} = Nghỉ phép có lương</msg>
+<status status="PASS" starttime="20230717 14:55:27.898" endtime="20230717 14:55:27.934"/>
+</kw>
+<kw name="Get Element Form Item By Name" library="common">
+<var>${element}</var>
+<arg>${name}</arg>
+<arg>//*[contains(@class, "ant-select-show-arrow")]</arg>
+<return>
+<value>xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../*[contains(@class, "ant-form-item")]${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:27.934" endtime="20230717 14:55:27.935"/>
+</return>
+<msg timestamp="20230717 14:55:27.935" level="INFO">${element} = xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="Loại phép"]/../../*[contains(@class, "ant-form-item")]//*[contains(@class, "ant-select-show-arrow")]</msg>
+<status status="PASS" starttime="20230717 14:55:27.934" endtime="20230717 14:55:27.935"/>
+</kw>
+<kw name="Click" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:27.936" endtime="20230717 14:55:28.083"/>
+</kw>
+<kw name="Get Element Form Item By Name" library="common">
+<var>${element}</var>
+<arg>${name}</arg>
+<arg>//*[contains(@class, "ant-select-selection-search-input")]</arg>
+<return>
+<value>xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../*[contains(@class, "ant-form-item")]${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:28.084" endtime="20230717 14:55:28.084"/>
+</return>
+<msg timestamp="20230717 14:55:28.085" level="INFO">${element} = xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="Loại phép"]/../../*[contains(@class, "ant-form-item")]//*[contains(@class, "ant-select-selection-search-input")]</msg>
+<status status="PASS" starttime="20230717 14:55:28.083" endtime="20230717 14:55:28.086"/>
+</kw>
+<kw name="Fill Text" library="Browser">
+<arg>${element}</arg>
+<arg>${text}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:28.089" level="INFO">Fills the text 'Nghỉ phép có lương' in the given field.</msg>
+<status status="PASS" starttime="20230717 14:55:28.087" endtime="20230717 14:55:28.134"/>
+</kw>
+<kw name="Click" library="Browser">
+<arg>xpath=//*[contains(@class, "ant-select-item-option") and @title="${text}"]</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:28.135" endtime="20230717 14:55:28.399"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.400" level="INFO">Length is 18</msg>
+<msg timestamp="20230717 14:55:28.400" level="INFO">${cnt} = 18</msg>
+<status status="PASS" starttime="20230717 14:55:28.399" endtime="20230717 14:55:28.400"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${STATE["${name}"]}</arg>
+<arg>${text}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230717 14:55:28.402" level="INFO">${STATE["Loại phép"]} = Nghỉ phép có lương</msg>
+<status status="PASS" starttime="20230717 14:55:28.401" endtime="20230717 14:55:28.402"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:28.401" endtime="20230717 14:55:28.402"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:28.401" endtime="20230717 14:55:28.403"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:27.898" endtime="20230717 14:55:28.403"/>
+</kw>
+<kw name="When Click select &quot;Thời gian&quot; with &quot;Cả ngày&quot;" library="common" sourcename="Click select &quot;${name}&quot; with &quot;${text}&quot;">
+<kw name="Get Random Text" library="common">
+<var>${text}</var>
+<arg>Text</arg>
+<arg>${text}</arg>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>RANDOM</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:28.407" level="INFO">${symbol} = RANDOM</msg>
+<status status="PASS" starttime="20230717 14:55:28.406" endtime="20230717 14:55:28.407"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:28.408" level="INFO">${new_text} = </msg>
+<status status="PASS" starttime="20230717 14:55:28.407" endtime="20230717 14:55:28.408"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${containsS}</var>
+<arg>${text}</arg>
+<arg>@(.+)@</arg>
+<arg>1</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:28.408" level="INFO">${containsS} = []</msg>
+<status status="PASS" starttime="20230717 14:55:28.408" endtime="20230717 14:55:28.408"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cntS}</var>
+<arg>${containsS}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.409" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:28.409" level="INFO">${cntS} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:28.408" endtime="20230717 14:55:28.409"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${contains}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:28.409" level="INFO">${contains} = []</msg>
+<status status="PASS" starttime="20230717 14:55:28.409" endtime="20230717 14:55:28.410"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${contains}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.410" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:28.411" level="INFO">${cnt} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:28.410" endtime="20230717 14:55:28.411"/>
+</kw>
+<if>
+<branch type="IF" condition="${cntS} &gt; 0">
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${STATE["${containsS[0]}"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.411" endtime="20230717 14:55:28.412"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>@${containsS[0]}@</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.412" endtime="20230717 14:55:28.412"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.411" endtime="20230717 14:55:28.412"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'test name'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${random}</var>
+<arg>nb_words=3</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.413" endtime="20230717 14:55:28.413"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${words}</var>
+<arg>${TEST NAME}</arg>
+<arg>${SPACE}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.413" endtime="20230717 14:55:28.413"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${words[0]} ${random}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.413" endtime="20230717 14:55:28.413"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.412" endtime="20230717 14:55:28.414"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'number'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.414" endtime="20230717 14:55:28.414"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.414" endtime="20230717 14:55:28.415"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.414" endtime="20230717 14:55:28.415"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'percentage'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>max=100</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.415" endtime="20230717 14:55:28.415"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.416" endtime="20230717 14:55:28.416"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.415" endtime="20230717 14:55:28.417"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'paragraph'">
+<kw name="Paragraph" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a paragraph.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.417" endtime="20230717 14:55:28.418"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.417" endtime="20230717 14:55:28.418"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'email'">
+<kw name="Email" library="FakerLibrary">
+<var>${new_text}</var>
+<status status="NOT RUN" starttime="20230717 14:55:28.419" endtime="20230717 14:55:28.419"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.418" endtime="20230717 14:55:28.419"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'phone'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>min=55555555</arg>
+<arg>max=999999999999</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.422" endtime="20230717 14:55:28.423"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.424" endtime="20230717 14:55:28.425"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.420" endtime="20230717 14:55:28.425"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'color'">
+<kw name="Safe Hex Color" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a web-safe color formatted as a hex triplet.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.425" endtime="20230717 14:55:28.425"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.425" endtime="20230717 14:55:28.426"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'date'">
+<kw name="Date" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>pattern=%d-%m-%Y</arg>
+<doc>Get a date string between January 1, 1970 and now.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.426" endtime="20230717 14:55:28.427"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.426" endtime="20230717 14:55:28.427"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'word'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>nb_words=2</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.427" endtime="20230717 14:55:28.427"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.427" endtime="20230717 14:55:28.427"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.428" endtime="20230717 14:55:28.428"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.428" endtime="20230717 14:55:28.428"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:28.411" endtime="20230717 14:55:28.428"/>
+</if>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.429" level="INFO">Length is 7</msg>
+<msg timestamp="20230717 14:55:28.429" level="INFO">${cnt} = 7</msg>
+<status status="PASS" starttime="20230717 14:55:28.428" endtime="20230717 14:55:28.429"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Replace String" library="String">
+<var>${text}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<arg>${new_text}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20230717 14:55:28.430" level="INFO">${text} = Cả ngày</msg>
+<status status="PASS" starttime="20230717 14:55:28.430" endtime="20230717 14:55:28.430"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:28.429" endtime="20230717 14:55:28.430"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:28.429" endtime="20230717 14:55:28.431"/>
+</if>
+<return>
+<value>${text}</value>
+<status status="PASS" starttime="20230717 14:55:28.431" endtime="20230717 14:55:28.431"/>
+</return>
+<msg timestamp="20230717 14:55:28.431" level="INFO">${text} = Cả ngày</msg>
+<status status="PASS" starttime="20230717 14:55:28.406" endtime="20230717 14:55:28.431"/>
+</kw>
+<kw name="Get Element Form Item By Name" library="common">
+<var>${element}</var>
+<arg>${name}</arg>
+<arg>//*[contains(@class, "ant-select-show-arrow")]</arg>
+<return>
+<value>xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../*[contains(@class, "ant-form-item")]${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:28.432" endtime="20230717 14:55:28.432"/>
+</return>
+<msg timestamp="20230717 14:55:28.432" level="INFO">${element} = xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="Thời gian"]/../../*[contains(@class, "ant-form-item")]//*[contains(@class, "ant-select-show-arrow")]</msg>
+<status status="PASS" starttime="20230717 14:55:28.431" endtime="20230717 14:55:28.432"/>
+</kw>
+<kw name="Click" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:28.433" endtime="20230717 14:55:28.585"/>
+</kw>
+<kw name="Get Element Form Item By Name" library="common">
+<var>${element}</var>
+<arg>${name}</arg>
+<arg>//*[contains(@class, "ant-select-selection-search-input")]</arg>
+<return>
+<value>xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../*[contains(@class, "ant-form-item")]${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:28.588" endtime="20230717 14:55:28.589"/>
+</return>
+<msg timestamp="20230717 14:55:28.590" level="INFO">${element} = xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="Thời gian"]/../../*[contains(@class, "ant-form-item")]//*[contains(@class, "ant-select-selection-search-input")]</msg>
+<status status="PASS" starttime="20230717 14:55:28.586" endtime="20230717 14:55:28.591"/>
+</kw>
+<kw name="Fill Text" library="Browser">
+<arg>${element}</arg>
+<arg>${text}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:28.592" level="INFO">Fills the text 'Cả ngày' in the given field.</msg>
+<status status="PASS" starttime="20230717 14:55:28.591" endtime="20230717 14:55:28.631"/>
+</kw>
+<kw name="Click" library="Browser">
+<arg>xpath=//*[contains(@class, "ant-select-item-option") and @title="${text}"]</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:28.631" endtime="20230717 14:55:28.896"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.896" level="INFO">Length is 7</msg>
+<msg timestamp="20230717 14:55:28.896" level="INFO">${cnt} = 7</msg>
+<status status="PASS" starttime="20230717 14:55:28.896" endtime="20230717 14:55:28.896"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${STATE["${name}"]}</arg>
+<arg>${text}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230717 14:55:28.897" level="INFO">${STATE["Thời gian"]} = Cả ngày</msg>
+<status status="PASS" starttime="20230717 14:55:28.897" endtime="20230717 14:55:28.897"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:28.896" endtime="20230717 14:55:28.898"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:28.896" endtime="20230717 14:55:28.898"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:28.404" endtime="20230717 14:55:28.898"/>
+</kw>
+<kw name="When Enter dayoff in &quot;Ngày nghỉ&quot; dateFrom &quot;Ngày bắt đầu&quot; with &quot;27-03-2023&quot; dateTo &quot;Ngày kết thúc&quot; with &quot;30-03-2023&quot;" library="common" sourcename="Enter dayoff in &quot;${name}&quot; dateFrom &quot;${dateFrom}&quot; with &quot;${text}&quot; dateTo &quot;${dateTo}&quot; with &quot;${text1}&quot;">
+<kw name="Get Random Text" library="common">
+<var>${text}</var>
+<arg>date</arg>
+<arg>${text}</arg>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>RANDOM</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:28.899" level="INFO">${symbol} = RANDOM</msg>
+<status status="PASS" starttime="20230717 14:55:28.899" endtime="20230717 14:55:28.899"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:28.900" level="INFO">${new_text} = </msg>
+<status status="PASS" starttime="20230717 14:55:28.900" endtime="20230717 14:55:28.900"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${containsS}</var>
+<arg>${text}</arg>
+<arg>@(.+)@</arg>
+<arg>1</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:28.900" level="INFO">${containsS} = []</msg>
+<status status="PASS" starttime="20230717 14:55:28.900" endtime="20230717 14:55:28.901"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cntS}</var>
+<arg>${containsS}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.901" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:28.901" level="INFO">${cntS} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:28.901" endtime="20230717 14:55:28.901"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${contains}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:28.903" level="INFO">${contains} = []</msg>
+<status status="PASS" starttime="20230717 14:55:28.902" endtime="20230717 14:55:28.903"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${contains}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.905" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:28.905" level="INFO">${cnt} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:28.904" endtime="20230717 14:55:28.905"/>
+</kw>
+<if>
+<branch type="IF" condition="${cntS} &gt; 0">
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${STATE["${containsS[0]}"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.906" endtime="20230717 14:55:28.907"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>@${containsS[0]}@</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.907" endtime="20230717 14:55:28.908"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.906" endtime="20230717 14:55:28.908"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'test name'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${random}</var>
+<arg>nb_words=3</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.909" endtime="20230717 14:55:28.909"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${words}</var>
+<arg>${TEST NAME}</arg>
+<arg>${SPACE}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.910" endtime="20230717 14:55:28.910"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${words[0]} ${random}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.910" endtime="20230717 14:55:28.911"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.908" endtime="20230717 14:55:28.911"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'number'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.912" endtime="20230717 14:55:28.912"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.912" endtime="20230717 14:55:28.912"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.911" endtime="20230717 14:55:28.912"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'percentage'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>max=100</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.913" endtime="20230717 14:55:28.913"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.913" endtime="20230717 14:55:28.913"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.912" endtime="20230717 14:55:28.913"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'paragraph'">
+<kw name="Paragraph" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a paragraph.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.914" endtime="20230717 14:55:28.914"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.914" endtime="20230717 14:55:28.914"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'email'">
+<kw name="Email" library="FakerLibrary">
+<var>${new_text}</var>
+<status status="NOT RUN" starttime="20230717 14:55:28.915" endtime="20230717 14:55:28.915"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.914" endtime="20230717 14:55:28.915"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'phone'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>min=55555555</arg>
+<arg>max=999999999999</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.915" endtime="20230717 14:55:28.916"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.916" endtime="20230717 14:55:28.916"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.915" endtime="20230717 14:55:28.916"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'color'">
+<kw name="Safe Hex Color" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a web-safe color formatted as a hex triplet.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.917" endtime="20230717 14:55:28.917"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.916" endtime="20230717 14:55:28.917"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'date'">
+<kw name="Date" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>pattern=%d-%m-%Y</arg>
+<doc>Get a date string between January 1, 1970 and now.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.918" endtime="20230717 14:55:28.918"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.917" endtime="20230717 14:55:28.918"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'word'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>nb_words=2</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.921" endtime="20230717 14:55:28.921"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.919" endtime="20230717 14:55:28.922"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.922" endtime="20230717 14:55:28.923"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.922" endtime="20230717 14:55:28.923"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:28.905" endtime="20230717 14:55:28.923"/>
+</if>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.924" level="INFO">Length is 10</msg>
+<msg timestamp="20230717 14:55:28.924" level="INFO">${cnt} = 10</msg>
+<status status="PASS" starttime="20230717 14:55:28.923" endtime="20230717 14:55:28.925"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Replace String" library="String">
+<var>${text}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<arg>${new_text}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20230717 14:55:28.926" level="INFO">${text} = 27-03-2023</msg>
+<status status="PASS" starttime="20230717 14:55:28.925" endtime="20230717 14:55:28.926"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:28.925" endtime="20230717 14:55:28.926"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:28.925" endtime="20230717 14:55:28.926"/>
+</if>
+<return>
+<value>${text}</value>
+<status status="PASS" starttime="20230717 14:55:28.926" endtime="20230717 14:55:28.926"/>
+</return>
+<msg timestamp="20230717 14:55:28.926" level="INFO">${text} = 27-03-2023</msg>
+<status status="PASS" starttime="20230717 14:55:28.899" endtime="20230717 14:55:28.927"/>
+</kw>
+<kw name="Get Random Text" library="common">
+<var>${text1}</var>
+<arg>date</arg>
+<arg>${text1}</arg>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>RANDOM</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:28.927" level="INFO">${symbol} = RANDOM</msg>
+<status status="PASS" starttime="20230717 14:55:28.927" endtime="20230717 14:55:28.928"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:28.928" level="INFO">${new_text} = </msg>
+<status status="PASS" starttime="20230717 14:55:28.928" endtime="20230717 14:55:28.928"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${containsS}</var>
+<arg>${text}</arg>
+<arg>@(.+)@</arg>
+<arg>1</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:28.929" level="INFO">${containsS} = []</msg>
+<status status="PASS" starttime="20230717 14:55:28.928" endtime="20230717 14:55:28.929"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cntS}</var>
+<arg>${containsS}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.930" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:28.930" level="INFO">${cntS} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:28.929" endtime="20230717 14:55:28.930"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${contains}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:28.931" level="INFO">${contains} = []</msg>
+<status status="PASS" starttime="20230717 14:55:28.930" endtime="20230717 14:55:28.931"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${contains}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.932" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:28.932" level="INFO">${cnt} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:28.931" endtime="20230717 14:55:28.932"/>
+</kw>
+<if>
+<branch type="IF" condition="${cntS} &gt; 0">
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${STATE["${containsS[0]}"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.933" endtime="20230717 14:55:28.933"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>@${containsS[0]}@</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.933" endtime="20230717 14:55:28.933"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.932" endtime="20230717 14:55:28.933"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'test name'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${random}</var>
+<arg>nb_words=3</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.934" endtime="20230717 14:55:28.934"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${words}</var>
+<arg>${TEST NAME}</arg>
+<arg>${SPACE}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.934" endtime="20230717 14:55:28.934"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${words[0]} ${random}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.935" endtime="20230717 14:55:28.935"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.933" endtime="20230717 14:55:28.935"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'number'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.938" endtime="20230717 14:55:28.938"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.939" endtime="20230717 14:55:28.939"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.936" endtime="20230717 14:55:28.939"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'percentage'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>max=100</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.941" endtime="20230717 14:55:28.941"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.941" endtime="20230717 14:55:28.941"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.940" endtime="20230717 14:55:28.941"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'paragraph'">
+<kw name="Paragraph" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a paragraph.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.942" endtime="20230717 14:55:28.942"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.942" endtime="20230717 14:55:28.942"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'email'">
+<kw name="Email" library="FakerLibrary">
+<var>${new_text}</var>
+<status status="NOT RUN" starttime="20230717 14:55:28.943" endtime="20230717 14:55:28.943"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.943" endtime="20230717 14:55:28.943"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'phone'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>min=55555555</arg>
+<arg>max=999999999999</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.944" endtime="20230717 14:55:28.944"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.944" endtime="20230717 14:55:28.944"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.943" endtime="20230717 14:55:28.944"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'color'">
+<kw name="Safe Hex Color" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a web-safe color formatted as a hex triplet.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.945" endtime="20230717 14:55:28.945"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.945" endtime="20230717 14:55:28.946"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'date'">
+<kw name="Date" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>pattern=%d-%m-%Y</arg>
+<doc>Get a date string between January 1, 1970 and now.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.947" endtime="20230717 14:55:28.947"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.946" endtime="20230717 14:55:28.947"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'word'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>nb_words=2</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.948" endtime="20230717 14:55:28.948"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.947" endtime="20230717 14:55:28.948"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:28.948" endtime="20230717 14:55:28.948"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:28.948" endtime="20230717 14:55:28.949"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:28.932" endtime="20230717 14:55:28.949"/>
+</if>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:28.949" level="INFO">Length is 10</msg>
+<msg timestamp="20230717 14:55:28.949" level="INFO">${cnt} = 10</msg>
+<status status="PASS" starttime="20230717 14:55:28.949" endtime="20230717 14:55:28.949"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Replace String" library="String">
+<var>${text}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<arg>${new_text}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20230717 14:55:28.950" level="INFO">${text} = 30-03-2023</msg>
+<status status="PASS" starttime="20230717 14:55:28.950" endtime="20230717 14:55:28.950"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:28.950" endtime="20230717 14:55:28.951"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:28.950" endtime="20230717 14:55:28.951"/>
+</if>
+<return>
+<value>${text}</value>
+<status status="PASS" starttime="20230717 14:55:28.951" endtime="20230717 14:55:28.951"/>
+</return>
+<msg timestamp="20230717 14:55:28.952" level="INFO">${text1} = 30-03-2023</msg>
+<status status="PASS" starttime="20230717 14:55:28.927" endtime="20230717 14:55:28.953"/>
+</kw>
+<kw name="Get Element Form Item By Name" library="common">
+<var>${element}</var>
+<arg>${name}</arg>
+<arg>//*[contains(@class, "ant-picker-input")]/input[@placeholder="${dateFrom}"]</arg>
+<return>
+<value>xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../*[contains(@class, "ant-form-item")]${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:28.955" endtime="20230717 14:55:28.956"/>
+</return>
+<msg timestamp="20230717 14:55:28.956" level="INFO">${element} = xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="Ngày nghỉ"]/../../*[contains(@class, "ant-form-item")]//*[contains(@class, "ant-picker-input")]/input[@placeholder="Ngày bắt đầu"]</msg>
+<status status="PASS" starttime="20230717 14:55:28.954" endtime="20230717 14:55:28.956"/>
+</kw>
+<kw name="Click" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:28.957" endtime="20230717 14:55:29.303"/>
+</kw>
+<kw name="Clear Text" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears the text field found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:29.303" endtime="20230717 14:55:29.351"/>
+</kw>
+<kw name="Fill Text" library="Browser">
+<arg>${element}</arg>
+<arg>${text}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:29.352" level="INFO">Fills the text '27-03-2023' in the given field.</msg>
+<status status="PASS" starttime="20230717 14:55:29.351" endtime="20230717 14:55:29.429"/>
+</kw>
+<kw name="Get Element Form Item By Name" library="common">
+<var>${element2}</var>
+<arg>${name}</arg>
+<arg>//*[contains(@class, "ant-picker-input")]/input[@placeholder="${dateTo}"]</arg>
+<return>
+<value>xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../*[contains(@class, "ant-form-item")]${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:29.430" endtime="20230717 14:55:29.430"/>
+</return>
+<msg timestamp="20230717 14:55:29.431" level="INFO">${element2} = xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="Ngày nghỉ"]/../../*[contains(@class, "ant-form-item")]//*[contains(@class, "ant-picker-input")]/input[@placeholder="Ngày kết thúc"]</msg>
+<status status="PASS" starttime="20230717 14:55:29.430" endtime="20230717 14:55:29.431"/>
+</kw>
+<kw name="Click" library="Browser">
+<arg>${element2}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:29.431" endtime="20230717 14:55:29.653"/>
+</kw>
+<kw name="Clear Text" library="Browser">
+<arg>${element2}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears the text field found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:29.655" endtime="20230717 14:55:29.715"/>
+</kw>
+<kw name="Fill Text" library="Browser">
+<arg>${element2}</arg>
+<arg>${text1}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:29.716" level="INFO">Fills the text '30-03-2023' in the given field.</msg>
+<status status="PASS" starttime="20230717 14:55:29.716" endtime="20230717 14:55:29.827"/>
+</kw>
+<kw name="Press Keys" library="Browser">
+<arg>${element2}</arg>
+<arg>Tab</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Types the given key combination into element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:29.828" endtime="20230717 14:55:29.907"/>
+</kw>
+<kw name="Press Keys" library="Browser">
+<arg>${element2}</arg>
+<arg>Tab</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Types the given key combination into element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:29.908" endtime="20230717 14:55:30.058"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:28.898" endtime="20230717 14:55:30.059"/>
+</kw>
+<kw name="When Enter &quot;text&quot; in textarea &quot;Lý do&quot; with &quot;Ốm&quot;" library="common" sourcename="Enter &quot;${type}&quot; in textarea &quot;${name}&quot; with &quot;${text}&quot;">
+<kw name="Get Random Text" library="common">
+<var>${text}</var>
+<arg>${type}</arg>
+<arg>${text}</arg>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>RANDOM</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:30.062" level="INFO">${symbol} = RANDOM</msg>
+<status status="PASS" starttime="20230717 14:55:30.061" endtime="20230717 14:55:30.062"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:30.063" level="INFO">${new_text} = </msg>
+<status status="PASS" starttime="20230717 14:55:30.062" endtime="20230717 14:55:30.063"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${containsS}</var>
+<arg>${text}</arg>
+<arg>@(.+)@</arg>
+<arg>1</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:30.064" level="INFO">${containsS} = []</msg>
+<status status="PASS" starttime="20230717 14:55:30.063" endtime="20230717 14:55:30.064"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cntS}</var>
+<arg>${containsS}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:30.065" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:30.065" level="INFO">${cntS} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:30.065" endtime="20230717 14:55:30.065"/>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<var>${contains}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:30.067" level="INFO">${contains} = []</msg>
+<status status="PASS" starttime="20230717 14:55:30.066" endtime="20230717 14:55:30.067"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${contains}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:30.068" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:30.068" level="INFO">${cnt} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:30.067" endtime="20230717 14:55:30.068"/>
+</kw>
+<if>
+<branch type="IF" condition="${cntS} &gt; 0">
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${STATE["${containsS[0]}"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.069" endtime="20230717 14:55:30.070"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${symbol}</var>
+<arg>@${containsS[0]}@</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.072" endtime="20230717 14:55:30.073"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.069" endtime="20230717 14:55:30.073"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'test name'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${random}</var>
+<arg>nb_words=3</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.074" endtime="20230717 14:55:30.074"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${words}</var>
+<arg>${TEST NAME}</arg>
+<arg>${SPACE}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.074" endtime="20230717 14:55:30.074"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${words[0]} ${random}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.075" endtime="20230717 14:55:30.075"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.073" endtime="20230717 14:55:30.075"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'number'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.075" endtime="20230717 14:55:30.076"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.076" endtime="20230717 14:55:30.076"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.075" endtime="20230717 14:55:30.076"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'percentage'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>max=100</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.077" endtime="20230717 14:55:30.077"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.077" endtime="20230717 14:55:30.077"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.076" endtime="20230717 14:55:30.077"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'paragraph'">
+<kw name="Paragraph" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a paragraph.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.078" endtime="20230717 14:55:30.078"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.077" endtime="20230717 14:55:30.078"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'email'">
+<kw name="Email" library="FakerLibrary">
+<var>${new_text}</var>
+<status status="NOT RUN" starttime="20230717 14:55:30.079" endtime="20230717 14:55:30.079"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.078" endtime="20230717 14:55:30.079"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'phone'">
+<kw name="Random Int" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>min=55555555</arg>
+<arg>max=999999999999</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.080" endtime="20230717 14:55:30.081"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${new_text}</var>
+<arg>${new_text}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.081" endtime="20230717 14:55:30.081"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.079" endtime="20230717 14:55:30.082"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'color'">
+<kw name="Safe Hex Color" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a web-safe color formatted as a hex triplet.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.082" endtime="20230717 14:55:30.082"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.082" endtime="20230717 14:55:30.082"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'date'">
+<kw name="Date" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>pattern=%d-%m-%Y</arg>
+<doc>Get a date string between January 1, 1970 and now.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.083" endtime="20230717 14:55:30.083"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.083" endtime="20230717 14:55:30.083"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0 and '${type}' == 'word'">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<arg>nb_words=2</arg>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.084" endtime="20230717 14:55:30.084"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.083" endtime="20230717 14:55:30.084"/>
+</branch>
+<branch type="ELSE IF" condition="${cnt} &gt; 0">
+<kw name="Sentence" library="FakerLibrary">
+<var>${new_text}</var>
+<doc>Generate a sentence.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.085" endtime="20230717 14:55:30.086"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.085" endtime="20230717 14:55:30.086"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:30.068" endtime="20230717 14:55:30.087"/>
+</if>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:30.090" level="INFO">Length is 2</msg>
+<msg timestamp="20230717 14:55:30.090" level="INFO">${cnt} = 2</msg>
+<status status="PASS" starttime="20230717 14:55:30.089" endtime="20230717 14:55:30.090"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Replace String" library="String">
+<var>${text}</var>
+<arg>${text}</arg>
+<arg>${symbol}</arg>
+<arg>${new_text}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20230717 14:55:30.091" level="INFO">${text} = Ốm</msg>
+<status status="PASS" starttime="20230717 14:55:30.091" endtime="20230717 14:55:30.091"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:30.090" endtime="20230717 14:55:30.091"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:30.090" endtime="20230717 14:55:30.092"/>
+</if>
+<return>
+<value>${text}</value>
+<status status="PASS" starttime="20230717 14:55:30.092" endtime="20230717 14:55:30.092"/>
+</return>
+<msg timestamp="20230717 14:55:30.092" level="INFO">${text} = Ốm</msg>
+<status status="PASS" starttime="20230717 14:55:30.060" endtime="20230717 14:55:30.092"/>
+</kw>
+<kw name="Get Element Form Item By Name" library="common">
+<var>${element}</var>
+<arg>${name}</arg>
+<arg>//textarea</arg>
+<return>
+<value>xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../*[contains(@class, "ant-form-item")]${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:30.093" endtime="20230717 14:55:30.093"/>
+</return>
+<msg timestamp="20230717 14:55:30.094" level="INFO">${element} = xpath=//*[contains(@class, "ant-form-item-label")]/label[text()="Lý do"]/../../*[contains(@class, "ant-form-item")]//textarea</msg>
+<status status="PASS" starttime="20230717 14:55:30.093" endtime="20230717 14:55:30.094"/>
+</kw>
+<kw name="Clear Text" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears the text field found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:30.094" endtime="20230717 14:55:30.184"/>
+</kw>
+<kw name="Fill Text" library="Browser">
+<arg>${element}</arg>
+<arg>${text}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:30.186" level="INFO">Fills the text 'Ốm' in the given field.</msg>
+<status status="PASS" starttime="20230717 14:55:30.185" endtime="20230717 14:55:30.340"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:30.341" level="INFO">Length is 2</msg>
+<msg timestamp="20230717 14:55:30.342" level="INFO">${cnt} = 2</msg>
+<status status="PASS" starttime="20230717 14:55:30.341" endtime="20230717 14:55:30.342"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${STATE["${name}"]}</arg>
+<arg>${text}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20230717 14:55:30.345" level="INFO">${STATE["Lý do"]} = Ốm</msg>
+<status status="PASS" starttime="20230717 14:55:30.343" endtime="20230717 14:55:30.345"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:30.343" endtime="20230717 14:55:30.345"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:30.343" endtime="20230717 14:55:30.345"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:30.059" endtime="20230717 14:55:30.345"/>
+</kw>
+<kw name="When Click &quot;Lưu lại&quot; button" library="common" sourcename="Click &quot;${text}&quot; button">
+<kw name="Click" library="Browser">
+<arg>xpath=//button[@title = "${text}"]</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:30.347" endtime="20230717 14:55:30.679"/>
+</kw>
+<kw name="Click Confirm To Action" library="common">
+<kw name="Set Variable" library="BuiltIn">
+<var>${element}</var>
+<arg>xpath=//*[contains(@class, "ant-popover")]//*[contains(@class, "ant-btn-primary")]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:30.680" level="INFO">${element} = xpath=//*[contains(@class, "ant-popover")]//*[contains(@class, "ant-btn-primary")]</msg>
+<status status="PASS" starttime="20230717 14:55:30.679" endtime="20230717 14:55:30.680"/>
+</kw>
+<kw name="Get Element Count" library="Browser">
+<var>${count}</var>
+<arg>${element}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the count of elements found with ``selector``.</doc>
+<msg timestamp="20230717 14:55:30.685" level="INFO">${count} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:30.680" endtime="20230717 14:55:30.685"/>
+</kw>
+<if>
+<branch type="IF" condition="${count} &gt; 0">
+<kw name="Click" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.687" endtime="20230717 14:55:30.688"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>${SHOULD_TIMEOUT}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.688" endtime="20230717 14:55:30.688"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.685" endtime="20230717 14:55:30.688"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:30.685" endtime="20230717 14:55:30.689"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:30.679" endtime="20230717 14:55:30.689"/>
+</kw>
+<kw name="Scroll By" library="Browser">
+<arg>${None}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Scrolls an element or the page relative from current position by the given values.</doc>
+<status status="PASS" starttime="20230717 14:55:30.689" endtime="20230717 14:55:30.711"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:30.346" endtime="20230717 14:55:30.712"/>
+</kw>
+<kw name="Then User look message &quot;Tạo thành công&quot; popup" library="common" sourcename="User look message &quot;${message}&quot; popup">
+<kw name="Get Regexp Matches" library="String">
+<var>${contains}</var>
+<arg>${message}</arg>
+<arg>@(.+)@</arg>
+<arg>1</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<msg timestamp="20230717 14:55:30.713" level="INFO">${contains} = []</msg>
+<status status="PASS" starttime="20230717 14:55:30.713" endtime="20230717 14:55:30.713"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${cnt}</var>
+<arg>${contains}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230717 14:55:30.714" level="INFO">Length is 0</msg>
+<msg timestamp="20230717 14:55:30.714" level="INFO">${cnt} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:30.714" endtime="20230717 14:55:30.714"/>
+</kw>
+<if>
+<branch type="IF" condition="${cnt} &gt; 0">
+<kw name="Replace String" library="String">
+<var>${message}</var>
+<arg>${message}</arg>
+<arg>@${contains[0]}@</arg>
+<arg>${STATE["${contains[0]}"]}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:30.715" endtime="20230717 14:55:30.715"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:30.714" endtime="20230717 14:55:30.715"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:30.714" endtime="20230717 14:55:30.715"/>
+</if>
+<kw name="Element Text Should Be" library="common">
+<arg>id=swal2-html-container</arg>
+<arg>${message}</arg>
+<kw name="Get Text" library="Browser">
+<arg>${locator}</arg>
+<arg>equal</arg>
+<arg>${expected}</arg>
+<arg>${message}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns text attribute of the element found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:34.575" level="INFO">Text: 'Tạo thành công'</msg>
+<status status="PASS" starttime="20230717 14:55:30.717" endtime="20230717 14:55:34.575"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:30.715" endtime="20230717 14:55:34.575"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${element}</var>
+<arg>xpath=//*[contains(@class, "swal2-confirm")]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:34.576" level="INFO">${element} = xpath=//*[contains(@class, "swal2-confirm")]</msg>
+<status status="PASS" starttime="20230717 14:55:34.575" endtime="20230717 14:55:34.576"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${passed}</var>
+<arg>Element Should Be Visible</arg>
+<arg>${element}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Element Should Be Visible" library="common">
+<arg>${element}</arg>
+<kw name="Wait For Elements State" library="Browser">
+<arg>${locator}</arg>
+<arg>visible</arg>
+<arg>${timeout}</arg>
+<arg>${message}</arg>
+<tag>PageContent</tag>
+<tag>Wait</tag>
+<doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
+<msg timestamp="20230717 14:55:35.111" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="browser/screenshot/fail-screenshot-1.png" target="_blank"&gt;&lt;img src="browser/screenshot/fail-screenshot-1.png" width="800px"/&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230717 14:55:35.111" level="INFO">See also file:///C:/Users/Admin/Documents/GitHub/vite-react/playwright-log.txt for additional details.</msg>
+<msg timestamp="20230717 14:55:35.112" level="FAIL">TimeoutError: locator.waitFor: Timeout 100ms exceeded.
+=========================== logs ===========================
+waiting for locator('xpath=//*[contains(@class, "swal2-confirm")]') to be visible
+  locator resolved to hidden &lt;button type="button" aria-label="" class="swal2-confirm…&gt;OK&lt;/button&gt;
+  locator resolved to hidden &lt;button type="button" aria-label="" class="swal2-confirm…&gt;OK&lt;/button&gt;
+============================================================
+Tip: Use "Set Browser Timeout" for increasing the timeout or double check your locator as the targeted element(s) couldn't be found.</msg>
+<status status="FAIL" starttime="20230717 14:55:34.577" endtime="20230717 14:55:35.128"/>
+</kw>
+<status status="FAIL" starttime="20230717 14:55:34.576" endtime="20230717 14:55:35.129"/>
+</kw>
+<msg timestamp="20230717 14:55:35.129" level="INFO">${passed} = False</msg>
+<status status="PASS" starttime="20230717 14:55:34.576" endtime="20230717 14:55:35.130"/>
+</kw>
+<if>
+<branch type="IF" condition="'${passed}' == 'True'">
+<kw name="Click" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:35.131" endtime="20230717 14:55:35.132"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:35.130" endtime="20230717 14:55:35.132"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:35.130" endtime="20230717 14:55:35.133"/>
+</if>
+<kw name="Wait Until Element Spin" library="common">
+<kw name="Set Variable" library="BuiltIn">
+<var>${element}</var>
+<arg>xpath=//*[contains(@class, "ant-spin-spinning")]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:35.136" level="INFO">${element} = xpath=//*[contains(@class, "ant-spin-spinning")]</msg>
+<status status="PASS" starttime="20230717 14:55:35.135" endtime="20230717 14:55:35.137"/>
+</kw>
+<kw name="Get Element Count" library="Browser">
+<var>${count}</var>
+<arg>${element}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the count of elements found with ``selector``.</doc>
+<msg timestamp="20230717 14:55:35.146" level="INFO">${count} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:35.139" endtime="20230717 14:55:35.147"/>
+</kw>
+<if>
+<branch type="IF" condition="${count} &gt; 0">
+<kw name="Wait Until Element Is Not Exist" library="common">
+<arg>${element}</arg>
+<status status="NOT RUN" starttime="20230717 14:55:35.148" endtime="20230717 14:55:35.148"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:35.147" endtime="20230717 14:55:35.148"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:35.147" endtime="20230717 14:55:35.149"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:35.133" endtime="20230717 14:55:35.149"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:30.712" endtime="20230717 14:55:35.149"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20230717 14:55:40.150" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20230717 14:55:35.149" endtime="20230717 14:55:40.150"/>
+</kw>
+<kw name="Then Check title &quot;Chi tiết ngày nghỉ&quot; in page" library="common" sourcename="Check title &quot;${text}&quot; in page">
+<kw name="Get Title" library="common">
+<var>${element}</var>
+<arg>${text}</arg>
+<return>
+<value>xpath=//div/div/h1[text()="${name}"]${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:40.156" endtime="20230717 14:55:40.157"/>
+</return>
+<msg timestamp="20230717 14:55:40.157" level="INFO">${element} = xpath=//div/div/h1[text()="Chi tiết ngày nghỉ"]</msg>
+<status status="PASS" starttime="20230717 14:55:40.154" endtime="20230717 14:55:40.158"/>
+</kw>
+<kw name="Element Text Should Be" library="common">
+<arg>${element}</arg>
+<arg>${text}</arg>
+<kw name="Get Text" library="Browser">
+<arg>${locator}</arg>
+<arg>equal</arg>
+<arg>${expected}</arg>
+<arg>${message}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns text attribute of the element found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:40.183" level="INFO">Text: 'Chi tiết ngày nghỉ'</msg>
+<status status="PASS" starttime="20230717 14:55:40.161" endtime="20230717 14:55:40.184"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:40.158" endtime="20230717 14:55:40.184"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:40.151" endtime="20230717 14:55:40.184"/>
+</kw>
+<kw name="When Click &quot;Tạo mới&quot; sub menu to &quot;/vn/dayoff/add&quot;" library="common" sourcename="Click &quot;${text}&quot; sub menu to &quot;${url}&quot;">
+<kw name="Wait Until Element Spin" library="common">
+<kw name="Set Variable" library="BuiltIn">
+<var>${element}</var>
+<arg>xpath=//*[contains(@class, "ant-spin-spinning")]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:40.186" level="INFO">${element} = xpath=//*[contains(@class, "ant-spin-spinning")]</msg>
+<status status="PASS" starttime="20230717 14:55:40.185" endtime="20230717 14:55:40.186"/>
+</kw>
+<kw name="Get Element Count" library="Browser">
+<var>${count}</var>
+<arg>${element}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the count of elements found with ``selector``.</doc>
+<msg timestamp="20230717 14:55:40.193" level="INFO">${count} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:40.187" endtime="20230717 14:55:40.193"/>
+</kw>
+<if>
+<branch type="IF" condition="${count} &gt; 0">
+<kw name="Wait Until Element Is Not Exist" library="common">
+<arg>${element}</arg>
+<status status="NOT RUN" starttime="20230717 14:55:40.194" endtime="20230717 14:55:40.194"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:40.193" endtime="20230717 14:55:40.195"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:40.193" endtime="20230717 14:55:40.195"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:40.185" endtime="20230717 14:55:40.196"/>
+</kw>
+<kw name="Click" library="Browser">
+<arg>xpath=//a[contains(@class, "sub-menu") and descendant::span[contains(text(), "${text}")]]</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:40.196" endtime="20230717 14:55:40.387"/>
+</kw>
+<kw name="Get Url" library="Browser">
+<var>${curent_url}</var>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the current URL.</doc>
+<msg timestamp="20230717 14:55:40.393" level="INFO">${curent_url} = http://localhost:5173/vn/dayoff/add</msg>
+<status status="PASS" starttime="20230717 14:55:40.389" endtime="20230717 14:55:40.393"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${curent_url}</arg>
+<arg>${URL_DEFAULT}${url}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20230717 14:55:40.395" endtime="20230717 14:55:40.395"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:40.184" endtime="20230717 14:55:40.395"/>
+</kw>
+<kw name="Get dayoff" library="common">
+<var>${day1}</var>
+<return>
+<value>xpath=//div[contains(@class, 'max-w-2xl')]/div[contains(@class, 'text-xl')]</value>
+<status status="PASS" starttime="20230717 14:55:40.396" endtime="20230717 14:55:40.397"/>
+</return>
+<msg timestamp="20230717 14:55:40.398" level="INFO">${day1} = xpath=//div[contains(@class, 'max-w-2xl')]/div[contains(@class, 'text-xl')]</msg>
+<status status="PASS" starttime="20230717 14:55:40.396" endtime="20230717 14:55:40.398"/>
+</kw>
+<kw name="Get Text" library="Browser">
+<var>${text1}</var>
+<arg>${day1}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns text attribute of the element found by ``selector``.</doc>
+<msg timestamp="20230717 14:55:40.434" level="INFO">Text: 'Ngày phép còn lại ( 2 Ngày phép)'</msg>
+<msg timestamp="20230717 14:55:40.434" level="INFO">${text1} = Ngày phép còn lại ( 2 Ngày phép)</msg>
+<status status="PASS" starttime="20230717 14:55:40.399" endtime="20230717 14:55:40.434"/>
+</kw>
+<if>
+<branch type="IF" condition="'${type}' == 'Nghỉ phép có lương'">
+<kw name="Should Not Be Equal" library="BuiltIn">
+<arg>${text}</arg>
+<arg>${text1}</arg>
+<doc>Fails if the given objects are equal.</doc>
+<status status="PASS" starttime="20230717 14:55:40.435" endtime="20230717 14:55:40.436"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:40.435" endtime="20230717 14:55:40.436"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:40.435" endtime="20230717 14:55:40.437"/>
+</if>
+<if>
+<branch type="IF" condition="'${type}' == 'Nghỉ phép không lương' or '${type}' == 'Làm remote'">
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${text}</arg>
+<arg>${text1}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:40.440" endtime="20230717 14:55:40.440"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:40.438" endtime="20230717 14:55:40.440"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:40.438" endtime="20230717 14:55:40.440"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:27.709" endtime="20230717 14:55:40.441"/>
+</kw>
+<kw name="When Click &quot;Huỷ bỏ&quot; button" library="common" sourcename="Click &quot;${text}&quot; button">
+<kw name="Click" library="Browser">
+<arg>xpath=//button[@title = "${text}"]</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:40.445" endtime="20230717 14:55:40.697"/>
+</kw>
+<kw name="Click Confirm To Action" library="common">
+<kw name="Set Variable" library="BuiltIn">
+<var>${element}</var>
+<arg>xpath=//*[contains(@class, "ant-popover")]//*[contains(@class, "ant-btn-primary")]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:40.698" level="INFO">${element} = xpath=//*[contains(@class, "ant-popover")]//*[contains(@class, "ant-btn-primary")]</msg>
+<status status="PASS" starttime="20230717 14:55:40.698" endtime="20230717 14:55:40.698"/>
+</kw>
+<kw name="Get Element Count" library="Browser">
+<var>${count}</var>
+<arg>${element}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the count of elements found with ``selector``.</doc>
+<msg timestamp="20230717 14:55:40.716" level="INFO">${count} = 0</msg>
+<status status="PASS" starttime="20230717 14:55:40.699" endtime="20230717 14:55:40.716"/>
+</kw>
+<if>
+<branch type="IF" condition="${count} &gt; 0">
+<kw name="Click" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:40.717" endtime="20230717 14:55:40.717"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>${SHOULD_TIMEOUT}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" starttime="20230717 14:55:40.718" endtime="20230717 14:55:40.718"/>
+</kw>
+<status status="NOT RUN" starttime="20230717 14:55:40.717" endtime="20230717 14:55:40.718"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:40.717" endtime="20230717 14:55:40.719"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:40.698" endtime="20230717 14:55:40.719"/>
+</kw>
+<kw name="Scroll By" library="Browser">
+<arg>${None}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Scrolls an element or the page relative from current position by the given values.</doc>
+<status status="PASS" starttime="20230717 14:55:40.719" endtime="20230717 14:55:40.742"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:40.443" endtime="20230717 14:55:40.742"/>
+</kw>
+<kw name="When Click on the &quot;Xóa&quot; button in the &quot;Loại phép&quot; table line" library="common" sourcename="Click on the &quot;${text}&quot; button in the &quot;${name}&quot; table line">
+<kw name="Wait Until Element Spin" library="common">
+<kw name="Set Variable" library="BuiltIn">
+<var>${element}</var>
+<arg>xpath=//*[contains(@class, "ant-spin-spinning")]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:40.745" level="INFO">${element} = xpath=//*[contains(@class, "ant-spin-spinning")]</msg>
+<status status="PASS" starttime="20230717 14:55:40.744" endtime="20230717 14:55:40.745"/>
+</kw>
+<kw name="Get Element Count" library="Browser">
+<var>${count}</var>
+<arg>${element}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the count of elements found with ``selector``.</doc>
+<msg timestamp="20230717 14:55:40.754" level="INFO">${count} = 1</msg>
+<status status="PASS" starttime="20230717 14:55:40.745" endtime="20230717 14:55:40.754"/>
+</kw>
+<if>
+<branch type="IF" condition="${count} &gt; 0">
+<kw name="Wait Until Element Is Not Exist" library="common">
+<arg>${element}</arg>
+<kw name="Wait For Elements State" library="Browser">
+<arg>${locator}</arg>
+<arg>detached</arg>
+<arg>${timeout}</arg>
+<arg>${message}</arg>
+<tag>PageContent</tag>
+<tag>Wait</tag>
+<doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
+<msg timestamp="20230717 14:55:42.116" level="INFO">Waited for Element with selector xpath=//*[contains(@class, "ant-spin-spinning")] at state detached</msg>
+<status status="PASS" starttime="20230717 14:55:40.757" endtime="20230717 14:55:42.116"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:40.756" endtime="20230717 14:55:42.117"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:40.755" endtime="20230717 14:55:42.117"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:40.755" endtime="20230717 14:55:42.117"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:40.744" endtime="20230717 14:55:42.117"/>
+</kw>
+<kw name="Get Element Table Item By Name" library="common">
+<var>${element}</var>
+<arg>${STATE["${name}"]}</arg>
+<arg>//button[@title = "${text}"]</arg>
+<return>
+<value>xpath=//*[contains(@class, "ant-table-row")]//*[contains(text(), "${name}")]/ancestor::tr${xpath}</value>
+<status status="PASS" starttime="20230717 14:55:42.119" endtime="20230717 14:55:42.120"/>
+</return>
+<msg timestamp="20230717 14:55:42.121" level="INFO">${element} = xpath=//*[contains(@class, "ant-table-row")]//*[contains(text(), "Nghỉ phép có lương")]/ancestor::tr//button[@title = "Xóa"]</msg>
+<status status="PASS" starttime="20230717 14:55:42.118" endtime="20230717 14:55:42.122"/>
+</kw>
+<kw name="Click" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:42.122" endtime="20230717 14:55:42.233"/>
+</kw>
+<kw name="Click Confirm To Action" library="common">
+<kw name="Set Variable" library="BuiltIn">
+<var>${element}</var>
+<arg>xpath=//*[contains(@class, "ant-popover")]//*[contains(@class, "ant-btn-primary")]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230717 14:55:42.235" level="INFO">${element} = xpath=//*[contains(@class, "ant-popover")]//*[contains(@class, "ant-btn-primary")]</msg>
+<status status="PASS" starttime="20230717 14:55:42.234" endtime="20230717 14:55:42.235"/>
+</kw>
+<kw name="Get Element Count" library="Browser">
+<var>${count}</var>
+<arg>${element}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the count of elements found with ``selector``.</doc>
+<msg timestamp="20230717 14:55:42.279" level="INFO">${count} = 1</msg>
+<status status="PASS" starttime="20230717 14:55:42.235" endtime="20230717 14:55:42.279"/>
+</kw>
+<if>
+<branch type="IF" condition="${count} &gt; 0">
+<kw name="Click" library="Browser">
+<arg>${element}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" starttime="20230717 14:55:42.280" endtime="20230717 14:55:42.599"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>${SHOULD_TIMEOUT}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20230717 14:55:42.699" level="INFO">Slept 100 milliseconds</msg>
+<status status="PASS" starttime="20230717 14:55:42.599" endtime="20230717 14:55:42.699"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:42.279" endtime="20230717 14:55:42.699"/>
+</branch>
+<status status="PASS" starttime="20230717 14:55:42.279" endtime="20230717 14:55:42.700"/>
+</if>
+<status status="PASS" starttime="20230717 14:55:42.234" endtime="20230717 14:55:42.700"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:40.743" endtime="20230717 14:55:42.700"/>
+</kw>
+<kw name="Tear Down" library="common" type="TEARDOWN">
+<kw name="Close Browser" library="Browser">
+<arg>ALL</arg>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+<doc>Closes the current browser.</doc>
+<msg timestamp="20230717 14:55:43.605" level="INFO">Closed all browsers</msg>
+<status status="PASS" starttime="20230717 14:55:42.701" endtime="20230717 14:55:43.606"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:42.701" endtime="20230717 14:55:43.607"/>
+</kw>
+<status status="PASS" starttime="20230717 14:55:15.495" endtime="20230717 14:55:43.607"/>
+</test>
+<status status="PASS" starttime="20230717 14:55:12.331" endtime="20230717 14:55:43.616"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Dayoff Staff">Dayoff Staff</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

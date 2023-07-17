@@ -142,7 +142,7 @@ SLM-15 Verify that create a vacation successful when the holidays are over
 
 SLM-19 Verify that Staff can delete leave request successfully when not approved
     When Go to page list data
-    When Click delete dayoff "Chiều"
+    When Click delete dayoff "03-07-2023 => 04-07-2023"
     Then User look message "Xóa thành công" popup
 
 SLM-18 Verify that user can view the list of leave request successfully
