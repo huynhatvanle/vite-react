@@ -60,15 +60,15 @@ Element Should Not Be Visible
 
 Get Random Text
     [Arguments]    ${type}    ${text}
-    ${symbol}=    Set Variable    _RANDOM_
+    ${symbol}=    Set Variable    RANDOM
     ${new_text}=    Set Variable
-    ${containsS}=    Get Regexp Matches    ${text}    _@(.+)@_    1
+    ${containsS}=    Get Regexp Matches    ${text}    @(.+)@    1
     ${cntS}=    Get length    ${containsS}
     ${contains}=    Get Regexp Matches    ${text}    ${symbol}
     ${cnt}=    Get length    ${contains}
     IF    ${cntS} > 0
         ${new_text}=    Set Variable    ${STATE["${containsS[0]}"]}
-        ${symbol}=    Set Variable    _@${containsS[0]}@_
+        ${symbol}=    Set Variable    @${containsS[0]}@
     ELSE IF    ${cnt} > 0 and '${type}' == 'test name'
         ${random}=    FakerLibrary.Sentence    nb_words=3
         ${words}=    Split String    ${TEST NAME}    ${SPACE}
@@ -269,10 +269,10 @@ Click "${text}" sub menu to "${url}"
     Should Contain    ${curent_url}    ${URL_DEFAULT}${url}
 
 User look message "${message}" popup
-    ${contains}=    Get Regexp Matches    ${message}    _@(.+)@_    1
+    ${contains}=    Get Regexp Matches    ${message}    @(.+)@    1
     ${cnt}=    Get length    ${contains}
     IF    ${cnt} > 0
-        ${message}=    Replace String    ${message}    _@${contains[0]}@_    ${STATE["${contains[0]}"]}
+        ${message}=    Replace String    ${message}    @${contains[0]}@    ${STATE["${contains[0]}"]}
     END
     Element Text Should Be    id=swal2-html-container    ${message}
     ${element}=    Set Variable    xpath=//*[contains(@class, "swal2-confirm")]
