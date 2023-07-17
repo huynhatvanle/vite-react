@@ -34,9 +34,9 @@ const action = {
       values,
     );
     if (data) {
-      if (message) Message.success({ text: message });
       localStorage.setItem(keyToken, data?.accessToken);
       localStorage.setItem(keyRefreshToken, data?.refreshToken);
+      if (message) await Message.success({ text: message });
     }
     return data!.userInfor;
   }),

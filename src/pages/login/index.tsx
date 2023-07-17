@@ -16,7 +16,7 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'login.fulfilled' && user && Object.keys(user).length > 0) {
-      navigate('/' + lang + '/', { replace: true });
+      navigate('/' + lang + '/dashboard', { replace: true });
       profile();
     }
   }, [status]);

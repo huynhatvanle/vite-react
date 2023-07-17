@@ -274,7 +274,15 @@ Wait Until Element Spin
     IF    ${count} > 0    Wait Until Element Is Not Exist    ${element}
 ##############################
 
-Check Url Dashboard Page
+Click element input "${name}"
+    ${element}=    Get Element Form Item By Name    ${name}    //input[contains(@class, "ant-input")]
+    Click    ${element}
+
+Check Url "${text}" Page
     ${url}=    Get Url
-    Should Be Equal    ${url}    ${URL_DEFAULT}/vn/dashboard
+    Should Be Equal    ${url}    ${URL_DEFAULT}${text}
+
+Check displayed under "${name}" field
+    ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-form-item-explain-error")]
+    Element Should Not Be Visible    ${element}
 ###############################
