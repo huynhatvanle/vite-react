@@ -18,7 +18,7 @@ CRU-02 Verify that it is possible to navigate to the page for creating a new use
     [Tags]    @smoketest    @regression
     Login to Admin
     And Click "Người Dùng" menu
-    And Click "Danh sách" submenu in "Người Dùng" menu
+    And Click "Danh sách" submenu in "Người Dùng" menu1
     And Click "Tạo mới" button
     Then User look title "Tạo mới người dùng"
 
@@ -290,14 +290,14 @@ CRU-30 Verify that Create user successfully when select "Vai trò" with "Supper 
 CRU-31 Verify that Delete user unsuccessfully because user has submitted a request for leave that needs to be approved.
     Login to admin
     And Click "Người Dùng" menu
-    And Click "Danh sách" submenu in "Người Dùng" menu
+    And Click "Danh sách" submenu in "Người Dùng" menu1
     And Click "Xóa" user has submitted a request for leave that needs to be approved
     Then User look message "Còn những yêu cầu nghỉ cần duyệt" popup
 
 CRU-32 Verify that Delete user unsuccessfully because user still managing other people
     Login to admin
     And Click "Người Dùng" menu
-    And Click "Danh sách" submenu in "Người Dùng" menu
+    And Click "Danh sách" submenu in "Người Dùng" menu1
     And Click "Xóa" user still managing other people
     Then User look message "common.user.Still managing other people" popup
 
@@ -316,7 +316,7 @@ CRU-33 Verify that can see "Mật khẩu" và "Nhập lại mật khẩu" field 
 CRU-34 Verify that the list of users all Role can be viewed successfully
     Login to admin
     And Click "Người Dùng" menu
-    And Click "Danh sách" submenu in "Người Dùng" menu
+    And Click "Danh sách" submenu in "Người Dùng" menu1
     And Increase the number of users displayed in the list
     Then Show list of users
 

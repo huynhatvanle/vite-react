@@ -50,7 +50,7 @@ Go to page create user
 Go to "Danh sách Người dùng" page
     Login to admin
     And Click "Người Dùng" menu
-    And Click "Danh sách" submenu in "Người Dùng" menu
+    And Click "Danh sách" submenu in "Người Dùng" menu1
 
 Go to page create team
     Login to Admin
@@ -477,7 +477,7 @@ User look "${name}" field empty
 # #############--------------CREATE USER----------------#########################
 # Click sub menu "Danh sách" trong menu "Người Dùng"
 
-Click "${list}" submenu in "Người Dùng" menu
+Click "${list}" submenu in "Người Dùng" menu1
     ${element}=    Set Variable    xpath=(//span[text()='${list}'])[2]
     Click    ${element}
 
