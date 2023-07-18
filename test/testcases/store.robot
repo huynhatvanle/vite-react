@@ -141,9 +141,14 @@ Test Teardown       Tear Down
 #    When Search input "???"
 #    When Search no data
 
-ST-16 Verify there is no store display in the store list when entering invalid data in search textbox
+# ST-16 Verify there is no store display in the store list when entering invalid data in search textbox
+#    When Go to page data
+#    When Search input "asdw"
+#    When Search no data
+
+ST-17 Verify that admin search for the store successfully by Store ID
     When Go to page data
-    When Search input "asdw"
+    When Search input "STR1061"
     When Search no data
 
 
