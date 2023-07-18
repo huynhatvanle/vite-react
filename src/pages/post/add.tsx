@@ -132,6 +132,7 @@ const Page = () => {
                   { label: 'Vietnam', value: 'vn' },
                 ],
                 column: [
+                  { title: 'id', name: 'id', formItem: { type: 'hidden' } },
                   {
                     title: 'Name',
                     name: 'name',

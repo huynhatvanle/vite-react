@@ -62,18 +62,15 @@ const Page = () => {
             {
               title: 'Name',
               name: 'name',
-              formItem: {
-                col: 6,
-              },
+              formItem: {},
             },
             {
               title: 'Slug',
               name: 'slug',
               formItem: {
-                col: 6,
+                type: 'hidden',
               },
             },
-
             {
               title: 'routes.admin.user.Description',
               name: 'description',
