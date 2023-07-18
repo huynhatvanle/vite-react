@@ -194,7 +194,6 @@ const Page = () => {
             title: 'store.ContactName',
             formItem: {
               col: 4,
-              type: 'name',
               rules: [{ type: 'required' },],
             },
           },

@@ -239,7 +239,7 @@ Select on the "${text}" item line
     Click    ${element}
 
 Click "${text}" menu
-    Click    xpath=//li[contains(@class, "menu") and descendant::span[contains(text(), "${text}")]]
+    Click    xpath=//li[descendant::span[contains(text(), "${text}")]]
 
 Click "${text}" sub menu to "${url}"
     Wait Until Element Spin
@@ -272,17 +272,57 @@ Wait Until Element Spin
     ${element}=    Set Variable    xpath=//*[contains(@class, "ant-spin-spinning")]
     ${count}=    Get Element Count    ${element}
     IF    ${count} > 0    Wait Until Element Is Not Exist    ${element}
-##############################
+
+###    Login & Store    ###
 
 Click element input "${name}"
     ${element}=    Get Element Form Item By Name    ${name}    //input[contains(@class, "ant-input")]
     Click    ${element}
 
-Check Url "${text}" Page
-    ${url}=    Get Url
-    Should Be Equal    ${url}    ${URL_DEFAULT}${text}
+Check Url "${url}" Page
+    ${url_current}=    Get Url
+    Should Be Equal    ${url_current}    ${URL_DEFAULT}${url}
 
 Check displayed under "${name}" field
     ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-form-item-explain-error")]
     Element Should Not Be Visible    ${element}
-###############################
+
+Click "${name}" Eye icon
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //input[contains(@class, "ant-input")]//following-sibling::*
+    Click    ${element}
+    Should Be Equal    first    second
+
+Click on the "${text}" button in the "${name}" table line
+    Wait Until Element Spin
+    ${element}=    Get Element Form Item By Name    ${STATE["${name}"]}    //input[contains(@class, "ant-input")]
+    Click    ${element}
+    Click Confirm To Action
+
+Check empty in "${name}"
+    ${element}=    Get Element Form Item By Name    ${name}    //input[contains(@class, "ant-input")]
+    Should Be Empty    ${element}
+
+Clear select "${name}"
+    ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-select-show-arrow")]
+    Hover    ${element}
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //*[contains(@class, "ant-select-clear")]
+    Click    ${element}
+
+Search input "${text}"
+    Clear Text    xpath=//input[contains(@placeholder, "Tìm kiếm")]
+    Fill Text    xpath=//input[contains(@placeholder, "Tìm kiếm")]    ${text}
+    Wait Until Element Spin
+
+Search no data
+    Element Text Should Be
+    ...    xpath=//*[contains(@class, "ant-table-placeholder")]/td[contains(@class, "ant-table-cell")]/div
+    ...    Trống
+
+Search have data
+    Element Should Not Be Visible
+    ...    xpath=//*tbody/tr*[contains(@class, "ant-table-placeholder")]/td[contains(@class, "ant-table-cell")]/div
+###    ###    ###

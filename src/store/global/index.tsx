@@ -14,9 +14,9 @@ const action = {
   name,
   set: createAsyncThunk(name + '/set', async (values: State) => values),
   logout: createAsyncThunk(name + '/logout', async () => {
-    // if (localStorage.getItem(keyRefreshToken)) {
-    //   return await API.get(`${routerLinks(name, 'api')}/logout`);
-    // }
+    if (localStorage.getItem(keyRefreshToken)) {
+      return await API.get(`${routerLinks(name, 'api')}/logout`);
+    }
     return true;
   }),
   profile: createAsyncThunk(name + '/get-my-info', async () => {

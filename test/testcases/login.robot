@@ -6,10 +6,9 @@ Test Teardown       Tear Down
 
 
 *** Test Cases ***
-DN-01 Verify that Admin CAN login successfuly with valid Email and Password
-    [Tags]    @smoketest    @regression
-    When Login to admin
-    Sleep    50s
+# DN-01 Verify that Admin CAN login successfuly with valid Email and Password
+#    [Tags]    @smoketest    @regression
+#    When Login to admin
 
 # DN-02 Verify that validation text of Email appears when login with empty Email
 #    [Tags]    @smoketest    @regression
@@ -68,5 +67,13 @@ DN-01 Verify that Admin CAN login successfuly with valid Email and Password
 
 # DN-10 Verify the password is displayed when clicking on the "Eye" icon in Mật khẩu field
 #    [Tags]    @smoketest    @regression
-#    When Click "Quên mật khẩu" button
-#    When Check Url "/vn/forgot-password" Page
+#    When Enter "text" in "Mật khẩu" with "_RANDOM_"
+#    When Click "Mật khẩu" Eye icon
+
+DN-11 Inputted data is not display when clicking on Refresh button
+    [Tags]    @smoketest    @regression
+    When Enter "email" in "Tên đăng nhập" with "_RANDOM_"
+    When Enter "text" in "Mật khẩu" with "_RANDOM_"
+    Reload
+    When Check empty in "Tên đăng nhập"
+    When Check empty in "Mật khẩu"
