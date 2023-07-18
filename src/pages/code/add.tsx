@@ -51,7 +51,10 @@ const Page = () => {
     else codeFacade.post(values);
   };
 
-  const { result } = CodeTypeFacade();
+  const { result, get } = CodeTypeFacade();
+  useEffect(() => {
+    if (!result?.data?.length) get({});
+  }, []);
   const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
   const { t } = useTranslation();
   return (
@@ -62,7 +65,7 @@ const Page = () => {
           className="intro-x"
           columns={[
             {
-              title: 'Code.Name',
+              title: 'routes.admin.Code.Name',
               name: 'name',
               formItem: {
                 col: 4,
@@ -75,7 +78,7 @@ const Page = () => {
               },
             },
             {
-              title: 'Code.Type',
+              title: 'routes.admin.Code.Type',
               name: 'type',
               formItem: {
                 type: 'select',
@@ -93,7 +96,7 @@ const Page = () => {
               },
             },
             {
-              title: 'user.Description',
+              title: 'routes.admin.user.Description',
               name: 'description',
               formItem: {
                 type: 'textarea',

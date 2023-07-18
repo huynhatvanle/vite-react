@@ -17,7 +17,7 @@ const Page = () => {
       <Spin className="grid grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6 gap-5 intro-x" spinning={false}>
         <div className="rounded-xl shadow bg-gray-50 col-span-2 2xl:col-span-3">
           <div className="p-5 flex justify-between items-center">
-            <h2 className="text-lg font-bold">{t('dashboard.Business Profiles Activity')}</h2>
+            <h2 className="text-lg font-bold">{t('routes.admin.dashboard.Business Profiles Activity')}</h2>
           </div>
           <DataTable
             save={false}
@@ -61,16 +61,16 @@ const Page = () => {
               },
             ]}
             columns={[
-              { title: 'dashboard.Profile', name: 'name', tableItem: {} },
-              { title: 'dashboard.Package', name: 'package', tableItem: {} },
-              { title: 'dashboard.Start Date', name: 'date', tableItem: {} },
-              { title: 'dashboard.Status', name: 'status', tableItem: {} },
+              { title: 'routes.admin.dashboard.Profile', name: 'name', tableItem: {} },
+              { title: 'routes.admin.dashboard.Package', name: 'package', tableItem: {} },
+              { title: 'routes.admin.dashboard.Start Date', name: 'date', tableItem: {} },
+              { title: 'routes.admin.dashboard.Status', name: 'status', tableItem: {} },
             ]}
           />
         </div>
         <div className="rounded-xl shadow bg-gray-50 col-span-2 2xl:col-span-3">
           <div className="p-5 flex justify-between items-center">
-            <h2 className="text-lg font-bold">{t('dashboard.Franchise Profiles Activity')}</h2>
+            <h2 className="text-lg font-bold">{t('routes.admin.dashboard.Franchise Profiles Activity')}</h2>
           </div>
           <DataTable
             save={false}
@@ -114,16 +114,16 @@ const Page = () => {
               },
             ]}
             columns={[
-              { title: 'dashboard.Profile', name: 'name', tableItem: {} },
-              { title: 'dashboard.Package', name: 'package', tableItem: {} },
-              { title: 'dashboard.Start Date', name: 'date', tableItem: {} },
-              { title: 'dashboard.Status', name: 'status', tableItem: {} },
+              { title: 'routes.admin.dashboard.Profile', name: 'name', tableItem: {} },
+              { title: 'routes.admin.dashboard.Package', name: 'package', tableItem: {} },
+              { title: 'routes.admin.dashboard.Start Date', name: 'date', tableItem: {} },
+              { title: 'routes.admin.dashboard.Status', name: 'status', tableItem: {} },
             ]}
           />
         </div>
         <div className="rounded-xl shadow bg-gray-50 col-span-2 2xl:col-span-3">
           <div className="p-5 flex justify-between items-center">
-            <h2 className="text-lg font-bold">{t('dashboard.Investor Profiles Activity')}</h2>
+            <h2 className="text-lg font-bold">{t('routes.admin.dashboard.Investor Profiles Activity')}</h2>
           </div>
           <DataTable
             save={false}
@@ -167,16 +167,16 @@ const Page = () => {
               },
             ]}
             columns={[
-              { title: 'dashboard.Profile', name: 'name', tableItem: {} },
-              { title: 'dashboard.Package', name: 'package', tableItem: {} },
-              { title: 'dashboard.Start Date', name: 'date', tableItem: {} },
-              { title: 'dashboard.Status', name: 'status', tableItem: {} },
+              { title: 'routes.admin.dashboard.Profile', name: 'name', tableItem: {} },
+              { title: 'routes.admin.dashboard.Package', name: 'package', tableItem: {} },
+              { title: 'routes.admin.dashboard.Start Date', name: 'date', tableItem: {} },
+              { title: 'routes.admin.dashboard.Status', name: 'status', tableItem: {} },
             ]}
           />
         </div>
         <div className="rounded-xl shadow bg-gray-50 col-span-2 2xl:col-span-3">
           <div className="p-5 flex justify-between items-center">
-            <h2 className="text-lg font-bold">{t('dashboard.Monthly Profiles Activity')}</h2>
+            <h2 className="text-lg font-bold">{t('routes.admin.dashboard.Monthly Profiles Activity')}</h2>
           </div>
           <DataTable
             save={false}
@@ -220,10 +220,10 @@ const Page = () => {
               },
             ]}
             columns={[
-              { title: 'dashboard.Profile', name: 'name', tableItem: {} },
-              { title: 'dashboard.Package', name: 'package', tableItem: {} },
-              { title: 'dashboard.Start Date', name: 'date', tableItem: {} },
-              { title: 'dashboard.Status', name: 'status', tableItem: {} },
+              { title: 'routes.admin.dashboard.Profile', name: 'name', tableItem: {} },
+              { title: 'routes.admin.dashboard.Package', name: 'package', tableItem: {} },
+              { title: 'routes.admin.dashboard.Start Date', name: 'date', tableItem: {} },
+              { title: 'routes.admin.dashboard.Status', name: 'status', tableItem: {} },
             ]}
           />
         </div>

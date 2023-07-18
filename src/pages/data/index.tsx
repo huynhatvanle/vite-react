@@ -47,7 +47,7 @@ const Page = () => {
             <div className="flex items-center">
               <Button
                 icon={<Plus className="icon-cud !h-5 !w-5" />}
-                text={t('routes.admin.Layout.Add')}
+                text={t('routes.admin.Code.New Type')}
                 onClick={() => navigate(`/${lang}${routerLinks('DataType')}/add`)}
               />
             </div>
@@ -134,7 +134,7 @@ const Page = () => {
               }
               columns={[
                 {
-                  title: 'Data.Name',
+                  title: 'routes.admin.Data.Name',
                   name: 'translations',
                   tableItem: {
                     filter: { type: 'search' },
@@ -144,7 +144,7 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'Data.Order',
+                  title: 'routes.admin.Data.Order',
                   name: 'order',
                   tableItem: {
                     filter: { type: 'search' },
@@ -152,13 +152,10 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'user.Action',
+                  title: 'routes.admin.user.Action',
                   tableItem: {
                     width: 100,
                     align: 'center',
-                    onCell: () => ({
-                      style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' },
-                    }),
                     render: (text: string, data) => (
                       <div className={'flex gap-2'}>
                         {user?.role?.permissions?.includes(keyRole.P_CODE_UPDATE) && (

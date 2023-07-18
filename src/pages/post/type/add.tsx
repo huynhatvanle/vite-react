@@ -75,7 +75,7 @@ const Page = () => {
             },
 
             {
-              title: 'user.Description',
+              title: 'routes.admin.user.Description',
               name: 'description',
               formItem: {
                 col: 8,
@@ -84,7 +84,7 @@ const Page = () => {
             },
             {
               name: 'coverUrl',
-              title: 'user.Upload avatar',
+              title: 'routes.admin.user.Upload avatar',
               formItem: {
                 col: 4,
                 type: 'upload',

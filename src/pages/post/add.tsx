@@ -51,7 +51,10 @@ const Page = () => {
     else dataFacade.post(values);
   };
 
-  const { result } = PostTypeFacade();
+  const { result, get } = PostTypeFacade();
+  useEffect(() => {
+    if (!result?.data?.length) get({});
+  }, []);
   const listType = (result?.data || []).map((item) => ({ value: item.slug, label: item.name }));
   const { t } = useTranslation();
   return (
@@ -62,7 +65,7 @@ const Page = () => {
           className="intro-x"
           columns={[
             {
-              title: 'Post.Type',
+              title: 'routes.admin.Post.Type',
               name: 'type',
               formItem: {
                 type: 'select',
@@ -72,46 +75,44 @@ const Page = () => {
               },
             },
             {
-              title: 'Post.Image',
+              title: 'thumbnailUrl',
               name: 'thumbnailUrl',
               formItem: {
                 col: 4,
                 type: 'upload',
-                mode: 'multiple',
               },
             },
             {
-              title: 'Post.Image',
+              title: 'coverUrl',
               name: 'coverUrl',
               formItem: {
                 col: 4,
                 type: 'upload',
-                mode: 'multiple',
               },
             },
             {
-              title: 'Post.Type',
+              title: 'backGroundColor',
               name: 'backGroundColor',
               formItem: {
                 col: 4,
               },
             },
             {
-              title: 'Post.Type',
+              title: 'titleForeColor',
               name: 'titleForeColor',
               formItem: {
                 col: 4,
               },
             },
             {
-              title: 'Post.Type',
+              title: 'customCSSClass',
               name: 'customCSSClass',
               formItem: {
                 col: 4,
               },
             },
             {
-              title: 'Post.Type',
+              title: 'customCSS',
               name: 'customCSS',
               formItem: {
                 type: 'textarea',

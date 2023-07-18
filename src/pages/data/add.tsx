@@ -51,7 +51,10 @@ const Page = () => {
     else dataFacade.post(values);
   };
 
-  const { result } = DataTypeFacade();
+  const { result, get } = DataTypeFacade();
+  useEffect(() => {
+    if (!result?.data?.length) get({});
+  }, []);
   const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
   const { t } = useTranslation();
   return (
@@ -62,7 +65,7 @@ const Page = () => {
           className="intro-x"
           columns={[
             {
-              title: 'Data.Type',
+              title: 'routes.admin.Data.Type',
               name: 'type',
               formItem: {
                 type: 'select',
@@ -72,7 +75,7 @@ const Page = () => {
               },
             },
             {
-              title: 'Data.Order',
+              title: 'routes.admin.Data.Order',
               name: 'order',
               formItem: {
                 col: 4,
@@ -80,7 +83,7 @@ const Page = () => {
               },
             },
             {
-              title: 'Data.Created At',
+              title: 'routes.admin.Data.Created At',
               name: 'createdAt',
               formItem: {
                 col: 4,
@@ -88,7 +91,7 @@ const Page = () => {
               },
             },
             {
-              title: 'Data.Image',
+              title: 'routes.admin.Data.Image',
               name: 'image',
               formItem: {
                 type: 'upload',
