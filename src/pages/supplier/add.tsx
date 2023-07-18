@@ -10,7 +10,6 @@ import { DistrictFacade } from '@store/address/district';
 import { Supplier, SupplierFacade } from '@store/supplier';
 import { language, languages, routerLinks } from '@utils';
 
-
 const Page = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -36,18 +35,20 @@ const Page = () => {
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
-    const name = forms.getFieldValue('name')
-    const fax = forms.getFieldValue('fax')
-    const provinceId = forms.getFieldValue('provinceId')
-    const districtId = forms.getFieldValue('districtId')
-    const wardId = forms.getFieldValue('wardId')
-    const street = forms.getFieldValue('street')
+    const name = forms.getFieldValue('name');
+    const fax = forms.getFieldValue('fax');
+    const provinceId = forms.getFieldValue('provinceId');
+    const districtId = forms.getFieldValue('districtId');
+    const wardId = forms.getFieldValue('wardId');
+    const street = forms.getFieldValue('street');
     supplierFace.post({ ...values, name, fax, provinceId, districtId, wardId, street });
   };
 
   return (
     <div className={''}>
-      <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Supplierinformation')}</div>
+      <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>
+        {t('titles.Supplierinformation')}
+      </div>
 
       <Form
         formAnt={forms}
@@ -166,9 +167,7 @@ const Page = () => {
             formItem: {
               render() {
                 return (
-                  <div className="text-lg text-teal-900 font-bold mb-2.5">
-                    {t('store.Representative information')}
-                  </div>
+                  <div className="text-lg text-teal-900 font-bold mb-2.5">{t('store.Representative information')}</div>
                 );
               },
             },
@@ -209,6 +208,7 @@ const Page = () => {
             title: 'store.Note',
             name: 'note',
             formItem: {
+              col: 12,
               type: 'textarea',
             },
           },
