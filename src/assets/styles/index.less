@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "~glightbox/dist/css/glightbox.css";
+
+@import "~swiper/swiper-bundle.css";
+@import "~swiper/swiper.min.css";
+
+@import "/src/core";
+.button {
+  @apply px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-400 inline-flex items-center gap-1 border border-transparent font-medium;
+
+  &.icon {
+    @apply p-0 border border-gray-300;
+    > i { @apply text-xl; }
+  }
+  &:disabled,
+  &button[disabled] { @apply bg-blue-300; }
+  &.out-line {
+    @apply ~'!bg-transparent !border-blue-600 !text-blue-600 hover:!bg-blue-400 hover:!border-blue-400 hover:!text-white';
+  }
+}
+
+body {
+  font-family: 'Manrope', -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+  @apply text-sm overflow-x-hidden text-gray-700 bg-blue-50;
+  .swal2-close:focus { @apply shadow-none; }
+}
+
+* > { .loop-intro-x(9); }
+.loop-intro-x(@counter) when (@counter > 0) {
+  .loop-intro-x((@counter - 1));    // next iteration
+  .intro-x:nth-child(@{counter}) { @apply translate-x-12; }
+  .-intro-x:nth-child(@{counter}) { @apply -translate-x-12; }
+  .-intro-x:nth-child(@{counter}), .intro-x:nth-child(@{counter}) {
+    @apply opacity-0 animate-intro-x-animation;
+    z-index: (10 - @counter);
+    animation-delay: ~"0.@{counter}s"
+  }
+}
+
+.ant-btn {
+  @apply border border-gray-300 text-sm rounded-lg mr-2 px-2;
+
+  &.ant-btn-primary { @apply bg-blue-600 text-white; }
+}
+.icon-cud { @apply h-6 w-6 ~'px-1' fill-white rounded-md; }
+svg { fill: currentColor; }
+
+.image-shine, .glightbox {
+  @apply relative overflow-hidden flex;
+
+  &:before {
+    @apply absolute top-0 -left-3/4 block w-1/2 h-full z-10 bg-gradient-to-r from-white/80 skew-x-[-25deg];
+    content: '';
+  }
+  &:hover:before { @apply animate-shine; }
+}
+
+.slide-zoom {
+  @apply overflow-visible;
+
+  .swiper-slide {
+    @apply opacity-0 duration-500 transition-all ease-in-out !scale-110;
+
+    &.swiper-slide-next, &.swiper-slide-active, &.swiper-slide-prev {
+    @apply opacity-100 duration-500 transition-all ease-in-out !scale-100;
+    }
+  }
+}
+.swal2{
+  &-html-container { @apply !m-6; }
+  &-actions { @apply !mt-0 !mb-4; }
+}
+.ant-tree-treenode,.ant-tree-node-content-wrapper { @apply w-full; }

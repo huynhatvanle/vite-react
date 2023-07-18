@@ -1,0 +1,62 @@
+<!DOCTYPE {{{ page.doctype || 'html' }}}>
+<html lang="{{ page.language || 'en' }}" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+  <meta charset="{{ page.charset || 'utf-8' }}">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings xmlns:o="urn:schemas-microsoft-com:office:office">
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <style>
+    td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
+  </style>
+  <![endif]-->
+  <if condition="page.title">
+    <title>{{{ page.title }}}</title>
+  </if>
+  <style>
+    {{{ page.css }}}
+  </style>
+  <block name="head"></block>
+</head>
+<body class="m-0 w-full font-sans [word-break:break-word] [-webkit-font-smoothing:antialiased] {{ page.bodyClass || '' }}">
+  <if condition="page.preheader">
+    <div class="hidden">
+      {{{ page.preheader }}}
+      <each loop="item in Array.from(Array(150))">&#847; </each>
+    </div>
+  </if>
+  <div class="pt-10" role="article" aria-roledescription="email" aria-label="{{{ page.title || '' }}}" lang="{{ page.language || 'en' }}">
+    <block name="template"></block>
+  </div>
+  <table class="text-zinc-600 pt-5 w-150 sm:w-full mx-auto text-center text-sm">
+    <tbody>
+    <tr>
+      <td>
+        Copyright ©{{ new Date().getFullYear() }} ARI Technology Co ., JSC. All rights reserved.
+      </td>
+    </tr>
+    <tr>
+      <td class="pt-4">
+        <a href="https://ari.com.vn/" target="_blank" class="text-zinc-600 mr-2 no-underline">Home</a> | <a href="https://ari.com.vn/about/tech" target="_blank"  class="text-zinc-600 ml-2 mr-2 no-underline">About</a> | <a href="https://ari.com.vn/news" target="_blank"  class="text-zinc-600 ml-2 mr-2 no-underline">News</a>|<a href="https://ari.com.vn/projects" target="_blank" class="text-zinc-600 ml-2 mr-2 no-underline">Projects</a>
+      </td>
+    </tr>
+    <tr>
+      <td class="py-4">
+        <img src="https://i.imgur.com/v9DgrD1.png" alt="logo" class="h-10">
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</body>
+</html>

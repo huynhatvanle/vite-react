@@ -1,0 +1,22 @@
+<!--[if mso]>
+<v:rect stroke="false" style="width: {{ width }}" xmlns:v="urn:schemas-microsoft-com:vml">
+<v:fill type="frame" src="{{{ image }}}" />
+<v:textbox inset="0,0,0,0" style="mso-fit-shape-to-text: true"><div><![endif]-->
+<table class="text-center w-full bg-blue-500 text-white">
+  <tbody>
+  <tr>
+    <td class="pt-10">
+      <p class="font-semibold mb-0">{{{ page.preheader }}}</p>
+      <h1 class="text-4xl font-normal mt-0  sm:text-xl  sm:leading-10">{{{ page.title }}}</h1>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="{{{ page.image }}}" alt="logo" class="w-full grid">
+    </td>
+  </tr>
+
+  </tbody>
+</table>
+<content></content>
+<!--[if mso]></div></v:textbox></v:rect><![endif]-->

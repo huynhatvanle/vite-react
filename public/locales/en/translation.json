@@ -1,0 +1,317 @@
+{
+  "components": {
+    "calendar": {
+      "more": "more"
+    },
+    "datatable": {
+      "pleaseEnterValueToSearch": "Search",
+      "reset": "Reset",
+      "search": "Search",
+      "areYouSureWant": "Are you sure want delete ?",
+      "cancel": "Cancel",
+      "ok": "Ok",
+      "No Data": "No Data"
+    },
+    "form": {
+      "ruleRequired": "Please enter {{title}}",
+      "ruleRequiredSelect": "Please choose {{title}}",
+      "ruleEmail": "Please enter a valid email address!",
+      "ruleUsername": "Username contains no special characters, only letters and numbers!",
+      "ruleMinLength": "Please enter at least {{min}} characters!",
+      "ruleMaxLength": "Please enter maximum {{max}} characters!",
+      "ruleMinNumberLength": "Please enter at least {{min}} number characters!",
+      "ruleMaxNumberLength": "Please enter maximum {{max}} number characters!",
+      "ruleMin": "Please enter minimum {{min}} number!",
+      "ruleMax": "Please enter maximum {{max}} number!",
+      "ruleMaxSize": "You can only upload up to {{max}}mb!",
+      "only text": "Please enter only text!",
+      "only number": "Please enter only number",
+      "rulePassword": "Password needs to have at least 8 characters, including at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character",
+      "rulePhone": "Phone number is invalid!",
+      "confirm": "Confirm",
+      "ruleConfirmPassword": "Two passwords that you enter is inconsistent!",
+      "incorrectPathFormat": "Incorrect path format",
+      "Enter": "Enter",
+      "Choose": "Choose",
+      "Upload": "Upload",
+      "modal": {
+        "save": "Save",
+        "cancel": "Cancel"
+      },
+      "Select Date": "Select Date"
+    },
+    "media-management": {
+      "filename": "File name",
+      "fileSize": "File size",
+      "lastModified": "Last modified",
+      "detail": "Detail",
+      "areYouSure": "Are you sure you want to delete?",
+      "mediaManagement": "Media Management",
+      "filesOnSystem": "Files on system",
+      "addFiles": "Add files",
+      "multiFiles": "Multi files",
+      "createFolder": "Create folder",
+      "uploadFile": "Upload file",
+      "moveUpLevel": "Move up a level",
+      "outsideLink": "Outside link",
+      "save": "Save",
+      "nameFolder": "Name folder",
+      "onlyLettersAndDigitsAllowed": "Only letters and digits allowed"
+    },
+    "message": {
+      "Success": "Success",
+      "Warning": "Warning",
+      "Fail": "Fail",
+      "Close": "Close",
+      "Ok": "Ok"
+    },
+    "button": {
+      "New": "New",
+      "Save and Add new": "Save and Add new",
+      "Back": "Back"
+    }
+  },
+  "titles": {
+    "Login": "Login",
+    "Dashboard": "Dashboard",
+    "User": "User",
+    "User/List": "List",
+    "User/Add": "Add",
+    "DayOff/List": "List",
+    "DayOff/Add": "Add",
+    "MyProfile": "My Profile",
+    "Setting": "Setting",
+    "Team": "Team",
+    "Code": "Code",
+    "Data": "Data",
+    "Page": "Page",
+    "DayOff": "Day Off"
+  },
+  "pages": {
+    "User/List": "List User",
+    "User/Add": "Add new User",
+    "User/Edit": "Edit User",
+    "DayOff": "Day Off",
+    "DayOff/List": "List Dayoff",
+    "DayOff/Add": "Add new Dayoff",
+    "DayOff/Edit": "Edit Dayoff",
+    "DayOff/Detail": "Detail Dayoff",
+    "MyProfile": "My Profile",
+    "Login": "Login",
+    "Dashboard": "Dashboard",
+    "User": "User",
+    "Setting": "Setting",
+    "Code": "List Code",
+    "Code/Add":"Add new Code",
+    "Code/Edit":"Edit Code",
+    "Data": "List Data",
+    "Data/Add": "Add new Data",
+    "Page": "List Page",
+    "Page/Add": "Add new Page",
+    "Page/Edit": "Edit Page",
+    "Team": "Team",
+    "Team/Add": "Add new Team",
+    "Team/Edit": "Edit Team"
+  },
+  "columns": {
+    "auth": {
+      "login": {
+        "Username": "Username",
+        "Enter Username": "Enter Username",
+        "Enter Password": "Enter Password",
+        "password": "Password",
+        "remember": "Remember Me",
+        "New password": "New password",
+        "Enter new password": "Enter new password",
+        "Confirm Password": "Confirm Password",
+        "Send": "Send"
+      },
+      "register": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "retypedPassword": "Retype Password"
+      },
+      "reset-password": {
+        "Recovery Email": "Recovery Email",
+        "Enter Recovery Email": "Enter Recovery Email"
+      }
+    }
+  },
+  "layout": {
+    "footer": "Ari Technology Company Ltd. ©{{year}}"
+  },
+  "routes": {
+    "auth": {
+      "login": {
+        "title": "Sign In",
+        "subTitle": "Enter your details to login to your account",
+        "Log In": "Log In",
+        "Forgot Password": "Forgot Password",
+        "Confirm Password": "Confirm Password",
+        "Reset password": "Reset Password",
+        "New password": "New password",
+        "Enter new password": "Enter new password",
+        "Account": "Don't have an account?",
+        "Welcome": "Welcome to Web Member Ari"
+      },
+      "reset-password": {
+        "Recovery Email": "Recovery Email",
+        "Enter Recovery Email": "Enter Recovery Email",
+        "title": "Reset Password",
+        "Submit": "Submit",
+        "Back To Login": "Submit"
+      }
+    },
+    "admin": {
+      "Layout": {
+        "Search": "Search",
+        "English": "English",
+        "Vietnam": "Vietnamese",
+        "Available": "Available",
+        "Account Setting": "Account Setting",
+        "Sign out": "Sign out",
+        "Mark all as read": "Mark all as read",
+        "Setting": "Setting",
+        "Notifications": "Notifications",
+        "See All": "See All",
+        "Add": "Add new",
+        "Edit": "Edit",
+        "Delete": "Delete",
+        "My Profile": "My Profile",
+        "No Data": "No Data",
+        "Apply for leave": "Apply for leave: ",
+        "Pagination": "Show {{from}} - {{to}} /Total {{total}} categories",
+        "DayOff": "Show {{from}} - {{to}} /Total {{total}} requests",
+        "User": "Show {{from}} - {{to}} /Total {{total}} user",
+        "Day": "day"
+      }
+    }
+  },
+  "dayoff": {
+    "Fullname": "Full Name",
+    "Team": "Team",
+    "Manager": "Manager",
+    "Type": "Type",
+    "Time": "Time",
+    "Leave Date": "Leave Date",
+    "Status": "Status",
+    "Approved Date": "Approvated Date",
+    "Approved At": "Approved At",
+    "Approved By": "Approvated By",
+    "Reason": "Reason",
+    "Approve": "Approve",
+    "Reject": "Reject",
+    "Reason Reject": "Reason Reject",
+    "register": {
+      "Leave Type": "Leave Type",
+      "Annual Leave": "Annual Leave",
+      "Leave without Pay": "Leave without Pay",
+      "Remote": "Remote",
+      "Time": "Time",
+      "All day": "All day",
+      "Morning": "Morning",
+      "Afternoon": "Afternoon",
+      "Date": "Date",
+      "Start Date": "Start Date",
+      "End Date": "End Date",
+      "Upload screenshot": "Upload screenshot"
+    }
+  },
+  "team": {
+    "Name": "Name",
+    "Manager": "Manager",
+    "Pagination": "Show {{from}} - {{to}} /Total {{total}} team"
+  },
+  "user": {
+    "Role": "Role",
+    "Position": "Position",
+    "Team": "Team",
+    "Start Date": "Start Date",
+    "Remaining Leave Day": "Remaining Leave Day",
+    "Date of birth": "Date of birth",
+    "Name": "Name",
+    "Is System Admin": "Is System Admin",
+    "Permissions": "Permissions",
+    "Description": "Description",
+    "Upload avatar": "Upload avatar",
+    "Fullname": "Full Name",
+    "Phone Number": "Phone Number",
+    "Action": "Action",
+    "Leave date cannot exceed": "Leave date cannot exceed {{day}} days"
+  },
+  "Code": {
+    "Type": "Type",
+    "Type Code": "Type Code",
+    "Type Category": "Type Category",
+    "Name": "Name"
+  },
+  "Data": {
+    "Type": "Type",
+    "Type Data": "Type Data",
+    "Name": "Name",
+    "Order": "Order",
+    "Page": "Page",
+    "Image": "Image",
+    "Created At": "Created At"
+  },
+  "Page": {
+    "Style" : "Style",
+    "Order": "Order",
+    "ParentId": "ParentId",
+    "Title": "Title",
+    "Slug": "Slug",
+    "Content": "Content"
+  },
+  "Page": {
+    "Type" : "Type",
+    "Order": "Order",
+    "ParentId": "ParentId",
+    "Title": "Title",
+    "Slug": "Slug",
+    "Content": "Content"
+  },
+  "dashboard":{
+    "Active Profile Report":"Active Profile Report",
+    "Total Profile": "Total Profile",
+    "Activated Profile":"Activated Profile",
+    "New Custommers":"New Custommers",
+    "User Purchasing Report":"User Purchasing Report",
+    "Free":"Free",
+    "Silver":"Silver",
+    "Gold":"Gold",
+    "Platinum":"Platinum",
+    "Seller Profiles":"Seller Profiles",
+    "Buyer Profiles":"Buyer Profiles",
+    "Introductions":"Introductions",
+    "Success Deal":"GSuccess Deal",
+    "Total Payment":"Total Payment",
+    "Partner Refund":"Partner Refund",
+    "Reference User":"Reference User",
+    "Sales Stats":"Sales Stats",
+    "Sales":"Sales",
+    "Share of total":"Share of total",
+    "active profiles":"active profiles",
+    "Total":"Total",
+    "active profile in":"active profile in",
+    "Business Profiles Activity":"Business Profiles Activity",
+    "Franchise Profiles Activity":"Franchise Profiles Activity",
+    "Investor Profiles Activity":"nvestor Profiles Activityư",
+    "Monthly Profiles Activity":"Monthly Profiles Activity",
+    "Profile":"Profile",
+    "Package":"Package",
+    "Start Date":"Start Date",
+    "Status":"Status",
+    "Jan":"Jan",
+    "Feb":"Feb",
+    "Mar":"Mar",
+    "Apr":"Apr",
+    "May":"May",
+    "Jun":"Jun",
+    "Jul":"Jul",
+    "Aug":"Aug",
+    "Sep":"Sep",
+    "Oct":"Oct",
+    "Nov":"Nov",
+    "Dev":"Dev"
+  }
+}
