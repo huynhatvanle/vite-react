@@ -33,7 +33,7 @@ Background Happy paths
     Then User look message "Tạo thành công" popup
     When Click "Huỷ bỏ" button
 
-# SPL_06
+# SPL_06 Verify that validation text of Họ và tên appears when leaving the Họ và tên field blanks
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "email" in "Email" with "_RANDOM_"
@@ -42,7 +42,7 @@ Background Happy paths
 #    Then Required message "Họ và tên" displayed under "Xin vui lòng nhập họ và tên" field
 #    When Click "Trở về" button
 
-# SPL_07
+# SPL_07 Verify that validation text of Họ và tên appears when entering number or special character
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in "Họ và tên" with "0000!@#$"
@@ -50,7 +50,7 @@ Background Happy paths
 #    Then Required message "Họ và tên" displayed under "Xin vui lòng chỉ nhập chữ!" field
 #    When Click "Trở về" button
 
-# SPL_08
+# SPL_08 Verify that validation text of Email appears when leaving the Email field blanks
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in "Họ và tên" with "_RANDOM_"
@@ -59,7 +59,7 @@ Background Happy paths
 #    Then Required message "Email" displayed under "Xin vui lòng nhập email" field
 #    When Click "Trở về" button
 
-# SPL_09
+# SPL_09.1 Verify that validation text of Email appears when entering the invalid email
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "email" in "Email" with "nguyenvan"
@@ -67,7 +67,7 @@ Background Happy paths
 #    Then Required message "Email" displayed under "Vui lòng nhập địa chỉ email hợp lệ!" field
 #    When Click "Trở về" button
 
-# SPL_09
+# SPL_09.2 Verify that validation text of Email appears when entering the invalid email
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "email" in "Email" with "nguyenvan@"
@@ -75,7 +75,7 @@ Background Happy paths
 #    Then Required message "Email" displayed under "Vui lòng nhập địa chỉ email hợp lệ!" field
 #    When Click "Trở về" button
 
-# SPL_09
+# SPL_09.3 Verify that validation text of Email appears when entering the invalid email
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "email" in "Email" with "nguyenvan.com"
@@ -83,7 +83,7 @@ Background Happy paths
 #    Then Required message "Email" displayed under "Vui lòng nhập địa chỉ email hợp lệ!" field
 #    When Click "Trở về" button
 
-# SPL_09
+# SPL_09.4 Verify that validation text of Email appears when entering the invalid email
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "email" in "Email" with "nguyenvan@.com"
@@ -91,7 +91,7 @@ Background Happy paths
 #    Then Required message "Email" displayed under "Vui lòng nhập địa chỉ email hợp lệ!" field
 #    When Click "Trở về" button
 
-# SPL_09
+# SPL_09.5 Verify that validation text of Email appears when entering the invalid email
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "email" in "Email" with "nguyenvan@@#$.com"
@@ -99,7 +99,7 @@ Background Happy paths
 #    Then Required message "Email" displayed under "Vui lòng nhập địa chỉ email hợp lệ!" field
 #    When Click "Trở về" button
 
-# SPL_09
+# SPL_09.6 Verify that validation text of Email appears when entering the invalid email
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "email" in "Email" with "@gmail.com"
@@ -107,7 +107,7 @@ Background Happy paths
 #    Then Required message "Email" displayed under "Vui lòng nhập địa chỉ email hợp lệ!" field
 #    When Click "Trở về" button
 
-# SPL_09
+# SPL_09.7 Verify that validation text of Email appears when entering the invalid email
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "email" in "Email" with "@#$@outlook.com"
@@ -115,7 +115,7 @@ Background Happy paths
 #    Then Required message "Email" displayed under "Vui lòng nhập địa chỉ email hợp lệ!" field
 #    When Click "Trở về" button
 
-# SPL_09
+# SPL_09.8 Verify that validation text of Email appears when entering the invalid email
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "email" in "Email" with "!@#$"
@@ -123,7 +123,7 @@ Background Happy paths
 #    Then Required message "Email" displayed under "Vui lòng nhập địa chỉ email hợp lệ!" field
 #    When Click "Trở về" button
 
-# SPL_10
+# SPL_10 Verify that validation text of Số điện thoại appears when leaving the Số điện thoại field blanks
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in "Họ và tên" with "_RANDOM_"
@@ -132,7 +132,7 @@ Background Happy paths
 #    Then Required message "Số điện thoại" displayed under "Xin vui lòng nhập số điện thoại" field
 #    When Click "Trở về" button
 
-# SPL_11
+# SPL_11 Verify that validation text of Số điện thoại appears when entering non-numeric character
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in "Họ và tên" with "_RANDOM_"
@@ -142,7 +142,7 @@ Background Happy paths
 #    Then Required message "Số điện thoại" displayed under "Xin vui lòng chỉ nhập số" field
 #    When Click "Trở về" button
 
-# SPL_12
+# SPL_12 Verify that validation text of Số điện thoại appears when entering less than 8 numbers
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in "Họ và tên" with "_RANDOM_"
@@ -152,7 +152,7 @@ Background Happy paths
 #    Then Required message "Số điện thoại" displayed under "Xin vui lòng nhập tối thiểu 8 ký tự số!" field
 #    When Click "Trở về" button
 
-# SPL_13
+# SPL_13 Verify that validation text of Số điện thoại appears when entering greater than 12 numbers
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in "Họ và tên" with "_RANDOM_"
@@ -162,7 +162,7 @@ Background Happy paths
 #    Then Required message "Số điện thoại" displayed under "Xin vui lòng nhập tối đa 12 ký tự số!" field
 #    When Click "Trở về" button
 
-# SPL_14
+# SPL_14 Verify that validation text of Ghi chú appears when entering greater than 500 characters
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in textarea "Ghi chú" with "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. anim id est laborum anim id est laborum anim id est lab"
@@ -170,7 +170,7 @@ Background Happy paths
 #    Then Required message "Ghi chú" displayed under "Chỉ được nhập tối đa 500 ký tự" field
 #    When Click "Trở về" button
 
-# SPL_15
+# SPL_15 The admin CAN not create an account with the already registered email
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in "Họ và tên" with "Nguyen Van H"
@@ -180,7 +180,7 @@ Background Happy paths
 #    Then User look message "Số điện thoại đã được đăng ký trước đó." popup
 #    When Click "Trở về" button
 
-# SPL_16
+# SPL_16 The admin CAN not create an account with the already registered phone number
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in "Họ và tên" with "Nguyen Van I"
@@ -190,13 +190,13 @@ Background Happy paths
 #    Then User look message "Email đã được đăng ký trước đó." popup
 #    When Click "Trở về" button
 
-# SPL_17
+# SPL_17 Verify CAN navigate to the "Người dùng" page when clicking on "Trở về" button
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Click "Trở về" button
 #    When Check title "Quản lý người dùng" page
 
-# SPL_18
+# SPL_18 Verify that the account will not be created when the admin click on "Trở về" button
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in "Họ và tên" with "_RANDOM_"
@@ -205,7 +205,7 @@ Background Happy paths
 #    When Click "Trở về" button
 #    When Check title "Quản lý người dùng" page
 
-# SPL_19
+# SPL_19 Verify that Admin CAN add an admin account with valid input
 #    When Go to page create data user
 #    When Click "Thêm quản trị viên" button
 #    When Enter "text" in "Họ và tên" with "Nguyen Van Admin"
@@ -214,7 +214,77 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then User look message "Tạo người dùng mới thành công." popup
 
-# SPL_31
+# SPL_20 Verify that validation text of Họ và tên appears when leaving the Họ và tên field blanks
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When DoubleClick edit
+#    When Enter "text" in "Họ và tên" with ""
+#    When Enter "phone" in "Số điện thoại" with ""
+#    Then Required message "Họ và tên" displayed under "Xin vui lòng nhập họ và tên" field
+
+# SPL_21 Verify that validation text of Họ và tên appears when entering number or special character
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When DoubleClick edit
+#    When Enter "text" in "Họ và tên" with "123456"
+#    When Enter "phone" in "Số điện thoại" with ""
+#    Then Required message "Họ và tên" displayed under "Xin vui lòng chỉ nhập chữ!" field
+
+# SPL_22 Verify that validation text of Họ và tên appears when entering number or special character
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When DoubleClick edit
+#    When Enter "text" in "Số điện thoại" with ""
+#    When Enter "text" in "Họ và tên" with ""
+#    Then Required message "Số điện thoại" displayed under "Xin vui lòng nhập số điện thoại" field
+
+# SPL_23 Verify that validation text of Họ và tên appears when entering number or special character
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When DoubleClick edit
+#    When Enter "phone" in "Số điện thoại" with "khanhpro1"
+#    When Enter "text" in "Họ và tên" with ""
+#    Then Required message "Số điện thoại" displayed under "Xin vui lòng chỉ nhập số" field
+
+# SPL_24 Verify that validation text of Họ và tên appears when entering number or special character
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When DoubleClick edit
+#    When Enter "words" in textarea "Ghi chú" with "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. anim id est laborum anim id est laborum anim id est lab"
+#    When Enter "text" in "Họ và tên" with ""
+#    Then Required message "Ghi chú" displayed under "Chỉ được nhập tối đa 500 kí tự" field
+
+# SPL_25 Verify that validation text of Họ và tên appears when entering number or special character
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When DoubleClick edit
+#    When Click "Trở về" button
+
+# SPL_26 Verify that validation text of Họ và tên appears when entering number or special character
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When DoubleClick edit
+#    When Enter "text" in "Họ và tên" with "2khanh"
+#    When Click "Trở về" button
+
+# SPL_27 Verify that validation text of Họ và tên appears when entering number or special character
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When DoubleClick edit
+#    When Enter "text" in "Họ và tên" with "khanh pro"
+#    When Click "Lưu" button
+#    Then User look message "Chỉnh sửa tài khoản thành công" popup
+#    When Select on the "khanh pro" item line
+
+# SPL_28 Verify that validation text of Họ và tên appears when entering number or special character
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When DoubleClick edit
+#    When Enter "phone" in "Số điện thoại" with "_RANDOM_"
+#    When Click "Lưu" button
+#    Then User look message "Chỉnh sửa tài khoản thành công" popup
+
+# SPL_31 Verify that validation text of Họ và tên appears when leaving Họ và tên field blanks
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -223,7 +293,7 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then Required message "Họ và tên" displayed under "Xin vui lòng nhập họ và tên" field
 
-# SPL_32
+# SPL_32 Verify that validation text of Họ và tên appears when entering numbers and special character
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -231,7 +301,7 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then Required message "Họ và tên" displayed under "Xin vui lòng chỉ nhập chữ" field
 
-# SPL_33
+# SPL_33 Verify that validation text of Số điện thoại appears when leaving Số điện thoại field blanks
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -239,7 +309,7 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then Required message "Số điện thoại" displayed under "Xin vui lòng nhập số điện thoại" field
 
-# SPL_34
+# SPL_34 Verify that validation text of Số điện thoại appears when entering non-numeric data
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -248,7 +318,7 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then Required message "Số điện thoại" displayed under "Xin vui lòng chỉ nhập số" field
 
-# SPL_35
+# SPL_35 Verify that validation text of Số điện thoại appears when entering smaller than 8 numbers
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -257,7 +327,7 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then Required message "Số điện thoại" displayed under "Xin vui lòng nhập tối thiểu 8 ký tự số!" field
 
-# SPL_36
+# SPL_36 Verify that validation text of Số điện thoại appears when entering greater than 12 numbers
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -266,7 +336,7 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then Required message "Số điện thoại" displayed under "Xin vui lòng nhập tối đa 12 ký tự số!" field
 
-# SPL_38
+# SPL_38 Verify that validation text of Ghi chú appears when entering greater than 500 characters
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -274,7 +344,7 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then Required message "Ghi chú" displayed under "Chỉ được nhập tối đa 500 ký tự" field
 
-# SPL_39
+# SPL_39 Verify that sub admin CAN CANCEL profile edit process successfully
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -288,7 +358,7 @@ Background Happy paths
 #    Should Be Equal    ${email}    ${email1}
 #    Log To Console    ${text1}
 
-# SPL_40
+# SPL_40 Verify that sub admin changed information will not be saved when CANCELLING editing
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -316,7 +386,7 @@ Background Happy paths
 #    Should Be Equal    ${email}    ${email1}
 #    Log To Console    ${text1}
 
-# SPL_41
+# SPL_41 Verify that sub admin CAN edit Họ và tên with valid input
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -325,7 +395,7 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then User look message "Chỉnh sửa tài khoản thành công" popup
 
-# SPL_42
+# SPL_42 Verify that sub admin CAN edit Số điện thoại with valid input
 #    When Go to page create data user
 #    Wait Until Element Spin
 #    When Click "Avata" myprofile "Thông tin cá nhân"
@@ -334,11 +404,39 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then User look message "Chỉnh sửa tài khoản thành công" popup
 
-SPL_43
-    When Go to page create data user
-    Wait Until Element Spin
-    When Click "Avata" myprofile "Thông tin cá nhân"
-    When Enter "text" in textarea "Ghi chú" with ""
-    When Enter "text" in textarea "Ghi chú" with "_RANDOM_"
-    When Click "Lưu" button
-    Then User look message "Chỉnh sửa tài khoản thành công" popup
+# SPL_43 Verify that sub admin CAN edit Ghi chú
+#    When Go to page create data user
+#    Wait Until Element Spin
+#    When Click "Avata" myprofile "Thông tin cá nhân"
+#    When Enter "text" in textarea "Ghi chú" with ""
+#    When Enter "text" in textarea "Ghi chú" with "_RANDOM_"
+#    When Click "Lưu" button
+#    Then User look message "Chỉnh sửa tài khoản thành công" popup
+
+# SPL_45 Verify that Add New successfully with enter the data3
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When Enter "Tìm kiếm" placeholder with "???"
+
+# SPL_46 Verify that Add New successfully with enter the data
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When Enter "Tìm kiếm" placeholder with "USR1344"
+
+# SPL_47 Verify that Add New successfully with enter the data
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    # When Enter "Tìm kiếm" placeholder with "Diệu"
+#    When Enter "Tìm kiếm" placeholder with "Nguyen Van M"
+
+# SPL_48 Verify that Add New successfully with enter the data
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    # When Enter "Tìm kiếm" placeholder with "Diệu"
+#    When Enter "Tìm kiếm" placeholder with "nguyenvanm@gmail.com"
+
+# SPL_49 Verify that Add New successfully with enter the data
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    # When Enter "Tìm kiếm" placeholder with "Diệu"
+#    When Enter "Tìm kiếm" placeholder with "413561088962"

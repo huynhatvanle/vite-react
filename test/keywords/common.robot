@@ -283,3 +283,6 @@ Check title "${text}" page
 Click "${text1}" myprofile "${text2}"
     Click    xpath=//div[contains(@class,"flex items-center")]//img[contains(@alt,"${text1}")]
     Click    xpath=//span[contains(@class,"ant-dropdown-menu-title-content")]//div[contains(text(),"${text2}")]
+
+DoubleClick edit
+    Click    xpath=//*[contains(@class, "ant-table-row")][1]    left    2
