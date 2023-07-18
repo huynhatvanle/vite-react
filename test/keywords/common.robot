@@ -276,3 +276,10 @@ Wait Until Element Spin
 
 Click "${text}" menuBalence
     Click    xpath=//ul[contains(@class, "menu")]//span[contains(text(),"${text}")]
+
+Check title "${text}" page
+    Element Text Should Be    xpath=//div[contains(@class,"verflow-y-auto")]/h1    ${text}
+
+Click "${text1}" myprofile "${text2}"
+    Click    xpath=//div[contains(@class,"flex items-center")]//img[contains(@alt,"${text1}")]
+    Click    xpath=//span[contains(@class,"ant-dropdown-menu-title-content")]//div[contains(text(),"${text2}")]
