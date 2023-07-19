@@ -51,11 +51,11 @@ const Page = () => {
     else dataFacade.post(values);
   };
 
-  const { result, get } = DataTypeFacade();
+  const dataTypeFacade = DataTypeFacade();
   useEffect(() => {
-    if (!result?.data?.length) get({});
+    if (!dataTypeFacade.result?.data?.length) dataTypeFacade.get({});
   }, []);
-  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
+  const listType = (dataTypeFacade.result?.data || []).map((item) => ({ value: item.code, label: item.name }));
   const { t } = useTranslation();
   return (
     <div className={'max-w-3xl mx-auto bg-white p-4 shadow rounded-xl'}>

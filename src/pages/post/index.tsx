@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { lang, keyRole, routerLinks } from '@utils';
-import { GlobalFacade, PostTypeFacade, PostFacade } from '@store';
+import { GlobalFacade, PostFacade, PostTypeFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
 import { Popconfirm, Select, Spin, Tooltip } from 'antd';
@@ -13,27 +13,34 @@ import classNames from 'classnames';
 
 const Page = () => {
   const { user, setBreadcrumbs } = GlobalFacade();
-  const { result, get, isLoading } = PostTypeFacade();
+  const postTypeFacade = PostTypeFacade();
   useEffect(() => {
-    if (!result?.data) get({});
+    if (!postTypeFacade.result?.data) postTypeFacade.get({});
     setBreadcrumbs([
       { title: 'titles.Setting', link: '' },
       { title: 'titles.Post', link: '' },
     ]);
   }, []);
 
-  const dataFacade = PostFacade();
+  const postFacade = PostFacade();
   useEffect(() => {
-    switch (dataFacade.status) {
+    switch (postFacade.status) {
       case 'put.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
         dataTableRef?.current?.onChange!();
         break;
     }
-  }, [dataFacade.status]);
+  }, [postFacade.status]);
+  useEffect(() => {
+    switch (postTypeFacade.status) {
+      case 'delete.fulfilled':
+        postTypeFacade.get({});
+        break;
+    }
+  }, [postTypeFacade.status]);
 
-  const request = JSON.parse(dataFacade.queryParams || '{}');
+  const request = JSON.parse(postFacade.queryParams || '{}');
   request.filter = JSON.parse(request?.filter || '{}');
   const { t } = useTranslation();
   const dataTableRef = useRef<TableRefObject>(null);
@@ -52,9 +59,9 @@ const Page = () => {
               />
             </div>
           </div>
-          <Spin spinning={isLoading}>
+          <Spin spinning={postTypeFacade.isLoading}>
             <div className="h-[calc(100vh-13rem)] overflow-y-auto relative scroll hidden sm:block">
-              {result?.data?.map((data, index) => (
+              {postTypeFacade.result?.data?.map((data, index) => (
                 <div
                   key={data.id}
                   className={classNames(
@@ -89,7 +96,7 @@ const Page = () => {
                         <Popconfirm
                           placement="left"
                           title={t('components.datatable.areYouSureWant')}
-                          onConfirm={() => dataTableRef?.current?.handleDelete(data.id + '|' + data.code)}
+                          onConfirm={() => postTypeFacade.delete(data.id!)}
                           okText={t('components.datatable.ok')}
                           cancelText={t('components.datatable.cancel')}
                         >
@@ -110,7 +117,7 @@ const Page = () => {
               <Select
                 value={request.filter.type}
                 className={'w-full'}
-                options={result?.data?.map((data) => ({ label: data.name, value: data.slug }))}
+                options={postTypeFacade.result?.data?.map((data) => ({ label: data.name, value: data.slug }))}
                 onChange={(e) => {
                   if (request.filter.type !== e) request.filter.type = e;
                   else delete request.filter.type;
@@ -125,7 +132,7 @@ const Page = () => {
         <div className="shadow rounded-xl w-full overflow-auto bg-white">
           <div className="sm:min-h-[calc(100vh-9.5rem)] overflow-y-auto p-3">
             <DataTable
-              facade={dataFacade}
+              facade={postFacade}
               ref={dataTableRef}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
