@@ -151,6 +151,7 @@ const Page = () => {
                     name: 'slug',
                     formItem: {
                       col: 6,
+                      rules: [{ type: 'required' }],
                     },
                   },
                   {

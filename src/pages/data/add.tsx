@@ -130,6 +130,7 @@ const Page = () => {
                     title: 'Slug',
                     name: 'slug',
                     formItem: {
+                      rules: [{ type: 'required' }],
                       col: 6,
                     },
                   },

@@ -62,12 +62,16 @@ const Page = () => {
             {
               title: 'Name',
               name: 'name',
-              formItem: {},
+              formItem: {
+                rules: [{ type: 'required' }],
+              },
             },
             {
               title: 'Code',
               name: 'code',
-              formItem: {},
+              formItem: {
+                rules: [{ type: 'required' }],
+              },
             },
           ]}
           extendButton={(form) => (

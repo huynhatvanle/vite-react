@@ -24,6 +24,7 @@ export class PostType extends CommonEntity {
   constructor(
     public name: string,
     public slug: string,
+    public code: string,
     public coverUrl: string,
     public description: string,
     public isPrimary?: boolean,

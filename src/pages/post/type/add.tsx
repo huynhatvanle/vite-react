@@ -7,6 +7,7 @@ import { PostTypeFacade, PostType, GlobalFacade } from '@store';
 import { routerLinks, lang } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
+import slug from 'slug';
 const Page = () => {
   const { id } = useParams();
   const postTypeFacade = PostTypeFacade();
@@ -62,13 +63,31 @@ const Page = () => {
             {
               title: 'Name',
               name: 'name',
-              formItem: {},
+              formItem: {
+                rules: [{ type: 'required' }],
+                onBlur: (e, form) => {
+                  if (e.target.value && !form.getFieldValue('slug'))
+                    form.setFieldValue('slug', slug(e.target.value).toUpperCase());
+                  if (e.target.value && !form.getFieldValue('code'))
+                    form.setFieldValue('code', slug(e.target.value).toUpperCase());
+                },
+              },
             },
             {
               title: 'Slug',
               name: 'slug',
               formItem: {
-                type: 'hidden',
+                rules: [{ type: 'required' }],
+                col: id ? 12 : 6,
+              },
+            },
+            {
+              title: 'Code',
+              name: 'code',
+              formItem: {
+                rules: [{ type: 'required' }],
+                col: 6,
+                type: id ? 'hidden' : 'text',
               },
             },
             {
