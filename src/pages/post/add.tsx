@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { DataTypeFacade, Data, DataFacade, GlobalFacade } from '@store';
+import { PostTypeFacade, Post, PostFacade, GlobalFacade } from '@store';
 import { routerLinks, lang } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
@@ -10,7 +10,7 @@ import slug from 'slug';
 import { Spin } from 'antd';
 const Page = () => {
   const { id } = useParams();
-  const dataFacade = DataFacade();
+  const dataFacade = PostFacade();
   const { setBreadcrumbs } = GlobalFacade();
   const isReload = useRef(false);
   const param = JSON.parse(dataFacade.queryParams || '{}');
@@ -19,8 +19,8 @@ const Page = () => {
     else dataFacade.set({ data: undefined });
     setBreadcrumbs([
       { title: 'titles.Setting', link: '' },
-      { title: 'titles.Data', link: '' },
-      { title: id ? 'pages.Data/Edit' : 'pages.Data/Add', link: '' },
+      { title: 'titles.Post', link: '' },
+      { title: id ? 'pages.Post/Edit' : 'pages.Post/Add', link: '' },
     ]);
     return () => {
       isReload.current && dataFacade.get(param);
@@ -38,24 +38,24 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('Data')}/add`);
+          navigate(`/${lang}${routerLinks('Post')}/add`);
         }
         break;
     }
   }, [dataFacade.status]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Data')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => navigate(`/${lang}${routerLinks('Post')}?${new URLSearchParams(param).toString()}`);
 
-  const handleSubmit = (values: Data) => {
+  const handleSubmit = (values: Post) => {
     if (id) dataFacade.put({ ...values, id });
     else dataFacade.post(values);
   };
 
-  const dataTypeFacade = DataTypeFacade();
+  const postTypeFacade = PostTypeFacade();
   useEffect(() => {
-    if (!dataTypeFacade.result?.data?.length) dataTypeFacade.get({});
+    if (!postTypeFacade.result?.data?.length) postTypeFacade.get({});
   }, []);
-  const listType = (dataTypeFacade.result?.data || []).map((item) => ({ value: item.code, label: item.name }));
+  const listType = (postTypeFacade.result?.data || []).map((item) => ({ value: item.slug, label: item.name }));
   const { t } = useTranslation();
   return (
     <div className={'max-w-3xl mx-auto bg-white p-4 shadow rounded-xl'}>
@@ -65,7 +65,7 @@ const Page = () => {
           className="intro-x"
           columns={[
             {
-              title: 'routes.admin.Data.Type',
+              title: 'routes.admin.Post.Type',
               name: 'type',
               formItem: {
                 type: 'select',
@@ -75,27 +75,47 @@ const Page = () => {
               },
             },
             {
-              title: 'routes.admin.Data.Order',
-              name: 'order',
+              title: 'thumbnailUrl',
+              name: 'thumbnailUrl',
               formItem: {
                 col: 4,
-                type: 'number',
-              },
-            },
-            {
-              title: 'routes.admin.Data.Created At',
-              name: 'createdAt',
-              formItem: {
-                col: 4,
-                type: 'date',
-              },
-            },
-            {
-              title: 'routes.admin.Data.Image',
-              name: 'image',
-              formItem: {
                 type: 'upload',
-                mode: 'multiple',
+              },
+            },
+            {
+              title: 'coverUrl',
+              name: 'coverUrl',
+              formItem: {
+                col: 4,
+                type: 'upload',
+              },
+            },
+            {
+              title: 'backGroundColor',
+              name: 'backGroundColor',
+              formItem: {
+                col: 4,
+              },
+            },
+            {
+              title: 'titleForeColor',
+              name: 'titleForeColor',
+              formItem: {
+                col: 4,
+              },
+            },
+            {
+              title: 'customCSSClass',
+              name: 'customCSSClass',
+              formItem: {
+                col: 4,
+              },
+            },
+            {
+              title: 'customCSS',
+              name: 'customCSS',
+              formItem: {
+                type: 'textarea',
               },
             },
             {
@@ -130,8 +150,8 @@ const Page = () => {
                     title: 'Slug',
                     name: 'slug',
                     formItem: {
-                      rules: [{ type: 'required' }],
                       col: 6,
+                      rules: [{ type: 'required' }],
                     },
                   },
                   {

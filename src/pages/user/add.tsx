@@ -38,14 +38,14 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('User/Add')}`);
+          navigate(`/${lang}${routerLinks('User')}/add`);
         }
         break;
     }
   }, [userFacade.status]);
 
   const handleBack = () => {
-    navigate(`/${lang}${routerLinks('User/List')}?${new URLSearchParams(param).toString()}`);
+    navigate(`/${lang}${routerLinks('User')}?${new URLSearchParams(param).toString()}`);
   };
   const handleSubmit = (values: User) => {
     if (id) userFacade.put({ ...values, id });
@@ -61,7 +61,7 @@ const Page = () => {
           className="intro-x"
           columns={[
             {
-              title: 'user.Fullname',
+              title: 'routes.admin.user.Full name',
               name: 'name',
               formItem: {
                 col: 6,
@@ -119,7 +119,7 @@ const Page = () => {
               },
             },
             {
-              title: 'user.Date of birth',
+              title: 'routes.admin.user.Date of birth',
               name: 'dob',
               formItem: {
                 col: 6,
@@ -128,7 +128,7 @@ const Page = () => {
               },
             },
             {
-              title: 'user.Position',
+              title: 'routes.admin.user.Position',
               name: 'positionCode',
               formItem: {
                 col: 6,
@@ -151,7 +151,7 @@ const Page = () => {
               },
             },
             {
-              title: 'user.Start Date',
+              title: 'routes.admin.user.Start Date',
               name: 'startDate',
               formItem: {
                 col: 6,
@@ -160,7 +160,7 @@ const Page = () => {
               },
             },
             {
-              title: 'user.Role',
+              title: 'routes.admin.user.Role',
               name: 'roleCode',
               formItem: {
                 col: 6,
@@ -246,7 +246,7 @@ const Page = () => {
               },
             },
             {
-              title: 'user.Description',
+              title: 'routes.admin.user.Description',
               name: 'description',
               formItem: {
                 col: 8,
@@ -255,7 +255,7 @@ const Page = () => {
             },
             {
               name: 'avatar',
-              title: 'user.Upload avatar',
+              title: 'routes.admin.user.Upload avatar',
               formItem: {
                 col: 4,
                 type: 'upload',

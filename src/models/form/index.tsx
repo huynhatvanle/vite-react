@@ -9,6 +9,7 @@ export class FormItem {
   type?:
     | 'hidden'
     | 'number'
+    | 'text'
     | 'tab'
     | 'addable'
     | 'editor'

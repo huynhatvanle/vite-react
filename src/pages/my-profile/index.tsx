@@ -18,7 +18,7 @@ const Page = () => {
         className="intro-x w-[550px] mx-auto bg-white p-4 shadow rounded-xl"
         columns={[
           {
-            title: 'user.Fullname',
+            title: 'routes.admin.user.Full name',
             name: 'name',
             formItem: {
               col: 6,
@@ -65,7 +65,7 @@ const Page = () => {
             },
           },
           {
-            title: 'user.Phone Number',
+            title: 'routes.admin.user.Phone Number',
             name: 'phoneNumber',
             formItem: {
               col: 6,
@@ -73,7 +73,7 @@ const Page = () => {
             },
           },
           {
-            title: 'user.Date of birth',
+            title: 'routes.admin.user.Date of birth',
             name: 'dob',
             formItem: {
               col: 6,
@@ -82,7 +82,7 @@ const Page = () => {
             },
           },
           {
-            title: 'user.Position',
+            title: 'routes.admin.user.Position',
             name: 'positionCode',
             formItem: {
               col: 6,
@@ -92,7 +92,7 @@ const Page = () => {
             },
           },
           {
-            title: 'user.Description',
+            title: 'routes.admin.user.Description',
             name: 'description',
             formItem: {
               col: 8,
@@ -101,7 +101,7 @@ const Page = () => {
           },
           {
             name: 'avatar',
-            title: 'user.Upload avatar',
+            title: 'routes.admin.user.Upload avatar',
             formItem: {
               col: 4,
               type: 'upload',

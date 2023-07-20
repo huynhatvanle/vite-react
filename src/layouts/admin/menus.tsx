@@ -28,8 +28,8 @@ const Layout = [
         permission: keyRole.P_DATA_LISTED,
       },
       {
-        name: 'Page',
-        permission: keyRole.P_PAGE_LISTED,
+        name: 'Post',
+        permission: keyRole.P_POST_LISTED,
       },
       {
         name: 'Team',

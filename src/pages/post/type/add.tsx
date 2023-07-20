@@ -1,105 +1,109 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import slug from 'slug';
+import { Spin } from 'antd';
 
-import { CodeFacade, Code, CodeTypeFacade, GlobalFacade } from '@store';
+import { PostTypeFacade, PostType, GlobalFacade } from '@store';
 import { routerLinks, lang } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
-import { Spin } from 'antd';
-
+import slug from 'slug';
 const Page = () => {
   const { id } = useParams();
-  const codeFacade = CodeFacade();
+  const postTypeFacade = PostTypeFacade();
   const { setBreadcrumbs } = GlobalFacade();
   const isReload = useRef(false);
-  const param = JSON.parse(codeFacade.queryParams || '{}');
+  const param = JSON.parse(postTypeFacade.queryParams || '{}');
   useEffect(() => {
-    if (id) codeFacade.getById({ id });
-    else codeFacade.set({ data: undefined });
+    if (id) postTypeFacade.getById({ id });
+    else postTypeFacade.set({ data: undefined });
     setBreadcrumbs([
       { title: 'titles.Setting', link: '' },
-      { title: 'titles.Code', link: '' },
-      { title: id ? 'pages.Code/Edit' : 'pages.Code/Add', link: '' },
+      { title: 'titles.Post', link: '' },
+      { title: id ? 'pages.Post/Edit' : 'pages.Post/Add', link: '' },
     ]);
     return () => {
-      isReload.current && codeFacade.get(param);
+      isReload.current && postTypeFacade.get(param);
     };
   }, [id]);
 
   const navigate = useNavigate();
   const isBack = useRef(true);
   useEffect(() => {
-    switch (codeFacade.status) {
+    switch (postTypeFacade.status) {
       case 'post.fulfilled':
       case 'put.fulfilled':
+        postTypeFacade.get(JSON.parse(postTypeFacade.queryParams || '{}'));
         if (Object.keys(param).length > 0) isReload.current = true;
 
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('Code')}/add`);
+          navigate(`/${lang}${routerLinks('Post')}/add`);
         }
         break;
     }
-  }, [codeFacade.status]);
+  }, [postTypeFacade.status]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Code')}?${new URLSearchParams(param).toString()}`);
-  const handleSubmit = (values: Code) => {
-    if (id) codeFacade.put({ ...values, id });
-    else codeFacade.post(values);
+  const handleBack = () => navigate(`/${lang}${routerLinks('Post')}?${new URLSearchParams(param).toString()}`);
+
+  const handleSubmit = (values: PostType) => {
+    if (id) postTypeFacade.put({ ...values, id });
+    else postTypeFacade.post(values);
   };
 
-  const codeTypeFacade = CodeTypeFacade();
-  useEffect(() => {
-    if (!codeTypeFacade.result?.data?.length) codeTypeFacade.get({});
-  }, []);
-  const listType = (codeTypeFacade.result?.data || []).map((item) => ({ value: item.code, label: item.name }));
   const { t } = useTranslation();
   return (
-    <div className={'max-w-2xl mx-auto bg-white p-4 shadow rounded-xl'}>
-      <Spin spinning={codeFacade.isLoading}>
+    <div className={'max-w-3xl mx-auto bg-white p-4 shadow rounded-xl'}>
+      <Spin spinning={postTypeFacade.isLoading}>
         <Form
-          values={{ ...codeFacade.data }}
+          values={{ ...postTypeFacade.data }}
           className="intro-x"
           columns={[
             {
-              title: 'routes.admin.Code.Name',
+              title: 'Name',
               name: 'name',
               formItem: {
-                col: 4,
                 rules: [{ type: 'required' }],
                 onBlur: (e, form) => {
-                  if (e.target.value && !form.getFieldValue('code')) {
+                  if (e.target.value && !form.getFieldValue('slug'))
+                    form.setFieldValue('slug', slug(e.target.value).toUpperCase());
+                  if (e.target.value && !form.getFieldValue('code'))
                     form.setFieldValue('code', slug(e.target.value).toUpperCase());
-                  }
                 },
               },
             },
             {
-              title: 'routes.admin.Code.Type',
-              name: 'type',
+              title: 'Slug',
+              name: 'slug',
               formItem: {
-                type: 'select',
-                col: 4,
                 rules: [{ type: 'required' }],
-                list: listType || [],
+                col: id ? 12 : 6,
               },
             },
             {
-              title: 'titles.Code',
+              title: 'Code',
               name: 'code',
               formItem: {
-                col: 4,
                 rules: [{ type: 'required' }],
+                col: 6,
+                type: id ? 'hidden' : 'text',
               },
             },
             {
               title: 'routes.admin.user.Description',
               name: 'description',
               formItem: {
+                col: 8,
                 type: 'textarea',
+              },
+            },
+            {
+              name: 'coverUrl',
+              title: 'routes.admin.user.Upload avatar',
+              formItem: {
+                col: 4,
+                type: 'upload',
               },
             },
           ]}
@@ -114,7 +118,7 @@ const Page = () => {
             />
           )}
           handSubmit={handleSubmit}
-          disableSubmit={codeFacade.isLoading}
+          disableSubmit={postTypeFacade.isLoading}
           handCancel={handleBack}
         />
       </Spin>

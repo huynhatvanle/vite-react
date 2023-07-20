@@ -138,7 +138,7 @@ const Page = () => {
               }
               columns={[
                 {
-                  title: `user.Fullname`,
+                  title: `routes.admin.user.Full name`,
                   name: 'name',
                   tableItem: {
                     filter: { type: 'search' },
@@ -149,7 +149,7 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'user.Position',
+                  title: 'routes.admin.user.Position',
                   name: 'position',
                   tableItem: {
                     width: 200,
@@ -174,7 +174,7 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'user.Role',
+                  title: 'routes.admin.user.Role',
                   name: 'role',
                   tableItem: {
                     width: 110,
@@ -237,7 +237,7 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'user.Phone Number',
+                  title: 'routes.admin.user.Phone Number',
                   name: 'phoneNumber',
                   tableItem: {
                     filter: { type: 'search' },
@@ -245,7 +245,7 @@ const Page = () => {
                   },
                 },
                 // {
-                //   title: 'user.Date of birth',
+                //   title: 'routes.admin.user.Date of birth',
                 //   name: 'dob',
                 //   tableItem: {
                 //     filter: { type: 'date' },
@@ -254,7 +254,7 @@ const Page = () => {
                 //   },
                 // },
                 // {
-                //   title: 'user.Start Date',
+                //   title: 'routes.admin.user.Start Date',
                 //   name: 'startDate',
                 //   tableItem: {
                 //     filter: { type: 'search' },
@@ -263,13 +263,10 @@ const Page = () => {
                 //   },
                 // },
                 {
-                  title: 'user.Action',
+                  title: 'routes.admin.user.Action',
                   tableItem: {
                     width: 90,
                     align: 'center',
-                    onCell: () => ({
-                      style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' },
-                    }),
                     render: (text: string, data) => (
                       <div className={'flex gap-2'}>
                         {user?.role?.permissions?.includes(keyRole.P_USER_UPDATE) && (
@@ -309,7 +306,7 @@ const Page = () => {
                     <Button
                       icon={<Plus className="icon-cud !h-5 !w-5" />}
                       text={t('components.button.New')}
-                      onClick={() => navigate(`/${lang}${routerLinks('User/Add')}`)}
+                      onClick={() => navigate(`/${lang}${routerLinks('User')}/add`)}
                     />
                   )}
                 </div>

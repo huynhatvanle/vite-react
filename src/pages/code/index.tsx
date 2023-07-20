@@ -13,10 +13,9 @@ import { TableRefObject } from '@models';
 
 const Page = () => {
   const { user, setBreadcrumbs } = GlobalFacade();
-  const { result, get, isLoading } = CodeTypeFacade();
-  const listType = (result?.data || []).map((item) => ({ value: item.code, label: item.name }));
+  const codeTypeFacade = CodeTypeFacade();
   useEffect(() => {
-    if (!result?.data) get({});
+    if (!codeTypeFacade.result?.data) codeTypeFacade.get({});
     setBreadcrumbs([
       { title: 'titles.Setting', link: '' },
       { title: 'titles.Code', link: '' },
@@ -45,17 +44,10 @@ const Page = () => {
         <div className="shadow rounded-xl w-full bg-white overflow-hidden">
           <div className="h-14 flex justify-between items-center border-b border-gray-100 px-4 py-2">
             <h3 className={'font-bold text-lg'}>Type Code</h3>
-            {/*<div className="flex items-center">*/}
-            {/*  <Button*/}
-            {/*    icon={<Plus className="icon-cud !h-5 !w-5" />}*/}
-            {/*    text={t('routes.admin.Layout.Add')}*/}
-            {/*    onClick={() => navigate(`/${lang}${routerLinks('Code/Add')}`)}*/}
-            {/*  />*/}
-            {/*</div>*/}
           </div>
-          <Spin spinning={isLoading}>
+          <Spin spinning={codeTypeFacade.isLoading}>
             <div className="h-[calc(100vh-13rem)] overflow-y-auto relative scroll hidden sm:block">
-              {result?.data?.map((data, index) => (
+              {codeTypeFacade.result?.data?.map((data, index) => (
                 <div
                   key={data.id}
                   className={classNames(
@@ -73,37 +65,6 @@ const Page = () => {
                   >
                     {index + 1}. {data.name}
                   </div>
-                  {/*<span className="w-16 flex justify-end gap-1">*/}
-                  {/*  {user?.role?.permissions?.includes(keyRole.P_CODE_TYPE_UPDATE) && (*/}
-                  {/*    <Tooltip title={t('routes.admin.Layout.Edit')}>*/}
-                  {/*      <button*/}
-                  {/*        className={'opacity-0 group-hover:opacity-100 transition-all duration-300 '}*/}
-                  {/*        title={t('routes.admin.Layout.Edit') || ''}*/}
-                  {/*        onClick={() => navigate(`/${lang}${routerLinks('Code')}/${data.id}/edit`)}*/}
-                  {/*      >*/}
-                  {/*        <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />*/}
-                  {/*      </button>*/}
-                  {/*    </Tooltip>*/}
-                  {/*  )}*/}
-                  {/*  {user?.role?.permissions?.includes(keyRole.P_CODE_TYPE_DELETE) && (*/}
-                  {/*    <Tooltip title={t('routes.admin.Layout.Delete')}>*/}
-                  {/*      <Popconfirm*/}
-                  {/*        placement="left"*/}
-                  {/*        title={t('components.datatable.areYouSureWant')}*/}
-                  {/*        onConfirm={() => dataTableRef?.current?.handleDelete!(data.id || '')}*/}
-                  {/*        okText={t('components.datatable.ok')}*/}
-                  {/*        cancelText={t('components.datatable.cancel')}*/}
-                  {/*      >*/}
-                  {/*        <button*/}
-                  {/*          className={'opacity-0 group-hover:opacity-100 transition-all duration-300'}*/}
-                  {/*          title={t('routes.admin.Layout.Delete') || ''}*/}
-                  {/*        >*/}
-                  {/*          <Trash className="icon-cud bg-red-600 hover:bg-red-400" />*/}
-                  {/*        </button>*/}
-                  {/*      </Popconfirm>*/}
-                  {/*    </Tooltip>*/}
-                  {/*  )}*/}
-                  {/*</span>*/}
                 </div>
               ))}
             </div>
@@ -111,7 +72,7 @@ const Page = () => {
               <Select
                 value={request.filter.type}
                 className={'w-full'}
-                options={result?.data?.map((data) => ({ label: data.name, value: data.code }))}
+                options={codeTypeFacade.result?.data?.map((data) => ({ label: data.name, value: data.code }))}
                 onChange={(e) => {
                   if (request.filter.type !== e) request.filter.type = e;
                   else delete request.filter.type;
@@ -144,7 +105,7 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'Code.Name',
+                  title: 'routes.admin.Code.Name',
                   name: 'name',
                   tableItem: {
                     filter: { type: 'search' },
@@ -152,16 +113,7 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'Code.Type',
-                  name: 'type',
-                  tableItem: {
-                    width: 110,
-                    sorter: true,
-                    render: (text: string) => text && listType.filter((item) => item.value === text)[0]?.label,
-                  },
-                },
-                {
-                  title: 'user.Description',
+                  title: 'routes.admin.user.Description',
                   name: 'description',
                   tableItem: {
                     filter: { type: 'search' },
@@ -169,13 +121,10 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'user.Action',
+                  title: 'routes.admin.user.Action',
                   tableItem: {
                     width: 100,
                     align: 'center',
-                    onCell: () => ({
-                      style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' },
-                    }),
                     render: (text: string, data) => (
                       <div className={'flex gap-2'}>
                         {user?.role?.permissions?.includes(keyRole.P_CODE_UPDATE) && (
@@ -214,7 +163,7 @@ const Page = () => {
                     <Button
                       icon={<Plus className="icon-cud !h-5 !w-5" />}
                       text={t('routes.admin.Layout.Add')}
-                      onClick={() => navigate(`/${lang}${routerLinks('Code/Add')}`)}
+                      onClick={() => navigate(`/${lang}${routerLinks('Code')}/add`)}
                     />
                   )}
                 </div>
