@@ -15,5 +15,5 @@ STR-40 Verify that admin CAN edit Tên cửa hàng successfully
   when User look message "Chỉnh sửa cửa hàng thành công." popup
   Sleep    5
   Then Verify motcuahang "Cửa hàng bán thịt sạch"
-  then Verify tr "Tên cửa hàng"
+  then Verify th "Tên cửa hàng"
   

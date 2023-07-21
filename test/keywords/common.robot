@@ -300,6 +300,6 @@ Verify tencuahang
 Verify motcuahang "${text}"
     ${element}=       Set Variable   //tbody/tr[2]/td[2]
     Element Text Should Be    ${element}   ${text}
-Verify tr "${text}"
-    ${element}=       Set Variable   //thead//tr
+Verify th "${text}"
+    ${element}=       Set Variable   //span[contains(text(),'${text}')]
     Element Text Should Be    ${element}   ${text}
