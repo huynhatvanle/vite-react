@@ -351,25 +351,39 @@ SPL_39 Verify that admin CAN not change the supplier information successfully wi
     When Enter "Text" in "Số fax" with "09423454321"
     When Click "Lưu" button
     Then User look message "Số fax đã được đăng kí trước đó." popup
-
 # Thanh
 
 SPL_40 Verify that admin CAN edit Tên nhà cung cấp successfully
     [Tags]    @smoketest    @regression
     Then Login to admin
     When Click "Quản lý nhà cung cấp" menu
-    When Double click "01122334454" in supplier record
+    When Double click "SPL1142" in record
     When Enter "text" in "Tên nhà cung cấp" with "_RANDOM_"
     When Click "Lưu" button
     Then User look message "Chỉnh sửa nhà cung cấp thành công." popup
     When check "Tên nhà cung cấp" in input and "Tên nhà cung cấp" in table is displayed on the first row
+
+SPL_41 Verify that admin CAN edit Số fax successfully
+    [Tags]    @smoketest    @regression
+    Then Login to admin
+    When Click "Quản lý nhà cung cấp" menu
+    Wait Until Element Spin
+    When Double click "SPL1142" in record
+    When Enter "number" in "Số fax" with "13112001"
+    When Click "Lưu" button
+    Then User look message "Chỉnh sửa nhà cung cấp thành công." popup
+    Click    //tbody/tr[contains(@class, "ant-table-row-level-0")][1]    left    2
+    ${element}=    Get Text
+    ...    xpath= //*[contains(@class, "ant-form-item-label")]/label[text()="Số fax"]/../../*[contains(@class, "ant-form-item")]//input[contains(@class, "ant-input")]
+    Log To Console    ${element}
+    Should Be Equal    ${STATE["Số fax"]}    ${element}
 
 SPL_42 Verify that supplier CAN edit 'Họ và tên' successfully
     [Tags]    @smoketest    @regression
     Then Login to admin
     When Click "Quản lý nhà cung cấp" menu
     Wait Until Element Spin
-    When Double click "01122334454" in supplier record
+    When Double click "SPL1142" in record
     When Enter "text" in "Họ tên đại diện" with "Duy Dương"
     When Click "Lưu" button
     Then User look message "Chỉnh sửa nhà cung cấp thành công." popup
@@ -380,24 +394,44 @@ SPL_43 Verify that supplier CAN edit 'Số điện thoại' successfully
     Then Login to admin
     When Click "Quản lý nhà cung cấp" menu
     Wait Until Element Spin
-    When Double click "01122334454" in supplier record
-    When Enter "text" in "Họ tên đại diện" with "09867456788"
+    When Double click "SPL1142" in record
+    When Enter "text" in "Số điện thoại đại diện" with "09867456788"
     When Click "Lưu" button
     Then User look message "Chỉnh sửa nhà cung cấp thành công." popup
-    When check "Họ tên đại diện" in input and "Số điện thoại" in table is displayed on the first row
+    When check "Số điện thoại đại diện" in input and "Số điện thoại" in table is displayed on the first row
+
+SPL_44 Verify that admin CAN edit the entire supplier's address successfully
+    [Tags]    @smoketest    @regression
+    Then Login to admin
+    When Click "Quản lý nhà cung cấp" menu
+    Wait Until Element Spin
+    When Double click "SPL1142" in record
+    When Click select "Tỉnh/Thành phố" with "Tỉnh Cao Bằng"
+    When Click select "Quận/Huyện" with "Huyện Bảo Lạc"
+    When Click select "Phường/Xã" with "Xã Thượng Hà"
+    #    When Get value address in the input
+    When Check address in the input equal or not address of "Địa chỉ" table
+
+SPL_45 Verify that admin CAN change the specific address successfully
+    [Tags]    @smoketest    @regression
+    Then Login to admin
+    When Click "Quản lý nhà cung cấp" menu
+    Wait Until Element Spin
+    When Double click "SPL1142" in record
+    When Enter "text" in "Địa chỉ cụ thể" with "72 Hóa Châuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    When Check address in the input equal or not address of "Địa chỉ" table
 
 SPL_46 Verify CAN navigate to the "Danh sách nhà cung cấp" page when clicking on "Trở về" button
     [Tags]    @smoketest    @regression
     Then Login to admin
     When Click "Quản lý nhà cung cấp" menu
-    When Double click "TRUNG SUPPLIER 2" in supplier record
+    When Double click "SPL1142" in record
     When Click "Trở về" button
     When Check list table
 
 SPL_47 Verify that the admin CAN view supplier listing information when selecting value on the pagination dropdown
     [Tags]    @smoketest    @regression
     Then Login to admin
-    # Then Login to admin
     When Click "Quản lý nhà cung cấp" menu
     When Check list table
     When Click Pagination dropdown with number page "20"
@@ -425,9 +459,9 @@ SPL_49 Verify that the admin CAN view supplier listing information when selectin
 
 *** Keywords ***
 Check list table
-    When Check "Mã NCC" in the supplier list table
-    When Check "Tên nhà cung cấp" in the supplier list table
-    When Check "Địa chỉ" in the supplier list table
-    When Check "Người đại diện" in the supplier list table
-    When Check "Số điện thoại" in the supplier list table
-    When Check "Trạng thái" in the supplier list table
+    When Check "Mã NCC" in the list table
+    When Check "Tên nhà cung cấp" in the list table
+    When Check "Địa chỉ" in the list table
+    When Check "Người đại diện" in the list table
+    When Check "Số điện thoại" in the list table
+    When Check "Trạng thái" in the list table

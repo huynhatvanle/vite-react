@@ -344,14 +344,12 @@ Click field blanks Address with "${name}"
 # Thanh
 
 Click Pagination dropdown with number page "${number}"
-    Click    xpath=//span[contains(@class, "ant-select-selection-item")]
+    Click
+    ...    xpath=//*[contains(@class, "left relative flex items-center")]//*/*/span[contains(@class, "ant-select-selection-item")]
     Click    xpath=//div[contains(@class, "ant-select-item-option-content") and contains(text(), "${number}")]
     Wait Until Element Spin
     ${elements}=    Set Variable    //tbody/tr[contains(@class, "ant-table-row-level-0")]
     ${row_count}=    Get Element Count    ${elements}
-    # Log To Console    The number of <tr> elements in <tbody> is ${row_count}
-    # Log To Console    Display list : ${row_count}
-    # Log To Console    Display list : ${number}
     Should Be Equal    '${row_count}'    '${number}'
     Log To Console    list shows the quantity corresponding: number page:${number} equal list shows:${row_count}
 
@@ -364,11 +362,11 @@ Click "${text}" to change the page and pagination to "${page}"
     ${element}=    Get Element Pagination    button[contains(@class, "bg-teal-900")]
     Element Text Should Be    ${element}    ${page}
 
-Check "${text}" in the supplier list table
+Check "${text}" in the list table
     Element Text Should Be    xpath=//*[contains(@scope, "col") and text()="${text}" ]    ${text}
     Log To Console    ${text}
 
-Double click "${text}" in supplier record
+Double click "${text}" in record
     Click    //tbody/tr[contains(@class, "ant-table-row-level-0")]/td[contains(text(), "${text}")]    left    2
 
 check "${name}" in input and "${text}" in table is displayed on the first row
@@ -380,8 +378,35 @@ check "${name}" in input and "${text}" in table is displayed on the first row
         ${index}=    Evaluate    ${index} + 1
         IF    "${column_text}" == "${text}"    BREAK
     END
-    Log To Console    Vị trí của cột : ${index}
     ${element}=    Get Text    //tbody/tr[contains(@class, "ant-table-row-level-0")][1]/td[${index}]
-    Log To Console    element: ${element}
-    Log To Console    value: ${STATE["${name}"]}
     Should Be Equal    ${STATE["${name}"]}    ${element}
+
+Check address in the input equal or not address of "${text}" table
+    ${Province}=    Get Text
+    ...    xpath= //*[contains(@class, "ant-form-item-label")]/label[text()="Tỉnh/Thành phố"]/../../*[contains(@class, "ant-form-item")]//span[contains(@class, "ant-select-selection-item")]
+    ${District}=    Get Text
+    ...    xpath= //*[contains(@class, "ant-form-item-label")]/label[text()="Quận/Huyện"]/../../*[contains(@class, "ant-form-item")]//span[contains(@class, "ant-select-selection-item")]
+    ${Ward}=    Get Text
+    ...    xpath= //*[contains(@class, "ant-form-item-label")]/label[text()="Phường/Xã"]/../../*[contains(@class, "ant-form-item")]//span[contains(@class, "ant-select-selection-item")]
+    ${Street}=    Get Text
+    ...    xpath= //*[contains(@class, "ant-form-item-label")]/label[text()="Địa chỉ cụ thể"]/../../*[contains(@class, "ant-form-item")]//input[contains(@class, "ant-input")]
+    ${dia_chi}=    Set Variable    ${Street}, ${Ward}, ${District}, ${Province}
+    Click "Lưu" button
+    User look message "Chỉnh sửa nhà cung cấp thành công." popup
+    ${columns}=    Get Elements    xpath=//*[contains(@scope, "col")]
+    ${index}=    Set Variable    0
+    FOR    ${column}    IN    @{columns}
+        ${column_text}=    Get Text    ${column}
+        ${index}=    Evaluate    ${index} + 1
+        IF    "${column_text}" == "Địa chỉ"    BREAK
+    END
+    ${element1}=    Get Element Count
+    ...    xpath=//tbody/tr[contains(@class, "ant-table-row-level-0")][1]/td[${index}]/div/*[contains(@class, "w-4 h-4 mt-1 ml-1 text-black") and @id="Layer_1"]
+    IF    ${element1} > 0
+        Hover
+        ...    //tbody/tr[contains(@class, "ant-table-row-level-0")][1]/td[${index}]/div/*[contains(@class, 'w-4 h-4 mt-1 ml-1 text-black') and @id='Layer_1']
+        ${element}=    Get Text    //div[contains(@class, "ant-tooltip-inner")]
+    ELSE
+        ${element}=    Get Text    //tbody/tr[contains(@class, "ant-table-row-level-0")][1]/td[${index}]
+    END
+    Should Be Equal    ${element}    ${dia_chi}
