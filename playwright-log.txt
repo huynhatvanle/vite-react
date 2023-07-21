@@ -1,0 +1,377 @@
+{"level":30,"time":"2023-07-21T01:35:06.243Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Listening on 58613"}
+{"level":30,"time":"2023-07-21T01:35:06.723Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T01:35:06.723Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T01:35:06.726Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T01:35:06.726Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9969:59)
+    at PlaywrightServer.setTimeout (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10214:57)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-21T01:35:06.741Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newBrowser"}
+{"level":30,"time":"2023-07-21T01:35:07.195Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newBrowser"}
+{"level":30,"time":"2023-07-21T01:35:07.201Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newPage"}
+{"level":30,"time":"2023-07-21T01:35:07.202Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"currentBrowser: [object Object]"}
+{"level":30,"time":"2023-07-21T01:35:07.214Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active context"}
+{"level":30,"time":"2023-07-21T01:35:07.625Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Video path: undefined"}
+{"level":30,"time":"2023-07-21T01:35:07.625Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active page"}
+{"level":30,"time":"2023-07-21T01:35:08.121Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newPage"}
+{"level":30,"time":"2023-07-21T01:35:08.152Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-07-21T01:35:08.152Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:09.227Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-07-21T01:35:09.232Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-07-21T01:35:09.233Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:09.249Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-07-21T01:35:09.268Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-07-21T01:35:09.268Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:09.299Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-07-21T01:35:09.304Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-07-21T01:35:09.304Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:09.337Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-07-21T01:35:09.346Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-07-21T01:35:09.346Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//button[@title = \"Đăng nhập\"] in page."}
+{"level":30,"time":"2023-07-21T01:35:09.409Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-07-21T01:35:09.416Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-07-21T01:35:09.419Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-popover\")]//*[contains(@class, \"ant-btn-primary\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:09.423Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-07-21T01:35:09.428Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:09.434Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:09.435Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:09.437Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:09.439Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:09.440Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:09.441Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:09.443Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:09.444Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:09.446Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:09.451Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:09.452Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-21T01:35:09.901Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Đăng nhập thành công"}
+{"level":30,"time":"2023-07-21T01:35:09.902Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:09.908Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method waitForElementState"}
+{"level":30,"time":"2023-07-21T01:35:09.909Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"swal2-confirm\")] in page."}
+================= Original suppressed error =================
+{"level":30,"time":"2023-07-21T01:35:10.023Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  waitForElementState"}
+locator.waitFor: Timeout 100ms exceeded.
+=========================== logs ===========================
+waiting for locator('xpath=//*[contains(@class, "swal2-confirm")]') to be visible
+  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
+  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
+  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
+============================================================
+    at waitForElementState (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8481:19)
+    at async PlaywrightServer.waitForElementsState (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:28) {
+  name: 'TimeoutError'
+}
+=============================================================
+{"level":30,"time":"2023-07-21T01:35:10.026Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
+{"level":30,"time":"2023-07-21T01:35:10.026Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","Take screenshot with options: ":{"path":"C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\screenshot\\fail-screenshot-1.png","fileType":"png","fullPage":false,"timeout":60000,"omitBackground":false}}
+{"level":30,"time":"2023-07-21T01:35:10.144Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method takeScreenshot"}
+{"level":30,"time":"2023-07-21T01:35:10.170Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-07-21T01:35:10.170Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:10.172Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-07-21T01:35:10.184Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-07-21T01:35:10.184Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//li[descendant::span[contains(text(), \"Quản lý cửa hàng\")]] in page."}
+{"level":30,"time":"2023-07-21T01:35:13.230Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-07-21T01:35:13.238Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-07-21T01:35:13.238Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //*[contains(@class, \"ant-table-row\")][1] in page."}
+{"level":30,"time":"2023-07-21T01:35:13.570Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-07-21T01:35:13.603Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-07-21T01:35:13.604Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên cửa hàng\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:14.117Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-07-21T01:35:14.120Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-07-21T01:35:14.120Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên cửa hàng\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:14.144Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-07-21T01:35:14.153Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-07-21T01:35:14.153Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//button[@title = \"Lưu\"] in page."}
+{"level":30,"time":"2023-07-21T01:35:14.647Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-07-21T01:35:14.651Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-07-21T01:35:14.652Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-popover\")]//*[contains(@class, \"ant-btn-primary\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:14.653Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-07-21T01:35:14.658Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:14.661Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:14.665Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:14.668Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:14.672Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:14.674Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:14.678Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:14.682Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:14.686Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:14.689Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T01:35:14.702Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:14.702Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-21T01:35:14.797Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Chỉnh sửa cửa hàng thành công."}
+{"level":30,"time":"2023-07-21T01:35:14.798Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:14.820Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method waitForElementState"}
+{"level":30,"time":"2023-07-21T01:35:14.820Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"swal2-confirm\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:14.928Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  waitForElementState"}
+================= Original suppressed error =================
+locator.waitFor: Timeout 100ms exceeded.
+=========================== logs ===========================
+waiting for locator('xpath=//*[contains(@class, "swal2-confirm")]') to be visible
+  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
+  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
+  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
+============================================================
+    at waitForElementState (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8481:19)
+    at async PlaywrightServer.waitForElementsState (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:28) {
+  name: 'TimeoutError'
+}
+=============================================================
+{"level":30,"time":"2023-07-21T01:35:14.932Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
+{"level":30,"time":"2023-07-21T01:35:14.932Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","Take screenshot with options: ":{"path":"C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\screenshot\\fail-screenshot-2.png","fileType":"png","fullPage":false,"timeout":60000,"omitBackground":false}}
+{"level":30,"time":"2023-07-21T01:35:15.045Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method takeScreenshot"}
+{"level":30,"time":"2023-07-21T01:35:15.062Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-07-21T01:35:15.062Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
+{"level":30,"time":"2023-07-21T01:35:15.067Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-07-21T01:35:20.078Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.078Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //tbody/tr[2]/td[2] in page."}
+{"level":30,"time":"2023-07-21T01:35:20.089Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //tbody/tr[2]/td[2] containing Cửa hàng bán thịt sạch"}
+{"level":30,"time":"2023-07-21T01:35:20.089Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.094Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.094Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.103Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.103Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.118Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.118Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.132Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.132Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.146Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.146Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.162Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.162Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.176Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.176Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.186Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.186Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.198Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.198Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.206Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.205Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.217Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.217Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.227Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.227Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.239Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.239Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.249Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.249Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.261Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.261Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.270Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.270Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.282Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.282Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.291Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.291Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.303Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.303Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.312Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.312Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.324Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.324Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.332Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.332Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.344Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.344Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.352Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.352Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.365Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.365Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.372Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.372Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.383Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.384Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.391Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.391Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.403Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.404Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.413Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.413Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.425Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.425Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.434Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.434Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.447Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.447Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.456Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.456Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.469Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.469Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.476Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.476Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.488Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.488Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.495Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.495Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.508Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.508Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.518Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.518Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.529Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.529Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.537Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.538Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.549Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.549Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.555Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.555Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.567Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.567Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.574Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.574Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.586Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.586Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.593Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.593Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.605Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.605Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.613Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.613Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.625Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.626Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.633Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.633Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.645Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.645Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.653Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.653Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.665Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.665Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.674Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.674Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.685Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.685Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.692Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.692Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.704Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.705Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.713Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.713Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.726Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.726Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.733Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.733Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.744Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.744Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.751Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.751Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.763Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.763Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.770Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.770Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.781Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.781Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.789Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.789Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.802Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.802Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.809Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.809Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.820Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.821Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.827Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.827Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.839Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.839Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.845Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.845Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.857Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.857Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.865Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.865Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.876Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.876Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.885Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.885Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.896Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.896Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.903Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.903Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.914Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.914Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.921Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.921Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.934Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.934Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.942Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.942Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.954Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.954Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.963Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.963Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.975Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.975Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:20.982Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:20.982Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.994Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:20.994Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:21.002Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:21.002Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.014Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.014Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:21.022Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:21.022Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.034Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.034Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:21.042Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:21.042Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.053Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.053Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:21.061Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:21.061Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.073Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.073Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:21.080Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:21.080Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.093Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.093Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:21.102Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:21.102Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.114Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.114Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //thead//tr in page."}
+{"level":30,"time":"2023-07-21T01:35:21.122Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //thead//tr containing Mã cửa hàng\tTên cửa hàng\tĐịa chỉ\tLoại cửa hàng\tHọ tên đại diện\tSố điện thoại"}
+{"level":30,"time":"2023-07-21T01:35:21.122Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T01:35:21.124Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
+{"level":30,"time":"2023-07-21T01:35:21.124Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","Take screenshot with options: ":{"path":"C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\screenshot\\fail-screenshot-3.png","fileType":"png","fullPage":false,"timeout":60000,"omitBackground":false}}
+{"level":30,"time":"2023-07-21T01:35:21.223Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method takeScreenshot"}
+{"level":30,"time":"2023-07-21T01:35:21.272Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2023-07-21T01:35:21.284Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Removed page=590f2299-be85-46e7-8a97-4cd764bff311 from context=7ff91ecc-d1bd-43ee-8f24-ef2288962f9f page stack"}
+{"level":30,"time":"2023-07-21T01:35:21.600Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9969:59)
+    at PlaywrightServer.setTimeout (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10214:57)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-21T01:35:21.605Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T01:35:21.605Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9969:59)
+    at PlaywrightServer.setTimeout (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10214:57)
+    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
+    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
+    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
+    at ServerHttp2Stream.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2023-07-21T01:35:21.611Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T01:35:21.611Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T01:35:23.687Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2023-07-21T01:35:23.688Z","pid":1076,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}

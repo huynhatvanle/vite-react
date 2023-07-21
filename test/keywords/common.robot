@@ -239,7 +239,7 @@ Select on the "${text}" item line
   Click                     ${element}
 
 Click "${text}" menu
-  Click                     xpath=//li[contains(@class, "menu") and descendant::span[contains(text(), "${text}")]]
+  Click                     xpath=//li[descendant::span[contains(text(), "${text}")]]
 
 Click "${text}" menuUser
     Click    xpath=//li[contains(@class,"flex")]/span[contains(text(),"${text}")]
@@ -279,3 +279,27 @@ Wait Until Element Spin
   IF    ${count} > 0
     Wait Until Element Is Not Exist                           ${element}
   END
+Get_Tencuahang "${name}"
+    ${element}=        Set Variable     //tbody/tr[2]/td[4]
+    Wait Until Element Is Visible    ${element}
+    ${text}    Get Text    ${element}
+    [Return]    ${text}
+
+Verify tencuahang
+    ${elements}=        Get Elements    //tr[@class="ant-table-row ant-table-row-level-0"]
+    ${count}=    Set Variable        2
+    FOR    ${element}    IN    @{elements}
+          ${namech}=       Get Text    //tbody/tr[${count}]/td[2]
+        
+          IF   '${namech}'=='Cửa hàng bán thịt sạch'
+            Log To Console    tên cửa hàng đã được thay đổi
+            
+          END
+            ${count}=        Evaluate    ${count}+1
+    END
+Verify motcuahang "${text}"
+    ${element}=       Set Variable   //tbody/tr[2]/td[2]
+    Element Text Should Be    ${element}   ${text}
+Verify tr "${text}"
+    ${element}=       Set Variable   //thead//tr
+    Element Text Should Be    ${element}   ${text}
