@@ -1,13 +1,14 @@
 import React, { MouseEventHandler } from 'react';
 import classNames from 'classnames';
-import { DefaultTFuncReturn } from 'i18next';
 import { Spinner } from '@svgs';
+import { DefaultTFuncReturn } from 'i18next';
 
-export const Button = ({ text, icon, className, disabled, isLoading = false, ...props }: Type) => {
+export const Button = ({ text = '', icon, className, disabled, isLoading = false, title, ...props }: Type) => {
   return (
     <button
       type="button"
       disabled={disabled}
+      title={title || text || ''}
       className={classNames(
         'button',
         {
@@ -26,6 +27,7 @@ export const Button = ({ text, icon, className, disabled, isLoading = false, ...
 type Type = {
   icon?: React.ReactNode;
   text?: string | DefaultTFuncReturn;
+  title?: string;
   className?: string;
   disabled?: boolean;
   isLoading?: boolean;

@@ -9,6 +9,7 @@ export class FormItem {
   type?:
     | 'hidden'
     | 'number'
+    | 'text'
     | 'tab'
     | 'addable'
     | 'editor'
@@ -71,7 +72,6 @@ export class FormItem {
   showRemove?: any;
   idCheck?: any;
   tabIndex?: number;
-  onlyImage?: boolean;
   firstLoad?: (data: any) => void;
   notDefaultValid?: boolean;
   render?: (form: FormInstance, values: any, generateForm: void, index: number, reRender: void) => JSX.Element;

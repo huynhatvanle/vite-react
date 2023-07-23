@@ -12,7 +12,7 @@ export class TableItem {
   width?: number;
   fixed?: string;
   sorter?: boolean;
-  onCell?: () => { style: any; onClick?: any };
+  onCell?: (record: any) => { style?: any; onClick?: any; className?: string };
   align?: 'left' | 'right' | 'center' | null;
   onClick?: any;
   render?: (text: any, item: any) => JSX.Element | string;

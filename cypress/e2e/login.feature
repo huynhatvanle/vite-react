@@ -5,26 +5,23 @@ Feature: Login
       Given User go to login page
 
     Scenario: SI-01 Verify that login successfully with valid Email and Password
-      When Enter "text" in "Tên đăng nhập" with "admin@admin.com"
-      When Enter "text" in "Mật khẩu" with "Password1!"
-      When Click "Đăng nhập" button
-      Then User look message "Thành công" popup
+      When Login to admin
 
   Rule: Bad paths
     Background:
       Given User go to login page
 
     Scenario: SI-02 Verify that Login unsuccessfully with invalid Email
-      When Enter "email" in "Tên đăng nhập" with "adminsss@admin.com"
-      When Enter "text" in "Mật khẩu" with "Password1"
+      When Enter "email" in "Tên đăng nhập" with "_RANDOM_"
+      When Enter "text" in "Mật khẩu" with "Password1!"
       When Click "Đăng nhập" button
-      Then User look message "Người dùng adminsss@admin.com không tồn tại!" popup
+      Then User look message "Người dùng _@Tên đăng nhập@_ không tồn tại!" popup
 
     Scenario: SI-03 Verify that Login unsuccessfully with invalid Password
       When Enter "text" in "Tên đăng nhập" with "admin@admin.com"
-      When Enter "text" in "Mật khẩu" with "Password12"
+      When Enter "text" in "Mật khẩu" with "Password1!!"
       When Click "Đăng nhập" button
-      Then User look message "Thông tin đăng nhập không hợp lệ cho người dùng admin@admin.com" popup
+      Then User look message "Thông tin đăng nhập không hợp lệ cho người dùng _@Tên đăng nhập@_" popup
 
     Scenario: SI-04 Verify that Login unsuccessfully because no enter Email and Password
       When Click "Đăng nhập" button

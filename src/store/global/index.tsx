@@ -27,7 +27,8 @@ const action = {
     // if (values.avatar && typeof values.avatar === 'object') {
     //   values.avatar = values.avatar[0].url;
     // }
-    const { data } = await API.put<User>(`${routerLinks(name, 'api')}/profile`, values);
+    const { data, message } = await API.put<User>(`${routerLinks(name, 'api')}/profile`, values);
+    if (message) Message.success({ text: message });
     return data || {};
   }),
   login: createAsyncThunk(name + '/login', async (values: { password: string; email: string }) => {
@@ -36,7 +37,7 @@ const action = {
       values,
     );
     if (data) {
-      if (message) await Message.success({ text: message });
+      if (message) Message.success({ text: message });
       localStorage.setItem(keyToken, data?.accessToken);
       localStorage.setItem(keyRefreshToken, data?.refreshToken);
     }
@@ -44,7 +45,7 @@ const action = {
   }),
   forgottenPassword: createAsyncThunk(name + '/forgotten-password', async (values: { email: string }) => {
     const { data, message } = await API.post(`${routerLinks(name, 'api')}/forgotten-password`, values);
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return !!data;
   }),
   resetPassword: createAsyncThunk(name + '/reset-password', async ({ token, ...values }: resetPassword) => {
@@ -54,7 +55,7 @@ const action = {
       {},
       { authorization: 'Bearer ' + token },
     );
-    if (message) await Message.success({ text: message });
+    if (message) Message.success({ text: message });
     return !!data;
   }),
 };

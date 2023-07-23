@@ -45,6 +45,7 @@ export const DataTable = forwardRef(
   (
     {
       columns = [],
+      id,
       showList = true,
       footer,
       defaultRequest = {
@@ -93,11 +94,11 @@ export const DataTable = forwardRef(
         : defaultRequest,
     );
 
+    const scroll = useRef<{ x?: number; y?: number }>({ x: xScroll, y: yScroll });
     useEffect(() => {
       if (pageSizeOptions?.length === 0) {
-        if (params?.perPage === 1) {
-          params.perPage = getSizePageByHeight();
-        }
+        if (params?.perPage === 1) params.perPage = getSizePageByHeight();
+        if (params.perPage! < 5) params.perPage = 5;
         refPageSizeOptions.current = [
           params.perPage || 10,
           (params.perPage || 10) * 2,
@@ -118,6 +119,15 @@ export const DataTable = forwardRef(
         if (!result?.data || new Date().getTime() > time || JSON.stringify(params) != queryParams)
           onChange(params, false);
       }
+      if (!scroll.current.x) {
+        scroll.current.x = 0;
+        columns.forEach((item) => {
+          if (item.tableItem) {
+            scroll.current.x! += item.tableItem?.width || 150;
+          }
+        });
+      }
+
       return () => localStorage.removeItem(idTable.current);
     }, []);
 
@@ -160,6 +170,7 @@ export const DataTable = forwardRef(
       </div>
     );
     const valueFilter = useRef<{ [selector: string]: boolean }>({});
+    const [filterDropdownOpen, setFilterDropdownOpen] = useState<any>({});
     const columnSearch = (get: TableGet, fullTextSearch = '', value?: any, facade: any = {}) => {
       if (get?.facade) {
         const params = get.params ? get.params(fullTextSearch, value) : { fullTextSearch };
@@ -263,7 +274,9 @@ export const DataTable = forwardRef(
       filterIcon: (filtered: boolean) => (
         <Search className={classNames('h-4 w-4', { 'fill-[#3699FF]': filtered, 'fill-gray-600': !filtered })} />
       ),
+      filterDropdownOpen: !!filterDropdownOpen[key],
       onFilterDropdownOpenChange: (visible: boolean) => {
+        setFilterDropdownOpen({ [key]: visible });
         if (visible) {
           setTimeout(
             () => (document.getElementById(idTable.current + '_input_filter_' + key) as HTMLInputElement).select(),
@@ -335,6 +348,10 @@ export const DataTable = forwardRef(
           item.defaultSortOrder =
             sorts[col!.name!] === 'ASC' ? 'ascend' : sorts[col!.name!] === 'DESC' ? 'descend' : '';
         if (!item?.render) item!.render = (text: string) => text && checkTextToShort(text);
+        if (item && !item?.onCell)
+          item.onCell = (record) => ({
+            className: record?.id && record?.id === (id || facade?.data?.id) ? '!bg-blue-100' : '',
+          });
         // noinspection JSUnusedGlobalSymbols
         return {
           title: t(col.title || ''),
@@ -396,7 +413,7 @@ export const DataTable = forwardRef(
                         undefined,
                         params.filter,
                         params.sorts as SorterResult<any>,
-                        (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value,
+                        (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value.trim(),
                       ),
                     500,
                   );
@@ -407,7 +424,7 @@ export const DataTable = forwardRef(
                       undefined,
                       params.filter,
                       params.sorts as SorterResult<any>,
-                      (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value,
+                      (document.getElementById(idTable.current + '_input_search') as HTMLInputElement).value.trim(),
                     );
                 }}
               />
@@ -459,7 +476,7 @@ export const DataTable = forwardRef(
                 handleTableChange(undefined, filters, sorts as SorterResult<any>, params.fullTextSearch)
               }
               showSorterTooltip={false}
-              scroll={{ x: xScroll, y: yScroll }}
+              scroll={scroll.current}
               size="small"
               {...prop}
             />
@@ -488,6 +505,7 @@ export const DataTable = forwardRef(
 );
 DataTable.displayName = 'HookTable';
 type Type = {
+  id?: string;
   columns: DataTableModel[];
   showList?: boolean;
   footer?: (result: any) => any;
@@ -499,10 +517,10 @@ type Type = {
   save?: boolean;
   searchPlaceholder?: string;
   subHeader?: (count: number) => any;
-  xScroll?: string | number | true;
-  yScroll?: string | number;
+  xScroll?: number;
+  yScroll?: number;
   emptyText?: JSX.Element | string;
-  onRow?: (data: any) => { onDoubleClick: () => void };
+  onRow?: (data: any) => { onDoubleClick?: () => void };
   pageSizeOptions?: number[];
   pageSizeRender?: (sizePage: number) => number | string;
   pageSizeWidth?: string;

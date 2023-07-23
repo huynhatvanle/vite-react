@@ -9,7 +9,7 @@
     "build:staging": "tsc && vite build --mode staging",
     "build:prod": "tsc && vite build --mode prod",
     "preview": "vite preview",
-    "format": "prettier --write \"{src,public}/**/*.{tsx,jsx}\"",
+    "format": "prettier --write \"{src,public}/**/*.{tsx,jsx,less}\"",
     "lint": "eslint \"{src,public}/**/*.{tsx,jsx}\" --fix",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",

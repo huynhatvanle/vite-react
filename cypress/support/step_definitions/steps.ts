@@ -1,24 +1,55 @@
 // The step definitions will use the page objects
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, Before } from '@badeball/cypress-cucumber-preprocessor';
 import Common from '../page_objects/Common';
 
 const common = new Common();
 
-Given('User go to login page', () => cy.visit('/auth/login'));
+Before(() => {
+  common.state = {};
+});
+Given('User go to login page', () => {
+  // cy.readFile('cypress/fixtures/example.json').then((data) => {
+  //   if (!data || data.bots === undefined) {
+  //     cy.writeFile('cypress/fixtures/example.json', { bots: [{ name: Cypress.currentTest.title, count: 1 }] });
+  //   } else {
+  //     let check = false;
+  //     data.bots.map((i: { name: string; count: number }) => {
+  //       if (!check && i.name === Cypress.currentTest.title) {
+  //         check = true;
+  //         i.count += 1;
+  //       }
+  //       return i;
+  //     });
+  //     if (!check) data.bots.push({ name: Cypress.currentTest.title, count: 1 });
+  //     console.log(data);
+  //     cy.writeFile('cypress/fixtures/example.json', data);
+  //   }
+  // });
+  cy.visit('/vn/auth/login');
+});
 When('Click "{}" button', common.clickTextButton);
-When('Click "{}" icon button', common.clickIconButton);
+When('Login to admin', () => {
+  cy.visit('/vn/auth/login');
+  common.typeInputByName('email', 'Tên đăng nhập', 'admin@admin.com');
+  common.typeInputByName('text', 'Mật khẩu', 'Password1!');
+  common.clickTextButton('Đăng nhập');
+  common.verifyMessageSwal2('Thành công');
+});
 When('Click "{}" menu', common.clickTextMenu);
 When('Click "{}" sub menu to "{}"', common.clickTextSubMenu);
 When('Click "{}" tab button', common.clickTextTabBtn);
 When('Click on the "{}" button in the "{}" table line', common.clickButtonTableByName);
+When('Select on the "{}" item line', common.clickItemByName);
+When('Click on the "{}" button in the "{}" item line', common.clickButtonItemByName);
 Then('User look message "{}" popup', common.verifyMessageSwal2);
 
 When('Enter "{}" in "{}" with "{}"', common.typeInputByName);
+When('Enter "{}" in placeholder "{}" with "{}"', common.typeInputByPlaceholder);
 When('Enter "{}" in textarea "{}" with "{}"', common.typeTextareaByName);
 When('Enter "{}" in editor "{}" with "{}"', common.typeEditorByName);
 When('Enter "{}" in editor HTML "{}" with "{}"', common.typeEditorHtmlByName);
 When('Select file in "{}" with "{}"', common.selectFileByName);
-When('Enter date in "{}"', common.typePickerInputByName);
+When('Enter date in "{}" with "{}"', common.typePickerInputByName);
 When('Click switch "{}" to be activated', common.clickSwitchByName);
 When('Click radio "{}" in line "{}"', common.clickRadioByName);
 When('Click select "{}" with "{}"', common.clickSelectByName);
