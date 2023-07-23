@@ -95,18 +95,18 @@ const Page = () => {
             title: 'routes.admin.user.Description',
             name: 'description',
             formItem: {
-              col: 8,
+              // col: 8,
               type: 'textarea',
             },
           },
-          {
-            name: 'avatar',
-            title: 'routes.admin.user.Upload avatar',
-            formItem: {
-              col: 4,
-              type: 'upload',
-            },
-          },
+          // {
+          //   name: 'avatar',
+          //   title: 'routes.admin.user.Upload avatar',
+          //   formItem: {
+          //     col: 4,
+          //     type: 'upload',
+          //   },
+          // },
         ]}
         handSubmit={putProfile}
         disableSubmit={isLoading}

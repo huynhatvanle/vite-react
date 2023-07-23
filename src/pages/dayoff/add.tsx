@@ -208,19 +208,19 @@ const Page = () => {
                 name: 'reason',
                 title: 'dayoff.Reason',
                 formItem: {
-                  col: 8,
+                  // col: 8,
                   type: 'textarea',
                   rules: [{ type: 'required' }],
                 },
               },
-              {
-                name: 'image',
-                title: 'dayoff.register.Upload screenshot',
-                formItem: {
-                  col: 4,
-                  type: 'upload',
-                },
-              },
+              // {
+              //   name: 'image',
+              //   title: 'dayoff.register.Upload screenshot',
+              //   formItem: {
+              //     col: 4,
+              //     type: 'upload',
+              //   },
+              // },
             ]}
             extendButton={(form) => (
               <div className="flex">

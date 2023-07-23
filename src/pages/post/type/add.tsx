@@ -94,18 +94,18 @@ const Page = () => {
               title: 'routes.admin.user.Description',
               name: 'description',
               formItem: {
-                col: 8,
+                // col: 8,
                 type: 'textarea',
               },
             },
-            {
-              name: 'coverUrl',
-              title: 'routes.admin.user.Upload avatar',
-              formItem: {
-                col: 4,
-                type: 'upload',
-              },
-            },
+            // {
+            //   name: 'coverUrl',
+            //   title: 'routes.admin.user.Upload avatar',
+            //   formItem: {
+            //     col: 4,
+            //     type: 'upload',
+            //   },
+            // },
           ]}
           extendButton={(form) => (
             <Button
