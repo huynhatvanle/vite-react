@@ -14,7 +14,10 @@ const Layout = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();
   const { setLanguage, pathname, setPathname, language } = GlobalFacade();
   const [showMenu, set_showMenu] = useState(false);
-  const [data, set_data]: any = useState([{ title: 'Home', slug: '/' + language }, { title: 'About', slug: '/' + language }]);
+  const [data, set_data]: any = useState([
+    { title: 'Home', slug: '/' + language },
+    { title: 'About', slug: '/' + language },
+  ]);
   const menus: any = [];
   const navigate = useNavigate();
 
@@ -42,7 +45,6 @@ const Layout = ({ children }: PropsWithChildren) => {
       navigate(pathname);
     }
   }, [pathname]);
-
 
   const handleScrollTo = (id: string) => {
     const element = document.getElementById(id);
@@ -305,7 +307,8 @@ const Layout = ({ children }: PropsWithChildren) => {
             <div className={'lg:max-w-xs'}>
               <img src="/assets/images/logo.svg" className="h-12 brightness-0 invert mb-5" alt="logo" />
               <p>
-                Tincidunt neque pretium lectus donec risus. Mauris mi tempor nunc orc leo consequat vitae erat gravida lobortis nec et sagittis.
+                Tincidunt neque pretium lectus donec risus. Mauris mi tempor nunc orc leo consequat vitae erat gravida
+                lobortis nec et sagittis.
               </p>
               <div className={'gap-4 flex mt-8'}>
                 <a
@@ -332,46 +335,43 @@ const Layout = ({ children }: PropsWithChildren) => {
                 <a className="text-white font-bold hover:text-white cursor-pointer block">
                   {t('Digital transformation')}
                 </a>
-                <a className="text-white font-bold hover:text-white cursor-pointer block">
-                  {t('R&D services')}
-                </a>
+                <a className="text-white font-bold hover:text-white cursor-pointer block">{t('R&D services')}</a>
                 <a className="text-white font-bold hover:text-white cursor-pointer block">
                   {t('Outsourcing services')}
                 </a>
-                <a className="text-white font-bold hover:text-white cursor-pointer block">
-                  {t('Product development')}
-                </a>
+                <a className="text-white font-bold hover:text-white cursor-pointer block">{t('Product development')}</a>
               </div>
             </div>
             <div className={'lg:max-w-xs'}>
               <h3 className={'text-xl font-bold pb-7'}>Usefull Links</h3>
               <div className={'leading-10'}>
                 {data.map((item: any, index: number) => (
-                  <a key={index}
+                  <a
+                    key={index}
                     className="text-white font-bold hover:text-white cursor-pointer block"
                     onClick={() => navigate(item.slug)}
                   >
-                      {t('layout.header.' + item.title)}
+                    {t('layout.header.' + item.title)}
                   </a>
                 ))}
-              <a
-                className="text-white font-bold hover:text-white cursor-pointer block"
-                onClick={() => navigate(language === 'vn' ? '/vn/tin-tuc' : '/en/news')}
-              >
-                {t('layout.header.News')}
-              </a>
-              <a
-                className="text-white font-bold hover:text-white cursor-pointer block"
-                onClick={() => navigate(language === 'vn' ? '/vn/du-an' : '/en/projects')}
-              >
-                {t('layout.header.Projects')}
-              </a>
-              <a
-                className="text-white font-bold hover:text-white cursor-pointer block"
-                onClick={() => handleScrollTo('form-contact-us')}
-              >
-                {t('layout.header.Contact Us')}
-              </a>
+                <a
+                  className="text-white font-bold hover:text-white cursor-pointer block"
+                  onClick={() => navigate(language === 'vn' ? '/vn/tin-tuc' : '/en/news')}
+                >
+                  {t('layout.header.News')}
+                </a>
+                <a
+                  className="text-white font-bold hover:text-white cursor-pointer block"
+                  onClick={() => navigate(language === 'vn' ? '/vn/du-an' : '/en/projects')}
+                >
+                  {t('layout.header.Projects')}
+                </a>
+                <a
+                  className="text-white font-bold hover:text-white cursor-pointer block"
+                  onClick={() => handleScrollTo('form-contact-us')}
+                >
+                  {t('layout.header.Contact Us')}
+                </a>
               </div>
             </div>
             <div className={'lg:max-w-xs'}>
@@ -379,14 +379,14 @@ const Layout = ({ children }: PropsWithChildren) => {
 
               <div className={'flex flex-col gap-6'}>
                 <div className="flex items-center">
-                  <MapMarked className={'w-12 h-8 lg:mr-3 mr-0.5 text-blue-600 lg:ml-0 -ml-2'} />
+                  <MapMarked className={'w-12 h-8 lg:mr-3 mr-0.5 text-white lg:ml-0 -ml-2'} />
                   <div className="leading-5">
                     <span className="text-sm">{t('layout.header.Address')}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center ">
-                  <Envelope className={'w-8 h-8 mr-3 text-blue-600'} />
+                  <Envelope className={'w-8 h-8 mr-3 text-white'} />
                   <div className="leading-5">
                     <a className="text-sm text-white" href="mailto:contact@ari.com.vn">
                       contact@ari.com.vn
@@ -395,19 +395,16 @@ const Layout = ({ children }: PropsWithChildren) => {
                 </div>
 
                 <div className="flex items-center ">
-                  <Phone className={'w-8 h-8 mr-3 text-blue-600'} />
+                  <Phone className={'w-8 h-8 mr-3 text-white'} />
                   <div className="leading-5">
                     <a className="text-sm text-white" href="tel:(+84)363672405">
-                      {' '}
                       (+84) 098 7765926
                     </a>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
         <div className="py-8 text-center border-t border-gray-800">
           {t('layout.footer.copyright', { year: new Date().getFullYear() })}
