@@ -71,6 +71,11 @@ const pages = [
         title: 'User/Edit',
       },
       {
+        path: routerLinks('inventory-management/product'),
+        component: React.lazy(() => import('@pages/inventory-management/Product')),
+        title: 'inventory-management/product',
+      },
+      {
         path: routerLinks('Store'),
         component: React.lazy(() => import('@pages/store')),
         title: 'Store',

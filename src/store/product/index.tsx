@@ -25,6 +25,7 @@ const action = {
         categoryId2?: string;
         categoryId3?: string;
         isGetAll?: boolean;
+        approveStatus?: string;
       };
       sorts?: {};
     }) => {
@@ -38,6 +39,7 @@ const action = {
           perPage: perPage,
           storeId: filterProduct.storeId,
           type: filterProduct.type,
+          approveStatus: filterProduct.approveStatus,
           supplierId: filterProduct.supplierId,
           categoryId: filterProduct.categoryId3
             ? filterProduct.categoryId3
@@ -108,6 +110,7 @@ export const ProductFacade = () => {
         supplierId?: string;
         storeId?: string;
         type: string;
+        approveStatus: string;
         categoryId1?: string;
         categoryId2?: string;
         categoryId3?: string;

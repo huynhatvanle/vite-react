@@ -2,12 +2,27 @@ import React from 'react';
 
 import { keyRole } from '@utils';
 import './index.less';
-import { Cart, Buffer, Store, User } from '@svgs';
+import { Cart, Buffer, Store, User, Shopping } from '@svgs';
 
 const Layout = () => [
   {
     icon: <Buffer className="icon-menu" />,
     name: 'Dashboard',
+  },
+  {
+    icon: <Shopping className="icon-menu" />,
+    name: 'Inventory Management',
+    child: [
+      {
+        name: 'inventory-management/product',
+      },
+      {
+        name: 'Iinventory-management/category',
+      },
+      {
+        name: 'inventory-management/tax',
+      },
+    ],
   },
   {
     icon: <User className="icon-menu" />,
