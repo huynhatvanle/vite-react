@@ -14,7 +14,7 @@ DA-01 Verify that Add New successfully with enter the data
 *** Keywords ***
 Go to page create data user
     When Login to admin
-    When Click "Quản lý người dùng" menuUser
+    When Click "Quản lý người dùng" menuBalence
 
 Background Happy paths
     When Go to page create data user

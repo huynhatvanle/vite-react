@@ -242,8 +242,8 @@ Select on the "${text}" item line
 Click "${text}" menu
     Click    xpath=//li[contains(@class, "items-center") and descendant::span[contains(text(), "${text}")]]
 
-Click "${text}"
-    Click    xpath=//li[contains(@class,"flex")]/span[contains(text(),"${text}")]
+# Click "${text}" menuUser
+#    Click    xpath=//li[contains(@class,"flex")]/span[contains(text(),"${text}")]
 
 Click "${text}" sub menu to "${url}"
     Wait Until Element Spin
@@ -427,3 +427,144 @@ check "${name}" in input and "${text}" in table is displayed on the first row
     Log To Console    element: ${element}
     Log To Console    value: ${STATE["${name}"]}
     Should Be Equal    ${STATE["${name}"]}    ${element}
+###    Login & Store    ###
+
+Click element input "${name}"
+    ${element}=    Get Element Form Item By Name    ${name}    //input[contains(@class, "ant-input")]
+    Click    ${element}
+
+Check Url "${url}" Page
+    ${url_current}=    Get Url
+    Should Be Equal    ${url_current}    ${URL_DEFAULT}${url}
+
+Check displayed under "${name}" field
+    ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-form-item-explain-error")]
+    Element Should Not Be Visible    ${element}
+
+Click "${name}" Eye icon
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //input[contains(@class, "ant-input")]//following-sibling::*
+    Click    ${element}
+    Should Be Equal    first    second
+
+Click on the "${text}" button in the "${name}" table line
+    Wait Until Element Spin
+    ${element}=    Get Element Form Item By Name    ${STATE["${name}"]}    //input[contains(@class, "ant-input")]
+    Click    ${element}
+    Click Confirm To Action
+
+Check empty in "${name}"
+    ${element}=    Get Element Form Item By Name    ${name}    //input[contains(@class, "ant-input")]
+    Should Be Empty    ${element}
+
+Clear select "${name}"
+    ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-select-show-arrow")]
+    Hover    ${element}
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //*[contains(@class, "ant-select-clear")]
+    Click    ${element}
+
+Search input "${text}"
+    Clear Text    xpath=//input[contains(@placeholder, "Tìm kiếm")]
+    Fill Text    xpath=//input[contains(@placeholder, "Tìm kiếm")]    ${text}
+    Sleep    3
+    Wait Until Element Spin
+
+Search no data
+    Element Text Should Be
+    ...    xpath=//*[contains(@class, "ant-table-placeholder")]/td[contains(@class, "ant-table-cell")]/div
+    ...    Trống
+
+Search have data
+    Element Should Not Be Visible
+    ...    xpath=//*tbody/tr*[contains(@class, "ant-table-placeholder")]/td[contains(@class, "ant-table-cell")]/div
+
+Check "${name}" in edit and "${text}" in table is displayed on the first row
+    # [Arguments]    ${value}
+    ${columns}=    Get Elements    xpath=//*[contains(@scope, "col")]
+    ${index}=    Set Variable    0
+    FOR    ${column}    IN    @{columns}
+        ${column_text}=    Get Text    ${column}
+        ${index}=    Evaluate    ${index} + 1
+        IF    "${column_text}" == "${text}"    BREAK
+    END
+    ${element}=    Get Text    //tbody/tr[contains(@class, "ant-table-row-level-0")][1]/td[${index}]
+    Should Be Equal    ${STATE["${name}"]}    ${element}
+
+Double click "${text}"
+    Click    //tbody/tr[contains(@class, "ant-table-row-level-0")]/td[contains(text(), "${text}")]    left    2
+
+Click pagination dropdown "${number}"
+    Click    //*[contains(@class, "pagination")]//div[contains(@class, "ant-select-selector")]
+    Click    xpath=//div[contains(@class,"ant-select-item-option-content") and text() = "${number}"]
+    Wait Until Element Spin
+    ${elements}=    Set Variable    xpath=//tbody/tr[contains(@class, "ant-table-row ant-table-row-level-0")]
+    ${row_count}=    Get Element Count    ${elements}
+    Should Be Equal    "${number}"    "${row_count}"
+
+Get Element Pagination
+    [Arguments]    ${xpath}=${EMPTY}
+    RETURN    xpath=//*[contains(@class, "flex sm:flex-wrap justify-center duration-300 transition-all")]/${xpath}
+
+Click and check "${button}" in pagination to "${page}"
+    ${element}=    Get Element Pagination    button[@aria-label="${button}"]
+    Click    ${element}
+    ${element1}=    Get Element Pagination    button[contains(@class, "bg-teal-900")]
+    Element Text Should Be    ${element1}    ${page}
+
+Check address in the input equal or not address of "${text}" table
+    ${Province}=    Get Text
+    ...    xpath= //*[contains(@class, "ant-form-item-label")]/label[text()="Tỉnh/Thành phố"]/../../*[contains(@class, "ant-form-item")]//span[contains(@class, "ant-select-selection-item")]
+    ${District}=    Get Text
+    ...    xpath= //*[contains(@class, "ant-form-item-label")]/label[text()="Quận/Huyện"]/../../*[contains(@class, "ant-form-item")]//span[contains(@class, "ant-select-selection-item")]
+    ${Ward}=    Get Text
+    ...    xpath= //*[contains(@class, "ant-form-item-label")]/label[text()="Phường/Xã"]/../../*[contains(@class, "ant-form-item")]//span[contains(@class, "ant-select-selection-item")]
+    ${Street}=    Get Text
+    ...    xpath= //*[contains(@class, "ant-form-item-label")]/label[text()="Địa chỉ cụ thể"]/../../*[contains(@class, "ant-form-item")]//input[contains(@class, "ant-input")]
+    ${dia_chi}=    Set Variable    ${Street}, ${Ward}, ${District}, ${Province}
+    Click "Lưu" button
+    User look message "Chỉnh sửa nhà cung cấp thành công." popup
+    ${columns}=    Get Elements    xpath=//*[contains(@scope, "col")]
+    ${index}=    Set Variable    0
+    FOR    ${column}    IN    @{columns}
+        ${column_text}=    Get Text    ${column}
+        ${index}=    Evaluate    ${index} + 1
+        IF    "${column_text}" == "Địa chỉ"    BREAK
+    END
+    ${element1}=    Get Element Count
+    ...    xpath=//tbody/tr[contains(@class, "ant-table-row-level-0")][1]/td[${index}]/div/*[contains(@class, "w-4 h-4 mt-1 ml-1 text-black") and @id="Layer_1"]
+    IF    ${element1} > 0
+        Hover
+        ...    //tbody/tr[contains(@class, "ant-table-row-level-0")][1]/td[3]/div/*[contains(@class, 'w-4 h-4 mt-1 ml-1 text-black') and @id='Layer_1']
+        ${element}=    Get Text    //div[contains(@class, "ant-tooltip-inner")]
+    ELSE
+        ${element}=    Get Text    //tbody/tr[contains(@class, "ant-table-row-level-0")][1]/td[${index}]
+    END
+    Should Be Equal    ${element}    ${dia_chi}
+
+Check data table in "${text}" with search input
+    ${text_input}=    Get Text    //input[contains(@placeholder, "Tìm kiếm")]
+
+    ${columns}=    Get Elements    xpath=//*[contains(@scope, "col")]
+    ${i}=    Set Variable    0
+    FOR    ${column}    IN    @{columns}
+        ${column_text}=    Get Text    ${column}
+        ${i}=    Evaluate    ${i} + 1
+        IF    "${column_text}" == "${text}"    BREAK
+    END
+
+    ${columns}=    Get Elements    xpath=//tr[contains(@class, "ant-table-row ant-table-row-level-0")]/td[${i}]
+    ${index}=    Set Variable    0
+    FOR    ${column}    IN    @{columns}
+        ${column_text}=    Get Text    ${column}
+        IF    "${text_input}" in "${column_text}"
+            Log To Console    ${column_text}
+        ELSE
+            ${index}=    Evaluate    ${index}+1
+            BREAK
+        END
+    END
+    Should Be Equal    ${index}    0
+###    ###    ###
