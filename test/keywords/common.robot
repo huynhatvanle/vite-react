@@ -240,7 +240,7 @@ Select on the "${text}" item line
     Click    ${element}
 
 Click "${text}" menu
-    Click    xpath=//li[contains(@class, "menu") and descendant::span[contains(text(), "${text}")]]
+    Click    xpath=//li[contains(@class, "items-center") and descendant::span[contains(text(), "${text}")]]
 
 Click "${text}"
     Click    xpath=//li[contains(@class,"flex")]/span[contains(text(),"${text}")]
@@ -380,7 +380,9 @@ Click field blanks Address with "${name}"
     ${element}=    Set Variable
     ...    //*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../../*[contains(@class, "ant-form-item")]/div/div/div/div
     Hover    ${element}
-    Click    //span[contains(@class,"ant-select-clear")]
+    Sleep    5
+    Click
+    ...    //*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../../*[contains(@class, "ant-form-item")]/div/div/div/div/span[contains(@class,"ant-select-clear")]
 
 # Thanh
 
@@ -400,7 +402,7 @@ Get Element Pagination
     [Arguments]    ${xpath}=${EMPTY}
     RETURN    xpath=//*[contains(@class, "flex sm:flex-wrap justify-center duration-300 transition-all")]/${xpath}
 
-Click "${text}" to change the page and pagination to "${page}"
+Click change "${text}" the page and pagination to "${page}"
     Click    xpath=//button[@aria-label = "${text}"]
     ${element}=    Get Element Pagination    button[contains(@class, "bg-teal-900")]
     Element Text Should Be    ${element}    ${page}

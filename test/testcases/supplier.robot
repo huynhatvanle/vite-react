@@ -11,10 +11,10 @@ SPL_01 Verify UI in Danh sách nhà cung cấp page displays correctly with desi
     [Tags]    @smoketest    @regression
     Then Login to admin
     When Click "Quản lý nhà cung cấp" menu
-    Wait Until Element Spin
-    ${elements}=    Set Variable    //tbody/tr
-    ${count}=    Get Element Count    ${elements}
-    Log To Console    ${count}
+    # Wait Until Element Spin
+    # ${elements}=    Set Variable    //tbody/tr
+    # ${count}=    Get Element Count    ${elements}
+    # Log To Console    ${count}
 
 SPL_02 Verify UI in Thêm nhà cung cấp page displays correctly with design
     [Tags]    @smoketest    @regression
@@ -406,9 +406,9 @@ SPL_48 Verify the admin CAN view supplier listing information when select 'navig
     [Tags]    @smoketest    @regression
     Then Login to admin
     When Click "Quản lý nhà cung cấp" menu
-    When Click "next" to change the page and pagination to "2"
+    When Click change "next" the page and pagination to "2"
     When Check list table
-    When Click "prev" to change the page and pagination to "1"
+    When Click change "prev" the page and pagination to "1"
     When Check list table
 
 SPL_49 Verify that the admin CAN view supplier listing information when selecting value on the pagination dropdown && navigate pagination
@@ -416,10 +416,10 @@ SPL_49 Verify that the admin CAN view supplier listing information when selectin
     Then Login to admin
     When Click "Quản lý nhà cung cấp" menu
     When Click Pagination dropdown with number page "20"
-    When Click "next" to change the page and pagination to "2"
+    When Click change "next" the page and pagination to "2"
     When Check list table
     When Click Pagination dropdown with number page "40"
-    When Click "prev" to change the page and pagination to "1"
+    When Click change "prev" the page and pagination to "1"
     When Check list table
 
 
