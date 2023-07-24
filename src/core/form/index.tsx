@@ -513,6 +513,19 @@ export const Form = ({
                   },
                 }));
                 break;
+              case 'textarea_max_length':
+                rules.push(() => ({
+                  validator(_: any, value: any) {
+                    if (!value) {
+                      return Promise.resolve();
+                    } else if (value.length <= 500) {
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject(t(rule.message || 'Chỉ được nhập tối đa 500 kí tự', { length: 500 }));
+                    }
+                  },
+                }));
+                break;
               case 'custom':
                 rules.push(rule.validator);
                 break;

@@ -10,7 +10,6 @@ import { DistrictFacade } from '@store/address/district';
 import { Supplier, SupplierFacade } from '@store/supplier';
 import { language, languages, routerLinks } from '@utils';
 
-
 const Page = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -36,18 +35,20 @@ const Page = () => {
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Supplier')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: any) => {
-    const name = forms.getFieldValue('name')
-    const fax = forms.getFieldValue('fax')
-    const provinceId = forms.getFieldValue('provinceId')
-    const districtId = forms.getFieldValue('districtId')
-    const wardId = forms.getFieldValue('wardId')
-    const street = forms.getFieldValue('street')
+    const name = forms.getFieldValue('name');
+    const fax = forms.getFieldValue('fax');
+    const provinceId = forms.getFieldValue('provinceId');
+    const districtId = forms.getFieldValue('districtId');
+    const wardId = forms.getFieldValue('wardId');
+    const street = forms.getFieldValue('street');
     supplierFace.post({ ...values, name, fax, provinceId, districtId, wardId, street });
   };
 
   return (
     <div className={''}>
-      <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>{t('titles.Supplierinformation')}</div>
+      <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 bg-white rounded-t-2xl'}>
+        {t('titles.Supplierinformation')}
+      </div>
 
       <Form
         formAnt={forms}
@@ -166,50 +167,60 @@ const Page = () => {
             formItem: {
               render() {
                 return (
-                  <div className="text-lg text-teal-900 font-bold mb-2.5">
-                    {t('store.Representative information')}
-                  </div>
+                  <div className="text-lg text-teal-900 font-bold mb-2.5">{t('store.Representative information')}</div>
                 );
               },
             },
           },
         ]}
       />
+      <div className="bg-white">
+        <Form
+          formAnt={forms}
+          values={{ ...data }}
+          className="intro-x form-responsive form-store3"
+          columns={[
+            {
+              title: 'store.ContactName',
+              name: 'nameContact',
+              formItem: {
+                col: 4,
+                type: 'name',
+                rules: [{ type: 'required' }],
+              },
+            },
+            {
+              title: 'store.Contact Phone Number',
+              name: 'phoneNumber',
+              formItem: {
+                col: 4,
+                rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 12 }],
+              },
+            },
+            {
+              title: 'store.Contact Email',
+              name: 'emailContact',
+              formItem: {
+                col: 4,
+                rules: [{ type: 'required' }, { type: 'email' }],
+              },
+            },
+          ]}
+          disableSubmit={isLoading}
+        />
+      </div>
       <Form
         formAnt={forms}
         values={{ ...data }}
-        className="intro-x form-responsive form-store3"
+        className="intro-x"
         columns={[
-          {
-            title: 'store.ContactName',
-            name: 'nameContact',
-            formItem: {
-              col: 4,
-              type: 'name',
-              rules: [{ type: 'required' }],
-            },
-          },
-          {
-            title: 'store.Contact Phone Number',
-            name: 'phoneNumber',
-            formItem: {
-              col: 4,
-              rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 12 }],
-            },
-          },
-          {
-            title: 'store.Contact Email',
-            name: 'emailContact',
-            formItem: {
-              col: 4,
-              rules: [{ type: 'required' }, { type: 'email' }],
-            },
-          },
           {
             title: 'store.Note',
             name: 'note',
             formItem: {
+              col: 12,
               type: 'textarea',
+              rules: [{ type: 'textarea_max_length' }],
             },
           },
         ]}
