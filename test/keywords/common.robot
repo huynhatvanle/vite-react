@@ -284,5 +284,31 @@ Click "${text1}" myprofile "${text2}"
     Click    xpath=//div[contains(@class,"flex items-center")]//img[contains(@alt,"${text1}")]
     Click    xpath=//span[contains(@class,"ant-dropdown-menu-title-content")]//div[contains(text(),"${text2}")]
 
+Click profile "${text}"
+    Upload File By Selector    //input[@type="file"]    D:/GitHub/vite-react/test/upload/Goku3.jpg
+
 DoubleClick edit
     Click    xpath=//*[contains(@class, "ant-table-row")][1]    left    2
+
+Click select role "${name}" with "${text}"
+    Click    xpath=//div[contains(@class,"ant-select-selector")]/span[contains(@title,"${text}")]
+
+Click pagination "${number}" user
+    Click
+    ...    xpath=//div[contains(@class,"left")]//div[contains(@class,"ant-select-selector")]
+    Click    xpath=//div[contains(@class,"ant-select-item-option-content") and text() = "${number}"]
+    Wait Until Element Spin
+    ${data}=    Set Variable    xpath=//tbody/tr[contains(@class,"ant-table-row")]
+    ${count}=    Get Element Count    ${data}
+    Should Be Equal    "${number}"    "${count}"
+
+Click pagination "${text}" next page
+    Click
+    ...    xpath=//div[contains(@class,"right flex")]//button[contains(@aria-label,"${text}") and not (contains(@aria-label,"_"))]
+
+Enter "${name}" placeholder with "${text}"
+    ${element}=    Set Variable    xpath=//div[contains(@class,"relative")]/input[contains(@placeholder, "${name}")]
+    Fill Text    ${element}    ${text}
+
+Check role disable
+    Click    xpath=//div[contains(@class,"col-span-12 col-store")]//div[contains(@class,"ant-select-disabled")]

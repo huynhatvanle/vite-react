@@ -8,7 +8,7 @@ Test Teardown       Tear Down
 *** Test Cases ***
 DA-01 Verify that Add New successfully with enter the data
     [Tags]    @smoketest    @regression
-    Then SPL_43
+    Then SPL_30 Verify that admin CAN not change the role of sub admin
 
 
 *** Keywords ***
@@ -271,10 +271,9 @@ Background Happy paths
 #    [Tags]    @smoketest    @regression
 #    When Go to page create data user
 #    When DoubleClick edit
-#    When Enter "text" in "Họ và tên" with "khanh pro"
+#    When Enter "text" in "Họ và tên" with "khanh"
 #    When Click "Lưu" button
 #    Then User look message "Chỉnh sửa tài khoản thành công" popup
-#    When Select on the "khanh pro" item line
 
 # SPL_28 Verify that validation text of Họ và tên appears when entering number or special character
 #    [Tags]    @smoketest    @regression
@@ -283,6 +282,19 @@ Background Happy paths
 #    When Enter "phone" in "Số điện thoại" with "_RANDOM_"
 #    When Click "Lưu" button
 #    Then User look message "Chỉnh sửa tài khoản thành công" popup
+
+# SPL_29 Verify that admin CAN not change the role from store owner to supplier
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When DoubleClick edit
+#    When Click select role "Vai trò" with "Chủ cửa hàng"
+
+SPL_30 Verify that admin CAN not change the role of sub admin
+    [Tags]    @smoketest    @regression
+    When Go to page create data user
+    When DoubleClick edit
+    When Check role disable
+    When Click "Lưu" button
 
 # SPL_31 Verify that validation text of Họ và tên appears when leaving Họ và tên field blanks
 #    When Go to page create data user
@@ -413,6 +425,15 @@ Background Happy paths
 #    When Click "Lưu" button
 #    Then User look message "Chỉnh sửa tài khoản thành công" popup
 
+# SPL_44 Verify that sub admin CAN edit profile image
+#    When Go to page create data user
+#    Wait Until Element Spin
+#    When Click "Avata" myprofile "Thông tin cá nhân"
+#    When Click profile "Align"
+#    Wait Until Element Spin
+#    When Click "Lưu" button
+#    Then User look message "Chỉnh sửa tài khoản thành công" popup
+
 # SPL_45 Verify that Add New successfully with enter the data3
 #    [Tags]    @smoketest    @regression
 #    When Go to page create data user
@@ -440,3 +461,18 @@ Background Happy paths
 #    When Go to page create data user
 #    # When Enter "Tìm kiếm" placeholder with "Diệu"
 #    When Enter "Tìm kiếm" placeholder with "413561088962"
+
+# SPL_50 Verify that the admin CAN view user listing information when selecting value on the pagination dropdown
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When Click pagination "20" user
+
+# SPL_51 Verify the admin CAN view order listing information when select 'navigate pagination'
+#    [Tags]    @smoketest    @regression
+#    When Go to page create data user
+#    When Click pagination "next" next page
+#    When Click pagination "10" user
+#    Wait Until Element Spin
+#    When Click pagination "prev" next page
+#    When Click pagination "10" user
+#    Wait Until Element Spin
