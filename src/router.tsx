@@ -125,6 +125,11 @@ const pages = [
         component: React.lazy(() => import('@pages/supplier/productDetail/index')),
         title: 'Merchandise-Managerment/Product/Detail',
       },
+      // {
+      //   path: routerLinks('merchandise-managerment/category'),
+      //   component: React.lazy(() => import('@pages/supplier')),
+      //   title: 'merchandise-managerment/category',
+      // },
     ], // 💬 generate link to here
   },
 ];

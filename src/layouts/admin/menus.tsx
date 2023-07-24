@@ -13,6 +13,10 @@ const Layout = () => [
     icon: <User className="icon-menu" />,
     name: 'User/List',
   },
+  // {
+  //   icon: <Store className="icon-menu" />,
+  //   name: 'merchandise-managerment/category',
+  // },
   {
     icon: <Cart className="icon-menu " />,
     name: 'Supplier',

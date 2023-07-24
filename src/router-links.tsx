@@ -33,6 +33,8 @@ export const routerLinks = (name: string, type?: string) => {
     Category: '/category',
 
     Product: '/product',
+
+    'merchandise-managerment/category': 'merchandise-managerment/category',
   }; // 💬 generate link to here
 
   const apis: {
