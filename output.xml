@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20230718 14:47:06.825" rpa="false" schemaversion="3">
+<suite id="s1" name="User" source="d:\GitHub\vite-react\test\testcases\user.robot">
+<test id="s1-t1" name="DA-01 Verify that Add New successfully with enter the data" line="9">
+<kw name="Setup" library="common" type="SETUP">
+<kw name="Set Browser Timeout">
+<arg>${BROWSER_TIMEOUT}</arg>
+<msg timestamp="20230718 14:47:07.137" level="FAIL">No keyword with name 'Set Browser Timeout' found.</msg>
+<status status="FAIL" starttime="20230718 14:47:07.137" endtime="20230718 14:47:07.143"/>
+</kw>
+<kw name="New Browser">
+<arg>${BROWSER}</arg>
+<arg>headless=${HEADLESS}</arg>
+<status status="NOT RUN" starttime="20230718 14:47:07.158" endtime="20230718 14:47:07.159"/>
+</kw>
+<kw name="New Page">
+<arg>${URL_DEFAULT}</arg>
+<status status="NOT RUN" starttime="20230718 14:47:07.171" endtime="20230718 14:47:07.171"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${STATE}</var>
+<arg>json.loads('''{}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230718 14:47:07.172" endtime="20230718 14:47:07.173"/>
+</kw>
+<status status="FAIL" starttime="20230718 14:47:07.121" endtime="20230718 14:47:07.176"/>
+</kw>
+<kw name="Tear Down" library="common" type="TEARDOWN">
+<kw name="Close Browser">
+<arg>ALL</arg>
+<msg timestamp="20230718 14:47:07.198" level="FAIL">No keyword with name 'Close Browser' found.</msg>
+<status status="FAIL" starttime="20230718 14:47:07.197" endtime="20230718 14:47:07.200"/>
+</kw>
+<status status="FAIL" starttime="20230718 14:47:07.185" endtime="20230718 14:47:07.201">No keyword with name 'Close Browser' found.</status>
+</kw>
+<tag>@regression</tag>
+<tag>@smoketest</tag>
+<status status="FAIL" starttime="20230718 14:47:07.114" endtime="20230718 14:47:07.203">Setup failed:
+No keyword with name 'Set Browser Timeout' found.
+
+Also teardown failed:
+No keyword with name 'Close Browser' found.</status>
+</test>
+<status status="FAIL" starttime="20230718 14:47:06.860" endtime="20230718 14:47:07.209"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">@regression</stat>
+<stat pass="0" fail="1" skip="0">@smoketest</stat>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="User">User</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20230718 14:47:07.021" level="ERROR">Error in file 'd:\GitHub\vite-react\test\keywords\common.robot' on line 2: Importing library 'Browser' failed: ModuleNotFoundError: No module named 'Browser'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  c:\Users\Admin\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_debug_adapter
+  D:\GitHub\vite-react
+  c:\Users\Admin\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src
+  c:\Users\Admin\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_ls\vendored
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\python39.zip
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\DLLs
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\lib
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e
+  c:\ProgramData\robocorp\ht
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\lib\site-packages
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\lib\site-packages\win32
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\lib\site-packages\win32\lib
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\lib\site-packages\Pythonwin</msg>
+<msg timestamp="20230718 14:47:07.041" level="ERROR">Error in file 'd:\GitHub\vite-react\test\keywords\common.robot' on line 3: Importing library 'FakerLibrary' failed: ModuleNotFoundError: No module named 'FakerLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  c:\Users\Admin\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_debug_adapter
+  D:\GitHub\vite-react
+  c:\Users\Admin\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src
+  c:\Users\Admin\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_ls\vendored
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\python39.zip
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\DLLs
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\lib
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e
+  c:\ProgramData\robocorp\ht
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\lib\site-packages
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\lib\site-packages\win32
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\lib\site-packages\win32\lib
+  c:\ProgramData\robocorp\ht\9cf649c_b1f3c24_f8170f6e\lib\site-packages\Pythonwin</msg>
+<msg timestamp="20230718 14:47:07.089" level="ERROR">Error in file 'd:\GitHub\vite-react\test\testcases\user.robot' on line 4: Setting 'Test Setup' is not allowed in resource file.</msg>
+<msg timestamp="20230718 14:47:07.094" level="ERROR">Error in file 'd:\GitHub\vite-react\test\testcases\user.robot' on line 5: Setting 'Test Teardown' is not allowed in resource file.</msg>
+<msg timestamp="20230718 14:47:07.098" level="ERROR">Error in file 'd:\GitHub\vite-react\test\keywords\common.robot' on line 5: Error in file 'd:\GitHub\vite-react\test\testcases\user.robot' on line 8: Resource file with 'Test Cases' section is invalid.</msg>
+</errors>
+</robot>
