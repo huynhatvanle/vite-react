@@ -300,7 +300,7 @@ ST-40 Verify that admin CAN edit Tên cửa hàng successfully
     When Double click "STR1135"
     When Enter "test name" in "Tên cửa hàng" with "_RANDOM_"
     When Click "Lưu" button
-    When Check "Tên cửa hàng" in input and "Tên cửa hàng" in table is displayed on the first row
+    When Check "Tên cửa hàng" in edit and "Tên cửa hàng" in table is displayed on the first row
 
 ST-41 Verify that admin CAN edit Số fax successfully
     [Tags]    @smoketest    @regression
@@ -308,7 +308,7 @@ ST-41 Verify that admin CAN edit Số fax successfully
     When Double click "STR1135"
     When Enter "number" in "Số fax" with "_RANDOM_"
     When Click "Lưu" button
-    When Check "Tên cửa hàng" in input and "Tên cửa hàng" in table is displayed on the first row
+    When Check "Tên cửa hàng" in edit and "Tên cửa hàng" in table is displayed on the first row
 
 ST-42 Verify that supplier CAN edit 'Họ và tên' successfully
     [Tags]    @smoketest    @regression
@@ -316,7 +316,7 @@ ST-42 Verify that supplier CAN edit 'Họ và tên' successfully
     When Double click "STR1135"
     When Enter "text" in "Họ tên đại diện" with "_RANDOM_"
     When Click "Lưu" button
-    When Check "Họ tên đại diện" in input and "Người đại diện" in table is displayed on the first row
+    When Check "Họ tên đại diện" in edit and "Người đại diện" in table is displayed on the first row
 
 ST-43 Verify that supplier CAN edit 'Số điện thoại' successfully
     [Tags]    @smoketest    @regression
@@ -324,7 +324,7 @@ ST-43 Verify that supplier CAN edit 'Số điện thoại' successfully
     When Double click "STR1135"
     When Enter "phone" in "Số điện thoại đại diện" with "_RANDOM_"
     When Click "Lưu" button
-    When Check "Số điện thoại đại diện" in input and "Số điện thoại" in table is displayed on the first row
+    When Check "Số điện thoại đại diện" in edit and "Số điện thoại" in table is displayed on the first row
 
 ST-44 Verify that admin CAN edit the entire supplier's address successfully
     [Tags]    @smoketest    @regression
@@ -357,16 +357,16 @@ ST-47 Verify that the admin CAN view store listing information when selecting va
 ST-48 Verify the admin CAN view store listing information when select 'navigate pagination'
     [Tags]    @smoketest    @regression
     When Go to page data
-    When Click "next" pagination to "2"
-    When Click "prev" pagination to "1"
+    When Click and check "next" in pagination to "2"
+    When Click and check "prev" in pagination to "1"
 
 ST-49 Verify that the admin CAN view store listing information when selecting value on the pagination dropdown && navigate pagination
     [Tags]    @smoketest    @regression
     When Go to page data
     When Click pagination dropdown "20"
-    When Click "next" pagination to "2"
+    When Click and check "next" in pagination to "2"
     When Click pagination dropdown "20"
-    When Click "prev" pagination to "1"
+    When Click and check "prev" in pagination to "1"
 
 
 *** Keywords ***
