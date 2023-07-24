@@ -26,14 +26,8 @@ const Layout = () => [
     name: 'Merchandise Management',
     child: [
       {
-        name: 'Store',
+        name: 'Product',
       },
-      {
-        name: 'Store',
-      },
-      {
-        name: 'Store',
-      }
     ]
   },
 ];

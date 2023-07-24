@@ -119,7 +119,8 @@
     "Contract-View": "Hợp đồng kết nối",
     "Discount-Detail": "Chi tiết nhà cung cấp",
     "Merchandise-Managerment/Product/Detail": "Sản phẩm",
-    "Merchandise Management":"Quản lý hàng hoá"
+    "Merchandise Management":"Quản lý hàng hoá",
+    "Product":"Sản phẩm"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",

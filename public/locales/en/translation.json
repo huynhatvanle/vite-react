@@ -117,7 +117,8 @@
     "Contract-View": "Contract View",
     "Discount-Detail": "Supplier Details",
     "Merchandise-Managerment/Product/Detail": "Product",
-    "Merchandise Management":"Merchandise Management"
+    "Merchandise Management":"Merchandise Management",
+    "Product":"Product"
   },
   "pages": {
     "Dashboard": "Dashboard",

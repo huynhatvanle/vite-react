@@ -30,6 +30,8 @@ export const routerLinks = (name: string, type?: string) => {
     'store-managerment/branch-management/create': '/store-managerment/branch-management/create',
     'store-managerment/branch-management/edit': '/store-managerment/branch-management/edit',
 
+    Merchandise: '/Merchandise management',
+
     Category: '/category',
 
     Product: '/product',
