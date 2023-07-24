@@ -2,19 +2,19 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { Infor, Plus } from '@svgs';
-import { StoreFacade } from '@store';
+import { Edit, Infor, Plus, Trash } from '@svgs';
+import { TaxFacade } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { language, languages, routerLinks } from '@utils';
-import { Tooltip } from 'antd';
+import { Popconfirm, Tooltip } from 'antd';
 
 const Page = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const isReload = useRef(false);
-    const storeFace = StoreFacade();
-    const { result, queryParams } = storeFace;
+    const taxFacade = TaxFacade();
+    const { result, queryParams } = taxFacade;
     const param = JSON.parse(queryParams || '{}');
     const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
@@ -28,9 +28,9 @@ const Page = () => {
 
     return (
         <DataTable
-            facade={storeFace}
+            facade={taxFacade}
             defaultRequest={{ page: 1, perPage: 10, filter: { type: 'STORE' }, fullTextSearch: '' }}
-            xScroll='1440px'
+            xScroll='0'
             className=' bg-white p-5 rounded-lg'
             onRow={(data: any) => ({
                 onDoubleClick: () => {
@@ -44,33 +44,22 @@ const Page = () => {
             }
             columns={[
                 {
-                    title: 'store.Code',
-                    name: 'code',
+                    title: 'tax.stt',
+                    name: 'id',
                     tableItem: {
-                        width: 150,
+                        width: 70,
                     },
                 },
                 {
-                    title: 'store.Name',
+                    title: 'tax.type',
                     name: 'name',
                     tableItem: {
-                        onCell: (data: any) => ({
-                            style: { cursor: 'pointer' },
-                            onClick: () => navigate(`/${lang}${routerLinks('store-managerment/edit')}/${data.id}?tab=1`)
-                        })
-                    },
-                },
-                {
-                    title: 'store.Address',
-                    name: 'address',
-                    tableItem: {
                         render: (value: any, item: any) => {
-                            const address = item?.address?.street + ', ' + item?.address?.ward?.name + ', ' + item?.address?.district?.name + ', ' + item?.address?.province?.name
                             return (
                                 <div className='flex'>
-                                    {address.slice(0, 60)}
-                                    {address.length >= 60 ?
-                                        <Tooltip title={address} className='text-black' >
+                                    {value.slice(0, 60)}
+                                    {value.length >= 60 ?
+                                        <Tooltip title={item?.name} className='text-black' >
                                             <Infor className='w-4 h-4 mt-1 ml-1' />
                                         </Tooltip>
                                         : null
@@ -81,33 +70,60 @@ const Page = () => {
                     },
                 },
                 {
-                    title: 'store.Type',
-                    name: 'isMain',
+                    title: 'tax.taxRate',
+                    name: 'taxRate',
                     tableItem: {
-                        render: (text: string) => text ? 'Cửa hàng chính' : 'Cửa hàng chi nhánh'
-                    },
+                    }
                 },
                 {
-                    title: 'store.ContactName',
-                    name: 'userRole',
+                    title: 'tax.descripton',
+                    name: 'descripton',
                     tableItem: {
-                        render: (value: any, item: any) => item.userRole[0]?.userAdmin.name,
-                    },
+                    }
                 },
                 {
-                    title: 'store.Phone Number',
-                    name: 'userRole',
+                    title: 'tax.action',
+                    name: 'action',
                     tableItem: {
-                        render: (value: any, item: any) => item.userRole[0]?.userAdmin.phoneNumber,
-                    },
+                        align: 'center',
+                        onCell: () => ({
+                            style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' },
+                        }),
+                        render: (text: string, data: any) => (
+                            <div className={'flex justify-center gap-2'}>
+                                <Tooltip title={t('routes.admin.Layout.Edit')}>
+                                    <button
+                                        title={t('routes.admin.Layout.Edit') || ''}
+                                        onClick={() => navigate(`/${lang}${routerLinks('Team')}/${data.id}`)}
+                                    >
+                                        <Edit className="icon-cud !fill-blue-500" />
+                                    </button>
+                                </Tooltip>
+
+                                <Tooltip title={t('routes.admin.Layout.Delete')}>
+                                    <Popconfirm
+                                        placement="left"
+                                        title={t('components.datatable.areYouSureWant')}
+                                        onConfirm={() => dataTableRef?.current?.handleDelete!(data.id)}
+                                        okText={t('components.datatable.ok')}
+                                        cancelText={t('components.datatable.cancel')}
+                                    >
+                                        <button title={t('routes.admin.Layout.Delete') || ''}>
+                                            <Trash className="icon-cud !fill-red-500" />
+                                        </button>
+                                    </Popconfirm>
+                                </Tooltip>
+                            </div>
+                        )
+                    }
                 },
             ]}
             rightHeader={
-                <div className={'flex gap-2 !bg-teal-900 !rounded-xl mt-2.5 lg:mt-0 w-48 lg:w-full'}>
+                <div className={'text-center !bg-teal-900 !rounded-xl mt-2.5 lg:mt-0 w-40'}>
                     <Button
                         className='!bg-teal-900 !rounded-3xl !font-normal'
                         icon={<Plus className="icon-cud !h-5 !w-5 !fill-white " />}
-                        text={t('titles.Store/Add')}
+                        text={t('tax.add')}
                         onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
                     />
                 </div>
