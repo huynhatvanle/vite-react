@@ -130,6 +130,11 @@ const pages = [
       //   component: React.lazy(() => import('@pages/supplier')),
       //   title: 'merchandise-managerment/category',
       // },
+      {
+        path: routerLinks('Tax'),
+        component: React.lazy(() => import('@pages/merchandise-managerment/tax/index')),
+        title: 'Merchandise-Managerment/Tax',
+      },
     ], // 💬 generate link to here
   },
 ];
