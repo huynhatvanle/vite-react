@@ -241,7 +241,6 @@ SPL_27 Verify that validation text of Tỉnh/Thành phố appears when not selec
     When Click "Quản lý nhà cung cấp" menu
     When Click    //*[contains(@class, "ant-table-row")][1]    left    2
     When Click field blanks Address with "Tỉnh/Thành phố"
-    Sleep    5
     When Click "Lưu" button
     Then Required message "Tỉnh/Thành phố" displayed under "Xin vui lòng chọn tỉnh/thành phố" field
 
@@ -279,7 +278,7 @@ SPL_31 Verify that validation text of Số điện thoại appears when input is
     When Click    //*[contains(@class, "ant-table-row")][1]    left    2
     When Enter "Text" in "Số điện thoại đại diện" with "09786778907897"
     When Click "Lưu" button
-    When Required message "Số điện thoại đại diện" displayed under "Xin vui lòng nhập tối đa 12 kí tự số" field
+    When Required message "Số điện thoại đại diện" displayed under "Xin vui lòng nhập tối đa 12 ký tự số!" field
 
 SPL_32 Verify that validation text of Số điện thoại appears when input is shorter than 8 numeric characters
     [Tags]    @smoketest    @regression
@@ -288,16 +287,16 @@ SPL_32 Verify that validation text of Số điện thoại appears when input is
     When Click    //*[contains(@class, "ant-table-row")][1]    left    2
     When Enter "Text" in "Số điện thoại đại diện" with "0978677"
     When Click "Lưu" button
-    When Required message "Số điện thoại đại diện" displayed under "Xin vui lòng nhập tối thiểu 8 kí tự số" field
+    When Required message "Số điện thoại đại diện" displayed under "Xin vui lòng nhập tối thiểu 8 ký tự số!" field
 
 SPL_33 Verify that validation text of Số fax appears when input is greater than 12 numeric characters
     [Tags]    @smoketest    @regression
     Then Login to admin
     When Click "Quản lý nhà cung cấp" menu
     When Click    //*[contains(@class, "ant-table-row")][1]    left    2
-    When Enter "Text" in "Số fax" with "098778785674"
+    When Enter "Text" in "Số fax" with "0987787856741"
     When Click "Lưu" button
-    When Required message "Số fax" displayed under "Xin vui lòng nhập tối đa 12 kí tự số" field
+    When Required message "Số fax" displayed under "Xin vui lòng nhập tối đa 12 ký tự số!" field
 
 SPL_34 Verify that validation text of Số fax appears when input is shorter than 8 numeric characters
     [Tags]    @smoketest    @regression
@@ -306,7 +305,7 @@ SPL_34 Verify that validation text of Số fax appears when input is shorter tha
     When Click    //*[contains(@class, "ant-table-row")][1]    left    2
     When Enter "Text" in "Số fax" with "0987787"
     When Click "Lưu" button
-    When Required message "Số fax" displayed under "Xin vui lòng nhập tối thiểu 8 kí tự số" field
+    When Required message "Số fax" displayed under "Xin vui lòng nhập tối thiểu 8 ký tự số!" field
 
 SPL_35 Verify that validation text of Email appears when entering email format is incorrect
     [Tags]    @smoketest    @regression
@@ -315,7 +314,7 @@ SPL_35 Verify that validation text of Email appears when entering email format i
     When Click    //*[contains(@class, "ant-table-row")][1]    left    2
     When Enter "Text" in "Email đại diện" with "abc"
     When Click "Lưu" button
-    When Required message "Email đại diện" displayed under "Vui lòng nhập địa chỉ email hợp lệ" field
+    When Required message "Email đại diện" displayed under "Vui lòng nhập địa chỉ email hợp lệ!" field
 
 SPL_36 Verify that validation text of Họ và tên appears when entering data other than letters
     [Tags]    @smoketest    @regression
@@ -324,16 +323,16 @@ SPL_36 Verify that validation text of Họ và tên appears when entering data o
     When Click    //*[contains(@class, "ant-table-row")][1]    left    2
     When Enter "Text" in "Họ tên đại diện" with "1234"
     When Click "Lưu" button
-    When Required message "Họ tên đại diện" displayed under "Vui lòng chỉ nhập chữ" field
+    When Required message "Họ tên đại diện" displayed under "Xin vui lòng chỉ nhập chữ!" field
 
 SPL_37 Verify that admin CAN not change the supplier information successfully with the previously registered phone number
-    [Tags]    @smoketest    @regression
-    Then Login to admin
-    When Click "Quản lý nhà cung cấp" menu
-    When Click    //*[contains(@class, "ant-table-row")][1]    left    2
-    When Enter "Text" in "Số điện thoại đại diện" with "0345058432"
-    When Click "Lưu" button
-    Then User look message "Số điện thoại đã được đăng ký trước đó." popup
+   [Tags]    @smoketest    @regression
+   Then Login to admin
+   When Click "Quản lý nhà cung cấp" menu
+   When Click    //*[contains(@class, "ant-table-row")][1]    left    2
+   When Enter "Text" in "Số điện thoại đại diện" with "0345058432"
+   When Click "Lưu" button
+   Then User look message "Số điện thoại đã được đăng ký trước đó." popup
 
 SPL_38 Verify that admin CAN not change the supplier information successfully with the previously registered email.
     [Tags]    @smoketest    @regression

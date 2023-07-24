@@ -380,7 +380,6 @@ Click field blanks Address with "${name}"
     ${element}=    Set Variable
     ...    //*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../../*[contains(@class, "ant-form-item")]/div/div/div/div
     Hover    ${element}
-    Sleep    5
     Click
     ...    //*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../../*[contains(@class, "ant-form-item")]/div/div/div/div/span[contains(@class,"ant-select-clear")]
 
