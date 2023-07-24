@@ -480,7 +480,7 @@ Search have data
     Element Should Not Be Visible
     ...    xpath=//*tbody/tr*[contains(@class, "ant-table-placeholder")]/td[contains(@class, "ant-table-cell")]/div
 
-Check "${name}" in input and "${text}" in table is displayed on the first row
+Check "${name}" in edit and "${text}" in table is displayed on the first row
     # [Arguments]    ${value}
     ${columns}=    Get Elements    xpath=//*[contains(@scope, "col")]
     ${index}=    Set Variable    0
@@ -507,8 +507,8 @@ Get Element Pagination
     [Arguments]    ${xpath}=${EMPTY}
     RETURN    xpath=//*[contains(@class, "flex sm:flex-wrap justify-center duration-300 transition-all")]/${xpath}
 
-Click "${text}" pagination to "${page}"
-    ${element}=    Get Element Pagination    button[@aria-label="${text}"]
+Click and check "${button}" in pagination to "${page}"
+    ${element}=    Get Element Pagination    button[@aria-label="${button}"]
     Click    ${element}
     ${element1}=    Get Element Pagination    button[contains(@class, "bg-teal-900")]
     Element Text Should Be    ${element1}    ${page}
