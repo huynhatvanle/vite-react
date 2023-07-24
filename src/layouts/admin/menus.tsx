@@ -17,7 +17,7 @@ const Layout = () => [
         name: 'inventory-management/product',
       },
       {
-        name: 'Iinventory-management/category',
+        name: 'inventory-management/category',
       },
       {
         name: 'inventory-management/tax',
