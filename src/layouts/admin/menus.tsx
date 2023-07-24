@@ -2,7 +2,7 @@ import React from 'react';
 
 import { keyRole } from '@utils';
 import './index.less';
-import { Cart, Buffer, Store, User } from '@svgs';
+import { Cart, Buffer, Store, User, Shopping } from '@svgs';
 
 const Layout = () => [
   {
@@ -20,6 +20,21 @@ const Layout = () => [
   {
     icon: <Store className="icon-menu" />,
     name: 'Store',
+  },
+  {
+    icon: <Shopping className="icon-menu" />,
+    name: 'Merchandise Management',
+    child: [
+      {
+        name: 'Store',
+      },
+      {
+        name: 'Store',
+      },
+      {
+        name: 'Store',
+      }
+    ]
   },
 ];
 
