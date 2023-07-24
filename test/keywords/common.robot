@@ -242,8 +242,8 @@ Select on the "${text}" item line
 Click "${text}" menu
     Click    xpath=//li[contains(@class, "menu") and descendant::span[contains(text(), "${text}")]]
 
-Click "${text}"
-    Click    xpath=//li[contains(@class,"flex")]/span[contains(text(),"${text}")]
+# Click "${text}" menuUser
+#    Click    xpath=//li[contains(@class,"flex")]/span[contains(text(),"${text}")]
 
 Click "${text}" sub menu to "${url}"
     Wait Until Element Spin
