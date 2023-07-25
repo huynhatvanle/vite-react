@@ -13,17 +13,34 @@ const Page = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+  const { id } = useParams();
   const productFacade = ProductFacade();
   const supplierStoreFacade = SupplierStoreFacade()
   const categoryFacade = CategoryFacade()
+
   const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRefProduct = useRef<TableRefObject>(null);
+  
   const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeInventoryTab') || 'tab');
-  const { id } = useParams();
 
   const onChangeTab = (key: string) => {
     setActiveKey(key);
     localStorage.setItem('activeInventoryTab', key);
+
+    if (key === '1') {
+      dataTableRef?.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter: { type: 'BALANCE', approveStatus: 'ALL' }
+      });
+    }
+    if (key === '2') {
+      dataTableRefProduct?.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter: { type: 'BALANCE', approveStatus: 'WAITING_APPROVE' }
+      });
+    }
 
     navigate(`/${lang}${routerLinks('inventory-management/product')}?tab=${key}`);
   };
@@ -31,7 +48,6 @@ const Page = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const tab = urlParams.get('tab');
   const listSupplierStore = supplierStoreFacade.result?.data
-  console.log(supplierStoreFacade)
   const category1 = categoryFacade.result?.data
   const category2 = categoryFacade.result2?.data
   const category3 = categoryFacade.result3?.data
@@ -39,24 +55,25 @@ const Page = () => {
   const [categoryId2, setCategoryId2] = useState('')
 
   useEffect(() => {
-    if (activeKey == '2' ) {
-        productFacade.get({
-        filter: { type: 'BALANCE', approveStatus: 'ALL' },
-        type: 'BALANCE', 
-        approveStatus: 'WAITING_APPROVE'
-      })
-    }
-  }, [activeKey])
-  
-  useEffect(() => {
     if (tab) {
       setActiveKey(tab);
     }
-    // else {
-    //   setActiveKey('1');
-    // }
-  }, []);
+    else {
+      setActiveKey('1');
+    }
+  }, [tab]);
 
+  const listOption = [
+    { label: 'Tất cả', value: 'ALL' },
+    { label: 'Đang bán', value: 'APPROVED' },
+    { label: 'Chờ xác nhận', value: 'WAITING_APPROVE' },
+    { label: 'Từ chối', value: 'REJECTED' },
+    { label: 'Hết hàng', value: 'OUT_OF_STOCK' },
+    { label: 'Ngừng bán', value: 'STOP_SELLING' },
+    { label: 'Đã hủy', value: 'CANCELLED' },
+  ];
+
+  
   return (
     <div className="w-full">
       <Fragment>
@@ -182,7 +199,7 @@ const Page = () => {
                           value: item.id!
                         })),
                         onChange(value, form) {
-                          dataTableRefProduct?.current?.onChange({
+                          dataTableRef?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: {
@@ -196,6 +213,39 @@ const Page = () => {
                               barcode: form.getFieldValue('supplierBarcode'),
                               storeBarcode: form.getFieldValue('storeBarcode'),
                               code: form.getFieldValue('productCode'),
+                            },
+                          });
+                        },
+                      },
+                    },
+                    {
+                      title: '',
+                      name: 'supplierName',
+                      formItem: {
+                        //placeholder: 'placeholder.Choose a supplier',
+                        label: 'Đang bán',
+                        col: 5,
+                        type: 'select',
+                        list: listOption?.map((item) => ({
+                          label: item.label,
+                          value: item.value!
+                        })),
+                        onChange(value, form) {
+                          dataTableRef?.current?.onChange({
+                            page: 1,
+                            perPage: 10,
+                            filter: {
+                              //storeId: id,
+                              type: form.getFieldValue('type'),
+                              approveStatus: value
+                              // supplierId: value,
+                              // categoryId1: form.getFieldValue('categoryId1'),
+                              // categoryId2: form.getFieldValue('categoryId2'),
+                              // categoryId3: form.getFieldValue('categoryId3'),
+                              // name: form.getFieldValue('productName'),
+                              // barcode: form.getFieldValue('supplierBarcode'),
+                              // storeBarcode: form.getFieldValue('storeBarcode'),
+                              // code: form.getFieldValue('productCode'),
                             },
                           });
                         },
@@ -366,7 +416,7 @@ const Page = () => {
           <Tabs.TabPane tab={'Phê duyệt sản phẩm'} key="2" className="">
           <DataTable
               facade={productFacade}
-              ref={dataTableRef}
+              ref={dataTableRefProduct}
               onRow={(data: any) => ({
                 onDoubleClick: () => {
                   navigate(`/${lang}${routerLinks('store-managerment/branch-management/edit')}/${data.id}`);
