@@ -179,7 +179,7 @@ const Page = () => {
               },
             },
             {
-              title: 'user.Team',
+              title: 'routes.admin.user.Team',
               name: 'teams',
               formItem: {
                 col: 6,
@@ -199,7 +199,7 @@ const Page = () => {
               },
             },
             {
-              title: 'team.Manager',
+              title: 'routes.admin.team.Manager',
               name: 'managerId',
               formItem: {
                 col: 6,
@@ -220,7 +220,7 @@ const Page = () => {
             },
             {
               name: 'dateLeave',
-              title: 'dayoff.Leave Date',
+              title: 'routes.admin.dayoff.Leave Date',
               formItem: {
                 condition: (value) => value !== undefined,
                 type: 'number',

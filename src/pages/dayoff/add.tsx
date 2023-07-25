@@ -11,7 +11,7 @@ import { routerLinks, lang } from '@utils';
 const Page = () => {
   const { id } = useParams();
   const dayoffFacade = DayoffFacade();
-  const { user, profile, setBreadcrumbs } = GlobalFacade();
+  const { user, profile, set } = GlobalFacade();
   const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(dayoffFacade.queryParams || '{}');
@@ -19,11 +19,13 @@ const Page = () => {
     if (id) dayoffFacade.getById({ id });
     else dayoffFacade.set({ data: undefined });
     profile();
-    setBreadcrumbs([
-      { title: 'titles.DayOff', link: '' },
-      { title: 'titles.DayOff/List', link: '' },
-      { title: id ? 'pages.DayOff/Edit' : 'pages.DayOff/Add', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.DayOff', link: '' },
+        { title: 'titles.DayOff/List', link: '' },
+        { title: id ? 'pages.DayOff/Edit' : 'pages.DayOff/Add', link: '' },
+      ],
+    });
     return () => {
       isReload.current && dayoffFacade.get(param);
     };
@@ -52,14 +54,18 @@ const Page = () => {
 
   const { t } = useTranslation();
   const listType = [
-    { value: 1, label: t('dayoff.register.Annual Leave'), disabled: user!.dateLeave! - user!.dateOff! <= 0 },
-    { value: 2, label: t('dayoff.register.Leave without Pay') },
-    { value: 3, label: t('dayoff.register.Remote') },
+    {
+      value: 1,
+      label: t('routes.admin.dayoff.register.Annual Leave'),
+      disabled: user!.dateLeave! - user!.dateOff! <= 0,
+    },
+    { value: 2, label: t('routes.admin.dayoff.register.Leave without Pay') },
+    { value: 3, label: t('routes.admin.dayoff.register.Remote') },
   ];
   const listTime = [
-    { value: 0, label: t('dayoff.register.All day'), disabled: false },
-    { value: 1, label: t('dayoff.register.Morning') },
-    { value: 2, label: t('dayoff.register.Afternoon') },
+    { value: 0, label: t('routes.admin.dayoff.register.All day'), disabled: false },
+    { value: 1, label: t('routes.admin.dayoff.register.Morning') },
+    { value: 2, label: t('routes.admin.dayoff.register.Afternoon') },
   ];
   return (
     <div className={'max-w-2xl mx-auto bg-white p-4 shadow rounded-xl'}>
@@ -81,7 +87,7 @@ const Page = () => {
             columns={[
               {
                 name: 'type',
-                title: 'dayoff.register.Leave Type',
+                title: 'routes.admin.dayoff.register.Leave Type',
                 formItem: {
                   type: 'select',
                   col: 6,
@@ -103,7 +109,7 @@ const Page = () => {
               },
               {
                 name: 'time',
-                title: 'dayoff.register.Time',
+                title: 'routes.admin.dayoff.register.Time',
                 formItem: {
                   type: 'select',
                   col: 6,
@@ -118,7 +124,7 @@ const Page = () => {
                 },
               },
               {
-                title: 'dayoff.Leave Date',
+                title: 'routes.admin.dayoff.Leave Date',
                 name: 'dateLeave',
                 formItem: {
                   type: 'date_range',
@@ -206,7 +212,7 @@ const Page = () => {
               },
               {
                 name: 'reason',
-                title: 'dayoff.Reason',
+                title: 'routes.admin.dayoff.Reason',
                 formItem: {
                   // col: 8,
                   type: 'textarea',

@@ -11,12 +11,14 @@ import { Edit, Plus, Trash } from '@svgs';
 import { lang, keyRole, routerLinks } from '@utils';
 
 const Page = () => {
-  const { user, setBreadcrumbs } = GlobalFacade();
+  const { user, set } = GlobalFacade();
   useEffect(() => {
-    setBreadcrumbs([
-      { title: 'titles.Setting', link: '' },
-      { title: 'titles.Team', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.Setting', link: '' },
+        { title: 'titles.Team', link: '' },
+      ],
+    });
   }, []);
 
   const userTeamFacade = UserTeamFacade();
@@ -38,29 +40,31 @@ const Page = () => {
       ref={dataTableRef}
       pageSizeRender={(sizePage: number) => sizePage}
       pageSizeWidth={'50px'}
-      paginationDescription={(from: number, to: number, total: number) => t('team.Pagination', { from, to, total })}
+      paginationDescription={(from: number, to: number, total: number) =>
+        t('routes.admin.team.Pagination', { from, to, total })
+      }
       columns={[
         {
-          title: 'team.Name',
+          title: 'routes.admin.team.Name',
           name: 'name',
           tableItem: {
             sorter: true,
           },
         },
         {
-          title: 'dayoff.Manager',
+          title: 'routes.admin.dayoff.Manager',
           name: 'manager',
           tableItem: {
             render: (text: any) => text && <Avatar src={text.avatar} text={text.name} />,
           },
         },
         {
-          title: 'user.Description',
+          title: 'routes.admin.user.Description',
           name: 'description',
           tableItem: {},
         },
         {
-          title: 'user.Action',
+          title: 'routes.admin.user.Action',
           tableItem: {
             width: 90,
             align: 'center',

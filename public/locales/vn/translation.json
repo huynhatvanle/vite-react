@@ -259,42 +259,42 @@
         "Oct":"Th10",
         "Nov":"Th11",
         "Dev":"Th12"
+      },
+      "dayoff": {
+        "Fullname": "Họ và tên",
+        "Team": "Nhóm",
+        "Manager": "Quản lý",
+        "Type": "Loại phép",
+        "Time": "Thời gian",
+        "Leave Date": "Ngày nghỉ",
+        "Status": "Trạng thái",
+        "Approved Date": "Ngày phê duyệt",
+        "Approved At": "Ngày phê duyệt",
+        "Approved By": "Phê duyệt bởi",
+        "Reason": "Lý do",
+        "Approve": "Duyệt",
+        "Reject": " Từ chối ",
+        "Reason Reject": "Lý do từ chối",
+        "register": {
+          "Leave Type": "Loại phép",
+          "Annual Leave": "Nghỉ phép có lương",
+          "Leave without Pay": "Nghỉ phép không lương",
+          "Remote": "Làm remote",
+          "Time": "Thời gian",
+          "All day": "Cả ngày",
+          "Morning": "Sáng",
+          "Afternoon": "Chiều",
+          "Date": "Ngày",
+          "Start Date": "Ngày bắt đầu",
+          "End Date": "Ngày kết thúc",
+          "Upload screenshot": "Tải ảnh lên"
+        }
+      },
+      "team": {
+        "Name": "Tên Nhóm",
+        "Manager": "Quản lý",
+        "Pagination": "Hiển thị {{from}} - {{to}} /Tổng số {{total}} nhóm"
       }
     }
-  },
-  "dayoff": {
-    "Fullname": "Họ và tên",
-    "Team": "Nhóm",
-    "Manager": "Quản lý",
-    "Type": "Loại phép",
-    "Time": "Thời gian",
-    "Leave Date": "Ngày nghỉ",
-    "Status": "Trạng thái",
-    "Approved Date": "Ngày phê duyệt",
-    "Approved At": "Ngày phê duyệt",
-    "Approved By": "Phê duyệt bởi",
-    "Reason": "Lý do",
-    "Approve": "Duyệt",
-    "Reject": " Từ chối ",
-    "Reason Reject": "Lý do từ chối",
-    "register": {
-      "Leave Type": "Loại phép",
-      "Annual Leave": "Nghỉ phép có lương",
-      "Leave without Pay": "Nghỉ phép không lương",
-      "Remote": "Làm remote",
-      "Time": "Thời gian",
-      "All day": "Cả ngày",
-      "Morning": "Sáng",
-      "Afternoon": "Chiều",
-      "Date": "Ngày",
-      "Start Date": "Ngày bắt đầu",
-      "End Date": "Ngày kết thúc",
-      "Upload screenshot": "Tải ảnh lên"
-    }
-  },
-  "team": {
-    "Name": "Tên Nhóm",
-    "Manager": "Quản lý",
-    "Pagination": "Hiển thị {{from}} - {{to}} /Tổng số {{total}} nhóm"
   }
 }

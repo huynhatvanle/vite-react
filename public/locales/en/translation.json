@@ -259,42 +259,42 @@
         "Oct":"Oct",
         "Nov":"Nov",
         "Dev":"Dev"
+      },
+      "dayoff": {
+        "Fullname": "Full Name",
+        "Team": "Team",
+        "Manager": "Manager",
+        "Type": "Type",
+        "Time": "Time",
+        "Leave Date": "Leave Date",
+        "Status": "Status",
+        "Approved Date": "Approvated Date",
+        "Approved At": "Approved At",
+        "Approved By": "Approvated By",
+        "Reason": "Reason",
+        "Approve": "Approve",
+        "Reject": "Reject",
+        "Reason Reject": "Reason Reject",
+        "register": {
+          "Leave Type": "Leave Type",
+          "Annual Leave": "Annual Leave",
+          "Leave without Pay": "Leave without Pay",
+          "Remote": "Remote",
+          "Time": "Time",
+          "All day": "All day",
+          "Morning": "Morning",
+          "Afternoon": "Afternoon",
+          "Date": "Date",
+          "Start Date": "Start Date",
+          "End Date": "End Date",
+          "Upload screenshot": "Upload screenshot"
+        }
+      },
+      "team": {
+        "Name": "Name",
+        "Manager": "Manager",
+        "Pagination": "Show {{from}} - {{to}} /Total {{total}} team"
       }
     }
-  },
-  "dayoff": {
-    "Fullname": "Full Name",
-    "Team": "Team",
-    "Manager": "Manager",
-    "Type": "Type",
-    "Time": "Time",
-    "Leave Date": "Leave Date",
-    "Status": "Status",
-    "Approved Date": "Approvated Date",
-    "Approved At": "Approved At",
-    "Approved By": "Approvated By",
-    "Reason": "Reason",
-    "Approve": "Approve",
-    "Reject": "Reject",
-    "Reason Reject": "Reason Reject",
-    "register": {
-      "Leave Type": "Leave Type",
-      "Annual Leave": "Annual Leave",
-      "Leave without Pay": "Leave without Pay",
-      "Remote": "Remote",
-      "Time": "Time",
-      "All day": "All day",
-      "Morning": "Morning",
-      "Afternoon": "Afternoon",
-      "Date": "Date",
-      "Start Date": "Start Date",
-      "End Date": "End Date",
-      "Upload screenshot": "Upload screenshot"
-    }
-  },
-  "team": {
-    "Name": "Name",
-    "Manager": "Manager",
-    "Pagination": "Show {{from}} - {{to}} /Total {{total}} team"
   }
 }

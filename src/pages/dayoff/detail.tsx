@@ -12,7 +12,7 @@ import { CheckCircle, Times } from '@svgs';
 import { keyRole, routerLinks, lang } from '@utils';
 
 const Page = () => {
-  const { formatDate, user, setBreadcrumbs } = GlobalFacade();
+  const { formatDate, user, set } = GlobalFacade();
 
   const { id } = useParams();
   const dayoffFacade = DayoffFacade();
@@ -21,11 +21,13 @@ const Page = () => {
   useEffect(() => {
     if (id) dayoffFacade.getById({ id });
     else dayoffFacade.set({ data: undefined });
-    setBreadcrumbs([
-      { title: 'titles.DayOff', link: '' },
-      { title: 'titles.DayOff/List', link: '' },
-      { title: 'pages.DayOff/Detail', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.DayOff', link: '' },
+        { title: 'titles.DayOff/List', link: '' },
+        { title: 'pages.DayOff/Detail', link: '' },
+      ],
+    });
     return () => {
       isReload.current && dayoffFacade.get(param);
     };
@@ -42,14 +44,14 @@ const Page = () => {
   const modalFormRejectRef: any = useRef();
   const { t } = useTranslation();
   const listType = [
-    { value: 1, label: t('dayoff.register.Annual Leave'), disabled: false },
-    { value: 2, label: t('dayoff.register.Leave without Pay') },
-    { value: 3, label: t('dayoff.register.Remote') },
+    { value: 1, label: t('routes.admin.dayoff.register.Annual Leave'), disabled: false },
+    { value: 2, label: t('routes.admin.dayoff.register.Leave without Pay') },
+    { value: 3, label: t('routes.admin.dayoff.register.Remote') },
   ];
   const listTime = [
-    { value: 0, label: t('dayoff.register.All day') },
-    { value: 1, label: t('dayoff.register.Morning') },
-    { value: 2, label: t('dayoff.register.Afternoon') },
+    { value: 0, label: t('routes.admin.dayoff.register.All day') },
+    { value: 1, label: t('routes.admin.dayoff.register.Morning') },
+    { value: 2, label: t('routes.admin.dayoff.register.Afternoon') },
   ];
   const { data } = dayoffFacade;
   const navigate = useNavigate();
@@ -64,7 +66,7 @@ const Page = () => {
         columns={[
           {
             name: 'reasonReject',
-            title: t('dayoff.Reason Reject'),
+            title: t('routes.admin.dayoff.Reason Reject'),
             formItem: {
               type: 'textarea',
               rules: [{ type: 'required' }],
@@ -86,7 +88,7 @@ const Page = () => {
               </tr>
               <tr className={'border-b'}>
                 <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                  {t('dayoff.Fullname')}
+                  {t('routes.admin.dayoff.Fullname')}
                 </th>
                 <td className="py-4 px-6">
                   {data?.staff?.name && <Avatar src={data.staff!.avatar!} text={data.staff?.name} />}
@@ -94,7 +96,7 @@ const Page = () => {
               </tr>
               <tr className={'border-b'}>
                 <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                  {t('dayoff.Manager')}
+                  {t('routes.admin.dayoff.Manager')}
                 </th>
                 <td className="py-4 px-6">
                   {data?.manager?.name && <Avatar src={data.manager!.avatar!} text={data.manager?.name} />}
@@ -102,25 +104,25 @@ const Page = () => {
               </tr>
               <tr className={'border-b'}>
                 <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                  {t('dayoff.Type')}
+                  {t('routes.admin.dayoff.Type')}
                 </th>
                 <td className="py-4 px-6">{listType.filter((item: any) => item.value === data?.type)[0]?.label}</td>
               </tr>
               <tr className={'border-b'}>
                 <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                  {t('dayoff.Time')}
+                  {t('routes.admin.dayoff.Time')}
                 </th>
                 <td className="py-4 px-6">{listTime.filter((item: any) => item.value === data?.time)[0]?.label}</td>
               </tr>
               <tr className={'border-b'}>
                 <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                  {t('dayoff.Leave Date')}
+                  {t('routes.admin.dayoff.Leave Date')}
                 </th>
                 <td className="py-4 px-6">{showDate(data?.dateLeaveStart, data?.dateLeaveEnd)}</td>
               </tr>
               <tr className={'border-b'}>
                 <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                  {t('dayoff.Reason')}
+                  {t('routes.admin.dayoff.Reason')}
                 </th>
                 <td className="py-4 px-6 whitespace-pre">{data?.reason}</td>
               </tr>
@@ -128,7 +130,7 @@ const Page = () => {
                 <Fragment>
                   <tr className={'border-b'}>
                     <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                      {t('dayoff.Status')}
+                      {t('routes.admin.dayoff.Status')}
                     </th>
                     <td className=" px-6">
                       {data?.status !== 0 &&
@@ -141,13 +143,13 @@ const Page = () => {
                   </tr>
                   <tr className={'border-b'}>
                     <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                      {t('dayoff.Approved At')}
+                      {t('routes.admin.dayoff.Approved At')}
                     </th>
                     <td className="py-4 px-6">{data?.approvedAt && dayjs(data.approvedAt).format(formatDate)}</td>
                   </tr>
                   <tr className={'border-b'}>
                     <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                      {t('dayoff.Approved By')}
+                      {t('routes.admin.dayoff.Approved By')}
                     </th>
                     <td className="py-4 px-6">
                       {data?.approvedBy?.name && (
@@ -160,7 +162,7 @@ const Page = () => {
               {data?.status === -1 && (
                 <tr className={'border-b'}>
                   <th scope="row" className="py-4 px-6 font-medium text-right bg-gray-100">
-                    {t('dayoff.Reason Reject')}
+                    {t('routes.admin.dayoff.Reason Reject')}
                   </th>
                   <td className="py-4 px-6">{data.reasonReject}</td>
                 </tr>
@@ -189,7 +191,7 @@ const Page = () => {
                   <Button
                     className={'bg-blue-500 text-white md:min-w-[12rem] justify-center'}
                     icon={<CheckCircle className="w-5 h-5" />}
-                    text={t('dayoff.Approve')}
+                    text={t('routes.admin.dayoff.Approve')}
                   />
                 </Popconfirm>
               )}
@@ -199,7 +201,7 @@ const Page = () => {
                 <Button
                   className={'!bg-red-500 text-white md:min-w-[12rem] justify-center'}
                   icon={<Times className="w-5 h-5" />}
-                  text={t('dayoff.Reject')}
+                  text={t('routes.admin.dayoff.Reject')}
                   onClick={() => modalFormRejectRef?.current?.handleEdit(data, false)}
                 />
               )}

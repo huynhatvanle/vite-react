@@ -11,17 +11,19 @@ import { Spin } from 'antd';
 const Page = () => {
   const { id } = useParams();
   const userTeamFacade = UserTeamFacade();
-  const { setBreadcrumbs } = GlobalFacade();
+  const { set } = GlobalFacade();
   const isReload = useRef(false);
   const param = JSON.parse(userTeamFacade.queryParams || '{}');
   useEffect(() => {
     if (id) userTeamFacade.getById({ id });
     else userTeamFacade.set({ data: undefined });
-    setBreadcrumbs([
-      { title: 'titles.Setting', link: '' },
-      { title: 'titles.Team', link: '' },
-      { title: id ? 'pages.Team/Edit' : 'pages.Team/Add', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.Setting', link: '' },
+        { title: 'titles.Team', link: '' },
+        { title: id ? 'pages.Team/Edit' : 'pages.Team/Add', link: '' },
+      ],
+    });
     return () => {
       isReload.current && userTeamFacade.get(param);
     };
@@ -55,21 +57,21 @@ const Page = () => {
           className="intro-x"
           columns={[
             {
-              title: 'team.Name',
+              title: 'routes.admin.team.Name',
               name: 'name',
               formItem: {
                 rules: [{ type: 'required' }],
               },
             },
             {
-              title: 'user.Description',
+              title: 'routes.admin.user.Description',
               name: 'description',
               formItem: {
                 type: 'textarea',
               },
             },
             {
-              title: 'dayoff.Manager',
+              title: 'routes.admin.dayoff.Manager',
               name: 'managerId',
               formItem: {
                 rules: [{ type: 'required' }],

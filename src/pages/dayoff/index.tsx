@@ -12,12 +12,14 @@ import { CheckCircle, Plus, Times, Trash } from '@svgs';
 import { lang, keyRole, routerLinks } from '@utils';
 
 const Page = () => {
-  const { formatDate, user, setBreadcrumbs } = GlobalFacade();
+  const { formatDate, user, set } = GlobalFacade();
   useEffect(() => {
-    setBreadcrumbs([
-      { title: 'titles.DayOff', link: '' },
-      { title: 'titles.DayOff/List', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.DayOff', link: '' },
+        { title: 'titles.DayOff/List', link: '' },
+      ],
+    });
   }, []);
 
   const dayoffFacade = DayoffFacade();
@@ -35,14 +37,18 @@ const Page = () => {
   const dataTableRef: any = useRef();
   const { t } = useTranslation();
   const listType = [
-    { value: 1, label: t('dayoff.register.Annual Leave'), disabled: user!.dateLeave! - user!.dateOff! <= 0 },
-    { value: 2, label: t('dayoff.register.Leave without Pay') },
-    { value: 3, label: t('dayoff.register.Remote') },
+    {
+      value: 1,
+      label: t('routes.admin.dayoff.register.Annual Leave'),
+      disabled: user!.dateLeave! - user!.dateOff! <= 0,
+    },
+    { value: 2, label: t('routes.admin.dayoff.register.Leave without Pay') },
+    { value: 3, label: t('routes.admin.dayoff.register.Remote') },
   ];
   const listTime = [
-    { value: 0, label: t('dayoff.register.All day') },
-    { value: 1, label: t('dayoff.register.Morning') },
-    { value: 2, label: t('dayoff.register.Afternoon') },
+    { value: 0, label: t('routes.admin.dayoff.register.All day') },
+    { value: 1, label: t('routes.admin.dayoff.register.Morning') },
+    { value: 2, label: t('routes.admin.dayoff.register.Afternoon') },
   ];
   const navigate = useNavigate();
   const param = JSON.parse(dayoffFacade.queryParams || '{}');
@@ -72,7 +78,7 @@ const Page = () => {
             },
           },
           {
-            title: 'dayoff.Fullname',
+            title: 'routes.admin.dayoff.Fullname',
             name: 'staff',
             tableItem: {
               sorter: true,
@@ -80,7 +86,7 @@ const Page = () => {
             },
           },
           {
-            title: 'dayoff.Manager',
+            title: 'routes.admin.dayoff.Manager',
             name: 'manager',
             tableItem: {
               // filter: {
@@ -99,7 +105,7 @@ const Page = () => {
             },
           },
           {
-            title: 'dayoff.Type',
+            title: 'routes.admin.dayoff.Type',
             name: 'type',
             tableItem: {
               width: 190,
@@ -109,7 +115,7 @@ const Page = () => {
             },
           },
           {
-            title: 'dayoff.Time',
+            title: 'routes.admin.dayoff.Time',
             name: 'time',
             tableItem: {
               width: 110,
@@ -119,7 +125,7 @@ const Page = () => {
             },
           },
           {
-            title: 'dayoff.Leave Date',
+            title: 'routes.admin.dayoff.Leave Date',
             name: 'dateLeaveStart',
             tableItem: {
               width: 210,
@@ -133,7 +139,7 @@ const Page = () => {
             },
           },
           {
-            title: 'dayoff.Status',
+            title: 'routes.admin.dayoff.Status',
             name: 'status',
             tableItem: {
               onCell: () => ({ style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' } }),
@@ -160,7 +166,7 @@ const Page = () => {
             },
           },
           {
-            title: 'dayoff.Approved Date',
+            title: 'routes.admin.dayoff.Approved Date',
             name: 'approvedAt',
             tableItem: {
               width: 180,
@@ -170,7 +176,7 @@ const Page = () => {
             },
           },
           {
-            title: 'dayoff.Approved By',
+            title: 'routes.admin.dayoff.Approved By',
             name: 'approvedBy',
             tableItem: {
               onCell: () => ({
@@ -182,7 +188,7 @@ const Page = () => {
             },
           },
           {
-            title: t('user.Action'),
+            title: t('routes.admin.user.Action'),
             tableItem: user?.role?.permissions?.includes(keyRole.P_DAYOFF_DELETE)
               ? {
                   width: 90,

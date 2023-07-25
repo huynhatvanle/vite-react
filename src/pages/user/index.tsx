@@ -185,7 +185,7 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'team.Manager',
+                  title: 'routes.admin.team.Manager',
                   name: 'manager',
                   tableItem: {
                     filter: {
@@ -209,7 +209,7 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'user.Team',
+                  title: 'routes.admin.user.Team',
                   name: 'teams.id',
                   tableItem: {
                     filter: {
