@@ -10,17 +10,19 @@ import { Form } from '@core/form';
 const Page = () => {
   const { id } = useParams();
   const dataTypeFacade = DataTypeFacade();
-  const { setBreadcrumbs } = GlobalFacade();
+  const { set } = GlobalFacade();
   const isReload = useRef(false);
   const param = JSON.parse(dataTypeFacade.queryParams || '{}');
   useEffect(() => {
     if (id) dataTypeFacade.getById({ id });
     else dataTypeFacade.set({ data: undefined });
-    setBreadcrumbs([
-      { title: 'titles.Setting', link: '' },
-      { title: 'titles.Data', link: '' },
-      { title: id ? 'pages.Data/Edit' : 'pages.Data/Add', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.Setting', link: '' },
+        { title: 'titles.Data', link: '' },
+        { title: id ? 'pages.Data/Edit' : 'pages.Data/Add', link: '' },
+      ],
+    });
     return () => {
       isReload.current && dataTypeFacade.get(param);
     };

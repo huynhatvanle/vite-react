@@ -11,17 +11,19 @@ import slug from 'slug';
 const Page = () => {
   const { id } = useParams();
   const postTypeFacade = PostTypeFacade();
-  const { setBreadcrumbs } = GlobalFacade();
+  const { set } = GlobalFacade();
   const isReload = useRef(false);
   const param = JSON.parse(postTypeFacade.queryParams || '{}');
   useEffect(() => {
     if (id) postTypeFacade.getById({ id });
     else postTypeFacade.set({ data: undefined });
-    setBreadcrumbs([
-      { title: 'titles.Setting', link: '' },
-      { title: 'titles.Post', link: '' },
-      { title: id ? 'pages.Post/Edit' : 'pages.Post/Add', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.Setting', link: '' },
+        { title: 'titles.Post', link: '' },
+        { title: id ? 'pages.Post/Edit' : 'pages.Post/Add', link: '' },
+      ],
+    });
     return () => {
       isReload.current && postTypeFacade.get(param);
     };
@@ -66,19 +68,9 @@ const Page = () => {
               formItem: {
                 rules: [{ type: 'required' }],
                 onBlur: (e, form) => {
-                  if (e.target.value && !form.getFieldValue('slug'))
-                    form.setFieldValue('slug', slug(e.target.value).toUpperCase());
                   if (e.target.value && !form.getFieldValue('code'))
                     form.setFieldValue('code', slug(e.target.value).toUpperCase());
                 },
-              },
-            },
-            {
-              title: 'Slug',
-              name: 'slug',
-              formItem: {
-                rules: [{ type: 'required' }],
-                col: id ? 12 : 6,
               },
             },
             {
@@ -86,26 +78,9 @@ const Page = () => {
               name: 'code',
               formItem: {
                 rules: [{ type: 'required' }],
-                col: 6,
                 type: id ? 'hidden' : 'text',
               },
             },
-            {
-              title: 'routes.admin.user.Description',
-              name: 'description',
-              formItem: {
-                // col: 8,
-                type: 'textarea',
-              },
-            },
-            // {
-            //   name: 'coverUrl',
-            //   title: 'routes.admin.user.Upload avatar',
-            //   formItem: {
-            //     col: 4,
-            //     type: 'upload',
-            //   },
-            // },
           ]}
           extendButton={(form) => (
             <Button

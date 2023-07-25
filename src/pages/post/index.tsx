@@ -12,14 +12,16 @@ import { useNavigate } from 'react-router';
 import classNames from 'classnames';
 
 const Page = () => {
-  const { user, setBreadcrumbs } = GlobalFacade();
+  const { user, set } = GlobalFacade();
   const postTypeFacade = PostTypeFacade();
   useEffect(() => {
     if (!postTypeFacade.result?.data) postTypeFacade.get({});
-    setBreadcrumbs([
-      { title: 'titles.Setting', link: '' },
-      { title: 'titles.Post', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.Setting', link: '' },
+        { title: 'titles.Post', link: '' },
+      ],
+    });
   }, []);
 
   const postFacade = PostFacade();
@@ -51,13 +53,13 @@ const Page = () => {
         <div className="shadow rounded-xl w-full bg-white overflow-hidden">
           <div className="h-14 flex justify-between items-center border-b border-gray-100 px-4 py-2">
             <h3 className={'font-bold text-lg'}>Post Type</h3>
-            <div className="flex items-center">
-              <Button
-                icon={<Plus className="icon-cud !h-5 !w-5" />}
-                text={t('routes.admin.Code.New Type')}
-                onClick={() => navigate(`/${lang}${routerLinks('PostType')}/add`)}
-              />
-            </div>
+            {/*<div className="flex items-center">*/}
+            {/*  <Button*/}
+            {/*    icon={<Plus className="icon-cud !h-5 !w-5" />}*/}
+            {/*    text={t('routes.admin.Code.New Type')}*/}
+            {/*    onClick={() => navigate(`/${lang}${routerLinks('PostType')}/add`)}*/}
+            {/*  />*/}
+            {/*</div>*/}
           </div>
           <Spin spinning={postTypeFacade.isLoading}>
             <div className="h-[calc(100vh-13rem)] overflow-y-auto relative scroll hidden sm:block">
@@ -65,13 +67,13 @@ const Page = () => {
                 <div
                   key={data.id}
                   className={classNames(
-                    { 'bg-gray-100': request.filter.type === data.slug },
+                    { 'bg-gray-100': request.filter.type === data.code },
                     'item text-gray-700 font-medium hover:bg-gray-100 flex justify-between items-center border-b border-gray-100 w-full text-left  group',
                   )}
                 >
                   <div
                     onClick={() => {
-                      if (request.filter.type !== data.slug) request.filter.type = data.slug;
+                      if (request.filter.type !== data.code) request.filter.type = data.code;
                       else delete request.filter.type;
                       dataTableRef?.current?.onChange(request);
                     }}
@@ -117,7 +119,7 @@ const Page = () => {
               <Select
                 value={request.filter.type}
                 className={'w-full'}
-                options={postTypeFacade.result?.data?.map((data) => ({ label: data.name, value: data.slug }))}
+                options={postTypeFacade.result?.data?.map((data) => ({ label: data.name, value: data.code }))}
                 onChange={(e) => {
                   if (request.filter.type !== e) request.filter.type = e;
                   else delete request.filter.type;
@@ -171,7 +173,7 @@ const Page = () => {
                           <Tooltip title={t('routes.admin.Layout.Edit')}>
                             <button
                               title={t('routes.admin.Layout.Edit') || ''}
-                              onClick={() => navigate(`/${lang}${routerLinks('Post')}/${data.id}/edit`)}
+                              onClick={() => navigate(`/${lang}${routerLinks('Post')}/${data.type}/${data.id}/edit`)}
                             >
                               <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                             </button>
@@ -203,7 +205,7 @@ const Page = () => {
                     <Button
                       icon={<Plus className="icon-cud !h-5 !w-5" />}
                       text={t('components.button.New')}
-                      onClick={() => navigate(`/${lang}${routerLinks('Post')}/add`)}
+                      onClick={() => navigate(`/${lang}${routerLinks('Post')}/${request.filter.type}/add`)}
                     />
                   )}
                 </div>

@@ -18,7 +18,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   }, []);
   useEffect(() => {
     if (globalFacade.pathname && globalFacade.pathname !== location.pathname) {
-      globalFacade.setPathname('');
+      globalFacade.set({ pathname: '' });
       navigate(globalFacade.pathname);
     }
   }, [globalFacade.pathname]);

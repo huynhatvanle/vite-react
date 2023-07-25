@@ -130,12 +130,6 @@ export const globalSlice = createSlice({
         state.language = language;
       }
     },
-    setPathname: (state: State, action: PayloadAction<string>) => {
-      state.pathname = action.payload;
-    },
-    setBreadcrumbs: (state: State, action: PayloadAction<Breadcrumb[]>) => {
-      state.breadcrumbs = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -280,6 +274,7 @@ interface State {
   isVisible?: boolean;
   status?: string;
   title?: string;
+  titleOption?: object;
   pathname?: string;
   formatDate?: string;
   language?: string;
@@ -298,7 +293,5 @@ export const GlobalFacade = () => {
     forgottenPassword: (values: { email: string }) => dispatch(action.forgottenPassword(values)),
     resetPassword: (values: resetPassword) => dispatch(action.resetPassword(values)),
     setLanguage: (value: string) => dispatch(globalSlice.actions.setLanguage(value)),
-    setPathname: (value: string) => dispatch(globalSlice.actions.setPathname(value)),
-    setBreadcrumbs: (value: Breadcrumb[]) => dispatch(globalSlice.actions.setBreadcrumbs(value)),
   };
 };

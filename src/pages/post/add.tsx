@@ -9,19 +9,21 @@ import { Form } from '@core/form';
 import slug from 'slug';
 import { Spin } from 'antd';
 const Page = () => {
-  const { id } = useParams();
+  const { id, type } = useParams();
   const dataFacade = PostFacade();
-  const { setBreadcrumbs } = GlobalFacade();
+  const { set } = GlobalFacade();
   const isReload = useRef(false);
   const param = JSON.parse(dataFacade.queryParams || '{}');
   useEffect(() => {
     if (id) dataFacade.getById({ id });
     else dataFacade.set({ data: undefined });
-    setBreadcrumbs([
-      { title: 'titles.Setting', link: '' },
-      { title: 'titles.Post', link: '' },
-      { title: id ? 'pages.Post/Edit' : 'pages.Post/Add', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.Setting', link: '' },
+        { title: 'titles.Post', link: '' },
+        { title: id ? 'pages.Post/Edit' : 'pages.Post/Add', link: '' },
+      ],
+    });
     return () => {
       isReload.current && dataFacade.get(param);
     };
@@ -47,15 +49,19 @@ const Page = () => {
   const handleBack = () => navigate(`/${lang}${routerLinks('Post')}?${new URLSearchParams(param).toString()}`);
 
   const handleSubmit = (values: Post) => {
-    if (id) dataFacade.put({ ...values, id });
-    else dataFacade.post(values);
+    if (id) dataFacade.put({ ...values, id, type });
+    else dataFacade.post({ ...values, type });
   };
 
   const postTypeFacade = PostTypeFacade();
   useEffect(() => {
     if (!postTypeFacade.result?.data?.length) postTypeFacade.get({});
   }, []);
-  const listType = (postTypeFacade.result?.data || []).map((item) => ({ value: item.slug, label: item.name }));
+  useEffect(() => {
+    if (postTypeFacade.result?.data) {
+      set({ titleOption: { type: postTypeFacade.result?.data?.filter((item) => item.code === type)[0]?.name } });
+    }
+  }, [postTypeFacade.result]);
   const { t } = useTranslation();
   return (
     <div className={'max-w-3xl mx-auto bg-white p-4 shadow rounded-xl'}>
@@ -65,57 +71,19 @@ const Page = () => {
           className="intro-x"
           columns={[
             {
-              title: 'routes.admin.Post.Type',
-              name: 'type',
+              title: 'Created At',
+              name: 'createdAt',
               formItem: {
-                type: 'select',
-                col: 4,
-                rules: [{ type: 'required' }],
-                list: listType || [],
+                col: 6,
+                type: 'date',
               },
             },
             {
-              title: 'thumbnailUrl',
+              title: 'Thumbnail Url',
               name: 'thumbnailUrl',
               formItem: {
-                col: 4,
+                col: 6,
                 type: 'upload',
-              },
-            },
-            {
-              title: 'coverUrl',
-              name: 'coverUrl',
-              formItem: {
-                col: 4,
-                type: 'upload',
-              },
-            },
-            {
-              title: 'backGroundColor',
-              name: 'backGroundColor',
-              formItem: {
-                col: 4,
-              },
-            },
-            {
-              title: 'titleForeColor',
-              name: 'titleForeColor',
-              formItem: {
-                col: 4,
-              },
-            },
-            {
-              title: 'customCSSClass',
-              name: 'customCSSClass',
-              formItem: {
-                col: 4,
-              },
-            },
-            {
-              title: 'customCSS',
-              name: 'customCSS',
-              formItem: {
-                type: 'textarea',
               },
             },
             {
@@ -161,21 +129,6 @@ const Page = () => {
                       type: 'textarea',
                     },
                   },
-                  {
-                    name: 'seoTitle',
-                    title: 'SEO Title',
-                    formItem: {
-                      col: 6,
-                    },
-                  },
-                  {
-                    name: 'seoDescription',
-                    title: 'SEO Description',
-                    formItem: {
-                      col: 6,
-                    },
-                  },
-
                   {
                     title: 'Content',
                     name: 'content',

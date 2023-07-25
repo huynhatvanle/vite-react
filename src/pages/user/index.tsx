@@ -15,13 +15,15 @@ import classNames from 'classnames';
 
 const Page = () => {
   const userRoleFacade = UserRoleFacade();
-  const { user, setBreadcrumbs } = GlobalFacade();
+  const { user, set } = GlobalFacade();
   useEffect(() => {
     if (!userRoleFacade?.result?.data) userRoleFacade.get({});
-    setBreadcrumbs([
-      { title: 'titles.User', link: '' },
-      { title: 'titles.User/List', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.User', link: '' },
+        { title: 'titles.User/List', link: '' },
+      ],
+    });
   }, []);
 
   const userFacade = UserFacade();

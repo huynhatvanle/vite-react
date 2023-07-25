@@ -9,19 +9,21 @@ import { Form } from '@core/form';
 import slug from 'slug';
 import { Spin } from 'antd';
 const Page = () => {
-  const { id } = useParams();
+  const { id, type } = useParams();
   const dataFacade = DataFacade();
-  const { setBreadcrumbs } = GlobalFacade();
+  const { set } = GlobalFacade();
   const isReload = useRef(false);
   const param = JSON.parse(dataFacade.queryParams || '{}');
   useEffect(() => {
     if (id) dataFacade.getById({ id });
     else dataFacade.set({ data: undefined });
-    setBreadcrumbs([
-      { title: 'titles.Setting', link: '' },
-      { title: 'titles.Data', link: '' },
-      { title: id ? 'pages.Data/Edit' : 'pages.Data/Add', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.Setting', link: '' },
+        { title: 'titles.Data', link: '' },
+        { title: id ? 'pages.Data/Edit' : 'pages.Data/Add', link: '' },
+      ],
+    });
     return () => {
       isReload.current && dataFacade.get(param);
     };
@@ -47,15 +49,19 @@ const Page = () => {
   const handleBack = () => navigate(`/${lang}${routerLinks('Data')}?${new URLSearchParams(param).toString()}`);
 
   const handleSubmit = (values: Data) => {
-    if (id) dataFacade.put({ ...values, id });
-    else dataFacade.post(values);
+    if (id) dataFacade.put({ ...values, id, type });
+    else dataFacade.post({ ...values, type });
   };
 
   const dataTypeFacade = DataTypeFacade();
   useEffect(() => {
     if (!dataTypeFacade.result?.data?.length) dataTypeFacade.get({});
   }, []);
-  const listType = (dataTypeFacade.result?.data || []).map((item) => ({ value: item.code, label: item.name }));
+  useEffect(() => {
+    if (dataTypeFacade.result?.data) {
+      set({ titleOption: { type: dataTypeFacade.result?.data?.filter((item) => item.code === type)[0]?.name } });
+    }
+  }, [dataTypeFacade.result]);
   const { t } = useTranslation();
   return (
     <div className={'max-w-3xl mx-auto bg-white p-4 shadow rounded-xl'}>
@@ -65,106 +71,94 @@ const Page = () => {
           className="intro-x"
           columns={[
             {
-              title: 'routes.admin.Data.Type',
-              name: 'type',
-              formItem: {
-                type: 'select',
-                col: 4,
-                rules: [{ type: 'required' }],
-                list: listType || [],
-              },
+              title: 'Name',
+              name: 'name',
+              formItem:
+                type === 'PARTNER'
+                  ? {
+                      col: 6,
+                    }
+                  : undefined,
             },
             {
               title: 'routes.admin.Data.Order',
               name: 'order',
               formItem: {
-                col: 4,
+                col: 6,
                 type: 'number',
-              },
-            },
-            {
-              title: 'routes.admin.Data.Created At',
-              name: 'createdAt',
-              formItem: {
-                col: 4,
-                type: 'date',
               },
             },
             {
               title: 'routes.admin.Data.Image',
               name: 'image',
               formItem: {
+                col: 6,
                 type: 'upload',
-                mode: 'multiple',
               },
             },
             {
               name: 'translations',
               title: '',
-              formItem: {
-                type: 'tab',
-                tab: {
-                  label: 'language',
-                  value: 'language',
-                },
-                list: [
-                  { label: 'English', value: 'en' },
-                  { label: 'Vietnam', value: 'vn' },
-                ],
-                column: [
-                  { title: 'id', name: 'id', formItem: { type: 'hidden' } },
-                  {
-                    title: 'Name',
-                    name: 'name',
-                    formItem: {
-                      col: 6,
-                      rules: [{ type: 'required' }],
-                      onBlur: (e, form, name) => {
-                        if (e.target.value && !form.getFieldValue(['translations', name[0], 'slug'])) {
-                          form.setFieldValue(['translations', name[0], 'slug'], slug(e.target.value));
-                        }
+              formItem:
+                type === 'PARTNER'
+                  ? undefined
+                  : {
+                      type: 'tab',
+                      tab: {
+                        label: 'language',
+                        value: 'language',
                       },
-                    },
-                  },
-                  {
-                    title: 'Slug',
-                    name: 'slug',
-                    formItem: {
-                      rules: [{ type: 'required' }],
-                      col: 6,
-                    },
-                  },
-                  {
-                    title: 'Description',
-                    name: 'description',
-                    formItem: {
-                      type: 'textarea',
-                    },
-                  },
-                  {
-                    name: 'seoTitle',
-                    title: 'SEO Title',
-                    formItem: {
-                      col: 6,
-                    },
-                  },
-                  {
-                    name: 'seoDescription',
-                    title: 'SEO Description',
-                    formItem: {
-                      col: 6,
-                    },
-                  },
+                      list: [
+                        { label: 'English', value: 'en' },
+                        { label: 'Vietnam', value: 'vn' },
+                      ],
+                      column: [
+                        { title: 'id', name: 'id', formItem: { type: 'hidden' } },
+                        {
+                          title: 'Name',
+                          name: 'name',
+                          formItem: {
+                            col: type === 'MEMBER' ? 6 : 12,
+                            rules: [{ type: 'required' }],
+                            onBlur: (e, form, name) => {
+                              if (e.target.value && !form.getFieldValue(['translations', name[0], 'slug'])) {
+                                form.setFieldValue(['translations', name[0], 'slug'], slug(e.target.value));
+                              }
+                            },
+                          },
+                        },
 
-                  {
-                    title: 'Content',
-                    name: 'content',
-                    formItem: {
-                      type: 'editor',
+                        {
+                          title: 'Position',
+                          name: 'position',
+                          formItem:
+                            type === 'MEMBER'
+                              ? {
+                                  col: 6,
+                                }
+                              : undefined,
+                        },
+
+                        {
+                          title: 'Description',
+                          name: 'description',
+                          formItem: {
+                            type: 'textarea',
+                          },
+                        },
+
+                        {
+                          title: 'Content',
+                          name: 'content',
+                          formItem:
+                            type === 'MEMBER'
+                              ? {
+                                  type: 'editor',
+                                }
+                              : undefined,
+                        },
+                      ],
                     },
-                  },
-                ],
-              },
             },
           ]}
           extendButton={(form) => (

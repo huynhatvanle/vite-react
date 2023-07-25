@@ -12,17 +12,19 @@ import { Spin } from 'antd';
 const Page = () => {
   const { id } = useParams();
   const codeFacade = CodeFacade();
-  const { setBreadcrumbs } = GlobalFacade();
+  const { set } = GlobalFacade();
   const isReload = useRef(false);
   const param = JSON.parse(codeFacade.queryParams || '{}');
   useEffect(() => {
     if (id) codeFacade.getById({ id });
     else codeFacade.set({ data: undefined });
-    setBreadcrumbs([
-      { title: 'titles.Setting', link: '' },
-      { title: 'titles.Code', link: '' },
-      { title: id ? 'pages.Code/Edit' : 'pages.Code/Add', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.Setting', link: '' },
+        { title: 'titles.Code', link: '' },
+        { title: id ? 'pages.Code/Edit' : 'pages.Code/Add', link: '' },
+      ],
+    });
     return () => {
       isReload.current && codeFacade.get(param);
     };

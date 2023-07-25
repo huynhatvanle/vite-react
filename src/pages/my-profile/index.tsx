@@ -5,11 +5,11 @@ import { Form } from '@core/form';
 import { GlobalFacade } from '@store';
 
 const Page = () => {
-  const { user, isLoading, putProfile, profile, setBreadcrumbs } = GlobalFacade();
+  const { user, isLoading, putProfile, profile, set } = GlobalFacade();
   const listPosition = useRef([]);
   useEffect(() => {
     profile();
-    setBreadcrumbs([]);
+    set({ breadcrumbs: [] });
   }, []);
 
   return (

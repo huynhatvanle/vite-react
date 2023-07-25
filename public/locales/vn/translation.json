@@ -105,9 +105,9 @@
     "Code/Add":"Thêm mới mã",
     "Code/Edit":"Chỉnh sửa mã",
     "Data": "Danh sách Dữ liệu",
-    "Data/Add": "Tạo mới dữ liệu",
+    "Data/Add": "Tạo mới dữ liệu {{type}}",
     "Post": "Danh sách post",
-    "Post/Add": "Tạo mới post",
+    "Post/Add": "Tạo mới post {{type}}",
     "Team": "Nhóm",
     "Team/Add": "Thêm mới nhóm",
     "Team/Edit": "Chỉnh sửa nhóm"
