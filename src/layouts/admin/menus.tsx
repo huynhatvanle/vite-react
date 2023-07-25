@@ -22,12 +22,12 @@ const Layout = [
       {
         name: 'Code',
         permission: keyRole.P_CODE_LISTED,
-        queryParams: { filter: '{"type":"POS"}' },
+        queryParams: { filter: '{"type":"position"}' },
       },
       {
         name: 'Data',
         permission: keyRole.P_DATA_LISTED,
-        queryParams: { filter: '{"type":"PARTNER"}' },
+        queryParams: { filter: '{"type":"partner"}' },
       },
       {
         name: 'Post',
