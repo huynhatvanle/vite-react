@@ -1,8 +1,8 @@
-{"level":30,"time":"2023-07-21T01:42:52.985Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Listening on 59063"}
-{"level":30,"time":"2023-07-21T01:42:53.134Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T01:42:53.134Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T01:42:53.137Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T01:42:53.137Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T10:14:51.037Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Listening on 52297"}
+{"level":30,"time":"2023-07-21T10:14:51.236Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T10:14:51.236Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T10:14:51.238Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T10:14:51.238Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
 ================= Original suppressed error =================
 Error: Browser has been closed.
     at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
@@ -15,50 +15,50 @@ Error: Browser has been closed.
     at endReadableNT (node:internal/streams/readable:1359:12)
     at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 =============================================================
-{"level":30,"time":"2023-07-21T01:42:53.148Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newBrowser"}
-{"level":30,"time":"2023-07-21T01:42:53.673Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newBrowser"}
-{"level":30,"time":"2023-07-21T01:42:53.680Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newPage"}
-{"level":30,"time":"2023-07-21T01:42:53.681Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"currentBrowser: [object Object]"}
-{"level":30,"time":"2023-07-21T01:42:53.696Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active context"}
-{"level":30,"time":"2023-07-21T01:42:54.118Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Video path: undefined"}
-{"level":30,"time":"2023-07-21T01:42:54.119Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active page"}
-{"level":30,"time":"2023-07-21T01:42:54.596Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newPage"}
-{"level":30,"time":"2023-07-21T01:42:54.628Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
-{"level":30,"time":"2023-07-21T01:42:54.629Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
-{"level":30,"time":"2023-07-21T01:42:55.688Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
-{"level":30,"time":"2023-07-21T01:42:55.692Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
-{"level":30,"time":"2023-07-21T01:42:55.692Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
-{"level":30,"time":"2023-07-21T01:42:55.713Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
-{"level":30,"time":"2023-07-21T01:42:55.730Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
-{"level":30,"time":"2023-07-21T01:42:55.731Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
-{"level":30,"time":"2023-07-21T01:42:55.759Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
-{"level":30,"time":"2023-07-21T01:42:55.767Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
-{"level":30,"time":"2023-07-21T01:42:55.767Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
-{"level":30,"time":"2023-07-21T01:42:55.794Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
-{"level":30,"time":"2023-07-21T01:42:55.801Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
-{"level":30,"time":"2023-07-21T01:42:55.801Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//button[@title = \"Đăng nhập\"] in page."}
-{"level":30,"time":"2023-07-21T01:42:55.859Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
-{"level":30,"time":"2023-07-21T01:42:55.863Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
-{"level":30,"time":"2023-07-21T01:42:55.863Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-popover\")]//*[contains(@class, \"ant-btn-primary\")] in page."}
-{"level":30,"time":"2023-07-21T01:42:55.867Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
-{"level":30,"time":"2023-07-21T01:42:55.874Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:42:55.884Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:42:55.886Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:42:55.887Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:42:55.888Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:42:55.890Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:42:55.891Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:42:55.893Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:42:55.894Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:42:55.895Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:42:55.901Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T01:42:55.901Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
-{"level":30,"time":"2023-07-21T01:42:56.372Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Đăng nhập thành công"}
-{"level":30,"time":"2023-07-21T01:42:56.372Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T01:42:56.386Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method waitForElementState"}
-{"level":30,"time":"2023-07-21T01:42:56.386Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"swal2-confirm\")] in page."}
+{"level":30,"time":"2023-07-21T10:14:51.249Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newBrowser"}
+{"level":30,"time":"2023-07-21T10:14:51.567Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newBrowser"}
+{"level":30,"time":"2023-07-21T10:14:51.571Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newPage"}
+{"level":30,"time":"2023-07-21T10:14:51.571Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"currentBrowser: [object Object]"}
+{"level":30,"time":"2023-07-21T10:14:51.585Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active context"}
+{"level":30,"time":"2023-07-21T10:14:52.019Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Video path: undefined"}
+{"level":30,"time":"2023-07-21T10:14:52.019Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active page"}
+{"level":30,"time":"2023-07-21T10:14:52.616Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newPage"}
+{"level":30,"time":"2023-07-21T10:14:52.637Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-07-21T10:14:52.638Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-21T10:14:53.648Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-07-21T10:14:53.651Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-07-21T10:14:53.651Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-21T10:14:53.671Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-07-21T10:14:53.687Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-07-21T10:14:53.687Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-21T10:14:53.712Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-07-21T10:14:53.720Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-07-21T10:14:53.720Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-07-21T10:14:53.754Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-07-21T10:14:53.760Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-07-21T10:14:53.761Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//button[@title = \"Đăng nhập\"] in page."}
+{"level":30,"time":"2023-07-21T10:14:53.817Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-07-21T10:14:53.820Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-07-21T10:14:53.821Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-popover\")]//*[contains(@class, \"ant-btn-primary\")] in page."}
+{"level":30,"time":"2023-07-21T10:14:53.826Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-07-21T10:14:53.833Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T10:14:53.839Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T10:14:53.841Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T10:14:53.843Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T10:14:53.844Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T10:14:53.845Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T10:14:53.846Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T10:14:53.848Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T10:14:53.849Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T10:14:53.851Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-07-21T10:14:53.857Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:14:53.857Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-07-21T10:14:54.707Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Đăng nhập thành công"}
+{"level":30,"time":"2023-07-21T10:14:54.708Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:14:54.713Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method waitForElementState"}
+{"level":30,"time":"2023-07-21T10:14:54.713Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"swal2-confirm\")] in page."}
+{"level":30,"time":"2023-07-21T10:14:54.819Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  waitForElementState"}
 ================= Original suppressed error =================
-{"level":30,"time":"2023-07-21T01:42:56.487Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  waitForElementState"}
 locator.waitFor: Timeout 100ms exceeded.
 =========================== logs ===========================
 waiting for locator('xpath=//*[contains(@class, "swal2-confirm")]') to be visible
@@ -72,1213 +72,92 @@ waiting for locator('xpath=//*[contains(@class, "swal2-confirm")]') to be visibl
   name: 'TimeoutError'
 }
 =============================================================
-{"level":30,"time":"2023-07-21T01:42:56.489Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method waitForElementState"}
-{"level":30,"time":"2023-07-21T01:42:56.489Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"swal2-confirm\")] in page."}
-{"level":30,"time":"2023-07-21T01:42:56.593Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  waitForElementState"}
-================= Original suppressed error =================
-locator.waitFor: Timeout 100ms exceeded.
-=========================== logs ===========================
-waiting for locator('xpath=//*[contains(@class, "swal2-confirm")]') to be visible
-  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
-  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
-  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
-============================================================
-    at waitForElementState (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8481:19)
-    at async PlaywrightServer.waitForElementsState (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:28) {
-  name: 'TimeoutError'
-}
-=============================================================
-{"level":30,"time":"2023-07-21T01:42:56.595Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
-{"level":30,"time":"2023-07-21T01:42:56.595Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","Take screenshot with options: ":{"path":"C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\screenshot\\fail-screenshot-1.png","fileType":"png","fullPage":false,"timeout":60000,"omitBackground":false}}
-{"level":30,"time":"2023-07-21T01:42:56.720Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method takeScreenshot"}
-{"level":30,"time":"2023-07-21T01:42:56.741Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
-{"level":30,"time":"2023-07-21T01:42:56.741Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
-{"level":30,"time":"2023-07-21T01:42:56.746Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
-{"level":30,"time":"2023-07-21T01:42:56.752Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
-{"level":30,"time":"2023-07-21T01:42:56.752Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//li[descendant::span[contains(text(), \"Quản lý cửa hàng\")]] in page."}
-{"level":30,"time":"2023-07-21T01:42:59.769Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
-{"level":30,"time":"2023-07-21T01:42:59.774Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
-{"level":30,"time":"2023-07-21T01:42:59.774Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //*[contains(@class, \"ant-table-row\")][1] in page."}
-{"level":30,"time":"2023-07-21T01:43:00.545Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
-{"level":30,"time":"2023-07-21T01:43:00.585Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
-{"level":30,"time":"2023-07-21T01:43:00.586Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên cửa hàng\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
-{"level":30,"time":"2023-07-21T01:43:01.171Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
-{"level":30,"time":"2023-07-21T01:43:01.177Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
-{"level":30,"time":"2023-07-21T01:43:01.178Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên cửa hàng\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
-{"level":30,"time":"2023-07-21T01:43:01.197Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
-{"level":30,"time":"2023-07-21T01:43:01.207Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
-{"level":30,"time":"2023-07-21T01:43:01.207Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//button[@title = \"Lưu\"] in page."}
-{"level":30,"time":"2023-07-21T01:43:01.683Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
-{"level":30,"time":"2023-07-21T01:43:01.687Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
-{"level":30,"time":"2023-07-21T01:43:01.687Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-popover\")]//*[contains(@class, \"ant-btn-primary\")] in page."}
-{"level":30,"time":"2023-07-21T01:43:01.691Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
-{"level":30,"time":"2023-07-21T01:43:01.696Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:43:01.700Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:43:01.702Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:43:01.708Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:43:01.712Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:43:01.715Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:43:01.718Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:43:01.720Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:43:01.722Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:43:01.725Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T01:43:01.735Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:01.735Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
-{"level":30,"time":"2023-07-21T01:43:01.840Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Chỉnh sửa cửa hàng thành công."}
-{"level":30,"time":"2023-07-21T01:43:01.840Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:01.853Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method waitForElementState"}
-{"level":30,"time":"2023-07-21T01:43:01.853Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"swal2-confirm\")] in page."}
-{"level":30,"time":"2023-07-21T01:43:01.961Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  waitForElementState"}
-================= Original suppressed error =================
-locator.waitFor: Timeout 100ms exceeded.
-=========================== logs ===========================
-waiting for locator('xpath=//*[contains(@class, "swal2-confirm")]') to be visible
-  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
-  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
-  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
-============================================================
-    at waitForElementState (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8481:19)
-    at async PlaywrightServer.waitForElementsState (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:28) {
-  name: 'TimeoutError'
-}
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:01.965Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
-{"level":30,"time":"2023-07-21T01:43:01.965Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","Take screenshot with options: ":{"path":"C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\screenshot\\fail-screenshot-2.png","fileType":"png","fullPage":false,"timeout":60000,"omitBackground":false}}
-{"level":30,"time":"2023-07-21T01:43:02.061Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method takeScreenshot"}
-{"level":30,"time":"2023-07-21T01:43:02.074Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
-{"level":30,"time":"2023-07-21T01:43:02.074Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
-{"level":30,"time":"2023-07-21T01:43:02.076Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
-{"level":30,"time":"2023-07-21T01:43:07.088Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:07.088Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //tbody/tr[2]/td[2] in page."}
-{"level":30,"time":"2023-07-21T01:43:07.097Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element //tbody/tr[2]/td[2] containing Cửa hàng bán thịt sạch"}
-{"level":30,"time":"2023-07-21T01:43:07.098Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:07.103Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:07.103Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //span[contains(text(),'Tên cửa hàng')] in page."}
-{"level":30,"time":"2023-07-21T01:43:25.750Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Removed page=1d87558b-9adb-4f94-b7ec-92fc46a41ffc from context=9709fcaa-fb87-42a1-a1d1-65d1b8951276 page stack"}
-{"level":50,"time":"2023-07-21T01:43:25.751Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","err":{"type":"Error","message":"locator.elementHandle: Target closed\n=========================== logs ===========================\nwaiting for locator('xpath=//span[contains(text(),\\'Tên cửa hàng\\')]')\n============================================================","stack":"locator.elementHandle: Target closed\n=========================== logs ===========================\nwaiting for locator('xpath=//span[contains(text(),\\'Tên cửa hàng\\')]')\n============================================================\n    at getTextContent (C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\Browser\\wrapper\\index.js:8749:33)\n    at getText (C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\Browser\\wrapper\\index.js:8763:21)\n    at async PlaywrightServer.getText (C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\Browser\\wrapper\\index.js:9984:28)","name":"Error"},"msg":"locator.elementHandle: Target closed\n=========================== logs ===========================\nwaiting for locator('xpath=//span[contains(text(),\\'Tên cửa hàng\\')]')\n============================================================"}
-{"level":30,"time":"2023-07-21T01:43:25.752Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-================= Original suppressed error =================
-locator.elementHandle: Target closed
-=========================== logs ===========================
-waiting for locator('xpath=//span[contains(text(),\'Tên cửa hàng\')]')
-============================================================
-    at getTextContent (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8749:33)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8763:21)
-    at async PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:28) {
-  name: 'Error'
-}
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.769Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.769Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.783Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.784Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.797Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.798Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.814Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.815Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.828Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.829Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.842Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.842Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.855Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.856Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.870Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.871Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.884Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.884Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.897Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.897Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.911Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.911Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.924Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.925Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.939Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.939Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.952Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.952Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.966Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.966Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.979Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.979Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:25.992Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:25.993Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.006Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.006Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.019Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.020Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-================= Original suppressed error =================
-{"level":30,"time":"2023-07-21T01:43:26.033Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.033Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.046Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.047Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.060Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.060Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.073Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.073Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.085Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.085Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.097Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.097Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.109Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.109Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.121Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.121Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.133Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.133Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.145Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.145Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.157Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.157Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.170Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.170Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.183Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.183Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.196Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.196Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.210Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.210Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.224Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.224Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.237Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.237Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.250Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.250Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.263Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.263Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.277Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.277Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.291Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:26.291Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.305Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.305Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.319Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.319Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.331Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.332Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.344Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:26.345Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.358Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.358Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.371Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:26.371Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.384Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.384Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.396Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:26.396Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.408Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.409Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.421Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:26.422Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-================= Original suppressed error =================
-{"level":30,"time":"2023-07-21T01:43:26.434Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.434Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.447Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.447Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.460Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.461Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.474Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.474Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.489Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.489Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.504Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T01:43:26.504Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.518Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.518Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.533Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.534Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.548Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.548Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.568Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.568Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.583Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.583Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.601Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.601Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.617Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.617Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.633Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.633Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.649Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.649Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.663Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.663Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.677Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.677Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.691Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.691Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.706Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.706Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.721Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.722Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.735Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.735Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.749Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.749Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.762Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-================= Original suppressed error =================
-Error: Could not find active page
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at findLocator (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8141:3)
-    at getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8760:25)
-    at PlaywrightServer.getText (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.762Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  getText"}
-{"level":30,"time":"2023-07-21T01:43:26.767Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
-================= Original suppressed error =================
-Error: Tried to take screenshot, but no page was open.
-    at exists (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8275:11)
-    at takeScreenshot (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:8314:3)
-    at PlaywrightServer.takeScreenshot (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9984:34)
-    at C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:821:17
-    at Http2ServerCallStream.safeDeserializeMessage (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:395:13)
-    at ServerHttp2Stream.onEnd (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-call.js:382:22)
-    at ServerHttp2Stream.emit (node:events:525:35)
-    at endReadableNT (node:internal/streams/readable:1359:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-=============================================================
-{"level":30,"time":"2023-07-21T01:43:26.767Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  takeScreenshot"}
-{"level":30,"time":"2023-07-21T01:43:26.780Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
-{"level":30,"time":"2023-07-21T01:43:27.038Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}
+{"level":30,"time":"2023-07-21T10:14:54.824Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
+{"level":30,"time":"2023-07-21T10:14:54.824Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","Take screenshot with options: ":{"path":"C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\screenshot\\fail-screenshot-1.png","fileType":"png","fullPage":false,"timeout":60000,"omitBackground":false}}
+{"level":30,"time":"2023-07-21T10:14:54.941Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method takeScreenshot"}
+{"level":30,"time":"2023-07-21T10:14:54.957Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-07-21T10:14:54.957Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
+{"level":30,"time":"2023-07-21T10:14:54.962Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-07-21T10:14:54.968Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-07-21T10:14:54.968Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//li[descendant::span[contains(text(), \"Quản lý cửa hàng\")]] in page."}
+{"level":30,"time":"2023-07-21T10:14:57.959Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-07-21T10:14:57.969Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-07-21T10:14:57.969Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//input[contains(@placeholder, \"Tìm kiếm\")] in page."}
+{"level":30,"time":"2023-07-21T10:14:58.128Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-07-21T10:14:58.131Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-07-21T10:14:58.131Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//input[contains(@placeholder, \"Tìm kiếm\")] in page."}
+{"level":30,"time":"2023-07-21T10:14:58.141Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-07-21T10:15:01.149Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-07-21T10:15:01.149Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
+{"level":30,"time":"2023-07-21T10:15:01.152Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-07-21T10:15:01.156Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElements"}
+{"level":30,"time":"2023-07-21T10:15:01.156Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//tr[contains(@class, \"ant-table-row ant-table-row-level-0\")]/td[1] in page."}
+{"level":30,"time":"2023-07-21T10:15:01.156Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Wait element to reach attached state."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Found 10 elements."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 0 Locator in page."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElements"}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 1 Locator in page."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 2 Locator in page."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 3 Locator in page."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 4 Locator in page."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 5 Locator in page."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 6 Locator in page."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 7 Locator in page."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 8 Locator in page."}
+{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 9 Locator in page."}
+{"level":30,"time":"2023-07-21T10:15:01.164Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.164Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=b170b96c-61f8-402f-badd-13cc1b7589e0 selector parsed without children"}
+{"level":30,"time":"2023-07-21T10:15:01.164Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
+{"level":30,"time":"2023-07-21T10:15:01.172Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=b170b96c-61f8-402f-badd-13cc1b7589e0 containing STR1176"}
+{"level":30,"time":"2023-07-21T10:15:01.172Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.177Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.177Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=8cc4450c-b4b3-42dc-b494-6226d31038ab selector parsed without children"}
+{"level":30,"time":"2023-07-21T10:15:01.177Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
+{"level":30,"time":"2023-07-21T10:15:01.186Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=8cc4450c-b4b3-42dc-b494-6226d31038ab containing STR1177"}
+{"level":30,"time":"2023-07-21T10:15:01.186Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.191Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.191Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=ee84beb5-0d2e-4f36-81af-9c0ca1a71c7f selector parsed without children"}
+{"level":30,"time":"2023-07-21T10:15:01.191Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
+{"level":30,"time":"2023-07-21T10:15:01.199Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=ee84beb5-0d2e-4f36-81af-9c0ca1a71c7f containing STR1175"}
+{"level":30,"time":"2023-07-21T10:15:01.199Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.205Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.205Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=dcba3df6-542a-4f9f-9ea7-9af4e7c0a6cc selector parsed without children"}
+{"level":30,"time":"2023-07-21T10:15:01.205Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
+{"level":30,"time":"2023-07-21T10:15:01.214Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=dcba3df6-542a-4f9f-9ea7-9af4e7c0a6cc containing STR1172"}
+{"level":30,"time":"2023-07-21T10:15:01.214Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.226Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.226Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=5c72881a-53d6-4e64-ac6f-c4ed54963d2a selector parsed without children"}
+{"level":30,"time":"2023-07-21T10:15:01.226Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
+{"level":30,"time":"2023-07-21T10:15:01.267Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=5c72881a-53d6-4e64-ac6f-c4ed54963d2a containing STR1154"}
+{"level":30,"time":"2023-07-21T10:15:01.267Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.279Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.279Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=9b31e69f-bdc9-4028-8bd1-ce9a2d03fa12 selector parsed without children"}
+{"level":30,"time":"2023-07-21T10:15:01.279Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
+{"level":30,"time":"2023-07-21T10:15:01.317Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=9b31e69f-bdc9-4028-8bd1-ce9a2d03fa12 containing STR1173"}
+{"level":30,"time":"2023-07-21T10:15:01.318Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.331Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.331Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=43033c0a-6a25-47b8-821e-3801c7348eca selector parsed without children"}
+{"level":30,"time":"2023-07-21T10:15:01.331Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
+{"level":30,"time":"2023-07-21T10:15:01.346Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=43033c0a-6a25-47b8-821e-3801c7348eca containing STR1171"}
+{"level":30,"time":"2023-07-21T10:15:01.347Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.359Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.359Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=2cd28f6a-084e-4372-9b4b-8368c42ec38a selector parsed without children"}
+{"level":30,"time":"2023-07-21T10:15:01.359Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
+{"level":30,"time":"2023-07-21T10:15:01.383Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=2cd28f6a-084e-4372-9b4b-8368c42ec38a containing STR1135"}
+{"level":30,"time":"2023-07-21T10:15:01.383Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.393Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.393Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=ef8aef47-18e0-49de-a3af-a8d0060bebc5 selector parsed without children"}
+{"level":30,"time":"2023-07-21T10:15:01.393Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
+{"level":30,"time":"2023-07-21T10:15:01.416Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=ef8aef47-18e0-49de-a3af-a8d0060bebc5 containing STR1136"}
+{"level":30,"time":"2023-07-21T10:15:01.416Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.426Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.426Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=59b6309b-1279-47a7-9042-8a6da2859675 selector parsed without children"}
+{"level":30,"time":"2023-07-21T10:15:01.427Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
+{"level":30,"time":"2023-07-21T10:15:01.446Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=59b6309b-1279-47a7-9042-8a6da2859675 containing STR1134"}
+{"level":30,"time":"2023-07-21T10:15:01.446Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-07-21T10:15:01.456Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2023-07-21T10:15:01.496Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Removed page=a6eef2b0-be8e-49ad-9bf9-73d5f69d3582 from context=8fa50068-6a49-4926-a696-475fc616a9f5 page stack"}
+{"level":30,"time":"2023-07-21T10:15:01.797Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}
 ================= Original suppressed error =================
 Error: Browser has been closed.
     at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
@@ -1291,8 +170,8 @@ Error: Browser has been closed.
     at endReadableNT (node:internal/streams/readable:1359:12)
     at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 =============================================================
-{"level":30,"time":"2023-07-21T01:43:27.051Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T01:43:27.051Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T10:15:01.803Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T10:15:01.803Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
 ================= Original suppressed error =================
 Error: Browser has been closed.
     at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
@@ -1305,7 +184,7 @@ Error: Browser has been closed.
     at endReadableNT (node:internal/streams/readable:1359:12)
     at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 =============================================================
-{"level":30,"time":"2023-07-21T01:43:27.062Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T01:43:27.063Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T01:43:29.164Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
-{"level":30,"time":"2023-07-21T01:43:29.164Z","pid":21216,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}
+{"level":30,"time":"2023-07-21T10:15:01.809Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T10:15:01.809Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-07-21T10:15:03.895Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2023-07-21T10:15:03.896Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}

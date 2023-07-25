@@ -301,5 +301,45 @@ Verify motcuahang "${text}"
     ${element}=       Set Variable   //tbody/tr[2]/td[2]
     Element Text Should Be    ${element}   ${text}
 Verify th "${text}"
-    ${element}=       Set Variable   //span[contains(text(),'${text}')]
+    ${element}=       Set Variable   //th[contains(text(),'${text}')]
+    Wait Until Element Is Visible    ${element}
     Element Text Should Be    ${element}   ${text}
+Verify th1 "${text}" with name "${name}"
+     ${element}=       Set Variable   //th[contains(text(),'${text}')]
+    Wait Until Element Is Visible    ${element}
+    Element Text Should Be    ${element}   ${text}
+     ${element1}=       Set Variable   //tbody/tr[2]/td[contains(text(),'${name}')]
+    Wait Until Element Is Visible    ${element1}
+    Element Text Should Be    ${element1}   ${name}
+text in input "${name}" in table "${text}"
+    ${columns}=       Get Elements    //th[contains(@scope,col)]
+    ${index}=         Set Variable       0 
+    FOR    ${column}    IN    @{columns}
+      ${index}=       Evaluate    ${index}+1
+      ${column_text}=        Get Text    ${column}
+      IF    "${text}" == "${column_text}"
+            BREAK
+      END
+    END   
+    ${element}          Get Text    //tbody/tr[2]/td[${index}]
+    Should Be Equal    ${STATE["${name}"]}    ${element}
+Search input "${text}"
+  Clear Text    xpath=//input[contains(@placeholder, "Tìm kiếm")]
+  Fill Text    xpath=//input[contains(@placeholder, "Tìm kiếm")]    ${text}
+  Sleep    3
+  Wait Until Element Spin
+  ${columns}=        Get Elements    xpath=//tr[contains(@class, "ant-table-row ant-table-row-level-0")]/td[1]
+   ${index}=         Set Variable       0 
+  FOR    ${column}    IN    @{columns}
+       ${column_text}    Get Text    ${column}
+       IF    "${text}" in "${column_text}" 
+          Log To Console    ${column_text}
+       ELSE
+        ${index}=       Evaluate    ${index}+1 
+        BREAK
+          
+      END
+     
+      
+  END
+   Should Be Equal    ${index}    0
