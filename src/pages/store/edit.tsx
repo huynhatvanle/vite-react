@@ -431,7 +431,7 @@ const Page = () => {
                           firstLoad: () => ({}),
                           tabIndex: 4,
                           col: 3,
-                          rules: [{ type: 'requiredSelect' }],
+                          rules: [{ type: 'required' }],
                           type: 'select',
                           get: {
                             facade: ProvinceFacade,
@@ -451,7 +451,7 @@ const Page = () => {
                         formItem: {
                           firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
                           type: 'select',
-                          rules: [{ type: 'requiredSelect' }],
+                          rules: [{ type: 'required' }],
                           tabIndex: 5,
                           col: 3,
                           get: {
@@ -476,7 +476,7 @@ const Page = () => {
                         formItem: {
                           firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
                           type: 'select',
-                          rules: [{ type: 'requiredSelect' }],
+                          rules: [{ type: 'required' }],
                           tabIndex: 6,
                           col: 3,
                           get: {
