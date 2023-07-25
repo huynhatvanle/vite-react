@@ -13,7 +13,7 @@ const Page = () => {
   const dataFacade = PostFacade();
   const { set } = GlobalFacade();
   const isReload = useRef(false);
-  const param = JSON.parse(dataFacade.queryParams || '{}');
+  const param = JSON.parse(dataFacade.queryParams || `{"filter":"{\\"type\\":\\"${type}\\"}"}`);
   useEffect(() => {
     if (id) dataFacade.getById({ id });
     else dataFacade.set({ data: undefined });

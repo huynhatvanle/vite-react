@@ -80,6 +80,7 @@ export class User extends CommonEntity {
     public description?: string,
     public positionCode?: string,
     public retypedPassword?: string,
+    public roleCode?: string,
     public role?: UserRole,
   ) {
     super();

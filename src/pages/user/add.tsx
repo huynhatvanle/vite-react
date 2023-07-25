@@ -3,16 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Spin } from 'antd';
 
-import { UserRoleFacade, UserFacade, CodeFacade, User, GlobalFacade } from '@store';
+import { UserFacade, CodeFacade, User, GlobalFacade, UserRoleFacade } from '@store';
 import { routerLinks, lang } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 
 const Page = () => {
+  const { id, roleCode } = useParams();
   const userFacade = UserFacade();
-  const param = JSON.parse(userFacade.queryParams || '{}');
+  const param = JSON.parse(userFacade.queryParams || `{"filter":"{\\"roleCode\\":\\"${roleCode}\\"}"}`);
   const { set } = GlobalFacade();
-  const { id } = useParams();
   const isReload = useRef(false);
   useEffect(() => {
     if (id) userFacade.getById({ id });
@@ -49,10 +49,20 @@ const Page = () => {
     navigate(`/${lang}${routerLinks('User')}?${new URLSearchParams(param).toString()}`);
   };
   const handleSubmit = (values: User) => {
-    if (id) userFacade.put({ ...values, id });
-    else userFacade.post(values);
+    if (id) userFacade.put({ ...values, id, roleCode });
+    else userFacade.post({ ...values, roleCode });
   };
-
+  const userRoleFacade = UserRoleFacade();
+  useEffect(() => {
+    if (!userRoleFacade.result?.data?.length) userRoleFacade.get({});
+  }, []);
+  useEffect(() => {
+    if (userRoleFacade.result?.data) {
+      set({
+        titleOption: { roleCode: userRoleFacade.result?.data?.filter((item) => item.code === roleCode)[0]?.name },
+      });
+    }
+  }, [userRoleFacade.result]);
   const { t } = useTranslation();
   return (
     <div className={'max-w-4xl mx-auto bg-white p-4 shadow rounded-xl'}>
@@ -158,23 +168,6 @@ const Page = () => {
                 col: 6,
                 type: 'date',
                 rules: [{ type: 'required' }],
-              },
-            },
-            {
-              title: 'routes.admin.user.Role',
-              name: 'roleCode',
-              formItem: {
-                col: 6,
-                type: 'select',
-                rules: [{ type: 'required' }],
-                showSearch: false,
-                get: {
-                  facade: UserRoleFacade,
-                  format: (item) => ({
-                    label: item.name,
-                    value: item.code,
-                  }),
-                },
               },
             },
             {

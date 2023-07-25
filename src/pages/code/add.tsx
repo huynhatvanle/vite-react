@@ -10,11 +10,11 @@ import { Form } from '@core/form';
 import { Spin } from 'antd';
 
 const Page = () => {
-  const { id } = useParams();
+  const { id, type } = useParams();
   const codeFacade = CodeFacade();
   const { set } = GlobalFacade();
   const isReload = useRef(false);
-  const param = JSON.parse(codeFacade.queryParams || '{}');
+  const param = JSON.parse(codeFacade.queryParams || `{"filter":"{\\"type\\":\\"${type}\\"}"}`);
   useEffect(() => {
     if (id) codeFacade.getById({ id });
     else codeFacade.set({ data: undefined });
@@ -57,7 +57,11 @@ const Page = () => {
   useEffect(() => {
     if (!codeTypeFacade.result?.data?.length) codeTypeFacade.get({});
   }, []);
-  const listType = (codeTypeFacade.result?.data || []).map((item) => ({ value: item.code, label: item.name }));
+  useEffect(() => {
+    if (codeTypeFacade.result?.data) {
+      set({ titleOption: { type: codeTypeFacade.result?.data?.filter((item) => item.code === type)[0]?.name } });
+    }
+  }, [codeTypeFacade.result]);
   const { t } = useTranslation();
   return (
     <div className={'max-w-2xl mx-auto bg-white p-4 shadow rounded-xl'}>
@@ -70,7 +74,7 @@ const Page = () => {
               title: 'routes.admin.Code.Name',
               name: 'name',
               formItem: {
-                col: 4,
+                col: 6,
                 rules: [{ type: 'required' }],
                 onBlur: (e, form) => {
                   if (e.target.value && !form.getFieldValue('code')) {
@@ -80,20 +84,10 @@ const Page = () => {
               },
             },
             {
-              title: 'routes.admin.Code.Type',
-              name: 'type',
-              formItem: {
-                type: 'select',
-                col: 4,
-                rules: [{ type: 'required' }],
-                list: listType || [],
-              },
-            },
-            {
               title: 'titles.Code',
               name: 'code',
               formItem: {
-                col: 4,
+                col: 6,
                 rules: [{ type: 'required' }],
               },
             },
