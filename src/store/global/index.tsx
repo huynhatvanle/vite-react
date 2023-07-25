@@ -79,7 +79,7 @@ export class User extends CommonEntity {
     public phoneNumber?: string,
     public dob?: string,
     public description?: string,
-    public roleId?: string,
+    public roleCode?: string,
     public role?: UserRole,
     public managers?: UserTeam[],
     public teams?: UserTeam[],

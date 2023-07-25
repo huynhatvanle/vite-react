@@ -66,8 +66,7 @@ const Page = () => {
                 >
                   <div
                     onClick={() => {
-                      if (request.filter.roleCode !== data.code) request.filter.roleCode = data.code;
-                      else delete request.filter.roleCode;
+                      request.filter.roleCode = data.code;
                       dataTableRef?.current?.onChange(request);
                     }}
                     className="truncate cursor-pointer flex-1 hover:text-blue-500 item-text px-4 py-2"
@@ -114,8 +113,7 @@ const Page = () => {
                 className={'w-full'}
                 options={userRoleFacade?.result?.data?.map((data) => ({ label: data.name, value: data.code }))}
                 onChange={(e) => {
-                  if (request.filter.roleCode !== e) request.filter.roleCode = e;
-                  else delete request.filter.roleCode;
+                  request.filter.roleCode = e;
                   dataTableRef?.current?.onChange(request);
                 }}
               />
@@ -275,7 +273,9 @@ const Page = () => {
                           <Tooltip title={t('routes.admin.Layout.Edit')}>
                             <button
                               title={t('routes.admin.Layout.Edit') || ''}
-                              onClick={() => navigate(`/${lang}${routerLinks('User')}/${data.id}/edit`)}
+                              onClick={() =>
+                                navigate(`/${lang}${routerLinks('User')}/${request.filter.roleCode}/${data.id}/edit`)
+                              }
                             >
                               <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                             </button>
@@ -308,7 +308,7 @@ const Page = () => {
                     <Button
                       icon={<Plus className="icon-cud !h-5 !w-5" />}
                       text={t('components.button.New')}
-                      onClick={() => navigate(`/${lang}${routerLinks('User')}/add`)}
+                      onClick={() => navigate(`/${lang}${routerLinks('User')}/${request.filter.roleCode}/add`)}
                     />
                   )}
                 </div>

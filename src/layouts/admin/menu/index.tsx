@@ -83,7 +83,12 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                     'fill-gray-600': location.pathname !== `/${lang}${routerLinks(item.name)}`,
                     'justify-center': isCollapsed,
                   })}
-                  onClick={() => navigate(`/${lang}${routerLinks(item.name)}`)}
+                  onClick={() =>
+                    navigate({
+                      pathname: `/${lang}${routerLinks(item.name)}`,
+                      search: `?${createSearchParams(item.queryParams)}`,
+                    })
+                  }
                   key={index}
                 >
                   {item.icon}
