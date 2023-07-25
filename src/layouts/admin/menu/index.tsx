@@ -8,6 +8,7 @@ import { routerLinks, language, languages } from '@utils';
 import listMenu from '../menus';
 import './index.less';
 import { v4 } from 'uuid';
+import { createSearchParams, URLSearchParamsInit } from 'react-router-dom';
 
 const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean; permission?: string[] }) => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
     }
   }, [isCollapsed]);
 
-  const subMenu = (child: { name: string; permission: string }[]) => (
+  const subMenu = (child: { name: string; permission: string; queryParams?: URLSearchParamsInit }[]) => (
     <ul className={'menu'}>
       {child
         .filter((subItem) => !subItem.permission || permission?.includes(subItem.permission))
@@ -47,7 +48,12 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                 location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
               '!pl-1': isCollapsed,
             })}
-            onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
+            onClick={() =>
+              navigate({
+                pathname: `/${lang}${routerLinks(subItem.name)}`,
+                search: `?${createSearchParams(subItem.queryParams)}`,
+              })
+            }
           >
             <span>{t(`titles.${subItem.name}`)}</span>
           </a>

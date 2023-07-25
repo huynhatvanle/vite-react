@@ -6,9 +6,9 @@ import { DataTable } from '@core/data-table';
 import { GlobalFacade } from '@store';
 
 const Page = () => {
-  const { setBreadcrumbs } = GlobalFacade();
+  const { set } = GlobalFacade();
   useEffect(() => {
-    setBreadcrumbs([]);
+    set({ breadcrumbs: [] });
   }, []);
 
   const { t } = useTranslation();

@@ -96,9 +96,9 @@
     "Code/Add":"Add new Code",
     "Code/Edit":"Edit Code",
     "Data": "List Data",
-    "Data/Add": "Add new Data",
+    "Data/Add": "Add new Data {{type}}",
     "Post": "List Data",
-    "Post/Add": "Add new Data"
+    "Post/Add": "Add new Data {{type}}"
   },
   "columns": {
     "auth": {

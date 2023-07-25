@@ -17,7 +17,7 @@ import { Logo, Arrow } from '@svgs';
 const Layout = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();
   const globalFacade = GlobalFacade();
-  const { user, title, breadcrumbs } = globalFacade;
+  const { user, title, titleOption, breadcrumbs } = globalFacade;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -74,7 +74,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   }, [location]);
   useEffect(() => {
     if (globalFacade.pathname && globalFacade.pathname !== location.pathname) {
-      globalFacade.setPathname('');
+      globalFacade.set({ pathname: '' });
       navigate(globalFacade.pathname);
     }
   }, [globalFacade.pathname]);
@@ -92,12 +92,14 @@ const Layout = ({ children }: PropsWithChildren) => {
     >
       <div className="flex items-center justify-end sm:justify-between px-5 h-20">
         <div>
-          <h1 className={'text-xl font-bold hidden sm:block'}>{t('pages.' + title)}</h1>
+          <h1 className={'text-xl font-bold hidden sm:block'}>{t('pages.' + title, titleOption || {})}</h1>
 
           <div className={'hidden sm:flex items-center text-xs mt-0.5'}>
             {breadcrumbs?.map((item, i) => (
               <Fragment key={i}>
-                <span className={classNames({ 'text-gray-400': i < breadcrumbs.length - 1 })}>{t(item.title)}</span>{' '}
+                <span className={classNames({ 'text-gray-400': i < breadcrumbs.length - 1 })}>
+                  {t(item.title, titleOption || {})}
+                </span>{' '}
                 {i < breadcrumbs.length - 1 && <Arrow className={'w-2.5 h-2.5 mx-1.5'} />}
               </Fragment>
             ))}
@@ -259,11 +261,13 @@ const Layout = ({ children }: PropsWithChildren) => {
         )}
       >
         <div className={'min-h-[calc(100vh-8rem)] overflow-y-auto lg:overflow-x-hidden'}>
-          <h1 className={'text-xl font-bold block sm:hidden'}>{t('pages.' + title)}</h1>
+          <h1 className={'text-xl font-bold block sm:hidden'}>{t('pages.' + title, titleOption || {})}</h1>
           <div className={'flex items-center text-xs mt-0.5 pb-5 sm:hidden'}>
             {breadcrumbs?.map((item, i) => (
               <Fragment key={i}>
-                <span className={classNames({ 'text-gray-400': i < breadcrumbs.length - 1 })}>{t(item.title)}</span>{' '}
+                <span className={classNames({ 'text-gray-400': i < breadcrumbs.length - 1 })}>
+                  {t(item.title, titleOption || {})}
+                </span>{' '}
                 {i < breadcrumbs.length - 1 && <Arrow className={'w-2.5 h-2.5 mx-1.5'} />}
               </Fragment>
             ))}

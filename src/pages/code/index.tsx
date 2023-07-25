@@ -12,14 +12,16 @@ import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
 
 const Page = () => {
-  const { user, setBreadcrumbs } = GlobalFacade();
+  const { user, set } = GlobalFacade();
   const codeTypeFacade = CodeTypeFacade();
   useEffect(() => {
     if (!codeTypeFacade.result?.data) codeTypeFacade.get({});
-    setBreadcrumbs([
-      { title: 'titles.Setting', link: '' },
-      { title: 'titles.Code', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.Setting', link: '' },
+        { title: 'titles.Code', link: '' },
+      ],
+    });
   }, []);
 
   const codeFacade = CodeFacade();
@@ -57,8 +59,7 @@ const Page = () => {
                 >
                   <div
                     onClick={() => {
-                      if (request.filter.type !== data.code) request.filter.type = data.code;
-                      else delete request.filter.type;
+                      request.filter.type = data.code;
                       dataTableRef?.current?.onChange(request);
                     }}
                     className="truncate cursor-pointer flex-1 hover:text-blue-500 item-text px-4 py-2"
@@ -74,8 +75,7 @@ const Page = () => {
                 className={'w-full'}
                 options={codeTypeFacade.result?.data?.map((data) => ({ label: data.name, value: data.code }))}
                 onChange={(e) => {
-                  if (request.filter.type !== e) request.filter.type = e;
-                  else delete request.filter.type;
+                  request.filter.type = e;
                   dataTableRef?.current?.onChange(request);
                 }}
               />

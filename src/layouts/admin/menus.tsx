@@ -21,14 +21,17 @@ const Layout = [
       {
         name: 'Code',
         permission: keyRole.P_CODE_LISTED,
+        queryParams: { filter: '{"type":"POS"}' },
       },
       {
         name: 'Data',
         permission: keyRole.P_DATA_LISTED,
+        queryParams: { filter: '{"type":"PARTNER"}' },
       },
       {
         name: 'Post',
         permission: keyRole.P_POST_LISTED,
+        queryParams: { filter: '{"type":"projects"}' },
       },
     ],
   },

@@ -62,12 +62,12 @@ const pages = [
         title: 'Data',
       },
       {
-        path: routerLinks('Data') + '/add',
+        path: routerLinks('Data') + '/:type/add',
         component: React.lazy(() => import('@pages/data/add')),
         title: 'Data/Add',
       },
       {
-        path: routerLinks('Data') + '/:id/edit',
+        path: routerLinks('Data') + '/:type/:id/edit',
         component: React.lazy(() => import('@pages/data/add')),
         title: 'Data/Edit',
       },
@@ -87,12 +87,12 @@ const pages = [
         title: 'Post',
       },
       {
-        path: routerLinks('Post') + '/add',
+        path: routerLinks('Post') + '/:type/add',
         component: React.lazy(() => import('@pages/post/add')),
         title: 'Post/Add',
       },
       {
-        path: routerLinks('Post') + '/:id/edit',
+        path: routerLinks('Post') + '/:type/:id/edit',
         component: React.lazy(() => import('@pages/post/add')),
         title: 'Post/Edit',
       },
@@ -154,9 +154,9 @@ const Page = ({
   const globalFacade = GlobalFacade();
 
   useEffect(() => {
-    document.title = t('pages.' + title || '');
+    document.title = t('pages.' + title || '', globalFacade.titleOption || {});
     globalFacade.set({ title });
-  }, [title]);
+  }, [title, globalFacade.titleOption]);
   return <Comp />;
 };
 const Pages = () => {

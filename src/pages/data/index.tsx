@@ -12,14 +12,16 @@ import { useNavigate } from 'react-router';
 import classNames from 'classnames';
 
 const Page = () => {
-  const { user, setBreadcrumbs } = GlobalFacade();
+  const { user, set } = GlobalFacade();
   const dataTypeFacade = DataTypeFacade();
   useEffect(() => {
     if (!dataTypeFacade.result?.data) dataTypeFacade.get({});
-    setBreadcrumbs([
-      { title: 'titles.Setting', link: '' },
-      { title: 'titles.Data', link: '' },
-    ]);
+    set({
+      breadcrumbs: [
+        { title: 'titles.Setting', link: '' },
+        { title: 'titles.Data', link: '' },
+      ],
+    });
   }, []);
 
   const dataFacade = DataFacade();
@@ -57,8 +59,7 @@ const Page = () => {
                 >
                   <div
                     onClick={() => {
-                      if (request.filter.type !== data.code) request.filter.type = data.code;
-                      else delete request.filter.type;
+                      request.filter.type = data.code;
                       dataTableRef?.current?.onChange(request);
                     }}
                     className="truncate cursor-pointer flex-1 hover:text-blue-500 item-text px-4 py-2"
@@ -74,8 +75,7 @@ const Page = () => {
                 className={'w-full'}
                 options={dataTypeFacade.result?.data?.map((data) => ({ label: data.name, value: data.code }))}
                 onChange={(e) => {
-                  if (request.filter.type !== e) request.filter.type = e;
-                  else delete request.filter.type;
+                  request.filter.type = e;
                   dataTableRef?.current?.onChange(request);
                 }}
               />
@@ -97,12 +97,15 @@ const Page = () => {
               columns={[
                 {
                   title: 'routes.admin.Data.Name',
-                  name: 'translations',
+                  name: 'name',
                   tableItem: {
                     filter: { type: 'search' },
                     sorter: true,
-                    render: (text) =>
-                      text?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0].name || '',
+                    render: (text, item) =>
+                      text ||
+                      item.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
+                        .name ||
+                      '',
                   },
                 },
                 {
@@ -124,7 +127,7 @@ const Page = () => {
                           <Tooltip title={t('routes.admin.Layout.Edit')}>
                             <button
                               title={t('routes.admin.Layout.Edit') || ''}
-                              onClick={() => navigate(`/${lang}${routerLinks('Data')}/${data.id}/edit`)}
+                              onClick={() => navigate(`/${lang}${routerLinks('Data')}/${data.type}/${data.id}/edit`)}
                             >
                               <Edit className="icon-cud bg-blue-600 hover:bg-blue-400" />
                             </button>
@@ -156,7 +159,7 @@ const Page = () => {
                     <Button
                       icon={<Plus className="icon-cud !h-5 !w-5" />}
                       text={t('components.button.New')}
-                      onClick={() => navigate(`/${lang}${routerLinks('Data')}/add`)}
+                      onClick={() => navigate(`/${lang}${routerLinks('Data')}/${request.filter.type}/add`)}
                     />
                   )}
                 </div>
