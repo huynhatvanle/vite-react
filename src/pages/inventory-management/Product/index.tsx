@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import { CategoryFacade, ProductFacade, SupplierFacade, SupplierAdminFacade } from '@store';
+import { CategoryFacade, ProductFacade, SupplierFacade, SupplierAdminFacade, notApprovedFacade } from '@store';
 import { TableRefObject } from '@models';
 import { DataTable } from '@core/data-table';
 import { routerLinks, languages, language, getFilter } from '@utils';
@@ -14,6 +14,7 @@ const Page = () => {
   const navigate = useNavigate();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const { id } = useParams();
+  const notapprovedFacade = notApprovedFacade();
   const productFacade = ProductFacade();
   const supplierAdminFacade = SupplierAdminFacade()
   const categoryFacade = CategoryFacade()
@@ -28,21 +29,6 @@ const Page = () => {
     setActiveKey(key);
     localStorage.setItem('activeInventoryTab', key);
 
-    if (key === '1') {
-      dataTableRef?.current?.onChange({
-        page: 1,
-        perPage: 10,
-        filter: { type: 'BALANCE', approveStatus: 'APPROVED' }
-      });
-    }
-    // if (key === '2') {
-    //   dataTableRefProduct?.current?.onChange({
-    //     page: 1,
-    //     perPage: 10,
-    //     filter: { type: 'BALANCE', approveStatus: 'WAITING_APPROVE' }
-    //   });
-    // }
-
     navigate(`/${lang}${routerLinks('inventory-management/product')}?tab=${key}`);
   };
 
@@ -52,10 +38,11 @@ const Page = () => {
   const tab = urlParams.get('tab');
   const listSupplierStore = supplierAdminFacade.result?.data
   const listSupplierAdmin = productFacade?.user
+
   const category1 = categoryFacade.result?.data
   const category2 = categoryFacade.result2?.data
   const category3 = categoryFacade.result3?.data
-  console.log(productFacade)
+
   const [categoryId1, setCategoryId1] = useState('')
   const [categoryId2, setCategoryId2] = useState('')
 
@@ -65,10 +52,24 @@ const Page = () => {
       supplierAdminFacade.get({
         type: 'BALANCE',
       })
+      dataTableRef?.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter: { type: 'BALANCE', approveStatus: 'APPROVED' }
+      });
     }
     if (activeKey == '2') {
-      productFacade.getproduct()
-      console.log(productFacade)
+      productFacade.getproduct();
+      supplierAdminFacade.get({
+        type: 'BALANCE',
+      })
+      notapprovedFacade.getnot({
+        type: 'BALANCE', 
+        page: 1, 
+        perPage: 10, 
+        categoryId: '', 
+        supplierId:''
+      });
     }
   }, [activeKey])
 
@@ -215,11 +216,6 @@ const Page = () => {
                     categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                     categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
                     type: getFilter(productFacade.queryParams, 'type'),
-                    productCode: getFilter(productFacade.queryParams, 'code'),
-                    storeBarcode: getFilter(productFacade.queryParams, 'storeBarcode'),
-                    supplierBarcode: getFilter(productFacade.queryParams, 'barcode'),
-                    productName: getFilter(productFacade.queryParams, 'name'),
-                    approveStatus: getFilter(productFacade.queryParams,'approveStatus'),
                   }}
                   columns={[
                     {
@@ -244,11 +240,6 @@ const Page = () => {
                               categoryId1: form.getFieldValue('categoryId1'),
                               categoryId2: form.getFieldValue('categoryId2'),
                               categoryId3: form.getFieldValue('categoryId3'),
-                              name: form.getFieldValue('productName'),
-                              barcode: form.getFieldValue('supplierBarcode'),
-                              storeBarcode: form.getFieldValue('storeBarcode'),
-                              code: form.getFieldValue('productCode'),
-                              approveStatus: form.getFieldValue('approveStatus'),
                             },
                           });
                         },
@@ -276,10 +267,6 @@ const Page = () => {
                               categoryId1: form.getFieldValue('categoryId1'),
                               categoryId2: form.getFieldValue('categoryId2'),
                               categoryId3: form.getFieldValue('categoryId3'),
-                              name: form.getFieldValue('productName'),
-                              barcode: form.getFieldValue('supplierBarcode'),
-                              storeBarcode: form.getFieldValue('storeBarcode'),
-                              code: form.getFieldValue('productCode'),
                             },
                           });
                         },
@@ -402,14 +389,14 @@ const Page = () => {
 
           <Tabs.TabPane tab={'Phê duyệt sản phẩm'} key="2" className="">
           <DataTable
-              facade={productFacade}
+              facade={notapprovedFacade}
               ref={dataTableRefProduct}
               onRow={(data: any) => ({
                 onDoubleClick: () => {
                   navigate(`/${lang}${routerLinks('store-managerment/branch-management/edit')}/${data.id}`);
                 },
               })}
-              defaultRequest={{ page: 1, perPage: 10, filter: { type: 'BALANCE', approveStatus: 'WAITING_APPROVE' } }}
+              //defaultRequest={{ page: 1, perPage: 10, filter: { type: 'BALANCE', approveStatus: 'WAITING_APPROVE' } }}
               xScroll="1270px"
               className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-supplier-index"
               showSearch={false}
@@ -433,9 +420,9 @@ const Page = () => {
                 },
                 {
                   title: 'product.Category',
-                  name: 'category.name',
+                  name: 'productCategory',
                   tableItem: {
-                    render: (value: any, item: any) => item.category?.name,
+                    render: (value: any, item: any) => item.productCategory[0]?.category?.name,
                   },
                 },
                 {
@@ -483,15 +470,16 @@ const Page = () => {
                 <Form
                   className="intro-x rounded-lg w-full form-store"
                   values={{
-                    supplierName: getFilter(productFacade.queryParams, 'supplierId'),
+                    supplierName: getFilter(productFacade.queryParams, 'supplierName'),
                     categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                     categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                     categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
                     type: getFilter(productFacade.queryParams, 'type'),
-                    productCode: getFilter(productFacade.queryParams, 'code'),
-                    storeBarcode: getFilter(productFacade.queryParams, 'storeBarcode'),
-                    supplierBarcode: getFilter(productFacade.queryParams, 'barcode'),
-                    productName: getFilter(productFacade.queryParams, 'name'),
+                    approveStatus: getFilter(productFacade.queryParams,'approveStatus'),
+                    // productCode: getFilter(productFacade.queryParams, 'code'),
+                    // storeBarcode: getFilter(productFacade.queryParams, 'storeBarcode'),
+                    // supplierBarcode: getFilter(productFacade.queryParams, 'barcode'),
+                    // productName: getFilter(productFacade.queryParams, 'name'),
                   }}
                   columns={[
                     {
@@ -506,24 +494,26 @@ const Page = () => {
                           value: item.id!
                         })),
                         onChange(value, form) {
-                          categoryFacade.getinven({
-                            subOrgId: value,
-                          }),
+                          // categoryFacade.getinven({
+                          //   subOrgId: value,
+                          // }),
+                          notapprovedFacade.getnot({
+                            type: 'BALANCE', 
+                            page: 1, 
+                            perPage: 10, 
+                            categoryId: form.getFieldValue('categoryId1'), 
+                            supplierId: value
+                          });
                           dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: {
-                              storeId: id,
                               type: form.getFieldValue('type'),
                               supplierId: value,
                               categoryId1: form.getFieldValue('categoryId1'),
                               categoryId2: form.getFieldValue('categoryId2'),
                               categoryId3: form.getFieldValue('categoryId3'),
-                              name: form.getFieldValue('productName'),
-                              barcode: form.getFieldValue('supplierBarcode'),
-                              storeBarcode: form.getFieldValue('storeBarcode'),
-                              code: form.getFieldValue('productCode'),
-                              approveStatus: 'WAITING_APPROVE',
+                              approveStatus: getFilter(productFacade.queryParams,'approveStatus'),
                             },
                           });
                         },
@@ -570,6 +560,13 @@ const Page = () => {
                           setCategoryId1(value)
                           setCategoryId2('')
                           form.resetFields(['categoryId2', 'categoryId3']);
+                          notapprovedFacade.getnot({
+                            type: 'BALANCE', 
+                            page: 1, 
+                            perPage: 10, 
+                            categoryId: value, 
+                            supplierId: form.getFieldValue('supplierName')
+                          });
                           dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,

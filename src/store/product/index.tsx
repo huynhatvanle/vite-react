@@ -66,10 +66,6 @@ const action = {
     const { data } = await API.get<Product>(`${routerLinks(name, 'api')}/list/supplier-waiting-appprove`);
     return data || {};
   }),
-  getnotapproved: createAsyncThunk(
-    name + '/not-approved',
-    async ({ type, page, perPage, categoryId, supplierId }: { type: string, page?: number, perPage?: number, categoryId: string, supplierId: string }) => await API.get(`${routerLinks(name, 'api')}/list/not-approved`, { type, page, perPage, categoryId, supplierId }),
-  ), 
 };
 
 export const productSlice = createSlice(new Slice<Product>(action, { result: {}, result2: {}, result3: {} }, (builder) =>
@@ -98,34 +94,7 @@ export const productSlice = createSlice(new Slice<Product>(action, { result: {},
       state.status = 'getProduct.rejected';
       state.isLoading = false;
     })
-
-    .addCase(
-      action.getnotapproved.pending,
-      (
-        state: State<Product>,
-        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
-      ) => {
-        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-        state.queryParams = JSON.stringify(action.meta.arg);
-        state.isLoading = true;
-        state.status = 'getnotapproved.pending';
-      },
-    )
-
-    .addCase(action.getnotapproved.fulfilled, (state: State<Product>, action: any) => {
-      if (action.payload.data) {
-        state.result2 = action.payload;
-        state.status = 'getnotapproved.fulfilled';
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
-    .addCase(action.getnotapproved.rejected, (state: State) => {
-      state.status = 'getnotapproved.rejected';
-      state.isLoading = false;
-    })
-
-
-
+    
     .addCase(action.getproduct.pending, (state: State, action) => {
       state.data = action.meta.arg;
       state.isLoading = true;
@@ -143,31 +112,6 @@ export const productSlice = createSlice(new Slice<Product>(action, { result: {},
       state.isLoading = false;
     })
 
-
-    // .addCase(
-    //   action.getnotapproved.pending,
-    //   (
-    //     state: State<Product>,
-    //     action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
-    //   ) => {
-    //     state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-    //     state.queryParams = JSON.stringify(action.meta.arg);
-    //     state.isLoading = true;
-    //     state.status = 'getnotapproved.pending';
-    //   },
-    // )
-
-    // .addCase(action.getnotapproved.fulfilled, (state: State<Product>, action: any) => {
-    //   if (action.payload.data) {
-    //     typeof action.meta.arg.filter == 'string' ? state.result2 = action.payload : state.result3 = action.payload;
-    //     state.status = 'getnotapproved.fulfilled';
-    //   } else state.status = 'idle';
-    //   state.isLoading = false;
-    // })
-    // .addCase(action.getnotapproved.rejected, (state: State) => {
-    //   state.status = 'getnotapproved.rejected';
-    //   state.isLoading = false;
-    // })
 
 ));
 
@@ -205,8 +149,7 @@ export const ProductFacade = () => {
     put: (values: Product) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),
     getproduct: () => dispatch(action.getproduct()),
-    getnot: ({ type, page, perPage, categoryId, supplierId }: { type: string, page?: number, perPage?: number, categoryId: string, supplierId: string }) => dispatch(action.getnotapproved({ type, page, perPage, categoryId, supplierId })),
-  };
+ };
 };
 
 export class Product extends CommonEntity {
