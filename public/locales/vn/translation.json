@@ -118,7 +118,9 @@
     "Upload contract": "Đăng tải hợp đồng",
     "Contract-View": "Hợp đồng kết nối",
     "Discount-Detail": "Chi tiết nhà cung cấp",
-    "Merchandise-Managerment/Product/Detail": "Sản phẩm"
+    "Merchandise-Managerment/Product/Detail": "Sản phẩm",
+    "connect-managerment":"Quản lý kết nối",
+    "Connect":"Kết nối"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -356,6 +358,9 @@
   },
   "store": {
     "Name": "Tên cửa hàng",
+    "productName":"Tên sản phẩm",
+    "requestedAt":"Ngày yêu cầu",
+    "approvedAt":"Ngày phản hồi",
     "Address": "Địa chỉ",
     "Type": "Loại cửa hàng",
     "Contact": "Người đại diện",
@@ -382,6 +387,13 @@
     "Barcode": "Mã vạch",
     "Active": "Đang hoặt động",
     "NoActive": "Ngưng hoạt động",
+    "status":{
+      "status":"Trạng thái",
+      "WAITING_ADMIN":"Chờ phê duyệt",
+      "APPROVED":"Đã phê duyệt",
+      "WAITING_STORE":"Chờ kết nối",
+      "REJECT_BY_ADMIN":"Từ chối"
+    },
     "Inventory management": {
       "Product code": "Mã sản phẩm",
       "Barcode (Supplier)": "Mã vạch (NCC)",

@@ -52,7 +52,7 @@ export class Connect extends CommonEntity {
         };
       },
     },
-    public storeRequestSupplier?:[{
+    public storeRequestSupplier?:{
         0:{
           id:string,
           product:{
@@ -132,7 +132,7 @@ export class Connect extends CommonEntity {
           },
         },
 
-    }],
+    },
 
     
 

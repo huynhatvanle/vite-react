@@ -111,28 +111,28 @@ const Page = () => {
             <div className=''>
                 <div className='flex'>
                     <div>Nhà cung cấp:</div>
-                    <div>{}</div>
+                    <div>{data?.storeRequestSupplier?.[0]?.supplier?.name}</div>
                 </div>
                 <div className='flex'>
                     <div>Số điện thoại:</div>
-                    <div>{data?.store?.userRole?.[0]?.userAdmin?.phoneNumber}</div>
+                    <div>{data?.storeRequestSupplier?.[0]?.supplier?.userRole?.[0]?.userAdmin?.phoneNumber}</div>
                 </div>
             </div>
             <div>
             <div className='flex'>
-                    <div>Tên chủ cửa hàng:</div>
-                    <div>{data?.store?.userRole?.[0]?.userAdmin?.name}</div>
+                    <div>Chủ nhà cung cấp:</div>
+                    <div>{data?.storeRequestSupplier?.[0]?.supplier?.userRole?.[0]?.userAdmin?.name}</div>
                 </div>
                 <div className='flex'>
                     <div>Số fax:</div>
-                    <div>{data?.store?.fax}</div>
+                    <div>{data?.storeRequestSupplier?.[0]?.supplier?.fax}</div>
                 </div>
                 
             </div>
         </div>
         <div className='flex'>
             <div>Địa chỉ:</div>
-            <div>{data?.store?.address?.street},{data?.store?.address?.ward?.name},{data?.store?.address?.district?.name},{data?.store?.address?.province?.name}</div>
+            <div>{data?.storeRequestSupplier?.[0]?.supplier?.address?.street},{data?.storeRequestSupplier?.[0]?.supplier?.address?.ward?.name},{data?.storeRequestSupplier?.[0]?.supplier?.address?.district?.name},{data?.storeRequestSupplier?.[0]?.supplier?.address?.province?.name}</div>
         </div>
       </div>
     </Fragment>
