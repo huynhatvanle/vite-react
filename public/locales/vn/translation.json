@@ -118,7 +118,12 @@
     "Upload contract": "Đăng tải hợp đồng",
     "Contract-View": "Hợp đồng kết nối",
     "Discount-Detail": "Chi tiết nhà cung cấp",
-    "Merchandise-Managerment/Product/Detail": "Sản phẩm"
+    "Merchandise-Managerment/Product/Detail": "Sản phẩm",
+    "revenue-management": "Quản lý doanh thu",
+    "revenue-management/store": "Doanh thu CH",
+    "Store-Revenue": "Doanh thu cửa hàng",
+    "Store-Revenue/Order": "Doanh thu theo đơn hàng",
+    "Store-Revenue/Product": "Doanh thu theo sản phẩm"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -139,7 +144,8 @@
     "Supplier/Add": "Quản Lý Nhà Cung Cấp",
     "Supplier/Edit": "Quản Lý Nhà Cung Cấp",
     "Contract-View": "Quản Lý Hợp Đồng",
-    "Merchandise-Managerment/Product/Detail": "Quản lý hàng hóa"
+    "Merchandise-Managerment/Product/Detail": "Quản lý hàng hóa",
+    "MerchandiseManagermentCategory": "Danh mục"
   },
   "columns": {
     "auth": {

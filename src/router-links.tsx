@@ -34,8 +34,9 @@ export const routerLinks = (name: string, type?: string) => {
 
     Product: '/product',
 
-    'merchandise-managerment/category': 'merchandise-managerment/category',
+    MerchandiseManagermentCategory: '/merchandise-managerment/category',
     Tax: '/merchandise-managerment/tax',
+    'revenue-management/store': '/revenue-management/store',
   }; // 💬 generate link to here
 
   const apis: {
@@ -65,6 +66,7 @@ export const routerLinks = (name: string, type?: string) => {
     documentsuborganiztion: '/document-sub-organiztion',
     suborgcommisionline: '/sub-org-commision-line',
     Tax: '/mt-tax',
+    StoreOder: '/sub-organization/store-order',
   }; // 💬 generate api to here
 
   switch (type) {

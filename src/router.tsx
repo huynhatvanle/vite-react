@@ -125,15 +125,20 @@ const pages = [
         component: React.lazy(() => import('@pages/supplier/productDetail/index')),
         title: 'Merchandise-Managerment/Product/Detail',
       },
-      // {
-      //   path: routerLinks('merchandise-managerment/category'),
-      //   component: React.lazy(() => import('@pages/supplier')),
-      //   title: 'merchandise-managerment/category',
-      // },
+      {
+        path: routerLinks('MerchandiseManagermentCategory'),
+        component: React.lazy(() => import('@pages/merchandise-managerment/category/index')),
+        title: 'MerchandiseManagermentCategory',
+      },
       {
         path: routerLinks('Tax'),
         component: React.lazy(() => import('@pages/merchandise-managerment/tax/index')),
         title: 'Merchandise-Managerment/Tax',
+      },
+      {
+        path: routerLinks('revenue-management/store'),
+        component: React.lazy(() => import('@pages/revenue-management/store/index')),
+        title: 'Store-Revenue',
       },
     ], // 💬 generate link to here
   },

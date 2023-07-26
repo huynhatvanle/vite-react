@@ -116,7 +116,12 @@
     "Upload contract":"Upload contract",
     "Contract-View": "Contract View",
     "Discount-Detail": "Supplier Details",
-    "Merchandise-Managerment/Product/Detail": "Product"
+    "Merchandise-Managerment/Product/Detail": "Product",
+    "revenue-management": "revenue-management",
+    "revenue-management/store": "revenue-management-store",
+    "Store-Revenue": "Store-Revenue",
+    "Store-Revenue/Order": "Store-Revenue-Order",
+    "Store-Revenue/Product": "Store-Revenue-Product"
   },
   "pages": {
     "Dashboard": "Dashboard",
