@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef } from 'react';
-import { Select } from 'antd';
+import { Button, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
@@ -134,6 +134,10 @@ const Page = () => {
             <div>Địa chỉ:</div>
             <div>{data?.storeRequestSupplier?.[0]?.supplier?.address?.street},{data?.storeRequestSupplier?.[0]?.supplier?.address?.ward?.name},{data?.storeRequestSupplier?.[0]?.supplier?.address?.district?.name},{data?.storeRequestSupplier?.[0]?.supplier?.address?.province?.name}</div>
         </div>
+        <Button
+            className={'button sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
+            onClick={handleBack}
+        >Trở về</Button>
       </div>
     </Fragment>
   );

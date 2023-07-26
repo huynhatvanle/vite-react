@@ -56,7 +56,7 @@ const Page = () => {
                     title: 'store.Name',
                     name: 'store',
                     tableItem: {
-                      
+                        render:(text, item) => item?.store?.name,
                         
                     },
                 },
@@ -107,16 +107,7 @@ const Page = () => {
                     },
                 },
             ]}
-            rightHeader={
-                <div className={'flex gap-2 !bg-teal-900 !rounded-xl mt-2.5 lg:mt-0 w-48 lg:w-full'}>
-                    <Button
-                        className='!bg-teal-900 !rounded-3xl !font-normal'
-                        icon={<Plus className="icon-cud !h-5 !w-5 !fill-white " />}
-                        text={t('titles.Store/Add')}
-                        onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
-                    />
-                </div>
-            }
+            
         />
     );
 };
