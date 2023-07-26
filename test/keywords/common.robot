@@ -410,3 +410,12 @@ Check address in the input equal or not address of "${text}" table
         ${element}=    Get Text    //tbody/tr[contains(@class, "ant-table-row-level-0")][1]/td[${index}]
     END
     Should Be Equal    ${element}    ${dia_chi}
+# Revenue
+
+Click "${text}" menu1
+    Click    //li[contains(@class, "my-3") and descendant::span[contains(text(), "${text}")]]
+
+Check value table "${text}"
+    Element Text Should Be
+    ...    //tbody/*[contains(@class, "ant-table-placeholder")]/*//*[contains(text(), "${text}")]
+    ...    ${text}
