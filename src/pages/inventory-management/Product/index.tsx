@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import { CategoryFacade, ProductFacade, SupplierFacade, SupplierStoreFacade } from '@store';
+import { CategoryFacade, ProductFacade, SupplierFacade, SupplierAdminFacade } from '@store';
 import { TableRefObject } from '@models';
 import { DataTable } from '@core/data-table';
 import { routerLinks, languages, language, getFilter } from '@utils';
@@ -15,13 +15,8 @@ const Page = () => {
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
   const { id } = useParams();
   const productFacade = ProductFacade();
-  const supplierStoreFacade = SupplierStoreFacade()
+  const supplierAdminFacade = SupplierAdminFacade()
   const categoryFacade = CategoryFacade()
-  const supplierFacade = SupplierFacade();
-
-  console.log(productFacade)
-  console.log(supplierStoreFacade)
-  console.log(categoryFacade)
 
   const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRefProduct = useRef<TableRefObject>(null);
@@ -37,47 +32,71 @@ const Page = () => {
       dataTableRef?.current?.onChange({
         page: 1,
         perPage: 10,
-        filter: { type: 'BALANCE', approveStatus: 'ALL' }
+        filter: { type: 'BALANCE', approveStatus: 'APPROVED' }
       });
     }
-    if (key === '2') {
-      dataTableRefProduct?.current?.onChange({
-        page: 1,
-        perPage: 10,
-        filter: { type: 'BALANCE', approveStatus: 'WAITING_APPROVE' }
-      });
-    }
+    // if (key === '2') {
+    //   dataTableRefProduct?.current?.onChange({
+    //     page: 1,
+    //     perPage: 10,
+    //     filter: { type: 'BALANCE', approveStatus: 'WAITING_APPROVE' }
+    //   });
+    // }
 
     navigate(`/${lang}${routerLinks('inventory-management/product')}?tab=${key}`);
   };
 
-  // const isReload = useRef(false);
-   const param = JSON.parse(queryParams || '{}');
+  const isReload = useRef(false);
+  const param = JSON.parse(queryParams || '{}');
   const urlParams = new URLSearchParams(window.location.search);
   const tab = urlParams.get('tab');
-  const listSupplierStore = supplierStoreFacade.result?.data
+  const listSupplierStore = supplierAdminFacade.result?.data
+  const listSupplierAdmin = productFacade?.user
   const category1 = categoryFacade.result?.data
   const category2 = categoryFacade.result2?.data
   const category3 = categoryFacade.result3?.data
+  console.log(productFacade)
   const [categoryId1, setCategoryId1] = useState('')
   const [categoryId2, setCategoryId2] = useState('')
 
   useEffect(() => {
     categoryFacade.get({});
-    // supplierFacade.get(param);
-    // supplierStoreFacade.get({
-    //   type: 'BALANCE',
-    // })
-  }, [id])
+    if (activeKey == '1') {
+      supplierAdminFacade.get({
+        type: 'BALANCE',
+      })
+    }
+    if (activeKey == '2') {
+      productFacade.getproduct()
+      console.log(productFacade)
+    }
+  }, [activeKey])
 
   useEffect(() => {
     if (tab) {
       setActiveKey(tab);
     }
-    // else {
-    //   setActiveKey('1');
-    // }
   }, [tab]);
+
+  useEffect(() => {
+    categoryFacade.get({})
+    return () => {
+      isReload.current && productFacade.get(param);
+    };
+  }, [id]);
+
+  useEffect(() => {
+    if (categoryId1) {
+      categoryFacade.get2({ id: categoryId1 })
+    }
+  }, [categoryId1]);
+
+  useEffect(() => {
+    if (categoryId2) {
+      categoryFacade.get3({ id: categoryId2 })
+    }
+  }, [categoryId2]);
+
 
   const listOption = [
     { label: 'Tất cả', value: 'ALL' },
@@ -88,7 +107,6 @@ const Page = () => {
     { label: 'Ngừng bán', value: 'STOP_SELLING' },
     { label: 'Đã hủy', value: 'CANCELLED' },
   ];
-
   
   return (
     <div className="w-full">
@@ -112,7 +130,7 @@ const Page = () => {
                   navigate(`/${lang}${routerLinks('store-managerment/branch-management/edit')}/${data.id}`);
                 },
               })}
-              defaultRequest={{ page: 1, perPage: 10, filter: { type: 'BALANCE', approveStatus: 'ALL' } }}
+              defaultRequest={{ page: 1, perPage: 10, filter: { type: 'BALANCE', approveStatus: 'APPROVED' } }}
               xScroll="1270px"
               className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-supplier-index"
               showSearch={false}
@@ -192,7 +210,7 @@ const Page = () => {
                 <Form
                   className="intro-x rounded-lg w-full form-store"
                   values={{
-                    //supplierName: getFilter(productFacade.queryParams, 'supplierId'),
+                    supplierName: getFilter(productFacade.queryParams, 'supplierId'),
                     categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                     categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                     categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
@@ -201,6 +219,7 @@ const Page = () => {
                     storeBarcode: getFilter(productFacade.queryParams, 'storeBarcode'),
                     supplierBarcode: getFilter(productFacade.queryParams, 'barcode'),
                     productName: getFilter(productFacade.queryParams, 'name'),
+                    approveStatus: getFilter(productFacade.queryParams,'approveStatus'),
                   }}
                   columns={[
                     {
@@ -229,6 +248,7 @@ const Page = () => {
                               barcode: form.getFieldValue('supplierBarcode'),
                               storeBarcode: form.getFieldValue('storeBarcode'),
                               code: form.getFieldValue('productCode'),
+                              approveStatus: form.getFieldValue('approveStatus'),
                             },
                           });
                         },
@@ -236,7 +256,7 @@ const Page = () => {
                     },
                     {
                       title: '',
-                      name: 'supplierName',
+                      name: 'approveStatus',
                       formItem: {
                         col: 5,
                         type: 'select',
@@ -250,10 +270,20 @@ const Page = () => {
                             perPage: 10,
                             filter: {
                               type: form.getFieldValue('type'),
-                              approveStatus: value
+                              approveStatus: value,
+                              storeId: id,
+                              supplierId: form.getFieldValue('supplierName'),
+                              categoryId1: form.getFieldValue('categoryId1'),
+                              categoryId2: form.getFieldValue('categoryId2'),
+                              categoryId3: form.getFieldValue('categoryId3'),
+                              name: form.getFieldValue('productName'),
+                              barcode: form.getFieldValue('supplierBarcode'),
+                              storeBarcode: form.getFieldValue('storeBarcode'),
+                              code: form.getFieldValue('productCode'),
                             },
                           });
                         },
+                        
                       },
                     },
                   ]}
@@ -262,7 +292,7 @@ const Page = () => {
               subHeader={() => (
                 <div className="flex flex-col-reverse lg:flex-row">
                   <Form
-                    className="intro-x rounded-lg w-full form-store form-header-category col-supplier mt-5"
+                    className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
                     values={{
                       categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                       categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
@@ -471,11 +501,14 @@ const Page = () => {
                         placeholder: 'placeholder.Choose a supplier',
                         col: 5,
                         type: 'select',
-                        list: listSupplierStore?.map((item) => ({
+                        list: listSupplierAdmin?.map((item) => ({
                           label: item.name,
                           value: item.id!
                         })),
                         onChange(value, form) {
+                          categoryFacade.getinven({
+                            subOrgId: value,
+                          }),
                           dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
@@ -490,6 +523,7 @@ const Page = () => {
                               barcode: form.getFieldValue('supplierBarcode'),
                               storeBarcode: form.getFieldValue('storeBarcode'),
                               code: form.getFieldValue('productCode'),
+                              approveStatus: 'WAITING_APPROVE',
                             },
                           });
                         },
@@ -548,6 +582,7 @@ const Page = () => {
                               barcode: form.getFieldValue('supplierBarcode'),
                               storeBarcode: form.getFieldValue('storeBarcode'),
                               code: form.getFieldValue('productCode'),
+                              approveStatus: 'WAITING_APPROVE',
                             },
                           });
                         },
@@ -597,6 +632,7 @@ const Page = () => {
                               barcode: form.getFieldValue('supplierBarcode'),
                               storeBarcode: form.getFieldValue('storeBarcode'),
                               code: form.getFieldValue('productCode'),
+                              approveStatus: 'WAITING_APPROVE',
                             },
                           });
                         },
@@ -645,6 +681,7 @@ const Page = () => {
                               barcode: form.getFieldValue('supplierBarcode'),
                               storeBarcode: form.getFieldValue('storeBarcode'),
                               code: form.getFieldValue('productCode'),
+                              approveStatus: 'WAITING_APPROVE',
                             },
                           });
                         },

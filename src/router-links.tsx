@@ -59,6 +59,7 @@ export const routerLinks = (name: string, type?: string) => {
     InvoiceRevenue: '/invoice-kiot-viet/invoice',
     InventoryOrders: '/inventory-order/revenue-list',
     SupplierStore: '/sub-organization/store/all-supplier-store',
+    SupplierAdmin: '/sub-organization/admin/all-supplier',
     InventorySupplier: '/inventory-order/store-by-suppier',
     InventoryListProduct: '/inventory-order/revenue-list-product',
     documentsuborganiztion: '/document-sub-organiztion',

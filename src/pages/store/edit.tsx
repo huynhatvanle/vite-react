@@ -196,6 +196,7 @@ const Page = () => {
     }
   }, [activeKey, isBalance])
   const listSupplierStore = supplierStoreFacade.result?.data
+   console.log(supplierStoreFacade)
 
   useEffect(() => {
     if (activeKey == '5' && !isRevenueByOrder) {

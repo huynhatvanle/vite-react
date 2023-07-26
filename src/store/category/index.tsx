@@ -17,6 +17,7 @@ const action = {
   // ),
   get2: createAsyncThunk(name + '/get2', async (id: string) => await API.get(routerLinks(name, 'api'), { id })),
   get3: createAsyncThunk(name + '/get3', async (id: string) => await API.get(routerLinks(name, 'api'), { id })),
+  getinventory: createAsyncThunk(name + '/getinventory', async (subOrgId: string) => await API.get(routerLinks(name, 'api'), { subOrgId })),
 };
 
 export const categorySlice = createSlice(
@@ -81,6 +82,7 @@ export const CategoryFacade = () => {
     get: (params: PaginationQuery<Category>) => dispatch(action.get(params)),
     get2: ({ id }: { id: string }) => dispatch(action.get2(id)),
     get3: ({ id }: { id: string }) => dispatch(action.get3(id)),
+    getinven: ({ subOrgId }: { subOrgId: string }) => dispatch(action.get3(subOrgId)),
     getById: ({ fullTextSearch, id }: { fullTextSearch: string; id: string }) => dispatch(action.getByIdCategory(id)),
     post: (values: Category) => dispatch(action.post(values)),
     put: (values: Category) => dispatch(action.put(values)),
