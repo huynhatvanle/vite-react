@@ -2,8 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
+import dayjs from 'dayjs';
+
 import { Infor, Plus } from '@svgs';
-import { ConnectFacade } from '@store';
+import { ConnectFacade,GlobalFacade } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { language, languages, routerLinks } from '@utils';
@@ -17,7 +19,7 @@ const Page = () => {
     const { result, queryParams } = connectFacade;
     const param = JSON.parse(queryParams || '{}');
     const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
+    const { formatDateTime } = GlobalFacade();
     // useEffect(() => {
     //   if (!result?.data) storeFace.get({ page: 1, perPage: 10, filter: {type: 'STORE'}, })
 
@@ -56,7 +58,6 @@ const Page = () => {
                     title: 'store.Name',
                     name: 'store',
                     tableItem: {
-                       render: (text, item) => item?.store?.name
                     },
                 },
                 {
@@ -70,20 +71,38 @@ const Page = () => {
                     title: 'store.requestedAt',
                     name: 'requestedAt',
                     tableItem: {
-                       
+                        render: (text: string) => (text ? dayjs(text).format(formatDateTime).replace(/-/g, '-') : ''),
                     },
                 },
                 {
                     title: 'store.approvedAt',
                     name: 'approvedAt',
                     tableItem: {
-                       
+                        render: (text: string) => (text ? dayjs(text).format(formatDateTime).replace(/-/g, '-') : ''),
                     },
                 },
                 {
-                    title: 'store.status',
+                    title: 'store.status.status',
                     name: 'status',
                     tableItem: {
+                        render:(text, item) => item?.status === 'APPROVED' ? 
+                        (
+                         <div className="bg-green-50 text-center p-1 border border-green-500 rounded-lg text-green-500 w-[144px]">
+                           {t('store.status.APPROVED')}
+                         </div>
+                       ) :item?.status === 'WAITING_ADMIN' ? (
+                         <div className="bg-yellow-50 text-center p-1 border border-yellow-500 rounded-lg text-yellow-500 w-[144px]">
+                           {t('store.status.WAITING_ADMIN')}
+                         </div>
+                       ):item?.status === 'WAITING_STORE'?(
+                         <div className="bg-blue-50 text-center p-1 border border-blue-500 rounded-lg text-blue-500 w-[144px]">
+                           {t('store.status.WAITING_STORE')}
+                         </div>
+                       ):(
+                         <div className="bg-red-50 text-center p-1 border border-red-500 rounded-lg text-red-500 w-[144px]">
+                           {t('store.status.REJECT_BY_ADMIN')}
+                         </div>
+                       ) ,
                        
                     },
                 },

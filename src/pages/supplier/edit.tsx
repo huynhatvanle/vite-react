@@ -2508,7 +2508,7 @@ const Page = () => {
               </div>
             </Tabs.TabPane>
 
-            <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
+            <Tabs.TabPane tab={t('ntract')} key="6" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl pt-4'}>
                 <div className="flex items-left font-bold px-4">
                   <p className="sm:text-xl text-base text-teal-900 pt-2 mr-5">
