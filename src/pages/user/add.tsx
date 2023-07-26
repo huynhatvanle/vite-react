@@ -151,7 +151,7 @@ const Page = () => {
                   facade: CodeFacade,
                   params: (fullTextSearch: string) => ({
                     fullTextSearch,
-                    filter: { type: 'POS' },
+                    filter: { type: 'position' },
                     extend: {},
                   }),
                   format: (item) => ({
