@@ -49,8 +49,8 @@ const Page = () => {
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Code')}?${new URLSearchParams(param).toString()}`);
   const handleSubmit = (values: Code) => {
-    if (id) codeFacade.put({ ...values, id });
-    else codeFacade.post(values);
+    if (id) codeFacade.put({ ...values, id, type });
+    else codeFacade.post({ ...values, type });
   };
 
   const codeTypeFacade = CodeTypeFacade();
