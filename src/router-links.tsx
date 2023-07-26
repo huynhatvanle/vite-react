@@ -30,7 +30,8 @@ export const routerLinks = (name: string, type?: string) => {
     'store-managerment/branch-management/create': '/store-managerment/branch-management/create',
     'store-managerment/branch-management/edit': '/store-managerment/branch-management/edit',
 
-    Merchandise: '/Merchandise management',
+    merchandise: '/merchandise-management',
+    'merchandise-management/product': '/merchandise-management/product',
 
     Category: '/category',
 
@@ -59,6 +60,7 @@ export const routerLinks = (name: string, type?: string) => {
     InvoiceRevenue: '/invoice-kiot-viet/invoice',
     InventoryOrders: '/inventory-order/revenue-list',
     SupplierStore: '/sub-organization/store/all-supplier-store',
+    Supplieradmin: '/sub-organization/admin/all-supplier',
     InventorySupplier: '/inventory-order/store-by-suppier',
     InventoryListProduct: '/inventory-order/revenue-list-product',
     documentsuborganiztion: '/document-sub-organiztion',

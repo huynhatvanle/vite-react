@@ -25,6 +25,7 @@ const action = {
         categoryId2?: string;
         categoryId3?: string;
         isGetAll?: boolean;
+        approveStatus?: string;
       };
       sorts?: {};
     }) => {
@@ -38,6 +39,7 @@ const action = {
           perPage: perPage,
           storeId: filterProduct.storeId,
           type: filterProduct.type,
+          approveStatus: filterProduct.approveStatus,
           supplierId: filterProduct.supplierId,
           categoryId: filterProduct.categoryId3
             ? filterProduct.categoryId3
@@ -95,7 +97,6 @@ export const ProductFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<Product>),
     set: (values: State<Product>) => dispatch(action.set(values)),
-    // get: (params: PaginationQuery<Product>) => dispatch(action.get(params)),
     get: ({
       page,
       perPage,
@@ -105,6 +106,7 @@ export const ProductFacade = () => {
       page: number;
       perPage: number;
       filter: {
+        approveStatus?: string;
         supplierId?: string;
         storeId?: string;
         type: string;

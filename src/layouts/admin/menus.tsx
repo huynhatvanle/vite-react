@@ -23,10 +23,10 @@ const Layout = () => [
   },
   {
     icon: <Shopping className="icon-menu" />,
-    name: 'Merchandise Management',
+    name: 'merchandise-management',
     child: [
       {
-        name: 'Product',
+        name: 'merchandise-management/product',
       },
     ]
   },

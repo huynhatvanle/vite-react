@@ -119,8 +119,8 @@
     "Contract-View": "Hợp đồng kết nối",
     "Discount-Detail": "Chi tiết nhà cung cấp",
     "Merchandise-Managerment/Product/Detail": "Sản phẩm",
-    "Merchandise Management":"Quản lý hàng hoá",
-    "Product":"Sản phẩm"
+    "merchandise-management":"Quản lý hàng hoá",
+    "merchandise-management/product":"Sản phẩm"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -141,7 +141,8 @@
     "Supplier/Add": "Quản Lý Nhà Cung Cấp",
     "Supplier/Edit": "Quản Lý Nhà Cung Cấp",
     "Contract-View": "Quản Lý Hợp Đồng",
-    "Merchandise-Managerment/Product/Detail": "Quản lý hàng hóa"
+    "Merchandise-Managerment/Product/Detail": "Quản lý hàng hóa",
+    "merchandise-management/product":"Quản lý hàng hoá"
   },
   "columns": {
     "auth": {
@@ -418,6 +419,7 @@
     "SupplierName": "Nhà cung cấp",
     "Unit": "Đơn vị",
     "UnitProduct": "Đơn vị nhập",
+    "Unitproduct": "Đơn vị tính",
     "PriceBalance": "Giá bán lẻ của NCC (VND)",
     "PriceNonBalance": "Giá nhập (VND)",
     "SellingPrice": "Giá bán lẻ của CH (VND)",
@@ -429,7 +431,9 @@
     "status": "Trạng thái",
     "List Balance": "Danh sách hàng hóa Balance.xlsx",
     "List": "Danh sách hàng hóa.xlsx",
-    "Image": "Link hình ảnh"
+    "Image": "Link hình ảnh",
+    "price":"Giá bán"
+
   },
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",
@@ -441,6 +445,16 @@
     "Search by order number": "Tìm kiếm theo mã đơn hàng",
     "Search by order supplier": "Tìm kiếm mã sản phẩm, tên, mã vạch",
     "Choose a time": "Chọn thời điểm",
-    "Select status": "Chọn trạng thái"
+    "Select status": "Chọn trạng thái",
+    "status":"Trạng thái"
+  },
+  "merchant": {
+    "ALL":"Tất cả",
+    "APPROVED":"Đang bán",
+    "WAITING_APPROVE":"Chờ xác nhận",
+    "REJECTED":"Từ chối",
+    "OUT_OF_STOCK":"Hết hàng",
+    "STOP_SELLING":"Ngừng bán",
+    "CANCELLED":"Đã huỷ"
   }
 }
