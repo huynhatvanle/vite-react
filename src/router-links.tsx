@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const routerLinks = (name: string, type?: string) => {
   const array: {
     [selector: string]: string;
@@ -33,6 +35,10 @@ export const routerLinks = (name: string, type?: string) => {
     Category: '/category',
 
     Product: '/product',
+
+    Tax: '/merchandise-managerment/tax',
+    Connect: '/connect-managerment/connect',
+    'connect-managerment/connect': '/connect-managerment/connect/edit',
   }; // 💬 generate link to here
 
   const apis: {
@@ -61,6 +67,8 @@ export const routerLinks = (name: string, type?: string) => {
     InventoryListProduct: '/inventory-order/revenue-list-product',
     documentsuborganiztion: '/document-sub-organiztion',
     suborgcommisionline: '/sub-org-commision-line',
+    Tax: '/mt-tax',
+    Connect: '/store-request'
   }; // 💬 generate api to here
 
   switch (type) {

@@ -125,6 +125,21 @@ const pages = [
         component: React.lazy(() => import('@pages/supplier/productDetail/index')),
         title: 'Merchandise-Managerment/Product/Detail',
       },
+      {
+        path: routerLinks('Tax'),
+        component: React.lazy(() => import('@pages/merchandise-managerment/tax/index')),
+        title: 'Merchandise-Managerment/Tax',
+      },
+      {
+        path: routerLinks('Connect'),
+        component: React.lazy(() => import('@pages/connect-managerment/connect/index')),
+        title: 'connect-managerment/connect',
+      },
+      {
+        path: routerLinks('connect-managerment/connect') + '/:id',
+        component: React.lazy(() => import('@pages/connect-managerment/connect/edit')),
+        title: 'connect-managerment/connect',
+      },
     ], // 💬 generate link to here
   },
 ];
