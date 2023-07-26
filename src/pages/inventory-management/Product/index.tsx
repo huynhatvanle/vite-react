@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import { CategoryFacade, ProductFacade, SupplierStoreFacade } from '@store';
+import { CategoryFacade, ProductFacade, SupplierFacade, SupplierStoreFacade } from '@store';
 import { TableRefObject } from '@models';
 import { DataTable } from '@core/data-table';
 import { routerLinks, languages, language, getFilter } from '@utils';
@@ -17,11 +17,17 @@ const Page = () => {
   const productFacade = ProductFacade();
   const supplierStoreFacade = SupplierStoreFacade()
   const categoryFacade = CategoryFacade()
+  const supplierFacade = SupplierFacade();
+
+  console.log(productFacade)
+  console.log(supplierStoreFacade)
+  console.log(categoryFacade)
 
   const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRefProduct = useRef<TableRefObject>(null);
   
   const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeInventoryTab') || 'tab');
+  const {isLoading, queryParams } = productFacade;
 
   const onChangeTab = (key: string) => {
     setActiveKey(key);
@@ -45,6 +51,8 @@ const Page = () => {
     navigate(`/${lang}${routerLinks('inventory-management/product')}?tab=${key}`);
   };
 
+  // const isReload = useRef(false);
+   const param = JSON.parse(queryParams || '{}');
   const urlParams = new URLSearchParams(window.location.search);
   const tab = urlParams.get('tab');
   const listSupplierStore = supplierStoreFacade.result?.data
@@ -55,12 +63,20 @@ const Page = () => {
   const [categoryId2, setCategoryId2] = useState('')
 
   useEffect(() => {
+    categoryFacade.get({});
+    // supplierFacade.get(param);
+    // supplierStoreFacade.get({
+    //   type: 'BALANCE',
+    // })
+  }, [id])
+
+  useEffect(() => {
     if (tab) {
       setActiveKey(tab);
     }
-    else {
-      setActiveKey('1');
-    }
+    // else {
+    //   setActiveKey('1');
+    // }
   }, [tab]);
 
   const listOption = [
@@ -171,12 +187,12 @@ const Page = () => {
                       ),
                   },
                 },
-              ]}
+              ]}  
               leftHeader={
                 <Form
                   className="intro-x rounded-lg w-full form-store"
                   values={{
-                    supplierName: getFilter(productFacade.queryParams, 'supplierId'),
+                    //supplierName: getFilter(productFacade.queryParams, 'supplierId'),
                     categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                     categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                     categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
@@ -222,8 +238,6 @@ const Page = () => {
                       title: '',
                       name: 'supplierName',
                       formItem: {
-                        //placeholder: 'placeholder.Choose a supplier',
-                        label: 'Đang bán',
                         col: 5,
                         type: 'select',
                         list: listOption?.map((item) => ({
@@ -235,17 +249,8 @@ const Page = () => {
                             page: 1,
                             perPage: 10,
                             filter: {
-                              //storeId: id,
                               type: form.getFieldValue('type'),
                               approveStatus: value
-                              // supplierId: value,
-                              // categoryId1: form.getFieldValue('categoryId1'),
-                              // categoryId2: form.getFieldValue('categoryId2'),
-                              // categoryId3: form.getFieldValue('categoryId3'),
-                              // name: form.getFieldValue('productName'),
-                              // barcode: form.getFieldValue('supplierBarcode'),
-                              // storeBarcode: form.getFieldValue('storeBarcode'),
-                              // code: form.getFieldValue('productCode'),
                             },
                           });
                         },
@@ -255,160 +260,112 @@ const Page = () => {
                 />
               }
               subHeader={() => (
-                <Form
-                  className="intro-x rounded-lg w-full form-store"
-                  values={{
-                    categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
-                    categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
-                    categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
-                    supplierName: getFilter(productFacade.queryParams, 'supplierId'),
-                    type: getFilter(productFacade.queryParams, 'type'),
-                    productCode: getFilter(productFacade.queryParams, 'code'),
-                    storeBarcode: getFilter(productFacade.queryParams, 'storeBarcode'),
-                    supplierBarcode: getFilter(productFacade.queryParams, 'barcode'),
-                    productName: getFilter(productFacade.queryParams, 'name'),
-                  }}
-                  columns={[
-                    {
-                      title: '',
-                      name: 'categoryId1',
-                      formItem: {
-                        placeholder: 'placeholder.Main categories',
-                        col: 3,
-                        type: 'select',
-                        list: category1?.map((item) => ({
-                          label: item?.name!,
-                          value: item?.id!
-                        })),
-                        // firstLoad: () => ({}),
-                        // get: {
-                        //   facade: CategoryFacade,
-                        //   format: (item: any) => ({
-                        //     label: item.name,
-                        //     value: item.id,
-                        //   }),
-                        // },
-                        onChange(value, form) {
-                          setCategoryId1(value)
-                          setCategoryId2('')
-                          form.resetFields(['categoryId2', 'categoryId3']);
-                          dataTableRefProduct?.current?.onChange({
-                            page: 1,
-                            perPage: 10,
-                            filter: {
-                              storeId: id,
-                              type: form.getFieldValue('type'),
-                              supplierId: form.getFieldValue('supplierName'),
-                              categoryId1: value,
-                              name: form.getFieldValue('productName'),
-                              barcode: form.getFieldValue('supplierBarcode'),
-                              storeBarcode: form.getFieldValue('storeBarcode'),
-                              code: form.getFieldValue('productCode'),
-                            },
-                          });
+                <div className="flex flex-col-reverse lg:flex-row">
+                  <Form
+                    className="intro-x rounded-lg w-full form-store form-header-category col-supplier mt-5"
+                    values={{
+                      categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
+                      categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
+                      categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
+                    }}
+                    columns={[
+                      {
+                        title: '',
+                        name: 'categoryId1',
+                        formItem: {
+                          placeholder: 'placeholder.Main categories',
+                          col: 3,
+                          type: 'select',
+                          list: category1?.map((item) => ({
+                            label: item?.name!,
+                            value: item?.id!,
+                          })),
+                          // firstLoad: () => ({}),
+                          // get: {
+                          //   facade: CategoryFacade,
+                          //   format: (item: any) => ({
+                          //     label: item.name,
+                          //     value: item.id,
+                          //   }),
+                          // },
+                          onChange(value, form) {
+                            setCategoryId1(value);
+                            setCategoryId2('');
+                            form.resetFields(['categoryId2', 'categoryId3']);
+                            dataTableRef?.current?.onChange({
+                              page: 1,
+                              perPage: 10,
+                              filter: {
+                                type: 'BALANCE',
+                                categoryId1: value ? value : '',
+                                supplierId: id,
+                              },
+                            });
+                          },
                         },
                       },
-                    },
-                    {
-                      name: 'categoryId2',
-                      title: '',
-                      formItem: {
-                        placeholder: 'placeholder.Category level 1',
-                        type: 'select',
-                        col: 3,
-                        list: category2?.map((item) => ({
-                          label: item?.name!,
-                          value: item?.id!
-                        })),
-                        disabled: (values: any, form: any) => categoryId1 ?
-                          category2?.length === 0 ? true
-                            : category2 ? false : true
-                          : true,
-                        // get: {
-                        //   facade: CategoryFacade,
-                        //   key: 'result2',
-                        //   method: 'get2',
-                        //   format: (item: any) => ({
-                        //     label: item.name,
-                        //     value: item.id,
-                        //   }),
-                        //   params: (fullTextSearch, value) => ({
-                        //     fullTextSearch,
-                        //     id: value().categoryId1,
-                        //   }),
-                        // },
-                        onChange(value, form) {
-                          setCategoryId2(value)
-                          form.resetFields(['categoryId3']);
-                          dataTableRefProduct?.current?.onChange({
-                            page: 1,
-                            perPage: 10,
-                            filter: {
-                              storeId: id,
-                              type: form.getFieldValue('type'),
-                              supplierId: form.getFieldValue('supplierName'),
-                              categoryId2: value,
-                              categoryId1: form.getFieldValue('categoryId1'),
-                              name: form.getFieldValue('productName'),
-                              barcode: form.getFieldValue('supplierBarcode'),
-                              storeBarcode: form.getFieldValue('storeBarcode'),
-                              code: form.getFieldValue('productCode'),
-                            },
-                          });
+                      {
+                        name: 'categoryId2',
+                        title: '',
+                        formItem: {
+                          placeholder: 'placeholder.Category level 1',
+                          type: 'select',
+                          col: 3,
+                          list: category2?.map((item) => ({
+                            label: item?.name!,
+                            value: item?.id!,
+                          })),
+                          disabled: (values: any, form: any) =>
+                            categoryId1 ? (category2?.length === 0 ? true : category2 ? false : true) : true,
+                          onChange(value, form) {
+                            setCategoryId2(value);
+                            form.resetFields(['categoryId3']);
+                            dataTableRef?.current?.onChange({
+                              page: 1,
+                              perPage: 10,
+                              filter: {
+                                supplierId: id,
+                                type: 'BALANCE',
+                                categoryId2: value ? value : '',
+                                categoryId1: form.getFieldValue('categoryId1'),
+                              },
+                            });
+                          },
                         },
                       },
-                    },
-                    {
-                      name: 'categoryId3',
-                      title: '',
-                      formItem: {
-                        placeholder: 'placeholder.Category level 2',
-                        type: 'select',
-                        col: 3,
-                        list: category3?.map((item) => ({
-                          label: item?.name!,
-                          value: item?.id!
-                        })),
-                        disabled: (values: any, form: any) => categoryId2 ?
-                          category3?.length === 0 ? true
-                            : category3 ? false : true
-                          : true,
-                        // get: {
-                        //   facade: CategoryFacade,
-                        //   key: 'result3',
-                        //   method: 'get3',
-                        //   format: (item: any) => ({
-                        //     label: item.name,
-                        //     value: item.id,
-                        //   }),
-                        //   params: (fullTextSearch, value) => ({
-                        //     fullTextSearch,
-                        //     id: value().categoryId2,
-                        //   }),
-                        // },
-                        onChange(value, form) {
-                          dataTableRefProduct?.current?.onChange({
-                            page: 1,
-                            perPage: 10,
-                            filter: {
-                              storeId: id,
-                              type: form.getFieldValue('type'),
-                              supplierId: form.getFieldValue('supplierName'),
-                              categoryId3: value,
-                              categoryId1: form.getFieldValue('categoryId1'),
-                              categoryId2: form.getFieldValue('categoryId2'),
-                              name: form.getFieldValue('productName'),
-                              barcode: form.getFieldValue('supplierBarcode'),
-                              storeBarcode: form.getFieldValue('storeBarcode'),
-                              code: form.getFieldValue('productCode'),
-                            },
-                          });
+                      {
+                        name: 'categoryId3',
+                        title: '',
+                        formItem: {
+                          placeholder: 'placeholder.Category level 2',
+                          type: 'select',
+                          col: 3,
+                          list: category3?.map((item) => ({
+                            label: item?.name!,
+                            value: item?.id!,
+                          })),
+                          disabled: (values: any, form: any) =>
+                            categoryId2 ? (category3?.length === 0 ? true : category3 ? false : true) : true,
+                          onChange(value, form) {
+                            dataTableRef?.current?.onChange({
+                              page: 1,
+                              perPage: 10,
+                              filter: {
+                                supplierId: id,
+                                type: 'BALANCE',
+                                categoryId3: value ? value : '',
+                                categoryId1: form.getFieldValue('categoryId1'),
+                                categoryId2: form.getFieldValue('categoryId2'),
+                              },
+                            });
+                          },
                         },
                       },
-                    },
-                  ]}
-                  //disableSubmit={isLoading}
-                />
+                    ]}
+                    disableSubmit={isLoading}
+                  />
+                 
+                </div>
               )}
             />
           </Tabs.TabPane>

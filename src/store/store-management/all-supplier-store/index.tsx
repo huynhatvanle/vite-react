@@ -11,10 +11,6 @@ const action = {
     name + '/getAll',
     async ({ type, storeId }: { type: string, storeId?: string }) => await API.get(routerLinks(name, 'api'), { type, storeId }),
   ),
-  getproduct: createAsyncThunk(
-    name + '/getproduct',
-    async ({ type, approveStatus }: { type: string, approveStatus?: string }) => await API.get(routerLinks(name, 'api'), { type, approveStatus }),
-  ),
 }
 
 export const supplierStoreSlice = createSlice(
@@ -54,7 +50,7 @@ export const SupplierStoreFacade = () => {
     set: (values: State<SupplierStore>) => dispatch(action.set(values)),
     // get: (params: PaginationQuery<SupplierStore>) => dispatch(action.get(params)),
     get: ({ type, storeId }: { type: string, storeId?: string }) => dispatch(action.getAll({ type, storeId })),
-    getproduct: ({ type, approveStatus }: { type: string, approveStatus?: string }) => dispatch(action.getproduct({ type, approveStatus })),
+    getall: (params: PaginationQuery<SupplierStore>) => dispatch(action.get(params)),
   };
 };
 
