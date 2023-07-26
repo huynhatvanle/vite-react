@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
 import { Form } from '@core/form';
-import { UserRoleFacade, ConnectFacade, User } from '@store';
+import { UserRoleFacade, ConnectFacade, User, GlobalFacade } from '@store';
 import { language, languages, routerLinks } from '@utils';
-
+import dayjs from 'dayjs';
 const Page = () => {
   const { t } = useTranslation();
   const { result, get } = UserRoleFacade();
@@ -18,7 +18,7 @@ const Page = () => {
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
+  const { formatDateTime } = GlobalFacade();
   useEffect(() => {
     if (!result?.data) get({});
 
@@ -47,7 +47,7 @@ const Page = () => {
   return (
     <Fragment>
       <div className=' bg-white rounded-2xl' >
-        <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 '}>{t('Chi tiết yêu cầu')}</div>
+        <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 '}>{t('titles.requestdetail')}</div>
         <div className='flex'>
             <div className=''>
                 <div className='flex'>
@@ -66,11 +66,11 @@ const Page = () => {
             <div>
             <div className='flex'>
                     <div>Ngày yêu cầu:</div>
-                    <div>{data?.approvedAt}</div>
+                    <div>{ dayjs(data?.approvedAt).format(formatDateTime)}</div>
                 </div>
                 <div className='flex'>
                     <div>Ngày phê duyệt:</div>
-                    <div>{data?.requestedAt}</div>
+                    <div>{ dayjs(data?.requestedAt).format(formatDateTime)}</div>
                 </div>
                 <div className='flex'>
                     <div>Yêu cầu chi tiết về sản phẩm:</div>
@@ -78,7 +78,7 @@ const Page = () => {
                 </div>
             </div>
         </div>
-        <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 '}>{t('Thông tin cửa hàng')}</div>
+        <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 '}>{t('titles.informationstore')}</div>
         <div className='flex'>
             <div className=''>
                 <div className='flex'>
@@ -106,7 +106,7 @@ const Page = () => {
             <div>Địa chỉ:</div>
             <div>{data?.store?.address?.street},{data?.store?.address?.ward?.name},{data?.store?.address?.district?.name},{data?.store?.address?.province?.name}</div>
         </div>
-        <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 '}>{t('Thông tin nhà cung cấp')}</div>
+        <div className={'text-xl text-teal-900 font-bold block pl-5 pt-5 '}>{t('titles.informationstoreRequestSupplier')}</div>
         <div className='flex'>
             <div className=''>
                 <div className='flex'>
