@@ -145,7 +145,8 @@
     "Supplier/Edit": "Quản Lý Nhà Cung Cấp",
     "Contract-View": "Quản Lý Hợp Đồng",
     "Merchandise-Managerment/Product/Detail": "Quản lý hàng hóa",
-    "MerchandiseManagermentCategory": "Danh mục"
+    "MerchandiseManagermentCategory": "Danh mục",
+    "Store-Revenue": "Doanh thu cửa hàng"
   },
   "columns": {
     "auth": {

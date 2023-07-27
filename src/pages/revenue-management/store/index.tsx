@@ -18,6 +18,7 @@ import { Form } from '@core/form';
 import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile } from 'antd';
 import dayjs from 'dayjs';
 import { TableRefObject } from '@models';
+import { Excel } from 'antd-table-saveas-excel';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -37,6 +38,7 @@ const Page = () => {
   const firstStore = storeorder?.[0]?.id;
 
   const invoice = InvoiceRevenueFacade();
+
   const invoiceKiotVietFacade = InvoiceKiotVietFacade();
   const categoryFacade = CategoryFacade();
   const param = JSON.parse(queryParams || '{}');
@@ -51,7 +53,12 @@ const Page = () => {
 
   const dataTableRefRevenueOder = useRef<TableRefObject>(null);
   const dataTableRefRevenueProduct = useRef<TableRefObject>(null);
-  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeRevenueStoreTab') || 'tab');
+  const [dateOrder, setDateOder] = useState<boolean>();
+  const [dateProduct, setDateProduct] = useState<boolean>();
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeRevenueStoreTab') || '1');
   const onChangeTab = (key: string) => {
     setActiveKey(key);
 
@@ -59,12 +66,14 @@ const Page = () => {
 
     navigate(`/${lang}${routerLinks('revenue-management/store')}?tab=${key}`);
   };
-  const [dateOrder, setDateOder] = useState<boolean>();
-  const [dateProduct, setDateProduct] = useState<boolean>();
-
-  const urlParams = new URLSearchParams(window.location.search);
-
   const tab = urlParams.get('tab');
+  useEffect(() => {
+    if (tab) {
+      setActiveKey(tab);
+    } else {
+      setActiveKey('1');
+    }
+  }, []);
   let stt1 = 1;
   const statusCategoryOrder = [
     {
@@ -92,12 +101,6 @@ const Page = () => {
   ];
 
   useEffect(() => {
-    if (tab) {
-      setActiveKey(tab);
-    }
-  }, []);
-
-  useEffect(() => {
     if (activeKey == '2') {
       categoryFacade.get({});
       if (getFilter(invoiceKiotVietFacade.queryParams, 'idStore')) {
@@ -111,6 +114,31 @@ const Page = () => {
   }, [activeKey, getFilter(invoiceKiotVietFacade.queryParams, 'idStore')]);
 
   const supplier = connectSupplierFacade.result?.data;
+
+  interface IExcelColumn {
+    title: string;
+    key: string;
+    dataIndex: string;
+  }
+  const columnrevenueOrder: IExcelColumn[] = [
+    { title: t('STT'), key: 'stt', dataIndex: 'STT' },
+    { title: t('Mã đơn hàng'), key: 'invoiceCode', dataIndex: 'invoiceCode' },
+    { title: t('Ngày bán'), key: 'completedDate', dataIndex: 'completedDate' },
+    { title: t('Giá trị (VND)'), key: 'total', dataIndex: 'total' },
+    { title: t('Khuyến mãi (VND)'), key: 'discount', dataIndex: 'discount' },
+    { title: t('Thành tiền (VND)'), key: 'revenue', dataIndex: 'revenue' },
+    { title: t('Loại đơn'), key: 'type', dataIndex: 'type' },
+  ];
+  const columnrevenueProduct: IExcelColumn[] = [
+    { title: t('STT'), key: 'stt', dataIndex: 'STT' },
+    { title: t('Mã sản phẩm'), key: 'productCode', dataIndex: 'productCode' },
+    { title: t('Tên sản phẩm'), key: 'productName', dataIndex: 'productName' },
+    { title: t('Mã vạch'), key: 'barcode', dataIndex: 'barcode' },
+    { title: t('Nhà cung cấp'), key: 'supplierName', dataIndex: 'supplierName' },
+    { title: t('Doanh thu'), key: 'revenue', dataIndex: 'revenue' },
+    { title: t('Loại đơn'), key: 'status', dataIndex: 'status' },
+  ];
+  let i = 1;
 
   return (
     <div className={'w-full'}>
@@ -401,162 +429,123 @@ const Page = () => {
                       className={
                         'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
                       }
-                      // onClick={() => {
-                      //   const inventory = inventoryOrders?.result?.data?.map((item) => {
-                      //     return {
-                      //       STT: i++,
-                      //       code: item.invoiceCode,
-                      //       name: item.storeName,
-                      //       pickUpDate: item.pickUpDate
-                      //         ? dayjs(item.pickUpDate).format(formatDate).replace(/-/g, '/')
-                      //         : '',
-                      //       completedDate: item.completedDate
-                      //         ? dayjs(item.completedDate).format(formatDate).replace(/-/g, '/')
-                      //         : '',
-                      //       BeforeTax: item.subTotal?.toLocaleString(),
-                      //       AfterTax: item.total?.toLocaleString(),
-                      //       voucherAmount: item.voucherAmount,
-                      //       Total: item.total?.toLocaleString(),
-                      //       Type:
-                      //         item.billType === 'RECIEVED'
-                      //           ? t('supplier.Sup-Status.Sell goods')
-                      //           : t('supplier.Sup-Status.Return goods'),
-                      //     };
-                      //   });
+                      onClick={() => {
+                        const inventory = invoice?.result?.data?.map((item) => {
+                          return {
+                            STT: i++,
+                            invoiceCode: item.invoiceCode,
+                            completedDate: item.completedDate
+                              ? dayjs(item.completedDate).format('DD/MM/YYYY').replace(/-/g, '/')
+                              : '',
+                            total: item.total?.toLocaleString(),
+                            discount: item.discount?.toLocaleString(),
+                            revenue: item.revenue?.toLocaleString(),
+                            type:
+                              item.type === 'DELEVERED'
+                                ? t('Bán hàng')
+                                : item.type === 'REFUND'
+                                ? t('Trả hàng')
+                                : item.type === 'REFUND'
+                                ? t('Đã huỷ')
+                                : '',
+                          };
+                        });
 
-                      //   const excel = new Excel();
-                      //   const sheet = excel.addSheet('Sheet1');
-                      //   sheet.setTHeadStyle({
-                      //     background: 'FFFFFFFF',
-                      //     borderColor: 'C0C0C0C0',
-                      //     wrapText: false,
-                      //     fontName: 'Calibri',
-                      //   });
-                      //   sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
-                      //   sheet.setRowHeight(0.8, 'cm');
-                      //   sheet.addColumns([
-                      //     { title: '', dataIndex: '' },
-                      //     { title: '', dataIndex: '' },
-                      //     { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
-                      //   ]);
-                      //   // sheet.drawCell(10, 0, '');
-                      //   sheet.addRow();
-                      //   sheet.addColumns([
-                      //     { title: 'Tìm kiếm:', dataIndex: '' },
-                      //     {
-                      //       title: JSON.parse(inventoryOrders.queryParams || '{}').fullTextSearch || '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
+                        const excel = new Excel();
+                        const sheet = excel.addSheet('Sheet1');
+                        sheet.setTHeadStyle({
+                          background: 'FFFFFFFF',
+                          borderColor: 'C0C0C0C0',
+                          wrapText: false,
+                          fontName: 'Calibri',
+                        });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
+                        sheet.setRowHeight(0.8, 'cm');
+                        sheet.addColumns([
+                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '' },
+                          { title: 'BÁO CÁO DOANH THU CỬA HÀNG THEO ĐƠN HÀNG', dataIndex: '' },
+                        ]);
+                        // sheet.drawCell(10, 0, '');
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Tìm kiếm:', dataIndex: '' },
+                          {
+                            title: JSON.parse(invoice.queryParams || '{}').fullTextSearch || '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
 
-                      //     { title: 'Chọn loại đơn hàng:', dataIndex: '' },
-                      //     {
-                      //       title: getFilter(inventoryOrders.queryParams, 'type')
-                      //         ? `${
-                      //             statusCategory.find((item) => {
-                      //               return item.value === getFilter(inventoryOrders.queryParams, 'type');
-                      //             })?.label
-                      //           }`
-                      //         : '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
+                          { title: 'Chọn loại đơn hàng:', dataIndex: '' },
+                          {
+                            title: getFilter(invoice.queryParams, 'status')
+                              ? `${
+                                  statusCategoryOrder.find((item) => {
+                                    return item.value === getFilter(invoice.queryParams, 'status');
+                                  })?.label
+                                }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
 
-                      //     { title: 'Chọn cửa hàng:', dataIndex: '' },
-                      //     {
-                      //       title: getFilter(inventoryOrders.queryParams, 'idStore')
-                      //         ? `${
-                      //             inven?.find((item) => {
-                      //               return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
-                      //             })?.name
-                      //           }`
-                      //         : '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-                      //   ]);
-                      //   sheet.addRow();
-                      //   sheet.addColumns([
-                      //     { title: 'Từ ngày', dataIndex: '' },
-                      //     {
-                      //       title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
-                      //         ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format(
-                      //             'MM/DD/YYYY',
-                      //           )
-                      //         : '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
+                          { title: 'Chọn cửa hàng:', dataIndex: '' },
+                          {
+                            title: getFilter(invoice.queryParams, 'idStore')
+                              ? `${
+                                  storeorder?.find((item) => {
+                                    return item.id === getFilter(invoice.queryParams, 'idStore');
+                                  })?.name
+                                }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Từ ngày', dataIndex: '' },
+                          {
+                            title: getFilter(invoice.queryParams, 'dateFrom')
+                              ? dayjs(getFilter(invoice.queryParams, 'dateFrom')).format('DD/MM/YYYY')
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
 
-                      //     { title: 'Đến ngày', dataIndex: '' },
-                      //     {
-                      //       title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
-                      //         ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format(
-                      //             'MM/DD/YYYY',
-                      //           )
-                      //         : '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-                      //   ]);
-                      //   sheet.addRow();
-                      //   sheet.addColumns([
-                      //     { title: 'Doanh thu', dataIndex: '' },
-                      //     {
-                      //       title: revenueTotal ? revenueTotal + ' VND' : '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-
-                      //     { title: 'Tổng số đơn thành công', dataIndex: '' },
-                      //     {
-                      //       title: inventoryOrders.result?.statistical?.totalOderSuccess?.toLocaleString(),
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-                      //   ]);
-                      //   sheet.addRow();
-                      //   sheet.addColumns([
-                      //     { title: 'Tổng số đơn trả', dataIndex: '' },
-                      //     {
-                      //       title: inventoryOrders.result?.statistical?.totalOderReturn?.toLocaleString(),
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-
-                      //     { title: 'Tổng số đơn bị hủy', dataIndex: '' },
-                      //     {
-                      //       title: inventoryOrders.result?.statistical?.totalOderCancel?.toLocaleString(),
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-                      //   ]);
-                      //   sheet.addRow();
-                      //   sheet
-                      //     .addColumns(columnrevenue)
-                      //     .addDataSource(inventory ?? [], {
-                      //       str2Percent: true,
-                      //     })
-                      //     .addColumns([
-                      //       { title: '', dataIndex: '' },
-                      //       { title: '', dataIndex: '' },
-                      //       { title: '', dataIndex: '' },
-                      //       { title: '', dataIndex: '' },
-                      //       { title: 'Tổng cộng', dataIndex: '' },
-                      //       { title: inventoryOrders.result?.total?.sumSubTotal?.toLocaleString(), dataIndex: '' },
-                      //       {
-                      //         title: inventoryOrders.result?.total?.sumTotal?.toLocaleString(),
-                      //         dataIndex: '',
-                      //       },
-                      //       {
-                      //         title: inventoryOrders.result?.total?.sumVoucherAmount?.toLocaleString(),
-                      //         dataIndex: '',
-                      //       },
-                      //       { title: inventoryOrders.result?.total?.sumMoney?.toLocaleString(), dataIndex: '' },
-                      //       { title: '', dataIndex: '' },
-                      //     ])
-                      //     .saveAs(t('supplier.Supplier revenue Order'));
-                      // }}
+                          { title: 'Đến ngày', dataIndex: '' },
+                          {
+                            title: getFilter(invoice.queryParams, 'dateTo')
+                              ? dayjs(getFilter(invoice.queryParams, 'dateTo')).format('DD/MM/YYYY')
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addRow();
+                        sheet
+                          .addColumns(columnrevenueOrder)
+                          .addDataSource(inventory ?? [], {
+                            str2Percent: true,
+                          })
+                          .addColumns([
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: 'Tổng cộng', dataIndex: '' },
+                            { title: invoice.result?.total?.total?.toLocaleString(), dataIndex: '' },
+                            {
+                              title: invoice.result?.total?.totalDiscount?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            {
+                              title: invoice.result?.total?.totalRevenue?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                          ])
+                          .saveAs(t('Doanh thu cửa hàng theo đơn hàng.xlsx'));
+                      }}
                     />
                   </div>
                 </div>
@@ -1047,167 +1036,130 @@ const Page = () => {
                   )}
                   <div className="flex sm:justify-end justify-center items-center p-5">
                     <Button
-                      disabled={invoice.result?.data?.length === 0 ? true : false}
+                      disabled={invoiceKiotVietFacade.result?.data?.length === 0 ? true : false}
                       text={t('titles.Export report')}
                       className={
                         'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
                       }
-                      // onClick={() => {
-                      //   const inventory = inventoryOrders?.result?.data?.map((item) => {
-                      //     return {
-                      //       STT: i++,
-                      //       code: item.invoiceCode,
-                      //       name: item.storeName,
-                      //       pickUpDate: item.pickUpDate
-                      //         ? dayjs(item.pickUpDate).format(formatDate).replace(/-/g, '/')
-                      //         : '',
-                      //       completedDate: item.completedDate
-                      //         ? dayjs(item.completedDate).format(formatDate).replace(/-/g, '/')
-                      //         : '',
-                      //       BeforeTax: item.subTotal?.toLocaleString(),
-                      //       AfterTax: item.total?.toLocaleString(),
-                      //       voucherAmount: item.voucherAmount,
-                      //       Total: item.total?.toLocaleString(),
-                      //       Type:
-                      //         item.billType === 'RECIEVED'
-                      //           ? t('supplier.Sup-Status.Sell goods')
-                      //           : t('supplier.Sup-Status.Return goods'),
-                      //     };
-                      //   });
+                      onClick={() => {
+                        const Product = invoiceKiotVietFacade?.result?.data?.map((item) => {
+                          return {
+                            STT: i++,
+                            productCode: item.productCode,
+                            productName: item.productName,
+                            barcode: item.barcode,
+                            supplierName: item.supplierName,
+                            revenue: item.revenue?.toLocaleString(),
+                            status:
+                              item.status === 'APPROVED'
+                                ? t('Đang bán')
+                                : item.status === 'STOP_SELLING'
+                                ? t('Ngừng bán')
+                                : '',
+                          };
+                        });
 
-                      //   const excel = new Excel();
-                      //   const sheet = excel.addSheet('Sheet1');
-                      //   sheet.setTHeadStyle({
-                      //     background: 'FFFFFFFF',
-                      //     borderColor: 'C0C0C0C0',
-                      //     wrapText: false,
-                      //     fontName: 'Calibri',
-                      //   });
-                      //   sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
-                      //   sheet.setRowHeight(0.8, 'cm');
-                      //   sheet.addColumns([
-                      //     { title: '', dataIndex: '' },
-                      //     { title: '', dataIndex: '' },
-                      //     { title: 'BÁO CÁO DOANH THU NHÀ CUNG CẤP THEO ĐƠN HÀNG', dataIndex: '' },
-                      //   ]);
-                      //   // sheet.drawCell(10, 0, '');
-                      //   sheet.addRow();
-                      //   sheet.addColumns([
-                      //     { title: 'Tìm kiếm:', dataIndex: '' },
-                      //     {
-                      //       title: JSON.parse(inventoryOrders.queryParams || '{}').fullTextSearch || '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
+                        const excel = new Excel();
+                        const sheet = excel.addSheet('Sheet1');
+                        sheet.setTHeadStyle({
+                          background: 'FFFFFFFF',
+                          borderColor: 'C0C0C0C0',
+                          wrapText: false,
+                          fontName: 'Calibri',
+                        });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
+                        sheet.setRowHeight(0.8, 'cm');
+                        sheet.addColumns([
+                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '' },
+                          { title: 'BÁO CÁO DOANH THU CỬA HÀNG THEO SẢN PHẨM', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Tìm kiếm:', dataIndex: '' },
+                          {
+                            title: JSON.parse(invoiceKiotVietFacade.queryParams || '{}').fullTextSearch || '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Chọn trạng thái:', dataIndex: '' },
+                          {
+                            title: getFilter(invoiceKiotVietFacade.queryParams, 'status')
+                              ? `${
+                                  statusCategoryProduct.find((item) => {
+                                    return item.value === getFilter(invoiceKiotVietFacade.queryParams, 'status');
+                                  })?.label
+                                }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
 
-                      //     { title: 'Chọn loại đơn hàng:', dataIndex: '' },
-                      //     {
-                      //       title: getFilter(inventoryOrders.queryParams, 'type')
-                      //         ? `${
-                      //             statusCategory.find((item) => {
-                      //               return item.value === getFilter(inventoryOrders.queryParams, 'type');
-                      //             })?.label
-                      //           }`
-                      //         : '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
+                          { title: 'Chọn cửa hàng:', dataIndex: '' },
+                          {
+                            title: getFilter(invoiceKiotVietFacade.queryParams, 'idStore')
+                              ? `${
+                                  storeorder?.find((item) => {
+                                    return item.id === getFilter(invoiceKiotVietFacade.queryParams, 'idStore');
+                                  })?.name
+                                }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                          { title: 'Chọn nhà cung cấp:', dataIndex: '' },
+                          {
+                            title: getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier')
+                              ? `${
+                                  supplier?.find((item) => {
+                                    return item.id === getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier');
+                                  })?.supplier?.name
+                                }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Từ ngày', dataIndex: '' },
+                          {
+                            title: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom')
+                              ? dayjs(getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom')).format('DD/MM/YYYY')
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
 
-                      //     { title: 'Chọn cửa hàng:', dataIndex: '' },
-                      //     {
-                      //       title: getFilter(inventoryOrders.queryParams, 'idStore')
-                      //         ? `${
-                      //             inven?.find((item) => {
-                      //               return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
-                      //             })?.name
-                      //           }`
-                      //         : '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-                      //   ]);
-                      //   sheet.addRow();
-                      //   sheet.addColumns([
-                      //     { title: 'Từ ngày', dataIndex: '' },
-                      //     {
-                      //       title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
-                      //         ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format(
-                      //             'MM/DD/YYYY',
-                      //           )
-                      //         : '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-
-                      //     { title: 'Đến ngày', dataIndex: '' },
-                      //     {
-                      //       title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
-                      //         ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format(
-                      //             'MM/DD/YYYY',
-                      //           )
-                      //         : '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-                      //   ]);
-                      //   sheet.addRow();
-                      //   sheet.addColumns([
-                      //     { title: 'Doanh thu', dataIndex: '' },
-                      //     {
-                      //       title: revenueTotal ? revenueTotal + ' VND' : '',
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-
-                      //     { title: 'Tổng số đơn thành công', dataIndex: '' },
-                      //     {
-                      //       title: inventoryOrders.result?.statistical?.totalOderSuccess?.toLocaleString(),
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-                      //   ]);
-                      //   sheet.addRow();
-                      //   sheet.addColumns([
-                      //     { title: 'Tổng số đơn trả', dataIndex: '' },
-                      //     {
-                      //       title: inventoryOrders.result?.statistical?.totalOderReturn?.toLocaleString(),
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-
-                      //     { title: 'Tổng số đơn bị hủy', dataIndex: '' },
-                      //     {
-                      //       title: inventoryOrders.result?.statistical?.totalOderCancel?.toLocaleString(),
-                      //       dataIndex: '',
-                      //     },
-                      //     { title: '', dataIndex: '' },
-                      //   ]);
-                      //   sheet.addRow();
-                      //   sheet
-                      //     .addColumns(columnrevenue)
-                      //     .addDataSource(inventory ?? [], {
-                      //       str2Percent: true,
-                      //     })
-                      //     .addColumns([
-                      //       { title: '', dataIndex: '' },
-                      //       { title: '', dataIndex: '' },
-                      //       { title: '', dataIndex: '' },
-                      //       { title: '', dataIndex: '' },
-                      //       { title: 'Tổng cộng', dataIndex: '' },
-                      //       { title: inventoryOrders.result?.total?.sumSubTotal?.toLocaleString(), dataIndex: '' },
-                      //       {
-                      //         title: inventoryOrders.result?.total?.sumTotal?.toLocaleString(),
-                      //         dataIndex: '',
-                      //       },
-                      //       {
-                      //         title: inventoryOrders.result?.total?.sumVoucherAmount?.toLocaleString(),
-                      //         dataIndex: '',
-                      //       },
-                      //       { title: inventoryOrders.result?.total?.sumMoney?.toLocaleString(), dataIndex: '' },
-                      //       { title: '', dataIndex: '' },
-                      //     ])
-                      //     .saveAs(t('supplier.Supplier revenue Order'));
-                      // }}
+                          { title: 'Đến ngày', dataIndex: '' },
+                          {
+                            title: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo')
+                              ? dayjs(getFilter(invoiceKiotVietFacade.queryParams, 'dateTo')).format('DD/MM/YYYY')
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet
+                          .addColumns(columnrevenueProduct)
+                          .addDataSource(Product ?? [], {
+                            str2Percent: true,
+                          })
+                          .addColumns([
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: 'Tổng cộng', dataIndex: '' },
+                            { title: invoiceKiotVietFacade.result?.total?.total?.toLocaleString(), dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                          ])
+                          .saveAs(t('Doanh thu cửa hàng theo sản phẩm.xlsx'));
+                      }}
                     />
                   </div>
                 </div>

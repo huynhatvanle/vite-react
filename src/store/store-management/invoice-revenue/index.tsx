@@ -123,6 +123,12 @@ export class InvoiceRevenue extends CommonEntity {
     public isKiotViet?: boolean,
     public categoryKiotId?: string,
     public parentId?: string,
+    public invoiceCode?: string,
+    public completedDate?: string,
+    public total?: string,
+    public discount?: string,
+    public revenue?: string,
+    public type?: string,
   ) {
     super();
   }

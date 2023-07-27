@@ -142,7 +142,8 @@
     "Supplier/Add": "Supplier",
     "Supplier/Edit": "Supplier",
     "Contract-View": "Contract Management",
-    "Merchandise-Managerment/Product/Detail": "Inventory Management"
+    "Merchandise-Managerment/Product/Detail": "Inventory Management",
+    "Store-Revenue": "Store Revenue"
   },
   "columns": {
     "auth": {
