@@ -12,6 +12,7 @@ import { UserFacade, GlobalFacade, CodeFacade, UserRoleFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { keyRole, routerLinks, lang } from '@utils';
 import classNames from 'classnames';
+import { createSearchParams } from 'react-router-dom';
 
 const Page = () => {
   const userRoleFacade = UserRoleFacade();
@@ -26,6 +27,21 @@ const Page = () => {
     });
   }, []);
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (
+      userRoleFacade?.result?.data?.length &&
+      !userRoleFacade?.result?.data?.filter((item) => item.code === request.filter.roleCode).length
+    ) {
+      navigate({
+        pathname: `/${lang}${routerLinks('User')}`,
+        search: `?${createSearchParams({ filter: '{"roleCode":"staff"}' })}`,
+      });
+      request.filter.roleCode = 'staff';
+      dataTableRef?.current?.onChange(request);
+    }
+  }, [userRoleFacade?.result]);
+
   const userFacade = UserFacade();
   useEffect(() => {
     switch (userFacade.status) {
@@ -38,7 +54,6 @@ const Page = () => {
   const request = JSON.parse(userFacade.queryParams || '{}');
   request.filter = JSON.parse(request?.filter || '{}');
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const dataTableRef = useRef<TableRefObject>(null);
   return (
     <div className={'container mx-auto grid grid-cols-12 gap-3 px-2.5 pt-2.5'}>
@@ -107,7 +122,7 @@ const Page = () => {
                 </div>
               ))}
             </div>
-            <div className="p-2 sm:p-0">
+            <div className="p-2 sm:p-0 block sm:hidden">
               <Select
                 value={request.filter.roleCode}
                 className={'w-full'}

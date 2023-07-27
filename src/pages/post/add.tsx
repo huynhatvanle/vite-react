@@ -10,13 +10,13 @@ import slug from 'slug';
 import { Spin } from 'antd';
 const Page = () => {
   const { id, type } = useParams();
-  const dataFacade = PostFacade();
+  const postFacade = PostFacade();
   const { set } = GlobalFacade();
   const isReload = useRef(false);
-  const param = JSON.parse(dataFacade.queryParams || `{"filter":"{\\"type\\":\\"${type}\\"}"}`);
+  const param = JSON.parse(postFacade.queryParams || `{"filter":"{\\"type\\":\\"${type}\\"}"}`);
   useEffect(() => {
-    if (id) dataFacade.getById({ id });
-    else dataFacade.set({ data: undefined });
+    if (id) postFacade.getById({ id });
+    else postFacade.set({ data: undefined });
     set({
       breadcrumbs: [
         { title: 'titles.Setting', link: '' },
@@ -25,14 +25,14 @@ const Page = () => {
       ],
     });
     return () => {
-      isReload.current && dataFacade.get(param);
+      isReload.current && postFacade.get(param);
     };
   }, [id]);
 
   const navigate = useNavigate();
   const isBack = useRef(true);
   useEffect(() => {
-    switch (dataFacade.status) {
+    switch (postFacade.status) {
       case 'post.fulfilled':
       case 'put.fulfilled':
         if (Object.keys(param).length > 0) isReload.current = true;
@@ -44,13 +44,13 @@ const Page = () => {
         }
         break;
     }
-  }, [dataFacade.status]);
+  }, [postFacade.status]);
 
   const handleBack = () => navigate(`/${lang}${routerLinks('Post')}?${new URLSearchParams(param).toString()}`);
 
   const handleSubmit = (values: Post) => {
-    if (id) dataFacade.put({ ...values, id, type });
-    else dataFacade.post({ ...values, type });
+    if (id) postFacade.put({ ...values, id, type });
+    else postFacade.post({ ...values, type });
   };
 
   const postTypeFacade = PostTypeFacade();
@@ -58,16 +58,24 @@ const Page = () => {
     if (!postTypeFacade.result?.data?.length) postTypeFacade.get({});
   }, []);
   useEffect(() => {
-    if (postTypeFacade.result?.data) {
+    if (postTypeFacade.result?.data?.length) {
       set({ titleOption: { type: postTypeFacade.result?.data?.filter((item) => item.code === type)[0]?.name } });
+      if (!postTypeFacade?.result?.data?.filter((item) => item.code === type).length) {
+        navigate({
+          pathname: location.pathname.replace(
+            `/${type}/`,
+            id && postFacade.data?.type ? `/${postFacade.data?.type}/` : '/projects/',
+          ),
+        });
+      }
     }
   }, [postTypeFacade.result]);
   const { t } = useTranslation();
   return (
     <div className={'max-w-3xl mx-auto bg-white p-4 shadow rounded-xl'}>
-      <Spin spinning={dataFacade.isLoading}>
+      <Spin spinning={postFacade.isLoading}>
         <Form
-          values={{ ...dataFacade.data }}
+          values={{ ...postFacade.data }}
           className="intro-x"
           columns={[
             {
@@ -151,7 +159,7 @@ const Page = () => {
             />
           )}
           handSubmit={handleSubmit}
-          disableSubmit={dataFacade.isLoading}
+          disableSubmit={postFacade.isLoading}
           handCancel={handleBack}
         />
       </Spin>

@@ -10,6 +10,7 @@ import { lang, keyRole, routerLinks } from '@utils';
 import { GlobalFacade, CodeFacade, CodeTypeFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
+import { createSearchParams } from 'react-router-dom';
 
 const Page = () => {
   const { user, set } = GlobalFacade();
@@ -23,6 +24,21 @@ const Page = () => {
       ],
     });
   }, []);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (
+      codeTypeFacade?.result?.data?.length &&
+      !codeTypeFacade?.result?.data?.filter((item) => item.code === request.filter.type).length
+    ) {
+      navigate({
+        pathname: `/${lang}${routerLinks('Code')}`,
+        search: `?${createSearchParams({ filter: '{"type":"position"}' })}`,
+      });
+      request.filter.type = 'position';
+      dataTableRef?.current?.onChange(request);
+    }
+  }, [codeTypeFacade.result]);
 
   const codeFacade = CodeFacade();
   useEffect(() => {
@@ -39,7 +55,6 @@ const Page = () => {
   request.filter = JSON.parse(request?.filter || '{}');
   const { t } = useTranslation();
   const dataTableRef = useRef<TableRefObject>(null);
-  const navigate = useNavigate();
   return (
     <div className={'container mx-auto grid grid-cols-12 gap-3 px-2.5 pt-2.5'}>
       <div className="col-span-12 md:col-span-4 lg:col-span-3 -intro-x">
