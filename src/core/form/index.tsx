@@ -334,6 +334,24 @@ export const Form = ({
             defaultChecked={!!values && values[item.name || ''] === 1}
           />
         );
+      case 'number':
+        return (
+          <input
+            type='number'
+            tabIndex={formItem.tabIndex || index}
+            disabled={!!formItem.disabled && formItem.disabled(values, form)}
+            className={classNames(
+              'w-full h-10 text-gray-600 bg-white px-4 ant-input border rounded-xl',
+              {
+                'bg-gray-100 text-gray-400': !!formItem.disabled && formItem.disabled(values, form),
+              },
+            )}
+            placeholder={
+              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+            }
+            onChange={(e) => formItem.onChange && formItem.onChange(e.target.value, form, reRender)}
+          />
+        );
       default:
         // @ts-ignore
         return (
@@ -509,6 +527,20 @@ export const Form = ({
                   validator(_: any, value: any) {
                     if (!value || /^[a-zA-Z ]+$/.test(value)) return Promise.resolve();
                     return Promise.reject(t(rule.message || 'components.form.only text'));
+                  },
+                }));
+                break;
+              case 'textarea':
+                rules.push(() => ({
+                  validator(_: any, value: any) {
+                    if (value?.trim().length > 500) {
+                      return Promise.reject(
+                        t(rule.message || 'components.form.ruleTextarea', {
+                          max: 500,
+                        }),
+                      );
+                    }
+                    return Promise.resolve();
                   },
                 }));
                 break;

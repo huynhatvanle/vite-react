@@ -13,6 +13,9 @@
       "No Data": "Trống"
     },
     "form": {
+      "ruleRequiredNumber": "Đây là trường bắt buộc!",
+      "ruleNumber": "Chỉ chấp nhận giá trị từ {{min}} đến {{max}}",
+      "ruleTextarea": "Xin vui lòng nhập tối đa {{max}} ký tự",
       "ruleRequired": "Xin vui lòng nhập {{title}}",
       "ruleRequiredSelect": "Xin vui lòng chọn {{title}}",
       "ruleRequiredPassword": "Đây là trường bắt buộc!",
@@ -235,7 +238,8 @@
         "PaginationSupplier": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} nhà cung cấp",
         "PaginationProduct": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} sản phẩm",
         "PaginationOrder": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} đơn hàng",
-        "PaginationDiscount": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} chiết khấu"
+        "PaginationDiscount": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} chiết khấu",
+        "PaginationTax": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} thuế"
       }
     }
   },

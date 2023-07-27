@@ -41,7 +41,7 @@ const Page = () => {
   const { data, isLoading, queryParams, status } = storeFacade;
   const categoryFacade = CategoryFacade()
   const supplierStoreFacade = SupplierStoreFacade()
-
+  console.log(invoiceRevenueFacade.status)
   // const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
@@ -560,6 +560,7 @@ const Page = () => {
                         formItem: {
                           tabIndex: 11,
                           type: 'textarea',
+                          rules: [{ type: 'textarea' }]
                         },
                       },
                     ]}

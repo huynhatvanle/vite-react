@@ -294,9 +294,10 @@ Click "${name}" Eye icon
     Click    ${element}
     Should Be Equal    first    second
 
-Click on the "${text}" button in the "${name}" table line
+Click on the "${text}" button in the "${name}" table line1
     Wait Until Element Spin
     ${element}=    Get Element Form Item By Name    ${STATE["${name}"]}    //input[contains(@class, "ant-input")]
+    Log To Console    ${element}
     Click    ${element}
     Click Confirm To Action
 
