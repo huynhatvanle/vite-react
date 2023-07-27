@@ -16,12 +16,6 @@ const Layout = () => [
       {
         name: 'inventory-management/product',
       },
-      {
-        name: 'inventory-management/category',
-      },
-      {
-        name: 'inventory-management/tax',
-      },
     ],
   },
   {

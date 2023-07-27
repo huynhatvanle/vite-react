@@ -172,9 +172,8 @@ const Page = () => {
               facade={productFacade}
               ref={dataTableRef}
               onRow={(data: any) => ({
-                onDoubleClick: () => {
-                  navigate(`/${lang}${routerLinks('store-managerment/branch-management/edit')}/${data.id}`);
-                },
+                onDoubleClick: () =>
+                  navigate(`/${lang}${routerLinks('Merchandise-Managerment/Product/Detail')}/${data.id}`),
               })}
               defaultRequest={{ page: 1, perPage: 10, filter: { type: 'BALANCE', approveStatus: 'APPROVED' } }}
               xScroll="1270px"
@@ -721,7 +720,7 @@ const Page = () => {
                         onChange(value, form) {
                           setCategoryId1(value)
                           setCategoryId2('')
-                          form.resetFields(['categoryId2', 'categoryId3']);                          
+                          form.resetFields(['categoryId2', 'categoryId3']);
                           notapprovedFacade.getproduct({
                             page: 1,
                             perPage: 10,
@@ -741,7 +740,7 @@ const Page = () => {
                           //     storeId: id,
                           //     type: form.getFieldValue('type'),
                           //     supplierId: formsproduct.getFieldValue('supplierName'),
-                          //     categoryId1: value, 
+                          //     categoryId1: value,
                           //   },
                           // });
                         },
