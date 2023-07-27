@@ -432,14 +432,11 @@ const Page = () => {
                   <Form
                     className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
                     values={{
-                      categoryId1: getFilter(productFacade.queryParams, 'supplierId'),
+                      categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                       categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                       categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
-                      //supplierName: getFilter(productFacade.queryParams, 'supplierId'),
-                      // categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
-                      // categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
-                      // categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
-                      //type: getFilter(productFacade.queryParams, 'type'),
+                      supplierName: getFilter(productFacade.queryParams, 'supplierId'),
+                      type: getFilter(productFacade.queryParams, 'type'),
                     }}
                     columns={[
                       {
@@ -453,14 +450,6 @@ const Page = () => {
                             label: item?.name!,
                             value: item?.id!,
                           })),
-                          // firstLoad: () => ({}),
-                          // get: {
-                          //   facade: CategoryFacade,
-                          //   format: (item: any) => ({
-                          //     label: item.name,
-                          //     value: item.id,
-                          //   }),
-                          // },
                           onChange(value, form) {
                             setCategoryId1(value);
                             setCategoryId2('');
@@ -470,15 +459,12 @@ const Page = () => {
                               perPage: 10,
                               filter: {
                                 storeId: id,
-                                //type: form.getFieldValue('type'),
                                 supplierId: forms.getFieldValue('supplierName'),
-                                //categoryId1: form.getFieldValue('categoryId1'),
                                 categoryId2: form.getFieldValue('categoryId2'),
                                 categoryId3: form.getFieldValue('categoryId3'),
                                 approveStatus: forms.getFieldValue('approveStatus'),
                                 type: 'BALANCE',
                                 categoryId1: value ? value : '',
-                                //supplierId: id,
                               },
                             });
                           },
@@ -534,21 +520,13 @@ const Page = () => {
                               page: 1,
                               perPage: 10,
                               filter: {
-                                //supplierId: id,
                                 type: 'BALANCE',
                                 categoryId3: value ? value : '',
                                 categoryId1: form.getFieldValue('categoryId1'),
                                 categoryId2: form.getFieldValue('categoryId2'),
-
                                 storeId: id,
-                                //type: form.getFieldValue('type'),
                                 supplierId: forms.getFieldValue('supplierName'),
-                                //categoryId1: form.getFieldValue('categoryId1'),
-                                //categoryId2: form.getFieldValue('categoryId2'),
-                                //categoryId3: form.getFieldValue('categoryId3'),
                                 approveStatus: forms.getFieldValue('approveStatus'),
-                                //type: 'BALANCE',
-                                //categoryId1: value ? value : '',
                               },
                             });
                           },
