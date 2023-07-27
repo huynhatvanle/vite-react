@@ -171,6 +171,9 @@ const Page = () => {
                           status: '',
                         },
                       }}
+                      onRow={(data: any) => ({
+                        onDoubleClick: () => navigate(`/${lang}${routerLinks('Discount-Detail')}/${data.id}`),
+                      })}
                       xScroll="1400px"
                       pageSizeRender={(sizePage: number) => sizePage}
                       pageSizeWidth={'50px'}
