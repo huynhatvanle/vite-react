@@ -62,6 +62,7 @@ const action = {
       return data;
     },
   ),
+
   getproduct: createAsyncThunk(name + '/supplierwaitingappprove', async () => {
     const { data } = await API.get<Product>(`${routerLinks(name, 'api')}/list/supplier-waiting-appprove`);
     return data || {};
@@ -94,7 +95,9 @@ export const productSlice = createSlice(new Slice<Product>(action, { result: {},
       state.status = 'getProduct.rejected';
       state.isLoading = false;
     })
-    
+
+
+
     .addCase(action.getproduct.pending, (state: State, action) => {
       state.data = action.meta.arg;
       state.isLoading = true;
@@ -111,7 +114,6 @@ export const productSlice = createSlice(new Slice<Product>(action, { result: {},
       state.status = 'getproduct.rejected';
       state.isLoading = false;
     })
-
 
 ));
 

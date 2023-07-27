@@ -6,8 +6,8 @@ import { CategoryFacade, ProductFacade, SupplierFacade, SupplierAdminFacade, not
 import { TableRefObject } from '@models';
 import { DataTable } from '@core/data-table';
 import { routerLinks, languages, language, getFilter } from '@utils';
-import { Tabs } from 'antd';
 import { Form } from '@core/form';
+import { Form as AntForm, Tabs } from 'antd';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -21,13 +21,40 @@ const Page = () => {
 
   const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRefProduct = useRef<TableRefObject>(null);
-  
+
   const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeInventoryTab') || 'tab');
-  const {isLoading, queryParams } = productFacade;
+  const { isLoading, queryParams } = productFacade;
 
   const onChangeTab = (key: string) => {
     setActiveKey(key);
     localStorage.setItem('activeInventoryTab', key);
+
+    if (key == '1') {
+      supplierAdminFacade.get({
+        type: 'BALANCE',
+      })
+      dataTableRef?.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter: { type: 'BALANCE', approveStatus: 'APPROVED' }
+      });
+    }
+
+    if (key == '2') {
+      productFacade.getproduct();
+      supplierAdminFacade.get({
+        type: 'BALANCE',
+      })
+      notapprovedFacade.getproduct({
+        page: 1,
+        perPage: 10,
+        filter: {
+          type: 'BALANCE',
+          categoryId: '',
+          supplierId: ''
+        },
+      });
+    }
 
     navigate(`/${lang}${routerLinks('inventory-management/product')}?tab=${key}`);
   };
@@ -46,29 +73,25 @@ const Page = () => {
   const [categoryId1, setCategoryId1] = useState('')
   const [categoryId2, setCategoryId2] = useState('')
 
+  const [forms] = AntForm.useForm();
+  const [formsproduct] = AntForm.useForm();
+  console.log(productFacade)
+
   useEffect(() => {
     categoryFacade.get({});
-    if (activeKey == '1') {
-      supplierAdminFacade.get({
-        type: 'BALANCE',
-      })
-      dataTableRef?.current?.onChange({
+    supplierAdminFacade.get({
+      type: 'BALANCE',
+    })
+
+    if (activeKey == '2') {
+      notapprovedFacade.getproduct({
         page: 1,
         perPage: 10,
-        filter: { type: 'BALANCE', approveStatus: 'APPROVED' }
-      });
-    }
-    if (activeKey == '2') {
-      productFacade.getproduct();
-      supplierAdminFacade.get({
-        type: 'BALANCE',
-      })
-      notapprovedFacade.getnot({
-        type: 'BALANCE', 
-        page: 1, 
-        perPage: 10, 
-        categoryId: '', 
-        supplierId:''
+        filter: {
+          type: 'BALANCE',
+          categoryId: '',
+          supplierId: ''
+        },
       });
     }
   }, [activeKey])
@@ -108,7 +131,7 @@ const Page = () => {
     { label: 'Ngừng bán', value: 'STOP_SELLING' },
     { label: 'Đã hủy', value: 'CANCELLED' },
   ];
-  
+
   return (
     <div className="w-full">
       <Fragment>
@@ -206,9 +229,10 @@ const Page = () => {
                       ),
                   },
                 },
-              ]}  
+              ]}
               leftHeader={
                 <Form
+                  formAnt={forms}
                   className="intro-x rounded-lg w-full form-store"
                   values={{
                     supplierName: getFilter(productFacade.queryParams, 'supplierId'),
@@ -216,6 +240,7 @@ const Page = () => {
                     categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                     categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
                     type: getFilter(productFacade.queryParams, 'type'),
+                    approveStatus: getFilter(productFacade.queryParams, 'approveStatus'),
                   }}
                   columns={[
                     {
@@ -240,6 +265,7 @@ const Page = () => {
                               categoryId1: form.getFieldValue('categoryId1'),
                               categoryId2: form.getFieldValue('categoryId2'),
                               categoryId3: form.getFieldValue('categoryId3'),
+                              approveStatus: form.getFieldValue('approveStatus'),
                             },
                           });
                         },
@@ -270,7 +296,7 @@ const Page = () => {
                             },
                           });
                         },
-                        
+
                       },
                     },
                   ]}
@@ -281,9 +307,14 @@ const Page = () => {
                   <Form
                     className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
                     values={{
-                      categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
+                      categoryId1: getFilter(productFacade.queryParams, 'supplierId'),
                       categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                       categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
+                      //supplierName: getFilter(productFacade.queryParams, 'supplierId'),
+                      // categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
+                      // categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
+                      // categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
+                      //type: getFilter(productFacade.queryParams, 'type'),
                     }}
                     columns={[
                       {
@@ -313,9 +344,16 @@ const Page = () => {
                               page: 1,
                               perPage: 10,
                               filter: {
+                                storeId: id,
+                                //type: form.getFieldValue('type'),
+                                supplierId: forms.getFieldValue('supplierName'),
+                                //categoryId1: form.getFieldValue('categoryId1'),
+                                categoryId2: form.getFieldValue('categoryId2'),
+                                categoryId3: form.getFieldValue('categoryId3'),
+                                approveStatus: forms.getFieldValue('approveStatus'),
                                 type: 'BALANCE',
                                 categoryId1: value ? value : '',
-                                supplierId: id,
+                                //supplierId: id,
                               },
                             });
                           },
@@ -341,10 +379,20 @@ const Page = () => {
                               page: 1,
                               perPage: 10,
                               filter: {
-                                supplierId: id,
+                                //supplierId: id,
                                 type: 'BALANCE',
                                 categoryId2: value ? value : '',
                                 categoryId1: form.getFieldValue('categoryId1'),
+
+                                storeId: id,
+                                //type: form.getFieldValue('type'),
+                                supplierId: forms.getFieldValue('supplierName'),
+                                //categoryId1: form.getFieldValue('categoryId1'),
+                                //categoryId2: form.getFieldValue('categoryId2'),
+                                categoryId3: form.getFieldValue('categoryId3'),
+                                approveStatus: forms.getFieldValue('approveStatus'),
+                                //type: 'BALANCE',
+                                //categoryId1: value ? value : '',
                               },
                             });
                           },
@@ -368,11 +416,21 @@ const Page = () => {
                               page: 1,
                               perPage: 10,
                               filter: {
-                                supplierId: id,
+                                //supplierId: id,
                                 type: 'BALANCE',
                                 categoryId3: value ? value : '',
                                 categoryId1: form.getFieldValue('categoryId1'),
                                 categoryId2: form.getFieldValue('categoryId2'),
+
+                                storeId: id,
+                                //type: form.getFieldValue('type'),
+                                supplierId: forms.getFieldValue('supplierName'),
+                                //categoryId1: form.getFieldValue('categoryId1'),
+                                //categoryId2: form.getFieldValue('categoryId2'),
+                                //categoryId3: form.getFieldValue('categoryId3'),
+                                approveStatus: forms.getFieldValue('approveStatus'),
+                                //type: 'BALANCE',
+                                //categoryId1: value ? value : '',
                               },
                             });
                           },
@@ -381,14 +439,14 @@ const Page = () => {
                     ]}
                     disableSubmit={isLoading}
                   />
-                 
+
                 </div>
               )}
             />
           </Tabs.TabPane>
 
           <Tabs.TabPane tab={'Phê duyệt sản phẩm'} key="2" className="">
-          <DataTable
+            <DataTable
               facade={notapprovedFacade}
               ref={dataTableRefProduct}
               onRow={(data: any) => ({
@@ -465,21 +523,17 @@ const Page = () => {
                   },
                 },
               ]}
-              
+
               leftHeader={
                 <Form
+                  formAnt={formsproduct}
                   className="intro-x rounded-lg w-full form-store"
                   values={{
-                    supplierName: getFilter(productFacade.queryParams, 'supplierName'),
+                    supplierName: getFilter(productFacade.queryParams, 'supplierId'),
                     categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                     categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                     categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
                     type: getFilter(productFacade.queryParams, 'type'),
-                    approveStatus: getFilter(productFacade.queryParams,'approveStatus'),
-                    // productCode: getFilter(productFacade.queryParams, 'code'),
-                    // storeBarcode: getFilter(productFacade.queryParams, 'storeBarcode'),
-                    // supplierBarcode: getFilter(productFacade.queryParams, 'barcode'),
-                    // productName: getFilter(productFacade.queryParams, 'name'),
                   }}
                   columns={[
                     {
@@ -497,23 +551,25 @@ const Page = () => {
                           // categoryFacade.getinven({
                           //   subOrgId: value,
                           // }),
-                          notapprovedFacade.getnot({
-                            type: 'BALANCE', 
-                            page: 1, 
-                            perPage: 10, 
-                            categoryId: form.getFieldValue('categoryId1'), 
-                            supplierId: value
+                          notapprovedFacade.getproduct({
+                            page: 1,
+                            perPage: 10,
+                            filter: {
+                              type: 'BALANCE',
+                              categoryId: formsproduct.getFieldValue('categoryId1'),
+                              supplierId: value
+                            },
                           });
                           dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: {
+                              storeId: id,
                               type: form.getFieldValue('type'),
                               supplierId: value,
                               categoryId1: form.getFieldValue('categoryId1'),
                               categoryId2: form.getFieldValue('categoryId2'),
                               categoryId3: form.getFieldValue('categoryId3'),
-                              approveStatus: getFilter(productFacade.queryParams,'approveStatus'),
                             },
                           });
                         },
@@ -531,10 +587,6 @@ const Page = () => {
                     categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
                     supplierName: getFilter(productFacade.queryParams, 'supplierId'),
                     type: getFilter(productFacade.queryParams, 'type'),
-                    productCode: getFilter(productFacade.queryParams, 'code'),
-                    storeBarcode: getFilter(productFacade.queryParams, 'storeBarcode'),
-                    supplierBarcode: getFilter(productFacade.queryParams, 'barcode'),
-                    productName: getFilter(productFacade.queryParams, 'name'),
                   }}
                   columns={[
                     {
@@ -548,40 +600,32 @@ const Page = () => {
                           label: item?.name!,
                           value: item?.id!
                         })),
-                        // firstLoad: () => ({}),
-                        // get: {
-                        //   facade: CategoryFacade,
-                        //   format: (item: any) => ({
-                        //     label: item.name,
-                        //     value: item.id,
-                        //   }),
-                        // },
                         onChange(value, form) {
                           setCategoryId1(value)
                           setCategoryId2('')
-                          form.resetFields(['categoryId2', 'categoryId3']);
-                          notapprovedFacade.getnot({
-                            type: 'BALANCE', 
-                            page: 1, 
-                            perPage: 10, 
-                            categoryId: value, 
-                            supplierId: form.getFieldValue('supplierName')
-                          });
-                          dataTableRefProduct?.current?.onChange({
+                          form.resetFields(['categoryId2', 'categoryId3']);                          
+                          notapprovedFacade.getproduct({
                             page: 1,
                             perPage: 10,
                             filter: {
-                              storeId: id,
-                              type: form.getFieldValue('type'),
-                              supplierId: form.getFieldValue('supplierName'),
-                              categoryId1: value,
-                              name: form.getFieldValue('productName'),
-                              barcode: form.getFieldValue('supplierBarcode'),
-                              storeBarcode: form.getFieldValue('storeBarcode'),
-                              code: form.getFieldValue('productCode'),
-                              approveStatus: 'WAITING_APPROVE',
+                              type: 'BALANCE',
+                              categoryId: value,
+                              supplierId: formsproduct.getFieldValue('supplierName'),
+                              categoryId1: form.getFieldValue('categoryId1'),
+                              categoryId2: form.getFieldValue('categoryId2'),
+                              categoryId3: form.getFieldValue('categoryId3'),
                             },
                           });
+                          // dataTableRefProduct?.current?.onChange({
+                          //   page: 1,
+                          //   perPage: 10,
+                          //   filter: {
+                          //     storeId: id,
+                          //     type: form.getFieldValue('type'),
+                          //     supplierId: formsproduct.getFieldValue('supplierName'),
+                          //     categoryId1: value, 
+                          //   },
+                          // });
                         },
                       },
                     },
@@ -600,38 +644,32 @@ const Page = () => {
                           category2?.length === 0 ? true
                             : category2 ? false : true
                           : true,
-                        // get: {
-                        //   facade: CategoryFacade,
-                        //   key: 'result2',
-                        //   method: 'get2',
-                        //   format: (item: any) => ({
-                        //     label: item.name,
-                        //     value: item.id,
-                        //   }),
-                        //   params: (fullTextSearch, value) => ({
-                        //     fullTextSearch,
-                        //     id: value().categoryId1,
-                        //   }),
-                        // },
                         onChange(value, form) {
                           setCategoryId2(value)
                           form.resetFields(['categoryId3']);
-                          dataTableRefProduct?.current?.onChange({
+                          notapprovedFacade.getproduct({
                             page: 1,
                             perPage: 10,
                             filter: {
-                              storeId: id,
-                              type: form.getFieldValue('type'),
-                              supplierId: form.getFieldValue('supplierName'),
-                              categoryId2: value,
+                              type: 'BALANCE',
+                              categoryId: value,
+                              supplierId: formsproduct.getFieldValue('supplierName'),
                               categoryId1: form.getFieldValue('categoryId1'),
-                              name: form.getFieldValue('productName'),
-                              barcode: form.getFieldValue('supplierBarcode'),
-                              storeBarcode: form.getFieldValue('storeBarcode'),
-                              code: form.getFieldValue('productCode'),
-                              approveStatus: 'WAITING_APPROVE',
+                              categoryId2: form.getFieldValue('categoryId2'),
+                              categoryId3: form.getFieldValue('categoryId3'),
                             },
                           });
+                          // dataTableRefProduct?.current?.onChange({
+                          //   page: 1,
+                          //   perPage: 10,
+                          //   filter: {
+                          //     storeId: id,
+                          //     type: form.getFieldValue('type'),
+                          //     supplierId: form.getFieldValue('supplierName'),
+                          //     categoryId2: value,
+                          //     categoryId1: form.getFieldValue('categoryId1'),
+                          //   },
+                          // });
                         },
                       },
                     },
@@ -650,42 +688,36 @@ const Page = () => {
                           category3?.length === 0 ? true
                             : category3 ? false : true
                           : true,
-                        // get: {
-                        //   facade: CategoryFacade,
-                        //   key: 'result3',
-                        //   method: 'get3',
-                        //   format: (item: any) => ({
-                        //     label: item.name,
-                        //     value: item.id,
-                        //   }),
-                        //   params: (fullTextSearch, value) => ({
-                        //     fullTextSearch,
-                        //     id: value().categoryId2,
-                        //   }),
-                        // },
                         onChange(value, form) {
-                          dataTableRefProduct?.current?.onChange({
+                          notapprovedFacade.getproduct({
                             page: 1,
                             perPage: 10,
                             filter: {
-                              storeId: id,
-                              type: form.getFieldValue('type'),
-                              supplierId: form.getFieldValue('supplierName'),
-                              categoryId3: value,
+                              type: 'BALANCE',
+                              categoryId: value,
+                              supplierId: formsproduct.getFieldValue('supplierName'),
                               categoryId1: form.getFieldValue('categoryId1'),
                               categoryId2: form.getFieldValue('categoryId2'),
-                              name: form.getFieldValue('productName'),
-                              barcode: form.getFieldValue('supplierBarcode'),
-                              storeBarcode: form.getFieldValue('storeBarcode'),
-                              code: form.getFieldValue('productCode'),
-                              approveStatus: 'WAITING_APPROVE',
+                              categoryId3: form.getFieldValue('categoryId3'),
                             },
                           });
+                          // dataTableRefProduct?.current?.onChange({
+                          //   page: 1,
+                          //   perPage: 10,
+                          //   filter: {
+                          //     storeId: id,
+                          //     type: form.getFieldValue('type'),
+                          //     supplierId: form.getFieldValue('supplierName'),
+                          //     categoryId3: value,
+                          //     categoryId1: form.getFieldValue('categoryId1'),
+                          //     categoryId2: form.getFieldValue('categoryId2'),
+                          //   },
+                          // });
                         },
                       },
                     },
                   ]}
-                  //disableSubmit={isLoading}
+                //disableSubmit={isLoading}
                 />
               )}
             />

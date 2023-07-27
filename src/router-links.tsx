@@ -50,7 +50,7 @@ export const routerLinks = (name: string, type?: string) => {
     Ward: '/ward',
     Category: '/category',
     Product: '/product',
-    notApproved: '/product/list/not-approved',
+    notApproved: '/product/list',
     Orders: '/orders',
     SubStore: '/sub-organization/sub-org-in-store',
     ConnectSupplier: '/store-connect-supplier/supplier',
