@@ -110,7 +110,8 @@ export const InvoiceKiotVietFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<InvoiceKiotViet>),
     set: (values: State<InvoiceKiotViet>) => dispatch(action.set(values)),
-    // get: (params: PaginationQuery<InvoiceKiotViet>) => dispatch(action.getInvoiceKiotViet(params)),
+    getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<InvoiceKiotViet> }) =>
+      dispatch(action.getById({ id, keyState })),
     get: ({
       page,
       perPage,

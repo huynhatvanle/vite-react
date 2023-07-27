@@ -16,9 +16,6 @@ const Layout = () => [
       {
         name: 'Tax',
       },
-      {
-        name: 'MerchandiseManagermentCategory',
-      },
     ],
   },
   {

@@ -220,7 +220,7 @@ const Page = () => {
             formItem: {
               col: 12,
               type: 'textarea',
-              rules: [{ type: 'textarea_max_length' }],
+              rules: [{ type: 'textarea' }],
             },
           },
         ]}
