@@ -13,6 +13,9 @@
       "No Data": "Trống"
     },
     "form": {
+      "ruleRequiredNumber": "Đây là trường bắt buộc!",
+      "ruleNumber": "Chỉ chấp nhận giá trị từ {{min}} đến {{max}}",
+      "ruleTextarea": "Xin vui lòng nhập tối đa {{max}} ký tự",
       "ruleRequired": "Xin vui lòng nhập {{title}}",
       "ruleRequiredSelect": "Xin vui lòng chọn {{title}}",
       "ruleRequiredPassword": "Đây là trường bắt buộc!",
@@ -123,7 +126,10 @@
     "revenue-management/store": "Doanh thu CH",
     "Store-Revenue": "Doanh thu cửa hàng",
     "Store-Revenue/Order": "Doanh thu theo đơn hàng",
-    "Store-Revenue/Product": "Doanh thu theo sản phẩm"
+    "Store-Revenue/Product": "Doanh thu theo sản phẩm",
+    "Merchandise-managerment": "Quản lý hàng hóa",
+    "Merchandise-Managerment/Tax": "Quản lý thuế",
+    "Tax": "Thuế"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -146,7 +152,8 @@
     "Contract-View": "Quản Lý Hợp Đồng",
     "Merchandise-Managerment/Product/Detail": "Quản lý hàng hóa",
     "MerchandiseManagermentCategory": "Danh mục",
-    "Store-Revenue": "Doanh thu cửa hàng"
+    "Store-Revenue": "Doanh thu cửa hàng",
+    "Merchandise-Managerment/Tax": "Thuế"
   },
   "columns": {
     "auth": {
@@ -238,7 +245,8 @@
         "PaginationSupplier": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} nhà cung cấp",
         "PaginationProduct": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} sản phẩm",
         "PaginationOrder": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} đơn hàng",
-        "PaginationDiscount": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} chiết khấu"
+        "PaginationDiscount": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} chiết khấu",
+        "PaginationTax": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} thuế"
       }
     }
   },
@@ -447,5 +455,13 @@
     "Search by order supplier": "Tìm kiếm mã sản phẩm, tên, mã vạch",
     "Choose a time": "Chọn thời điểm",
     "Select status": "Chọn trạng thái"
+  },
+  "tax": {
+    "stt": "STT",
+    "type": "Loại thuế",
+    "taxRate": "Thuế suất (%)",
+    "descripton": "Mô tả",
+    "action": "Hoạt động",
+    "add": "Thêm thuế"
   }
 }
