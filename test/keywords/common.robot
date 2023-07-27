@@ -240,7 +240,7 @@ Select on the "${text}" item line
     Click    ${element}
 
 Click "${text}" menu
-    Click    xpath=//li[contains(@class, "menu") and descendant::span[contains(text(), "${text}")]]
+    Click    xpath=//li[ descendant::span[contains(text(), "${text}")]]
 
 # Click "${text}" menuUser
 #    Click    xpath=//li[contains(@class,"flex")]/span[contains(text(),"${text}")]
@@ -298,7 +298,7 @@ Click select role "${name}" with "${text}"
 
 Click pagination "${number}" user
     Click
-    ...    xpath=//div[contains(@class,"left")]//div[contains(@class,"ant-select-selector")]
+    ...    xpath=//div[contains(@class,"left" )]//div[contains(@class,"ant-select-selector")]
     Click    xpath=//div[contains(@class,"ant-select-item-option-content") and text() = "${number}"]
     Wait Until Element Spin
     ${data}=    Set Variable    xpath=//tbody/tr[contains(@class,"ant-table-row")]
@@ -567,3 +567,7 @@ Check data table in "${text}" with search input
     END
     Should Be Equal    ${index}    0
 ###    ###    ###
+
+Click select "${id}" merchandise "${text}"
+    Click    xpath=//div[contains(@class,"ant-select-selector")]//input[contains(@id,"${id}")]
+    Click    xpath=//div[contains(@class,"ant-select-item-option-content") and text() = "${text}"]

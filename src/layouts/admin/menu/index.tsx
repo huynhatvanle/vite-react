@@ -43,11 +43,12 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
           <li className={classNames('flex items-center pl-9 py-2 group cursor-pointer rounded-2xl text-gray-300 font-medium text-base', {
             'bg-teal-700 text-white !fill-gray-300':
               location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
-          })}>
+          })}
+            onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}>
             <p className='h-1 w-1 mr-3 rounded-lg bg-white group-hover:w-2 duration-300 ease-in-out transition-all'></p>
             <a
               key={index + v4()}
-              onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
+              className='sub-menu'
             >
               <span>{t(`titles.${subItem.name}`)}</span>
             </a>

@@ -62,6 +62,10 @@ const action = {
       return data;
     },
   ),
+  getproduct: createAsyncThunk(name + '/supplierwaitingappprove', async () => {
+    const { data } = await API.get<Product>(`${routerLinks(name, 'api')}/list/supplier-waiting-appprove`);
+    return data || {};
+  }),
 };
 
 export const productSlice = createSlice(new Slice<Product>(action, { result: {}, result2: {} }, (builder) =>
@@ -86,8 +90,27 @@ export const productSlice = createSlice(new Slice<Product>(action, { result: {},
       } else state.status = 'idle';
       state.isLoading = false;
     })
+
     .addCase(action.getProduct.rejected, (state: State) => {
       state.status = 'getProduct.rejected';
+      state.isLoading = false;
+    })
+
+
+    .addCase(action.getproduct.pending, (state: State, action) => {
+      state.data = action.meta.arg;
+      state.isLoading = true;
+      state.status = 'getproduct.pending';
+    })
+    .addCase(action.getproduct.fulfilled, (state: State, action: PayloadAction<Product>) => {
+      if (action.payload) {
+        state.user = action.payload;
+        state.status = 'getproduct.fulfilled';
+      } else state.status = 'idle';
+      state.isLoading = false;
+    })
+    .addCase(action.getproduct.rejected, (state: State) => {
+      state.status = 'getproduct.rejected';
       state.isLoading = false;
     })
 ));
@@ -124,6 +147,7 @@ export const ProductFacade = () => {
     post: (values: Product) => dispatch(action.post(values)),
     put: (values: Product) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),
+    getproduct: () => dispatch(action.getproduct()),
   };
 };
 
