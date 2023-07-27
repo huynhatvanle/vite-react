@@ -8,6 +8,10 @@ import { DataTable } from '@core/data-table';
 import { routerLinks, languages, language, getFilter } from '@utils';
 import { Form } from '@core/form';
 import { Form as AntForm, Tabs } from 'antd';
+import { Button } from '@core/button';
+import { Download } from '@svgs';
+import { Excel } from 'antd-table-saveas-excel';
+import classNames from 'classnames';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -132,6 +136,24 @@ const Page = () => {
     { label: 'Đã hủy', value: 'CANCELLED' },
   ];
 
+  interface IExcelColumn {
+    title: string;
+    key: string;
+    dataIndex: string;
+  }
+
+  const columnproduct: IExcelColumn[] = [
+    { title: 'STT', key: 'stt', dataIndex: 'stt' },
+    { title: t('product.Code'), key: 'code', dataIndex: 'code' },
+    { title: t('product.Name'), key: 'name', dataIndex: 'name' },
+    { title: t('product.Storecode'), key: 'barcode', dataIndex: 'barcode' },
+    { title: t('product.Category'), key: 'category', dataIndex: 'category' },
+    { title: t('product.Unitproduct'), key: 'basicUnit', dataIndex: 'basicUnit' },
+    { title: t('product.price'), key: 'productPrice', dataIndex: 'productPrice' },
+    { title: t('product.statCANCELLEDus'), key: 'status', dataIndex: 'status' },
+    { title: t('product.Image'), key: 'linkImage', dataIndex: 'linkImage' },
+  ]
+
   return (
     <div className="w-full">
       <Fragment>
@@ -230,6 +252,109 @@ const Page = () => {
                   },
                 },
               ]}
+              rightHeader={
+                <div className={'flex h-10 w-36 mb-2 sm:mb-0'}>
+                  {
+                    <Button
+                      className={classNames(
+                        '!bg-white !font-normal whitespace-nowrap text-left flex justify-between w-full !px-3 !border',
+                        {
+                          '!border-gray-600 !text-gray-600 hover:!bg-teal-900 hover:!text-white group':
+                            productFacade.result?.data?.length !== 0,
+                          '!border-gray-300 !text-gray-300 cursor-not-allowed':
+                            productFacade.result?.data?.length === 0,
+                        },
+                      )}
+                      icon={<Download className="icon-cud !p-0 !h-5 !w-5 !fill-current group-hover:!fill-white" />}
+                      text={t('titles.Export Excel file')}
+                      disabled={productFacade.result?.data?.length === 0 ? true : false}
+                      onClick={() => {
+                        let stt = 0
+                        const excel = new Excel();
+                        const sheet = excel.addSheet("Sheet1")
+                        sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' })
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' })
+                        sheet.setRowHeight(0.8, 'cm')
+                        sheet.addColumns([
+                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '' },
+                          { title: 'DANH SÁCH SẢN PHẨM', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Chọn nhà cung cấp:', dataIndex: '' },
+                          {
+                            title: getFilter(productFacade.queryParams, 'supplierId')
+                              ? `${supplierAdminFacade.result?.data?.find((item) => {
+                                return item.id === getFilter(productFacade.queryParams, 'supplierId');
+                              })?.name
+                              }`
+                              : '',
+                            dataIndex: '',
+                          },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Danh mục chính', dataIndex: '' },
+                          {
+                            title: getFilter(productFacade.queryParams, 'categoryId1')
+                              ? `${categoryFacade.result?.data?.find((item) => {
+                                return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                              })?.name
+                              }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                          { title: 'Danh mục cấp 1', dataIndex: '' },
+                          {
+                            title: getFilter(productFacade.queryParams, 'categoryId2')
+                              ? `${categoryFacade.result2?.data?.find((item) => {
+                                return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                              })?.name
+                              }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                          { title: 'Danh mục cấp 2', dataIndex: '' },
+                          {
+                            title: getFilter(productFacade.queryParams, 'categoryId3')
+                              ? `${categoryFacade.result3?.data?.find((item) => {
+                                return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                              })?.name
+                              }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow()
+                        sheet
+                          .addColumns(columnproduct)
+                          .addDataSource(productFacade?.result?.data?.map((item) => ({
+                            stt: ++stt,
+                            productPrice: item?.productPrice!.length > 0 ? item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()) : '0',
+                            basicUnit: item?.basicUnit,
+                            supplierName: item?.supplierName ? item?.supplierName : item.subOrg?.name,
+                            category: item?.productCategory!.length > 0 ? item?.productCategory!.map((item) => item.category?.name) : '',
+                            name: item?.name,
+                            barcode: item?.barcode,
+                            storeBarcode: item?.storeBarcode,
+                            code: item?.code,
+                            status: item.approveStatus,
+                            linkImage: item?.photos?.map((i) => i.url)
+                          })) ?? [], {
+                            str2Percent: true
+                          })
+                          .saveAs(t('product.List Balance'))
+                      }
+                      }
+                    />
+                  }
+                </div>
+              }
               leftHeader={
                 <Form
                   formAnt={forms}
@@ -379,20 +504,13 @@ const Page = () => {
                               page: 1,
                               perPage: 10,
                               filter: {
-                                //supplierId: id,
                                 type: 'BALANCE',
                                 categoryId2: value ? value : '',
                                 categoryId1: form.getFieldValue('categoryId1'),
-
                                 storeId: id,
-                                //type: form.getFieldValue('type'),
                                 supplierId: forms.getFieldValue('supplierName'),
-                                //categoryId1: form.getFieldValue('categoryId1'),
-                                //categoryId2: form.getFieldValue('categoryId2'),
                                 categoryId3: form.getFieldValue('categoryId3'),
                                 approveStatus: forms.getFieldValue('approveStatus'),
-                                //type: 'BALANCE',
-                                //categoryId1: value ? value : '',
                               },
                             });
                           },

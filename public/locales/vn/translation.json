@@ -450,5 +450,14 @@
     "Search by order supplier": "Tìm kiếm mã sản phẩm, tên, mã vạch",
     "Choose a time": "Chọn thời điểm",
     "Select status": "Chọn trạng thái"
+  },
+  "merchant": {
+    "ALL":"Tất cả",
+    "APPROVED":"Đang bán",
+    "WAITING_APPROVE":"Chờ xác nhận",
+    "REJECTED":"Từ chối",
+    "OUT_OF_STOCK":"Hết hàng",
+    "STOP_SELLING":"Ngừng bán",
+    "CANCELLED":"Đã huỷ"
   }
 }
