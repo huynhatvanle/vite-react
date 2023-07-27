@@ -567,7 +567,3 @@ Check data table in "${text}" with search input
     END
     Should Be Equal    ${index}    0
 ###    ###    ###
-
-Click select "${id}" merchandise "${text}"
-    Click    xpath=//div[contains(@class,"ant-select-selector")]//input[contains(@id,"${id}")]
-    Click    xpath=//div[contains(@class,"ant-select-item-option-content") and text() = "${text}"]

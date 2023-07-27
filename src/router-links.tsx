@@ -47,6 +47,7 @@ export const routerLinks = (name: string, type?: string) => {
     User: '/user-admin',
     Organization: '/sub-organization',
     Province: '/province',
+    notApproved: '/product/list/not-approved',
     District: '/district',
     Ward: '/ward',
     Category: '/category',

@@ -5,17 +5,15 @@ import { useNavigate, useParams } from 'react-router';
 
 import { Form } from '@core/form';
 import { Button } from '@core/button';
-import { CategoryFacade, ProductFacade, SupplierAdminFacade } from '@store';
+import { CategoryFacade, ProductFacade, StoreFacade, SupplierAdminFacade, SupplierStoreFacade } from '@store';
 import { getFilter, language, languages, routerLinks } from '@utils';
 import { DataTable } from '@core/data-table';
 import classNames from 'classnames';
 import { Download } from '@svgs';
 import { Excel } from 'antd-table-saveas-excel';
 import { TableRefObject } from '@models';
-import { notApprovedFacade } from '@store/product/product-not-approved';
 
 const Page = () => {
-  const dataTableRef = useRef<TableRefObject>(null);
   const dataTableRefProduct = useRef<TableRefObject>(null);
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -24,14 +22,13 @@ const Page = () => {
 
   const productFacade = ProductFacade();
   const categoryFacade = CategoryFacade();
+  const storeFacade = StoreFacade();
   const supplierAdminFacade = SupplierAdminFacade();
-  const notapprovedFacade = notApprovedFacade();
-  const { isLoading, queryParams } = productFacade;
+  const { queryParams } = storeFacade;
+  const [setDate] = useState<boolean>()
 
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
-  const urlParams = new URLSearchParams(window.location.search);
-  const tab = urlParams.get('tab');
   const { id } = useParams();
 
   const category1 = categoryFacade.result?.data
@@ -48,35 +45,13 @@ const Page = () => {
   };
 
   useEffect(() => {
-    categoryFacade.get({});
-    if (activeKey == '1') {
-      supplierAdminFacade.get({
-        type: 'BALANCE',
-      })
-      dataTableRef?.current?.onChange({
-        page: 1,
-        perPage: 10,
-        filter: { type: 'BALANCE', approveStatus: 'APPROVED' }
-      });
-    } if (activeKey == '2') {
-      productFacade.getproduct();
-      supplierAdminFacade.get({
-        type: 'BALANCE',
-      })
-      notapprovedFacade.getnot({
-        type: 'BALANCE',
-        page: 1,
-        perPage: 10,
-        categoryId: '',
-        supplierId: ''
-      });
+    if (id) {
+      storeFacade.getById({ id })
     }
-  }, [activeKey])
-
-  useEffect(() => {
-    categoryFacade.get({})
+    categoryFacade.get({});
+    supplierAdminFacade.get({ type: 'Balance', approveStatus: 'APPROVED' })
     return () => {
-      isReload.current && productFacade.get(param);
+      isReload.current && storeFacade.get(param);
     };
   }, [id]);
 
