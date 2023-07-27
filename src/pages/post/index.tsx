@@ -10,6 +10,7 @@ import { TableRefObject } from '@models';
 import { Popconfirm, Select, Spin, Tooltip } from 'antd';
 import { useNavigate } from 'react-router';
 import classNames from 'classnames';
+import { createSearchParams } from 'react-router-dom';
 
 const Page = () => {
   const { user, set } = GlobalFacade();
@@ -23,6 +24,21 @@ const Page = () => {
       ],
     });
   }, []);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (
+      postTypeFacade?.result?.data?.length &&
+      !postTypeFacade?.result?.data?.filter((item) => item.code === request.filter.type).length
+    ) {
+      navigate({
+        pathname: `/${lang}${routerLinks('Post')}`,
+        search: `?${createSearchParams({ filter: '{"type":"projects"}' })}`,
+      });
+      request.filter.type = 'projects';
+      dataTableRef?.current?.onChange(request);
+    }
+  }, [postTypeFacade?.result]);
 
   const postFacade = PostFacade();
   useEffect(() => {
@@ -46,7 +62,6 @@ const Page = () => {
   request.filter = JSON.parse(request?.filter || '{}');
   const { t } = useTranslation();
   const dataTableRef = useRef<TableRefObject>(null);
-  const navigate = useNavigate();
   return (
     <div className={'container mx-auto grid grid-cols-12 gap-3 px-2.5 pt-2.5'}>
       <div className="col-span-12 md:col-span-4 lg:col-span-3 -intro-x">

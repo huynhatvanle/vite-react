@@ -58,8 +58,16 @@ const Page = () => {
     if (!dataTypeFacade.result?.data?.length) dataTypeFacade.get({});
   }, []);
   useEffect(() => {
-    if (dataTypeFacade.result?.data) {
+    if (dataTypeFacade.result?.data?.length) {
       set({ titleOption: { type: dataTypeFacade.result?.data?.filter((item) => item.code === type)[0]?.name } });
+      if (!dataTypeFacade?.result?.data?.filter((item) => item.code === type).length) {
+        navigate({
+          pathname: location.pathname.replace(
+            `/${type}/`,
+            id && dataFacade.data?.type ? `/${dataFacade.data?.type}/` : '/partner/',
+          ),
+        });
+      }
     }
   }, [dataTypeFacade.result]);
   const { t } = useTranslation();

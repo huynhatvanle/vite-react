@@ -8,6 +8,7 @@ import { routerLinks, lang } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 import { Spin } from 'antd';
+import { createSearchParams } from 'react-router-dom';
 
 const Page = () => {
   const { id, type } = useParams();
@@ -58,10 +59,19 @@ const Page = () => {
     if (!codeTypeFacade.result?.data?.length) codeTypeFacade.get({});
   }, []);
   useEffect(() => {
-    if (codeTypeFacade.result?.data) {
+    if (codeTypeFacade.result?.data?.length) {
       set({ titleOption: { type: codeTypeFacade.result?.data?.filter((item) => item.code === type)[0]?.name } });
+      if (!codeTypeFacade?.result?.data?.filter((item) => item.code === type).length) {
+        navigate({
+          pathname: location.pathname.replace(
+            `/${type}/`,
+            id && codeFacade.data?.type ? `/${codeFacade.data?.type}/` : '/position/',
+          ),
+        });
+      }
     }
   }, [codeTypeFacade.result]);
+
   const { t } = useTranslation();
   return (
     <div className={'max-w-2xl mx-auto bg-white p-4 shadow rounded-xl'}>

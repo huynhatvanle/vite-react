@@ -58,10 +58,18 @@ const Page = () => {
     if (!userRoleFacade.result?.data?.length) userRoleFacade.get({});
   }, []);
   useEffect(() => {
-    if (userRoleFacade.result?.data) {
+    if (userRoleFacade.result?.data?.length) {
       set({
         titleOption: { roleCode: userRoleFacade.result?.data?.filter((item) => item.code === roleCode)[0]?.name },
       });
+      if (!userRoleFacade?.result?.data?.filter((item) => item.code === roleCode).length) {
+        navigate({
+          pathname: location.pathname.replace(
+            `/${roleCode}/`,
+            id && userFacade.data?.roleCode ? `/${userFacade.data?.roleCode}/` : '/staff/',
+          ),
+        });
+      }
     }
   }, [userRoleFacade.result]);
   const { t } = useTranslation();
