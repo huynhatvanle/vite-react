@@ -171,13 +171,18 @@ const Page = () => {
                   title: 'product.Code',
                   name: 'code',
                   tableItem: {
+                    sorter: true,
+                    filter: { type: 'search' },
                     width: 120,
                   },
                 },
                 {
                   title: 'product.Name',
                   name: 'name',
-                  tableItem: {},
+                  tableItem: {
+                    sorter: true,
+                    filter: { type: 'search' },
+                  },
                 },
                 {
                   title: 'product.Category',
@@ -544,13 +549,18 @@ const Page = () => {
                   title: 'product.Code',
                   name: 'code',
                   tableItem: {
+                    sorter: true,
+                    filter: { type: 'search' },
                     width: 120,
                   },
                 },
                 {
                   title: 'product.Name',
                   name: 'name',
-                  tableItem: {},
+                  tableItem: {
+                    sorter: true,
+                    filter: { type: 'search' },
+                  },
                 },
                 {
                   title: 'product.Category',
@@ -577,10 +587,10 @@ const Page = () => {
                         </div>
                       ) : text == 'WAITING_APPROVE' ? (
                         <div className="bg-yellow-100 text-center p-1 border border-yellow-500 text-yellow-600 rounded">
-                          {t('supplier.status.wait for confirmation')}
+                          {t('supplier.status.wait for confirm')}
                         </div>
                       ) : text == 'REJECTED' ? (
-                        <div className="bg-purple-100 text-center p-1 border border-purple-500 text-purple-600 rounded">
+                        <div className="bg-blue-100 text-center p-1 border border-blue-600 text-blue-600 rounded">
                           {t('supplier.status.decline')}
                         </div>
                       ) : text == 'OUT_OF_STOCK' ? (
