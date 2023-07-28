@@ -58,6 +58,7 @@ const Page = () => {
                     title: 'store.Name',
                     name: 'store',
                     tableItem: {
+                        render:(text, item) => item?.store?.name,
                     },
                 },
                 {

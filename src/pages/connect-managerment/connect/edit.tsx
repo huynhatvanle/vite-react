@@ -7,6 +7,7 @@ import { Form } from '@core/form';
 import { UserRoleFacade, ConnectFacade, User,GlobalFacade } from '@store';
 import { language, languages, routerLinks } from '@utils';
 import dayjs from 'dayjs';
+import { Button } from '@core/button';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -104,8 +105,8 @@ const Page = () => {
                 
             </div>
         </div>
-        <div className='w-full flex flex-row mb-5 text-base border-b'>
-            <div className='font-bold text-teal-900 w-36  mb-5 '>Địa chỉ:</div>
+        <div className='w-full sm:flex sm:flex-row gap-5 mb-5 text-base border-b'>
+            <div className='font-bold text-teal-900 w-36  mb-5  '>Địa chỉ:</div>
             <div>{data?.store?.address?.street},{data?.store?.address?.ward?.name},{data?.store?.address?.district?.name},{data?.store?.address?.province?.name}</div>
         </div>
         <div className={'sm:text-xl text-base font-bold text-teal-900 py-4 mr-5 '}>{t('titles.informationstoreRequestSupplier')}</div>
@@ -132,11 +133,17 @@ const Page = () => {
                 
             </div>
         </div>
-        <div className='w-full flex flex-row mb-5 text-base'>
-            <div className='font-bold text-teal-900 w-36'>Địa chỉ:</div>
+        <div className='w-full sm:flex sm:flex-row gap-5 mb-5 text-base border-b'>
+            <div className='font-bold text-teal-900 w-36 mb-5'>Địa chỉ:</div>
             <div>{data?.store?.address?.street},{data?.store?.address?.ward?.name},{data?.store?.address?.district?.name},{data?.store?.address?.province?.name}</div>
         </div>
+        <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:w-32 justify-center out-line w-[64%] mt-4 flex border-teal-900 hover:border-teal-600 border border-solid text-base p-2 rounded-xl text-teal-900 h-10 '}
+                  onClick={handleBack}
+                />
       </div>
+      
     </Fragment>
   );
 };
