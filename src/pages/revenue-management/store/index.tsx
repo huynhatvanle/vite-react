@@ -298,9 +298,9 @@ const Page = () => {
                                               : '',
                                             dateTo: form.getFieldValue('dateTo')
                                               ? form
-                                                  .getFieldValue('dateTo')
-                                                  .format('MM/DD/YYYY 23:59:59')
-                                                  .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                               : '',
                                             idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
                                             status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -340,9 +340,9 @@ const Page = () => {
                                             idSupplier: id,
                                             dateFrom: form.getFieldValue('dateFrom')
                                               ? form
-                                                  .getFieldValue('dateFrom')
-                                                  .format('MM/DD/YYYY 00:00:00')
-                                                  .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                               : '',
                                             dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                             idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
@@ -373,11 +373,10 @@ const Page = () => {
                               width: 70,
                               render: (value: any, item: any) =>
                                 JSON.parse(invoice.queryParams || '{}').page != 1
-                                  ? `${
-                                      JSON.parse(invoice.queryParams || '{}').page *
-                                        JSON.parse(invoice.queryParams || '{}').perPage +
-                                      stt1++
-                                    }`
+                                  ? `${JSON.parse(invoice.queryParams || '{}').page *
+                                  JSON.parse(invoice.queryParams || '{}').perPage +
+                                  stt1++
+                                  }`
                                   : `${stt1++}`,
                             },
                           },
@@ -442,7 +441,7 @@ const Page = () => {
                       />
                       <ModalForm
                         facade={invoiceKiotVietFacade}
-                        className=""
+                        className="form"
                         ref={modalFormRef}
                         textCancel="Trở về"
                         title={() => 'Thông tin chi tiết đơn hàng'}
@@ -453,7 +452,7 @@ const Page = () => {
                             formItem: {
                               render: (form, values) => {
                                 return (
-                                  <div>
+                                  <div className="border-y">
                                     <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-5">
                                       <div className="font-semibold text-teal-900 ">Thông tin đơn hàng:</div>
                                     </div>
@@ -508,8 +507,8 @@ const Page = () => {
                         ]}
                         widthModal={830}
                         footerCustom={(handleCancel) => (
-                          <div className="sm:mt-7 mt-2 w-full mb-9">
-                            <div className="flex flex-col items-start mt-2" onClick={handleCancel}>
+                          <div className=" w-full bg-white ">
+                            <div className="flex flex-col items-start mb-[33px] ml-[9px]" onClick={handleCancel}>
                               <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
                                 {t('components.form.modal.cancel')}
                               </button>
@@ -541,10 +540,10 @@ const Page = () => {
                               item.type === 'DELEVERED'
                                 ? t('Bán hàng')
                                 : item.type === 'REFUND'
-                                ? t('Trả hàng')
-                                : item.type === 'REFUND'
-                                ? t('Đã huỷ')
-                                : '',
+                                  ? t('Trả hàng')
+                                  : item.type === 'REFUND'
+                                    ? t('Đã huỷ')
+                                    : '',
                           };
                         });
 
@@ -576,11 +575,10 @@ const Page = () => {
                           { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                           {
                             title: getFilter(invoice.queryParams, 'status')
-                              ? `${
-                                  statusCategoryOrder.find((item) => {
-                                    return item.value === getFilter(invoice.queryParams, 'status');
-                                  })?.label
-                                }`
+                              ? `${statusCategoryOrder.find((item) => {
+                                return item.value === getFilter(invoice.queryParams, 'status');
+                              })?.label
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -589,11 +587,10 @@ const Page = () => {
                           { title: 'Chọn cửa hàng:', dataIndex: '' },
                           {
                             title: getFilter(invoice.queryParams, 'idStore')
-                              ? `${
-                                  storeorder?.find((item) => {
-                                    return item.id === getFilter(invoice.queryParams, 'idStore');
-                                  })?.name
-                                }`
+                              ? `${storeorder?.find((item) => {
+                                return item.id === getFilter(invoice.queryParams, 'idStore');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -850,9 +847,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                           idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
                                           status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -903,9 +900,9 @@ const Page = () => {
                                             : '',
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                           idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
@@ -1064,11 +1061,10 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(invoiceKiotVietFacade.queryParams || '{}').page != 1
-                                ? `${
-                                    JSON.parse(invoiceKiotVietFacade.queryParams || '{}').page *
-                                      JSON.parse(invoiceKiotVietFacade.queryParams || '{}').perPage +
-                                    stt1++
-                                  }`
+                                ? `${JSON.parse(invoiceKiotVietFacade.queryParams || '{}').page *
+                                JSON.parse(invoiceKiotVietFacade.queryParams || '{}').perPage +
+                                stt1++
+                                }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1151,8 +1147,8 @@ const Page = () => {
                               item.status === 'APPROVED'
                                 ? t('Đang bán')
                                 : item.status === 'STOP_SELLING'
-                                ? t('Ngừng bán')
-                                : '',
+                                  ? t('Ngừng bán')
+                                  : '',
                           };
                         });
 
@@ -1185,11 +1181,10 @@ const Page = () => {
                           { title: 'Chọn trạng thái:', dataIndex: '' },
                           {
                             title: getFilter(invoiceKiotVietFacade.queryParams, 'status')
-                              ? `${
-                                  statusCategoryProduct.find((item) => {
-                                    return item.value === getFilter(invoiceKiotVietFacade.queryParams, 'status');
-                                  })?.label
-                                }`
+                              ? `${statusCategoryProduct.find((item) => {
+                                return item.value === getFilter(invoiceKiotVietFacade.queryParams, 'status');
+                              })?.label
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -1198,11 +1193,10 @@ const Page = () => {
                           { title: 'Chọn cửa hàng:', dataIndex: '' },
                           {
                             title: getFilter(invoiceKiotVietFacade.queryParams, 'idStore')
-                              ? `${
-                                  storeorder?.find((item) => {
-                                    return item.id === getFilter(invoiceKiotVietFacade.queryParams, 'idStore');
-                                  })?.name
-                                }`
+                              ? `${storeorder?.find((item) => {
+                                return item.id === getFilter(invoiceKiotVietFacade.queryParams, 'idStore');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -1210,11 +1204,10 @@ const Page = () => {
                           { title: 'Chọn nhà cung cấp:', dataIndex: '' },
                           {
                             title: getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier')
-                              ? `${
-                                  supplier?.find((item) => {
-                                    return item.id === getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier');
-                                  })?.supplier?.name
-                                }`
+                              ? `${supplier?.find((item) => {
+                                return item.id === getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier');
+                              })?.supplier?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
