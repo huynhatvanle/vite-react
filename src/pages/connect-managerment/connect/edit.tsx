@@ -13,7 +13,6 @@ import { ModalForm } from '@core/modal/form';
 const Page = () => {
   const modalFormRef = useRef<any>();
   const { t } = useTranslation();
-  const { result, get } = UserRoleFacade();
   const connectFacade = ConnectFacade();
   const { data, isLoading, queryParams, status } = connectFacade;
   console.log(data);
@@ -39,8 +38,7 @@ const Page = () => {
     },
   ];
   useEffect(() => {
-    if (!result?.data) get({});
-
+    
     if (id) connectFacade.getById({ id });
 
     return () => {
@@ -222,7 +220,7 @@ const Page = () => {
           <div className='font-bold text-teal-900 w-36  mb-5 '>Địa chỉ:</div>
           <div>{data?.store?.address?.street},{data?.store?.address?.ward?.name},{data?.store?.address?.district?.name},{data?.store?.address?.province?.name}</div>
       </div>
-      <Button
+      <Button  
         text={t('components.form.modal.cancel')}
           className={'button sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
           onClick={handleBack}/>
@@ -233,7 +231,7 @@ const Page = () => {
         />
         
         
-         </div>):("")
+         </div>):("aaaa")
       }
       <ModalForm
                 facade={connectFacade}
