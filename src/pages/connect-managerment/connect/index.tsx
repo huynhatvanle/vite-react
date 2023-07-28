@@ -34,6 +34,7 @@ const Page = () => {
             className=' bg-white p-5 rounded-lg'
             onRow={(data: any) => ({
                 onDoubleClick: () => {
+                    
                     navigate(`/${lang}${routerLinks('connect-managerment/connect')}/${data.id}`)
                     
                 },

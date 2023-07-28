@@ -374,6 +374,7 @@ export const Form = ({
                   case 'number':
                   case 'hidden':
                   case 'password':
+                  case 'name':
                   case 'textarea':
                     rules.push({
                       required: true,
@@ -509,6 +510,19 @@ export const Form = ({
                   validator(_: any, value: any) {
                     if (!value || /^[a-zA-Z ]+$/.test(value)) return Promise.resolve();
                     return Promise.reject(t(rule.message || 'components.form.only text'));
+                  },
+                }));
+                break;
+              case 'textarea_max_length':
+                rules.push(() => ({
+                  validator(_: any, value: any) {
+                    if (!value) {
+                      return Promise.resolve();
+                    } else if (value.length <= 500) {
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject(t(rule.message || 'Chỉ được nhập tối đa 500 kí tự', { length: 500 }));
+                    }
                   },
                 }));
                 break;

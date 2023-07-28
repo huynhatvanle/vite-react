@@ -89,7 +89,7 @@ const Page = () => {
           name: 'contract',
           tableItem: {
             width: 242,
-            render: (value: any, item: any) => item?.contract[0]?.name,
+            render: (value: any, item: any) => item?.userRole[0]?.userAdmin?.name,
           },
         },
         {
