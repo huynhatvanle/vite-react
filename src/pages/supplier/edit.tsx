@@ -17,7 +17,7 @@ import {
   SupplierFacade,
   DistrictFacade,
   WardFacade,
-  ProvinceFacade,
+  ProvinceFacade
 } from '@store';
 import { TableRefObject } from '@models';
 import { Form } from '@core/form';
@@ -34,7 +34,7 @@ const Page = () => {
   const { t } = useTranslation();
   const supplierFacade = SupplierFacade();
   const { data, isLoading, queryParams, status } = supplierFacade;
-  console.log('data', data?.address?.street);
+  console.log("data", data?.address?.street);
 
   const navigate = useNavigate();
   const isBack = useRef(true);
@@ -369,6 +369,11 @@ const Page = () => {
     values.upload.append('docSubOrgId', docSubOrgId);
     // const files = forms.getFieldValue('uploadFile');
     documentsub.uploadSub(values.upload);
+
+    // setFileList([]);
+    // if (fileInputRef.current?.fileList.length > 0) {
+    //   return (fileInputRef.current!.fileList = []);
+    // }
   };
 
   const handleSubmitZip = (values: any) => {
@@ -384,6 +389,22 @@ const Page = () => {
       <Fragment>
         <div className="">
           <Tabs
+            // defaultActiveKey={sessionStorage.getItem('activeTab') || '1'}
+            // onChange={(key) => {
+            //   console.log('key', key);
+
+            //   sessionStorage.setItem('activeTab', key);
+            // }}
+            // type="card"
+            // size="large"
+            // onTabClick={(activeKey: any) => {
+            //   console.log('localStorage', localStorage);
+
+            //   console.log('activeKey', activeKey);
+            //   sessionStorage.setItem('activeTab', activeKey);
+            //   setDate(false);
+            //   return navigate(`/${lang}${routerLinks('Supplier/Edit')}/${id}?tab=${activeKey}`);
+            // }}
             defaultActiveKey="1"
             activeKey={activeKey}
             type="card"
@@ -457,7 +478,7 @@ const Page = () => {
                           firstLoad: () => ({}),
                           tabIndex: 3,
                           col: 3,
-                          rules: [{ type: 'required' }],
+                          rules: [{ type: 'requiredSelect' }],
                           type: 'select',
                           get: {
                             facade: ProvinceFacade,
@@ -477,7 +498,7 @@ const Page = () => {
                         formItem: {
                           firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
                           type: 'select',
-                          rules: [{ type: 'required' }],
+                          rules: [{ type: 'requiredSelect' }],
                           col: 3,
                           get: {
                             facade: DistrictFacade,
@@ -501,7 +522,7 @@ const Page = () => {
                         formItem: {
                           firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
                           type: 'select',
-                          rules: [{ type: 'required' }],
+                          rules: [{ type: 'requiredSelect' }],
                           col: 3,
                           get: {
                             facade: WardFacade,
@@ -540,50 +561,6 @@ const Page = () => {
                       },
                     ]}
                   />
-                  <div className="bg-white">
-                    <Form
-                      formAnt={forms}
-                      values={{
-                        ...data,
-                        nameContact: data?.userRole?.[0].userAdmin.name,
-                        emailContact: data?.userRole?.[0].userAdmin.email,
-                        phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
-                        street: data?.address?.street,
-                      }}
-                      className="intro-x form-responsive form-store3"
-                      columns={[
-                        {
-                          title: 'store.ContactName',
-                          name: 'nameContact',
-                          formItem: {
-                            tabIndex: 1,
-                            col: 4,
-                            type: 'name',
-                            rules: [{ type: 'required' }],
-                          },
-                        },
-                        {
-                          title: 'store.Contact Phone Number',
-                          name: 'phoneNumber',
-                          formItem: {
-                            tabIndex: 2,
-                            col: 4,
-                            rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
-                          },
-                        },
-                        {
-                          title: 'store.Contact Email',
-                          name: 'emailContact',
-                          formItem: {
-                            tabIndex: 1,
-                            col: 4,
-                            rules: [{ type: 'required' }, { type: 'email' }],
-                          },
-                        },
-                      ]}
-                      disableSubmit={isLoading}
-                    />
-                  </div>
                   <Form
                     formAnt={forms}
                     values={{
@@ -593,13 +570,41 @@ const Page = () => {
                       phoneNumber: data?.userRole?.[0].userAdmin.phoneNumber,
                       street: data?.address?.street,
                     }}
+                    className="intro-x form-responsive form-store3"
                     columns={[
+                      {
+                        title: 'store.ContactName',
+                        name: 'nameContact',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          type: 'name',
+                          rules: [{ type: 'required' }],
+                        },
+                      },
+                      {
+                        title: 'store.Contact Phone Number',
+                        name: 'phoneNumber',
+                        formItem: {
+                          tabIndex: 2,
+                          col: 4,
+                          rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
+                        },
+                      },
+                      {
+                        title: 'store.Contact Email',
+                        name: 'emailContact',
+                        formItem: {
+                          tabIndex: 1,
+                          col: 4,
+                          rules: [{ type: 'required' }, { type: 'email' }],
+                        },
+                      },
                       {
                         title: 'store.Note',
                         name: 'note',
                         formItem: {
                           type: 'textarea',
-                          rules: [{ type: 'textarea_max_length' }],
                           tabIndex: 1,
                           col: 12,
                         },
@@ -850,11 +855,10 @@ const Page = () => {
                                   { title: 'Danh mục chính', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId1')
-                                      ? `${
-                                          categoryFacade.result?.data?.find((item) => {
-                                            return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-                                          })?.name
-                                        }`
+                                      ? `${categoryFacade.result?.data?.find((item) => {
+                                        return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+                                      })?.name
+                                      }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -862,11 +866,10 @@ const Page = () => {
                                   { title: 'Danh mục cấp 1', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId2')
-                                      ? `${
-                                          categoryFacade.result2?.data?.find((item) => {
-                                            return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-                                          })?.name
-                                        }`
+                                      ? `${categoryFacade.result2?.data?.find((item) => {
+                                        return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+                                      })?.name
+                                      }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -874,11 +877,10 @@ const Page = () => {
                                   { title: 'Danh mục cấp 2', dataIndex: '' },
                                   {
                                     title: getFilter(productFacade.queryParams, 'categoryId3')
-                                      ? `${
-                                          categoryFacade.result3?.data?.find((item) => {
-                                            return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-                                          })?.name
-                                        }`
+                                      ? `${categoryFacade.result3?.data?.find((item) => {
+                                        return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+                                      })?.name
+                                      }`
                                       : '',
                                     dataIndex: '',
                                   },
@@ -1217,9 +1219,9 @@ const Page = () => {
                                               : '',
                                             dateTo: form.getFieldValue('dateTo')
                                               ? form
-                                                  .getFieldValue('dateTo')
-                                                  .format('MM/DD/YYYY 23:59:59')
-                                                  .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                               : '',
                                           },
                                           idStore: form.getFieldValue('Store') ? form.getFieldValue('Store') : '',
@@ -1261,9 +1263,9 @@ const Page = () => {
                                           filterDate: {
                                             dateFrom: form.getFieldValue('dateFrom')
                                               ? form
-                                                  .getFieldValue('dateFrom')
-                                                  .format('MM/DD/YYYY 00:00:00')
-                                                  .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                               : '',
                                             dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                           },
@@ -1297,11 +1299,10 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(inventoryOrders.queryParams || '{}').page != 1
-                                ? `${
-                                    JSON.parse(inventoryOrders.queryParams || '{}').page *
-                                      JSON.parse(inventoryOrders.queryParams || '{}').perPage +
-                                    stt1++
-                                  }`
+                                ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                JSON.parse(inventoryOrders.queryParams || '{}').perPage +
+                                stt1++
+                                }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1454,11 +1455,10 @@ const Page = () => {
                             { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'type')
-                                ? `${
-                                    statusCategory.find((item) => {
-                                      return item.value === getFilter(inventoryOrders.queryParams, 'type');
-                                    })?.label
-                                  }`
+                                ? `${statusCategory.find((item) => {
+                                  return item.value === getFilter(inventoryOrders.queryParams, 'type');
+                                })?.label
+                                }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1467,11 +1467,10 @@ const Page = () => {
                             { title: 'Chọn cửa hàng:', dataIndex: '' },
                             {
                               title: getFilter(inventoryOrders.queryParams, 'idStore')
-                                ? `${
-                                    inven?.find((item) => {
-                                      return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
-                                    })?.name
-                                  }`
+                                ? `${inven?.find((item) => {
+                                  return item.id === getFilter(inventoryOrders.queryParams, 'idStore');
+                                })?.name
+                                }`
                                 : '',
                               dataIndex: '',
                             },
@@ -1483,8 +1482,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateFrom).format(
-                                    'MM/DD/YYYY',
-                                  )
+                                  'MM/DD/YYYY',
+                                )
                                 : '',
                               dataIndex: '',
                             },
@@ -1494,8 +1493,8 @@ const Page = () => {
                             {
                               title: getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo
                                 ? dayjs(getFilter(inventoryOrders.queryParams, 'filterDate')?.dateTo).format(
-                                    'MM/DD/YYYY',
-                                  )
+                                  'MM/DD/YYYY',
+                                )
                                 : '',
                               dataIndex: '',
                             },
@@ -1692,9 +1691,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                         },
                                       },
@@ -1742,9 +1741,9 @@ const Page = () => {
                                         filterDate: {
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                         },
@@ -1934,11 +1933,10 @@ const Page = () => {
                           sorter: true,
                           render: (value: any, item: any) =>
                             JSON.parse(inventoryProduct.queryParams || '{}').page != 1
-                              ? `${
-                                  JSON.parse(inventoryProduct.queryParams || '{}').page *
-                                    JSON.parse(inventoryProduct.queryParams || '{}').perPage +
-                                  stt2++
-                                }`
+                              ? `${JSON.parse(inventoryProduct.queryParams || '{}').page *
+                              JSON.parse(inventoryProduct.queryParams || '{}').perPage +
+                              stt2++
+                              }`
                               : `${stt2++}`,
                         },
                       },
@@ -2052,11 +2050,10 @@ const Page = () => {
                           { title: 'Chọn trạng thái:', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'status')
-                              ? `${
-                                  statusRevenue.find((item) => {
-                                    return item.value === getFilter(inventoryProduct.queryParams, 'status');
-                                  })?.label
-                                }`
+                              ? `${statusRevenue.find((item) => {
+                                return item.value === getFilter(inventoryProduct.queryParams, 'status');
+                              })?.label
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -2067,11 +2064,10 @@ const Page = () => {
                           { title: 'Danh mục chính', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId1')
-                              ? `${
-                                  categoryFacade.result?.data?.find((item) => {
-                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
-                                  })?.name
-                                }`
+                              ? `${categoryFacade.result?.data?.find((item) => {
+                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId1');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -2079,11 +2075,10 @@ const Page = () => {
                           { title: 'Danh mục cấp 1', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId2')
-                              ? `${
-                                  categoryFacade.result2?.data?.find((item) => {
-                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
-                                  })?.name
-                                }`
+                              ? `${categoryFacade.result2?.data?.find((item) => {
+                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId2');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -2091,11 +2086,10 @@ const Page = () => {
                           { title: 'Danh mục cấp 2', dataIndex: '' },
                           {
                             title: getFilter(inventoryProduct.queryParams, 'categoryId3')
-                              ? `${
-                                  categoryFacade.result3?.data?.find((item) => {
-                                    return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
-                                  })?.name
-                                }`
+                              ? `${categoryFacade.result3?.data?.find((item) => {
+                                return item.id === getFilter(inventoryProduct.queryParams, 'categoryId3');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -2170,11 +2164,10 @@ const Page = () => {
                           width: 80,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${
-                                  JSON.parse(discountFacade.queryParams || '{}').page *
-                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
-                                  stt++
-                                }`
+                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
+                              JSON.parse(discountFacade.queryParams || '{}').perPage +
+                              stt++
+                              }`
                               : `${stt++}`,
                         },
                       },
@@ -2282,9 +2275,9 @@ const Page = () => {
                                               : '',
                                             dateTo: form.getFieldValue('dateTo')
                                               ? form
-                                                  .getFieldValue('dateTo')
-                                                  .format('MM/DD/YYYY 23:59:59')
-                                                  .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                               : '',
                                           },
                                           status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -2325,9 +2318,9 @@ const Page = () => {
                                           filter: {
                                             dateFrom: form.getFieldValue('dateFrom')
                                               ? form
-                                                  .getFieldValue('dateFrom')
-                                                  .format('MM/DD/YYYY 00:00:00')
-                                                  .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                               : '',
                                             dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                           },
@@ -2457,11 +2450,10 @@ const Page = () => {
                           { title: 'Chọn trạng thái', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'status')
-                              ? `${
-                                  listStatusDiscount.find((item) => {
-                                    return item.value === getFilter(discountFacade.queryParams, 'status');
-                                  })?.label
-                                }`
+                              ? `${listStatusDiscount.find((item) => {
+                                return item.value === getFilter(discountFacade.queryParams, 'status');
+                              })?.label
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -2508,7 +2500,7 @@ const Page = () => {
               </div>
             </Tabs.TabPane>
 
-            <Tabs.TabPane tab={t('ntract')} key="6" className="rounded-xl">
+            <Tabs.TabPane tab={t('titles.Contract')} key="6" className="rounded-xl">
               <div className={'w-full mx-auto bg-white rounded-xl pt-4'}>
                 <div className="flex items-left font-bold px-4">
                   <p className="sm:text-xl text-base text-teal-900 pt-2 mr-5">
@@ -2735,7 +2727,7 @@ const Page = () => {
                                             file.type == 'application/vnd.ms-excel' ||
                                             file.type == 'text/csv' ||
                                             file.type ==
-                                              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                                           ) {
                                             return (
                                               <img src="http://stag.balance.ari.com.vn/static/media/excelLogo.2e82f2065cb85667e87b.png" />
@@ -2759,13 +2751,13 @@ const Page = () => {
                                           if (
                                             file.type !== 'image/png' &&
                                             file.type !==
-                                              'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
+                                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
                                             file.type !== 'application/pdf' &&
                                             file.type !== 'image/jpeg' &&
                                             file.type !== 'image/jpg' &&
                                             file.type !== 'text/csv' &&
                                             file.type !==
-                                              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
+                                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
                                             file.type !== 'application/vnd.ms-excel'
                                           ) {
                                             Message.error({
