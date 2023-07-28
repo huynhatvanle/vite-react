@@ -33,33 +33,6 @@ const Page = () => {
     setActiveKey(key);
     localStorage.setItem('activeInventoryTab', key);
 
-    if (key == '1') {
-      supplierAdminFacade.get({
-        type: 'BALANCE',
-      })
-      dataTableRef?.current?.onChange({
-        page: 1,
-        perPage: 10,
-        filter: { type: 'BALANCE', approveStatus: 'APPROVED' }
-      });
-    }
-
-    if (key == '2') {
-      productFacade.getproduct();
-      supplierAdminFacade.get({
-        type: 'BALANCE',
-      })
-      notapprovedFacade.getproduct({
-        page: 1,
-        perPage: 10,
-        filter: {
-          type: 'BALANCE',
-          categoryId: '',
-          supplierId: ''
-        },
-      });
-    }
-
     navigate(`/${lang}${routerLinks('inventory-management/product')}?tab=${key}`);
   };
 
@@ -78,16 +51,25 @@ const Page = () => {
   const [categoryId2, setCategoryId2] = useState('')
 
   const [forms] = AntForm.useForm();
-  const [formsproduct] = AntForm.useForm();
   console.log(productFacade)
 
   useEffect(() => {
-    categoryFacade.get({});
+
     supplierAdminFacade.get({
       type: 'BALANCE',
     })
 
+    if (activeKey == '1') {
+      categoryFacade.get({});
+      dataTableRef?.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter: { type: 'BALANCE', approveStatus: 'APPROVED' }
+      });
+    }
+
     if (activeKey == '2') {
+      productFacade.getproduct();
       notapprovedFacade.getproduct({
         page: 1,
         perPage: 10,
@@ -98,6 +80,7 @@ const Page = () => {
         },
       });
     }
+
   }, [activeKey])
 
   useEffect(() => {
@@ -107,7 +90,6 @@ const Page = () => {
   }, [tab]);
 
   useEffect(() => {
-    categoryFacade.get({})
     return () => {
       isReload.current && productFacade.get(param);
     };
@@ -163,7 +145,6 @@ const Page = () => {
           size="large"
           activeKey={activeKey}
           onTabClick={(key: string) => {
-            //setDate(false)
             onChangeTab(key);
           }}
         >
@@ -189,13 +170,18 @@ const Page = () => {
                   title: 'product.Code',
                   name: 'code',
                   tableItem: {
+                    sorter: true,
+                    filter: { type: 'search' },
                     width: 120,
                   },
                 },
                 {
                   title: 'product.Name',
                   name: 'name',
-                  tableItem: {},
+                  tableItem: {
+                    sorter: true,
+                    filter: { type: 'search' },
+                  },
                 },
                 {
                   title: 'product.Category',
@@ -431,14 +417,11 @@ const Page = () => {
                   <Form
                     className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
                     values={{
-                      categoryId1: getFilter(productFacade.queryParams, 'supplierId'),
+                      categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                       categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
                       categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
-                      //supplierName: getFilter(productFacade.queryParams, 'supplierId'),
-                      // categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
-                      // categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
-                      // categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
-                      //type: getFilter(productFacade.queryParams, 'type'),
+                      supplierName: getFilter(productFacade.queryParams, 'supplierId'),
+                      type: getFilter(productFacade.queryParams, 'type'),
                     }}
                     columns={[
                       {
@@ -452,14 +435,6 @@ const Page = () => {
                             label: item?.name!,
                             value: item?.id!,
                           })),
-                          // firstLoad: () => ({}),
-                          // get: {
-                          //   facade: CategoryFacade,
-                          //   format: (item: any) => ({
-                          //     label: item.name,
-                          //     value: item.id,
-                          //   }),
-                          // },
                           onChange(value, form) {
                             setCategoryId1(value);
                             setCategoryId2('');
@@ -469,15 +444,12 @@ const Page = () => {
                               perPage: 10,
                               filter: {
                                 storeId: id,
-                                //type: form.getFieldValue('type'),
                                 supplierId: forms.getFieldValue('supplierName'),
-                                //categoryId1: form.getFieldValue('categoryId1'),
                                 categoryId2: form.getFieldValue('categoryId2'),
                                 categoryId3: form.getFieldValue('categoryId3'),
                                 approveStatus: forms.getFieldValue('approveStatus'),
                                 type: 'BALANCE',
                                 categoryId1: value ? value : '',
-                                //supplierId: id,
                               },
                             });
                           },
@@ -533,21 +505,13 @@ const Page = () => {
                               page: 1,
                               perPage: 10,
                               filter: {
-                                //supplierId: id,
                                 type: 'BALANCE',
                                 categoryId3: value ? value : '',
                                 categoryId1: form.getFieldValue('categoryId1'),
                                 categoryId2: form.getFieldValue('categoryId2'),
-
                                 storeId: id,
-                                //type: form.getFieldValue('type'),
                                 supplierId: forms.getFieldValue('supplierName'),
-                                //categoryId1: form.getFieldValue('categoryId1'),
-                                //categoryId2: form.getFieldValue('categoryId2'),
-                                //categoryId3: form.getFieldValue('categoryId3'),
                                 approveStatus: forms.getFieldValue('approveStatus'),
-                                //type: 'BALANCE',
-                                //categoryId1: value ? value : '',
                               },
                             });
                           },
@@ -571,7 +535,6 @@ const Page = () => {
                   navigate(`/${lang}${routerLinks('store-managerment/branch-management/edit')}/${data.id}`);
                 },
               })}
-              //defaultRequest={{ page: 1, perPage: 10, filter: { type: 'BALANCE', approveStatus: 'WAITING_APPROVE' } }}
               xScroll="1270px"
               className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-supplier-index"
               showSearch={false}
@@ -585,13 +548,18 @@ const Page = () => {
                   title: 'product.Code',
                   name: 'code',
                   tableItem: {
+                    sorter: true,
+                    filter: { type: 'search' },
                     width: 120,
                   },
                 },
                 {
                   title: 'product.Name',
                   name: 'name',
-                  tableItem: {},
+                  tableItem: {
+                    sorter: true,
+                    filter: { type: 'search' },
+                  },
                 },
                 {
                   title: 'product.Category',
@@ -618,10 +586,10 @@ const Page = () => {
                         </div>
                       ) : text == 'WAITING_APPROVE' ? (
                         <div className="bg-yellow-100 text-center p-1 border border-yellow-500 text-yellow-600 rounded">
-                          {t('supplier.status.wait for confirmation')}
+                          {t('supplier.status.wait for confirm')}
                         </div>
                       ) : text == 'REJECTED' ? (
-                        <div className="bg-purple-100 text-center p-1 border border-purple-500 text-purple-600 rounded">
+                        <div className="bg-blue-100 text-center p-1 border border-blue-600 text-blue-600 rounded">
                           {t('supplier.status.decline')}
                         </div>
                       ) : text == 'OUT_OF_STOCK' ? (
@@ -643,14 +611,13 @@ const Page = () => {
 
               leftHeader={
                 <Form
-                  formAnt={formsproduct}
                   className="intro-x rounded-lg w-full form-store"
                   values={{
-                    supplierName: getFilter(productFacade.queryParams, 'supplierId'),
-                    categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
-                    categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
-                    categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
-                    type: getFilter(productFacade.queryParams, 'type'),
+                    supplierName: getFilter(notapprovedFacade.queryParams, 'supplierId'),
+                    categoryId1: getFilter(notapprovedFacade.queryParams, 'categoryId1'),
+                    categoryId2: getFilter(notapprovedFacade.queryParams, 'categoryId2'),
+                    categoryId3: getFilter(notapprovedFacade.queryParams, 'categoryId3'),
+                    type: getFilter(notapprovedFacade.queryParams, 'type'),
                   }}
                   columns={[
                     {
@@ -665,28 +632,13 @@ const Page = () => {
                           value: item.id!
                         })),
                         onChange(value, form) {
-                          // categoryFacade.getinven({
-                          //   subOrgId: value,
-                          // }),
                           notapprovedFacade.getproduct({
                             page: 1,
                             perPage: 10,
                             filter: {
                               type: 'BALANCE',
-                              categoryId: formsproduct.getFieldValue('categoryId1'),
+                              categoryId: form.getFieldValue('categoryId1'),
                               supplierId: value
-                            },
-                          });
-                          dataTableRefProduct?.current?.onChange({
-                            page: 1,
-                            perPage: 10,
-                            filter: {
-                              storeId: id,
-                              type: form.getFieldValue('type'),
-                              supplierId: value,
-                              categoryId1: form.getFieldValue('categoryId1'),
-                              categoryId2: form.getFieldValue('categoryId2'),
-                              categoryId3: form.getFieldValue('categoryId3'),
                             },
                           });
                         },
@@ -699,11 +651,11 @@ const Page = () => {
                 <Form
                   className="intro-x rounded-lg w-full form-store"
                   values={{
-                    categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
-                    categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
-                    categoryId3: getFilter(productFacade.queryParams, 'categoryId3'),
-                    supplierName: getFilter(productFacade.queryParams, 'supplierId'),
-                    type: getFilter(productFacade.queryParams, 'type'),
+                    categoryId1: getFilter(notapprovedFacade.queryParams, 'categoryId1'),
+                    categoryId2: getFilter(notapprovedFacade.queryParams, 'categoryId2'),
+                    categoryId3: getFilter(notapprovedFacade.queryParams, 'categoryId3'),
+                    supplierName: getFilter(notapprovedFacade.queryParams, 'supplierId'),
+                    type: getFilter(notapprovedFacade.queryParams, 'type'),
                   }}
                   columns={[
                     {
@@ -727,22 +679,12 @@ const Page = () => {
                             filter: {
                               type: 'BALANCE',
                               categoryId: value,
-                              supplierId: formsproduct.getFieldValue('supplierName'),
+                              supplierId: form.getFieldValue('supplierName'),
                               categoryId1: form.getFieldValue('categoryId1'),
                               categoryId2: form.getFieldValue('categoryId2'),
                               categoryId3: form.getFieldValue('categoryId3'),
                             },
                           });
-                          // dataTableRefProduct?.current?.onChange({
-                          //   page: 1,
-                          //   perPage: 10,
-                          //   filter: {
-                          //     storeId: id,
-                          //     type: form.getFieldValue('type'),
-                          //     supplierId: formsproduct.getFieldValue('supplierName'),
-                          //     categoryId1: value,
-                          //   },
-                          // });
                         },
                       },
                     },
@@ -770,23 +712,12 @@ const Page = () => {
                             filter: {
                               type: 'BALANCE',
                               categoryId: value,
-                              supplierId: formsproduct.getFieldValue('supplierName'),
+                              supplierId: form.getFieldValue('supplierName'),
                               categoryId1: form.getFieldValue('categoryId1'),
                               categoryId2: form.getFieldValue('categoryId2'),
                               categoryId3: form.getFieldValue('categoryId3'),
                             },
                           });
-                          // dataTableRefProduct?.current?.onChange({
-                          //   page: 1,
-                          //   perPage: 10,
-                          //   filter: {
-                          //     storeId: id,
-                          //     type: form.getFieldValue('type'),
-                          //     supplierId: form.getFieldValue('supplierName'),
-                          //     categoryId2: value,
-                          //     categoryId1: form.getFieldValue('categoryId1'),
-                          //   },
-                          // });
                         },
                       },
                     },
@@ -812,29 +743,17 @@ const Page = () => {
                             filter: {
                               type: 'BALANCE',
                               categoryId: value,
-                              supplierId: formsproduct.getFieldValue('supplierName'),
+                              supplierId: form.getFieldValue('supplierName'),
                               categoryId1: form.getFieldValue('categoryId1'),
                               categoryId2: form.getFieldValue('categoryId2'),
                               categoryId3: form.getFieldValue('categoryId3'),
                             },
                           });
-                          // dataTableRefProduct?.current?.onChange({
-                          //   page: 1,
-                          //   perPage: 10,
-                          //   filter: {
-                          //     storeId: id,
-                          //     type: form.getFieldValue('type'),
-                          //     supplierId: form.getFieldValue('supplierName'),
-                          //     categoryId3: value,
-                          //     categoryId1: form.getFieldValue('categoryId1'),
-                          //     categoryId2: form.getFieldValue('categoryId2'),
-                          //   },
-                          // });
                         },
                       },
                     },
                   ]}
-                //disableSubmit={isLoading}
+                  disableSubmit={isLoading}
                 />
               )}
             />

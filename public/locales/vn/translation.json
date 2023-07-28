@@ -284,7 +284,8 @@
       "waiting for the goods": "Chờ lấy hàng",
       "canceled": "Đã huỷ",
       "on sale": "Đang bán",
-      "stop selling": "Ngưng bán"
+      "stop selling": "Ngưng bán",
+      "wait for confirm": "Chờ phê duyệt"
     },
     "Supplier revenue Order": "Doanh thu nhà cung cấp theo đơn hàng.xlsx",
     "Supplier revenue product": "Doanh thu nhà cung cấp theo sản phẩm.xlsx",
