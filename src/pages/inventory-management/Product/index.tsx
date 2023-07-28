@@ -89,11 +89,11 @@ const Page = () => {
     }
   }, [tab]);
 
-  // useEffect(() => {
-  //   return () => {
-  //     isReload.current && productFacade.get(param);
-  //   };
-  // }, [id]);
+  useEffect(() => {
+    return () => {
+      isReload.current && productFacade.get(param);
+    };
+  }, [id]);
 
   useEffect(() => {
     if (categoryId1) {
