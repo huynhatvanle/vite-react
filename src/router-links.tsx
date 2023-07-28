@@ -14,7 +14,7 @@ export const routerLinks = (name: string, type?: string) => {
     'User/List': '/user/list',
     'User/Add': '/user/add',
     'User/Edit': '/user/edit',
-    
+
     'inventory-management/product': '/inventory-management/product',
 
     Supplier: '/supplier',
@@ -67,7 +67,8 @@ export const routerLinks = (name: string, type?: string) => {
     InventoryListProduct: '/inventory-order/revenue-list-product',
     documentsuborganiztion: '/document-sub-organiztion',
     suborgcommisionline: '/sub-org-commision-line',
-    Tax: '/mt-tax'
+    Tax: '/mt-tax',
+    TaxAdmin: '/mt-tax/get-all-tax'
   }; // 💬 generate api to here
 
   switch (type) {
