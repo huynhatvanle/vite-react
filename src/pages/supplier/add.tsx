@@ -186,7 +186,7 @@ const Page = () => {
             formItem: {
               col: 4,
               type: 'name',
-              rules: [{ type: 'required' }],
+              rules: [{ type: 'required', message: 'ruleRequiredNumber' }],
             },
           },
           {

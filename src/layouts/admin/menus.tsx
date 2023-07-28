@@ -11,11 +11,14 @@ const Layout = () => [
   },
   {
     icon: <Shopping className="icon-menu" />,
-    name: 'Inventory Management',
+    name: 'Merchandise-managerment',
     child: [
       {
         name: 'inventory-management/product',
       },
+      {
+        name: 'Tax',
+      }
     ],
   },
   {
