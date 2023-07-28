@@ -146,7 +146,7 @@ const Page = () => {
                 year: data?.abilitySupply?.year,
                 brand: data?.brand ? data?.brand : '',
               }}
-              className="intro-x"
+              className="text-color"
               columns={[
                 {
                   title: '',
