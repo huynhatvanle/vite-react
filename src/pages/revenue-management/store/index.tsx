@@ -487,9 +487,9 @@ const Page = () => {
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          {values?.detailInvoice?.map((items: any) => (
+                                          {values?.detailInvoice?.map((items: any , stt1:number) => (
                                             <tr className="text-left">
-                                              <td className="p-5">{stt1++}</td>
+                                              <td className="p-5">{++stt1}</td>
                                               <td className="p-5">{items?.productName}</td>
                                               <td className="p-5">{items?.quantity}</td>
                                               <td className="p-5">{items?.totalItem}</td>
