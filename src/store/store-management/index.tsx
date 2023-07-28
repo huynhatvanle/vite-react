@@ -136,7 +136,6 @@ export const storeSlice = createSlice(
             { arg: StoreManagement; requestId: string; requestStatus: 'pending' }
           >,
         ) => {
-          console.log('21');
           state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
           state.queryParams = JSON.stringify(action.meta.arg);
           state.isLoading = true;
