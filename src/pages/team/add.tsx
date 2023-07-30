@@ -12,7 +12,6 @@ const Page = () => {
   const { id } = useParams();
   const userTeamFacade = UserTeamFacade();
   const { set } = GlobalFacade();
-  const isReload = useRef(false);
   const param = JSON.parse(userTeamFacade.queryParams || '{}');
   useEffect(() => {
     if (id) userTeamFacade.getById({ id });
@@ -24,9 +23,6 @@ const Page = () => {
         { title: id ? 'pages.Team/Edit' : 'pages.Team/Add', link: '' },
       ],
     });
-    return () => {
-      isReload.current && userTeamFacade.get(param);
-    };
   }, [id]);
 
   const navigate = useNavigate();
@@ -35,14 +31,20 @@ const Page = () => {
     switch (userTeamFacade.status) {
       case 'post.fulfilled':
       case 'put.fulfilled':
-        if (Object.keys(param).length > 0) isReload.current = true;
-
         if (isBack.current) handleBack();
+        else {
+          isBack.current = true;
+          if (id) navigate(`/${lang}${routerLinks('Team/Add')}`);
+          else userTeamFacade.set({ data: {} });
+        }
         break;
     }
   }, [userTeamFacade.status]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Team')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => {
+    userTeamFacade.set({ status: 'idle' });
+    navigate(`/${lang}${routerLinks('Team')}?${new URLSearchParams(param).toString()}`);
+  };
   const handleSubmit = (values: any) => {
     if (id) userTeamFacade.put({ ...values, id });
     else userTeamFacade.post(values);

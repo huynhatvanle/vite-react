@@ -13,7 +13,6 @@ const Page = () => {
   const dayoffFacade = DayoffFacade();
   const { user, profile, set } = GlobalFacade();
   const isBack = useRef(true);
-  const isReload = useRef(false);
   const param = JSON.parse(dayoffFacade.queryParams || '{}');
   useEffect(() => {
     if (id) dayoffFacade.getById({ id });
@@ -26,9 +25,6 @@ const Page = () => {
         { title: id ? 'pages.DayOff/Edit' : 'pages.DayOff/Add', link: '' },
       ],
     });
-    return () => {
-      isReload.current && dayoffFacade.get(param);
-    };
   }, [id]);
 
   const navigate = useNavigate();
@@ -36,17 +32,21 @@ const Page = () => {
     switch (dayoffFacade.status) {
       case 'put.fulfilled':
       case 'post.fulfilled':
-        if (isBack.current) navigate(`/${lang}${routerLinks('DayOff/Detail')}/${dayoffFacade?.data?.id}`);
+        if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          dayoffFacade.set({ data: undefined });
+          if (id) navigate(`/${lang}${routerLinks('DayOff/Add')}`);
+          else dayoffFacade.set({ data: undefined });
         }
         profile();
         break;
     }
   }, [dayoffFacade.status]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => {
+    dayoffFacade.set({ status: 'idle' });
+    navigate(`/${lang}${routerLinks('DayOff/List')}?${new URLSearchParams(param).toString()}`);
+  };
   const handleSubmit = (values: any) => {
     if (id) dayoffFacade.put(values);
     else dayoffFacade.post(values);
