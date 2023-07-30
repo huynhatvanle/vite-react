@@ -12,7 +12,6 @@ const Page = () => {
   const { id, type } = useParams();
   const dataFacade = DataFacade();
   const { set } = GlobalFacade();
-  const isReload = useRef(false);
   const param = JSON.parse(dataFacade.queryParams || `{"filter":"{\\"type\\":\\"${type}\\"}"}`);
   useEffect(() => {
     if (id) dataFacade.getById({ id });
@@ -24,9 +23,6 @@ const Page = () => {
         { title: id ? 'pages.Data/Edit' : 'pages.Data/Add', link: '' },
       ],
     });
-    return () => {
-      isReload.current && dataFacade.get(param);
-    };
   }, [id]);
 
   const navigate = useNavigate();
@@ -35,18 +31,19 @@ const Page = () => {
     switch (dataFacade.status) {
       case 'post.fulfilled':
       case 'put.fulfilled':
-        if (Object.keys(param).length > 0) isReload.current = true;
-
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('Data')}/add`);
+          navigate(0);
         }
         break;
     }
   }, [dataFacade.status]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Data')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => {
+    dataFacade.set({ status: 'idle' });
+    navigate(`/${lang}${routerLinks('Data')}?${new URLSearchParams(param).toString()}`);
+  };
 
   const handleSubmit = (values: Data) => {
     if (id) dataFacade.put({ ...values, id, type });
@@ -82,7 +79,7 @@ const Page = () => {
               title: 'Name',
               name: 'name',
               formItem:
-                type === 'PARTNER'
+                type === 'partner'
                   ? {
                       col: 6,
                     }
@@ -108,7 +105,7 @@ const Page = () => {
               name: 'translations',
               title: '',
               formItem:
-                type === 'PARTNER'
+                type === 'partner'
                   ? undefined
                   : {
                       type: 'tab',
@@ -126,7 +123,7 @@ const Page = () => {
                           title: 'Name',
                           name: 'name',
                           formItem: {
-                            col: type === 'MEMBER' ? 6 : 12,
+                            col: type === 'member' ? 6 : 12,
                             rules: [{ type: 'required' }],
                             onBlur: (e, form, name) => {
                               if (e.target.value && !form.getFieldValue(['translations', name[0], 'slug'])) {
@@ -140,7 +137,7 @@ const Page = () => {
                           title: 'Position',
                           name: 'position',
                           formItem:
-                            type === 'MEMBER'
+                            type === 'member'
                               ? {
                                   col: 6,
                                 }
@@ -159,7 +156,7 @@ const Page = () => {
                           title: 'Content',
                           name: 'content',
                           formItem:
-                            type === 'MEMBER'
+                            type === 'member'
                               ? {
                                   type: 'editor',
                                 }

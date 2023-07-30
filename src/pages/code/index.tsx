@@ -46,7 +46,7 @@ const Page = () => {
       case 'put.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
-        dataTableRef?.current?.onChange!();
+        dataTableRef?.current?.onChange(request);
         break;
     }
   }, [codeFacade.status]);

@@ -46,7 +46,7 @@ const Page = () => {
   useEffect(() => {
     switch (userFacade.status) {
       case 'delete.fulfilled':
-        dataTableRef?.current?.onChange!();
+        dataTableRef?.current?.onChange(request);
         break;
     }
   }, [userFacade.status]);
