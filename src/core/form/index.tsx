@@ -114,7 +114,6 @@ export const Form = ({
       case 'password':
         return (
           <Password
-            tabIndex={formItem.tabIndex || index}
             placeholder={
               t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
             }
@@ -124,7 +123,6 @@ export const Form = ({
       case 'textarea':
         return (
           <textarea
-            tabIndex={formItem.tabIndex || index}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             className={classNames(
               'ant-input px-4 py-2.5 w-full rounded-xl text-gray-600 bg-white border border-solid input-description',
@@ -164,7 +162,6 @@ export const Form = ({
       case 'date':
         return (
           <DatePicker
-            tabIndex={formItem.tabIndex || index}
             format={
               !formItem.picker || formItem.picker === 'date'
                 ? (formatDate || '') + (formItem.showTime ? ' HH:mm' : '')
@@ -255,7 +252,6 @@ export const Form = ({
       case 'select':
         return (
           <Select
-            tabIndex={formItem.tabIndex || index}
             showSearch={formItem.showSearch}
             maxTagCount={formItem.maxTagCount || 'responsive'}
             onChange={(value: any) => formItem.onChange && formItem.onChange(value, form, reRender)}
@@ -292,7 +288,6 @@ export const Form = ({
         // @ts-ignore
         return (
           <Mask
-            tabIndex={formItem.tabIndex || index}
             form={form}
             mask={formItem.mask}
             addonBefore={formItem.addonBefore}

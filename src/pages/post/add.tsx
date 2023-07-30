@@ -34,7 +34,8 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(0);
+          if (id) navigate(`/${lang}${routerLinks('Post')}/${type}/add`);
+          else postFacade.set({ data: {} });
         }
         break;
     }

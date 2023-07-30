@@ -33,7 +33,8 @@ const Page = () => {
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('User')}/add`);
+          if (id) navigate(`/${lang}${routerLinks('User')}/${roleCode}/add`);
+          else userFacade.set({ data: {} });
         }
         break;
     }
