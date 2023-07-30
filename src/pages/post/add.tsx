@@ -12,7 +12,6 @@ const Page = () => {
   const { id, type } = useParams();
   const postFacade = PostFacade();
   const { set } = GlobalFacade();
-  const isReload = useRef(false);
   const param = JSON.parse(postFacade.queryParams || `{"filter":"{\\"type\\":\\"${type}\\"}"}`);
   useEffect(() => {
     if (id) postFacade.getById({ id });
@@ -24,9 +23,6 @@ const Page = () => {
         { title: id ? 'pages.Post/Edit' : 'pages.Post/Add', link: '' },
       ],
     });
-    return () => {
-      isReload.current && postFacade.get(param);
-    };
   }, [id]);
 
   const navigate = useNavigate();
@@ -35,18 +31,20 @@ const Page = () => {
     switch (postFacade.status) {
       case 'post.fulfilled':
       case 'put.fulfilled':
-        if (Object.keys(param).length > 0) isReload.current = true;
-
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('Post')}/add`);
+          if (id) navigate(`/${lang}${routerLinks('Post')}/${type}/add`);
+          else postFacade.set({ data: {} });
         }
         break;
     }
   }, [postFacade.status]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Post')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => {
+    postFacade.set({ status: 'idle' });
+    navigate(`/${lang}${routerLinks('Post')}?${new URLSearchParams(param).toString()}`);
+  };
 
   const handleSubmit = (values: Post) => {
     if (id) postFacade.put({ ...values, id, type });

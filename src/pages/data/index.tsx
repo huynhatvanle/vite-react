@@ -11,6 +11,7 @@ import { Popconfirm, Select, Spin, Tooltip } from 'antd';
 import { useNavigate } from 'react-router';
 import classNames from 'classnames';
 import { createSearchParams } from 'react-router-dom';
+import { Avatar } from '@core/avatar';
 
 const Page = () => {
   const { user, set } = GlobalFacade();
@@ -50,7 +51,7 @@ const Page = () => {
       case 'put.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
-        dataTableRef?.current?.onChange!();
+        dataTableRef?.current?.onChange(request);
         break;
     }
   }, [dataFacade.status]);
@@ -120,11 +121,15 @@ const Page = () => {
                   tableItem: {
                     filter: { type: 'search' },
                     sorter: true,
-                    render: (text, item) =>
-                      text ||
-                      item.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
-                        .name ||
-                      '',
+                    render: (text: string, item: any) => {
+                      const value =
+                        text ||
+                        item.translations?.filter(
+                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                        )[0].name ||
+                        '';
+                      return value && <Avatar src={item.image} text={value} />;
+                    },
                   },
                 },
                 {

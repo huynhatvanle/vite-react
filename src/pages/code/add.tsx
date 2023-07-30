@@ -8,13 +8,11 @@ import { routerLinks, lang } from '@utils';
 import { Button } from '@core/button';
 import { Form } from '@core/form';
 import { Spin } from 'antd';
-import { createSearchParams } from 'react-router-dom';
 
 const Page = () => {
   const { id, type } = useParams();
   const codeFacade = CodeFacade();
   const { set } = GlobalFacade();
-  const isReload = useRef(false);
   const param = JSON.parse(codeFacade.queryParams || `{"filter":"{\\"type\\":\\"${type}\\"}"}`);
   useEffect(() => {
     if (id) codeFacade.getById({ id });
@@ -26,9 +24,6 @@ const Page = () => {
         { title: id ? 'pages.Code/Edit' : 'pages.Code/Add', link: '' },
       ],
     });
-    return () => {
-      isReload.current && codeFacade.get(param);
-    };
   }, [id]);
 
   const navigate = useNavigate();
@@ -37,18 +32,20 @@ const Page = () => {
     switch (codeFacade.status) {
       case 'post.fulfilled':
       case 'put.fulfilled':
-        if (Object.keys(param).length > 0) isReload.current = true;
-
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('Code')}/add`);
+          if (id) navigate(`/${lang}${routerLinks('Code')}/${type}/add`);
+          else codeFacade.set({ data: {} });
         }
         break;
     }
   }, [codeFacade.status]);
 
-  const handleBack = () => navigate(`/${lang}${routerLinks('Code')}?${new URLSearchParams(param).toString()}`);
+  const handleBack = () => {
+    codeFacade.set({ status: 'idle' });
+    navigate(`/${lang}${routerLinks('Code')}?${new URLSearchParams(param).toString()}`);
+  };
   const handleSubmit = (values: Code) => {
     if (id) codeFacade.put({ ...values, id, type });
     else codeFacade.post({ ...values, type });

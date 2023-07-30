@@ -14,7 +14,6 @@ const Page = () => {
   const userFacade = UserFacade();
   const param = JSON.parse(userFacade.queryParams || `{"filter":"{\\"roleCode\\":\\"${roleCode}\\"}"}`);
   const { set } = GlobalFacade();
-  const isReload = useRef(false);
   useEffect(() => {
     if (id) userFacade.getById({ id });
     else userFacade.set({ data: undefined });
@@ -24,9 +23,6 @@ const Page = () => {
         { title: id ? 'titles.User/Edit' : 'titles.User/Add', link: '' },
       ],
     });
-    return () => {
-      isReload.current && userFacade.get(param);
-    };
   }, [id]);
 
   const navigate = useNavigate();
@@ -35,18 +31,18 @@ const Page = () => {
     switch (userFacade.status) {
       case 'post.fulfilled':
       case 'put.fulfilled':
-        if (Object.keys(param).length > 0) isReload.current = true;
-
         if (isBack.current) handleBack();
         else {
           isBack.current = true;
-          navigate(`/${lang}${routerLinks('User')}/add`);
+          if (id) navigate(`/${lang}${routerLinks('User')}/${roleCode}/add`);
+          else userFacade.set({ data: {} });
         }
         break;
     }
   }, [userFacade.status]);
 
   const handleBack = () => {
+    userFacade.set({ status: 'idle' });
     navigate(`/${lang}${routerLinks('User')}?${new URLSearchParams(param).toString()}`);
   };
   const handleSubmit = (values: User) => {

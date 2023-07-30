@@ -13,7 +13,6 @@ const Component = ({
   onChange,
   placeholder,
   disabled,
-  tabIndex,
   get,
   ...prop
 }: Type) => {
@@ -45,7 +44,6 @@ const Component = ({
 
   return (
     <Select
-      tabIndex={tabIndex}
       maxTagCount={maxTagCount}
       onChange={onChange}
       placeholder={placeholder}
@@ -83,7 +81,6 @@ type Type = {
   onChange: (e: any) => any;
   placeholder: string;
   disabled: boolean;
-  tabIndex: number;
   get?: TableGet;
 };
 export default Component;

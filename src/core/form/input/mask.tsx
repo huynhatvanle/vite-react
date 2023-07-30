@@ -13,7 +13,6 @@ const Component = ({
   placeholder,
   onBlur,
   onChange,
-  tabIndex,
   ...prop
 }: Type) => {
   const input = useRef<any>();
@@ -31,7 +30,6 @@ const Component = ({
       {!!addonBefore && <div>{addonBefore(form)}</div>}
       <input
         ref={input}
-        tabIndex={tabIndex}
         className={classNames('w-full h-10 text-gray-600 bg-white px-4', {
           'ant-input': !addonBefore && !addonAfter,
           'border rounded-xl': !addonBefore && !addonAfter,
@@ -53,7 +51,6 @@ const Component = ({
   );
 };
 type Type = {
-  tabIndex?: number;
   mask?: string;
   value?: string;
   addonBefore?: (form: FormInstance) => JSX.Element;
