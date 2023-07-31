@@ -1,85 +1,54 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { API, routerLinks } from '@utils';
-import { CommonEntity, PaginationQuery, Responses } from '@models';
+import { CommonEntity } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
-import { Message } from '@core/message';
 
 const name = 'TaxAdmin';
 
 const action = {
   ...new Action<TaxAdmin>(name),
-  putTax: createAsyncThunk(name + '/put', async ({ id, ...values }: TaxAdmin) => {
-    const { statusCode, message } = await API.put<TaxAdmin>(`${routerLinks(name, 'api')}/${id}`, values);
-    if (message) Message.success({ text: message });
-    return statusCode;
-  }),
-  postTax: createAsyncThunk(name + '/post', async (values: TaxAdmin) => {
-    const { message } = await API.post<TaxAdmin>(`${routerLinks(name, 'api')}`, values);
-    if (message) Message.success({ text: message });
-    return message;
-  }),
+  getAll: createAsyncThunk(
+    name + '/getAll',
+    async ({ fullTextSearch }: { fullTextSearch: string }) => await API.get(routerLinks(name, 'api'), { fullTextSearch }),
+  ),
 }
 
-export const taxSlice = createSlice(new Slice<TaxAdmin>(action, (builder: any) =>
-  builder
-    .addCase(
-      action.putTax.pending,
-      (
-        state: State<TaxAdmin>,
-        action: PayloadAction<
-          undefined,
-          string,
-          { arg: TaxAdmin; requestId: string; requestStatus: 'pending' }
-        >,
-      ) => {
-        state.data = action.meta.arg;
-        state.isLoading = true;
-        state.status = 'putTax.pending';
-      },
-    )
-    .addCase(action.putTax.fulfilled, (state: State<TaxAdmin>, action: PayloadAction<TaxAdmin>) => {
-      if (action.payload.toString() === '200') {
-        state.isVisible = false;
-        state.status = 'putTax.fulfilled';
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
-    .addCase(
-      action.postTax.pending,
-      (
-        state: State<TaxAdmin>,
-        action: PayloadAction<
-          undefined,
-          string,
-          { arg: TaxAdmin; requestId: string; requestStatus: 'pending' }
-        >,
-      ) => {
-        state.data = action.meta.arg;
-        state.isLoading = true;
-        state.status = 'postTax.pending';
-      },
-    )
-    .addCase(action.postTax.fulfilled, (state: State<TaxAdmin>, action: PayloadAction<TaxAdmin>) => {
-      console.log('dsd')
-      if (action.payload.toString() === 'Lưu thuế thành công.') {
-        state.isVisible = false;
-        state.status = 'postTax.fulfilled';
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
-));
+export const taxAdminSlice = createSlice(
+  new Slice<TaxAdmin>(action, { result: {}, result2: {} }, (builder) =>
+    builder
+      .addCase(
+        action.getAll.pending,
+        (
+          state: State<TaxAdmin>,
+          action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+          state.queryParams = JSON.stringify(action.meta.arg);
+          state.isLoading = true;
+          state.status = 'getAll.pending';
+        },
+      )
 
-export const TaxFacade = () => {
+      .addCase(action.getAll.fulfilled, (state: State<TaxAdmin>, action: any) => {
+        if (action.payload.data) {
+          state.result = action.payload;
+          state.status = 'getAll.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
+      .addCase(action.getAll.rejected, (state: State) => {
+        state.status = 'getAll.rejected';
+        state.isLoading = false;
+      })
+  ),
+);
+
+export const TaxAdminFacade = () => {
   const dispatch = useAppDispatch();
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<TaxAdmin>),
     set: (values: State<TaxAdmin>) => dispatch(action.set(values)),
-    get: (params: PaginationQuery<TaxAdmin>) => dispatch(action.get(params)),
-    getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<TaxAdmin> }) =>
-      dispatch(action.getById({ id, keyState })),
-    post: (values: TaxAdmin) => dispatch(action.postTax(values)),
-    put: (values: TaxAdmin) => dispatch(action.putTax(values)),
-    delete: (id: string) => dispatch(action.deleteTax(id)),
+    get: ({ fullTextSearch }: { fullTextSearch: string }) => dispatch(action.getAll({ fullTextSearch })),
   };
 };
 

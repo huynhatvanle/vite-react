@@ -151,7 +151,7 @@ export const ProductFacade = () => {
     put: (values: Product) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),
     getproduct: () => dispatch(action.getproduct()),
- };
+  };
 };
 
 export class Product extends CommonEntity {
@@ -199,6 +199,12 @@ export class Product extends CommonEntity {
         price: string;
         priceType: string;
         minQuantity: string;
+      },
+    ],
+    public priceBalanceCommission?: [
+      {
+        amountBalance: string;
+        revenue: string;
       },
     ],
     public child?: {},

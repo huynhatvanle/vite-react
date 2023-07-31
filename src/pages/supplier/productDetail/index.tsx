@@ -1,38 +1,25 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { language, languages } from '@utils';
-import {
-  GlobalFacade,
-  DiscountFacade,
-  detailDiscountFacade,
-  SupplierFacade,
-  ProductFacade,
-  OrdersFacade,
-} from '@store';
-import { TableRefObject } from '@models';
+import { ProductFacade, TaxAdminFacade } from '@store';
 import { Form } from '@core/form';
-import { DataTable } from '@core/data-table';
-import dayjs from 'dayjs';
 import { DownArrow } from '@svgs';
 import { Table } from 'antd';
 
 const Page = () => {
   const { t } = useTranslation();
   const productFacade = ProductFacade();
-  const orderFacade = OrdersFacade();
   const { data, isLoading, queryParams, status } = productFacade;
-  const detailDiscountt = detailDiscountFacade();
-  const navigate = useNavigate();
-  const isBack = useRef(true);
+  const taxAdminFacare = TaxAdminFacade()
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const { formatDate } = GlobalFacade();
 
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
+    taxAdminFacare.get({ fullTextSearch: '' })
     if (id) {
       productFacade.getById({ id });
     }
@@ -49,11 +36,18 @@ const Page = () => {
       key: index + 1,
       stt: index + 1,
       PriceType: item?.priceType,
-      Quantity: item?.minQuantity,
+      Quantity: item?.minQuantity.toLocaleString(),
       Price: item?.price,
     };
   });
-
+  const dt = data?.priceBalanceCommission?.flat().map((item, index) => {
+    return {
+      key: index + 1,
+      stt: index + 1,
+      Revenue: parseInt(item?.revenue).toLocaleString(),
+      AmountBalance: parseInt(item?.amountBalance).toLocaleString(),
+    };
+  });
   return (
     <div className={'w-full rounded-2xl bg-white'}>
       <Fragment>
@@ -134,7 +128,6 @@ const Page = () => {
                 },
               ]}
             />
-
           </div>
           <div className='flex-initial lg:rounded-xl w-3/4 form-merchandise'>
             <Form
@@ -177,7 +170,6 @@ const Page = () => {
                   formItem: {
                     tabIndex: 1,
                     disabled: () => true,
-                    placeholder: '  ',
                     col: 6,
                   },
                 },
@@ -236,11 +228,11 @@ const Page = () => {
                     col: 6,
                     render: (form, values) => {
                       return (
-                        <div className="h-full w-full flex items-center">
-                          <div className="w-full h-10 py-2.5 px-4 bg-gray-100 rounded-xl mt-4 border-gray-200 flex justify-between cursor-not-allowed">
+                        <div className="w-full">
+                          <div className="mb-2">Thuế nhập</div>
+                          <div className="w-full h-10 py-2.5 px-4 bg-gray-100 rounded-xl border-gray-200 flex justify-between cursor-not-allowed">
                             <p className="text-gray-400">
-                              {' '}
-                              {values?.importTax?.name + ' - ' + values?.importTax?.name + '%'}
+                              {values?.importTax?.name + ' - ' + values?.importTax?.id?.taxRate + '%'}
                             </p>
                             <DownArrow className="w-4 h-5 text-gray-400 pt-1" />
                           </div>
@@ -257,8 +249,9 @@ const Page = () => {
                     col: 6,
                     render: (form, values) => {
                       return (
-                        <div className="h-full w-full flex items-center">
-                          <div className="w-full h-10 py-2.5 px-4 bg-gray-100 rounded-xl mt-4 border-gray-200 flex justify-between cursor-not-allowed">
+                        <div className="w-full">
+                          <div className="mb-2">Thuế bán</div>
+                          <div className="w-full h-10 py-2.5 px-4 bg-gray-100 rounded-xl border-gray-200 flex justify-between cursor-not-allowed">
                             <p className="text-gray-400">
                               {' '}
                               {values?.exportTax?.name + ' - ' + values?.exportTax?.name + '%'}
@@ -313,7 +306,7 @@ const Page = () => {
                 },
                 {
                   title: 'Thị trường cuất khẩu',
-                  name: '',
+                  name: 'exportMarket',
                   formItem: {
                     tabIndex: 1,
                     disabled: () => true,
@@ -322,20 +315,20 @@ const Page = () => {
                 },
                 {
                   title: 'Mô tả sản phẩm',
-                  name: '',
+                  name: 'description',
                   formItem: {
-                    tabIndex: 1,
                     disabled: () => true,
+                    tabIndex: 1,
                     type: 'textarea',
                     col: 12,
-                    render: () => {
-                      return (
-                        <div className="w-full">
-                          <div className="mb-2">Mô tả sản phẩm</div>
-                          <textarea className="bg-gray-100 w-full rounded-xl h-28" disabled={true}></textarea>
-                        </div>
-                      );
-                    },
+                    // render: () => {
+                    //   return (
+                    //     <div className="w-full">
+                    //       <div className="mb-2">Mô tả sản phẩm</div>
+                    //       <textarea className="bg-gray-100 w-full rounded-xl h-28" disabled={true}></textarea>
+                    //     </div>
+                    //   );
+                    // },
                   },
                 },
               ]}
@@ -345,6 +338,10 @@ const Page = () => {
             </div>
             <div className="px-5 pb-4">
               <Table
+                pagination={false}
+                dataSource={dl}
+                showSorterTooltip={false}
+                size="small"
                 loading={isLoading}
                 columns={[
                   {
@@ -364,15 +361,103 @@ const Page = () => {
                     dataIndex: 'Price',
                   },
                 ]}
-                pagination={false}
-                dataSource={dl}
-                showSorterTooltip={false}
-                size="small"
               />
             </div>
-            <div className="flex items-left font-bold px-5 pb-4">
-              <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Chiết khấu với Balance</p>
+            <div className="flex items-left font-bold px-5">
+              <p className="sm:text-xl text-base text-teal-900 pb-2 mr-5">Chiết khấu với Balance</p>
             </div>
+            {/* <div>
+              <Form
+                className=''
+                columns={[
+                  {
+                    title: '',
+                    name: '',
+                    formItem: {
+                      col: 12,
+                      render: (form, values) => {
+                        return (
+                          <>
+                            <div className="flex items-center h-full text-base lg:mt-0">
+                              <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
+                                <input type="radio" className="ant-radio-input"></input>
+                              </span>
+                              <div>
+                                {('Chiết khấu cố định')}
+                              </div>
+                            </div>
+                            <div className="flex items-center h-full text-base lg:mt-0">
+                              <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
+                                <input type="radio" className="ant-radio-input"></input>
+                              </span>
+                              <div>
+                                {('Chiết khấu linh động')}
+                              </div>
+                            </div>
+                          </>
+                        );
+                      },
+                    },
+                  }
+                ]}
+              />
+              <Form
+                className='pl-6 pb-6'
+                columns={[
+                  {
+                    title: '',
+                    name: '',
+                    formItem: {
+                      render: (form, values) => {
+                        return (
+                          <>
+                            <div className=" flex items-center h-full text-base">
+                              <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
+                                <input type="radio" className="ant-radio-input"></input>
+                              </span>
+                              <div>
+                                {('Chiết khấu theo %')}
+                              </div>
+                            </div>
+                            <div className="flex items-center h-full text-base lg:mt-0">
+                              <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
+                                <input type="radio" className="ant-radio-input"></input>
+                              </span>
+                              <div>
+                                {('Chiết khấu theo số tiền')}
+                              </div>
+                            </div>
+                          </>
+                        );
+                      },
+                    },
+                  }
+                ]}
+              />
+            </div>
+            <div className="pb-2 pl-6">
+              <Table
+                loading={isLoading}
+                pagination={false}
+                dataSource={dt}
+                showSorterTooltip={false}
+                size="small"
+                columns={[
+                  {
+                    title: 'STT',
+                    dataIndex: 'stt',
+                  },
+                  {
+                    title: 'Doanh Thu (VNĐ)',
+                    dataIndex: 'Revenue',
+                  },
+                  {
+                    title: 'Số tiền chiết khấu (VNĐ)',
+                    dataIndex: 'AmountBalance',
+                  }
+                ]}
+              />
+            </div> */}
             <div className="px-5">
               <div className="ant-space-item pb-2">
                 <label className="ant-radio-wrapper ant-radio-wrapper-checked ant-radio-wrapper-disabled mb-4 discount-fixed text-base !text-gray-900">
@@ -414,18 +499,23 @@ const Page = () => {
               </div>
               <div className="pb-2 pl-6">
                 <Table
+                  loading={isLoading}
+                  pagination={false}
+                  dataSource={dt}
+                  showSorterTooltip={false}
+                  size="small"
                   columns={[
                     {
                       title: 'STT',
-                      dataIndex: '',
+                      dataIndex: 'stt',
                     },
                     {
                       title: 'Doanh Thu (VNĐ)',
-                      dataIndex: '',
+                      dataIndex: 'Revenue',
                     },
                     {
                       title: 'Số tiền chiết khấu (VNĐ)',
-                      dataIndex: '',
+                      dataIndex: 'AmountBalance',
                     }
                   ]}
                 />
