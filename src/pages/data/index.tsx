@@ -121,15 +121,19 @@ const Page = () => {
                   tableItem: {
                     filter: { type: 'search' },
                     sorter: true,
-                    render: (text: string, item: any) => {
-                      const value =
-                        text ||
-                        item.translations?.filter(
-                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
-                        )[0].name ||
-                        '';
-                      return value && <Avatar src={item.image} text={value} />;
-                    },
+                    render: (text: string, item: any) => (
+                      <Avatar
+                        src={item.image}
+                        text={
+                          text ||
+                          (item.translations.length &&
+                            item.translations?.filter(
+                              (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                            )[0].name) ||
+                          ''
+                        }
+                      />
+                    ),
                   },
                 },
                 {
