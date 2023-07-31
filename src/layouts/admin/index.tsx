@@ -260,7 +260,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           },
         )}
       >
-        <div className={'min-h-[calc(100vh-8rem)] overflow-y-auto lg:overflow-x-hidden'}>
+        <div className={'h-[calc(100vh-8rem)] overflow-y-auto lg:overflow-x-hidden'}>
           <h1 className={'text-xl font-bold block sm:hidden'}>{t('pages.' + title, titleOption || {})}</h1>
           <div className={'flex items-center text-xs mt-0.5 pb-5 sm:hidden'}>
             {breadcrumbs?.map((item, i) => (

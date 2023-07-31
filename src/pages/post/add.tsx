@@ -102,8 +102,8 @@ const Page = () => {
                   value: 'language',
                 },
                 list: [
-                  { label: 'English', value: 'en' },
                   { label: 'Vietnam', value: 'vn' },
+                  { label: 'English', value: 'en' },
                 ],
                 column: [
                   { title: 'id', name: 'id', formItem: { type: 'hidden' } },

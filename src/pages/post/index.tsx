@@ -169,7 +169,7 @@ const Page = () => {
                 },
                 {
                   title: 'Slug',
-                  name: 'slug',
+                  name: 'translations',
                   tableItem: {
                     filter: { type: 'search' },
                     sorter: true,
