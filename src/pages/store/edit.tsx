@@ -41,7 +41,6 @@ const Page = () => {
   const { data, isLoading, queryParams, status } = storeFacade;
   const categoryFacade = CategoryFacade()
   const supplierStoreFacade = SupplierStoreFacade()
-  console.log(invoiceRevenueFacade.status)
   // const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
@@ -354,7 +353,7 @@ const Page = () => {
   // }, [productFacade.result2?.data])
 
   const [date, setDate] = useState<boolean>()
-
+  let stt = 1
   return (
     <div className="w-full">
       <Fragment>
@@ -1500,47 +1499,47 @@ const Page = () => {
                           name: 'supplier',
                           tableItem: {
                             width: 150,
-                            // render: (value: any, item: any) => item.supplier?.code,
+                            render: () => `${stt++}`
                           },
                         },
                         {
                           title: 'store.Revenue.Order code',
-                          name: 'supplier',
+                          name: 'invoiceCode',
                           tableItem: {
                             // render: (value: any, item: any) => item.supplier?.name,
                           },
                         },
                         {
                           title: 'store.Revenue.Sale date',
-                          name: 'supplier',
+                          name: 'completedDate',
                           tableItem: {
                             // render: (value: any, item: any) => item.supplier?.name,
                           },
                         },
                         {
                           title: 'store.Revenue.Value (VND)',
-                          name: 'supplier',
+                          name: 'revenue',
                           tableItem: {
                             // render: (value: any, item: any) => item.supplier?.name,
                           },
                         },
                         {
                           title: 'store.Revenue.Discount (VND)',
-                          name: 'supplier',
+                          name: 'discount',
                           tableItem: {
                             // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
                           },
                         },
                         {
                           title: 'store.Revenue.Total amount (VND)',
-                          name: 'supplier',
+                          name: 'total',
                           tableItem: {
                             // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                           },
                         },
                         {
                           title: 'store.Revenue.Order type',
-                          name: 'supplier',
+                          name: 'type',
                           tableItem: {
                             // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                           },
@@ -1711,6 +1710,7 @@ const Page = () => {
                         tableItem: {
                           width: 150,
                           sorter: true,
+                          render: () => `${stt++}`
                           // render: (value: any, item: any) => item.supplier?.code,
                         },
                       },
