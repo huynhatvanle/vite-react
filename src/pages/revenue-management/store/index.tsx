@@ -446,7 +446,6 @@ const Page = () => {
                         facade={invoiceKiotVietFacade}
                         className="form"
                         ref={modalFormRef}
-                        // textCancel="Trở về"
                         title={() => 'Thông tin chi tiết đơn hàng'}
                         columns={[
                           {
@@ -509,10 +508,13 @@ const Page = () => {
                           },
                         ]}
                         widthModal={830}
-                        footerCustom={(handleCancel) => (
+                        footerCustom={(handleOk, handleCancel) => (
                           <div className=" w-full bg-white ">
-                            <div className="flex flex-col items-start mb-[33px] ml-[9px]" onClick={handleCancel}>
-                              <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
+                            <div className="flex flex-col items-start mb-[33px] ml-[9px]">
+                              <button
+                                className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11"
+                                onClick={handleCancel}
+                              >
                                 {t('components.form.modal.cancel')}
                               </button>
                             </div>
