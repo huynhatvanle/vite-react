@@ -83,6 +83,7 @@ const Page = () => {
     }
   }, []);
   let stt1 = 1;
+
   const statusCategoryOrder = [
     {
       label: t('supplier.Sup-Status.Sell goods'),
@@ -147,6 +148,7 @@ const Page = () => {
     { title: t('Loại đơn'), key: 'status', dataIndex: 'status' },
   ];
   let i = 1;
+  let sttDetail = 1;
 
   return (
     <div className={'w-full'}>
@@ -444,7 +446,7 @@ const Page = () => {
                         facade={invoiceKiotVietFacade}
                         className=""
                         ref={modalFormRef}
-                        textCancel="Trở về"
+                        // textCancel="Trở về"
                         title={() => 'Thông tin chi tiết đơn hàng'}
                         columns={[
                           {
@@ -490,7 +492,7 @@ const Page = () => {
                                         <tbody>
                                           {values?.detailInvoice?.map((items: any) => (
                                             <tr className="text-left">
-                                              <td className="p-5">{stt1++}</td>
+                                              <td className="p-5">{sttDetail++}</td>
                                               <td className="p-5">{items?.productName}</td>
                                               <td className="p-5">{items?.quantity}</td>
                                               <td className="p-5">{items?.totalItem}</td>
