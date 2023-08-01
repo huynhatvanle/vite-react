@@ -41,6 +41,7 @@ Test Teardown       Tear Down
 #    When Click "Lưu" button
 #    Then User look message "Lưu thuế thành công." popup
 #    When Click on the "Xóa" button in the "Loại thuế" table line
+#    Then User look message "Xóa thành công." popup
 
 # Tax-08 Verify that Admin CAN add the 'Thuế' when leaving 'Mô tả' field blank
 #    When Go to page data
@@ -50,6 +51,7 @@ Test Teardown       Tear Down
 #    When Click "Lưu" button
 #    Then User look message "Lưu thuế thành công." popup
 #    When Click on the "Xóa" button in the "Loại thuế" table line
+#    Then User look message "Xóa thành công." popup
 
 # Tax-09 Verify that validation text of Thuế suất appears when leaving the Thuế suất field blanks
 #    When Go to page data
@@ -79,31 +81,19 @@ Test Teardown       Tear Down
 #    When Click "Hủy" button
 #    When Click on the "Xóa" button in the "Loại thuế" table line
 
+# Tax-19 Verify that admin CAN search by 'Loại thuế' (accented letters)
+#    When Go to page data
+#    When Search input "Thue nông sản"
+#    When Check data table in "Loại thuế" with search input
+
+# Tax-23 Verify that supplier CANNOT search the tax with invalid value
+#    When Go to page data
+#    When Search input "???"
+#    When Search no data
+
 
 *** Keywords ***
-Go to page create data
-    When Login to admin
-    When Click "Quản lý cửa hàng" menu
-    When Click "Thêm cửa hàng" button
-
 Go to page data
     When Login to admin
     When Click "Quản lý hàng hóa" menu
     When Click "Thuế" sub menu to "/vn/merchandise-managerment/tax"
-
-Background Happy paths
-    When Go to page create data
-    When Enter "text" in "Họ và tên" with "_RANDOM_"
-    When Enter "email" in "Email" with "_RANDOM_"
-    When Enter "text" in "Mật khẩu" with "Password1!"
-    When Enter "text" in "Nhập lại mật khẩu" with "Password1!"
-    When Enter "phone" in "Số điện thoại" with "_RANDOM_"
-    When Enter date in "Ngày sinh" with "_RANDOM_"
-    When Click select "Vị trí" with "Tester"
-    When Enter date in "Ngày đầu đi làm" with "_RANDOM_"
-    When Click select "Vai trò" with "Supper Admin"
-    When Enter "words" in textarea "Mô tả" with "_RANDOM_"
-    When Select file in "Tải ảnh lên" with "image.jpg"
-    When Click "Lưu lại" button
-    Then User look message "Tạo thành công" popup
-    When Click "Huỷ bỏ" button

@@ -8,6 +8,9 @@
       "reset": "Cài lại",
       "search": "Tìm kiếm",
       "areYouSureWant": "Bạn có chắc muốn xóa ?",
+      "areYouSureWantTax": "Bạn có chắc muốn xóa thuế này ?",
+      "yes": "Xóa",
+      "no": "Hủy",
       "cancel": "Huỷ bỏ",
       "ok": "Đồng ý",
       "No Data": "Trống"

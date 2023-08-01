@@ -349,6 +349,7 @@ export const Form = ({
             placeholder={
               t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
             }
+            onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
             onChange={(e) => formItem.onChange && formItem.onChange(e.target.value, form, reRender)}
           />
         );

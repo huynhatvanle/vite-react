@@ -35,6 +35,8 @@ const Page = () => {
       onRow={(data: any) => ({
         onDoubleClick: () => {
           navigate(`/${lang}${routerLinks('store-managerment/edit')}/${data.id}?tab=1`)
+          localStorage.setItem('activeStoreTab', '1');
+          localStorage.setItem('tab', '1');
         },
       })}
       pageSizeRender={(sizePage: number) => sizePage}

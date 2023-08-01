@@ -8,6 +8,16 @@ const name = 'Tax';
 
 const action = {
     ...new Action<Tax>(name),
+    // getByIdTax: createAsyncThunk(name + '/getById',
+    //     async ({ id, keyState = 'isVisible' }: { id: string; keyState: keyof State<Tax> }) => {
+    //         let result = await API.get<Tax>(`${routerLinks(name, 'api')}/${id}`);
+    //         // const taxRate = parseFloat(result.data?.taxRate || '');
+    //         // result.data = { ...result.data, taxRate }
+    //         const data = result.data
+    //         console.log(typeof data?.taxRate)
+    //         return { data, keyState };
+    //     },
+    // ),
     putTax: createAsyncThunk(name + '/put', async ({ id, ...values }: Tax) => {
         const { statusCode, message } = await API.put<Tax>(`${routerLinks(name, 'api')}/${id}`, values);
         if (message) Message.success({ text: message });
