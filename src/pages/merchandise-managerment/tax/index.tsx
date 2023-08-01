@@ -140,7 +140,7 @@ const Page = () => {
                 facade={taxFacade}
                 ref={modalFormRef}
                 textCancel='Hủy'
-                title={(data: any) => (!data?.id ? t('Thêm mới thuế') : t('Chỉnh sửa thuế'))}
+                title={'Từ chối yêu cầu sản phẩm'}
                 columns={[
                     {
                         title: 'tax.type',
