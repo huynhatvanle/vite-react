@@ -444,7 +444,7 @@ const Page = () => {
                       />
                       <ModalForm
                         facade={invoiceKiotVietFacade}
-                        className=""
+                        className="form"
                         ref={modalFormRef}
                         // textCancel="Trở về"
                         title={() => 'Thông tin chi tiết đơn hàng'}
@@ -455,7 +455,7 @@ const Page = () => {
                             formItem: {
                               render: (form, values) => {
                                 return (
-                                  <div>
+                                  <div className="border-y">
                                     <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-5">
                                       <div className="font-semibold text-teal-900 ">Thông tin đơn hàng:</div>
                                     </div>
@@ -490,7 +490,7 @@ const Page = () => {
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          {values?.detailInvoice?.map((items: any) => (
+                                          {values?.detailInvoice?.map((items: any, stt1: number) => (
                                             <tr className="text-left">
                                               <td className="p-5">{sttDetail++}</td>
                                               <td className="p-5">{items?.productName}</td>
@@ -510,8 +510,8 @@ const Page = () => {
                         ]}
                         widthModal={830}
                         footerCustom={(handleCancel) => (
-                          <div className="sm:mt-7 mt-2 w-full mb-9">
-                            <div className="flex flex-col items-start mt-2" onClick={handleCancel}>
+                          <div className=" w-full bg-white ">
+                            <div className="flex flex-col items-start mb-[33px] ml-[9px]" onClick={handleCancel}>
                               <button className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11">
                                 {t('components.form.modal.cancel')}
                               </button>
