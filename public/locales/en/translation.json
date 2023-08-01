@@ -116,7 +116,12 @@
     "Upload contract":"Upload contract",
     "Contract-View": "Contract View",
     "Discount-Detail": "Supplier Details",
-    "Merchandise-Managerment/Product/Detail": "Product"
+    "Merchandise-Managerment/Product/Detail": "Product",
+    "revenue-management": "revenue-management",
+    "revenue-management/store": "revenue-management-store",
+    "Store-Revenue": "Store-Revenue",
+    "Store-Revenue/Order": "Store-Revenue-Order",
+    "Store-Revenue/Product": "Store-Revenue-Product"
   },
   "pages": {
     "Dashboard": "Dashboard",
@@ -137,7 +142,8 @@
     "Supplier/Add": "Supplier",
     "Supplier/Edit": "Supplier",
     "Contract-View": "Contract Management",
-    "Merchandise-Managerment/Product/Detail": "Inventory Management"
+    "Merchandise-Managerment/Product/Detail": "Inventory Management",
+    "Store-Revenue": "Store Revenue"
   },
   "columns": {
     "auth": {

@@ -379,6 +379,34 @@ Enter field blanks in "${name}"
 Click field blanks Address with "${name}"
     ${element}=    Set Variable
     ...    //*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../../*[contains(@class, "ant-form-item")]/div/div/div/div
+Check Url "${url}" Page
+    ${url_current}=    Get Url
+    Should Be Equal    ${url_current}    ${URL_DEFAULT}${url}
+
+Check displayed under "${name}" field
+    ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-form-item-explain-error")]
+    Element Should Not Be Visible    ${element}
+
+Click "${name}" Eye icon
+    ${element}=    Get Element Form Item By Name
+    ...    ${name}
+    ...    //input[contains(@class, "ant-input")]//following-sibling::*
+    Click    ${element}
+    Should Be Equal    first    second
+
+Click on the "${text}" button in the "${name}" table line1
+    Wait Until Element Spin
+    ${element}=    Get Element Form Item By Name    ${STATE["${name}"]}    //input[contains(@class, "ant-input")]
+    Log To Console    ${element}
+    Click    ${element}
+    Click Confirm To Action
+
+Check empty in "${name}"
+    ${element}=    Get Element Form Item By Name    ${name}    //input[contains(@class, "ant-input")]
+    Should Be Empty    ${element}
+
+Clear select "${name}"
+    ${element}=    Get Element Form Item By Name    ${name}    //*[contains(@class, "ant-select-show-arrow")]
     Hover    ${element}
     Click
     ...    //*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../../*[contains(@class, "ant-form-item")]/div/div/div/div/span[contains(@class,"ant-select-clear")]
@@ -544,8 +572,8 @@ Check address in the input equal or not address of "${text}" table
     END
     Should Be Equal    ${element}    ${dia_chi}
 
-Check data table in "${text}" with search input
-    ${text_input}=    Get Text    //input[contains(@placeholder, "Tìm kiếm")]
+Click "${text}" menu1
+    Click    //li[contains(@class, "my-3") and descendant::span[contains(text(), "${text}")]]
 
     ${columns}=    Get Elements    xpath=//*[contains(@scope, "col")]
     ${i}=    Set Variable    0

@@ -196,16 +196,6 @@ const Page = () => {
       value: 'STOP_SELLING',
     },
   ];
-  const statusContract = [
-    {
-      label: t('supplier.Sup-Status.Signed'),
-      value: 'SIGNED_CONTRACT',
-    },
-    {
-      label: t('supplier.Sup-Status.Waiting'),
-      value: 'STOP_SELLING',
-    },
-  ];
 
   interface IExcelColumn {
     title: string;
