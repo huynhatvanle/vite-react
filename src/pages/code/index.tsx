@@ -84,7 +84,7 @@ const Page = () => {
                 </div>
               ))}
             </div>
-            <div className="p-2 sm:p-0">
+            <div className="p-2 sm:p-0 block sm:hidden">
               <Select
                 value={request.filter.type}
                 className={'w-full'}
