@@ -8,26 +8,32 @@
       "reset": "Cài lại",
       "search": "Tìm kiếm",
       "areYouSureWant": "Bạn có chắc muốn xóa ?",
+      "areYouSureWantTax": "Bạn có chắc muốn xóa thuế này ?",
+      "yes": "Xóa",
+      "no": "Hủy",
       "cancel": "Huỷ bỏ",
       "ok": "Đồng ý",
       "No Data": "Trống"
     },
     "form": {
+      "ruleRequiredNumber": "Đây là trường bắt buộc!",
+      "ruleNumber": "Chỉ chấp nhận giá trị từ {{min}} đến {{max}}",
+      "ruleTextarea": "Xin vui lòng nhập tối đa {{max}} ký tự",
       "ruleRequired": "Xin vui lòng nhập {{title}}",
       "ruleRequiredSelect": "Xin vui lòng chọn {{title}}",
       "ruleRequiredPassword": "Đây là trường bắt buộc!",
       "ruleEmail": "Vui lòng nhập địa chỉ email hợp lệ!",
-      "ruleUsername": "Tên người dùng không chứa các ký tự đặc biệt, chỉ bao gồm chữ cái và chữ số!",
-      "ruleMinLength": "Xin vui lòng nhập tối thiểu {{min}} ký tự!",
-      "ruleMaxLength": "Xin vui lòng nhập tối đa {{max}} ký tự!",
-      "ruleMinNumberLength": "Xin vui lòng nhập tối thiểu {{min}} ký tự số!",
-      "ruleMaxNumberLength": "Xin vui lòng nhập tối đa {{max}} ký tự số!",
+      "ruleUsername": "Tên người dùng không chứa các kí tự đặc biệt, chỉ bao gồm chữ cái và chữ số!",
+      "ruleMinLength": "Xin vui lòng nhập tối thiểu {{min}} kí tự!",
+      "ruleMaxLength": "Xin vui lòng nhập tối đa {{max}} kí tự!",
+      "ruleMinNumberLength": "Xin vui lòng nhập tối thiểu {{min}} kí tự số!",
+      "ruleMaxNumberLength": "Xin vui lòng nhập tối đa {{max}} kí tự số!",
       "ruleMin": "Xin vui lòng nhập số {{min}} tối thiểu!",
       "ruleMax": "Xin vui lòng nhập số {{max}} đối đa!",
       "ruleMaxSize": "Bạn chỉ có thể tải lên tối đa {{max}}mb!",
       "only text": "Xin vui lòng chỉ nhập chữ!",
       "only number": "Xin vui lòng chỉ nhập số",
-      "rulePassword": "Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt",
+      "rulePassword": "Mật khẩu yêu cầu có 8 kí tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 kí tự đặc biệt",
       "rulePhone": "Số điện thoại không hợp lệ",
       "confirm": "Xác nhận",
       "ruleConfirmPassword": "Hai mật khẩu bạn nhập không nhất quán!",
@@ -40,7 +46,7 @@
         "cancel": "Trở về"
       },
       "Form Password": {
-        "Lenght Password": "Mật khẩu yêu cầu có 8 ký tự trở lên"
+        "Lenght Password": "Mật khẩu yêu cầu có 8 kí tự trở lên"
       },
       "Select Date": "Chọn ngày"
     },
@@ -118,7 +124,10 @@
     "Upload contract": "Đăng tải hợp đồng",
     "Contract-View": "Hợp đồng kết nối",
     "Discount-Detail": "Chi tiết nhà cung cấp",
-    "Merchandise-Managerment/Product/Detail": "Sản phẩm"
+    "Merchandise-Managerment/Product/Detail": "Sản phẩm",
+    "Merchandise-managerment": "Quản lý hàng hóa",
+    "Merchandise-Managerment/Tax": "Quản lý thuế",
+    "Tax": "Thuế"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -139,7 +148,8 @@
     "Supplier/Add": "Quản Lý Nhà Cung Cấp",
     "Supplier/Edit": "Quản Lý Nhà Cung Cấp",
     "Contract-View": "Quản Lý Hợp Đồng",
-    "Merchandise-Managerment/Product/Detail": "Quản lý hàng hóa"
+    "Merchandise-Managerment/Product/Detail": "Quản lý hàng hóa",
+    "Merchandise-Managerment/Tax": "Thuế"
   },
   "columns": {
     "auth": {
@@ -175,7 +185,7 @@
     }
   },
   "layout": {
-    "footer": "Bản quyền ©{{year}} Công ty Cổ phần Công nghệ ARI. Đã đăng ký Bản quyền."
+    "footer": "Bản quyền ©{{year}} Công ty Cổ phần Công nghệ ARI. Đã đăng kí Bản quyền."
   },
   "routes": {
     "auth": {
@@ -196,7 +206,7 @@
         "Submit": "Gửi đi",
         "subTitle": "Vui lòng nhập e-mail của bạn. Mã xác minh OTP sẽ được gửi cho bạn",
         "subEmail": "Vui lòng nhập mã OTP đã gửi đến email của bạn",
-        "subReset": "Mật khẩu yêu cầu có 8 ký tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường,",
+        "subReset": "Mật khẩu yêu cầu có 8 kí tự trở lên, có ít nhất 1 chữ hoa, 1 chữ thường,",
         "subReset1": "1 chữ số và 1 kí tự đặc biệt.",
         "OTP": "Lấy Mã OTP",
         "Go back to login": "Quay trở lại đăng nhập",
@@ -231,7 +241,8 @@
         "PaginationSupplier": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} nhà cung cấp",
         "PaginationProduct": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} sản phẩm",
         "PaginationOrder": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} đơn hàng",
-        "PaginationDiscount": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} chiết khấu"
+        "PaginationDiscount": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} chiết khấu",
+        "PaginationTax": "Hiển thị {{from}} - {{to}} / Tổng số {{total}} thuế"
       }
     }
   },
@@ -303,8 +314,8 @@
       "Discounts to be paid": "Chiết khấu cần thanh toán"
     },
     "Sup-Status": {
-      "Signed": "Đã ký",
-      "Waiting": "Chờ ký",
+      "Signed": "Đã kí",
+      "Waiting": "Chờ kí",
       "Selling": "Đang bán",
       "Discontinued": "Ngưng bán",
       "Shipped": "Đã giao",
@@ -322,9 +333,9 @@
       "Contract information": "Thông tin hợp đồng",
       "Supplier Information": "Thông tin nhà cung cấp",
       "Click here": "Nhấn vào đây",
-      "Signed file": "Tệp đã ký",
+      "Signed file": "Tệp đã kí",
       "Manager name": "Tên chủ quản lý",
-      "Upload contract": "Tải lên hợp đồng đã ký",
+      "Upload contract": "Tải lên hợp đồng đã kí",
       "Upload file": "Kéo thả tệp mà bạn muốn tải lên",
       "Select file": "Chọn tệp",
       "or": "hoặc",
@@ -344,11 +355,11 @@
       "SUPPLIER": "NHÀ CUNG CẤP",
       "Contract with code": "Căn cứ vào hợp đồng có mã",
       "Today": "Hôm nay ngày 05-07-2022 tại ...... Chúng tôi gồm",
-      "Contract from the date": "Hai bên đồng ý ký kết hợp đồng từ ngày",
-      "Contract content": "Chúng tôi đã đọc và hiểu rõ nội dung hợp đồng và đồng ý ký tên",
-      "Contract Minutes": "Biên bản hợp đồng này sau khi ký tên sẽ có giá trị theo luật định",
-      "Contract name": "Hợp đồng được ký bởi tên chủ cung cấp ngày 1/7/2022",
-      "Sign": "Ký tên",
+      "Contract from the date": "Hai bên đồng ý kí kết hợp đồng từ ngày",
+      "Contract content": "Chúng tôi đã đọc và hiểu rõ nội dung hợp đồng và đồng ý kí tên",
+      "Contract Minutes": "Biên bản hợp đồng này sau khi kí tên sẽ có giá trị theo luật định",
+      "Contract name": "Hợp đồng được kí bởi tên chủ cung cấp ngày 1/7/2022",
+      "Sign": "kí tên",
       "A side": "Bên A",
       "B side": "Bên B",
       "Export contract": "Xuất hợp đồng"
@@ -440,5 +451,13 @@
     "Search by order supplier": "Tìm kiếm mã sản phẩm, tên, mã vạch",
     "Choose a time": "Chọn thời điểm",
     "Select status": "Chọn trạng thái"
+  },
+  "tax": {
+    "stt": "STT",
+    "type": "Loại thuế",
+    "taxRate": "Thuế suất (%)",
+    "descripton": "Mô tả",
+    "action": "Hoạt động",
+    "add": "Thêm thuế"
   }
 }

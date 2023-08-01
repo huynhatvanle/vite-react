@@ -3,6 +3,7 @@ Library     Browser
 Library     FakerLibrary    locale=en_IN
 Library     String
 Resource    ../testcases/user.robot
+Library     XML
 
 
 *** Variables ***
@@ -21,7 +22,6 @@ Login to admin
     Enter "text" in "Mật khẩu" with "Ari123456#"
     Click "Đăng nhập" button
     User look message "Đăng nhập thành công" popup
-
 #### Setup e Teardown
 
 Setup
