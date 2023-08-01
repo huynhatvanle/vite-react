@@ -11,6 +11,7 @@ import { Popconfirm, Select, Spin, Tooltip } from 'antd';
 import { useNavigate } from 'react-router';
 import classNames from 'classnames';
 import { createSearchParams } from 'react-router-dom';
+import { Avatar } from '@core/avatar';
 
 const Page = () => {
   const { user, set } = GlobalFacade();
@@ -163,8 +164,18 @@ const Page = () => {
                   tableItem: {
                     filter: { type: 'search' },
                     sorter: true,
-                    render: (text) =>
-                      text?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0].name || '',
+                    render: (text: string, item: any) => (
+                      <Avatar
+                        src={item.thumbnailUrl}
+                        text={
+                          (item.translations.length &&
+                            item.translations?.filter(
+                              (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                            )[0].name) ||
+                          ''
+                        }
+                      />
+                    ),
                   },
                 },
                 {
