@@ -38,6 +38,7 @@ export const routerLinks = (name: string, type?: string) => {
     Tax: '/merchandise-managerment/tax',
     'revenue-management/store': '/revenue-management/store',
     'revenue-management/discount': '/revenue-management/discount',
+    'revenue-management/supplier': '/revenue-management/supplier',
   }; // 💬 generate link to here
 
   const apis: {
@@ -68,6 +69,7 @@ export const routerLinks = (name: string, type?: string) => {
     suborgcommisionline: '/sub-org-commision-line',
     Tax: '/mt-tax',
     StoreOder: '/sub-organization/store-order',
+    SupplierOrder: '/sub-organization/supplier-order',
   }; // 💬 generate api to here
 
   switch (type) {
