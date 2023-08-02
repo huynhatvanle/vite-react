@@ -215,6 +215,31 @@ const Page = () => {
         className="intro-x"
         columns={[
           {
+            title: 'store.ContactName',
+            name: 'nameContact',
+            formItem: {
+              col: 4,
+              type: 'name',
+              rules: [{ type: 'required', message: 'ruleRequiredNumber' }],
+            },
+          },
+          {
+            title: 'store.Contact Phone Number',
+            name: 'phoneNumber',
+            formItem: {
+              col: 4,
+              rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 12 }],
+            },
+          },
+          {
+            title: 'store.Contact Email',
+            name: 'emailContact',
+            formItem: {
+              col: 4,
+              rules: [{ type: 'required' }, { type: 'email' }],
+            },
+          },
+          {
             title: 'store.Note',
             name: 'note',
             formItem: {

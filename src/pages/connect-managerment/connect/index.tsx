@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-
 import dayjs from 'dayjs';
-
 import { Infor, Plus } from '@svgs';
 import { ConnectFacade,GlobalFacade } from '@store';
 import { Button } from '@core/button';
@@ -36,6 +34,7 @@ const Page = () => {
             className=' bg-white p-5 rounded-lg'
             onRow={(data: any) => ({
                 onDoubleClick: () => {
+                    
                     navigate(`/${lang}${routerLinks('connect-managerment/connect')}/${data.id}`)
                     
                 },
@@ -59,6 +58,7 @@ const Page = () => {
                     name: 'store',
                     tableItem: {
                         render:(text, item) => item?.store?.name,
+                        
                     },
                 },
                 {
@@ -81,43 +81,34 @@ const Page = () => {
                     tableItem: {
                         render: (text: string) => (text ? dayjs(text).format(formatDateTime).replace(/-/g, '-') : ''),
                     },
+
                 },
                 {
                     title: 'store.status.status',
                     name: 'status',
                     tableItem: {
-                        render:(text, item) => item?.status === 'APPROVED' ? 
-                        (
-                         <div className="bg-green-50 text-center p-1 border border-green-500 rounded-lg text-green-500 w-[144px]">
-                           {t('store.status.APPROVED')}
-                         </div>
-                       ) :item?.status === 'WAITING_ADMIN' ? (
-                         <div className="bg-yellow-50 text-center p-1 border border-yellow-500 rounded-lg text-yellow-500 w-[144px]">
-                           {t('store.status.WAITING_ADMIN')}
-                         </div>
-                       ):item?.status === 'WAITING_STORE'?(
-                         <div className="bg-blue-50 text-center p-1 border border-blue-500 rounded-lg text-blue-500 w-[144px]">
-                           {t('store.status.WAITING_STORE')}
-                         </div>
-                       ):(
-                         <div className="bg-red-50 text-center p-1 border border-red-500 rounded-lg text-red-500 w-[144px]">
-                           {t('store.status.REJECT_BY_ADMIN')}
-                         </div>
-                       ) ,
-                       
+                       render:(text, item) => item?.status === 'APPROVED' ? 
+                       (
+                        <div className="bg-green-50 text-center p-1 border border-green-500 rounded-lg text-green-500 w-[144px]">
+                          {t('store.status.APPROVED')}
+                        </div>
+                      ) :item?.status === 'WAITING_ADMIN' ? (
+                        <div className="bg-yellow-50 text-center p-1 border border-yellow-500 rounded-lg text-yellow-500 w-[144px]">
+                          {t('store.status.WAITING_ADMIN')}
+                        </div>
+                      ):item?.status === 'WAITING_STORE'?(
+                        <div className="bg-blue-50 text-center p-1 border border-blue-500 rounded-lg text-blue-500 w-[144px]">
+                          {t('store.status.WAITING_STORE')}
+                        </div>
+                      ):(
+                        <div className="bg-red-50 text-center p-1 border border-red-500 rounded-lg text-red-500 w-[144px]">
+                          {t('store.status.REJECT_BY_ADMIN')}
+                        </div>
+                      ) ,
                     },
                 },
             ]}
-            rightHeader={
-                <div className={'flex gap-2 !bg-teal-900 !rounded-xl mt-2.5 lg:mt-0 w-48 lg:w-full'}>
-                    <Button
-                        className='!bg-teal-900 !rounded-3xl !font-normal'
-                        icon={<Plus className="icon-cud !h-5 !w-5 !fill-white " />}
-                        text={t('titles.Store/Add')}
-                        onClick={() => navigate(`/${lang}${routerLinks('store-managerment/create')}`)}
-                    />
-                </div>
-            }
+            
         />
     );
 };
