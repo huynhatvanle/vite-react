@@ -121,7 +121,8 @@
     "revenue-management/store": "revenue-management-store",
     "Store-Revenue": "Store-Revenue",
     "Store-Revenue/Order": "Store-Revenue-Order",
-    "Store-Revenue/Product": "Store-Revenue-Product"
+    "Store-Revenue/Product": "Store-Revenue-Product",
+    "revenue-management/discount": "Discount NCC"
   },
   "pages": {
     "Dashboard": "Dashboard",

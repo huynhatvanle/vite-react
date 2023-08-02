@@ -132,7 +132,8 @@
     "Store-Revenue/Product": "Doanh thu theo sản phẩm",
     "Merchandise-managerment": "Quản lý hàng hóa",
     "Merchandise-Managerment/Tax": "Quản lý thuế",
-    "Tax": "Thuế"
+    "Tax": "Thuế",
+    "revenue-management/discount": "Chiết khấu NCC"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",

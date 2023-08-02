@@ -37,6 +37,7 @@ export const routerLinks = (name: string, type?: string) => {
     MerchandiseManagermentCategory: '/merchandise-managerment/category',
     Tax: '/merchandise-managerment/tax',
     'revenue-management/store': '/revenue-management/store',
+    'revenue-management/discount': '/revenue-management/discount',
   }; // 💬 generate link to here
 
   const apis: {

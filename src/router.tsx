@@ -140,6 +140,11 @@ const pages = [
         component: React.lazy(() => import('@pages/revenue-management/store/index')),
         title: 'Store-Revenue',
       },
+      {
+        path: routerLinks('revenue-management/discount'),
+        component: React.lazy(() => import('@pages/revenue-management/discount/index')),
+        title: 'revenue-management/discount',
+      },
     ], // 💬 generate link to here
   },
 ];

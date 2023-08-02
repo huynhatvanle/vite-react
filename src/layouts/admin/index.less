@@ -131,9 +131,20 @@ main {
     @apply !col-span-12 lg:!col-span-4;
   }
 }
+.form-header-product {
+  .col-store {
+    @apply !col-span-12 sm:!col-span-4 lg:!col-span-3 xl:!col-span-4;
+  }
+  .responsive-header {
+    @apply flex !flex-col-reverse sm:!flex-row !mb-0;
+    .col-store {
+      @apply !col-span-12 sm:!w-52 lg:!col-span-12 lg:!w-80;
+    }
+  }
+}
 .form-header-category {
   .col-store {
-    @apply !col-span-12 sm:!col-span-4 lg:!col-span-3 ;
+    @apply !col-span-12 sm:!col-span-4 lg:!col-span-3;
   }
   .responsive-header {
     @apply flex !flex-col-reverse sm:!flex-row !mb-0;

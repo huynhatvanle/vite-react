@@ -800,7 +800,135 @@ const Page = () => {
                               },
                             ]}
                           />
-                          <div className="w-full">
+                        </div>
+                      }
+                      subHeader={() => (
+                        <div className="flex xl:flex-row flex-col-reverse">
+                          <Form
+                            className="intro-x w-full form-store form-header-product mr-5"
+                            values={{
+                              categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
+                              categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
+                              categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
+                              dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
+                              dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
+                              status: getFilter(invoiceKiotVietFacade.queryParams, 'status'),
+                              idStore: getFilter(invoiceKiotVietFacade.queryParams, 'idStore'),
+                              supplier: getFilter(invoiceKiotVietFacade.queryParams, 'supplierId'),
+                            }}
+                            columns={[
+                              {
+                                title: '',
+                                name: 'categoryId1',
+                                formItem: {
+                                  placeholder: 'placeholder.Main categories',
+                                  col: 3,
+                                  type: 'select',
+                                  list: category1?.map((item) => ({
+                                    label: item?.name!,
+                                    value: item?.id!,
+                                  })),
+                                  onChange(value, form) {
+                                    setCategoryId1(value);
+                                    setCategoryId2('');
+                                    form.resetFields(['categoryId2', 'categoryId3']);
+                                    dataTableRefRevenueProduct?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        categoryId1: value ? value : '',
+                                        dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                        dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                        idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
+                                        supplierId: form.getFieldValue('supplier')
+                                          ? form.getFieldValue('supplier')
+                                          : '',
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                      },
+                                    });
+                                  },
+                                },
+                              },
+                              {
+                                name: 'categoryId2',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'placeholder.Category level 1',
+                                  type: 'select',
+                                  col: 3,
+                                  list: category2?.map((item) => ({
+                                    label: item?.name!,
+                                    value: item?.id!,
+                                  })),
+                                  disabled: (values: any, form: any) =>
+                                    categoryId1 ? (category2?.length === 0 ? true : category2 ? false : true) : true,
+                                  onChange(value, form) {
+                                    setCategoryId2(value);
+                                    form.resetFields(['categoryId3']);
+                                    dataTableRefRevenueProduct?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        categoryId: '',
+                                        categoryId1: form.getFieldValue('categoryId1')
+                                          ? form.getFieldValue('categoryId1')
+                                          : '',
+                                        categoryId2: value ? value : '',
+                                        dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                        dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                        idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
+                                        supplierId: form.getFieldValue('supplier')
+                                          ? form.getFieldValue('supplier')
+                                          : '',
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
+                                },
+                              },
+                              {
+                                name: 'categoryId3',
+                                title: '',
+                                formItem: {
+                                  placeholder: 'placeholder.Category level 2',
+                                  type: 'select',
+                                  col: 3,
+                                  list: category3?.map((item) => ({
+                                    label: item?.name!,
+                                    value: item?.id!,
+                                  })),
+                                  disabled: (values: any, form: any) =>
+                                    categoryId2 ? (category3?.length === 0 ? true : category3 ? false : true) : true,
+                                  onChange(value, form) {
+                                    dataTableRefRevenueProduct?.current?.onChange({
+                                      page: 1,
+                                      perPage: 10,
+                                      filter: {
+                                        categoryId: '',
+                                        categoryId1: form.getFieldValue('categoryId1')
+                                          ? form.getFieldValue('categoryId1')
+                                          : '',
+                                        categoryId2: form.getFieldValue('categoryId2')
+                                          ? form.getFieldValue('categoryId2')
+                                          : '',
+                                        categoryId3: value ? value : '',
+                                        dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
+                                        dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                        idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
+                                        supplierId: form.getFieldValue('supplier')
+                                          ? form.getFieldValue('supplier')
+                                          : '',
+                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                      },
+                                      fullTextSearch: '',
+                                    });
+                                  },
+                                },
+                              },
+                            ]}
+                          />
+                          <div className="w-full ">
                             <Form
                               values={{
                                 categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
@@ -932,132 +1060,8 @@ const Page = () => {
                               </div>
                             )}
                           </div>
-                          <Form
-                            className="intro-x w-full xl:!flex xl:justify-end form-revenue-store form-header-category "
-                            values={{
-                              categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
-                              categoryId2: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId2'),
-                              categoryId3: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId3'),
-                              dateFrom: getFilter(invoiceKiotVietFacade.queryParams, 'dateFrom'),
-                              dateTo: getFilter(invoiceKiotVietFacade.queryParams, 'dateTo'),
-                              status: getFilter(invoiceKiotVietFacade.queryParams, 'status'),
-                              idStore: getFilter(invoiceKiotVietFacade.queryParams, 'idStore'),
-                              supplier: getFilter(invoiceKiotVietFacade.queryParams, 'supplierId'),
-                            }}
-                            columns={[
-                              {
-                                title: '',
-                                name: 'categoryId1',
-                                formItem: {
-                                  placeholder: 'placeholder.Main categories',
-                                  col: 3,
-                                  type: 'select',
-                                  list: category1?.map((item) => ({
-                                    label: item?.name!,
-                                    value: item?.id!,
-                                  })),
-                                  onChange(value, form) {
-                                    setCategoryId1(value);
-                                    setCategoryId2('');
-                                    form.resetFields(['categoryId2', 'categoryId3']);
-                                    dataTableRefRevenueProduct?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        categoryId1: value ? value : '',
-                                        dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
-                                        dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
-                                        idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
-                                        supplierId: form.getFieldValue('supplier')
-                                          ? form.getFieldValue('supplier')
-                                          : '',
-                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      },
-                                    });
-                                  },
-                                },
-                              },
-                              {
-                                name: 'categoryId2',
-                                title: '',
-                                formItem: {
-                                  placeholder: 'placeholder.Category level 1',
-                                  type: 'select',
-                                  col: 3,
-                                  list: category2?.map((item) => ({
-                                    label: item?.name!,
-                                    value: item?.id!,
-                                  })),
-                                  disabled: (values: any, form: any) =>
-                                    categoryId1 ? (category2?.length === 0 ? true : category2 ? false : true) : true,
-                                  onChange(value, form) {
-                                    setCategoryId2(value);
-                                    form.resetFields(['categoryId3']);
-                                    dataTableRefRevenueProduct?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        categoryId: '',
-                                        categoryId1: form.getFieldValue('categoryId1')
-                                          ? form.getFieldValue('categoryId1')
-                                          : '',
-                                        categoryId2: value ? value : '',
-                                        dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
-                                        dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
-                                        idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
-                                        supplierId: form.getFieldValue('supplier')
-                                          ? form.getFieldValue('supplier')
-                                          : '',
-                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      },
-                                      fullTextSearch: '',
-                                    });
-                                  },
-                                },
-                              },
-                              {
-                                name: 'categoryId3',
-                                title: '',
-                                formItem: {
-                                  placeholder: 'placeholder.Category level 2',
-                                  type: 'select',
-                                  col: 3,
-                                  list: category3?.map((item) => ({
-                                    label: item?.name!,
-                                    value: item?.id!,
-                                  })),
-                                  disabled: (values: any, form: any) =>
-                                    categoryId2 ? (category3?.length === 0 ? true : category3 ? false : true) : true,
-                                  onChange(value, form) {
-                                    dataTableRefRevenueProduct?.current?.onChange({
-                                      page: 1,
-                                      perPage: 10,
-                                      filter: {
-                                        categoryId: '',
-                                        categoryId1: form.getFieldValue('categoryId1')
-                                          ? form.getFieldValue('categoryId1')
-                                          : '',
-                                        categoryId2: form.getFieldValue('categoryId2')
-                                          ? form.getFieldValue('categoryId2')
-                                          : '',
-                                        categoryId3: value ? value : '',
-                                        dateFrom: form.getFieldValue('dateFrom') ? form.getFieldValue('dateFrom') : '',
-                                        dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
-                                        idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
-                                        supplierId: form.getFieldValue('supplier')
-                                          ? form.getFieldValue('supplier')
-                                          : '',
-                                        status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                      },
-                                      fullTextSearch: '',
-                                    });
-                                  },
-                                },
-                              },
-                            ]}
-                          />
                         </div>
-                      }
+                      )}
                       searchPlaceholder={t('placeholder.Search by order number')}
                       columns={[
                         {
