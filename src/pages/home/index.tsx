@@ -6,11 +6,14 @@ import { gsap } from 'gsap';
 import LazyLoad from 'vanilla-lazyload';
 
 import { Arrow, CheckCircle } from '@svgs';
+import { DataFacade } from '@store';
 const Page = () => {
+  const dataFacade = DataFacade();
   useEffect(() => {
     new LazyLoad({
       callback_error: (el: any) => (el.src = 'https://via.placeholder.com/440x560/?text=Error'),
     });
+    dataFacade.getArray({ array: ['mission', 'services', 'value', 'member', 'partner'] });
   }, []);
   const animationSlide = (swiper: SwiperClass, delay: number) => {
     const tl = gsap.timeline({
@@ -123,41 +126,31 @@ const Page = () => {
       <section className="bg-[url('/assets/images/home/ser-bg3.jpg')] w-full bg-cover bg-center bg-gray-100 bg-blend-multiply">
         <div className="container px-6 mx-auto sm:py-24 py-10">
           <p className="text-blue-500 uppercase font-bold text-center mb-4">Our Mission</p>
-          <h2 className="text-4xl text-blue-800 font-bold text-center">
+          <h2 className="text-4xl text-blue-900 font-bold text-center">
             We provide Software Engineering &amp; Consulting
           </h2>
-          <Swiper loop={true} slidesPerView={4} spaceBetween={16} className={'mt-2'}>
-            {[1, 2, 3, 4].map((i) => (
-              <SwiperSlide key={i} className={'flex items-center h-96'}>
-                <div className={'container mx-auto'}>
-                  <h1 className="left text-xl xl:text-2xl text-blue-500 font-bold leading-none mt-8">
-                    Enhance Vietnam’s intellectual value
-                  </h1>
-                  <p className="text-gray-500 leading-none top">{i} Choose the service you want us to help with </p>
-                  <div className="right mt-10 mb-3 ng-star-inserted">
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      Digital Transformation{' '}
-                    </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> R&amp;D Services
-                    </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> Outsourcing Services
-                    </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> Product Development
-                    </p>
-                  </div>
-                  <a
-                    onClick={() => console.log('1')}
-                    className="bottom bg-blue-500 text-white px-5 py-3 inline-block rounded-3xl"
-                  >
-                    Get Started <i className="las la-arrow-right ml-1"></i>
-                  </a>
-                </div>
-              </SwiperSlide>
+          <div className={'grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-14'}>
+            {dataFacade.mission.map((data, index) => (
+              <div
+                key={index}
+                className="drop-shadow bg-white rounded-xl p-5 hover:scale-110 duration-500 transition-all ease-in-out text-center lg:text-left h-64"
+              >
+                <img alt="ARI" className="h-20 mb-5 mx-auto" src={data.image} />
+                <h3 className="text-xl text-blue-500 font-bold mb-1">
+                  {
+                    data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
+                      .name
+                  }
+                </h3>
+                <p>
+                  {
+                    data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
+                      .description
+                  }
+                </p>
+              </div>
             ))}
-          </Swiper>
+          </div>
         </div>
       </section>
       <section id="services" className="bg-[url('/assets/images/home/team-bg3.jpg')] w-full bg-cover bg-center">
@@ -172,34 +165,23 @@ const Page = () => {
             a competitive price.
           </p>
 
-          <Swiper loop={true} slidesPerView={1} className={'mt-2'} modules={[Pagination]} pagination={true}>
-            {[1, 2, 3, 4].map((i) => (
-              <SwiperSlide key={i} className={'flex items-center h-96'}>
-                <div className={'container mx-auto'}>
-                  <h1 className="left text-xl xl:text-2xl text-blue-500 font-bold leading-none mt-8">
-                    Enhance Vietnam’s intellectual value
-                  </h1>
-                  <p className="text-gray-500 leading-none top">{i} Choose the service you want us to help with </p>
-                  <div className="right mt-10 mb-3 ng-star-inserted">
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      Digital Transformation{' '}
-                    </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> R&amp;D Services
-                    </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> Outsourcing Services
-                    </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> Product Development
-                    </p>
-                  </div>
-                  <a
-                    onClick={() => console.log('1')}
-                    className="bottom bg-blue-500 text-white px-5 py-3 inline-block rounded-3xl"
-                  >
-                    Get Started <i className="las la-arrow-right ml-1"></i>
-                  </a>
+          <Swiper loop={true} slidesPerView={1} className={'mt-14'} modules={[Pagination]} pagination={true}>
+            {dataFacade.services.map((data, index) => (
+              <SwiperSlide key={index} className={'lg:flex items-center'}>
+                <img alt="Ari" className="lg:w-1/2 lg:pr-14" src={data.image} />
+                <div className="lg:w-1/2 mt-5 lg:mt-0">
+                  <h3 className="text-2xl text-blue-500 font-bold mb-1">
+                    {
+                      data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
+                        .name
+                    }
+                  </h3>
+                  <p>
+                    {
+                      data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
+                        .description
+                    }
+                  </p>
                 </div>
               </SwiperSlide>
             ))}
@@ -209,74 +191,73 @@ const Page = () => {
       <section className="bg-[url('/assets/images/home/blog-bg3.jpg')] w-full bg-cover bg-center bg-gray-100 bg-blend-multiply">
         <div className="container px-6 mx-auto sm:py-24 py-10">
           <p className="text-blue-500 uppercase font-bold text-center"> Core Value </p>
-          <Swiper loop={true} slidesPerView={4} spaceBetween={16} className={'mt-2'}>
-            {[1, 2, 3, 4].map((i) => (
-              <SwiperSlide key={i} className={'flex items-center h-96'}>
-                <div className={'container mx-auto'}>
-                  <h1 className="left text-xl xl:text-2xl text-blue-500 font-bold leading-none mt-8">
-                    Enhance Vietnam’s intellectual value
-                  </h1>
-                  <p className="text-gray-500 leading-none top">{i} Choose the service you want us to help with </p>
-                  <div className="right mt-10 mb-3 ng-star-inserted">
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      Digital Transformation{' '}
-                    </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> R&amp;D Services
-                    </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> Outsourcing Services
-                    </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> Product Development
-                    </p>
-                  </div>
-                  <a
-                    onClick={() => console.log('1')}
-                    className="bottom bg-blue-500 text-white px-5 py-3 inline-block rounded-3xl"
-                  >
-                    Get Started <i className="las la-arrow-right ml-1"></i>
-                  </a>
-                </div>
-              </SwiperSlide>
+          <div className={'grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-14'}>
+            {dataFacade.value.map((data, index) => (
+              <div
+                key={index}
+                className="drop-shadow bg-white rounded-xl p-5 hover:scale-110 duration-500 transition-all ease-in-out text-center lg:text-left h-64"
+              >
+                <img alt="ARI" className="h-20 mb-5 mx-auto" src={data.image} />
+                <h3 className="text-xl text-blue-500 font-bold mb-1">
+                  {
+                    data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
+                      .name
+                  }
+                </h3>
+                <p>
+                  {
+                    data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
+                      .description
+                  }
+                </p>
+              </div>
             ))}
-          </Swiper>
+          </div>
         </div>
       </section>
       <section className="bg-[url('/assets/images/home/choose-bg3.jpg')] w-full bg-cover bg-center">
         <div className="container px-6 mx-auto sm:py-24 py-10">
           <p className="text-blue-500 uppercase font-bold text-center mb-4"> Executive Board </p>
-          <h2 className="text-3xl text-blue-800 text-center">
+          <h2 className="text-3xl text-blue-900 text-center">
             “We love integrating technology into our daily life, making a more comfortable and relaxing life.”
           </h2>
-          <Swiper loop={true} slidesPerView={1} className={'mt-2'} modules={[Pagination]} pagination={true}>
-            {[1, 2, 3, 4].map((i) => (
-              <SwiperSlide key={i} className={'flex items-center h-96'}>
-                <div className={'container mx-auto'}>
-                  <h1 className="left text-xl xl:text-2xl text-blue-500 font-bold leading-none mt-8">
-                    Enhance Vietnam’s intellectual value
-                  </h1>
-                  <p className="text-gray-500 leading-none top">{i} Choose the service you want us to help with </p>
-                  <div className="right mt-10 mb-3 ng-star-inserted">
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      Digital Transformation{' '}
+          <Swiper loop={true} slidesPerView={1} className={'mt-14'} modules={[Pagination]} pagination={true}>
+            {dataFacade.member.slice(0, 7).map((data, index) => (
+              <SwiperSlide
+                key={index}
+                className={
+                  'border border-gray-200 text-left p-5 sm:p-10 sm:pb-0 lg:pt-5 lg:pr-3 lg:pl-0 bg-gray-50 mx-5'
+                }
+              >
+                <div className="lg:flex items-center">
+                  <img alt="Ari" className="w-1/3 lg:p-10 lg:pt-5 text-center mx-auto" src={data.image} />
+                  <div className="lg:w-2/3 mt-5 lg:mt-0">
+                    <h3 className="text-3xl sm:text-4xl text-blue-500 mb-1">
+                      {
+                        data.translations?.filter(
+                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                        )[0].name
+                      }
+                    </h3>
+                    <p className="text-blue-900 text-lg mb-0 capitalize font-bold">
+                      {
+                        data.translations?.filter(
+                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                        )[0].position
+                      }
                     </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> R&amp;D Services
+                    <div className="w-52 h-0.5 bg-gray-300 mb-5 lg:mx-0"></div>
+                    <p className="hidden text-justify sm:block">
+                      {
+                        data.translations?.filter(
+                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                        )[0].description
+                      }
                     </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> Outsourcing Services
-                    </p>
-                    <p className="font-bold text-2xl xl:text-3xl text-blue-800 ng-star-inserted">
-                      <i className="las la-check-circle"></i> Product Development
-                    </p>
+                    <a tabIndex={-1}>
+                      Xem thêm <i className="las la-arrow-right ml-1"></i>
+                    </a>
                   </div>
-                  <a
-                    onClick={() => console.log('1')}
-                    className="bottom bg-blue-500 text-white px-5 py-3 inline-block rounded-3xl"
-                  >
-                    Get Started <i className="las la-arrow-right ml-1"></i>
-                  </a>
                 </div>
               </SwiperSlide>
             ))}

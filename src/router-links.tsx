@@ -9,6 +9,7 @@ export const routerLinks = (name: string, type?: string) => {
     [selector: string]: string;
   } = {
     Auth: '/auth',
+    Data: '/data',
   }; // 💬 generate api to here
 
   switch (type) {

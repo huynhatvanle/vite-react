@@ -13,9 +13,9 @@ export { setupStore, useAppDispatch, useTypedSelector, Action, Slice };
 export type { State };
 
 export * from './global';
-import {
-  globalSlice,
-} from './';
+export * from './data';
+import { globalSlice, dataSlice } from './';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
+  [dataSlice.name]: dataSlice.reducer,
 });
