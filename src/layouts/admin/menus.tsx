@@ -37,6 +37,9 @@ const Layout = () => [
       {
         name: 'revenue-management/store',
       },
+      {
+        name: 'revenue-management/supplier',
+      },
     ],
   },
 ];

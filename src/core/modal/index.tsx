@@ -53,7 +53,7 @@ export const Modal = forwardRef(
               <Button
                 isLoading={isLoading}
                 text={t(textSubmit || '') || t('components.form.modal.save')}
-                className="!bg-gray-600"
+                className="!bg-teal-900"
                 disabled={!firstChange}
                 onClick={handleOk}
               />
