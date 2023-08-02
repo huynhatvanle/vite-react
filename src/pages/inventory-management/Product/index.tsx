@@ -51,7 +51,6 @@ const Page = () => {
   const [categoryId2, setCategoryId2] = useState('')
 
   const [forms] = AntForm.useForm();
-  console.log(productFacade)
 
   useEffect(() => {
 
@@ -163,7 +162,7 @@ const Page = () => {
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
               paginationDescription={(from: number, to: number, total: number) =>
-                t('routes.admin.Layout.PaginationSubStore', { from, to, total })
+                t('routes.admin.Layout.PaginationProduct', { from, to, total })
               }
               columns={[
                 {
@@ -530,10 +529,10 @@ const Page = () => {
             <DataTable
               facade={notapprovedFacade}
               ref={dataTableRefProduct}
+              defaultRequest={{ page: 1, perPage: 10, filter: { type: 'BALANCE', approveStatus: 'APPROVED' } }}
               onRow={(data: any) => ({
-                onDoubleClick: () => {
-                  navigate(`/${lang}${routerLinks('store-managerment/branch-management/edit')}/${data.id}`);
-                },
+                onDoubleClick: () =>
+                  navigate(`/${lang}${routerLinks('Merchandise-Managerment/Product/Detail')}/${data.id}`),
               })}
               xScroll="1270px"
               className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-supplier-index"
@@ -541,7 +540,7 @@ const Page = () => {
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
               paginationDescription={(from: number, to: number, total: number) =>
-                t('routes.admin.Layout.PaginationSubStore', { from, to, total })
+                t('routes.admin.Layout.PaginationProduct', { from, to, total })
               }
               columns={[
                 {
@@ -550,13 +549,14 @@ const Page = () => {
                   tableItem: {
                     sorter: true,
                     filter: { type: 'search' },
-                    width: 120,
+                    width: 150,
                   },
                 },
                 {
                   title: 'product.Name',
                   name: 'name',
                   tableItem: {
+                    width: 220,
                     sorter: true,
                     filter: { type: 'search' },
                   },
@@ -565,6 +565,7 @@ const Page = () => {
                   title: 'product.Category',
                   name: 'productCategory',
                   tableItem: {
+                    width: 220,
                     render: (value: any, item: any) => item.productCategory[0]?.category?.name,
                   },
                 },
@@ -572,6 +573,7 @@ const Page = () => {
                   title: 'product.SupplierName',
                   name: 'supplierName',
                   tableItem: {
+                    width: 220,
                     //render: (value: any, item: any) => item.subOrg?.name,
                   },
                 },
@@ -579,30 +581,15 @@ const Page = () => {
                   title: 'product.status',
                   name: 'approveStatus',
                   tableItem: {
+                    width: 120,
                     render: (text: string) =>
-                      text == 'APPROVED' ? (
-                        <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                          {t('supplier.status.on sale')}
-                        </div>
-                      ) : text == 'WAITING_APPROVE' ? (
+                      text == 'WAITING_APPROVE' ? (
                         <div className="bg-yellow-100 text-center p-1 border border-yellow-500 text-yellow-600 rounded">
                           {t('supplier.status.wait for confirm')}
                         </div>
-                      ) : text == 'REJECTED' ? (
+                      ) : (
                         <div className="bg-blue-100 text-center p-1 border border-blue-600 text-blue-600 rounded">
                           {t('supplier.status.decline')}
-                        </div>
-                      ) : text == 'OUT_OF_STOCK' ? (
-                        <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
-                          {t('supplier.status.out of stock')}
-                        </div>
-                      ) : text == 'STOP_SELLING' ? (
-                        <div className=" text-center p-1 border border-black text-black rounded">
-                          {t('supplier.status.stop selling')}
-                        </div>
-                      ) : (
-                        <div className=" text-center p-1 border border-black text-black rounded">
-                          {t('supplier.status.canceled')}
                         </div>
                       ),
                   },
@@ -611,7 +598,7 @@ const Page = () => {
 
               leftHeader={
                 <Form
-                  className="intro-x rounded-lg w-full form-store"
+                  className="intro-x rounded-lg w-full form-store form-mechandise"
                   values={{
                     supplierName: getFilter(notapprovedFacade.queryParams, 'supplierId'),
                     categoryId1: getFilter(notapprovedFacade.queryParams, 'categoryId1'),
@@ -624,8 +611,6 @@ const Page = () => {
                       title: '',
                       name: 'supplierName',
                       formItem: {
-                        placeholder: 'placeholder.Choose a supplier',
-                        col: 5,
                         type: 'select',
                         list: listSupplierAdmin?.map((item) => ({
                           label: item.name,

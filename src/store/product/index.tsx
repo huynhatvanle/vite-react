@@ -32,7 +32,7 @@ const action = {
       const filterProduct = typeof filter != 'object' ? JSON.parse(filter || '{}') : filter;
       const sortProduct = sorts ? JSON.parse(sorts.toString() || '{}') : '';
       cleanObjectKeyNull(sortProduct);
-      const data = await API.get(
+      let data = await API.get(
         routerLinks(name, 'api'),
         cleanObjectKeyNull({
           page: page,
@@ -67,6 +67,15 @@ const action = {
     const { data } = await API.get<Product>(`${routerLinks(name, 'api')}/list/supplier-waiting-appprove`);
     return data || {};
   }),
+  getById1: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id: string; keyState: keyof State<Product> }) => {
+    let { data } = await API.get<Product>(`${routerLinks(name, 'api')}/${id}`);
+    const exportTaxId = data?.exportTax?.id;
+    const importTaxId = data?.importTax?.id;
+    const categoryId = data?.category?.id;
+    data = { ...data, exportTaxId, importTaxId, categoryId }
+    console.log(data)
+    return { data, keyState };
+  },)
 };
 
 export const productSlice = createSlice(new Slice<Product>(action, { result: {}, result2: {}, result3: {} }, (builder) =>
@@ -98,7 +107,7 @@ export const productSlice = createSlice(new Slice<Product>(action, { result: {},
 
 
 
-    .addCase(action.getproduct.pending, (state: State, action) => {
+    .addCase(action.getproduct.pending, (state: State<Product>, action) => {
       state.data = action.meta.arg;
       state.isLoading = true;
       state.status = 'getproduct.pending';
@@ -146,7 +155,7 @@ export const ProductFacade = () => {
       return dispatch(action.getProduct({ page, perPage, filter, sorts }));
     },
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Product> }) =>
-      dispatch(action.getById({ id, keyState })),
+      dispatch(action.getById1({ id, keyState })),
     post: (values: Product) => dispatch(action.post(values)),
     put: (values: Product) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),
@@ -174,6 +183,8 @@ export class Product extends CommonEntity {
     public basicUnit?: string,
     public price?: string,
     public sellingPrice?: string,
+    public exportTaxId?: string,
+    public importTaxId?: string,
     public category?: {
       child: {
         child: {
@@ -186,6 +197,7 @@ export class Product extends CommonEntity {
       id: string;
       name: string;
     },
+    public categoryId?: string,
     public exportTax?: {
       id: string;
       name: string;
@@ -205,6 +217,7 @@ export class Product extends CommonEntity {
       {
         amountBalance: string;
         revenue: string;
+        percentBalance: string;
       },
     ],
     public child?: {},

@@ -7,7 +7,7 @@ import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 const name = 'notApproved';
 
 const action = {
-  ...new Action<NotProduct>(name),
+  ...new Action<notApproved>(name),
   getProductnotapproved: createAsyncThunk(
     name + '/supplierwaitingappprove',
     async ({
@@ -27,6 +27,7 @@ const action = {
         categoryId2?: string;
         categoryId3?: string;
         isGetAll?: boolean;
+        approveStatus?: string;
       };
       sorts?: {};
     }) => {
@@ -40,7 +41,7 @@ const action = {
           perPage: perPage,
           storeId: filterProduct.storeId,
           type: filterProduct.type,
-          //approveStatus: filterProduct.approveStatus,
+          approveStatus: filterProduct.approveStatus,
           supplierId: filterProduct.supplierId,
           categoryId: filterProduct.categoryId3
             ? filterProduct.categoryId3
@@ -66,12 +67,12 @@ const action = {
 }
 
 export const notApprovedSlice = createSlice(
-  new Slice<NotProduct>(action, { result: {} }, (builder) =>
+  new Slice<notApproved>(action, { result: {} }, (builder) =>
     builder
-    .addCase(
+      .addCase(
         action.getProductnotapproved.pending,
         (
-          state: State<NotProduct>,
+          state: State<notApproved>,
           action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
         ) => {
           state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
@@ -80,8 +81,8 @@ export const notApprovedSlice = createSlice(
           state.status = 'getProductnotapproved.pending';
         },
       )
-  
-      .addCase(action.getProductnotapproved.fulfilled, (state: State<NotProduct>, action: any) => {
+
+      .addCase(action.getProductnotapproved.fulfilled, (state: State<notApproved>, action: any) => {
         if (action.payload.data) {
           state.result = action.payload;
           state.status = 'getProductnotapproved.fulfilled';
@@ -98,8 +99,8 @@ export const notApprovedSlice = createSlice(
 export const notApprovedFacade = () => {
   const dispatch = useAppDispatch();
   return {
-    ...(useTypedSelector((state) => state[action.name]) as State<NotProduct>),
-    set: (values: State<NotProduct>) => dispatch(action.set(values)),
+    ...(useTypedSelector((state) => state[action.name]) as State<notApproved>),
+    set: (values: State<notApproved>) => dispatch(action.set(values)),
     getproduct: ({
       page,
       perPage,
@@ -112,7 +113,6 @@ export const notApprovedFacade = () => {
         supplierId?: string;
         storeId?: string;
         type: string;
-        //approveStatus: string;
         categoryId?: string,
         categoryId1?: string;
         categoryId2?: string;
@@ -123,14 +123,90 @@ export const notApprovedFacade = () => {
     }) => {
       return dispatch(action.getProductnotapproved({ page, perPage, filter, sorts }));
     },
-   };
+  };
 };
 
-export class NotProduct extends CommonEntity {
+export class notApproved extends CommonEntity {
   constructor(
+    public stt?: number,
+    public categoryId1?: string,
+    public categoryId2?: string,
+    public categoryId3?: string,
     public id?: string,
+    public code?: string,
+    public barcode?: string,
+    public storeBarcode?: string,
     public name?: string,
-    public type?: string
+    public description?: string,
+    public brand?: string,
+    public isOnlineBusinessWay?: boolean,
+    public status?: string,
+    public stockQuantity?: string,
+    public supplierName?: string,
+    public basicUnit?: string,
+    public price?: string,
+    public sellingPrice?: string,
+    public exportTaxId?: string,
+    public importTaxId?: string,
+    public category?: {
+      child: {
+        child: {
+          id: string;
+          name: string;
+        };
+        id: string;
+        name: string;
+      };
+      id: string;
+      name: string;
+    },
+    public categoryId?: string,
+    public exportTax?: {
+      id: string;
+      name: string;
+    },
+    public importTax?: {
+      id: string;
+      name: string;
+    },
+    public productPrice?: [
+      {
+        price: string;
+        priceType: string;
+        minQuantity: string;
+      },
+    ],
+    public priceBalanceCommission?: [
+      {
+        amountBalance: string;
+        revenue: string;
+        percentBalance: string;
+      },
+    ],
+    public child?: {},
+    public photos?: [
+      {
+        url?: string;
+      },
+    ],
+    public approveStatus?: string,
+    public subOrg?: {
+      id: string;
+      name: string;
+    },
+    public capitalCost?: string,
+    public abilitySupply?: {
+      quarter: string;
+      month: string;
+      year: string;
+    },
+    public productCategory?: [
+      {
+        category: {
+          name: string
+        },
+      }
+    ]
   ) {
     super();
   }

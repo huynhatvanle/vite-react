@@ -718,14 +718,6 @@ const Page = () => {
                                   label: item?.name!,
                                   value: item?.id!,
                                 })),
-                                // firstLoad: () => ({}),
-                                // get: {
-                                //   facade: CategoryFacade,
-                                //   format: (item: any) => ({
-                                //     label: item.name,
-                                //     value: item.id,
-                                //   }),
-                                // },
                                 onChange(value, form) {
                                   setCategoryId1(value);
                                   setCategoryId2('');
