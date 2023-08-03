@@ -169,7 +169,7 @@ const Page = () => {
                   {!isLoading && (
                     <>
                       <DataTable
-                        className="form-supplier-tab4"
+                        className="form-revenue-order"
                         ref={dataTableRefRevenueOder}
                         facade={invoice}
                         defaultRequest={{
@@ -192,71 +192,8 @@ const Page = () => {
                           t('routes.admin.Layout.PaginationOrder', { from, to, total })
                         }
                         rightHeader={
-                          <div className="flex justify-end text-left flex-col w-full mt-4 sm:mt-1.5 xl:mt-0">
-                            <Form
-                              values={{
-                                dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
-                                dateTo: getFilter(invoice.queryParams, 'dateTo'),
-                                status: getFilter(invoice.queryParams, 'status'),
-                                idStore: getFilter(invoice.queryParams, 'idStore'),
-                              }}
-                              className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store"
-                              columns={[
-                                {
-                                  title: '',
-                                  name: 'status',
-                                  formItem: {
-                                    placeholder: 'placeholder.Select order type',
-                                    type: 'select',
-                                    tabIndex: 3,
-                                    col: 6,
-                                    list: statusCategoryOrder,
-                                    onChange(value: any, form: any) {
-                                      dataTableRefRevenueOder?.current?.onChange({
-                                        page: 1,
-                                        perPage: 10,
-                                        filter: {
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form.getFieldValue('dateFrom')
-                                            : '',
-                                          dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
-                                          idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
-                                          status: value ? value : '',
-                                        },
-                                      });
-                                    },
-                                  },
-                                },
-                                {
-                                  name: 'idStore',
-                                  title: '',
-                                  formItem: {
-                                    placeholder: 'placeholder.Choose a store',
-                                    type: 'select',
-                                    col: 6,
-                                    list: storeorder?.map((item) => ({
-                                      label: item?.name,
-                                      value: item?.id!,
-                                    })),
-                                    onChange(value: any, form: any) {
-                                      dataTableRefRevenueOder?.current?.onChange({
-                                        page: 1,
-                                        perPage: 10,
-                                        filter: {
-                                          idStore: value ? value : '',
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form.getFieldValue('dateFrom')
-                                            : '',
-                                          dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
-                                          status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                        },
-                                      });
-                                    },
-                                  },
-                                },
-                              ]}
-                            />
-                            <div className="w-full">
+                          <div className="lg:flex text-left flex-row-reverse w-full mt-4 sm:mt-0">
+                            <div className="lg:!w-[45%]">
                               <Form
                                 values={{
                                   dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
@@ -264,7 +201,72 @@ const Page = () => {
                                   status: getFilter(invoice.queryParams, 'status'),
                                   idStore: getFilter(invoice.queryParams, 'idStore'),
                                 }}
-                                className="intro-x rounded-lg w-full sm:flex justify-between form-store"
+                                className="intro-x md:flex form-store"
+                                columns={[
+                                  {
+                                    title: '',
+                                    name: 'status',
+                                    formItem: {
+                                      placeholder: 'placeholder.Select order type',
+                                      type: 'select',
+                                      tabIndex: 3,
+                                      col: 6,
+                                      list: statusCategoryOrder,
+                                      onChange(value: any, form: any) {
+                                        dataTableRefRevenueOder?.current?.onChange({
+                                          page: 1,
+                                          perPage: 10,
+                                          filter: {
+                                            dateFrom: form.getFieldValue('dateFrom')
+                                              ? form.getFieldValue('dateFrom')
+                                              : '',
+                                            dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                            idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
+                                            status: value ? value : '',
+                                          },
+                                        });
+                                      },
+                                    },
+                                  },
+                                  {
+                                    name: 'idStore',
+                                    title: '',
+                                    formItem: {
+                                      placeholder: 'placeholder.Choose a store',
+                                      type: 'select',
+                                      col: 6,
+                                      list: storeorder?.map((item) => ({
+                                        label: item?.name,
+                                        value: item?.id!,
+                                      })),
+                                      onChange(value: any, form: any) {
+                                        dataTableRefRevenueOder?.current?.onChange({
+                                          page: 1,
+                                          perPage: 10,
+                                          filter: {
+                                            idStore: value ? value : '',
+                                            dateFrom: form.getFieldValue('dateFrom')
+                                              ? form.getFieldValue('dateFrom')
+                                              : '',
+                                            dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                            status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                          },
+                                        });
+                                      },
+                                    },
+                                  },
+                                ]}
+                              />
+                            </div>
+                            <div className="w-full md:w-4/6 mr-5 xl:mt-0">
+                              <Form
+                                values={{
+                                  dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
+                                  dateTo: getFilter(invoice.queryParams, 'dateTo'),
+                                  status: getFilter(invoice.queryParams, 'status'),
+                                  idStore: getFilter(invoice.queryParams, 'idStore'),
+                                }}
+                                className="intro-x rounded-lg w-full md:flex justify-between form-store"
                                 columns={[
                                   {
                                     title: '',
@@ -491,7 +493,7 @@ const Page = () => {
                                         <tbody>
                                           {values?.detailInvoice?.map((items: any, stt1: number) => (
                                             <tr className="text-left">
-                                              <td className="p-5">{sttDetail++}</td>
+                                              <td className="p-5">{++stt1}</td>
                                               <td className="p-5">{items?.productName}</td>
                                               <td className="p-5">{items?.quantity}</td>
                                               <td className="p-5">{items?.totalItem}</td>
