@@ -80,7 +80,7 @@ const Page = () => {
               title: 'Name',
               name: 'name',
               formItem:
-                type === 'partner'
+                type === 'partner' || type === 'tech'
                   ? {
                       col: 6,
                     }
@@ -106,7 +106,7 @@ const Page = () => {
               name: 'translations',
               title: '',
               formItem:
-                type === 'partner'
+                type === 'partner' || type === 'tech'
                   ? undefined
                   : {
                       type: 'tab',
