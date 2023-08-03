@@ -258,7 +258,7 @@ const Page = () => {
                                 ]}
                               />
                             </div>
-                            <div className="w-full md:w-4/6 mr-5 xl:mt-0">
+                            <div className="w-full lg:w-4/6 mr-5 xl:mt-0">
                               <Form
                                 values={{
                                   dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
@@ -679,7 +679,7 @@ const Page = () => {
                         t('routes.admin.Layout.PaginationOrder', { from, to, total })
                       }
                       rightHeader={
-                        <div className="flex justify-end text-left flex-col w-full mt-4 sm:mt-1.5 xl:mt-0">
+                        <div className="flex justify-end text-left flex-col w-full mt-4 sm:-mb-2 xl:mt-0">
                           <Form
                             values={{
                               categoryId1: getFilter(invoiceKiotVietFacade.queryParams, 'categoryId1'),
