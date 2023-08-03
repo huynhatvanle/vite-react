@@ -10,6 +10,7 @@ import {
   InvoiceRevenueFacade,
   StoreFacade,
   StoreOderFacade,
+  SupplierOderFacade,
   TaxFacade,
 } from '@store';
 import { Button } from '@core/button';
@@ -28,17 +29,18 @@ const Page = () => {
   const navigate = useNavigate();
   const isReload = useRef(false);
   const RevenueOderFace = StoreOderFacade();
+  const supplierOrder = SupplierOderFacade();
   const { result, queryParams, isLoading } = RevenueOderFace;
   const connectSupplierFacade = ConnectSupplierFacade();
   useEffect(() => {
-    RevenueOderFace.get({});
+    supplierOrder.get({ supplierType: '' });
 
     return () => {
-      isReload.current && RevenueOderFace.get(param);
+      isReload.current && supplierOrder.get(param);
     };
   }, []);
-  const storeorder = RevenueOderFace?.result?.data;
-  const firstStore = storeorder?.[0]?.id;
+  const listSupplier = supplierOrder?.result?.data;
+  const firstSupplier = listSupplier?.[0]?.id;
 
   const invoice = InvoiceRevenueFacade();
 
@@ -84,43 +86,33 @@ const Page = () => {
   }, []);
   let stt1 = 1;
 
-  const statusCategoryOrder = [
+  const statusDiscount = [
     {
-      label: t('supplier.Sup-Status.Sell goods'),
-      value: 'DELEVERED',
+      label: t('Đã thanh toán'),
+      value: 'PAID',
     },
     {
-      label: t('supplier.Sup-Status.Return goods'),
-      value: 'REFUND',
+      label: t('Chưa thanh toán'),
+      value: 'NOT_PAID',
     },
     {
-      label: t('Đã huỷ'),
-      value: 'CANCEL',
-    },
-  ];
-  const statusCategoryProduct = [
-    {
-      label: t('Đang bán'),
-      value: 'APPROVED',
-    },
-    {
-      label: t('Ngừng bán'),
-      value: 'STOP_SELLING',
+      label: t('Chưa hoàn tất'),
+      value: 'NOT_COMPLETED_PAID',
     },
   ];
 
   useEffect(() => {
     if (activeKey == '2') {
       categoryFacade.get({});
-      if (getFilter(invoiceKiotVietFacade.queryParams, 'idStore')) {
+      if (getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier')) {
         connectSupplierFacade.get({
           page: 1,
           perPage: 1000,
-          filter: { idSuppiler: getFilter(invoiceKiotVietFacade.queryParams, 'idStore') },
+          filter: { idSuppiler: getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier') },
         });
       }
     }
-  }, [activeKey, getFilter(invoiceKiotVietFacade.queryParams, 'idStore')]);
+  }, [activeKey, getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier')]);
 
   const supplier = connectSupplierFacade.result?.data;
 
@@ -158,9 +150,9 @@ const Page = () => {
                       page: 1,
                       perPage: 10,
                       filter: {
-                        idStore: firstStore,
-                        dateFrom: `${dayjs().subtract(1, 'month').format('MM/DD/YYYY 00:00:00')}`,
-                        dateTo: `${dayjs().format('MM/DD/YYYY 23:59:59')}`,
+                        idSupplier: firstSupplier,
+                        dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 00:00:00')}`,
+                        dateTo: `${dayjs().endOf('month').format('MM/DD/YYYY 23:59:59')}`,
                         status: '',
                       },
                     }}
@@ -176,14 +168,14 @@ const Page = () => {
                     showSearch={false}
                     subHeader={() => (
                       <>
-                        <div className="flex my-5 flex-col lg:flex-row">
+                        <div className="flex my-5 flex-col 2xl:flex-row">
                           <div className="w-full">
                             <Form
                               values={{
                                 dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
                                 dateTo: getFilter(invoice.queryParams, 'dateTo'),
                                 status: getFilter(invoice.queryParams, 'status'),
-                                idStore: getFilter(invoice.queryParams, 'idStore'),
+                                idSupplier: getFilter(invoice.queryParams, 'idSupplier'),
                               }}
                               className="intro-x rounded-lg w-full sm:flex justify-between form-store"
                               columns={[
@@ -208,9 +200,9 @@ const Page = () => {
                                     col: 4,
                                     type: 'month_year',
                                     onChange(value: any, form: any) {
-                                      form.getFieldValue('dateFrom') && value > form.getFieldValue('dateTo')
-                                        ? setDateOder(true)
-                                        : setDateOder(false);
+                                      value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
+                                        ? setMonth(true)
+                                        : setMonth(false);
                                       dataTableRefRevenueOder?.current?.onChange({
                                         page: 1,
                                         perPage: 10,
@@ -223,7 +215,7 @@ const Page = () => {
                                                 .format('MM/DD/YYYY 23:59:59')
                                                 .replace(/-/g, '/')
                                             : '',
-                                          idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
+                                          // idSupplier: form.getFieldValue('idSupplier') ? form.getFieldValue('idSupplier') : '',
                                           status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                         },
                                       });
@@ -252,8 +244,8 @@ const Page = () => {
                                     type: 'month_year',
                                     onChange(value: any, form: any) {
                                       value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
-                                        ? setDateOder(true)
-                                        : setDateOder(false);
+                                        ? setMonth(true)
+                                        : setMonth(false);
                                       dataTableRefRevenueOder?.current?.onChange({
                                         page: 1,
                                         perPage: 10,
@@ -266,7 +258,7 @@ const Page = () => {
                                                 .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
-                                          idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
+                                          // idSupplier: form.getFieldValue('idSupplier') ? form.getFieldValue('idSupplier') : '',
                                           status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
                                         },
                                       });
@@ -289,7 +281,7 @@ const Page = () => {
                                 dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
                                 dateTo: getFilter(invoice.queryParams, 'dateTo'),
                                 status: getFilter(invoice.queryParams, 'status'),
-                                idStore: getFilter(invoice.queryParams, 'idStore'),
+                                idSupplier: getFilter(invoice.queryParams, 'idSupplier'),
                               }}
                               className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store"
                               columns={[
@@ -297,11 +289,11 @@ const Page = () => {
                                   title: '',
                                   name: 'status',
                                   formItem: {
-                                    placeholder: 'placeholder.Select order type',
+                                    placeholder: 'Chọn trạng thái',
                                     type: 'select',
                                     tabIndex: 3,
                                     col: 6,
-                                    list: statusCategoryOrder,
+                                    list: statusDiscount,
                                     onChange(value: any, form: any) {
                                       dataTableRefRevenueOder?.current?.onChange({
                                         page: 1,
@@ -311,7 +303,9 @@ const Page = () => {
                                             ? form.getFieldValue('dateFrom')
                                             : '',
                                           dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
-                                          idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
+                                          idSupplier: form.getFieldValue('idSupplier')
+                                            ? form.getFieldValue('idSupplier')
+                                            : '',
                                           status: value ? value : '',
                                         },
                                       });
@@ -319,13 +313,13 @@ const Page = () => {
                                   },
                                 },
                                 {
-                                  name: 'idStore',
+                                  name: 'idSupplier',
                                   title: '',
                                   formItem: {
-                                    placeholder: 'placeholder.Choose a store',
+                                    placeholder: 'Chọn nhà cung cấp',
                                     type: 'select',
                                     col: 6,
-                                    list: storeorder?.map((item) => ({
+                                    list: listSupplier?.map((item) => ({
                                       label: item?.name,
                                       value: item?.id!,
                                     })),
@@ -334,7 +328,7 @@ const Page = () => {
                                         page: 1,
                                         perPage: 10,
                                         filter: {
-                                          idStore: value ? value : '',
+                                          idSupplier: value ? value : '',
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form.getFieldValue('dateFrom')
                                             : '',
@@ -565,7 +559,7 @@ const Page = () => {
                       {
                         title: getFilter(invoice.queryParams, 'status')
                           ? `${
-                              statusCategoryOrder.find((item) => {
+                              statusDiscount.find((item) => {
                                 return item.value === getFilter(invoice.queryParams, 'status');
                               })?.label
                             }`
@@ -576,10 +570,10 @@ const Page = () => {
 
                       { title: 'Chọn cửa hàng:', dataIndex: '' },
                       {
-                        title: getFilter(invoice.queryParams, 'idStore')
+                        title: getFilter(invoice.queryParams, 'idSupplier')
                           ? `${
-                              storeorder?.find((item) => {
-                                return item.id === getFilter(invoice.queryParams, 'idStore');
+                              listSupplier?.find((item) => {
+                                return item.id === getFilter(invoice.queryParams, 'idSupplier');
                               })?.name
                             }`
                           : '',
