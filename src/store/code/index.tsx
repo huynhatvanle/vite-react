@@ -26,6 +26,8 @@ export class Code extends CommonEntity {
     public type?: string,
     public name?: string,
     public description?: string,
+    public createdAt?: string,
+    public updatedAt?: string,
     public item?: CodeType,
     public users?: User[],
   ) {

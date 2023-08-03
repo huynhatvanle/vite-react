@@ -24,22 +24,19 @@ export class Post extends CommonEntity {
   constructor(
     public type?: string,
     public thumbnailUrl?: string,
-    public coverUrl?: string,
-    public backGroundColor?: string,
-    public titleForeColor?: string,
-    public customCSSClass?: string,
-    public customCSS?: string,
     public item?: PostType,
+    public createdAt?: string,
+    public updatedAt?: string,
     public translations?: {
       language: string;
       name: string;
       description?: string;
       slug: string;
-      seoTitle: string;
-      seoDescription: string;
       content?: Record<string, object>;
       postId?: string;
       post?: Post;
+      createdAt?: string;
+      updatedAt?: string;
     }[],
   ) {
     super();

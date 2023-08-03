@@ -19,7 +19,7 @@ export class Slice<T extends CommonEntity> {
   constructor(
     action: Action<T>,
     initialState: State<T> = {},
-    extraReducers = (builder: ActionReducerMapBuilder<State<T>>) => builder,
+    extraReducers?: (builder: ActionReducerMapBuilder<State<T>>) => void,
   ) {
     this.name = action.name;
     this.initialState = { ...this.defaultState, ...initialState };
@@ -139,7 +139,7 @@ export class Slice<T extends CommonEntity> {
           state.status = 'delete.rejected';
           state.isLoading = false;
         });
-      extraReducers(builder);
+      extraReducers && extraReducers(builder);
     };
   }
 }

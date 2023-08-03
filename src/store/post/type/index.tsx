@@ -23,11 +23,10 @@ export const PostTypeFacade = () => {
 export class PostType extends CommonEntity {
   constructor(
     public name: string,
-    public slug: string,
     public code: string,
-    public coverUrl: string,
-    public description: string,
     public isPrimary?: boolean,
+    public createdAt?: string,
+    public updatedAt?: string,
     public items?: Post[],
   ) {
     super();

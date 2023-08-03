@@ -32,6 +32,8 @@ export class UserRole extends CommonEntity {
     public isSystemAdmin?: boolean,
     public permissions?: string[],
     public users?: User[],
+    public createdAt?: string,
+    public updatedAt?: string,
   ) {
     super();
   }

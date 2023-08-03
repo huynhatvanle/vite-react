@@ -82,6 +82,8 @@ export class User extends CommonEntity {
     public retypedPassword?: string,
     public roleCode?: string,
     public role?: UserRole,
+    public createdAt?: string,
+    public updatedAt?: string,
   ) {
     super();
   }
