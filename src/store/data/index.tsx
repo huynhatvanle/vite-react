@@ -8,9 +8,11 @@ const name = 'Data';
 const action = {
   ...new Action<Data>(name),
   getArray: createAsyncThunk(name + '/array', async (params: { array: string[] }) => {
-    const { data, message } = await API.get<Data>(routerLinks(name, 'api') + '/array', params);
+    const { data } = await API.get<Data>(routerLinks(name, 'api') + '/array', params);
     return data;
   }),
+  showDetail: createAsyncThunk(name + '/showDetail', async (data: Data) => data),
+  hideDetail: createAsyncThunk(name + '/hideDetail', async () => null),
 };
 export const dataSlice = createSlice(
   new Slice<Data>(action, { mission: [], services: [], value: [], member: [], partner: [] }, (builder) => {
@@ -20,7 +22,6 @@ export const dataSlice = createSlice(
         state.status = 'getArray.pending';
       })
       .addCase(action.getArray.fulfilled, (state: State, action: PayloadAction<State>) => {
-        console.log(action);
         state.mission = action.payload.mission;
         state.services = action.payload.services;
         state.value = action.payload.value;
@@ -32,6 +33,16 @@ export const dataSlice = createSlice(
       .addCase(action.getArray.rejected, (state: State) => {
         state.isLoading = false;
         state.status = 'getArray.rejected';
+      })
+      .addCase(action.showDetail.fulfilled, (state: State, action: PayloadAction<State>) => {
+        state.data = action.payload;
+        state.isVisible = true;
+        state.status = 'showDetail.fulfilled';
+      })
+      .addCase(action.hideDetail.fulfilled, (state: State) => {
+        state.data = undefined;
+        state.isVisible = false;
+        state.status = 'hideDetail.fulfilled';
       });
   }),
 );
@@ -54,10 +65,13 @@ export const DataFacade = () => {
     post: (values: Data) => dispatch(action.post(values)),
     put: (values: Data) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),
+    showDetail: (data: Data) => dispatch(action.showDetail(data)),
+    hideDetail: () => dispatch(action.hideDetail()),
   };
 };
 export class Data extends CommonEntity {
   constructor(
+    public name?: string,
     public type?: string,
     public image?: string,
     public order?: number,
@@ -69,7 +83,9 @@ export class Data extends CommonEntity {
       slug: string;
       seoTitle: string;
       seoDescription: string;
-      content?: Record<string, object>;
+      content?: {
+        blocks: Record<string, object>[];
+      };
       dataId?: string;
       data?: Data;
     }[],
