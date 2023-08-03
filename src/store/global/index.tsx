@@ -6,9 +6,8 @@ import i18n from 'i18next';
 
 import { API, keyRefreshToken, keyToken, keyUser, routerLinks } from '@utils';
 import { Message } from '@core/message';
-import { useAppDispatch, useTypedSelector, UserRole, Code } from '@store';
+import { useAppDispatch, useTypedSelector, UserRole, Code, UserTeam } from '@store';
 import { CommonEntity } from '@models';
-import { UserTeam } from '../user/team';
 
 const name = 'Auth';
 const action = {
