@@ -454,9 +454,9 @@ const Page = () => {
                             formItem: {
                               render: (form, values) => {
                                 return (
-                                  <div className="border-y">
+                                  <div className="sm:pt-2 border-y">
                                     <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-5">
-                                      <div className="font-semibold text-teal-900 ">Thông tin đơn hàng:</div>
+                                      <p className="font-semibold text-teal-900 text-[20px]">Thông tin đơn hàng</p>
                                     </div>
                                     <div className="flex items-center h-full w-full text-base lg:mt-0 mt-4 form-store mb-5">
                                       <div className="w-1/2 flex">
@@ -491,11 +491,11 @@ const Page = () => {
                                         <tbody>
                                           {values?.detailInvoice?.map((items: any, stt1: number) => (
                                             <tr className="text-left">
-                                              <td className="p-5">{sttDetail++}</td>
+                                              <td className="p-5">{++stt1}</td>
                                               <td className="p-5">{items?.productName}</td>
                                               <td className="p-5">{items?.quantity}</td>
-                                              <td className="p-5">{items?.totalItem}</td>
-                                              <td className="p-5">{items?.total}</td>
+                                              <td className="p-5">{items?.totalItem.toLocaleString()}</td>
+                                              <td className="p-5">{items?.total.toLocaleString()}</td>
                                             </tr>
                                           ))}
                                         </tbody>
