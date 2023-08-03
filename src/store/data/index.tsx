@@ -25,17 +25,20 @@ export class Data extends CommonEntity {
     public type?: string,
     public image?: string,
     public order?: number,
+    public createdAt?: string,
+    public updatedAt?: string,
     public item?: DataType,
     public translations?: {
+      id: string;
       language: string;
       name: string;
       description?: string;
-      slug: string;
-      seoTitle: string;
-      seoDescription: string;
+      position?: string;
       content?: Record<string, object>;
       dataId?: string;
       data?: Data;
+      createdAt?: string;
+      updatedAt?: string;
     }[],
   ) {
     super();

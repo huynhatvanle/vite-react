@@ -1,11 +1,11 @@
-import { PayloadAction } from '@reduxjs/toolkit';
+import { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
 import { CommonEntity, Responses } from '@models';
 import { Action } from '@store';
 export class Slice<T extends CommonEntity> {
   name: string;
   initialState: State<T>;
   reducers: any;
-  extraReducers: (builder: any) => void;
+  extraReducers: (builder: ActionReducerMapBuilder<State<T>>) => void;
   defaultState: State<T> = {
     result: {},
     data: undefined,
@@ -16,7 +16,11 @@ export class Slice<T extends CommonEntity> {
     keepUnusedDataFor: 60,
     time: 0,
   };
-  constructor(action: Action<T>, initialState: State<T> = {}, extraReducers = (builder: any) => builder) {
+  constructor(
+    action: Action<T>,
+    initialState: State<T> = {},
+    extraReducers?: (builder: ActionReducerMapBuilder<State<T>>) => void,
+  ) {
     this.name = action.name;
     this.initialState = { ...this.defaultState, ...initialState };
     this.reducers = {};
@@ -135,7 +139,7 @@ export class Slice<T extends CommonEntity> {
           state.status = 'delete.rejected';
           state.isLoading = false;
         });
-      extraReducers(builder);
+      extraReducers && extraReducers(builder);
     };
   }
 }

@@ -24,6 +24,8 @@ export class CodeType extends CommonEntity {
     public name: string = '',
     public code: string = '',
     public isPrimary: boolean = false,
+    public createdAt?: string,
+    public updatedAt?: string,
     public items?: Code[],
   ) {
     super();

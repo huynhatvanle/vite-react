@@ -92,6 +92,8 @@ export class User extends CommonEntity {
     public dateLeave?: number,
     public dateOff?: number,
     public retypedPassword?: string,
+    public createdAt?: string,
+    public updatedAt?: string,
   ) {
     super();
   }

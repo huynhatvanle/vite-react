@@ -21,7 +21,14 @@ export const DataTypeFacade = () => {
 };
 
 export class DataType extends CommonEntity {
-  constructor(public name: string, public code: string, public isPrimary?: boolean, public items?: Data[]) {
+  constructor(
+    public name: string,
+    public code: string,
+    public isPrimary?: boolean,
+    public createdAt?: string,
+    public updatedAt?: string,
+    public items?: Data[],
+  ) {
     super();
   }
 }
