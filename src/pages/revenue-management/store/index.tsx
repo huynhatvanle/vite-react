@@ -949,7 +949,7 @@ const Page = () => {
                                     tabIndex: 3,
                                     col: 2,
                                     render: () => (
-                                      <div className="flex sm:h-10 sm:mt-0 mt-[-6px] items-center">
+                                      <div className="flex sm:h-10 sm:mt-0 mt-[-14px] items-center">
                                         <p className="whitespace-nowrap">{t('store.Since')}</p>
                                       </div>
                                     ),
