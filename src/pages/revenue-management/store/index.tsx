@@ -275,7 +275,7 @@ const Page = () => {
                                       tabIndex: 3,
                                       col: 2,
                                       render: () => (
-                                        <div className="flex h-10 items-center">
+                                        <div className="flex sm:h-10 sm:mt-0 mt-[-6px] items-center">
                                           <p className="whitespace-nowrap">{t('store.Since')}</p>
                                         </div>
                                       ),
@@ -320,7 +320,7 @@ const Page = () => {
                                       tabIndex: 3,
                                       col: 2,
                                       render: () => (
-                                        <div className="flex h-10 items-center">
+                                        <div className="flex sm:h-10 sm:mt-0 mt-[-6px] items-center">
                                           <p className="whitespace-nowrap">{t('store.To date')}</p>
                                         </div>
                                       ),
@@ -456,9 +456,9 @@ const Page = () => {
                             formItem: {
                               render: (form, values) => {
                                 return (
-                                  <div className="border-y">
+                                  <div className="sm:pt-2 border-y">
                                     <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-5">
-                                      <div className="font-semibold text-teal-900 ">Thông tin đơn hàng:</div>
+                                      <p className="font-semibold text-teal-900 text-[20px]">Thông tin đơn hàng</p>
                                     </div>
                                     <div className="flex items-center h-full w-full text-base lg:mt-0 mt-4 form-store mb-5">
                                       <div className="w-1/2 flex">
@@ -496,8 +496,8 @@ const Page = () => {
                                               <td className="p-5">{++stt1}</td>
                                               <td className="p-5">{items?.productName}</td>
                                               <td className="p-5">{items?.quantity}</td>
-                                              <td className="p-5">{items?.totalItem}</td>
-                                              <td className="p-5">{items?.total}</td>
+                                              <td className="p-5">{items?.totalItem.toLocaleString()}</td>
+                                              <td className="p-5">{items?.total.toLocaleString()}</td>
                                             </tr>
                                           ))}
                                         </tbody>
@@ -951,7 +951,7 @@ const Page = () => {
                                     tabIndex: 3,
                                     col: 2,
                                     render: () => (
-                                      <div className="flex h-10 items-center">
+                                      <div className="flex sm:h-10 sm:mt-0 mt-[-14px] items-center">
                                         <p className="whitespace-nowrap">{t('store.Since')}</p>
                                       </div>
                                     ),
@@ -1005,7 +1005,7 @@ const Page = () => {
                                     tabIndex: 3,
                                     col: 2,
                                     render: () => (
-                                      <div className="flex h-10 items-center">
+                                      <div className="flex sm:h-10 sm:mt-0 mt-[-6px] items-center">
                                         <p className="whitespace-nowrap">{t('store.To date')}</p>
                                       </div>
                                     ),
