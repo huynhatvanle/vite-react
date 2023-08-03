@@ -1,0 +1,21 @@
+.ant-table{
+  &-content {
+    .ant-table-thead > tr > th {
+      @apply font-bold border-gray-400;
+
+      &.ant-table-cell-fix-left,
+      &.ant-table-cell-fix-right{ @apply ~'mt-[1px]'; }
+    }
+    .ant-table-tbody > tr.ant-table-row{
+      > td { @apply border-gray-200; }
+      &:nth-of-type(odd) > td {@apply bg-gray-50;}
+      &:hover > td{ @apply bg-gray-200 text-black; }
+      &:last-child > td { @apply border-none; }
+    }
+  }
+  &-filter-dropdown {
+    .ant-checkbox-group { @apply inline-block; }
+    .ant-checkbox-group-item, .ant-radio-wrapper { @apply flex ml-1; }
+    .ant-radio-input { @apply ~'mt-1 mr-1'; }
+  }
+}
