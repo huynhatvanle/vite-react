@@ -275,7 +275,7 @@ const Page = () => {
                                       tabIndex: 3,
                                       col: 2,
                                       render: () => (
-                                        <div className="flex sm:h-10 sm:mt-0 mt-[-6px] items-center">
+                                        <div className="flex sm:h-10 sm:mt-0 mt-[-6px] sm:mb-0 mb-[2px] items-center">
                                           <p className="whitespace-nowrap">{t('store.Since')}</p>
                                         </div>
                                       ),
@@ -320,7 +320,7 @@ const Page = () => {
                                       tabIndex: 3,
                                       col: 2,
                                       render: () => (
-                                        <div className="flex sm:h-10 sm:mt-0 mt-[-6px] items-center">
+                                        <div className="flex sm:h-10 sm:mt-0 mt-[-6px] sm:mb-0 mb-[2px] items-center">
                                           <p className="whitespace-nowrap">{t('store.To date')}</p>
                                         </div>
                                       ),
@@ -951,7 +951,7 @@ const Page = () => {
                                     tabIndex: 3,
                                     col: 2,
                                     render: () => (
-                                      <div className="flex sm:h-10 sm:mt-0 mt-[-14px] items-center">
+                                      <div className="flex sm:h-10 sm:mt-0 mt-[-14px] sm:mb-0 mb-[2px] items-center">
                                         <p className="whitespace-nowrap">{t('store.Since')}</p>
                                       </div>
                                     ),
@@ -1005,7 +1005,7 @@ const Page = () => {
                                     tabIndex: 3,
                                     col: 2,
                                     render: () => (
-                                      <div className="flex sm:h-10 sm:mt-0 mt-[-6px] items-center">
+                                      <div className="flex sm:h-10 sm:mt-0 mt-[-6px] sm:mb-0 mb-[2px] items-center">
                                         <p className="whitespace-nowrap">{t('store.To date')}</p>
                                       </div>
                                     ),
