@@ -613,7 +613,7 @@ export const Form = ({
         {extendForm && extendForm(values)}
       </div>
 
-      <div className={classNames('flex sticky bottom-0 bg-white w-full justify-end')}>
+      <div className={classNames('flex w-full justify-end')}>
         <div className={'flex gap-2'}>
           {handCancel && (
             <Button

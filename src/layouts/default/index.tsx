@@ -14,10 +14,10 @@ const Layout = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();
   const { setLanguage, pathname, setPathname, language } = GlobalFacade();
   const [showMenu, set_showMenu] = useState(false);
-  const [data, set_data]: any = useState([
+  const data = [
     { title: 'Home', slug: '/' + language },
     { title: 'About', slug: '/' + language },
-  ]);
+  ];
   const menus: any = [];
   const navigate = useNavigate();
 
@@ -172,7 +172,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                 ],
               }}
             >
-              <div className="lg:mr-6 mr-12 lg:border-r">
+              <div className="lg:mr-4 lg:border-r lg:pr-4">
                 <img src={`/assets/svg/${language}.svg`} alt="" className="w-6" />
               </div>
             </Dropdown>

@@ -4,11 +4,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperClass } from 'swiper/types';
 import { gsap } from 'gsap';
 import LazyLoad from 'vanilla-lazyload';
-import { Modal } from 'antd';
+import { Modal, Spin } from 'antd';
 
+import { Form } from '@core/form';
 import { Arrow, CheckCircle } from '@svgs';
-import { DataFacade } from '@store';
+import { DataFacade, GlobalFacade } from '@store';
 const Page = () => {
+  const { user, isLoading, putProfile, profile, set } = GlobalFacade();
   const dataFacade = DataFacade();
   useEffect(() => {
     new LazyLoad({
@@ -259,47 +261,49 @@ const Page = () => {
             “We love integrating technology into our daily life, making a more comfortable and relaxing life.”
           </h2>
           <Swiper loop={true} slidesPerView={1} className={'mt-14'} modules={[Pagination]} pagination={true}>
-            {dataFacade.member.slice(0, 7).map((data, index) => (
-              <SwiperSlide
-                key={index}
-                className={'border border-gray-200 text-left p-5 sm:p-10 sm:pb-0 lg:pt-5 lg:pr-3 lg:pl-0 bg-gray-50'}
-              >
-                <div className="lg:flex items-center">
-                  <img alt="Ari" className="lazy w-1/3 lg:p-10 lg:pt-5 text-center mx-auto" src={data.image} />
-                  <div className="lg:w-2/3 mt-5 lg:mt-0">
-                    <h3 className="text-3xl sm:text-4xl text-blue-500 mb-1">
-                      {
-                        data.translations?.filter(
-                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
-                        )[0].name
-                      }
-                    </h3>
-                    <p className="text-blue-900 text-lg mb-0 capitalize font-bold">
-                      {
-                        data.translations?.filter(
-                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
-                        )[0].position
-                      }
-                    </p>
-                    <div className="w-52 h-0.5 bg-gray-300 mb-5 lg:mx-0"></div>
-                    <p className="hidden text-justify sm:block">
-                      {
-                        data.translations?.filter(
-                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
-                        )[0].description
-                      }
-                    </p>
-                    <a
-                      className={'text-blue-500 inline-block mt-3'}
-                      tabIndex={-1}
-                      onClick={() => dataFacade.showDetail(data)}
-                    >
-                      Xem thêm <Arrow className="h-5 w-4 inline-block" />
-                    </a>
+            {dataFacade.member
+              .filter((item) => item.order !== null)
+              .map((data, index) => (
+                <SwiperSlide
+                  key={index}
+                  className={'border border-gray-200 text-left p-5 sm:p-10 sm:pb-0 lg:pt-5 lg:pr-3 lg:pl-0 bg-gray-50'}
+                >
+                  <div className="lg:flex items-center">
+                    <img alt="Ari" className="lazy w-1/3 lg:p-10 lg:pt-5 text-center mx-auto" src={data.image} />
+                    <div className="lg:w-2/3 mt-5 lg:mt-0">
+                      <h3 className="text-3xl sm:text-4xl text-blue-500 mb-1">
+                        {
+                          data.translations?.filter(
+                            (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                          )[0].name
+                        }
+                      </h3>
+                      <p className="text-blue-900 text-lg mb-0 capitalize font-bold">
+                        {
+                          data.translations?.filter(
+                            (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                          )[0].position
+                        }
+                      </p>
+                      <div className="w-52 h-0.5 bg-gray-300 mb-5 lg:mx-0"></div>
+                      <p className="hidden text-justify sm:block">
+                        {
+                          data.translations?.filter(
+                            (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                          )[0].description
+                        }
+                      </p>
+                      <a
+                        className={'text-blue-500 inline-block mt-3'}
+                        tabIndex={-1}
+                        onClick={() => dataFacade.showDetail(data)}
+                      >
+                        Xem thêm <Arrow className="h-5 w-4 inline-block" />
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
       </section>
@@ -324,7 +328,56 @@ const Page = () => {
                 của bạn vào biểu mẫu. Chúng tôi sẽ liên hệ lại trong vòng 24 giờ.
               </p>
             </div>
-            <div className="lg:w-2/3"></div>
+            <div className="lg:w-2/3">
+              <Spin spinning={isLoading}>
+                <Form
+                  columns={[
+                    {
+                      title: 'Tên',
+                      name: 'name',
+                      formItem: {
+                        col: 6,
+                        rules: [{ type: 'required' }],
+                      },
+                    },
+                    {
+                      title: 'Họ',
+                      name: 'password',
+                      formItem: {
+                        col: 6,
+                        rules: [{ type: 'min', value: 6 }],
+                      },
+                    },
+                    {
+                      title: 'Số điện thoại',
+                      name: 'phoneNumber',
+                      formItem: {
+                        col: 6,
+                        rules: [{ type: 'required' }, { type: 'phone', min: 10, max: 15 }],
+                      },
+                    },
+                    {
+                      title: 'Email',
+                      name: 'email',
+                      formItem: {
+                        col: 6,
+                        rules: [{ type: 'required' }, { type: 'email' }, { type: 'min', value: 6 }],
+                      },
+                    },
+                    {
+                      title: 'Nội dung',
+                      name: 'description',
+                      formItem: {
+                        type: 'textarea',
+                      },
+                    },
+                  ]}
+                  handSubmit={() => null}
+                  disableSubmit={isLoading}
+                  textSubmit={'Gửi đi'}
+                />
+              </Spin>
+            </div>
           </div>
         </div>
       </section>
