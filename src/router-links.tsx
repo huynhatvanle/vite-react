@@ -3,6 +3,7 @@ export const routerLinks = (name: string, type?: string) => {
     [selector: string]: string;
   } = {
     Home: '/',
+    Tech: '/tech',
   }; // 💬 generate link to here
 
   const apis: {

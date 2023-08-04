@@ -1,5 +1,7 @@
 import { CheckboxOptionType } from 'antd';
 import { language, languages } from './variable';
+import { gsap } from 'gsap';
+import LazyLoad from 'vanilla-lazyload';
 
 export * from './init/reportWebVitals';
 export * from './api';
@@ -54,3 +56,19 @@ export const loopMapSelect = (array?: any[], label = 'name', value = 'id'): Chec
 
 export const lang =
   languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
+
+export const animationSlide = (e: Element, delay: number) => {
+  const tl = gsap.timeline({ delay, defaults: { duration: 1, ease: 'power1.inOut' } });
+  const eGsap = e.querySelectorAll('.gsap');
+  eGsap.forEach((item) => {
+    if (item.classList.contains('left')) tl.from(item, { x: '-=10%', scale: '+=0.15', opacity: '-=1' }, '<0.25');
+    if (item.classList.contains('right')) tl.from(item, { x: '+=10%', scale: '+=0.15', opacity: '-=1' }, '<0.5');
+    if (item.classList.contains('top')) tl.from(item, { y: '-=50%', scale: '+=0.15', opacity: '-=1' }, '<0.25');
+    if (item.classList.contains('bottom')) tl.from(item, { y: '+=50%', scale: '+=0.15', opacity: '-=1' }, '<0.5');
+    if (item.classList.contains('zoom')) gsap.to(item, { scale: '+=0.1', duration: 20 });
+  });
+};
+export const lazyLoad = () =>
+  new LazyLoad({
+    callback_error: (el: any) => (el.src = 'https://via.placeholder.com/440x560/?text=Error'),
+  });
