@@ -45,14 +45,17 @@ const action = {
               ? filterProduct.categoryId2
               : filterProduct.categoryId1
                 ? filterProduct.categoryId1
-                : '',
-          idStore: filterProduct.idStore,
-          status: filterProduct.status,
-          categoryId1: filterProduct.categoryId1,
-          categoryId2: filterProduct.categoryId2,
-          categoryId3: filterProduct.categoryId3,
-          fullTextSearch: fullTextSearch,
-          filterDate: { dateFrom: filterProduct.filterDate.dateFrom, dateTo: filterProduct.filterDate.dateTo },
+                : null,
+          idStore: filterProduct.idStore ? filterProduct.idStore : null,
+          status: filterProduct.status ? filterProduct.status : null,
+          categoryId1: filterProduct.categoryId1 ? filterProduct.categoryId1 : null,
+          categoryId2: filterProduct.categoryId2 ? filterProduct.categoryId2 : null,
+          categoryId3: filterProduct.categoryId3 ? filterProduct.categoryId3 : null,
+          fullTextSearch: fullTextSearch ? fullTextSearch : null,
+          filterDate: {
+            dateFrom: filterProduct.dateFrom ? filterProduct.dateFrom : '',
+            dateTo: filterProduct.dateTo ? filterProduct.dateTo : '',
+          },
         }),
       );
 

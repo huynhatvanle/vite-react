@@ -33,12 +33,12 @@ const checkTextToShort = (text: string) => {
 const getQueryStringParams = (query: string) => {
   return query
     ? (/^[?#]/.test(query) ? query.slice(1) : query)
-        .split('&')
-        .reduce((params: { [selector: string]: string }, param: string) => {
-          const [key, value] = param.split('=');
-          params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-          return params;
-        }, {})
+      .split('&')
+      .reduce((params: { [selector: string]: string }, param: string) => {
+        const [key, value] = param.split('=');
+        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+        return params;
+      }, {})
     : {}; // Trim - from end of text
 };
 
@@ -362,11 +362,11 @@ export const DataTable = forwardRef(
       const tempSort =
         sorts && sorts?.field && sorts?.order
           ? {
-              [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
-            }
+            [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
+          }
           : sorts?.field
-          ? ''
-          : sorts;
+            ? ''
+            : sorts;
 
       if (tempFullTextSearch !== params.fullTextSearch) tempPageIndex = 1;
       const tempParams = cleanObjectKeyNull({
@@ -387,7 +387,7 @@ export const DataTable = forwardRef(
 
     return (
       <div className={classNames(className, 'intro-x')}>
-        <div className="lg:flex justify-between mb-2.5 responsive-header supplier-tab4 store-tab3 flex-wrap form-index-supplier">
+        <div className="lg:flex justify-between mb-2.5 gap-y-2.5 responsive-header supplier-tab4 store-tab3 flex-wrap form-index-supplier">
           {showSearch ? (
             <div className="relative">
               <input
@@ -511,10 +511,10 @@ export const DataTable = forwardRef(
                       <span className="font-bold text-base">Tổng cộng</span>
                     </td>
                     <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.subTotal.toLocaleString()}
+                      {parseInt(facade?.result?.total?.subTotal).toLocaleString()}
                     </td>
                     <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.total.toLocaleString()}
+                      {parseInt(facade?.result?.total?.total).toLocaleString()}
                     </td>
                     <td className="ant-table-cell font-bold text-base"></td>
                   </tr>
