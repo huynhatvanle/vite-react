@@ -22,11 +22,7 @@ export const dataSlice = createSlice(
         state.status = 'getArray.pending';
       })
       .addCase(action.getArray.fulfilled, (state: State, action: PayloadAction<State>) => {
-        state.mission = action.payload.mission;
-        state.services = action.payload.services;
-        state.value = action.payload.value;
-        state.member = action.payload.member;
-        state.partner = action.payload.partner;
+        for (const [key, value] of Object.entries(action.payload)) state[key] = value;
         state.isLoading = false;
         state.status = 'getArray.fulfilled';
       })
@@ -52,6 +48,7 @@ interface StateData extends State<Data> {
   value: Data[];
   member: Data[];
   partner: Data[];
+  tech: Data[];
 }
 export const DataFacade = () => {
   const dispatch = useAppDispatch();

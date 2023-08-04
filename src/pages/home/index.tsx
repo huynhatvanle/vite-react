@@ -10,7 +10,7 @@ import { Form } from '@core/form';
 import { Arrow, CheckCircle } from '@svgs';
 import { DataFacade, GlobalFacade } from '@store';
 const Page = () => {
-  const { user, isLoading, putProfile, profile, set } = GlobalFacade();
+  const { isLoading } = GlobalFacade();
   const dataFacade = DataFacade();
   useEffect(() => {
     new LazyLoad({
@@ -18,33 +18,32 @@ const Page = () => {
     });
     dataFacade.getArray({ array: ['mission', 'services', 'value', 'member', 'partner'] });
   }, []);
+  useEffect(() => {
+    switch (dataFacade.status) {
+      case 'getArray.fulfilled':
+        new LazyLoad({
+          callback_error: (el: any) => (el.src = 'https://via.placeholder.com/440x560/?text=Error'),
+        });
+        break;
+    }
+  }, [dataFacade.status]);
   const animationSlide = (swiper: SwiperClass, delay: number) => {
-    const tl = gsap.timeline({
-      delay,
-      defaults: { duration: 1, ease: 'power1.inOut' },
-    });
+    const tl = gsap.timeline({ delay, defaults: { duration: 1, ease: 'power1.inOut' } });
 
-    tl.from(
-      swiper.slides[swiper.activeIndex].querySelector('.left'),
-      { x: '-=10%', scale: '+=0.15', opacity: '-=1' },
-      '<0.25',
-    )
-      .from(
-        swiper.slides[swiper.activeIndex].querySelector('.right'),
-        { x: '+=10%', scale: '+=0.15', opacity: '-=1' },
-        '<0.5',
-      )
-      .from(
-        swiper.slides[swiper.activeIndex].querySelector('.top'),
-        { y: '-=50%', scale: '+=0.15', opacity: '-=1' },
-        '<0.25',
-      )
-      .from(
-        swiper.slides[swiper.activeIndex].querySelector('.bottom'),
-        { y: '+=50%', scale: '+=0.15', opacity: '-=1' },
-        '<0.5',
-      );
-    gsap.to(swiper.slides[swiper.activeIndex].querySelector('.zoom'), { scale: '+=0.1', duration: 20 });
+    const left = swiper.slides[swiper.activeIndex].querySelector('.left');
+    if (left) tl.from(left, { x: '-=10%', scale: '+=0.15', opacity: '-=1' }, '<0.25');
+
+    const right = swiper.slides[swiper.activeIndex].querySelector('.right');
+    if (right) tl.from(right, { x: '+=10%', scale: '+=0.15', opacity: '-=1' }, '<0.5');
+
+    const top = swiper.slides[swiper.activeIndex].querySelector('.top');
+    if (top) tl.from(top, { y: '-=50%', scale: '+=0.15', opacity: '-=1' }, '<0.25');
+
+    const bottom = swiper.slides[swiper.activeIndex].querySelector('.bottom');
+    if (bottom) tl.from(bottom, { y: '+=50%', scale: '+=0.15', opacity: '-=1' }, '<0.5');
+
+    const zoom = swiper.slides[swiper.activeIndex].querySelector('.zoom');
+    if (zoom) gsap.to(zoom, { scale: '+=0.1', duration: 20 });
   };
   return (
     <Fragment>
@@ -102,7 +101,7 @@ const Page = () => {
       <section className="bg-[url('/assets/images/home/choose-bg3.jpg')] w-full bg-cover bg-bottom">
         <div className="container px-6 mx-auto md:flex items-center sm:py-24 py-10">
           <div className="md:w-1/3">
-            <img src="/assets/images/home/about.jpg" alt="ARI" className="lazy w-full rounded-tr-[120px]" />
+            <img data-src="/assets/images/home/about.jpg" alt="ARI" className="lazy w-full rounded-tr-[120px]" />
           </div>
           <div className="md:w-2/3 md:pl-12 text-gray-500 pt-10 md:pt-0">
             <p className="text-blue-500 uppercase font-bold mb-4">ABOUT</p>
@@ -138,7 +137,7 @@ const Page = () => {
                 key={index}
                 className="drop-shadow bg-white rounded-xl p-5 hover:scale-110 duration-500 transition-all ease-in-out text-center lg:text-left h-64"
               >
-                <img alt="ARI" className="lazy h-20 mb-5 mx-auto" src={data.image} />
+                <img alt="ARI" className="lazy h-20 mb-5 mx-auto" data-src={data.image} />
                 <h3 className="text-xl text-blue-500 font-bold mb-1">
                   {
                     data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
@@ -168,18 +167,25 @@ const Page = () => {
             a competitive price.
           </p>
 
-          <Swiper loop={true} slidesPerView={1} className={'mt-14'} modules={[Pagination]} pagination={true}>
+          <Swiper
+            loop={true}
+            slidesPerView={1}
+            className={'mt-14'}
+            modules={[Pagination]}
+            pagination={true}
+            onSlideChangeTransitionStart={(e) => animationSlide(e, 0)}
+          >
             {dataFacade.services.map((data, index) => (
               <SwiperSlide key={index} className={'lg:flex items-center'}>
-                <img alt="Ari" className="lazy lg:w-1/2 lg:pr-14" src={data.image} />
+                <img alt="Ari" className="lazy lg:w-1/2 lg:pr-14 zoom" data-src={data.image} />
                 <div className="lg:w-1/2 mt-5 lg:mt-0">
-                  <h3 className="text-2xl text-blue-500 font-bold mb-1">
+                  <h3 className="text-2xl text-blue-500 font-bold mb-1 top">
                     {
                       data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
                         .name
                     }
                   </h3>
-                  <p>
+                  <p className={'bottom'}>
                     {
                       data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
                         .description
@@ -200,7 +206,7 @@ const Page = () => {
                 key={index}
                 className="drop-shadow bg-white rounded-xl p-5 hover:scale-110 duration-500 transition-all ease-in-out text-center lg:text-left h-64"
               >
-                <img alt="ARI" className="lazy h-20 mb-5 mx-auto" src={data.image} />
+                <img alt="ARI" className="lazy h-20 mb-5 mx-auto" data-src={data.image} />
                 <h3 className="text-xl text-blue-500 font-bold mb-1">
                   {
                     data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
@@ -220,7 +226,7 @@ const Page = () => {
       </section>
       <Modal open={dataFacade.isVisible} footer={null} onCancel={() => dataFacade.hideDetail()}>
         <div className="text-center pb-5">
-          <img alt="Ari" className="h-32 mx-auto" src={dataFacade.data?.image} />
+          <img alt="Ari" className="h-32 mx-auto" data-src={dataFacade.data?.image} />
           <h3 className="text-xl text-blue-800 font-bold mb-1">
             {
               dataFacade.data?.translations?.filter(
@@ -260,7 +266,14 @@ const Page = () => {
           <h2 className="text-3xl text-blue-900 text-center">
             “We love integrating technology into our daily life, making a more comfortable and relaxing life.”
           </h2>
-          <Swiper loop={true} slidesPerView={1} className={'mt-14'} modules={[Pagination]} pagination={true}>
+          <Swiper
+            loop={true}
+            slidesPerView={1}
+            className={'mt-14'}
+            modules={[Pagination]}
+            pagination={true}
+            onSlideChangeTransitionStart={(e) => animationSlide(e, 0)}
+          >
             {dataFacade.member
               .filter((item) => item.order !== null)
               .map((data, index) => (
@@ -269,37 +282,49 @@ const Page = () => {
                   className={'border border-gray-200 text-left p-5 sm:p-10 sm:pb-0 lg:pt-5 lg:pr-3 lg:pl-0 bg-gray-50'}
                 >
                   <div className="lg:flex items-center">
-                    <img alt="Ari" className="lazy w-1/3 lg:p-10 lg:pt-5 text-center mx-auto" src={data.image} />
+                    <div className={'zoom lg:w-1/3'}>
+                      <img
+                        alt="Ari"
+                        className="lazy w-full lg:p-10 lg:pt-5 text-center mx-auto"
+                        data-src={data.image}
+                      />
+                    </div>
+
                     <div className="lg:w-2/3 mt-5 lg:mt-0">
-                      <h3 className="text-3xl sm:text-4xl text-blue-500 mb-1">
+                      <h3 className="text-3xl sm:text-4xl text-blue-500 mb-1 top">
                         {
                           data.translations?.filter(
                             (item: any) => item?.language === localStorage.getItem('i18nextLng'),
                           )[0].name
                         }
                       </h3>
-                      <p className="text-blue-900 text-lg mb-0 capitalize font-bold">
-                        {
-                          data.translations?.filter(
-                            (item: any) => item?.language === localStorage.getItem('i18nextLng'),
-                          )[0].position
-                        }
-                      </p>
-                      <div className="w-52 h-0.5 bg-gray-300 mb-5 lg:mx-0"></div>
-                      <p className="hidden text-justify sm:block">
-                        {
-                          data.translations?.filter(
-                            (item: any) => item?.language === localStorage.getItem('i18nextLng'),
-                          )[0].description
-                        }
-                      </p>
-                      <a
-                        className={'text-blue-500 inline-block mt-3'}
-                        tabIndex={-1}
-                        onClick={() => dataFacade.showDetail(data)}
-                      >
-                        Xem thêm <Arrow className="h-5 w-4 inline-block" />
-                      </a>
+                      <div className={'right'}>
+                        <p className="text-blue-900 text-lg mb-0 capitalize font-bold ">
+                          {
+                            data.translations?.filter(
+                              (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                            )[0].position
+                          }
+                        </p>
+                        <div className="w-52 h-0.5 bg-gray-300 mb-5 lg:mx-0" />
+                      </div>
+
+                      <div className={'bottom'}>
+                        <p className="hidden text-justify sm:block">
+                          {
+                            data.translations?.filter(
+                              (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                            )[0].description
+                          }
+                        </p>
+                        <a
+                          className={'text-blue-500 hidden sm:inline-block mt-3'}
+                          tabIndex={-1}
+                          onClick={() => dataFacade.showDetail(data)}
+                        >
+                          Xem thêm <Arrow className="h-5 w-4 inline-block" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </SwiperSlide>
@@ -313,10 +338,30 @@ const Page = () => {
             <p className="text-blue-500 uppercase mb-4">Đối tác và khách hàng</p>
             <h2 className="text-4xl text-blue-900">Đối tác của chúng tôi</h2>
           </div>
-          <Swiper loop={true} slidesPerView={5} className={'mt-14'} modules={[Pagination]} pagination={true}>
+          <Swiper
+            loop={true}
+            className={'mt-14'}
+            spaceBetween={16}
+            modules={[Pagination]}
+            pagination={true}
+            breakpoints={{
+              1366: {
+                slidesPerView: 5,
+              },
+              1024: {
+                slidesPerView: 4,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              500: {
+                slidesPerView: 2,
+              },
+            }}
+          >
             {dataFacade.partner.map((data, index) => (
-              <SwiperSlide key={index} className={'border border-gray-200 rounded-lg bg-white mx-1 mb-10'}>
-                <img alt={data.name} className="lazy p-2 h-20 w-full" src={data.image} />
+              <SwiperSlide key={index} className={'border border-gray-200 rounded-lg bg-white mb-10'}>
+                <img alt={data.name} className="lazy p-2 h-20 w-full" data-src={data.image} />
               </SwiperSlide>
             ))}
           </Swiper>
