@@ -68,16 +68,7 @@ export const InvoiceRevenueFacade = () => {
 
 export class InvoiceRevenue extends CommonEntity {
     constructor(
-        public id?: string,
-        public name?: string,
-        public code?: string,
-        public isActive?: boolean,
-        public isParent?: boolean,
-        public createdById?: string,
-        public orgId?: string,
-        public isKiotViet?: boolean,
-        public categoryKiotId?: string,
-        public parentId?: string,
+      
     ) {
         super();
     }

@@ -12,6 +12,7 @@ const action = {
     const tam = values.statustam == undefined ? "reject" : "accept"
     const { statusCode, message } = await API.put<Connect>(`${routerLinks(name, 'api')}/${tam}/${values.id}`, values);
     if (message) Message.success({ text: message });
+    return statusCode;
   })
 }
 export const ConnectSlice = createSlice(new Slice<Connect>(action));
@@ -62,87 +63,90 @@ export class Connect extends CommonEntity {
         };
       },
     },
-    public storeRequestSupplier?: {
-      0: {
-        id: string,
-        product: {
-          basicUnit: string,
-          capitalCost: string,
-          id: string,
-          name: string,
-          photo: {
-            0: {
-              id: string,
-              url: string,
-            },
+    public storeRequestSupplier?: StoreRequestSupplier[] 
+  ) {
+    super();
+  }
+}
 
-          },
-          price: string,
-          productCategory: {
-            0: {
-              category: {
+export class StoreRequestSupplier extends CommonEntity {
+  constructor(
+    public id?: string,
+    public product?: {
+            basicUnit: string,
+            capitalCost: string,
+            id: string,
+            name: string,
+            photo: {
+              0: {
                 id: string,
                 url: string,
               },
-              id: string,
+  
             },
+            price: string,
+            productCategory: {
+              0: {
+                category: {
+                  id: string,
+                  url: string,
+                },
+                id: string,
+              },
+            },
+            productPrice: {
+              0: {
+                defaultPrice: string,
+                id: string,
+                minQuantity: string,
+                price: string,
+                priceType: string,
+                productId: string,
+              },
+            },
+  
           },
-          productPrice: {
-            0: {
-              defaultPrice: string,
-              id: string,
-              minQuantity: string,
-              price: string,
-              priceType: string,
-              productId: string,
-            },
-          },
-
-        },
-        status: string,
-        supplier: {
-          address: {
-            district: {
-              code: string,
-              id: string,
-              name: string,
-              provinceCode: string,
-            },
-            districtId: string,
-            id: string,
-            postCode: string,
-            province: {
-              code: string,
-              id: string,
-              name: string,
-            },
-            provinceId: string,
-            street: string,
-            ward: {
-              code: string,
-              districtCode: string,
-              id: string,
-              name: string,
-            },
-            wardId: string,
-          },
-          fax: string,
-          id: string,
-          name: string,
-          userRole: {
-            0: {
-              id: string,
-              userAdmin: {
+    public status?: string,
+    public supplier?: {
+            address: {
+              district: {
+                code: string,
                 id: string,
                 name: string,
-                phoneNumber: string,
+                provinceCode: string,
+              },
+              districtId: string,
+              id: string,
+              postCode: string,
+              province: {
+                code: string,
+                id: string,
+                name: string,
+              },
+              provinceId: string,
+              street: string,
+              ward: {
+                code: string,
+                districtCode: string,
+                id: string,
+                name: string,
+              },
+              wardId: string,
+            },
+            fax: string,
+            id: string,
+            name: string,
+            userRole: {
+              0: {
+                id: string,
+                userAdmin: {
+                  id: string,
+                  name: string,
+                  phoneNumber: string,
+                },
               },
             },
           },
-        },
-      },
-
-    },
   ) {
     super();
   }

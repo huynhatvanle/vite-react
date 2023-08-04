@@ -81,7 +81,6 @@ const Page = () => {
                     tableItem: {
                         render: (text: string) => (text ? dayjs(text).format(formatDateTime).replace(/-/g, '-') : ''),
                     },
-
                 },
                 {
                     title: 'store.status.status',
