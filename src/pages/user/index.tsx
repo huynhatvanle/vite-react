@@ -13,10 +13,11 @@ import { Edit, Plus, Trash } from '@svgs';
 import { keyRole, routerLinks, lang } from '@utils';
 import classNames from 'classnames';
 import { createSearchParams } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 const Page = () => {
   const userRoleFacade = UserRoleFacade();
-  const { user, set } = GlobalFacade();
+  const { user, set, formatDate } = GlobalFacade();
   useEffect(() => {
     if (!userRoleFacade?.result?.data) userRoleFacade.get({});
     set({
@@ -148,6 +149,7 @@ const Page = () => {
               })}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
+              xScroll={1100}
               paginationDescription={(from: number, to: number, total: number) =>
                 t('routes.admin.Layout.User', { from, to, total })
               }
@@ -231,6 +233,16 @@ const Page = () => {
                 //     render: (text: string) => dayjs(text).format(formatDate),
                 //   },
                 // },
+                {
+                  title: 'Created',
+                  name: 'createdAt',
+                  tableItem: {
+                    width: 120,
+                    filter: { type: 'date' },
+                    sorter: true,
+                    render: (text) => dayjs(text).format(formatDate),
+                  },
+                },
                 {
                   title: 'routes.admin.user.Action',
                   tableItem: {
