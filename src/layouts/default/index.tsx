@@ -9,6 +9,7 @@ import { GlobalFacade } from '@store';
 
 import './index.less';
 import { Envelope, MapMarked, Phone, Facebook, Linkedin, Arrow } from '@svgs';
+import SectionContact from '@layouts/default/contact';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();
@@ -306,6 +307,8 @@ const Layout = ({ children }: PropsWithChildren) => {
         </div>
       </div>
       {children}
+      <SectionContact />
+
       <footer className="text-white font-medium bg-gray-900 bg-[url('/assets/images/footer-shape.png')] bg-cover bg-[center_top_9rem] bg-no-repeat">
         <div className="container mx-auto px-6 py-28 leading-8">
           <div className="grid grid-cols-2 gap-16 lg:flex lg:justify-between">

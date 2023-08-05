@@ -14,8 +14,10 @@ export type { State };
 
 export * from './global';
 export * from './data';
-import { globalSlice, dataSlice } from './';
+export * from './post';
+import { globalSlice, dataSlice, postSlice } from './';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
   [dataSlice.name]: dataSlice.reducer,
+  [postSlice.name]: postSlice.reducer,
 });

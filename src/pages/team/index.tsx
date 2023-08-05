@@ -1,8 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
-import { animationSlide, lazyLoad } from '@utils';
-import { DataFacade } from '@store';
-import SectionContact from '@layouts/default/contact';
 import { Modal } from 'antd';
+import { animationSlide, lazyLoad, renderEditorjs } from '@utils';
+import { DataFacade } from '@store';
 
 const Page = () => {
   const dataFacade = DataFacade();
@@ -20,18 +19,18 @@ const Page = () => {
   }, [dataFacade.status]);
   return (
     <Fragment>
-      <section id={'title'} className="-mt-8 relative">
-        <div className="container h-[350px] px-6 mx-auto flex items-center text-left justify-start">
+      <section id={'title'} className="-mt-2 relative">
+        <div className="container h-[350px] px-6 mx-auto flex items-center text-right justify-end">
           <div>
-            <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap left">About Tech</h1>
-            <p className="text-gray-200 text-xl max-w-[600px] gsap left">
-              We are continuously learning and developing our expertise to meet the growing market demands.
+            <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap right">Our Core Team</h1>
+            <p className="text-gray-200 text-xl max-w-[600px] gsap right">
+              We love integrating technology into our daily life, making a more comfortable and relaxing life.
             </p>
           </div>
         </div>
         <img
           className={'lazy gsap zoom w-full h-[350px] object-cover absolute top-0 left-0 -z-10'}
-          data-src={'/assets/images/about-tech-header.jpg'}
+          data-src={'/assets/images/header.jpg'}
         />
       </section>
       <Modal open={dataFacade.isVisible} footer={null} onCancel={() => dataFacade.hideDetail()}>
@@ -52,23 +51,10 @@ const Page = () => {
             }
           </p>
         </div>
-        <div className="text-justify">
-          {dataFacade.data?.translations
-            ?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
-            .content?.blocks.map((subItem: any, subIndex: number) => (
-              <Fragment key={subIndex}>
-                {subItem?.type === 'header' && (
-                  <h1
-                    className="text-4xl text-blue-500 leading-none mt-8 font-black mb-4"
-                    dangerouslySetInnerHTML={{ __html: subItem?.data?.text }}
-                  />
-                )}
-                {subItem?.type === 'paragraph' && (
-                  <p className="mb-3" dangerouslySetInnerHTML={{ __html: subItem?.data?.text }} />
-                )}
-              </Fragment>
-            ))}
-        </div>
+        {renderEditorjs(
+          dataFacade.data?.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
+            .content?.blocks || [],
+        )}
       </Modal>
       <section className="bg-[url('/assets/images/home/choose-bg3.jpg')] w-full bg-cover bg-center">
         <div className="container mx-auto sm:py-24 py-10">
@@ -79,7 +65,7 @@ const Page = () => {
                 <div
                   key={index}
                   onClick={() => dataFacade.showDetail(data)}
-                  className="drop-shadow bg-white rounded-xl p-5 hover:scale-110 duration-500 transition-all ease-in-out text-center lg:text-left"
+                  className="drop-shadow bg-white rounded-xl p-5 hover:scale-110 duration-500 transition-all ease-in-out text-center lg:text-left cursor-pointer"
                 >
                   <img alt="ARI" className="lazy h-20 mb-5 mx-auto" data-src={data.image} />
                   <h3 className="text-xl sm:text-2xl text-blue-500 gsap top font-medium text-center">
@@ -105,7 +91,6 @@ const Page = () => {
           </div>
         </div>
       </section>
-      <SectionContact />
     </Fragment>
   );
 };

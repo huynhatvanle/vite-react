@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
-import { CommonEntity, PaginationQuery } from '@models';
+import { CommonEntity } from '@models';
 import { API, routerLinks } from '@utils';
 
 const name = 'Data';
@@ -11,8 +11,6 @@ const action = {
     const { data } = await API.get<Data>(routerLinks(name, 'api') + '/array', { array });
     return data;
   }),
-  showDetail: createAsyncThunk(name + '/showDetail', async (data: Data) => data),
-  hideDetail: createAsyncThunk(name + '/hideDetail', async () => null),
 };
 export const dataSlice = createSlice(
   new Slice<Data>(action, { mission: [], services: [], value: [], member: [], partner: [], tech: [] }, (builder) => {
@@ -29,16 +27,6 @@ export const dataSlice = createSlice(
       .addCase(action.getArray.rejected, (state: State) => {
         state.isLoading = false;
         state.status = 'getArray.rejected';
-      })
-      .addCase(action.showDetail.fulfilled, (state: State, action: PayloadAction<State>) => {
-        state.data = action.payload;
-        state.isVisible = true;
-        state.status = 'showDetail.fulfilled';
-      })
-      .addCase(action.hideDetail.fulfilled, (state: State) => {
-        state.data = undefined;
-        state.isVisible = false;
-        state.status = 'hideDetail.fulfilled';
       });
   }),
 );
@@ -56,18 +44,12 @@ export const DataFacade = () => {
   return {
     ...state,
     set: (values: StateData) => dispatch(action.set(values)),
-    get: (params: PaginationQuery<Data>) => dispatch(action.get(params)),
     getArray: (array: string[]) => {
       array = array.filter((item) => state[item].length === 0);
       array.length > 0 && dispatch(action.getArray(array));
     },
-    getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof StateData }) =>
-      dispatch(action.getById({ id, keyState })),
-    post: (values: Data) => dispatch(action.post(values)),
-    put: (values: Data) => dispatch(action.put(values)),
-    delete: (id: string) => dispatch(action.delete(id)),
-    showDetail: (data: Data) => dispatch(action.showDetail(data)),
-    hideDetail: () => dispatch(action.hideDetail()),
+    showDetail: (data: Data) => dispatch(action.set({ data, isVisible: true })),
+    hideDetail: () => dispatch(action.set({ data: undefined, isVisible: false })),
   };
 };
 export class Data extends CommonEntity {

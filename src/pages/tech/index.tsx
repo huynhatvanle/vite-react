@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { animationSlide, lazyLoad } from '@utils';
 import { DataFacade } from '@store';
-import SectionContact from '@layouts/default/contact';
 
 const Page = () => {
   const dataFacade = DataFacade();
@@ -19,7 +18,7 @@ const Page = () => {
   }, [dataFacade.status]);
   return (
     <Fragment>
-      <section id={'title'} className="-mt-8 relative">
+      <section id={'title'} className="-mt-2 relative">
         <div className="container h-[350px] px-6 mx-auto flex items-center text-left justify-start">
           <div>
             <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap left">About Tech</h1>
@@ -44,7 +43,6 @@ const Page = () => {
           </div>
         </div>
       </section>
-      <SectionContact />
     </Fragment>
   );
 };

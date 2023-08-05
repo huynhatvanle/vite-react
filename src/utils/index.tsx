@@ -2,6 +2,7 @@ import { CheckboxOptionType } from 'antd';
 import { language, languages } from './variable';
 import { gsap } from 'gsap';
 import LazyLoad from 'vanilla-lazyload';
+import React, { Fragment } from 'react';
 
 export * from './init/reportWebVitals';
 export * from './api';
@@ -72,3 +73,28 @@ export const lazyLoad = () =>
   new LazyLoad({
     callback_error: (el: any) => (el.src = 'https://via.placeholder.com/440x560/?text=Error'),
   });
+
+export const renderEditorjs = (blocks: Record<string, object>[]) => {
+  const Heading = ({ level, children, ...props }: any) => React.createElement('h'.concat(level), props, children);
+
+  return (
+    <div className="html-render">
+      {blocks!.map((subItem: any, subIndex: number) => (
+        <Fragment key={subIndex}>
+          {subItem?.type === 'header' && (
+            <Heading level={subItem?.data.level} dangerouslySetInnerHTML={{ __html: subItem?.data?.text }} />
+          )}
+          {subItem?.type === 'paragraph' && <p dangerouslySetInnerHTML={{ __html: subItem?.data?.text }} />}
+          {subItem?.type === 'image' && (
+            <div className="text-center py-5">
+              <img alt={subItem.data.caption} className={'lazy'} data-src={subItem.data.file.url} />
+              {subItem.data.caption && (
+                <caption className={''} dangerouslySetInnerHTML={{ __html: subItem.data.caption }} />
+              )}
+            </div>
+          )}
+        </Fragment>
+      ))}
+    </div>
+  );
+};

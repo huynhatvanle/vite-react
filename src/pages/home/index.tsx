@@ -5,9 +5,7 @@ import { Modal } from 'antd';
 
 import { Arrow, CheckCircle } from '@svgs';
 import { DataFacade } from '@store';
-import { animationSlide, lazyLoad } from '@utils';
-
-import SectionContact from '@layouts/default/contact';
+import { animationSlide, lazyLoad, renderEditorjs } from '@utils';
 const Page = () => {
   const dataFacade = DataFacade();
   useEffect(() => {
@@ -206,23 +204,10 @@ const Page = () => {
             }
           </p>
         </div>
-        <div className="text-justify">
-          {dataFacade.data?.translations
-            ?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
-            .content?.blocks.map((subItem: any, subIndex: number) => (
-              <Fragment key={subIndex}>
-                {subItem?.type === 'header' && (
-                  <h1
-                    className="text-4xl text-blue-500 leading-none mt-8 font-black mb-4"
-                    dangerouslySetInnerHTML={{ __html: subItem?.data?.text }}
-                  />
-                )}
-                {subItem?.type === 'paragraph' && (
-                  <p className="mb-3" dangerouslySetInnerHTML={{ __html: subItem?.data?.text }} />
-                )}
-              </Fragment>
-            ))}
-        </div>
+        {renderEditorjs(
+          dataFacade.data?.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
+            .content?.blocks || [],
+        )}
       </Modal>
       <section className="bg-[url('/assets/images/home/choose-bg3.jpg')] w-full bg-cover bg-center">
         <div className="container px-6 mx-auto sm:py-24 py-10">
@@ -296,7 +281,6 @@ const Page = () => {
           </Swiper>
         </div>
       </section>
-      <SectionContact />
     </Fragment>
   );
 };

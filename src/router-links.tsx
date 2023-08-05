@@ -5,6 +5,7 @@ export const routerLinks = (name: string, type?: string) => {
     Home: '/',
     Tech: '/tech',
     Team: '/team',
+    News: '/tin-tuc',
   }; // 💬 generate link to here
 
   const apis: {
@@ -12,6 +13,7 @@ export const routerLinks = (name: string, type?: string) => {
   } = {
     Auth: '/auth',
     Data: '/data',
+    Post: '/post',
   }; // 💬 generate api to here
 
   switch (type) {
