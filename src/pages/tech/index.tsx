@@ -8,9 +8,7 @@ const Page = () => {
   useEffect(() => {
     lazyLoad();
     animationSlide(document.getElementById('title')!, 0);
-    if (dataFacade?.tech?.length === 0) {
-      dataFacade.getArray({ array: ['mission', 'services', 'value', 'member', 'partner', 'tech'] });
-    }
+    dataFacade.getArray(['partner', 'tech']);
   }, []);
   useEffect(() => {
     switch (dataFacade.status) {
@@ -34,6 +32,17 @@ const Page = () => {
           className={'lazy gsap zoom w-full h-[350px] object-cover absolute top-0 left-0 -z-10'}
           data-src={'/assets/images/about-tech-header.jpg'}
         />
+      </section>
+      <section className="bg-white w-full">
+        <div className="container px-6 mx-auto sm:py-24 py-10">
+          <div className="mb-10 grid gap-5 sm:gap-20 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2">
+            {dataFacade?.tech?.map((item, index) => (
+              <div key={index} className="flex items-center justify-center sm:py-5">
+                <img alt={item.name} className="lazy object-contain w-full" data-src={item.image} />
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
       <SectionContact />
     </Fragment>

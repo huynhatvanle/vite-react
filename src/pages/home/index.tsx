@@ -13,9 +13,7 @@ const Page = () => {
   useEffect(() => {
     lazyLoad();
     animationSlide(document.getElementById('title')!, 0);
-    if (dataFacade?.services?.length === 0) {
-      dataFacade.getArray({ array: ['mission', 'services', 'value', 'member', 'partner', 'tech'] });
-    }
+    dataFacade.getArray(['mission', 'services', 'value', 'member', 'partner']);
   }, []);
   useEffect(() => {
     switch (dataFacade.status) {
@@ -192,7 +190,7 @@ const Page = () => {
       </section>
       <Modal open={dataFacade.isVisible} footer={null} onCancel={() => dataFacade.hideDetail()}>
         <div className="text-center pb-5">
-          <img alt="Ari" className="h-32 mx-auto" data-src={dataFacade.data?.image} />
+          <img alt="Ari" className="h-32 mx-auto" src={dataFacade.data?.image} />
           <h3 className="text-xl text-blue-800 font-bold mb-1">
             {
               dataFacade.data?.translations?.filter(

@@ -7,15 +7,15 @@ import { API, routerLinks } from '@utils';
 const name = 'Data';
 const action = {
   ...new Action<Data>(name),
-  getArray: createAsyncThunk(name + '/array', async (params: { array: string[] }) => {
-    const { data } = await API.get<Data>(routerLinks(name, 'api') + '/array', params);
+  getArray: createAsyncThunk(name + '/array', async (array: string[]) => {
+    const { data } = await API.get<Data>(routerLinks(name, 'api') + '/array', { array });
     return data;
   }),
   showDetail: createAsyncThunk(name + '/showDetail', async (data: Data) => data),
   hideDetail: createAsyncThunk(name + '/hideDetail', async () => null),
 };
 export const dataSlice = createSlice(
-  new Slice<Data>(action, { mission: [], services: [], value: [], member: [], partner: [] }, (builder) => {
+  new Slice<Data>(action, { mission: [], services: [], value: [], member: [], partner: [], tech: [] }, (builder) => {
     builder
       .addCase(action.getArray.pending, (state: State) => {
         state.isLoading = true;
@@ -52,11 +52,15 @@ interface StateData extends State<Data> {
 }
 export const DataFacade = () => {
   const dispatch = useAppDispatch();
+  const state = useTypedSelector((state) => state[action.name] as StateData);
   return {
-    ...useTypedSelector((state) => state[action.name] as StateData),
+    ...state,
     set: (values: StateData) => dispatch(action.set(values)),
     get: (params: PaginationQuery<Data>) => dispatch(action.get(params)),
-    getArray: (params: { array: string[] }) => dispatch(action.getArray(params)),
+    getArray: (array: string[]) => {
+      array = array.filter((item) => state[item].length === 0);
+      array.length > 0 && dispatch(action.getArray(array));
+    },
     getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof StateData }) =>
       dispatch(action.getById({ id, keyState })),
     post: (values: Data) => dispatch(action.post(values)),
@@ -71,7 +75,7 @@ export class Data extends CommonEntity {
     public name?: string,
     public type?: string,
     public image?: string,
-    public order?: number,
+    public order: number | null = null,
     public translations?: {
       language: string;
       name: string;

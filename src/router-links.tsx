@@ -4,6 +4,7 @@ export const routerLinks = (name: string, type?: string) => {
   } = {
     Home: '/',
     Tech: '/tech',
+    Team: '/team',
   }; // 💬 generate link to here
 
   const apis: {

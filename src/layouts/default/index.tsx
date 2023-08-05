@@ -16,7 +16,14 @@ const Layout = ({ children }: PropsWithChildren) => {
   const [showMenu, set_showMenu] = useState(false);
   const data = [
     { title: 'Home', slug: '/' + language },
-    { title: 'About', slug: '/' + language },
+    {
+      title: 'About',
+      slug: '/' + language,
+      children: [
+        { title: 'About Tech', slug: '/' + language + '/tech' },
+        { title: 'Our Core Team', slug: '/' + language + '/team' },
+      ],
+    },
   ];
   const menus: any = [];
   const navigate = useNavigate();
@@ -33,7 +40,6 @@ const Layout = ({ children }: PropsWithChildren) => {
           loop(item.children, data.children);
         }
         returnArray.push(data);
-        console.log(returnArray);
       }
     });
   };
@@ -56,7 +62,6 @@ const Layout = ({ children }: PropsWithChildren) => {
     }
     set_showMenu(false);
   };
-  console.log(menus);
 
   return (
     <Fragment>
