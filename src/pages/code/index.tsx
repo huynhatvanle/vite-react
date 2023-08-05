@@ -11,9 +11,10 @@ import { GlobalFacade, CodeFacade, CodeTypeFacade } from '@store';
 import { Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
 import { createSearchParams } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 const Page = () => {
-  const { user, set } = GlobalFacade();
+  const { user, set, formatDate } = GlobalFacade();
   const codeTypeFacade = CodeTypeFacade();
   useEffect(() => {
     if (!codeTypeFacade.result?.data) codeTypeFacade.get({});
@@ -128,11 +129,13 @@ const Page = () => {
                   },
                 },
                 {
-                  title: 'routes.admin.user.Description',
-                  name: 'description',
+                  title: 'Created',
+                  name: 'createdAt',
                   tableItem: {
-                    filter: { type: 'search' },
+                    width: 120,
+                    filter: { type: 'date' },
                     sorter: true,
+                    render: (text) => dayjs(text).format(formatDate),
                   },
                 },
                 {

@@ -12,9 +12,10 @@ import { useNavigate } from 'react-router';
 import classNames from 'classnames';
 import { createSearchParams } from 'react-router-dom';
 import { Avatar } from '@core/avatar';
+import dayjs from 'dayjs';
 
 const Page = () => {
-  const { user, set } = GlobalFacade();
+  const { user, set, formatDate } = GlobalFacade();
   const dataTypeFacade = DataTypeFacade();
   useEffect(() => {
     if (!dataTypeFacade.result?.data) dataTypeFacade.get({});
@@ -142,6 +143,16 @@ const Page = () => {
                   tableItem: {
                     filter: { type: 'search' },
                     sorter: true,
+                  },
+                },
+                {
+                  title: 'Created',
+                  name: 'createdAt',
+                  tableItem: {
+                    width: 120,
+                    filter: { type: 'date' },
+                    sorter: true,
+                    render: (text) => dayjs(text).format(formatDate),
                   },
                 },
                 {
