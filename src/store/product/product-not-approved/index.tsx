@@ -101,7 +101,7 @@ export const notApprovedFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<notApproved>),
     set: (values: State<notApproved>) => dispatch(action.set(values)),
-    getproduct: ({
+    get: ({
       page,
       perPage,
       filter,

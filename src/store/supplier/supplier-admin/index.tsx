@@ -49,8 +49,7 @@ export const SupplierAdminFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<SupplierAdmin>),
     set: (values: State<SupplierAdmin>) => dispatch(action.set(values)),
-    // get: (params: PaginationQuery<SupplierStore>) => dispatch(action.get(params)),
-    get: ({ type }: { type: string}) => dispatch(action.getAll({ type })),
+    get: ({ type }: { type: string }) => dispatch(action.getAll({ type })),
   };
 };
 

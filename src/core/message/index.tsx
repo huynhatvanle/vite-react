@@ -8,6 +8,8 @@ export const Message = {
     showCloseButton = true,
     showCancelButton = false,
     showConfirmButton = false,
+    confirmButtonColor = '#3b82f6',
+    cancelButtonColor = '#ef4444',
     padding = 0,
   }: Type) =>
     import('sweetalert2').then(({ default: Swal }) =>
@@ -20,6 +22,8 @@ export const Message = {
         showCloseButton,
         showCancelButton,
         showConfirmButton,
+        confirmButtonColor,
+        cancelButtonColor,
         padding,
         customClass: {
           cancelButton: '!border !border-solid !border-teal-900 !bg-white !text-teal-900 hover:!bg-none'

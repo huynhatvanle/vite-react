@@ -67,13 +67,12 @@ const action = {
     const { data } = await API.get<Product>(`${routerLinks(name, 'api')}/list/supplier-waiting-appprove`);
     return data || {};
   }),
-  getById1: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id: string; keyState: keyof State<Product> }) => {
+  getById1: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id?: string; keyState: keyof State<Product> }) => {
     let { data } = await API.get<Product>(`${routerLinks(name, 'api')}/${id}`);
     const exportTaxId = data?.exportTax?.id;
     const importTaxId = data?.importTax?.id;
     const categoryId = data?.category?.id;
     data = { ...data, exportTaxId, importTaxId, categoryId }
-    console.log(data)
     return { data, keyState };
   },)
 };
@@ -154,7 +153,7 @@ export const ProductFacade = () => {
     }) => {
       return dispatch(action.getProduct({ page, perPage, filter, sorts }));
     },
-    getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Product> }) =>
+    getById: ({ id, keyState = 'isVisible' }: { id?: string; keyState?: keyof State<Product> }) =>
       dispatch(action.getById1({ id, keyState })),
     post: (values: Product) => dispatch(action.post(values)),
     put: (values: Product) => dispatch(action.put(values)),
@@ -226,6 +225,11 @@ export class Product extends CommonEntity {
         url?: string;
       },
     ],
+    public information?: {
+      id: string;
+      content: string,
+      url: string,
+    }[],
     public approveStatus?: string,
     public subOrg?: {
       id: string;

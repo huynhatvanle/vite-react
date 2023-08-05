@@ -4,9 +4,11 @@ import { useNavigate, useParams } from 'react-router';
 import { language, languages, routerLinks } from '@utils';
 import { CategoryFacade, ProductFacade, TaxAdminFacade } from '@store';
 import { Form } from '@core/form';
-import { DownArrow } from '@svgs';
+import { DownArrow, Tags } from '@svgs';
 import { Table } from 'antd';
 import { Button } from '@core/button';
+import { DataTable } from '@core/data-table';
+import { Message } from '@core/message';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -18,6 +20,8 @@ const Page = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+
+
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
   useEffect(() => {
@@ -27,13 +31,12 @@ const Page = () => {
     }
 
     return () => {
-      isReload.current && productFacade.get(param);
+      isReload.current && productFacade.getById({ id });;
     };
   }, [id]);
 
-  // const handleBack = () => window.history.back();
   let i = 1;
-  let percent = '';
+
   const dl = data?.productPrice?.flat().map((item, index) => {
     return {
       key: index + 1,
@@ -43,20 +46,32 @@ const Page = () => {
       Price: item?.price.toLocaleString(),
     };
   });
-  const handleBack = () => navigate(`/${lang}${routerLinks('inventory-management/product')}?tab=2`)
+
   const dt = data?.priceBalanceCommission?.flat().map((item, index) => {
     return {
       key: index + 1,
       stt: index + 1,
       Revenue: parseInt(item?.revenue).toLocaleString(),
       AmountBalance: parseInt(item?.amountBalance).toLocaleString(),
+      PercentBalance: item?.percentBalance ? item?.percentBalance.toLocaleString() : '',
     };
   });
+
+  const file = data?.information?.map((item, index) => {
+    return {
+      key: index + 1,
+      stt: index + 1,
+      Content: item?.content,
+      Url: item?.url
+      // substring(109, 125)
+    };
+  });
+
   return (
     <div className={'w-full rounded-2xl bg-white'}>
       <Fragment>
         <div className='flex flex-row'>
-          <div className='flex-initial mr-5 lg:rounded-xl w-1/4 form-merchandise2'>
+          <div className='flex-auto lg:rounded-xl w-1/4 form-merchandise2'>
             <Form
               values={{
                 ...data,
@@ -120,30 +135,34 @@ const Page = () => {
                             ></input>
                           </div>
                           <p className="text-xl font-bold text-teal-900 pb-2">Trạng thái sản phẩm</p>
-                          <p className="font-normal text-base text-green-600 flex items-center">
-                            <i className="las la-tags text-lg mr-2"></i>
+                          <p className="font-normal text-base flex items-center">
                             {
                               value?.approveStatus == 'APPROVED' ? (
-                                <div className=" text-center p-1  text-green-600 ">
+                                <div className="flex w-full text-green-600 ">
+                                  <Tags className=" text-xs mr-2 w-5"></Tags>
                                   {t('supplier.status.on sale')}
                                 </div>
                               ) : value?.approveStatus == 'WAITING_APPROVE' ? (
-                                <div className="text-center p-1 text-yellow-600">
+                                <div className="flex w-full text-yellow-600">
+                                  <Tags className=" text-xs mr-1 w-5"></Tags>
                                   {t('supplier.status.wait for confirm')}
                                 </div>
                               ) : value?.approveStatus == 'REJECTED' ? (
-                                <div className=" text-center p-1  text-red-600 ">
+                                <div className=" flex w-full  text-red-600 ">
+                                  <Tags className=" text-xs mr-1 w-5"></Tags>
                                   {t('supplier.status.Decline')}
                                 </div>
                               ) : value?.approveStatus == 'OUT_OF_STOCK' ? (
                                 <div className="">
                                 </div>
                               ) : value?.approveStatus == 'STOP_SELLING' ? (
-                                <div className=" text-center p-1 text-red-600 ">
+                                <div className="flex w-full text-red-600 ">
+                                  <Tags className=" text-xs mr-1 w-5"></Tags>
                                   {t('supplier.status.stop selling')}
                                 </div>
                               ) : (
-                                <div className=" text-center p-1 text-black ">
+                                <div className=" flex w-full text-black ">
+                                  <Tags className=" text-xs mr-1 w-5"></Tags>
                                   {t('supplier.status.canceled')}
                                 </div>)
                             }
@@ -353,239 +372,360 @@ const Page = () => {
                     col: 12,
                   },
                 },
+                {
+                  title: '',
+                  name: '',
+                  formItem: {
+                    render: () => {
+                      return (
+                        <div className="flex items-left font-bold">
+                          <div className="sm:text-xl text-base text-teal-900 pt-0">Bảng giá dành cho cửa hàng</div>
+                        </div>
+                      );
+                    },
+                  },
+                },
               ]}
             />
-            <div className="flex items-left font-bold px-5 pb-5">
-              <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Bảng giá dành cho cửa hàng</p>
-            </div>
-            <div className="px-5 pb-4">
-              <Table
-                pagination={false}
-                dataSource={dl}
-                showSorterTooltip={false}
-                size="small"
-                loading={isLoading}
-                columns={[
-                  {
-                    title: 'STT',
-                    dataIndex: 'stt',
-                  },
-                  {
-                    title: 'Chủng loại giá',
-                    dataIndex: 'PriceType',
-                  },
-                  {
-                    title: 'Số lượng tối thiểu',
-                    dataIndex: 'Quantity',
-                  },
-                  {
-                    title: 'Giá bán (VND)',
-                    dataIndex: 'Price',
-                  },
-                ]}
-              />
-            </div>
-            <div className="flex items-left font-bold px-5">
+            <Table
+              pagination={false}
+              dataSource={dl}
+              showSorterTooltip={false}
+              size="small"
+              loading={isLoading}
+              className='mx-5'
+              columns={[
+                {
+                  title: 'STT',
+                  dataIndex: 'stt',
+                },
+                {
+                  title: 'Chủng loại giá',
+                  dataIndex: 'PriceType',
+                },
+                {
+                  title: 'Số lượng tối thiểu',
+                  dataIndex: 'Quantity',
+                },
+                {
+                  title: 'Giá bán (VND)',
+                  dataIndex: 'Price',
+                },
+              ]}
+            />
+            <div className="flex items-left font-bold mx-5 pt-5">
               <p className="sm:text-xl text-base text-teal-900">Chiết khấu với Balance</p>
             </div>
             <div>
-              {productFacade.data && productFacade?.data?.priceBalanceCommission?.map((item) => {
-                item.percentBalance != null ? percent = item.percentBalance : ''
-                return item.percentBalance == null ? (
-                  <div className='px-5 pt-2'>
-                    <Form
-                      className='form-store pb-2'
-                      columns={[
-                        {
-                          title: '',
-                          name: '',
-                          formItem: {
-                            render: (form, values) => {
-                              return (
-                                <div className=''>
+              {data && productFacade?.data?.priceBalanceCommission?.map((item) => {
+                return item?.amountBalance === null && item?.percentBalance != null ? item?.revenue == '0' ?
+                  (
+                    <div className="">
+                      <Form
+                        columns={[
+                          {
+                            title: '',
+                            name: '',
+                            formItem: {
+                              render: (form, values) => {
+                                return (
                                   <div className="flex items-center h-full text-base lg:mt-0 pb-2">
-                                    <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
-                                      <input type="radio" className="ant-radio-input"></input>
-                                    </span>
-                                    <div>
-                                      {('Chiết khấu cố định')}
+                                    <input type="radio" checked className="ant-radio-input"></input>
+                                    <div className='pl-2'>{('Chiết khấu cố định')}</div>
+                                  </div>
+                                );
+                              },
+                            },
+                          },
+                          {
+                            title: '',
+                            name: '',
+                            formItem: {
+                              render: (form, values) => {
+                                return (
+                                  <div className="flex items-center my-0.5 pl-6">
+                                    <div className='text-base '>Đề nghị chiết khấu cố định</div>
+                                    <input
+                                      className="bg-gray-200 !ml-4 !rounded-[10px] !h-[44px] !w-[150px] !px-2 "
+                                      placeholder="Nhập giá trị"
+                                      type="text"
+                                      value={item.percentBalance}
+                                    />
+                                    <span className="ml-4">%</span>
+                                  </div>
+                                );
+                              },
+                            },
+                          },
+                          {
+                            title: '',
+                            name: '',
+                            formItem: {
+                              render: (form, values) => {
+                                return (
+                                  <div className="flex items-center h-full text-base lg:mt-0 pt-2">
+                                    <input type="radio" disabled className="ant-radio-input"></input>
+                                    <div className='pl-2'>{('Chiết khấu linh động')}</div>
+                                  </div>
+                                );
+                              },
+                            },
+                          }
+                        ]}
+                      />
+                    </div>
+                  )
+                  :
+                  (
+                    <div className='p-5'>
+                      <Form
+                        className='form-store pb-2'
+                        columns={[
+                          {
+                            title: '',
+                            name: '',
+                            formItem: {
+                              render: (form, values) => {
+                                return (
+                                  <div className=''>
+                                    <div className="flex items-center h-full text-base lg:mt-0 pb-4">
+                                      <input type="radio" disabled className="ant-radio-input"></input>
+                                      <div className='pl-2'>{('Chiết khấu cố định')}</div>
+                                    </div>
+                                    <div className="flex items-center h-full text-base lg:mt-0">
+                                      <input type="radio" checked className="ant-radio-input"></input>
+                                      <div className='pl-2'>{('Chiết khấu linh động')}</div>
                                     </div>
                                   </div>
-                                  <div className="flex items-center h-full text-base lg:mt-0">
-                                    <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
-                                      <input type="radio" className="ant-radio-input"></input>
-                                    </span>
-                                    <div>
-                                      {('Chiết khấu linh động')}
+                                );
+                              },
+                            },
+                          }
+                        ]}
+                      />
+                      <Form
+                        className='form-store pl-6 py-4'
+                        columns={[
+                          {
+                            title: '',
+                            name: '',
+                            formItem: {
+                              render: (form, values) => {
+                                return (
+                                  <div className=''>
+                                    <div className="flex items-center h-full text-base lg:mt-0 pb-4">
+                                      <input type="radio" checked className="ant-radio-input"></input>
+                                      <div className='pl-2'>{('Chiết khấu theo %')}</div>
+                                    </div>
+                                    <div className="flex items-center h-full text-base lg:mt-0">
+                                      <input type="radio" disabled className="ant-radio-input"></input>
+                                      <div className='pl-2'>{('Chiết khấu theo số tiền')}</div>
                                     </div>
                                   </div>
-                                </div>
-                              );
+                                );
+                              },
                             },
+                          }
+                        ]}
+                      />
+                      <Table
+                        loading={isLoading}
+                        pagination={false}
+                        dataSource={dt}
+                        // showSorterTooltip={false}
+                        size="small"
+                        className="pb-6"
+                        columns={[
+                          {
+                            title: 'STT',
+                            dataIndex: 'stt',
                           },
+                          {
+                            title: 'Doanh Thu (VNĐ)',
+                            dataIndex: 'Revenue',
+                          },
+                          {
+                            title: 'Chiết khấu theo doanh thu (%)',
+                            dataIndex: 'PercentBalance',
+                          }
+                        ]}
+                      />
+                      <div>
+                        {productFacade.data?.information && productFacade.data.information.length === 0 ? "" :
+                          <div>
+                            <div className="flex items-left font-bold pt-5 border-t">
+                              <p className="sm:text-xl text-base text-teal-900">Thông tin khác</p>
+                            </div>
+                            <DataTable
+                              data={file}
+                              showSearch={false}
+                              showPagination={false}
+                              className='bg-white rounded-xl'
+                              columns={[
+                                {
+                                  title: 'STT',
+                                  name: 'stt',
+                                  tableItem: {}
+                                },
+                                {
+                                  title: 'Nội dung',
+                                  name: 'Content',
+                                  tableItem: {}
+
+                                },
+                                {
+                                  title: 'File đính kèm',
+                                  name: 'Url',
+                                  tableItem: {
+                                    render(text, item) {
+                                      return (
+                                        <div>
+                                          <a href={text} className='text-blue-500 ml-4 underline hover:underline hover:text-blue-500'>{item.Url.slice(109)}</a>
+                                        </div>
+                                      )
+                                    },
+                                  }
+                                },
+                              ]}
+                            />
+                          </div>
                         }
-                      ]}
-                    />
-                    <Form
-                      className='form-store pl-6'
-                      columns={[
-                        {
-                          title: '',
-                          name: '',
-                          formItem: {
-                            render: (form, values) => {
-                              return (
-                                <div className=''>
-                                  <div className="flex items-center h-full text-base lg:mt-0 pb-2">
-                                    <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
-                                      <input type="radio" className="ant-radio-input"></input>
-                                    </span>
-                                    <div>
-                                      {('Chiết khấu theo %')}
+                      </div>
+                    </div>
+                  )
+                  :
+                  (
+                    <div className='p-5'>
+                      <Form
+                        className='form-store'
+                        columns={[
+                          {
+                            title: '',
+                            name: '',
+                            formItem: {
+                              render: (form, values) => {
+                                return (
+                                  <div className=''>
+                                    <div className="flex items-center h-full text-base lg:mt-0 pb-4">
+                                      <input type="radio" disabled className="ant-radio-input"></input>
+                                      <div className='pl-2'>{('Chiết khấu cố định')}</div>
+                                    </div>
+                                    <div className="flex items-center h-full text-base lg:mt-0">
+                                      <input type="radio" checked className="ant-radio-input"></input>
+                                      <div className='pl-2'>{('Chiết khấu linh động')}</div>
                                     </div>
                                   </div>
-                                  <div className="flex items-center h-full text-base lg:mt-0">
-                                    <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
-                                      <input type="radio" className="ant-radio-input"></input>
-                                    </span>
-                                    <div>
-                                      {('Chiết khấu theo số tiền')}
+                                );
+                              },
+                            },
+                          }
+                        ]}
+                      />
+                      <Form
+                        className='form-store pl-6 pt-4'
+                        columns={[
+                          {
+                            title: '',
+                            name: '',
+                            formItem: {
+                              render: (form, values) => {
+                                return (
+                                  <div className=''>
+                                    <div className="flex items-center h-full text-base lg:mt-0 pb-4">
+                                      <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
+                                        <input type="radio" className="ant-radio-input"></input>
+                                      </span>
+                                      <div>
+                                        {('Chiết khấu theo %')}
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center h-full text-base lg:mt-0">
+                                      <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
+                                        <input type="radio" checked className="ant-radio-input"></input>
+                                      </span>
+                                      <div>
+                                        {('Chiết khấu theo số tiền')}
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              );
+                                );
+                              },
                             },
+                          }
+                        ]}
+                      />
+                      <Table
+                        loading={isLoading}
+                        pagination={false}
+                        dataSource={dt}
+                        showSorterTooltip={false}
+                        size="small"
+                        className="py-4 pl-6"
+                        columns={[
+                          {
+                            title: 'STT',
+                            dataIndex: 'stt',
                           },
-                        }
-                      ]}
-                    />
-                    <Table
-                      loading={isLoading}
-                      pagination={false}
-                      dataSource={dt}
-                      showSorterTooltip={false}
-                      size="small"
-                      className="pt-2 pl-6 pb-6 border-b"
-                      columns={[
-                        {
-                          title: 'STT',
-                          dataIndex: 'stt',
-                        },
-                        {
-                          title: 'Doanh Thu (VNĐ)',
-                          dataIndex: 'Revenue',
-                        },
-                        {
-                          title: 'Số tiền chiết khấu (VNĐ)',
-                          dataIndex: 'AmountBalance',
-                        }
-                      ]}
-                    />
-                    <Table
-                      loading={isLoading}
-                      pagination={false}
-                      dataSource={dt}
-                      showSorterTooltip={false}
-                      size="small"
-                      className="pt-2 pl-6 pb-6"
-                      columns={[
-                        {
-                          title: 'STT',
-                          dataIndex: 'stt',
-                        },
-                        {
-                          title: 'Doanh Thu (VNĐ)',
-                          dataIndex: 'Revenue',
-                        },
-                        {
-                          title: 'Số tiền chiết khấu (VNĐ)',
-                          dataIndex: 'AmountBalance',
-                        }
-                      ]}
-                    />
-                  </div>
-                ) : (
-                  <div className="">
-                    <Form
-                      columns={[
-                        {
-                          title: '',
-                          name: '',
-                          formItem: {
-                            render: (form, values) => {
-                              return (
-                                <div className="flex items-center h-full text-base lg:mt-0 pb-2">
-                                  <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
-                                    <input type="radio" className="ant-radio-input"></input>
-                                  </span>
-                                  <div>{('Chiết khấu cố định')}</div>
-                                </div>
-                              );
-                            },
+                          {
+                            title: 'Doanh Thu (VNĐ)',
+                            dataIndex: 'Revenue',
                           },
-                        },
-                        {
-                          title: '',
-                          name: '',
-                          formItem: {
-                            render: (form, values) => {
-                              return (
-                                <div className="flex items-center my-0.5 pl-6">
-                                  <div className='text-base '>Đề nghị chiết khấu cố định</div>
-                                  <input
-                                    className="bg-gray-200 !ml-4 !rounded-[10px] !h-[44px] !w-[150px] !px-2 "
-                                    placeholder="Nhập giá trị"
-                                    type="text"
-                                    value={percent != null ? percent : '1'}
-                                  />
-                                  <span className="ml-4">%</span>
-                                </div>
-                              );
-                            },
-                          },
-                        },
-                        {
-                          title: '',
-                          name: '',
-                          formItem: {
-                            render: (form, values) => {
-                              return (
-                                <div className="flex items-center h-full text-base lg:mt-0 pt-2">
-                                  <span className="ant-radio ant-radio-checked ant-radio-disabled pr-2">
-                                    <input type="radio" className="ant-radio-input"></input>
-                                  </span>
-                                  <div>{('Chiết khấu linh động')}</div>
-                                </div>
-                              );
-                            },
-                          },
-                        }
-                      ]}
-                    />
-                  </div>
-                )
-              })}
+                          {
+                            title: 'Số tiền chiết khấu (VNĐ)',
+                            dataIndex: 'AmountBalance',
+                          }
+                        ]}
+                      />
+                    </div>
+                  )
+              })
+              }
             </div>
           </div>
         </div>
-        <div className="flex w-full justify-between p-5">
-          <Button
-            text={t('components.form.modal.cancel')}
-            className={'sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
-            onClick={() => navigate(`/${lang}${routerLinks('inventory-management/product')}`)}
-          />
-          <div>
-            <Button
-              text={t('Từ chối yêu cầu')}
-              className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5 mr-5'}
-              onClick={() => navigate(`/${lang}${routerLinks('Supplier')}`)}
-            />
-            <Button
-              text={t('Phê duyệt yêu cầu')}
-              className={'md:min-w-[8rem] justify-center !bg-teal-900 max-sm:w-3/5'}
-              onClick={() => navigate(`/${lang}${routerLinks('Supplier')}`)}
-            />
-          </div>
+        <div className='p-5'>
+          {productFacade.data && productFacade?.data?.approveStatus === 'WAITING_APPROVE' ?
+            (
+              <div className='flex w-full justify-between'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
+                  onClick={() => navigate(`/${lang}${routerLinks('inventory-management/product')}`)}
+                />
+                <div>
+                  <Button
+                    text={t('Từ chối yêu cầu')}
+                    className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5 mr-5'}
+                    onClick={() => Message.warning({
+                      text: 'Bạn có chắc muốn từ chối sản phẩm này ?',
+                      cancelButtonColor: '',
+                      cancelButtonText: "Huỷ",
+                      confirmButtonColor: '#134e4a',
+                      showCloseButton: true,
+                      showConfirmButton: true,
+                    })}
+                  />
+                  <Button
+                    text={t('Phê duyệt yêu cầu')}
+                    className={'md:min-w-[8rem] justify-center !bg-teal-900 max-sm:w-3/5'}
+                    onClick={() => Message.success({
+                      text: 'Phê duyệt thành công.',
+                      confirmButtonColor: "#e5e50f",
+                      showCloseButton: true,
+                      showConfirmButton: true,
+                    })}
+                  />
+                </div>
+              </div>
+            )
+            : (
+              <Button
+                text={t('components.form.modal.cancel')}
+                className={'sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
+                onClick={() => navigate(`/${lang}${routerLinks('inventory-management/product')}`)}
+              />
+            )
+          }
         </div>
       </Fragment>
     </div>

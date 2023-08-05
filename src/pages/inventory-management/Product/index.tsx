@@ -52,11 +52,14 @@ const Page = () => {
 
   const [forms] = AntForm.useForm();
 
-  useEffect(() => {
 
-    supplierAdminFacade.get({
-      type: 'BALANCE',
-    })
+  useEffect(() => {
+    if (tab) {
+      setActiveKey(tab);
+    }
+  }, [tab]);
+
+  useEffect(() => {
 
     if (activeKey == '1') {
       categoryFacade.get({});
@@ -68,25 +71,37 @@ const Page = () => {
     }
 
     if (activeKey == '2') {
+      categoryFacade.get({});
       productFacade.getproduct();
-      notapprovedFacade.getproduct({
+      dataTableRefProduct?.current?.onChange({
         page: 1,
         perPage: 10,
         filter: {
           type: 'BALANCE',
           categoryId: '',
           supplierId: ''
-        },
+        }
       });
     }
 
   }, [activeKey])
 
   useEffect(() => {
-    if (tab) {
-      setActiveKey(tab);
-    }
-  }, [tab]);
+    if (activeKey == '1')
+      supplierAdminFacade.get({ type: 'BALANCE', })
+  }, []);
+
+  useEffect(() => {
+    if (activeKey == '2')
+      notapprovedFacade.get({
+        page: 1,
+        perPage: 10,
+        filter: {
+          type: 'BALANCE', categoryId: ''
+          // , supplierId: ''
+        }
+      })
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -209,27 +224,27 @@ const Page = () => {
                   tableItem: {
                     render: (text: string) =>
                       text == 'APPROVED' ? (
-                        <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                        <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded-xl">
                           {t('supplier.status.on sale')}
                         </div>
                       ) : text == 'WAITING_APPROVE' ? (
-                        <div className="bg-yellow-100 text-center p-1 border border-yellow-500 text-yellow-600 rounded">
+                        <div className="bg-yellow-100 text-center p-1 border border-yellow-500 text-yellow-600 rounded-xl">
                           {t('supplier.status.wait for confirmation')}
                         </div>
                       ) : text == 'REJECTED' ? (
-                        <div className="bg-purple-100 text-center p-1 border border-purple-500 text-purple-600 rounded">
+                        <div className="bg-purple-100 text-center p-1 border border-purple-500 text-purple-600 rounded-xl">
                           {t('supplier.status.decline')}
                         </div>
                       ) : text == 'OUT_OF_STOCK' ? (
-                        <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded">
+                        <div className="bg-red-100 text-center p-1 border border-red-500 text-red-600 rounded-xl">
                           {t('supplier.status.out of stock')}
                         </div>
                       ) : text == 'STOP_SELLING' ? (
-                        <div className=" text-center p-1 border border-black text-black rounded">
+                        <div className=" text-center p-1 border border-black text-black rounded-xl">
                           {t('supplier.status.stop selling')}
                         </div>
                       ) : (
-                        <div className=" text-center p-1 border border-black text-black rounded">
+                        <div className=" text-center p-1 border border-black text-black rounded-xl">
                           {t('supplier.status.canceled')}
                         </div>
                       ),
@@ -342,7 +357,7 @@ const Page = () => {
               leftHeader={
                 <Form
                   formAnt={forms}
-                  className="intro-x rounded-lg w-full form-store"
+                  className="intro-x rounded-lg form-store form-mechandise"
                   values={{
                     supplierName: getFilter(productFacade.queryParams, 'supplierId'),
                     categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
@@ -357,7 +372,7 @@ const Page = () => {
                       name: 'supplierName',
                       formItem: {
                         placeholder: 'placeholder.Choose a supplier',
-                        col: 5,
+                        col: 6,
                         type: 'select',
                         list: listSupplierStore?.map((item) => ({
                           label: item.name,
@@ -384,8 +399,9 @@ const Page = () => {
                       title: '',
                       name: 'approveStatus',
                       formItem: {
-                        col: 5,
+                        col: 6,
                         type: 'select',
+                        placeholder: "product.status",
                         list: listOption?.map((item) => ({
                           label: item.label,
                           value: item.value!
@@ -529,7 +545,13 @@ const Page = () => {
             <DataTable
               facade={notapprovedFacade}
               ref={dataTableRefProduct}
-              defaultRequest={{ page: 1, perPage: 10, filter: { type: 'BALANCE', approveStatus: 'APPROVED' } }}
+              defaultRequest={{
+                page: 1, perPage: 10, filter: {
+                  type: 'BALANCE',
+                  categoryId: '',
+                  supplierId: ''
+                }
+              }}
               onRow={(data: any) => ({
                 onDoubleClick: () =>
                   navigate(`/${lang}${routerLinks('Merchandise-Managerment/Product/Detail')}/${data.id}`),
@@ -612,12 +634,13 @@ const Page = () => {
                       name: 'supplierName',
                       formItem: {
                         type: 'select',
+                        placeholder: 'placeholder.Choose a supplier',
                         list: listSupplierAdmin?.map((item) => ({
                           label: item.name,
                           value: item.id!
                         })),
                         onChange(value, form) {
-                          notapprovedFacade.getproduct({
+                          dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: {
@@ -658,7 +681,7 @@ const Page = () => {
                           setCategoryId1(value)
                           setCategoryId2('')
                           form.resetFields(['categoryId2', 'categoryId3']);
-                          notapprovedFacade.getproduct({
+                          dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: {
@@ -691,7 +714,7 @@ const Page = () => {
                         onChange(value, form) {
                           setCategoryId2(value)
                           form.resetFields(['categoryId3']);
-                          notapprovedFacade.getproduct({
+                          dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: {
@@ -722,7 +745,7 @@ const Page = () => {
                             : category3 ? false : true
                           : true,
                         onChange(value, form) {
-                          notapprovedFacade.getproduct({
+                          dataTableRefProduct?.current?.onChange({
                             page: 1,
                             perPage: 10,
                             filter: {
