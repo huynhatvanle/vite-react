@@ -3,6 +3,8 @@ import { animationSlide, lazyLoad } from '@utils';
 import { DataFacade, PostFacade } from '@store';
 import { Arrow } from '@svgs';
 import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper';
 
 const Page = () => {
   const dataFacade = DataFacade();
@@ -41,7 +43,7 @@ const Page = () => {
             {postFacade.news.map((item, index) => (
               <div
                 key={index}
-                className="sm:flex sm:max-h-96 bg-white rounded-2xl border-2 border-sky-600 shadow-md overflow-hidden ng-star-inserted"
+                className="sm:flex sm:max-h-96 bg-white rounded-2xl border-2 border-sky-600 shadow-md overflow-hidden"
               >
                 <div className="sm:w-2/5">
                   <img
