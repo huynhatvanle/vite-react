@@ -36,6 +36,16 @@ const pages = [
         component: React.lazy(() => import('src/pages/news/detail')),
         title: 'News Detail',
       },
+      {
+        path: routerLinks('Projects'),
+        component: React.lazy(() => import('src/pages/news')),
+        title: 'Projects',
+      },
+      {
+        path: routerLinks('Projects') + '/:slug',
+        component: React.lazy(() => import('src/pages/news/detail')),
+        title: 'Projects Detail',
+      },
     ],
   },
 ];

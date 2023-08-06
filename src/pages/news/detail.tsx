@@ -12,10 +12,11 @@ const Page = () => {
   const { formatDate } = GlobalFacade();
   const dataFacade = DataFacade();
   const postFacade = PostFacade();
+  const name: 'news' | 'projects' = postFacade.nameRouter[location.pathname.split('/')[2]];
   useEffect(() => {
     lazyLoad();
     animationSlide(document.getElementById('title')!, 0);
-    postFacade.getArray(['news']);
+    postFacade.getArray([name]);
     dataFacade.getArray(['partner']);
     postFacade.getBySlug(slug || '');
   }, []);
@@ -71,7 +72,7 @@ const Page = () => {
             spaceBetween={16}
             onSlideChangeTransitionStart={(e) => animationSlide(e.slides[e.activeIndex], 0)}
           >
-            {postFacade.news.map((item, index) => (
+            {postFacade[name].map((item, index) => (
               <SwiperSlide
                 key={index}
                 className={'flex flex-col relative border-2 border-sky-800 shadow-md rounded-2xl overflow-hidden'}
@@ -120,7 +121,7 @@ const Page = () => {
                           )[0].slug || ''
                         }
                       >
-                        Xem thêm <i className="las la-arrow-right ml-1"></i>
+                        Xem thêm <Arrow className="h-5 w-4 inline-block" />
                       </Link>
                     </span>
                   </span>

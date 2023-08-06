@@ -62,8 +62,15 @@ export const PostFacade = () => {
       array.length > 0 && dispatch(action.getArray(array));
     },
     getBySlug: (slug: string) => {
-      dispatch(action.getBySlug(slug));
+      if (!state.data || state.data?.translations?.filter((item) => item.slug === slug).length === 0)
+        dispatch(action.getBySlug(slug));
     },
+    nameRouter: {
+      'du-an': 'projects',
+      projects: 'projects',
+      'tin-tuc': 'news',
+      news: 'news',
+    } as any,
   };
 };
 export class Post extends CommonEntity {

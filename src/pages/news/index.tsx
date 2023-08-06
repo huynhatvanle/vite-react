@@ -3,25 +3,25 @@ import { animationSlide, lazyLoad } from '@utils';
 import { DataFacade, PostFacade } from '@store';
 import { Arrow } from '@svgs';
 import { Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
+import { useLocation } from 'react-router';
 
 const Page = () => {
   const dataFacade = DataFacade();
   const postFacade = PostFacade();
+  const location = useLocation();
+  const name: 'news' | 'projects' = postFacade.nameRouter[location.pathname.split('/')[2]];
   useEffect(() => {
-    lazyLoad();
     animationSlide(document.getElementById('title')!, 0);
-    postFacade.getArray(['news']);
+    postFacade.getArray([name]);
     dataFacade.getArray(['partner']);
-  }, []);
+  }, [location]);
   useEffect(() => {
     switch (postFacade.status) {
       case 'getArray.fulfilled':
-        lazyLoad();
         break;
     }
   }, [postFacade.status]);
+
   return (
     <Fragment>
       <section id={'title'} className="-mt-2 relative">
@@ -33,14 +33,14 @@ const Page = () => {
         </div>
         <img
           className={'lazy gsap zoom w-full h-[350px] object-cover absolute top-0 left-0 -z-10'}
-          data-src={'/assets/images/header.jpg'}
+          src={'/assets/images/header.jpg'}
         />
       </section>
 
       <section className="bg-white w-full">
         <div className="container px-6 mx-auto sm:py-24 py-10">
           <div className="mb-10 grid gap-8 lg:grid-cols-2 sm:grid-cols-1">
-            {postFacade.news.map((item, index) => (
+            {postFacade[name].map((item, index) => (
               <div
                 key={index}
                 className="sm:flex sm:max-h-96 bg-white rounded-2xl border-2 border-sky-600 shadow-md overflow-hidden"
@@ -52,7 +52,7 @@ const Page = () => {
                         .name
                     }
                     className="lazy h-full object-cover sm:rounded-l-xl w-full"
-                    data-src={item.thumbnailUrl}
+                    src={item.thumbnailUrl}
                   />
                 </div>
                 <div className="sm:w-3/5 p-8">
