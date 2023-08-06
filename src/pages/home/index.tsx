@@ -2,11 +2,13 @@ import React, { Fragment, useEffect } from 'react';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Modal } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import { Arrow, CheckCircle } from '@svgs';
 import { DataFacade } from '@store';
 import { animationSlide, lazyLoad, renderEditorjs } from '@utils';
 const Page = () => {
+  const { t } = useTranslation();
   const dataFacade = DataFacade();
   useEffect(() => {
     lazyLoad();
@@ -27,29 +29,29 @@ const Page = () => {
         <div className={'flex items-center min-h-[500px] max-h-[650px] h-[41vw]'}>
           <div className={'container mx-auto px-12'}>
             <h1 className="gsap left text-2xl xl:text-4xl text-blue-500 font-bold leading-none mt-8">
-              Enhance Vietnam’s intellectual value
+              {t('page.home.Enhance Vietnam')}
             </h1>
-            <p className="text-gray-500 leading-none gsap top mt-4">Choose the service you want us to help with</p>
-            <ul className="gsap right mt-8 mb-3 ng-star-inserted">
-              <li className="font-bold text-2xl xl:text-3xl text-blue-900 mb-4">
+            <p className="text-gray-500 leading-none gsap top mt-4">{t('page.home.Choose the service')}</p>
+            <ul className="mt-8 mb-3">
+              <li className="gsap right font-bold text-2xl xl:text-3xl text-blue-900 mb-4">
                 <CheckCircle className={'w-8 h-8 inline-block relative -top-1 mr-4'} />
-                Digital Transformation{' '}
+                {t('page.home.Digital Transformation')}
               </li>
-              <li className="font-bold text-2xl xl:text-3xl text-blue-900 mb-4">
+              <li className="gsap right font-bold text-2xl xl:text-3xl text-blue-900 mb-4">
                 <CheckCircle className={'w-8 h-8 inline-block relative -top-1 mr-4'} />
-                R&amp;D Services
+                {t('page.home.R&D Services')}
               </li>
-              <li className="font-bold text-2xl xl:text-3xl text-blue-900 mb-4">
+              <li className="gsap right font-bold text-2xl xl:text-3xl text-blue-900 mb-4">
                 <CheckCircle className={'w-8 h-8 inline-block relative -top-1 mr-4'} />
-                Outsourcing Services
+                {t('page.home.Outsourcing Services')}
               </li>
-              <li className="font-bold text-2xl xl:text-3xl text-blue-900">
+              <li className="gsap right font-bold text-2xl xl:text-3xl text-blue-900">
                 <CheckCircle className={'w-8 h-8 inline-block relative -top-1 mr-4'} />
-                Product Development
+                {t('page.home.Product Development')}
               </li>
             </ul>
             <button className="gsap bottom bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-3xl mt-4">
-              Get Started <Arrow className={'w-4 h-4 ml-1 inline-block'} />
+              {t('page.home.Get Started')} <Arrow className={'w-4 h-4 ml-1 inline-block'} />
             </button>
           </div>
           <img
@@ -66,33 +68,22 @@ const Page = () => {
             <img data-src="/assets/images/home/about.jpg" alt="ARI" className="lazy w-full rounded-tr-[120px]" />
           </div>
           <div className="md:w-2/3 md:pl-12 text-gray-500 pt-10 md:pt-0">
-            <p className="text-blue-500 uppercase font-bold mb-4">ABOUT</p>
+            <p className="text-blue-500 uppercase font-bold mb-4">{t('page.home.ABOUT')}</p>
             <h2 className="text-4xl text-blue-900 font-bold  mb-8">
-              ARI is one of the <br />
-              Best Technical Agency
+              {t('page.home.ARI is one of the')} <br />
+              {t('page.home.Best Technical Agency')}
             </h2>
-            <p className="border-l-4 border-blue-500 pl-4 mb-4">
-              ARI Technology Joint Stock Company was established in 2018 and headquartered in Ho Chi Minh City.{' '}
-            </p>
-            <p className="border-l-4 border-blue-500 pl-4 mb-4">
-              We specialize in consulting and delivering digital transformation solutions to address real-world
-              problems, help customers to overcome their business challenges to achieve the highest business operations
-              efficiency.
-            </p>
-            <p className="border-l-4 border-blue-500 pl-4">
-              With a team of young and creative talents, ARI always aims at the most innovative and top-notch quality
-              products, ensuring that those products will satisfy the customer’s needs.{' '}
-            </p>
+            <p className="border-l-4 border-blue-500 pl-4 mb-4">{t('page.home.about-1')}</p>
+            <p className="border-l-4 border-blue-500 pl-4 mb-4">{t('page.home.about-2')}</p>
+            <p className="border-l-4 border-blue-500 pl-4">{t('page.home.about-3')}</p>
           </div>
         </div>
       </section>
 
       <section className="bg-[url('/assets/images/home/ser-bg3.jpg')] w-full bg-cover bg-center bg-gray-100 bg-blend-multiply">
         <div className="container px-6 mx-auto sm:py-24 py-10">
-          <p className="text-blue-500 uppercase font-bold text-center mb-4">Our Mission</p>
-          <h2 className="text-4xl text-blue-900 font-bold text-center">
-            We provide Software Engineering &amp; Consulting
-          </h2>
+          <p className="text-blue-500 uppercase font-bold text-center mb-4">{t('page.home.Our Mission')}</p>
+          <h2 className="text-4xl text-blue-900 font-bold text-center">{t('page.home.We provide')}</h2>
           <div className={'grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-14'}>
             {dataFacade.mission.map((data, index) => (
               <div
@@ -119,16 +110,9 @@ const Page = () => {
       </section>
       <section id="services" className="bg-[url('/assets/images/home/team-bg3.jpg')] w-full bg-cover bg-center">
         <div className="container px-6 mx-auto sm:py-24 py-10">
-          <p className="text-blue-500 uppercase font-bold text-center mb-4">Services</p>
-          <h2 className="text-4xl text-blue-900 font-bold text-center mb-4">
-            A right choice that makes the difference to others
-          </h2>
-          <p className="text-gray-500 text-center">
-            ARI not only strives to become one of the leading technology companies of Industrial Revolution 4.0 in
-            Vietnam, but also a reliable outsourcing company that provides high-quality software development services at
-            a competitive price.
-          </p>
-
+          <p className="text-blue-500 uppercase font-bold text-center mb-4">{t('page.home.Services')}</p>
+          <h2 className="text-4xl text-blue-900 font-bold text-center mb-4">{t('page.home.A right choice')}</h2>
+          <p className="text-gray-500 text-center">{t('page.home.ARI not only strives')}</p>
           <Swiper
             loop={true}
             slidesPerView={1}
@@ -161,7 +145,7 @@ const Page = () => {
       </section>
       <section className="bg-[url('/assets/images/home/blog-bg3.jpg')] w-full bg-cover bg-center bg-gray-100 bg-blend-multiply">
         <div className="container px-6 mx-auto sm:py-24 py-10">
-          <p className="text-blue-500 uppercase font-bold text-center"> Core Value </p>
+          <p className="text-blue-500 uppercase font-bold text-center">{t('page.home.Core Value')}</p>
           <div className={'grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-14'}>
             {dataFacade.value.map((data, index) => (
               <div
@@ -211,10 +195,8 @@ const Page = () => {
       </Modal>
       <section className="bg-[url('/assets/images/home/choose-bg3.jpg')] w-full bg-cover bg-center">
         <div className="container px-6 mx-auto sm:py-24 py-10">
-          <p className="text-blue-500 uppercase font-bold text-center mb-4"> Executive Board </p>
-          <h2 className="text-3xl text-blue-900 text-center">
-            “We love integrating technology into our daily life, making a more comfortable and relaxing life.”
-          </h2>
+          <p className="text-blue-500 uppercase font-bold text-center mb-4">{t('page.home.Executive Board')}</p>
+          <h2 className="text-3xl text-blue-900 text-center">{t('page.home.We love')}</h2>
           <Swiper
             loop={true}
             slidesPerView={1}
@@ -271,7 +253,7 @@ const Page = () => {
                           tabIndex={-1}
                           onClick={() => dataFacade.showDetail(data)}
                         >
-                          Xem thêm <Arrow className="h-5 w-4 inline-block" />
+                          {t('page.home.See more')} <Arrow className="h-5 w-4 inline-block" />
                         </button>
                       </div>
                     </div>

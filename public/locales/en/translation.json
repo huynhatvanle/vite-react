@@ -63,6 +63,8 @@
     "header": {
       "Home": "Home",
       "About": "About",
+      "About Tech": "About Tech",
+      "Our Core Team": "Our Core Team",
       "News": "News",
       "Projects": "Projects",
       "Contact Us": "Contact Us",
@@ -77,6 +79,96 @@
       "copyright": "Copyright ©{{year}} ARI Technology Co ., JSC. All rights reserved."
     }
   },
-  "routes": {
+  "page": {
+    "header": {
+      "Home": "Home",
+      "About": "About",
+      "About Tech": "About Tech",
+      "Our Core Team": "Our Core Team",
+      "News": "News",
+      "Projects": "Projects",
+      "Contact Us": "Contact Us",
+      "Location": "Location",
+      "Address": "7 Cong Hoa St., Ward 4, Tan Binh Dist., Ho Chi Minh City, Vietnam.",
+      "Mail us": "Mail us",
+      "Call us": "Call us",
+      "Vietnamese": "Vietnamese",
+      "English": "English"
+    },
+    "footer": {
+      "Useful Links": "Useful Links",
+      "Partners and Customers": "Partners and Customers",
+      "Our Support Partner": "Our Support Partner",
+      "Contact": "Contact",
+      "Questions or concerns": "Questions or concerns? Just fill out the form and our support team will get back to you within 24 hours.",
+      "First Name": "First Name",
+      "Last Name": "Last Name",
+      "Phone Number": "Phone Number",
+      "Email": "Email",
+      "Message": "Message",
+      "Submit now": "Submit now",
+      "Our Services": "Our Services",
+      "Digital transformation": "Digital transformation",
+      "R&D services": "R&D services",
+      "Outsourcing services": "Outsourcing services",
+      "Product development": "Product development",
+      "Get In Touch": "Get In Touch",
+      "7 Cong Hoa St": "7 Cong Hoa St.,",
+      "Ward 4, Tan Binh Dist": "Ward 4, Tan Binh Dist.,",
+      "Ho Chi Minh City, Vietnam": "Ho Chi Minh City, Vietnam.",
+      "Monday - Friday": "Monday - Friday",
+      "Time": "9:00 AM - 6:00 PM",
+      "Newsletter": "Newsletter",
+      "Stay up to update": "Stay up to update with our latest news and products.",
+      "Your email address": "Your email address",
+      "Subscribe Now": "Subscribe Now",
+      "copyright": "Copyright ©2022 ARI Technology Co ., JSC. All rights reserved."
+    },
+    "home": {
+      "Enhance Vietnam": "Enhance Vietnam’s intellectual value",
+      "Choose the service": "Choose the service you want us to help with",
+      "Digital Transformation": "Digital Transformation",
+      "R&D Services": "R&D Services",
+      "Outsourcing Services": "Outsourcing Services",
+      "Product Development": "Product Development",
+      "Get Started": "Get Started",
+      "ABOUT": "ABOUT",
+      "ARI is one of the": "ARI is one of the",
+      "Best Technical Agency": "Best Technical Agency",
+      "about-1": "ARI Technology Joint Stock Company was established in 2018 and headquartered in Ho Chi Minh City.",
+      "about-2": "We specialize in consulting and delivering digital transformation solutions to address real-world problems, help customers to overcome their business challenges to achieve the highest business operations efficiency.",
+      "about-3": "With a team of young and creative talents, ARI always aims at the most innovative and top-notch quality products, ensuring that those products will satisfy the customer’s needs.",
+      "Our Mission": "Our Mission",
+      "We provide": "We provide Software Engineering & Consulting",
+      "Services": "Services",
+      "A right choice": "A right choice that makes the difference to others",
+      "ARI not only strives": "ARI not only strives to become one of the leading technology companies of Industrial Revolution 4.0 in Vietnam, but also a reliable outsourcing company that provides high-quality software development services at a competitive price.",
+      "Core Value": "Core Value",
+      "Executive Board": "Executive Board",
+      "We love": "“We love integrating technology into our daily life, making a more comfortable and relaxing life.”",
+      "See more": "See more"
+    },
+    "about": {
+      "member": {
+        "Title": "Our Core Team",
+        "Description": "We love integrating technology into our daily life, making a more comfortable and relaxing life."
+      },
+      "tech": {
+        "Title": "About Tech",
+        "Description": "We are continuously learning and developing our expertise to meet the growing market demands."
+      }
+    },
+    "news": {
+      "Title": "News",
+      "Description": "We Update News Everyday.",
+      "Other Related News": "Other Related News",
+      "More Up To Date News": "More Up To Date News"
+    },
+    "projects": {
+      "Title": "Successful Projects",
+      "Description": "Our Projects With Partners",
+      "Other Related Projects": "Other Related Projects",
+      "More Projects With Partners": "More Projects With Partners"
+    }
   }
 }

@@ -1,8 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { animationSlide, lazyLoad } from '@utils';
 import { DataFacade } from '@store';
 
 const Page = () => {
+  const { t } = useTranslation();
   const dataFacade = DataFacade();
   useEffect(() => {
     lazyLoad();
@@ -21,10 +24,10 @@ const Page = () => {
       <section id={'title'} className="-mt-2 relative">
         <div className="container h-[350px] px-6 mx-auto flex items-center text-left justify-start">
           <div>
-            <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap left">About Tech</h1>
-            <p className="text-gray-200 text-xl max-w-[600px] gsap left">
-              We are continuously learning and developing our expertise to meet the growing market demands.
-            </p>
+            <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap left">
+              {t('page.about.tech.Title')}
+            </h1>
+            <p className="text-gray-200 text-xl max-w-[600px] mt-2 gsap left">{t('page.about.tech.Description')}</p>
           </div>
         </div>
         <img

@@ -1,9 +1,12 @@
 import React, { Fragment, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Modal } from 'antd';
+
 import { animationSlide, lazyLoad, renderEditorjs } from '@utils';
 import { DataFacade } from '@store';
 
 const Page = () => {
+  const { t } = useTranslation();
   const dataFacade = DataFacade();
   useEffect(() => {
     lazyLoad();
@@ -22,10 +25,10 @@ const Page = () => {
       <section id={'title'} className="-mt-2 relative">
         <div className="container h-[350px] px-6 mx-auto flex items-center text-right justify-end">
           <div>
-            <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap right">Our Core Team</h1>
-            <p className="text-gray-200 text-xl max-w-[600px] gsap right">
-              We love integrating technology into our daily life, making a more comfortable and relaxing life.
-            </p>
+            <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap right">
+              {t('page.about.member.Title')}
+            </h1>
+            <p className="text-gray-200 text-xl max-w-[600px] mt-2 gsap right">{t('page.about.member.Description')}</p>
           </div>
         </div>
         <img

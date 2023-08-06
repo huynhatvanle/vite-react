@@ -123,7 +123,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                             key: subIndex,
                             label: (
                               <Link to={sub.slug} key={subIndex}>
-                                {sub.title}
+                                {t('layout.header.' + sub.title)}
                               </Link>
                             ),
                           }))
@@ -299,7 +299,6 @@ const Layout = ({ children }: PropsWithChildren) => {
               <strong>{t('layout.header.Call us')}</strong>
               <br />
               <a className="text-sm text-white" href="tel:(+84)363672405">
-                {' '}
                 (+84) 098 7765926
               </a>
             </div>
@@ -314,10 +313,6 @@ const Layout = ({ children }: PropsWithChildren) => {
           <div className="grid grid-cols-2 gap-16 lg:flex lg:justify-between">
             <div className={'lg:max-w-xs'}>
               <img src="/assets/images/logo.svg" className="h-12 brightness-0 invert mb-5" alt="logo" />
-              <p>
-                Tincidunt neque pretium lectus donec risus. Mauris mi tempor nunc orc leo consequat vitae erat gravida
-                lobortis nec et sagittis.
-              </p>
               <div className={'gap-4 flex mt-8'}>
                 <a
                   className="text-white inline-flex bg-gray-700 p-3 rounded-md"
@@ -338,20 +333,24 @@ const Layout = ({ children }: PropsWithChildren) => {
               </div>
             </div>
             <div className={'lg:max-w-xs'}>
-              <h3 className={'text-xl font-bold pb-7'}>Our Services</h3>
+              <h3 className={'text-xl font-bold pb-7'}>{t('page.footer.Our Services')}</h3>
               <div className={'leading-10'}>
                 <a className="text-white font-bold hover:text-white cursor-pointer block">
-                  {t('Digital transformation')}
+                  {t('page.footer.Digital transformation')}
                 </a>
-                <a className="text-white font-bold hover:text-white cursor-pointer block">{t('R&D services')}</a>
                 <a className="text-white font-bold hover:text-white cursor-pointer block">
-                  {t('Outsourcing services')}
+                  {t('page.footer.R&D services')}
                 </a>
-                <a className="text-white font-bold hover:text-white cursor-pointer block">{t('Product development')}</a>
+                <a className="text-white font-bold hover:text-white cursor-pointer block">
+                  {t('page.footer.Outsourcing services')}
+                </a>
+                <a className="text-white font-bold hover:text-white cursor-pointer block">
+                  {t('page.footer.Product development')}
+                </a>
               </div>
             </div>
             <div className={'lg:max-w-xs'}>
-              <h3 className={'text-xl font-bold pb-7'}>Usefull Links</h3>
+              <h3 className={'text-xl font-bold pb-7'}>{t('page.footer.Useful Links')}</h3>
               <div className={'leading-10'}>
                 {data.map((item: any, index: number) => (
                   <a
@@ -383,7 +382,7 @@ const Layout = ({ children }: PropsWithChildren) => {
               </div>
             </div>
             <div className={'lg:max-w-xs'}>
-              <h3 className={'text-xl font-bold pb-8'}>Contact</h3>
+              <h3 className={'text-xl font-bold pb-8'}>{t('layout.header.Contact Us')}</h3>
 
               <div className={'flex flex-col gap-6'}>
                 <div className="flex items-center">

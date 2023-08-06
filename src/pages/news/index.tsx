@@ -1,11 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
-import { animationSlide, lazyLoad } from '@utils';
+import { animationSlide } from '@utils';
 import { DataFacade, PostFacade } from '@store';
 import { Arrow } from '@svgs';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 const Page = () => {
+  const { t } = useTranslation();
   const dataFacade = DataFacade();
   const postFacade = PostFacade();
   const location = useLocation();
@@ -27,8 +29,10 @@ const Page = () => {
       <section id={'title'} className="-mt-2 relative">
         <div className="container h-[350px] px-6 mx-auto flex items-center text-right justify-end">
           <div>
-            <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap right">News</h1>
-            <p className="text-gray-200 text-xl max-w-[600px] gsap right">We Update News Everyday.</p>
+            <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap right">
+              {t(`page.${name}.Title`)}
+            </h1>
+            <p className="text-gray-200 text-xl max-w-[600px] mt-2 gsap right">{t(`page.${name}.Description`)}</p>
           </div>
         </div>
         <img

@@ -63,6 +63,8 @@
     "header": {
       "Home": "Trang chủ",
       "About": "Giới thiệu",
+      "About Tech": "Công nghệ",
+      "Our Core Team": "Đội ngũ phát triển chính",
       "News": "Tin tức",
       "Projects": "Dự án",
       "Contact Us": "Liên hệ",
@@ -77,6 +79,94 @@
       "copyright": "Bản quyền ©{{year}} ARI Technology Co., JSC. Bảo lưu mọi quyền."
     }
   },
-  "routes": {
+  "page": {
+    "header": {
+      "Home": "Trang chủ",
+      "About": "Giới thiệu",
+      "News": "Tin tức",
+      "Projects": "Dự án",
+      "Contact Us": "Liên hệ",
+      "Location": "Trụ sở",
+      "Address": "7 Cộng Hòa, Phường 4, Quận Tân Bình, TP. Hồ Chí Minh, Việt Nam.",
+      "Mail us": "Hộp thư",
+      "Call us": "Liên hệ",
+      "Vietnamese": "Tiếng Việt",
+      "English": "Tiếng Anh"
+    },
+    "footer": {
+      "Useful Links": "Liên kết hữu ích",
+      "Partners and Customers": "Đối tác và khách hàng",
+      "Our Support Partner": "Đối tác của chúng tôi",
+      "Contact": "Liên hệ",
+      "Questions or concerns": "Nếu bạn có câu hỏi hoặc muốn liên hệ với chúng tôi, vui lòng điền thông tin liên lạc và chi tiết yêu cầu của bạn vào biểu mẫu. Chúng tôi sẽ liên hệ lại trong vòng 24 giờ.",
+      "First Name": "Tên",
+      "Last Name": "Họ",
+      "Phone Number": "Số điện thoại",
+      "Email": "Email",
+      "Message": "Nội dung",
+      "Submit now": "Gửi",
+      "Our Services": "Dịch vụ",
+      "Digital transformation": "Chuyển đổi số",
+      "R&D services": "Nghiên cứu & phát triển",
+      "Outsourcing services": "Gia công phần mềm",
+      "Product development": "Phát triển sản phẩm",
+      "Get In Touch": "Liên hệ",
+      "7 Cong Hoa St": "7 Đường Cộng Hòa",
+      "Ward 4, Tan Binh Dist": "Phường 4, Quận Tân Bình",
+      "Ho Chi Minh City, Vietnam": "Thành Phố Hồ Chí Minh, Việt Nam",
+      "Monday - Friday": "Thứ hai - Thứ sáu",
+      "Time": "9:00 sáng - 6:00 chiều",
+      "Newsletter": "Bản tin",
+      "Stay up to update": "Đăng ký để nhận tin tức mới nhất từ chúng tôi",
+      "Your email address": "Địa chỉ email của bạn",
+      "Subscribe Now": "Đăng ký ngay",
+      "copyright": "Bản quyền © 2022 ARI Technology Co., JSC. Bảo lưu mọi quyền."
+    },
+    "home": {
+      "Enhance Vietnam": "Nâng cao giá trị trí tuệ Việt",
+      "Choose the service": "Chọn dịch vụ bạn cần chúng tôi hỗ trợ",
+      "Digital Transformation": "Tư vấn chuyển đổi số",
+      "R&D Services": "Dịch vụ nghiên cứu và phát triển",
+      "Outsourcing Services": "Dịch vụ gia công phần mềm",
+      "Product Development": "Phát triển sản phẩm phần mềm",
+      "Get Started": "Bắt đầu",
+      "ABOUT": "Giới thiệu ARI",
+      "ARI is one of the": "ARI là một trong những",
+      "Best Technical Agency": "công ty công nghệ tốt nhất",
+      "about-1": "Công Ty Cổ Phần Công Nghệ ARI được thành lập vào năm 2018 và có trụ sở chính tại Thành phố Hồ Chí Minh.",
+      "about-2": "Chúng tôi chuyên tư vấn và cung cấp các giải pháp chuyển đổi số nhằm giải quyết các vấn đề thực tế, giúp khách hàng vượt qua những thách thức, rào cản và đạt được hiệu quả cao nhất trong quá trình vận hành, kinh doanh.",
+      "about-3": "Với đội ngũ tài năng trẻ và sáng tạo, ARI luôn hướng đến những sản phẩm chất lượng và tiên tiến nhất, đảm bảo đáp ứng tối đa yêu cầu của khách hàng.",
+      "Our Mission": "Sứ mệnh",
+      "We provide": "Chúng tôi cung cấp kỹ thuật & tư vấn phần mềm",
+      "Services": "Dịch vụ",
+      "A right choice": "Sự lựa chọn đúng đắn mang đến những giá trị khác biệt",
+      "ARI not only strives": "ARI phấn đấu trở thành một trong những công ty công nghệ dẫn đầu cuộc Cách mạng Công nghiệp 4.0 tại Việt Nam, đồng thời cũng là một công ty gia công phần mềm đáng tin cậy, nơi khách hàng có thể tìm thấy các dịch vụ phát triển phần mềm chất lượng cao với giá cả hợp lý nhất.",
+      "Core Value": "Giá trị cốt lõi",
+      "Executive Board": "Hội đồng quản trị",
+      "We love": "“Chúng tôi yêu thích tích hợp công nghệ vào cuộc sống hằng ngày, giúp mọi thứ trở nên thoải mái và dễ dàng hơn.”",
+      "See more": "Xem thêm"
+    },
+    "about": {
+      "member": {
+        "Title": "Đội Ngũ Phát Triển Chính",
+        "Description": "Chúng tôi yêu thích tích hợp công nghệ vào cuộc sống hằng ngày, giúp mọi thứ trở nên thoải mái và dễ dàng hơn."
+      },
+      "tech": {
+        "Title": "Công Nghệ",
+        "Description": "Chúng tôi không ngừng học hỏi và trau dồi chuyên môn của mình để đáp ứng nhu cầu phát triển của thị trường."
+      }
+    },
+    "news": {
+      "Title": "Tin tức",
+      "Description": "Tin tức được cập nhật liên tục",
+      "Other Related News": "BÀI VIẾT LIÊN QUAN",
+      "More Up To Date News": "Thêm tin tức cập nhật"
+    },
+    "projects": {
+      "Title": "Dự án thành công",
+      "Description": "Các dự án của chúng tôi với các đối tác",
+      "Other Related Projects": "DỰ ÁN LIÊN QUAN",
+      "More Projects With Partners": "Nhiều dự án với các đối tác"
+    }
   }
 }

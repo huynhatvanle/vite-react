@@ -4,16 +4,18 @@ import { Spin } from 'antd';
 import { Form } from '@core/form';
 import React from 'react';
 import { DataFacade, GlobalFacade } from '@store';
+import { useTranslation } from 'react-i18next';
 
 const SectionContact = () => {
+  const { t } = useTranslation();
   const { isLoading } = GlobalFacade();
   const dataFacade = DataFacade();
   return (
     <section className="bg-[url('/assets/images/partner.jpg')] w-full bg-cover bg-center">
       <div className="container px-6 mx-auto sm:py-24 py-10">
         <div className={'font-bold text-center'}>
-          <p className="text-blue-500 uppercase mb-4">Đối tác và khách hàng</p>
-          <h2 className="text-4xl text-blue-900">Đối tác của chúng tôi</h2>
+          <p className="text-blue-500 uppercase mb-4">{t('page.footer.Partners and Customers')}</p>
+          <h2 className="text-4xl text-blue-900">{t('page.footer.Our Support Partner')}</h2>
         </div>
         <Swiper
           loop={true}
@@ -44,18 +46,15 @@ const SectionContact = () => {
         </Swiper>
         <div id="form-contact-us" className="bg-gray-100 bg-opacity-80 rounded-3xl px-10 pt-10 pb-7 mt-14 lg:flex">
           <div className="lg:w-1/3 lg:pr-14">
-            <h2 className="text-4xl text-blue-500 font-bold mb-4">Liên hệ</h2>
-            <p>
-              Nếu bạn có câu hỏi hoặc muốn liên hệ với chúng tôi, vui lòng điền thông tin liên lạc và chi tiết yêu cầu
-              của bạn vào biểu mẫu. Chúng tôi sẽ liên hệ lại trong vòng 24 giờ.
-            </p>
+            <h2 className="text-4xl text-blue-500 font-bold mb-4">{t('page.footer.Contact')}</h2>
+            <p>{t('page.footer.Questions or concerns')}</p>
           </div>
           <div className="lg:w-2/3">
             <Spin spinning={isLoading}>
               <Form
                 columns={[
                   {
-                    title: 'Tên',
+                    title: 'page.footer.First Name',
                     name: 'name',
                     formItem: {
                       col: 6,
@@ -63,15 +62,15 @@ const SectionContact = () => {
                     },
                   },
                   {
-                    title: 'Họ',
+                    title: 'page.footer.Last Name',
                     name: 'password',
                     formItem: {
                       col: 6,
-                      rules: [{ type: 'min', value: 6 }],
+                      rules: [{ type: 'required' }],
                     },
                   },
                   {
-                    title: 'Số điện thoại',
+                    title: 'page.footer.Phone Number',
                     name: 'phoneNumber',
                     formItem: {
                       col: 6,
@@ -79,7 +78,7 @@ const SectionContact = () => {
                     },
                   },
                   {
-                    title: 'Email',
+                    title: 'page.footer.Email',
                     name: 'email',
                     formItem: {
                       col: 6,
@@ -87,16 +86,17 @@ const SectionContact = () => {
                     },
                   },
                   {
-                    title: 'Nội dung',
+                    title: 'page.footer.Message',
                     name: 'description',
                     formItem: {
                       type: 'textarea',
+                      rules: [{ type: 'required' }],
                     },
                   },
                 ]}
                 handSubmit={() => null}
                 disableSubmit={isLoading}
-                textSubmit={'Gửi đi'}
+                textSubmit={'page.footer.Submit now'}
               />
             </Spin>
           </div>

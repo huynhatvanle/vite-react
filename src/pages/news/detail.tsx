@@ -7,7 +7,9 @@ import { Pagination } from 'swiper';
 import { Link } from 'react-router-dom';
 import { Arrow } from '@svgs';
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 const Page = () => {
+  const { t } = useTranslation();
   const { slug } = useParams();
   const { formatDate } = GlobalFacade();
   const dataFacade = DataFacade();
@@ -32,8 +34,10 @@ const Page = () => {
       <section id={'title'} className="-mt-2 relative">
         <div className="container h-[350px] px-6 mx-auto flex items-center text-right justify-end">
           <div>
-            <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap right">News</h1>
-            <p className="text-gray-200 text-xl max-w-[600px] gsap right">We Update News Everyday.</p>
+            <h1 className="text-4xl text-blue-500 leading-none mt-8 font-black gsap right">
+              {t(`page.${name}.Title`)}
+            </h1>
+            <p className="text-gray-200 text-xl max-w-[600px] mt-2 gsap right">{t(`page.${name}.Description`)}</p>
           </div>
         </div>
         <img
@@ -61,7 +65,7 @@ const Page = () => {
       </section>
       <section id="services" className="bg-[url('/assets/images/home/team-bg3.jpg')] w-full bg-cover bg-center">
         <div className="container px-6 mx-auto sm:py-24 py-10">
-          <h2 className="text-4xl text-blue-900 font-bold text-center mb-4">BÀI VIẾT LIÊN QUAN</h2>
+          <h2 className="text-4xl text-blue-900 font-bold text-center mb-4">{t('page.news.Other Related News')}</h2>
 
           <Swiper
             loop={true}
