@@ -1,9 +1,9 @@
 import { CheckboxOptionType } from 'antd';
-import { DefaultTFuncReturn } from 'i18next';
+import { TFunction } from 'i18next';
 
 export class DataTableModel {
   name?: string;
-  title?: string | DefaultTFuncReturn;
+  title?: string | TFunction;
   tableItem?: TableItem;
 }
 

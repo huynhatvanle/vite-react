@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 import classNames from 'classnames';
 import { Spinner } from '@svgs';
-import { DefaultTFuncReturn } from 'i18next';
+import { TFunction } from 'i18next';
 
 export const Button = ({ text = '', icon, className, disabled, isLoading = false, title, ...props }: Type) => {
   return (
@@ -26,7 +26,7 @@ export const Button = ({ text = '', icon, className, disabled, isLoading = false
 
 type Type = {
   icon?: React.ReactNode;
-  text?: string | DefaultTFuncReturn;
+  text?: string | TFunction;
   title?: string;
   className?: string;
   disabled?: boolean;
