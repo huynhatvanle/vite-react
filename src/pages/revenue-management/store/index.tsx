@@ -54,6 +54,18 @@ const Page = () => {
   const category2 = categoryFacade.result2?.data;
   const category3 = categoryFacade.result3?.data;
 
+  useEffect(() => {
+    if (categoryId1) {
+      categoryFacade.get2({ id: categoryId1 });
+    }
+  }, [categoryId1]);
+
+  useEffect(() => {
+    if (categoryId2) {
+      categoryFacade.get3({ id: categoryId2 });
+    }
+  }, [categoryId2]);
+
   const dataTableRefRevenueOder = useRef<TableRefObject>(null);
   const dataTableRefRevenueProduct = useRef<TableRefObject>(null);
   const modalFormRef = useRef<any>();
@@ -82,6 +94,7 @@ const Page = () => {
       setActiveKey('1');
     }
   }, []);
+
   let stt1 = 1;
 
   const statusCategoryOrder = [

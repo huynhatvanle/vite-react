@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { CommonEntity } from '@models';
+import { CommonEntity, PaginationQuery } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 import { API, routerLinks } from '@utils';
 
@@ -11,7 +11,7 @@ const action = {
     name + '/getSupplierOrder',
     async ({ supplierType }: { supplierType: string }) => await API.get(routerLinks(name, 'api'), { supplierType }),
   ),
-}
+};
 
 export const supplierOderSlice = createSlice(
   new Slice<SupplierOder>(action, { result: {} }, (builder) =>
@@ -39,7 +39,7 @@ export const supplierOderSlice = createSlice(
       .addCase(action.getSupplierOrder.rejected, (state: State) => {
         state.status = 'getSupplierOrder.rejected';
         state.isLoading = false;
-      })
+      }),
   ),
 );
 
@@ -49,16 +49,12 @@ export const SupplierOderFacade = () => {
     ...(useTypedSelector((state) => state[action.name]) as State<SupplierOder>),
     set: (values: State<SupplierOder>) => dispatch(action.set(values)),
     get: ({ supplierType }: { supplierType: string }) => dispatch(action.getSupplierOrder({ supplierType })),
+    get1: (params: PaginationQuery<SupplierOder>) => dispatch(action.get(params)),
   };
 };
 
 export class SupplierOder extends CommonEntity {
-  constructor(
-    public id?: string,
-    public name?: string,
-    public type?: string
-  ) {
+  constructor(public id?: string, public name?: string, public type?: string) {
     super();
   }
 }
-

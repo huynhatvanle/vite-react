@@ -14,7 +14,7 @@ const action = {
       page,
       perPage,
     }: {
-      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string }; status?: string };
+      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string }; status?: string; supplierId?: string };
       page?: number;
       perPage?: number;
     }) => {
@@ -26,6 +26,7 @@ const action = {
           perPage,
           filter: { dateFrom: filterDis.filter.dateFrom, dateTo: filterDis.filter.dateTo },
           status: filterDis.status,
+          supplierId: filterDis.supplierId,
         }),
       );
       let dataDiscount = Object.entries(data.data as Object)[0]?.[1];
@@ -81,7 +82,7 @@ export const DiscountFacade = () => {
       page,
       perPage,
     }: {
-      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string }; status?: string };
+      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string }; status?: string; supplierId?: string };
       page?: number;
       perPage?: number;
     }) => dispatch(action.getDiscount({ perPage, page, filter })),

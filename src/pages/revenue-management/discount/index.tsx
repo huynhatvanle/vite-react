@@ -3,16 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
 import { Infor, Plus } from '@svgs';
-import {
-  CategoryFacade,
-  ConnectSupplierFacade,
-  InvoiceKiotVietFacade,
-  InvoiceRevenueFacade,
-  StoreFacade,
-  StoreOderFacade,
-  SupplierOderFacade,
-  TaxFacade,
-} from '@store';
+import { DiscountFacade, SupplierOderFacade, TaxFacade } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { getFilter, language, languages, routerLinks } from '@utils';
@@ -28,62 +19,24 @@ const Page = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const isReload = useRef(false);
-  const RevenueOderFace = StoreOderFacade();
-  const supplierOrder = SupplierOderFacade();
-  const { result, queryParams, isLoading } = RevenueOderFace;
-  const connectSupplierFacade = ConnectSupplierFacade();
+  const discountFacade = DiscountFacade();
+  const supplierOrderFacade = SupplierOderFacade();
+  const { result, queryParams, isLoading } = discountFacade;
   useEffect(() => {
-    supplierOrder.get({ supplierType: '' });
-
+    supplierOrderFacade.get1({});
     return () => {
-      isReload.current && supplierOrder.get(param);
+      isReload.current && supplierOrderFacade.get1(param);
     };
   }, []);
-  const listSupplier = supplierOrder?.result?.data;
+  const listSupplier = supplierOrderFacade?.result?.data;
   const firstSupplier = listSupplier?.[0]?.id;
 
-  const invoice = InvoiceRevenueFacade();
-
-  const invoiceKiotVietFacade = InvoiceKiotVietFacade();
-  const categoryFacade = CategoryFacade();
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
-  const [categoryId1, setCategoryId1] = useState('');
-  const [categoryId2, setCategoryId2] = useState('');
-  const category1 = categoryFacade.result?.data;
-  const category2 = categoryFacade.result2?.data;
-  const category3 = categoryFacade.result3?.data;
-
-  const dataTableRefRevenueOder = useRef<TableRefObject>(null);
-  const dataTableRefRevenueProduct = useRef<TableRefObject>(null);
+  const dataTableRefDiscount = useRef<TableRefObject>(null);
   const modalFormRef = useRef<any>();
-  const [dateOrder, setDateOder] = useState<boolean>();
-  const [dateProduct, setDateProduct] = useState<boolean>();
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const handleBack = () => {
-    // sessionStorage.setItem('activeTab', '1');
-    navigate(`/${lang}${routerLinks('revenue-management/store')}?${new URLSearchParams(param).toString()}`);
-  };
-
-  const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeRevenueStoreTab') || '1');
-  const onChangeTab = (key: string) => {
-    setActiveKey(key);
-
-    localStorage.setItem('activeRevenueStoreTab', key);
-
-    navigate(`/${lang}${routerLinks('revenue-management/store')}?tab=${key}`);
-  };
-  const tab = urlParams.get('tab');
-  useEffect(() => {
-    if (tab) {
-      setActiveKey(tab);
-    } else {
-      setActiveKey('1');
-    }
-  }, []);
   let stt1 = 1;
 
   const statusDiscount = [
@@ -101,21 +54,6 @@ const Page = () => {
     },
   ];
 
-  useEffect(() => {
-    if (activeKey == '2') {
-      categoryFacade.get({});
-      if (getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier')) {
-        connectSupplierFacade.get({
-          page: 1,
-          perPage: 1000,
-          filter: { idSuppiler: getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier') },
-        });
-      }
-    }
-  }, [activeKey, getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier')]);
-
-  const supplier = connectSupplierFacade.result?.data;
-
   interface IExcelColumn {
     title: string;
     key: string;
@@ -130,9 +68,8 @@ const Page = () => {
     { title: t('Thành tiền (VND)'), key: 'revenue', dataIndex: 'revenue' },
     { title: t('Loại đơn'), key: 'type', dataIndex: 'type' },
   ];
-  let i = 1;
-  let sttDetail = 1;
   const [month, setMonth] = useState<boolean>();
+  const [supplier, setSupplier] = useState<boolean>();
 
   return (
     <div className={'w-full'}>
@@ -140,20 +77,22 @@ const Page = () => {
         <div className="">
           <div className={'w-full mx-auto '}>
             <div className="px-5 bg-white pt-6 pb-4 rounded-xl rounded-tl-none">
-              {!isLoading && (
+              {listSupplier && (
                 <>
                   <DataTable
                     className="form-supplier-tab4"
-                    ref={dataTableRefRevenueOder}
-                    facade={invoice}
+                    ref={dataTableRefDiscount}
+                    facade={discountFacade}
                     defaultRequest={{
                       page: 1,
                       perPage: 10,
                       filter: {
-                        idSupplier: firstSupplier,
-                        dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 00:00:00')}`,
-                        dateTo: `${dayjs().endOf('month').format('MM/DD/YYYY 23:59:59')}`,
-                        status: '',
+                        id: firstSupplier,
+                        filter: {
+                          dateFrom: `${dayjs().startOf('month').format('MM/DD/YYYY 23:59:59')}`,
+                          dateTo: `${dayjs().endOf('month').format('MM/DD/YYYY 23:59:59')}`,
+                        },
+                        supplierId: firstSupplier,
                       },
                     }}
                     onRow={(data: any) => ({
@@ -172,10 +111,10 @@ const Page = () => {
                           <div className="w-full">
                             <Form
                               values={{
-                                dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
-                                dateTo: getFilter(invoice.queryParams, 'dateTo'),
-                                status: getFilter(invoice.queryParams, 'status'),
-                                idSupplier: getFilter(invoice.queryParams, 'idSupplier'),
+                                dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
+                                dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
+                                status: getFilter(discountFacade.queryParams, 'status'),
+                                supplierId: getFilter(discountFacade.queryParams, 'supplierId'),
                               }}
                               className="intro-x rounded-lg w-full sm:flex justify-between form-store"
                               columns={[
@@ -203,20 +142,24 @@ const Page = () => {
                                       value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
                                         ? setMonth(true)
                                         : setMonth(false);
-                                      dataTableRefRevenueOder?.current?.onChange({
+                                      dataTableRefDiscount?.current?.onChange({
                                         page: 1,
                                         perPage: 10,
                                         filter: {
-                                          idSupplier: id,
-                                          dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
-                                          dateTo: form.getFieldValue('dateTo')
-                                            ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
-                                            : '',
-                                          // idSupplier: form.getFieldValue('idSupplier') ? form.getFieldValue('idSupplier') : '',
+                                          id: form.getFieldValue('supplierId'),
+                                          filter: {
+                                            dateFrom: value
+                                              ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
+                                              : '',
+                                            dateTo: form.getFieldValue('dateTo')
+                                              ? form
+                                                  .getFieldValue('dateTo')
+                                                  .format('MM/DD/YYYY 23:59:59')
+                                                  .replace(/-/g, '/')
+                                              : '',
+                                          },
                                           status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                          supplierId: form.getFieldValue('supplierId'),
                                         },
                                       });
                                     },
@@ -246,20 +189,22 @@ const Page = () => {
                                       value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
                                         ? setMonth(true)
                                         : setMonth(false);
-                                      dataTableRefRevenueOder?.current?.onChange({
+                                      dataTableRefDiscount?.current?.onChange({
                                         page: 1,
                                         perPage: 10,
                                         filter: {
-                                          idSupplier: id,
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
-                                            : '',
-                                          dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
-                                          // idSupplier: form.getFieldValue('idSupplier') ? form.getFieldValue('idSupplier') : '',
+                                          id: form.getFieldValue('supplierId'),
+                                          filter: {
+                                            dateFrom: form.getFieldValue('dateFrom')
+                                              ? form
+                                                  .getFieldValue('dateFrom')
+                                                  .format('MM/DD/YYYY 00:00:00')
+                                                  .replace(/-/g, '/')
+                                              : '',
+                                            dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                          },
                                           status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                          supplierId: form.getFieldValue('supplierId'),
                                         },
                                       });
                                     },
@@ -278,10 +223,10 @@ const Page = () => {
                           <div className="sm:flex lg:justify-end w-full">
                             <Form
                               values={{
-                                dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
-                                dateTo: getFilter(invoice.queryParams, 'dateTo'),
-                                status: getFilter(invoice.queryParams, 'status'),
-                                idSupplier: getFilter(invoice.queryParams, 'idSupplier'),
+                                dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
+                                dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
+                                status: getFilter(discountFacade.queryParams, 'status'),
+                                supplierId: getFilter(discountFacade.queryParams, 'supplierId'),
                               }}
                               className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store"
                               columns={[
@@ -295,25 +240,24 @@ const Page = () => {
                                     col: 6,
                                     list: statusDiscount,
                                     onChange(value: any, form: any) {
-                                      dataTableRefRevenueOder?.current?.onChange({
+                                      dataTableRefDiscount?.current?.onChange({
                                         page: 1,
                                         perPage: 10,
                                         filter: {
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form.getFieldValue('dateFrom')
-                                            : '',
-                                          dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
-                                          idSupplier: form.getFieldValue('idSupplier')
-                                            ? form.getFieldValue('idSupplier')
-                                            : '',
-                                          status: value ? value : '',
+                                          id: form.getFieldValue('supplierId'),
+                                          filter: {
+                                            dateFrom: form.getFieldValue('dateFrom'),
+                                            dateTo: form.getFieldValue('dateTo'),
+                                          },
+                                          status: value,
+                                          supplierId: form.getFieldValue('supplierId'),
                                         },
                                       });
                                     },
                                   },
                                 },
                                 {
-                                  name: 'idSupplier',
+                                  name: 'supplierId',
                                   title: '',
                                   formItem: {
                                     placeholder: 'Chọn nhà cung cấp',
@@ -324,16 +268,18 @@ const Page = () => {
                                       value: item?.id!,
                                     })),
                                     onChange(value: any, form: any) {
-                                      dataTableRefRevenueOder?.current?.onChange({
+                                      value ? setSupplier(false) : setSupplier(true);
+                                      dataTableRefDiscount?.current?.onChange({
                                         page: 1,
                                         perPage: 10,
                                         filter: {
-                                          idSupplier: value ? value : '',
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form.getFieldValue('dateFrom')
-                                            : '',
-                                          dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
-                                          status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                          id: value ? value : firstSupplier,
+                                          filter: {
+                                            dateFrom: form.getFieldValue('dateFrom'),
+                                            dateTo: form.getFieldValue('dateTo'),
+                                          },
+                                          status: form.getFieldValue('status'),
+                                          supplierId: value ? value : '',
                                         },
                                       });
                                     },
@@ -341,6 +287,13 @@ const Page = () => {
                                 },
                               ]}
                             />
+                            {supplier && (
+                              <div className="w-full flex">
+                                <span className="sm:w-[526px] text-center sm:text-right text-red-500">
+                                  Vui lòng chọn nhà cung cấp
+                                </span>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </>
@@ -353,280 +306,201 @@ const Page = () => {
                         tableItem: {
                           width: 70,
                           render: (value: any, item: any) =>
-                            JSON.parse(invoice.queryParams || '{}').page != 1
+                            JSON.parse(discountFacade.queryParams || '{}').page != 1
                               ? `${
-                                  JSON.parse(invoice.queryParams || '{}').page *
-                                    JSON.parse(invoice.queryParams || '{}').perPage +
+                                  JSON.parse(discountFacade.queryParams || '{}').page *
+                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
                                   stt1++
                                 }`
                               : `${stt1++}`,
                         },
                       },
                       {
-                        title: `supplier.Order.Order ID`,
+                        title: `Thời gian`,
                         name: 'invoiceCode',
                         tableItem: {
                           width: 175,
+                          render: (value: any, item: any) =>
+                            dayjs(item?.datefrom, 'YYYY-MM-DDTHH:mm:ss').format('MM/YYYY').replace(/-/g, '/') +
+                            '-' +
+                            dayjs(item?.dateto, 'YYYY-MM-DDTHH:mm:ss').format('MM/YYYY').replace(/-/g, '/'),
                         },
                       },
                       {
-                        title: `Ngày bán`,
-                        name: 'completedDate',
+                        title: `Chiết khấu (VND)`,
+                        name: 'commision',
                         tableItem: {
                           width: 180,
-                          render: (text: string) => (text ? dayjs(text).format('DD/MM/YYYY').replace(/-/g, '/') : ''),
+                          render: (text: string) => (text ? text.toLocaleString() : '0'),
                         },
                       },
                       {
-                        title: `Giá trị (VND)`,
-                        name: 'total',
+                        title: `Đã thanh toán (VND)`,
+                        name: 'paid',
                         tableItem: {
                           width: 135,
-                          render: (text: string) => text.toLocaleString(),
+                          render: (text: string) => (text ? text.toLocaleString() : '0'),
                         },
                       },
                       {
-                        title: `Khuyến mãi (VND)`,
-                        name: 'discount',
+                        title: `Chưa thanh toán (VND)`,
+                        name: 'noPay',
                         tableItem: {
                           width: 150,
                           render: (text: string) => text.toLocaleString(),
                         },
                       },
                       {
-                        title: `Thành tiền (VND)	`,
-                        name: 'revenue',
-                        tableItem: {
-                          width: 145,
-                          render: (text: string) => text.toLocaleString(),
-                        },
-                      },
-                      {
                         title: `supplier.Order.Order Type`,
-                        name: 'total',
+                        name: 'status',
                         tableItem: {
                           width: 100,
                           render: (text: string, item: any) =>
-                            item?.type === 'DELEVERED' ? (
+                            text === 'PAID' ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                {t('supplier.Sup-Status.Sell goods')}
+                                {t('Đẫ thaanh toán')}
+                              </div>
+                            ) : text === 'NOT_PAID' ? (
+                              <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
+                                {t('Chưa thanh toán')}
                               </div>
                             ) : (
-                              <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                {t('supplier.Sup-Status.Return goods')}
+                              <div className="bg-red-50 text-center p-1 border border-yellow-500 text-yellow-600 rounded">
+                                {t('Chưa hoàn tất')}
                               </div>
                             ),
                         },
                       },
                     ]}
                   />
-                  <ModalForm
-                    facade={invoiceKiotVietFacade}
-                    className="form"
-                    ref={modalFormRef}
-                    title={() => 'Thông tin chi tiết đơn hàng'}
-                    columns={[
-                      {
-                        title: 'tax.type',
-                        name: 'name',
-                        formItem: {
-                          render: (form, values) => {
-                            return (
-                              <div className="border-y">
-                                <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-5">
-                                  <div className="font-semibold text-teal-900 ">Thông tin đơn hàng:</div>
-                                </div>
-                                <div className="flex items-center h-full w-full text-base lg:mt-0 mt-4 form-store mb-5">
-                                  <div className="w-1/2 flex">
-                                    <div className="font-semibold text-teal-900 ">Mã đơn hàng:</div>
-                                    <div className="ml-4">{values?.invoiceCode}</div>
-                                  </div>
-                                  <div className="w-1/2 flex">
-                                    <div className="font-semibold text-teal-900 ">Ngày bán:</div>
-                                    <div className="ml-4">
-                                      {dayjs(values?.completedDate).format('DD/MM/YYYY').replace(/-/g, '/')}
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-5">
-                                  <div className="font-semibold text-teal-900 ">Tổng giá trị đơn hàng:</div>
-                                  <div className="ml-4">{values?.totalPayment.toLocaleString()} VND</div>
-                                </div>
-                                <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store">
-                                  <div className="font-semibold text-teal-900 ">Chi tiết đơn hàng:</div>
-                                </div>
-                                <div className="w-full">
-                                  <table className="w-full">
-                                    <thead>
-                                      <tr className="text-left">
-                                        <th className="p-5">STT</th>
-                                        <th className="p-5">Mặt hàng</th>
-                                        <th className="p-5">Số lượng</th>
-                                        <th className="p-5">Đơn giá (VND)</th>
-                                        <th className="p-5">Thành tiền (VND)</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {values?.detailInvoice?.map((items: any, stt1: number) => (
-                                        <tr className="text-left">
-                                          <td className="p-5">{sttDetail++}</td>
-                                          <td className="p-5">{items?.productName}</td>
-                                          <td className="p-5">{items?.quantity}</td>
-                                          <td className="p-5">{items?.totalItem}</td>
-                                          <td className="p-5">{items?.total}</td>
-                                        </tr>
-                                      ))}
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                            );
+                  <div className="flex sm:justify-end justify-center items-center p-5">
+                    <Button
+                      disabled={discountFacade.result?.data?.length === 0 ? true : false}
+                      text={t('titles.Export report')}
+                      className={
+                        'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
+                      }
+                      onClick={() => {
+                        const inventory = discountFacade?.result?.data?.map((item) => {
+                          // return {
+                          //   STT: i++,
+                          //   discountFacadeCode: item.invoiceCode,
+                          //   completedDate: item.completedDate
+                          //     ? dayjs(item.completedDate).format('DD/MM/YYYY').replace(/-/g, '/')
+                          //     : '',
+                          //   total: item.total?.toLocaleString(),
+                          //   discount: item.discount?.toLocaleString(),
+                          //   revenue: item.revenue?.toLocaleString(),
+                          //   type:
+                          //     item.type === 'DELEVERED'
+                          //       ? t('Bán hàng')
+                          //       : item.type === 'REFUND'
+                          //       ? t('Trả hàng')
+                          //       : item.type === 'REFUND'
+                          //       ? t('Đã huỷ')
+                          //       : '',
+                          // };
+                        });
+
+                        const excel = new Excel();
+                        const sheet = excel.addSheet('Sheet1');
+                        sheet.setTHeadStyle({
+                          background: 'FFFFFFFF',
+                          borderColor: 'C0C0C0C0',
+                          wrapText: false,
+                          fontName: 'Calibri',
+                        });
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
+                        sheet.setRowHeight(0.8, 'cm');
+                        sheet.addColumns([
+                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '' },
+                          { title: 'BÁO CÁO DOANH THU CỬA HÀNG THEO ĐƠN HÀNG', dataIndex: '' },
+                        ]);
+                        // sheet.drawCell(10, 0, '');
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Tìm kiếm:', dataIndex: '' },
+                          {
+                            title: JSON.parse(discountFacade.queryParams || '{}').fullTextSearch || '',
+                            dataIndex: '',
                           },
-                        },
-                      },
-                    ]}
-                    widthModal={830}
-                    footerCustom={(handleOk, handleCancel) => (
-                      <div className=" w-full bg-white ">
-                        <div className="flex flex-col items-start mb-[33px] ml-[9px]">
-                          <button
-                            className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11"
-                            onClick={handleCancel}
-                          >
-                            {t('components.form.modal.cancel')}
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  />
+                          { title: '', dataIndex: '' },
+
+                          { title: 'Chọn loại đơn hàng:', dataIndex: '' },
+                          {
+                            title: getFilter(discountFacade.queryParams, 'status')
+                              ? `${
+                                  statusDiscount.find((item) => {
+                                    return item.value === getFilter(discountFacade.queryParams, 'status');
+                                  })?.label
+                                }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+
+                          { title: 'Chọn cửa hàng:', dataIndex: '' },
+                          {
+                            title: getFilter(discountFacade.queryParams, 'supplierId')
+                              ? `${
+                                  listSupplier?.find((item) => {
+                                    return item.id === getFilter(discountFacade.queryParams, 'supplierId');
+                                  })?.name
+                                }`
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Từ ngày', dataIndex: '' },
+                          {
+                            title: getFilter(discountFacade.queryParams, 'dateFrom')
+                              ? dayjs(getFilter(discountFacade.queryParams, 'dateFrom')).format('DD/MM/YYYY')
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+
+                          { title: 'Đến ngày', dataIndex: '' },
+                          {
+                            title: getFilter(discountFacade.queryParams, 'dateTo')
+                              ? dayjs(getFilter(discountFacade.queryParams, 'dateTo')).format('DD/MM/YYYY')
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addRow();
+                        sheet
+                          .addColumns(columnrevenueOrder)
+                          .addDataSource(inventory ?? [], {
+                            str2Percent: true,
+                          })
+                          .addColumns([
+                            { title: '', dataIndex: '' },
+                            { title: '', dataIndex: '' },
+                            { title: 'Tổng cộng', dataIndex: '' },
+                            { title: discountFacade.result?.total?.total?.toLocaleString(), dataIndex: '' },
+                            {
+                              title: discountFacade.result?.total?.totalDiscount?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            {
+                              title: discountFacade.result?.total?.totalRevenue?.toLocaleString(),
+                              dataIndex: '',
+                            },
+                            { title: '', dataIndex: '' },
+                          ])
+                          .saveAs(t('Doanh thu cửa hàng theo đơn hàng.xlsx'));
+                      }}
+                    />
+                  </div>
                 </>
               )}
-              <div className="flex sm:justify-end justify-center items-center p-5">
-                <Button
-                  disabled={invoice.result?.data?.length === 0 ? true : false}
-                  text={t('titles.Export report')}
-                  className={
-                    'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
-                  }
-                  onClick={() => {
-                    const inventory = invoice?.result?.data?.map((item) => {
-                      return {
-                        STT: i++,
-                        invoiceCode: item.invoiceCode,
-                        completedDate: item.completedDate
-                          ? dayjs(item.completedDate).format('DD/MM/YYYY').replace(/-/g, '/')
-                          : '',
-                        total: item.total?.toLocaleString(),
-                        discount: item.discount?.toLocaleString(),
-                        revenue: item.revenue?.toLocaleString(),
-                        type:
-                          item.type === 'DELEVERED'
-                            ? t('Bán hàng')
-                            : item.type === 'REFUND'
-                            ? t('Trả hàng')
-                            : item.type === 'REFUND'
-                            ? t('Đã huỷ')
-                            : '',
-                      };
-                    });
-
-                    const excel = new Excel();
-                    const sheet = excel.addSheet('Sheet1');
-                    sheet.setTHeadStyle({
-                      background: 'FFFFFFFF',
-                      borderColor: 'C0C0C0C0',
-                      wrapText: false,
-                      fontName: 'Calibri',
-                    });
-                    sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
-                    sheet.setRowHeight(0.8, 'cm');
-                    sheet.addColumns([
-                      { title: '', dataIndex: '' },
-                      { title: '', dataIndex: '' },
-                      { title: 'BÁO CÁO DOANH THU CỬA HÀNG THEO ĐƠN HÀNG', dataIndex: '' },
-                    ]);
-                    // sheet.drawCell(10, 0, '');
-                    sheet.addRow();
-                    sheet.addColumns([
-                      { title: 'Tìm kiếm:', dataIndex: '' },
-                      {
-                        title: JSON.parse(invoice.queryParams || '{}').fullTextSearch || '',
-                        dataIndex: '',
-                      },
-                      { title: '', dataIndex: '' },
-
-                      { title: 'Chọn loại đơn hàng:', dataIndex: '' },
-                      {
-                        title: getFilter(invoice.queryParams, 'status')
-                          ? `${
-                              statusDiscount.find((item) => {
-                                return item.value === getFilter(invoice.queryParams, 'status');
-                              })?.label
-                            }`
-                          : '',
-                        dataIndex: '',
-                      },
-                      { title: '', dataIndex: '' },
-
-                      { title: 'Chọn cửa hàng:', dataIndex: '' },
-                      {
-                        title: getFilter(invoice.queryParams, 'idSupplier')
-                          ? `${
-                              listSupplier?.find((item) => {
-                                return item.id === getFilter(invoice.queryParams, 'idSupplier');
-                              })?.name
-                            }`
-                          : '',
-                        dataIndex: '',
-                      },
-                      { title: '', dataIndex: '' },
-                    ]);
-                    sheet.addRow();
-                    sheet.addColumns([
-                      { title: 'Từ ngày', dataIndex: '' },
-                      {
-                        title: getFilter(invoice.queryParams, 'dateFrom')
-                          ? dayjs(getFilter(invoice.queryParams, 'dateFrom')).format('DD/MM/YYYY')
-                          : '',
-                        dataIndex: '',
-                      },
-                      { title: '', dataIndex: '' },
-
-                      { title: 'Đến ngày', dataIndex: '' },
-                      {
-                        title: getFilter(invoice.queryParams, 'dateTo')
-                          ? dayjs(getFilter(invoice.queryParams, 'dateTo')).format('DD/MM/YYYY')
-                          : '',
-                        dataIndex: '',
-                      },
-                      { title: '', dataIndex: '' },
-                    ]);
-                    sheet.addRow();
-                    sheet.addRow();
-                    sheet
-                      .addColumns(columnrevenueOrder)
-                      .addDataSource(inventory ?? [], {
-                        str2Percent: true,
-                      })
-                      .addColumns([
-                        { title: '', dataIndex: '' },
-                        { title: '', dataIndex: '' },
-                        { title: 'Tổng cộng', dataIndex: '' },
-                        { title: invoice.result?.total?.total?.toLocaleString(), dataIndex: '' },
-                        {
-                          title: invoice.result?.total?.totalDiscount?.toLocaleString(),
-                          dataIndex: '',
-                        },
-                        {
-                          title: invoice.result?.total?.totalRevenue?.toLocaleString(),
-                          dataIndex: '',
-                        },
-                        { title: '', dataIndex: '' },
-                      ])
-                      .saveAs(t('Doanh thu cửa hàng theo đơn hàng.xlsx'));
-                  }}
-                />
-              </div>
             </div>
           </div>
         </div>
