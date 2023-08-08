@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
+import { useAppDispatch, useTypedSelector, Action, Slice, State, TLanguage } from '@store';
 import { CommonEntity, PaginationQuery } from '@models';
 import { PostType } from './type';
 
@@ -28,7 +28,7 @@ export class Post extends CommonEntity {
     public createdAt?: string,
     public updatedAt?: string,
     public translations?: {
-      language: string;
+      language?: TLanguage;
       name: string;
       description?: string;
       slug: string;
