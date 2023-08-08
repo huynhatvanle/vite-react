@@ -54,12 +54,8 @@ export class PaginationQuery<T = object> {
     public sorts?: string | T,
     public extend?: string | T,
     public skip?: string | T,
-    public fullTextSearch?: string, // public type?: string, // public storeId?: string, // public supplierId?: string,
-  ) // public filterSupplier?: string,
-  // public supplierType?: string,
-  // public idSuppiler?: string,
-  // public idStore?: string,
-  // public filterDate?: {
+    public fullTextSearch?: string, // public type?: string, // public storeId?: string, // public supplierId?: string, // public filterSupplier?: string, // public supplierType?: string, // public idSuppiler?: string, // public idStore?: string,
+  ) // public filterDate?: {
   //   dateFrom?: string;
   //   dateTo?: string;
   // },

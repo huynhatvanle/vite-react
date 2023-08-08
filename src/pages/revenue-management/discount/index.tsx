@@ -96,7 +96,7 @@ const Page = () => {
                       },
                     }}
                     onRow={(data: any) => ({
-                      onDoubleClick: () => modalFormRef?.current?.handleEdit(data),
+                      onDoubleClick: () => navigate(`/${lang}${routerLinks('Discount-Detail')}/${data.id}`),
                     })}
                     xScroll="1400px"
                     pageSizeRender={(sizePage: number) => sizePage}
@@ -347,7 +347,7 @@ const Page = () => {
                         name: 'noPay',
                         tableItem: {
                           width: 150,
-                          render: (text: string) => text.toLocaleString(),
+                          render: (text: string) => text?.toLocaleString(),
                         },
                       },
                       {
@@ -358,7 +358,7 @@ const Page = () => {
                           render: (text: string, item: any) =>
                             text === 'PAID' ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                {t('Đẫ thaanh toán')}
+                                {t('Đẫ thanh toán')}
                               </div>
                             ) : text === 'NOT_PAID' ? (
                               <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">

@@ -20,13 +20,12 @@ const Page = () => {
   const discountFacade = DiscountFacade();
   const orderFacade = OrdersFacade();
   const { data, isLoading, queryParams, status } = discountFacade;
-  const detailDiscountt = detailDiscountFacade();
+  const detailDiscount = detailDiscountFacade();
   const navigate = useNavigate();
   const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
-  const { formatDate } = GlobalFacade();
 
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
@@ -171,66 +170,78 @@ const Page = () => {
             <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Danh sách thanh toán</p>
           </div>
           <div className="px-5 pb-4">
-            <DataTable
-              facade={orderFacade}
-              defaultRequest={{
-                page: 1,
-                perPage: 10,
-                filter: { filterSupplier: 1056 },
-              }}
-              xScroll="895px"
-              pageSizeRender={(sizePage: number) => sizePage}
-              pageSizeWidth={'50px'}
-              paginationDescription={(from: number, to: number, total: number) =>
-                t('routes.admin.Layout.PaginationProduct', { from, to, total })
-              }
-              columns={[
-                {
-                  title: `Mã thanh toán`,
-                  name: 'code',
-                  tableItem: {
-                    width: 170,
+            {discountFacade.result?.data && (
+              <DataTable
+                facade={discountFacade}
+                xScroll="895px"
+                showPagination={false}
+                pageSizeRender={(sizePage: number) => sizePage}
+                pageSizeWidth={'50px'}
+                paginationDescription={(from: number, to: number, total: number) =>
+                  t('routes.admin.Layout.PaginationProduct', { from, to, total })
+                }
+                columns={[
+                  {
+                    title: `Mã thanh toán`,
+                    name: 'code',
+                    tableItem: {
+                      width: 170,
+                    },
                   },
-                },
-                {
-                  title: `Ngày thanh toán`,
-                  name: 'code',
-                  tableItem: {
-                    width: 170,
+                  {
+                    title: `Ngày thanh toán`,
+                    name: 'createdAt',
+                    tableItem: {
+                      width: 170,
+                      render: (text: any) => dayjs(text, 'YYYY-MM-DDTHH:mm:ss').format('DD/MM/YYYY').replace(/-/g, '/'),
+                    },
                   },
-                },
-                {
-                  title: `Đã thanh toán (VND)`,
-                  name: 'code',
-                  tableItem: {
-                    width: 170,
+                  {
+                    title: `Đã thanh toán (VND)`,
+                    name: 'commisionMoney',
+                    tableItem: {
+                      width: 170,
+                      render: (text: any) => text?.toLocaleString(),
+                    },
                   },
-                },
-                {
-                  title: `Phương thức`,
-                  name: 'code',
-                  tableItem: {
-                    width: 170,
+                  {
+                    title: `Phương thức`,
+                    name: 'paymentMethod',
+                    tableItem: {
+                      width: 170,
+                      render: (text: any) => (text === 'BANK_TRANSFER' ? 'Chuyển khoản' : ':D'),
+                    },
                   },
-                },
-                {
-                  title: `Trạng thái thanh toán`,
-                  name: 'code',
-                  tableItem: {
-                    width: 170,
+                  {
+                    title: `Trạng thái thanh toán`,
+                    name: 'status',
+                    tableItem: {
+                      width: 170,
+                      render: (text: any) =>
+                        text === 'RECIVED' ? (
+                          <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                            {t('Đẫ nhận')}
+                          </div>
+                        ) : text === 'DELIVERED' ? (
+                          <div className="bg-green-100 text-center p-1 border border-blue-500 text-blue-600 rounded">
+                            {t('Đẫ Chuyển')}
+                          </div>
+                        ) : (
+                          <div>aaaaaaaa</div>
+                        ),
+                    },
                   },
-                },
-              ]}
-              showSearch={false}
-            />
+                ]}
+                showSearch={false}
+              />
+            )}
           </div>
           <div className="flex items-left font-bold px-5">
             <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Danh sách sản phẩm</p>
           </div>
           <div className="px-5 pb-4">
             <DataTable
-              facade={detailDiscountt}
-              // ref={dataTableRefProduct}
+              facade={detailDiscount}
               defaultRequest={{
                 page: 1,
                 perPage: 10,
@@ -263,7 +274,7 @@ const Page = () => {
                   title: `Tên sản phẩm`,
                   name: 'code',
                   tableItem: {
-                    width: 170,
+                    width: 200,
                     render: (value: any, item: any) => item?.product?.name,
                   },
                 },
