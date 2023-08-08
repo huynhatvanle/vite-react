@@ -3,6 +3,8 @@ import { language, languages } from './variable';
 import { gsap } from 'gsap';
 import LazyLoad from 'vanilla-lazyload';
 import React, { Fragment } from 'react';
+// @ts-ignore
+import GLightbox from 'glightbox';
 
 export * from './init/reportWebVitals';
 export * from './api';
@@ -80,6 +82,10 @@ export const lazyLoad = () =>
   });
 
 export const renderEditorjs = (blocks: Record<string, object>[]) => {
+  setTimeout(() => {
+    GLightbox();
+    lazyLoad();
+  }, 0);
   const Heading = ({ level, children, ...props }: any) => React.createElement('h'.concat(level), props, children);
 
   return (
@@ -91,12 +97,12 @@ export const renderEditorjs = (blocks: Record<string, object>[]) => {
           )}
           {subItem?.type === 'paragraph' && <p dangerouslySetInnerHTML={{ __html: subItem?.data?.text }} />}
           {subItem?.type === 'image' && (
-            <div className="text-center py-5">
-              <img alt={subItem.data.caption} src={subItem.data.file.url} />
+            <a className="image glightbox" href={subItem.data.file.url} data-description={subItem.data.caption}>
+              <img className={'lazy'} alt={subItem.data.caption} data-src={subItem.data.file.url} />
               {subItem.data.caption && (
                 <span className={'caption'} dangerouslySetInnerHTML={{ __html: subItem.data.caption }} />
               )}
-            </div>
+            </a>
           )}
         </Fragment>
       ))}
