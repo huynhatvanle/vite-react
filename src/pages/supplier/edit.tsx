@@ -84,6 +84,7 @@ const Page = () => {
       isReload.current && supplierFacade.get(param);
     };
   }, [id]);
+  
 
   useEffect(() => {
     if (test == true) {

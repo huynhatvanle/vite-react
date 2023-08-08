@@ -160,7 +160,8 @@
     "MerchandiseManagermentCategory": "Danh mục",
     "Store-Revenue": "Doanh thu cửa hàng",
     "Merchandise-Managerment/Tax": "Thuế",
-    "Supplier-Revenue": "Doanh thu nhà cung cấp"
+    "Supplier-Revenue": "Doanh thu nhà cung cấp",
+    "revenue-management/discount": "Chiết khấu NCC"
   },
   "columns": {
     "auth": {
