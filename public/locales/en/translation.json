@@ -57,7 +57,11 @@
     "Home": "Home"
   },
   "pages": {
-    "Home": "Home"
+    "Home": "Home",
+    "Tech": "About Tech",
+    "Team": "Our Core Team",
+    "News": "News",
+    "Projects": "Projects"
   },
   "layout": {
     "header": {

@@ -57,7 +57,11 @@
     "Home": "Trang chủ"
   },
   "pages": {
-    "Home": "Trang chủ"
+    "Home": "Trang chủ",
+    "Tech": "Công nghệ",
+    "Team": "Đội ngũ phát triển chính",
+    "News": "Tin tức",
+    "Projects": "Dự án"
   },
   "layout": {
     "header": {

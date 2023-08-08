@@ -1,13 +1,16 @@
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Spin } from 'antd';
 
 import { animationSlide, lazyLoad } from '@utils';
-import { DataFacade } from '@store';
+import { DataFacade, GlobalFacade } from '@store';
 
 const Page = () => {
   const { t } = useTranslation();
+  const { set } = GlobalFacade();
   const dataFacade = DataFacade();
   useEffect(() => {
+    set({ routeLanguage: { vn: '/vn/cong-nghe', en: '/en/tech' } });
     lazyLoad();
     animationSlide(document.getElementById('title')!, 0);
     dataFacade.getArray(['partner', 'tech']);
@@ -37,13 +40,15 @@ const Page = () => {
       </section>
       <section className="bg-white w-full">
         <div className="container px-6 mx-auto sm:py-24 py-10">
-          <div className="mb-10 grid gap-5 sm:gap-20 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2">
-            {dataFacade?.tech?.map((item, index) => (
-              <div key={index} className="flex items-center justify-center sm:py-5">
-                <img alt={item.name} className="lazy object-contain w-full" data-src={item.image} />
-              </div>
-            ))}
-          </div>
+          <Spin spinning={!dataFacade?.tech.length && dataFacade.isLoading}>
+            <div className="mb-10 grid gap-5 sm:gap-20 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2">
+              {dataFacade?.tech?.map((item, index) => (
+                <div key={index} className="flex items-center justify-center sm:py-5">
+                  <img alt={item.name} className="lazy object-contain w-full" data-src={item.image} />
+                </div>
+              ))}
+            </div>
+          </Spin>
         </div>
       </section>
     </Fragment>

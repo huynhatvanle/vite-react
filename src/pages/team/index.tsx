@@ -1,14 +1,16 @@
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Modal } from 'antd';
+import { Modal, Spin } from 'antd';
 
 import { animationSlide, lazyLoad, renderEditorjs } from '@utils';
-import { DataFacade } from '@store';
+import { DataFacade, GlobalFacade } from '@store';
 
 const Page = () => {
   const { t } = useTranslation();
+  const { set } = GlobalFacade();
   const dataFacade = DataFacade();
   useEffect(() => {
+    set({ routeLanguage: { vn: '/vn/doi-nhom', en: '/en/team' } });
     lazyLoad();
     animationSlide(document.getElementById('title')!, 0);
     dataFacade.getArray(['member', 'partner']);
@@ -61,37 +63,42 @@ const Page = () => {
       </Modal>
       <section className="bg-[url('/assets/images/home/choose-bg3.jpg')] w-full bg-cover bg-center">
         <div className="container mx-auto sm:py-24 py-10">
-          <div className="mb-10 grid gap-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
-            {dataFacade?.member
-              .filter((item) => item.order === null || item.order > 5)
-              ?.map((data, index) => (
-                <div
-                  key={index}
-                  onClick={() => dataFacade.showDetail(data)}
-                  className="drop-shadow bg-white rounded-xl p-5 hover:scale-110 duration-500 transition-all ease-in-out text-center lg:text-left cursor-pointer"
-                >
-                  <img alt="ARI" className="lazy h-20 mb-5 mx-auto" data-src={data.image} />
-                  <h3 className="text-xl sm:text-2xl text-blue-500 gsap top font-medium text-center">
-                    {
-                      data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
-                        .name
-                    }
-                  </h3>
-                  <p className="text-blue-900 text-lg mb-2 uppercase text-center">
-                    {
-                      data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
-                        .position
-                    }
-                  </p>
-                  <p>
-                    {
-                      data.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0]
-                        .description
-                    }
-                  </p>
-                </div>
-              ))}
-          </div>
+          <Spin spinning={!dataFacade?.member.length && dataFacade.isLoading}>
+            <div className="mb-10 grid gap-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+              {dataFacade?.member
+                .filter((item) => item.order === null || item.order > 5)
+                ?.map((data, index) => (
+                  <div
+                    key={index}
+                    onClick={() => dataFacade.showDetail(data)}
+                    className="drop-shadow bg-white rounded-xl p-5 hover:scale-110 duration-500 transition-all ease-in-out text-center lg:text-left cursor-pointer"
+                  >
+                    <img alt="ARI" className="lazy h-20 mb-5 mx-auto" data-src={data.image} />
+                    <h3 className="text-xl sm:text-2xl text-blue-500 gsap top font-medium text-center">
+                      {
+                        data.translations?.filter(
+                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                        )[0].name
+                      }
+                    </h3>
+                    <p className="text-blue-900 text-lg mb-2 uppercase text-center">
+                      {
+                        data.translations?.filter(
+                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                        )[0].position
+                      }
+                    </p>
+                    <p>
+                      {
+                        data.translations?.filter(
+                          (item: any) => item?.language === localStorage.getItem('i18nextLng'),
+                        )[0].description
+                      }
+                    </p>
+                  </div>
+                ))}
+            </div>
+          </Spin>
         </div>
       </section>
     </Fragment>

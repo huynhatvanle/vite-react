@@ -30,20 +30,20 @@ export const dataSlice = createSlice(
       });
   }),
 );
-interface StateData extends State<Data> {
-  mission: Data[];
-  services: Data[];
-  value: Data[];
-  member: Data[];
-  partner: Data[];
-  tech: Data[];
+interface StateData<T> extends State<T> {
+  mission: T[];
+  services: T[];
+  value: T[];
+  member: T[];
+  partner: T[];
+  tech: T[];
 }
 export const DataFacade = () => {
   const dispatch = useAppDispatch();
-  const state = useTypedSelector((state) => state[action.name] as StateData);
+  const state = useTypedSelector((state) => state[action.name] as StateData<Data>);
   return {
     ...state,
-    set: (values: StateData) => dispatch(action.set(values)),
+    set: (values: StateData<Data>) => dispatch(action.set(values)),
     getArray: (array: string[]) => {
       array = array.filter((item) => state[item].length === 0);
       array.length > 0 && dispatch(action.getArray(array));

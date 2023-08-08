@@ -13,38 +13,22 @@ import SectionContact from '@layouts/default/contact';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation();
-  const { setLanguage, pathname, setPathname, language } = GlobalFacade();
+  const { setLanguage, pathname, setPathname, language, title } = GlobalFacade();
   const [showMenu, set_showMenu] = useState(false);
   const data = [
-    { title: 'Home', slug: '/' + language },
+    { title: 'Home', slug: `/${language}` },
     {
       title: 'About',
-      slug: '/' + language,
       children: [
-        { title: 'About Tech', slug: '/' + language + '/tech' },
-        { title: 'Our Core Team', slug: '/' + language + '/team' },
+        { title: 'About Tech', slug: `/${language}/${language == 'vn' ? 'cong-nghe' : 'tech'}` },
+        { title: 'Our Core Team', slug: `/${language}/${language == 'vn' ? 'doi-nhom' : 'team'}` },
       ],
     },
+    { title: 'News', slug: `/${language}/${language == 'vn' ? 'tin-tuc' : 'news'}` },
+    { title: 'Projects', slug: `/${language}/${language == 'vn' ? 'du-an' : 'projects'}` },
   ];
-  const menus: any = [];
-  const navigate = useNavigate();
 
-  const loop = (array: any[], returnArray: any[]) => {
-    array.forEach((item: any) => {
-      if (item && item?.translations) {
-        const data = {
-          ...item,
-          ...item?.translations.filter((subItem: any) => subItem.language === localStorage.getItem('i18nextLng'))[0],
-          children: [],
-        };
-        if (item.children) {
-          loop(item.children, data.children);
-        }
-        returnArray.push(data);
-      }
-    });
-  };
-  loop(data, menus);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!!pathname && pathname !== location.pathname) {
@@ -63,6 +47,10 @@ const Layout = ({ children }: PropsWithChildren) => {
     }
     set_showMenu(false);
   };
+
+  useEffect(() => {
+    if (language && title) document.title = t('pages.' + title || '');
+  }, [language]);
 
   return (
     <Fragment>
@@ -101,7 +89,6 @@ const Layout = ({ children }: PropsWithChildren) => {
               <strong>{t('layout.header.Call us')}</strong>
               <br />
               <a className="text-gray-600 text-sm" href="tel:(+84)363672405">
-                {' '}
                 (+84) 098 7765926
               </a>
             </div>
@@ -141,18 +128,6 @@ const Layout = ({ children }: PropsWithChildren) => {
               ))}
               <span
                 className="text-white font-bold hover:text-white cursor-pointer"
-                onClick={() => navigate(language === 'vn' ? '/vn/tin-tuc' : '/en/news')}
-              >
-                {t('layout.header.News')}
-              </span>
-              <span
-                className="text-white font-bold hover:text-white cursor-pointer"
-                onClick={() => navigate(language === 'vn' ? '/vn/du-an' : '/en/projects')}
-              >
-                {t('layout.header.Projects')}
-              </span>
-              <span
-                className="text-white font-bold hover:text-white cursor-pointer"
                 onClick={() => handleScrollTo('form-contact-us')}
               >
                 {t('layout.header.Contact Us')}
@@ -162,7 +137,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           <div className="flex items-center lg:hidden">
             <img src="/assets/images/logo.svg" className="h-12" alt="logo" />
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center mr-12 sm:mr-12">
             <Dropdown
               destroyPopupOnHide={true}
               menu={{
@@ -231,29 +206,33 @@ const Layout = ({ children }: PropsWithChildren) => {
           })}
         >
           <div className="font-medium flex flex-col text-white mt-10">
-            {menus.map((item: any, index: number) => (
+            {data.map((item: any, index: number) => (
               <Fragment key={index}>
-                <Link
+                <button
                   className={classNames('text-white border-white py-3 flex justify-between', {
-                    'border-b ': !item.child,
+                    'border-b ': !item.children,
                   })}
-                  to={'/' + item.slug}
-                  onClick={() => set_showMenu(false)}
+                  onClick={() => {
+                    navigate(item.slug);
+                    set_showMenu(false);
+                  }}
                 >
                   {item.title}
-                  {!item.child && <Arrow className={'w-4 h-4 relative'} />}
-                </Link>
-                {!!item.children.length &&
+                  {!item.children && <Arrow className={'w-4 h-4 relative'} />}
+                </button>
+                {!!item.children?.length &&
                   item.children.map((sub: any, subIndex: number) => (
-                    <Link
-                      to={sub.slug}
+                    <button
                       key={subIndex}
                       className="text-white border-white py-3 flex justify-between pl-5"
-                      onClick={() => set_showMenu(false)}
+                      onClick={() => {
+                        navigate(sub.slug);
+                        set_showMenu(false);
+                      }}
                     >
                       {sub.title}
                       <Arrow className={'w-4 h-4 relative'} />
-                    </Link>
+                    </button>
                   ))}
               </Fragment>
             ))}
@@ -361,18 +340,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                     {t('layout.header.' + item.title)}
                   </a>
                 ))}
-                <a
-                  className="text-white font-bold hover:text-white cursor-pointer block"
-                  onClick={() => navigate(language === 'vn' ? '/vn/tin-tuc' : '/en/news')}
-                >
-                  {t('layout.header.News')}
-                </a>
-                <a
-                  className="text-white font-bold hover:text-white cursor-pointer block"
-                  onClick={() => navigate(language === 'vn' ? '/vn/du-an' : '/en/projects')}
-                >
-                  {t('layout.header.Projects')}
-                </a>
+
                 <a
                   className="text-white font-bold hover:text-white cursor-pointer block"
                   onClick={() => handleScrollTo('form-contact-us')}

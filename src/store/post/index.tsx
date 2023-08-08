@@ -37,26 +37,27 @@ export const postSlice = createSlice(
         state.isLoading = true;
         state.status = 'getBySlug.pending';
       })
-      .addCase(action.getBySlug.fulfilled, (state: StatePost, action: PayloadAction<StatePost>) => {
+      .addCase(action.getBySlug.fulfilled, (state: StatePost<Post>, action: PayloadAction<StatePost<Post>>) => {
         state.data = action.payload.data;
         state.status = 'getBySlug.fulfilled';
         state.isLoading = false;
       })
-      .addCase(action.getBySlug.rejected, (state: StatePost) => {
+      .addCase(action.getBySlug.rejected, (state: StatePost<Post>) => {
         state.status = 'getBySlug.rejected';
         state.isLoading = false;
       });
   }),
 );
-interface StatePost extends State<Post> {
-  news: Post[];
-  projects: Post[];
+interface StatePost<T> extends State<T> {
+  news?: T[];
+  projects?: T[];
 }
 export const PostFacade = () => {
   const dispatch = useAppDispatch();
-  const state = useTypedSelector((state) => state[action.name] as StatePost);
+  const state = useTypedSelector((state) => state[action.name] as StatePost<Post>);
   return {
     ...state,
+    set: (values: StatePost<Post>) => dispatch(action.set(values)),
     getArray: (array: string[]) => {
       array = array.filter((item) => state[item].length === 0);
       array.length > 0 && dispatch(action.getArray(array));
@@ -80,7 +81,7 @@ export class Post extends CommonEntity {
     public createdAt?: string,
     public updatedAt?: string,
     public translations?: {
-      language: string;
+      language: 'vn' | 'en';
       name: string;
       description?: string;
       slug: string;

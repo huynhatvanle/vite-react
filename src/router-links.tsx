@@ -3,10 +3,14 @@ export const routerLinks = (name: string, type?: string) => {
     [selector: string]: string;
   } = {
     Home: '/',
-    Tech: '/tech',
-    Team: '/team',
-    News: '/tin-tuc',
-    Projects: '/du-an',
+    Techvn: '/cong-nghe',
+    Techen: '/tech',
+    Teamen: '/team',
+    Teamvn: '/doi-nhom',
+    Newsen: '/news',
+    Newsvn: '/tin-tuc',
+    Projectsen: '/projects',
+    Projectsvn: '/du-an',
   }; // 💬 generate link to here
 
   const apis: {

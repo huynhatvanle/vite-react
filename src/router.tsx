@@ -17,32 +17,62 @@ const pages = [
         title: 'Home',
       },
       {
-        path: routerLinks('Tech'),
+        path: routerLinks('Techvn'),
         component: React.lazy(() => import('src/pages/tech')),
         title: 'Tech',
       },
       {
-        path: routerLinks('Team'),
+        path: routerLinks('Techen'),
+        component: React.lazy(() => import('src/pages/tech')),
+        title: 'Tech',
+      },
+      {
+        path: routerLinks('Teamvn'),
         component: React.lazy(() => import('src/pages/team')),
         title: 'Team',
       },
       {
-        path: routerLinks('News'),
+        path: routerLinks('Teamen'),
+        component: React.lazy(() => import('src/pages/team')),
+        title: 'Team',
+      },
+      {
+        path: routerLinks('Newsen'),
         component: React.lazy(() => import('src/pages/news')),
         title: 'News',
       },
       {
-        path: routerLinks('News') + '/:slug',
+        path: routerLinks('Newsen') + '/:slug',
         component: React.lazy(() => import('src/pages/news/detail')),
         title: 'News Detail',
       },
       {
-        path: routerLinks('Projects'),
+        path: routerLinks('Newsvn'),
+        component: React.lazy(() => import('src/pages/news')),
+        title: 'News',
+      },
+      {
+        path: routerLinks('Newsvn') + '/:slug',
+        component: React.lazy(() => import('src/pages/news/detail')),
+        title: 'News Detail',
+      },
+      {
+        path: routerLinks('Projectsen'),
         component: React.lazy(() => import('src/pages/news')),
         title: 'Projects',
       },
       {
-        path: routerLinks('Projects') + '/:slug',
+        path: routerLinks('Projectsen') + '/:slug',
+        component: React.lazy(() => import('src/pages/news/detail')),
+        title: 'Projects Detail',
+      },
+      {
+        path: routerLinks('Projectsvn'),
+        component: React.lazy(() => import('src/pages/news')),
+        title: 'Projects',
+      },
+      {
+        path: routerLinks('Projectsvn') + '/:slug',
         component: React.lazy(() => import('src/pages/news/detail')),
         title: 'Projects Detail',
       },
