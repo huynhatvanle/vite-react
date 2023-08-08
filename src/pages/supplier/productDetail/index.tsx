@@ -42,6 +42,12 @@ const Page = () => {
     }
   }, [productFacade.status]);
 
+  useEffect(() => {
+    if (productFacade.status === 'putProductreject.fulfilled') {
+      navigate(`/${lang}${routerLinks('inventory-management/product')}`)
+    }
+  }, [productFacade.status]);
+
   let i = 1;
 
   const dl = data?.productPrice?.flat().map((item, index) => {
@@ -752,14 +758,28 @@ const Page = () => {
             className="form"
             ref={modalformRef}
             widthModal={600}
-            title={() => 'Thông tin chi tiết đơn hàng'}
+            title={(data) => (data?.id)}
             columns={[
-
+              {
+                title: '',
+                name: '',
+                formItem: {
+                  render: (form, values) => {
+                    return (
+                      <div className='flex flex-col'>
+                        <p className='text-5xl flex mb-2 justify-center'>Thông báo</p>
+                        <div className='text-base text-gray-600 flex justify-center mb-5'>Bạn có chắc muốn từ chối phê duyệt sản phẩm này?</div>
+                      </div>
+                    )
+                  }
+                }
+              },
               {
                 title: 'Lý do',
                 name: 'rejectReason',
                 formItem: {
                   type: 'select',
+                  rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
                   list: listOptionreason?.map((item) => ({
                     label: item.label,
                     value: item.value!
@@ -773,7 +793,6 @@ const Page = () => {
                     }),
                       setOrther(true)
                   },
-
                 }
               },
               {
@@ -782,23 +801,25 @@ const Page = () => {
                 formItem: {
                   type: other ? 'hidden' : 'textarea',
                   placeholder: 'Vui lòng nhập lý do của bạn',
-                  // rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
                 }
               }
             ]}
             footerCustom={(handleOk, handleCancel) => (
-              <div className=" w-full bg-white ">
-                <div className="flex flex-col items-start mb-[33px] ml-[9px]">
-                  <button
-                    className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11"
-                    onClick={handleCancel}
-                  >
-                    {t('components.form.modal.cancel')}
-                  </button>
-                </div>
+              <div className="flex gap-2">
+                <button
+                  className="!rounded-none !w-auto border-teal-900 text-teal-900 hover:bg-gray-300 bg-white"
+                  onClick={handleCancel}
+                >
+                  {t('Hủy')}
+                </button>
+                <button
+                  className="!rounded-none !w-auto border-teal-900 text-white hover:bg-teal-900 bg-teal-800"
+                  onClick={() => productFacade.putProductreject({ id })}
+                >
+                  {t('Đồng ý')}
+                </button>
               </div>
             )}
-          // footerCustom={productFacade.data && productFacade.putProductreject({ id })}
           />
         </div>
       </Fragment>

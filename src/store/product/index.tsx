@@ -160,7 +160,34 @@ export const productSlice = createSlice(new Slice<Product>(action, { result: {},
     .addCase(action.putProduct.rejected, (state: State) => {
       state.status = 'putProduct.rejected';
       state.isLoading = false;
-    }),
+    })
+
+
+    .addCase(
+      action.putProductreject.pending,
+      (
+        state: State<Product>,
+        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+      ) => {
+        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+        state.queryParams = JSON.stringify(action.meta.arg);
+        state.isLoading = true;
+        state.status = 'putProductreject.pending';
+      },
+    )
+    .addCase(action.putProductreject.fulfilled, (state: State<Product>, action: any) => {
+      console.log(action.payload);
+
+      if (action.payload.toString() === '200') {
+        state.result = action.payload;
+        state.status = 'putProductreject.fulfilled';
+      } else state.status = 'idle';
+      state.isLoading = false;
+    })
+    .addCase(action.putProductreject.rejected, (state: State) => {
+      state.status = 'putProductreject.rejected';
+      state.isLoading = false;
+    })
 
 ));
 

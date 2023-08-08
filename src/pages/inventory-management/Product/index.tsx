@@ -184,17 +184,17 @@ const Page = () => {
                   title: 'product.Code',
                   name: 'code',
                   tableItem: {
-                    sorter: true,
                     filter: { type: 'search' },
-                    width: 120,
+                    sorter: true,
+                    width: 180,
                   },
                 },
                 {
                   title: 'product.Name',
                   name: 'name',
                   tableItem: {
-                    sorter: true,
                     filter: { type: 'search' },
+                    sorter: true,
                   },
                 },
                 {
@@ -646,7 +646,10 @@ const Page = () => {
                             filter: {
                               type: 'BALANCE',
                               categoryId: form.getFieldValue('categoryId1'),
-                              supplierId: value
+                              supplierId: value,
+                              categoryId1: form.getFieldValue('categoryId1'),
+                              categoryId2: form.getFieldValue('categoryId2'),
+                              categoryId3: form.getFieldValue('categoryId3'),
                             },
                           });
                         },
