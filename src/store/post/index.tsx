@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { useAppDispatch, useTypedSelector, Action, Slice, State, Data, TLanguage } from '@store';
+import { useAppDispatch, useTypedSelector, Action, Slice, State, TLanguage } from '@store';
 import { CommonEntity } from '@models';
 import { API, routerLinks } from '@utils';
 
@@ -8,7 +8,7 @@ const name = 'Post';
 const action = {
   ...new Action<Post>(name),
   getArray: createAsyncThunk(name + '/array', async (array: string[]) => {
-    const { data } = await API.get<Data>(routerLinks(name, 'api') + '/array', { array });
+    const { data } = await API.get<Post>(routerLinks(name, 'api') + '/array', { array });
     return data;
   }),
   getBySlug: createAsyncThunk(name + '/getBySlug', async (slug: string) => {
