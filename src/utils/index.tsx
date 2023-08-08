@@ -97,11 +97,7 @@ export const renderEditorjs = (blocks: Record<string, object>[]) => {
           )}
           {subItem?.type === 'paragraph' && <p dangerouslySetInnerHTML={{ __html: subItem?.data?.text }} />}
           {subItem?.type === 'image' && (
-            <a
-              className="text-center py-5 glightbox"
-              href={subItem.data.file.url}
-              data-description={subItem.data.caption}
-            >
+            <a className="image glightbox" href={subItem.data.file.url} data-description={subItem.data.caption}>
               <img className={'lazy'} alt={subItem.data.caption} data-src={subItem.data.file.url} />
               {subItem.data.caption && (
                 <span className={'caption'} dangerouslySetInnerHTML={{ __html: subItem.data.caption }} />
