@@ -40,24 +40,6 @@
       },
       "Select Date": "Select Date"
     },
-    "media-management": {
-      "filename": "File name",
-      "fileSize": "File size",
-      "lastModified": "Last modified",
-      "detail": "Detail",
-      "areYouSure": "Are you sure you want to delete?",
-      "mediaManagement": "Media Management",
-      "filesOnSystem": "Files on system",
-      "addFiles": "Add files",
-      "multiFiles": "Multi files",
-      "createFolder": "Create folder",
-      "uploadFile": "Upload file",
-      "moveUpLevel": "Move up a level",
-      "outsideLink": "Outside link",
-      "save": "Save",
-      "nameFolder": "Name folder",
-      "onlyLettersAndDigitsAllowed": "Only letters and digits allowed"
-    },
     "message": {
       "Success": "Success",
       "Warning": "Warning",
@@ -72,180 +54,127 @@
     }
   },
   "titles": {
-    "Login": "Login",
-    "Dashboard": "Dashboard",
-    "User": "User",
-    "User/List": "List",
-    "User/Add": "Add",
-    "MyProfile": "My Profile",
-    "Setting": "Setting",
-    "Code": "Code",
-    "Data": "Data",
-    "Post": "Post"
+    "Home": "Home"
   },
   "pages": {
-    "User/List": "List User",
-    "User/Add": "Add new User {{roleCode}}",
-    "User/Edit": "Edit User {{roleCode}}",
-    "MyProfile": "My Profile",
-    "Login": "Login",
-    "Dashboard": "Dashboard",
-    "User": "User",
-    "Setting": "Setting",
-    "Code": "List Code",
-    "Code/Add":"Add new Code {{type}}",
-    "Code/Edit":"Edit Code {{type}}",
-    "Data": "List Data",
-    "Data/Add": "Add new Data {{type}}",
-    "Post": "List Data",
-    "Post/Add": "Add new Data {{type}}"
-  },
-  "columns": {
-    "auth": {
-      "login": {
-        "Username": "Username",
-        "Enter Username": "Enter Username",
-        "Enter Password": "Enter Password",
-        "password": "Password",
-        "remember": "Remember Me",
-        "New password": "New password",
-        "Enter new password": "Enter new password",
-        "Confirm Password": "Confirm Password",
-        "Send": "Send"
-      },
-      "register": {
-        "firstName": "First Name",
-        "lastName": "Last Name",
-        "retypedPassword": "Retype Password"
-      },
-      "reset-password": {
-        "Recovery Email": "Recovery Email",
-        "Enter Recovery Email": "Enter Recovery Email"
-      }
-    }
+    "Home": "Home",
+    "Tech": "About Tech",
+    "Team": "Our Core Team",
+    "News": "News",
+    "News Detail": "News Detail",
+    "Projects": "Projects",
+    "Projects Detail": "Projects Detail"
   },
   "layout": {
-    "footer": "Ari Technology Company Ltd. ©{{year}}"
+    "header": {
+      "Home": "Home",
+      "About": "About",
+      "About Tech": "About Tech",
+      "Our Core Team": "Our Core Team",
+      "News": "News",
+      "Projects": "Projects",
+      "Contact Us": "Contact Us",
+      "Location": "Location",
+      "Address": "7 Cong Hoa St., Ward 4, Tan Binh Dist., Ho Chi Minh City, Vietnam.",
+      "Mail us": "Mail us",
+      "Call us": "Call us",
+      "Vietnamese": "Vietnamese",
+      "English": "English"
+    },
+    "footer": {
+      "copyright": "Copyright ©{{year}} ARI Technology Co ., JSC. All rights reserved."
+    }
   },
-  "routes": {
-    "auth": {
-      "login": {
-        "title": "Sign In",
-        "subTitle": "Enter your details to login to your account",
-        "Log In": "Log In",
-        "Forgot Password": "Forgot Password",
-        "Confirm Password": "Confirm Password",
-        "Reset password": "Reset Password",
-        "New password": "New password",
-        "Enter new password": "Enter new password",
-        "Account": "Don't have an account?",
-        "Welcome": "Welcome to Web Member Ari"
+  "page": {
+    "header": {
+      "Home": "Home",
+      "About": "About",
+      "About Tech": "About Tech",
+      "Our Core Team": "Our Core Team",
+      "News": "News",
+      "Projects": "Projects",
+      "Contact Us": "Contact Us",
+      "Location": "Location",
+      "Address": "7 Cong Hoa St., Ward 4, Tan Binh Dist., Ho Chi Minh City, Vietnam.",
+      "Mail us": "Mail us",
+      "Call us": "Call us",
+      "Vietnamese": "Vietnamese",
+      "English": "English"
+    },
+    "footer": {
+      "Useful Links": "Useful Links",
+      "Partners and Customers": "Partners and Customers",
+      "Our Support Partner": "Our Support Partner",
+      "Contact": "Contact",
+      "Questions or concerns": "Questions or concerns? Just fill out the form and our support team will get back to you within 24 hours.",
+      "First Name": "First Name",
+      "Last Name": "Last Name",
+      "Phone Number": "Phone Number",
+      "Email": "Email",
+      "Message": "Message",
+      "Submit now": "Submit now",
+      "Our Services": "Our Services",
+      "Digital transformation": "Digital transformation",
+      "R&D services": "R&D services",
+      "Outsourcing services": "Outsourcing services",
+      "Product development": "Product development",
+      "Get In Touch": "Get In Touch",
+      "7 Cong Hoa St": "7 Cong Hoa St.,",
+      "Ward 4, Tan Binh Dist": "Ward 4, Tan Binh Dist.,",
+      "Ho Chi Minh City, Vietnam": "Ho Chi Minh City, Vietnam.",
+      "Monday - Friday": "Monday - Friday",
+      "Time": "9:00 AM - 6:00 PM",
+      "Newsletter": "Newsletter",
+      "Stay up to update": "Stay up to update with our latest news and products.",
+      "Your email address": "Your email address",
+      "Subscribe Now": "Subscribe Now",
+      "copyright": "Copyright ©2022 ARI Technology Co ., JSC. All rights reserved."
+    },
+    "home": {
+      "Enhance Vietnam": "Enhance Vietnam’s intellectual value",
+      "Choose the service": "Choose the service you want us to help with",
+      "Digital Transformation": "Digital Transformation",
+      "R&D Services": "R&D Services",
+      "Outsourcing Services": "Outsourcing Services",
+      "Product Development": "Product Development",
+      "Get Started": "Get Started",
+      "ABOUT": "ABOUT",
+      "ARI is one of the": "ARI is one of the",
+      "Best Technical Agency": "Best Technical Agency",
+      "about-1": "ARI Technology Joint Stock Company was established in 2018 and headquartered in Ho Chi Minh City.",
+      "about-2": "We specialize in consulting and delivering digital transformation solutions to address real-world problems, help customers to overcome their business challenges to achieve the highest business operations efficiency.",
+      "about-3": "With a team of young and creative talents, ARI always aims at the most innovative and top-notch quality products, ensuring that those products will satisfy the customer’s needs.",
+      "Our Mission": "Our Mission",
+      "We provide": "We provide Software Engineering & Consulting",
+      "Services": "Services",
+      "A right choice": "A right choice that makes the difference to others",
+      "ARI not only strives": "ARI not only strives to become one of the leading technology companies of Industrial Revolution 4.0 in Vietnam, but also a reliable outsourcing company that provides high-quality software development services at a competitive price.",
+      "Core Value": "Core Value",
+      "Executive Board": "Executive Board",
+      "We love": "“We love integrating technology into our daily life, making a more comfortable and relaxing life.”",
+      "See more": "See more"
+    },
+    "about": {
+      "member": {
+        "Title": "Our Core Team",
+        "Description": "We love integrating technology into our daily life, making a more comfortable and relaxing life."
       },
-      "reset-password": {
-        "Recovery Email": "Recovery Email",
-        "Enter Recovery Email": "Enter Recovery Email",
-        "title": "Reset Password",
-        "Submit": "Submit",
-        "Back To Login": "Submit"
+      "tech": {
+        "Title": "About Tech",
+        "Description": "We are continuously learning and developing our expertise to meet the growing market demands."
       }
     },
-    "admin": {
-      "Layout": {
-        "Search": "Search",
-        "English": "English",
-        "Vietnam": "Vietnamese",
-        "Available": "Available",
-        "Account Setting": "Account Setting",
-        "Sign out": "Sign out",
-        "Mark all as read": "Mark all as read",
-        "Setting": "Setting",
-        "Notifications": "Notifications",
-        "See All": "See All",
-        "Add": "Add new",
-        "Edit": "Edit",
-        "Delete": "Delete",
-        "My Profile": "My Profile",
-        "No Data": "No Data",
-        "Pagination": "Show {{from}} - {{to}} /Total {{total}} categories",
-        "User": "Show {{from}} - {{to}} /Total {{total}} user",
-        "Day": "day"
-      },
-      "user": {
-        "Role": "Role",
-        "Position": "Position",
-        "Team": "Team",
-        "Start Date": "Start Date",
-        "Remaining Leave Day": "Remaining Leave Day",
-        "Date of birth": "Date of birth",
-        "Name": "Name",
-        "Is System Admin": "Is System Admin",
-        "Permissions": "Permissions",
-        "Description": "Description",
-        "Upload avatar": "Upload avatar",
-        "Full name": "Full Name",
-        "Phone Number": "Phone Number",
-        "Action": "Action"
-      },
-      "Code": {
-        "Type": "Type Code",
-        "New Type": "New Type",
-        "Name": "Name Code"
-      },
-      "Data": {
-        "Type": "Type Data",
-        "Name": "Name Data",
-        "Order": "Order",
-        "Image": "Image",
-        "Created At": "Created At"
-      },
-      "Post": {
-        "Type": "Type Post",
-        "Name": "Name"
-      },
-      "dashboard":{
-        "Active Profile Report":"Active Profile Report",
-        "Total Profile": "Total Profile",
-        "Activated Profile":"Activated Profile",
-        "New Custommers":"New Custommers",
-        "User Purchasing Report":"User Purchasing Report",
-        "Free":"Free",
-        "Silver":"Silver",
-        "Gold":"Gold",
-        "Platinum":"Platinum",
-        "Seller Profiles":"Seller Profiles",
-        "Buyer Profiles":"Buyer Profiles",
-        "Introductions":"Introductions",
-        "Success Deal":"GSuccess Deal",
-        "Total Payment":"Total Payment",
-        "Partner Refund":"Partner Refund",
-        "Reference User":"Reference User",
-        "Sales Stats":"Sales Stats",
-        "Sales":"Sales",
-        "Share of total":"Share of total",
-        "active profiles":"active profiles",
-        "Total":"Total",
-        "active profile in":"active profile in",
-        "Business Profiles Activity":"Business Profiles Activity",
-        "Franchise Profiles Activity":"Franchise Profiles Activity",
-        "Investor Profiles Activity":"nvestor Profiles Activityư",
-        "Monthly Profiles Activity":"Monthly Profiles Activity",
-        "Profile":"Profile",
-        "Package":"Package",
-        "Start Date":"Start Date",
-        "Status":"Status",
-        "Jan":"Jan",
-        "Feb":"Feb",
-        "Mar":"Mar",
-        "Apr":"Apr",
-        "May":"May",
-        "Jun":"Jun",
-        "Jul":"Jul",
-        "Aug":"Aug",
-        "Sep":"Sep",
-        "Oct":"Oct",
-        "Nov":"Nov",
-        "Dev":"Dev"
-      }
+    "news": {
+      "Title": "News",
+      "Description": "We Update News Everyday.",
+      "Other Related News": "Other Related News",
+      "More Up To Date News": "More Up To Date News"
+    },
+    "projects": {
+      "Title": "Successful Projects",
+      "Description": "Our Projects With Partners",
+      "Other Related Projects": "Other Related Projects",
+      "More Projects With Partners": "More Projects With Partners"
     }
   }
 }

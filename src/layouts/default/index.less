@@ -1,0 +1,42 @@
+.hamburger {
+  @apply flex self-center flex-col justify-between w-6 h-6 cursor-pointer ~'pt-1 pb-1';
+
+  span {
+    @apply self-end w-full bg-white transition-all duration-300 ease-in-out ~'h-0.5';
+  }
+  .meat {
+    @apply ~'w-10/12' transition-all duration-150 ease-in-out;
+  }
+  .bottom-bun {
+    @apply ~'w-7/12';
+  }
+  &:hover span {
+    @apply w-full;
+  }
+  &.body-menu-opened {
+    .top-bun {
+      @apply w-full -rotate-45 ~'translate-y-[0.42rem]';
+    }
+    .bottom-bun {
+      @apply w-full rotate-45 ~'-translate-y-[0.42rem]';
+    }
+    .meat {
+      @apply w-0;
+    }
+    &:hover {
+      @apply transition-transform duration-300 hover:rotate-90 ease-in-out;
+    }
+  }
+
+  &:not(.body-menu-opened):hover {
+    .top-bun {
+      @apply animate-burger-hover-2;
+    }
+    .meat {
+      @apply animate-burger-hover-4;
+    }
+    .bottom-bun {
+      @apply animate-burger-hover-6;
+    }
+  }
+}

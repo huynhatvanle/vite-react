@@ -13,33 +13,11 @@ export { setupStore, useAppDispatch, useTypedSelector, Action, Slice };
 export type { State };
 
 export * from './global';
-export * from './user';
-export * from './user/role';
-export * from './code';
-export * from './code/type';
 export * from './data';
-export * from './data/type';
 export * from './post';
-export * from './post/type';
-import {
-  globalSlice,
-  userSlice,
-  userRoleSlice,
-  codeSlice,
-  codeTypeSlice,
-  dataSlice,
-  dataTypeSlice,
-  postSlice,
-  postTypeSlice,
-} from './';
+import { globalSlice, dataSlice, postSlice } from './';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
-  [userSlice.name]: userSlice.reducer,
-  [userRoleSlice.name]: userRoleSlice.reducer,
-  [codeSlice.name]: codeSlice.reducer,
-  [codeTypeSlice.name]: codeTypeSlice.reducer,
   [dataSlice.name]: dataSlice.reducer,
-  [dataTypeSlice.name]: dataTypeSlice.reducer,
   [postSlice.name]: postSlice.reducer,
-  [postTypeSlice.name]: postTypeSlice.reducer,
 });

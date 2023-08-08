@@ -6,7 +6,7 @@ import i18n from 'i18next';
 
 import { API, keyRefreshToken, keyToken, keyUser, routerLinks } from '@utils';
 import { Message } from '@core/message';
-import { useAppDispatch, useTypedSelector, UserRole } from '@store';
+import { useAppDispatch, useTypedSelector } from '@store';
 import { CommonEntity } from '@models';
 
 const name = 'Auth';
@@ -81,7 +81,6 @@ export class User extends CommonEntity {
     public positionCode?: string,
     public retypedPassword?: string,
     public roleCode?: string,
-    public role?: UserRole,
     public createdAt?: string,
     public updatedAt?: string,
   ) {

@@ -8,120 +8,75 @@ import { GlobalFacade } from '@store';
 
 const pages = [
   {
-    layout: React.lazy(() => import('@layouts/auth')),
+    layout: React.lazy(() => import('src/layouts/default')),
     isPublic: true,
     child: [
       {
-        path: routerLinks('Login'),
-        component: React.lazy(() => import('@pages/login')),
-        title: 'Login',
+        path: routerLinks('Home'),
+        component: React.lazy(() => import('src/pages/home')),
+        title: 'Home',
       },
       {
-        path: routerLinks('ResetPassword'),
-        component: React.lazy(() => import('@pages/reset-password')),
-        title: 'Reset Password',
+        path: routerLinks('Techvn'),
+        component: React.lazy(() => import('src/pages/tech')),
+        title: 'Tech',
+      },
+      {
+        path: routerLinks('Techen'),
+        component: React.lazy(() => import('src/pages/tech')),
+        title: 'Tech',
+      },
+      {
+        path: routerLinks('Teamvn'),
+        component: React.lazy(() => import('src/pages/team')),
+        title: 'Team',
+      },
+      {
+        path: routerLinks('Teamen'),
+        component: React.lazy(() => import('src/pages/team')),
+        title: 'Team',
+      },
+      {
+        path: routerLinks('Newsen'),
+        component: React.lazy(() => import('src/pages/news')),
+        title: 'News',
+      },
+      {
+        path: routerLinks('Newsen') + '/:slug',
+        component: React.lazy(() => import('src/pages/news/detail')),
+        title: 'News Detail',
+      },
+      {
+        path: routerLinks('Newsvn'),
+        component: React.lazy(() => import('src/pages/news')),
+        title: 'News',
+      },
+      {
+        path: routerLinks('Newsvn') + '/:slug',
+        component: React.lazy(() => import('src/pages/news/detail')),
+        title: 'News Detail',
+      },
+      {
+        path: routerLinks('Projectsen'),
+        component: React.lazy(() => import('src/pages/news')),
+        title: 'Projects',
+      },
+      {
+        path: routerLinks('Projectsen') + '/:slug',
+        component: React.lazy(() => import('src/pages/news/detail')),
+        title: 'Projects Detail',
+      },
+      {
+        path: routerLinks('Projectsvn'),
+        component: React.lazy(() => import('src/pages/news')),
+        title: 'Projects',
+      },
+      {
+        path: routerLinks('Projectsvn') + '/:slug',
+        component: React.lazy(() => import('src/pages/news/detail')),
+        title: 'Projects Detail',
       },
     ],
-  },
-  {
-    layout: React.lazy(() => import('@layouts/admin')),
-    isPublic: false,
-    child: [
-      {
-        path: '/',
-        component: routerLinks('Dashboard'),
-      },
-      {
-        path: routerLinks('MyProfile'),
-        component: React.lazy(() => import('@pages/my-profile')),
-        title: 'MyProfile',
-      },
-      {
-        path: routerLinks('Dashboard'),
-        component: React.lazy(() => import('@pages/dashboard')),
-        title: 'Dashboard',
-      },
-      {
-        path: routerLinks('Code'),
-        component: React.lazy(() => import('@pages/code')),
-        title: 'Code',
-      },
-      {
-        path: routerLinks('Code') + '/:type/add',
-        component: React.lazy(() => import('@pages/code/add')),
-        title: 'Code/Add',
-      },
-      {
-        path: routerLinks('Code') + '/:type/:id/edit',
-        component: React.lazy(() => import('@pages/code/add')),
-        title: 'Code/Edit',
-      },
-      {
-        path: routerLinks('Data'),
-        component: React.lazy(() => import('@pages/data')),
-        title: 'Data',
-      },
-      {
-        path: routerLinks('Data') + '/:type/add',
-        component: React.lazy(() => import('@pages/data/add')),
-        title: 'Data/Add',
-      },
-      {
-        path: routerLinks('Data') + '/:type/:id/edit',
-        component: React.lazy(() => import('@pages/data/add')),
-        title: 'Data/Edit',
-      },
-      {
-        path: routerLinks('DataType') + '/add',
-        component: React.lazy(() => import('@pages/data/type/add')),
-        title: 'DataType/Add',
-      },
-      {
-        path: routerLinks('DataType') + '/:id/edit',
-        component: React.lazy(() => import('@pages/data/type/add')),
-        title: 'DataType/Edit',
-      },
-      {
-        path: routerLinks('Post'),
-        component: React.lazy(() => import('@pages/post')),
-        title: 'Post',
-      },
-      {
-        path: routerLinks('Post') + '/:type/add',
-        component: React.lazy(() => import('@pages/post/add')),
-        title: 'Post/Add',
-      },
-      {
-        path: routerLinks('Post') + '/:type/:id/edit',
-        component: React.lazy(() => import('@pages/post/add')),
-        title: 'Post/Edit',
-      },
-      {
-        path: routerLinks('PostType') + '/add',
-        component: React.lazy(() => import('@pages/post/type/add')),
-        title: 'PostType/Add',
-      },
-      {
-        path: routerLinks('PostType') + '/:id/edit',
-        component: React.lazy(() => import('@pages/post/type/add')),
-        title: 'PostType/Edit',
-      },
-      {
-        path: routerLinks('User'),
-        component: React.lazy(() => import('@pages/user')),
-        title: 'User/List',
-      },
-      {
-        path: routerLinks('User') + '/:roleCode/add',
-        component: React.lazy(() => import('@pages/user/add')),
-        title: 'User/Add',
-      },
-      {
-        path: routerLinks('User') + '/:roleCode/:id/edit',
-        component: React.lazy(() => import('@pages/user/add')),
-        title: 'User/Edit',
-      },
-    ], // 💬 generate link to here
   },
 ];
 
