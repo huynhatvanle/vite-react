@@ -2,23 +2,25 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { language, languages, routerLinks } from '@utils';
-import { CategoryFacade, ProductFacade, TaxAdminFacade } from '@store';
+import { CategoryFacade, Product, ProductFacade, TaxAdminFacade } from '@store';
 import { Form } from '@core/form';
-import { DownArrow, Tags } from '@svgs';
+import { Tags } from '@svgs';
 import { Table } from 'antd';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { Message } from '@core/message';
+import { ModalForm } from '@core/modal/form';
 
 const Page = () => {
   const { t } = useTranslation();
   const productFacade = ProductFacade();
-  const { data, isLoading, queryParams, status } = productFacade;
+  const { data, isLoading, queryParams } = productFacade;
   const taxAdminFacare = TaxAdminFacade()
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
   const navigate = useNavigate();
+  const modalformRef = useRef<any>();
 
 
 
@@ -29,11 +31,16 @@ const Page = () => {
     if (id) {
       productFacade.getById({ id });
     }
-
     return () => {
-      isReload.current && productFacade.getById({ id });;
+      isReload.current && productFacade.getById({ id });
     };
   }, [id]);
+
+  useEffect(() => {
+    if (productFacade.status === 'putProduct.fulfilled') {
+      navigate(`/${lang}${routerLinks('inventory-management/product')}`)
+    }
+  }, [productFacade.status]);
 
   let i = 1;
 
@@ -66,6 +73,19 @@ const Page = () => {
       // substring(109, 125)
     };
   });
+
+  const listOptionreason = [
+    { label: 'Đơn vị cơ bản không đúng', value: 'Đơn vị cơ bản không đúng' },
+    { label: 'Danh mục sản phẩm không đúng', value: 'Danh mục sản phẩm không đúng' },
+    { label: 'Mô tả sản phẩm không phù hợp', value: 'Mô tả sản phẩm không phù hợp' },
+    { label: 'Bản đánh giá cửa hàng không phù hợp', value: 'Bản đ ánh giá cửa hàng không phù hợp' },
+    { label: 'Chiết khấu với BALANCE không phù hợp', value: 'Chiết khấu với BALANCE không phù hợp' },
+    { label: 'Khác', value: 'other' },
+  ];
+
+
+  const [other, setOrther] = useState<boolean>()
+
 
   return (
     <div className={'w-full rounded-2xl bg-white'}>
@@ -696,24 +716,24 @@ const Page = () => {
                   <Button
                     text={t('Từ chối yêu cầu')}
                     className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5 mr-5'}
-                    onClick={() => Message.warning({
+                    onClick={() => Message.confirm({
+                      title: 'Thông báo',
                       text: 'Bạn có chắc muốn từ chối sản phẩm này ?',
                       cancelButtonColor: '',
                       cancelButtonText: "Huỷ",
                       confirmButtonColor: '#134e4a',
                       showCloseButton: true,
                       showConfirmButton: true,
+                      onConfirm() {
+                        modalformRef?.current?.handleEdit({ data })
+                      },
                     })}
                   />
                   <Button
                     text={t('Phê duyệt yêu cầu')}
                     className={'md:min-w-[8rem] justify-center !bg-teal-900 max-sm:w-3/5'}
-                    onClick={() => Message.success({
-                      text: 'Phê duyệt thành công.',
-                      confirmButtonColor: "#e5e50f",
-                      showCloseButton: true,
-                      showConfirmButton: true,
-                    })}
+                    onClick={() => productFacade.putProduct({ id })
+                    }
                   />
                 </div>
               </div>
@@ -726,6 +746,60 @@ const Page = () => {
               />
             )
           }
+          <ModalForm
+            keyState=''
+            facade={productFacade}
+            className="form"
+            ref={modalformRef}
+            widthModal={600}
+            title={() => 'Thông tin chi tiết đơn hàng'}
+            columns={[
+
+              {
+                title: 'Lý do',
+                name: 'rejectReason',
+                formItem: {
+                  type: 'select',
+                  list: listOptionreason?.map((item) => ({
+                    label: item.label,
+                    value: item.value!
+                  })),
+                  onChange(value, form) {
+                    modalformRef?.current?.({
+                      filter: {
+                        type: form.getFieldValue('type'),
+                        rejectReason: value,
+                      },
+                    }),
+                      setOrther(true)
+                  },
+
+                }
+              },
+              {
+                title: '',
+                name: '',
+                formItem: {
+                  type: other ? 'hidden' : 'textarea',
+                  placeholder: 'Vui lòng nhập lý do của bạn',
+                  // rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
+                }
+              }
+            ]}
+            footerCustom={(handleOk, handleCancel) => (
+              <div className=" w-full bg-white ">
+                <div className="flex flex-col items-start mb-[33px] ml-[9px]">
+                  <button
+                    className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11"
+                    onClick={handleCancel}
+                  >
+                    {t('components.form.modal.cancel')}
+                  </button>
+                </div>
+              </div>
+            )}
+          // footerCustom={productFacade.data && productFacade.putProductreject({ id })}
+          />
         </div>
       </Fragment>
     </div>

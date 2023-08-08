@@ -2,6 +2,8 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { CommonEntity, PaginationQuery } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
+import { values } from 'cypress/types/lodash';
+import { Message } from '@core/message';
 
 const name = 'Product';
 
@@ -67,6 +69,7 @@ const action = {
     const { data } = await API.get<Product>(`${routerLinks(name, 'api')}/list/supplier-waiting-appprove`);
     return data || {};
   }),
+
   getById1: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id?: string; keyState: keyof State<Product> }) => {
     let { data } = await API.get<Product>(`${routerLinks(name, 'api')}/${id}`);
     const exportTaxId = data?.exportTax?.id;
@@ -74,7 +77,20 @@ const action = {
     const categoryId = data?.category?.id;
     data = { ...data, exportTaxId, importTaxId, categoryId }
     return { data, keyState };
+  },),
+
+  putProduct: createAsyncThunk(name + '/putProduct', async ({ id }: { id?: string }) => {
+    const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/approve/${id}`);
+    if (message) await Message.success({ text: message });
+    return statusCode;
+  },),
+
+  putProductreject: createAsyncThunk(name + '/putProductreject', async ({ id }: { id?: string }) => {
+    const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/reject/${id}`);
+    if (message) await Message.success({ text: message });
+    return statusCode;
   },)
+
 };
 
 export const productSlice = createSlice(new Slice<Product>(action, { result: {}, result2: {}, result3: {} }, (builder) =>
@@ -112,16 +128,39 @@ export const productSlice = createSlice(new Slice<Product>(action, { result: {},
       state.status = 'getproduct.pending';
     })
     .addCase(action.getproduct.fulfilled, (state: State, action: PayloadAction<Product>) => {
-      if (action.payload) {
+      if (action.payload.toString() === '200') {
         state.user = action.payload;
         state.status = 'getproduct.fulfilled';
       } else state.status = 'idle';
       state.isLoading = false;
     })
-    .addCase(action.getproduct.rejected, (state: State) => {
-      state.status = 'getproduct.rejected';
+
+
+    .addCase(
+      action.putProduct.pending,
+      (
+        state: State<Product>,
+        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+      ) => {
+        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+        state.queryParams = JSON.stringify(action.meta.arg);
+        state.isLoading = true;
+        state.status = 'putProduct.pending';
+      },
+    )
+    .addCase(action.putProduct.fulfilled, (state: State<Product>, action: any) => {
+      console.log(action.payload);
+
+      if (action.payload.toString() === '200') {
+        state.result = action.payload;
+        state.status = 'putProduct.fulfilled';
+      } else state.status = 'idle';
       state.isLoading = false;
     })
+    .addCase(action.putProduct.rejected, (state: State) => {
+      state.status = 'putProduct.rejected';
+      state.isLoading = false;
+    }),
 
 ));
 
@@ -130,7 +169,6 @@ export const ProductFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<Product>),
     set: (values: State<Product>) => dispatch(action.set(values)),
-    // get: (params: PaginationQuery<Product>) => dispatch(action.get(params)),
     get: ({
       page,
       perPage,
@@ -159,6 +197,8 @@ export const ProductFacade = () => {
     put: (values: Product) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),
     getproduct: () => dispatch(action.getproduct()),
+    putProduct: ({ id }: { id?: string }) => dispatch(action.putProduct({ id })),
+    putProductreject: ({ id }: { id?: string }) => dispatch(action.putProductreject({ id }))
   };
 };
 
@@ -247,7 +287,8 @@ export class Product extends CommonEntity {
           name: string
         },
       }
-    ]
+    ],
+    public rejectReason?: string
   ) {
     super();
   }
