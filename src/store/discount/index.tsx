@@ -14,7 +14,7 @@ const action = {
       page,
       perPage,
     }: {
-      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string }; status?: string };
+      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string }; status?: string; supplierId?: string };
       page?: number;
       perPage?: number;
     }) => {
@@ -26,6 +26,7 @@ const action = {
           perPage,
           filter: { dateFrom: filterDis.filter.dateFrom, dateTo: filterDis.filter.dateTo },
           status: filterDis.status,
+          supplierId: filterDis.supplierId,
         }),
       );
       let dataDiscount = Object.entries(data.data as Object)[0]?.[1];
@@ -36,8 +37,10 @@ const action = {
       return dataTemp;
     },
   ),
-  getIdDiscount: createAsyncThunk(name + '/getById', async ({ id }: { id: string }) => {
-    const data = await API.get<Discount>(`${routerLinks(name, 'api')}/detail/${id}`);
+  getIdDiscount: createAsyncThunk(name + '/get', async ({ id }: { id: string }) => {
+    const data1 = await API.get<Discount>(`${routerLinks(name, 'api')}/detail/${id}`);
+    const data = data1?.data?.subOrgCommisionPayment;
+
     return { data };
   }),
 };
@@ -81,7 +84,7 @@ export const DiscountFacade = () => {
       page,
       perPage,
     }: {
-      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string }; status?: string };
+      filter: { id?: string; filter: { dateFrom?: string; dateTo?: string }; status?: string; supplierId?: string };
       page?: number;
       perPage?: number;
     }) => dispatch(action.getDiscount({ perPage, page, filter })),
@@ -101,6 +104,10 @@ export class Discount extends CommonEntity {
     public status?: string,
     public paid?: string,
     public totalCommissionSupplier?: number,
+    public data?: {
+      subOrgCommisionPayment: {};
+    },
+    public subOrgCommisionPayment?: {},
   ) {
     super();
   }

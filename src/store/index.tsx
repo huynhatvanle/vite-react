@@ -39,6 +39,9 @@ export * from './connect-managerment';
 export * from './merchandise-managerment/tax';
 export * from './connect-managerment/confirm';
 export * from './store-management/list-for-connect';
+export * from './revenue-management/revenue-store';
+export * from './merchandise-managerment/tax';
+export * from './store-management/supplier-order';
 import {
   globalSlice,
   userSlice,
@@ -64,9 +67,11 @@ import {
   documentsubSlice,
   detailDiscountSlice,
   ConnectSlice,
-  taxSlice,
   ConfirmSlice,
-  ListconnectSlice
+  ListconnectSlice,
+  storeOderSlice,
+  taxSlice,
+  supplierOderSlice
 } from './';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
@@ -96,4 +101,7 @@ const rootReducer = combineReducers({
   [taxSlice.name]: taxSlice.reducer,
   [ConfirmSlice.name]: ConfirmSlice.reducer,
   [ListconnectSlice.name]: ListconnectSlice.reducer,
+  [storeOderSlice.name]: storeOderSlice.reducer,
+  [taxSlice.name]: taxSlice.reducer,
+  [supplierOderSlice.name]: supplierOderSlice.reducer,
 });

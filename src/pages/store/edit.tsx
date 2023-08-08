@@ -41,7 +41,6 @@ const Page = () => {
   const { data, isLoading, queryParams, status } = storeFacade;
   const categoryFacade = CategoryFacade()
   const supplierStoreFacade = SupplierStoreFacade()
-  console.log(invoiceRevenueFacade.status)
   // const isBack = useRef(true);
   const isReload = useRef(false);
   const param = JSON.parse(queryParams || '{}');
@@ -199,6 +198,15 @@ const Page = () => {
 
   useEffect(() => {
     if (activeKey == '5' && !isRevenueByOrder) {
+      dataTableRefInvoiceKiot.current?.onChange({
+        page: 1,
+        perPage: 10,
+        filter: {
+          idStore: id,
+          dateFrom: dayjs().subtract(1, 'month').format('YYYY/MM/DD 00:00:00').replace(/-/g, '/'),
+          dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
+        },
+      })
       connectSupplierFacade.get({
         page: 1,
         perPage: 10,
@@ -354,7 +362,7 @@ const Page = () => {
   // }, [productFacade.result2?.data])
 
   const [date, setDate] = useState<boolean>()
-
+  let stt = 1
   return (
     <div className="w-full">
       <Fragment>
@@ -1488,49 +1496,59 @@ const Page = () => {
                           name: 'supplier',
                           tableItem: {
                             width: 150,
-                            // render: (value: any, item: any) => item.supplier?.code,
+                            render: () => `${stt++}`
                           },
                         },
                         {
                           title: 'store.Revenue.Order code',
-                          name: 'supplier',
+                          name: 'invoiceCode',
                           tableItem: {
                             // render: (value: any, item: any) => item.supplier?.name,
                           },
                         },
                         {
                           title: 'store.Revenue.Sale date',
-                          name: 'supplier',
+                          name: 'completedDate',
                           tableItem: {
-                            // render: (value: any, item: any) => item.supplier?.name,
+                            render: (text: string) =>
+                              text ? dayjs(text).format('DD/MM/YYYY').replace(/-/g, '/') : '',
                           },
                         },
                         {
                           title: 'store.Revenue.Value (VND)',
-                          name: 'supplier',
+                          name: 'revenue',
                           tableItem: {
-                            // render: (value: any, item: any) => item.supplier?.name,
+                            render: (text: string) => text.toLocaleString(),
                           },
                         },
                         {
                           title: 'store.Revenue.Discount (VND)',
-                          name: 'supplier',
+                          name: 'discount',
                           tableItem: {
-                            // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
+                            render: (text: string) => text.toLocaleString(),
                           },
                         },
                         {
                           title: 'store.Revenue.Total amount (VND)',
-                          name: 'supplier',
+                          name: 'total',
                           tableItem: {
-                            // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                            render: (text: string) => text.toLocaleString(),
                           },
                         },
                         {
                           title: 'store.Revenue.Order type',
-                          name: 'supplier',
+                          name: 'type',
                           tableItem: {
-                            // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                            render: (text: string, item: any) =>
+                              item?.type === 'DELEVERED' ? (
+                                <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                  {t('supplier.Sup-Status.Sell goods')}
+                                </div>
+                              ) : (
+                                <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
+                                  {t('supplier.Sup-Status.Return goods')}
+                                </div>
+                              ),
                           },
                         },
                       ]}
@@ -1699,12 +1717,12 @@ const Page = () => {
                         tableItem: {
                           width: 150,
                           sorter: true,
-                          // render: (value: any, item: any) => item.supplier?.code,
+                          render: () => `${stt++}`
                         },
                       },
                       {
                         title: 'store.Inventory management.Product code',
-                        name: 'supplier1',
+                        name: 'productCode',
                         tableItem: {
                           sorter: true,
                           // render: (value: any, item: any) => item.supplier?.name,
@@ -1712,39 +1730,44 @@ const Page = () => {
                       },
                       {
                         title: 'store.Inventory management.Product name',
-                        name: 'supplier2',
+                        name: 'productName',
                         tableItem: {
                           sorter: true,
-                          // render: (value: any, item: any) => item.supplier.address?.street + ', ' + item.supplier.address?.ward.name + ', ' + item.supplier.address?.district.name + ', ' + item.supplier.address?.province.name,
                         },
                       },
                       {
                         title: 'store.Barcode',
-                        name: 'supplier3',
+                        name: 'barcode',
                         tableItem: {
                           sorter: true,
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.name,
                         },
                       },
                       {
                         title: 'product.SupplierName',
-                        name: 'supplier',
+                        name: 'supplierName',
                         tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                         },
                       },
                       {
                         title: 'product.Revenue',
-                        name: 'supplier',
+                        name: 'revenue',
                         tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
                         },
                       },
                       {
                         title: 'product.Status',
-                        name: 'supplier',
+                        name: 'status',
                         tableItem: {
-                          // render: (value: any, item: any) => item.supplier.userRole[0].userAdmin.phoneNumber,
+                          render: (text: string, item: any) =>
+                            item?.status === 'APPROVED' ? (
+                              <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                {t('supplier.Sup-Status.Sell goods')}
+                              </div>
+                            ) : (
+                              <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
+                                {t('supplier.Sup-Status.Return goods')}
+                              </div>
+                            ),
                         },
                       },
                     ]}

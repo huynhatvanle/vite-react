@@ -2,19 +2,15 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { Edit, Infor, Plus, Trash } from '@svgs';
+import { Edit, Infor, Plus, Question, Trash } from '@svgs';
 import { TaxFacade } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
-import { lang, language, languages, routerLinks } from '@utils';
 import { Popconfirm, Tooltip } from 'antd';
 import { ModalForm } from '@core/modal/form';
-import { DataTableModel, FormModalRefObject } from '@models';
-import Input from 'antd/es/input/Input';
 
 const Page = () => {
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const isReload = useRef(false);
     const taxFacade = TaxFacade();
     const { status, queryParams } = taxFacade;
@@ -22,7 +18,6 @@ const Page = () => {
     const modalFormRef = useRef<any>();
     const dataTableRef = useRef<any>();
     useEffect(() => {
-        console.log(status)
         switch (status) {
             case 'put.fulfilled':
                 dataTableRef?.current?.onChange!({ page: 1, perPage: 10 });
@@ -92,7 +87,9 @@ const Page = () => {
                         title: 'tax.action',
                         name: 'action',
                         tableItem: {
+                            width: 100,
                             align: 'center',
+                            fixed: window.innerWidth < 1024 ? 'right' : undefined,
                             onCell: () => ({
                                 style: { paddingTop: '0.25rem', paddingBottom: '0.25rem' },
                             }),
@@ -110,10 +107,11 @@ const Page = () => {
                                     <Tooltip title={t('routes.admin.Layout.Delete')}>
                                         <Popconfirm
                                             placement="left"
-                                            title={t('components.datatable.areYouSureWant')}
+                                            title={t('components.datatable.areYouSureWantTax')}
                                             onConfirm={() => dataTableRef?.current?.handleDelete!(data.id)}
-                                            okText={t('components.datatable.ok')}
-                                            cancelText={t('components.datatable.cancel')}
+                                            okText={t('components.datatable.yes')}
+                                            cancelText={t('components.datatable.no')}
+                                            icon={<Question className='w-6 h-6 text-yellow-500 -ml-1.5 -mt-0.5' />}
                                         >
                                             <button title={t('routes.admin.Layout.Delete') || ''}>
                                                 <Trash className="icon-cud !fill-red-500" />
@@ -154,10 +152,11 @@ const Page = () => {
                         name: 'taxRate',
                         formItem: {
                             type: 'number',
+                            placeholder: 'Nhập thuế',
                             rules: [{ type: 'required', message: 'components.form.ruleRequiredPassword' },
                             {
                                 type: 'custom',
-                                validator: ({ getFieldValue }) => ({
+                                validator: () => ({
                                     validator(rule, value: string) {
                                         if (Number(value) < 0 || Number(value) > 999)
                                             return Promise.reject(t('components.form.ruleNumber', { min: 0, max: 999 }));
@@ -166,7 +165,7 @@ const Page = () => {
                                 }),
                             },
                             ],
-                            placeholder: 'Nhập thuế',
+                            convert: (data) => data ? data.toString() : '',
                         }
                     },
                     {

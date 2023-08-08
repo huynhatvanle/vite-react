@@ -337,18 +337,16 @@ export const Form = ({
       case 'number':
         return (
           <input
-            type='number'
+            type="number"
             tabIndex={formItem.tabIndex || index}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
-            className={classNames(
-              'w-full h-10 text-gray-600 bg-white px-4 ant-input border rounded-xl',
-              {
-                'bg-gray-100 text-gray-400': !!formItem.disabled && formItem.disabled(values, form),
-              },
-            )}
+            className={classNames('w-full h-10 text-gray-600 bg-white px-4 ant-input border rounded-xl', {
+              'bg-gray-100 text-gray-400': !!formItem.disabled && formItem.disabled(values, form),
+            })}
             placeholder={
               t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
             }
+            onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
             onChange={(e) => formItem.onChange && formItem.onChange(e.target.value, form, reRender)}
           />
         );
@@ -673,13 +671,13 @@ export const Form = ({
                   className={classNames(
                     column?.formItem?.classItem,
                     'col-span-12 col-store' +
-                    (' sm:col-span-' +
-                      (column?.formItem?.colTablet
-                        ? column?.formItem?.colTablet
-                        : column?.formItem?.col
+                      (' sm:col-span-' +
+                        (column?.formItem?.colTablet
+                          ? column?.formItem?.colTablet
+                          : column?.formItem?.col
                           ? column?.formItem?.col
                           : 12)) +
-                    (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
+                      (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
                   )}
                   key={index}
                 >

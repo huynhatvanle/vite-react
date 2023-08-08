@@ -8,6 +8,9 @@
       "reset": "Cài lại",
       "search": "Tìm kiếm",
       "areYouSureWant": "Bạn có chắc muốn xóa ?",
+      "areYouSureWantTax": "Bạn có chắc muốn xóa thuế này ?",
+      "yes": "Xóa",
+      "no": "Hủy",
       "cancel": "Huỷ bỏ",
       "ok": "Đồng ý",
       "No Data": "Trống"
@@ -128,9 +131,17 @@
     "requestdetail":"Chi tiết yêu cầu",
     "informationstore":"Thông tin cửa hàng",
     "informationstoreRequestSupplier":"Thông tin nhà cung cấp",
+    "revenue-management": "Quản lý doanh thu",
+    "revenue-management/store": "Doanh thu CH",
+    "Store-Revenue": "Doanh thu cửa hàng",
+    "Store-Revenue/Order": "Doanh thu theo đơn hàng",
+    "Store-Revenue/Product": "Doanh thu theo sản phẩm",
     "Merchandise-managerment": "Quản lý hàng hóa",
     "Merchandise-Managerment/Tax": "Quản lý thuế",
-    "Tax": "Thuế"
+    "Tax": "Thuế",
+    "revenue-management/discount": "Chiết khấu NCC",
+    "revenue-management/supplier": "Doanh thu NCC",
+    "Supplier-Revenue": "Doanh thu nhà cung cấp"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -152,7 +163,11 @@
     "Supplier/Edit": "Quản Lý Nhà Cung Cấp",
     "Contract-View": "Quản Lý Hợp Đồng",
     "Merchandise-Managerment/Product/Detail": "Quản lý hàng hóa",
-    "Merchandise-Managerment/Tax": "Thuế"
+    "MerchandiseManagermentCategory": "Danh mục",
+    "Store-Revenue": "Doanh thu cửa hàng",
+    "Merchandise-Managerment/Tax": "Thuế",
+    "Supplier-Revenue": "Doanh thu nhà cung cấp",
+    "revenue-management/discount": "Chiết khấu NCC"
   },
   "columns": {
     "auth": {

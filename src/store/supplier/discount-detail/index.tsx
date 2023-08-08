@@ -17,6 +17,7 @@ const action = {
         page,
         perPage,
       });
+
       return data;
     },
   ),

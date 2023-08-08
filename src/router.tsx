@@ -126,6 +126,11 @@ const pages = [
         title: 'Merchandise-Managerment/Product/Detail',
       },
       {
+        path: routerLinks('MerchandiseManagermentCategory'),
+        component: React.lazy(() => import('@pages/merchandise-managerment/category/index')),
+        title: 'MerchandiseManagermentCategory',
+      },
+      {
         path: routerLinks('Tax'),
         component: React.lazy(() => import('@pages/merchandise-managerment/tax/index')),
         title: 'Merchandise-Managerment/Tax',
@@ -139,6 +144,20 @@ const pages = [
         path: routerLinks('connect-managerment/connect') + '/:id',
         component: React.lazy(() => import('@pages/connect-managerment/connect/edit')),
         title: 'connect-managerment/connect',
+      }, {
+        path: routerLinks('revenue-management/store'),
+        component: React.lazy(() => import('@pages/revenue-management/store/index')),
+        title: 'Store-Revenue',
+      },
+      {
+        path: routerLinks('revenue-management/discount'),
+        component: React.lazy(() => import('@pages/revenue-management/discount/index')),
+        title: 'revenue-management/discount',
+      },
+      {
+        path: routerLinks('revenue-management/supplier'),
+        component: React.lazy(() => import('@pages/revenue-management/supplier/index')),
+        title: 'Supplier-Revenue',
       },
     ], // 💬 generate link to here
   },
