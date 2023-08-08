@@ -101,3 +101,39 @@ svg {
 .ant-tree-node-content-wrapper {
   @apply w-full;
 }
+.html-render {
+@apply text-justify;
+  .caption {
+  @apply bg-blue-50 border border-blue-200 mt-1 py-1 px-2 inline-block;
+  }
+  p {
+  @apply mb-3;
+  }
+  img {
+  @apply mx-auto;
+  }
+  h1 {
+  @apply text-5xl text-blue-900 mb-7;
+  }
+  h2 {
+  @apply text-4xl text-blue-900 mb-6;
+  }
+  h3 {
+  @apply text-3xl text-blue-900 mb-5;
+  }
+  h4 {
+  @apply text-2xl text-blue-900 mb-4;
+  }
+  h5 {
+  @apply text-xl text-blue-900 mb-4;
+  }
+  h6 {
+  @apply text-lg text-blue-900 mb-4;
+  }
+}
+.truncate-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

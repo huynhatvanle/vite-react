@@ -88,7 +88,7 @@ export class User extends CommonEntity {
     super();
   }
 }
-const checkLanguage = (language: string) => {
+const checkLanguage = (language: TLanguage) => {
   const formatDate = language === 'vn' ? 'DD-MM-YYYY' : 'DD-MM-YYYY';
   const locale = language === 'vn' ? viVN : enUS;
   dayjs.locale(language === 'vn' ? 'vi' : language);
@@ -97,6 +97,7 @@ const checkLanguage = (language: string) => {
 };
 const initialState: State = {
   data: {},
+  routeLanguage: undefined,
   user: JSON.parse(localStorage.getItem(keyUser) || '{}'),
   isLoading: false,
   isVisible: false,
@@ -112,13 +113,14 @@ export const globalSlice = createSlice({
   name: action.name,
   initialState,
   reducers: {
-    setLanguage: (state: State, action: PayloadAction<string>) => {
+    setLanguage: (state: State, action: PayloadAction<TLanguage>) => {
       if (action.payload !== state.language) {
         const { language, formatDate, locale } = checkLanguage(action.payload);
         i18n.changeLanguage(language);
         state.formatDate = formatDate;
         state.locale = locale;
-        state.pathname = location.pathname.replace('/' + state.language + '/', '/' + action.payload + '/');
+        if (state.routeLanguage) state.pathname = state.routeLanguage[language];
+        else state.pathname = location.pathname.replace('/' + state.language + '/', '/' + action.payload + '/');
         state.language = language;
       }
     },
@@ -258,10 +260,12 @@ export const globalSlice = createSlice({
       });
   },
 });
+export type TLanguage = 'vn' | 'en';
 interface State {
   [selector: string]: any;
   user?: User;
   data?: resetPassword | { email?: string } | { password?: string; email?: string };
+  routeLanguage?: Record<string, string>;
   isLoading?: boolean;
   isVisible?: boolean;
   status?: string;
@@ -269,7 +273,7 @@ interface State {
   titleOption?: object;
   pathname?: string;
   formatDate?: string;
-  language?: string;
+  language?: TLanguage;
   breadcrumbs?: Breadcrumb[];
   locale?: typeof viVN | typeof enUS;
 }
@@ -284,6 +288,6 @@ export const GlobalFacade = () => {
     login: (values: { password: string; email: string }) => dispatch(action.login(values)),
     forgottenPassword: (values: { email: string }) => dispatch(action.forgottenPassword(values)),
     resetPassword: (values: resetPassword) => dispatch(action.resetPassword(values)),
-    setLanguage: (value: string) => dispatch(globalSlice.actions.setLanguage(value)),
+    setLanguage: (value: TLanguage) => dispatch(globalSlice.actions.setLanguage(value)),
   };
 };
