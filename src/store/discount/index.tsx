@@ -37,11 +37,10 @@ const action = {
       return dataTemp;
     },
   ),
-  getIdDiscount: createAsyncThunk(name + '/get', async ({ id }: { id: string }) => {
-    const data1 = await API.get<Discount>(`${routerLinks(name, 'api')}/detail/${id}`);
-    const data = data1?.data?.subOrgCommisionPayment;
-
-    return { data };
+  getIdDiscount: createAsyncThunk(name + '/getById', async ({ id }: { id: string }) => {
+    const data = await API.get<Discount>(`${routerLinks(name, 'api')}/detail/${id}`);
+    // const data = data1?.data;
+    return  data ;
   }),
 };
 
@@ -104,10 +103,8 @@ export class Discount extends CommonEntity {
     public status?: string,
     public paid?: string,
     public totalCommissionSupplier?: number,
-    public data?: {
-      subOrgCommisionPayment: {};
-    },
-    public subOrgCommisionPayment?: {},
+    public subOrgCommisionPayment?: {code: string, 
+    }[],
   ) {
     super();
   }

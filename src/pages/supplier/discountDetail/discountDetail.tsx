@@ -37,7 +37,8 @@ const Page = () => {
       isReload.current && discountFacade.get(param);
     };
   }, [id]);
-
+  
+  
   const handleBack = () => window.history.back();
   let i = 1;
 
@@ -50,7 +51,7 @@ const Page = () => {
               <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Chi tiết chiết khấu</p>
             </div>
             <Form
-              values={{ ...data }}
+              values={discountFacade}
               className="intro-x border-b"
               columns={[
                 {
@@ -65,11 +66,11 @@ const Page = () => {
                             <div className="flex mb-5">
                               <div className="font-semibold text-black ">Thời gian:</div>
                               <div className="ml-4">
-                                {dayjs(values?.data?.dateFrom, 'YYYY-MM-DDTHH:mm:ss')
+                                {dayjs(values?.data?.dateFrom)
                                   .format('DD/MM/YYYY')
-                                  .replace(/-/g, '/') +
-                                  '-' +
-                                  dayjs(values?.data?.dateTo, 'YYYY-MM-DDTHH:mm:ss')
+                                  .replace(/-/g, '/') + 
+                                  '-'  +
+                                  dayjs(values?.data?.dateTo)
                                     .format('DD/MM/YYYY')
                                     .replace(/-/g, '/')}
                               </div>
@@ -83,7 +84,7 @@ const Page = () => {
                             <div className="flex mb-5">
                               <div className="font-semibold text-black ">Trạng thái:</div>
                               <div className="ml-4">
-                                {values?.data?.status === 'NOT_PAID' ? 'Chưa thanh toán' : 'Đã thanh toán'}
+                                {values?.data?.status === 'NOT_PAID' ? 'Chưa thanh toán' : values?.data?.status === 'NOT_COMPLETED_PAID' ? 'Chưa hoàn tất': 'Đã thanh toán'}
                               </div>
                             </div>
                             <div className="flex mb-5">
@@ -93,7 +94,7 @@ const Page = () => {
                           </div>
                           <div className="flex w-full mb-5 lg:w-1/3">
                             <div className="font-semibold  text-black ">Cần thanh toán:</div>
-                            <div className="ml-4">{values?.data?.commisionTotal.toLocaleString()} VND</div>
+                            <div className="ml-4"> {(values?.data?.commisionTotal - values?.data?.totalPayment).toLocaleString()} VND</div>
                           </div>
                         </div>
                       );
@@ -170,9 +171,10 @@ const Page = () => {
             <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Danh sách thanh toán</p>
           </div>
           <div className="px-5 pb-4">
-            {discountFacade.result?.data && (
+            {discountFacade?.data?.subOrgCommisionPayment && (
               <DataTable
-                facade={discountFacade}
+                // facade={discountFacade}
+                data={discountFacade?.data?.subOrgCommisionPayment}
                 xScroll="895px"
                 showPagination={false}
                 pageSizeRender={(sizePage: number) => sizePage}
@@ -186,6 +188,8 @@ const Page = () => {
                     name: 'code',
                     tableItem: {
                       width: 170,
+                      
+                      
                     },
                   },
                   {
@@ -193,7 +197,7 @@ const Page = () => {
                     name: 'createdAt',
                     tableItem: {
                       width: 170,
-                      render: (text: any) => dayjs(text, 'YYYY-MM-DDTHH:mm:ss').format('DD/MM/YYYY').replace(/-/g, '/'),
+                      render: (text: any) => dayjs(text).format('DD/MM/YYYY').replace(/-/g, '/'),
                     },
                   },
                   {
@@ -209,7 +213,7 @@ const Page = () => {
                     name: 'paymentMethod',
                     tableItem: {
                       width: 170,
-                      render: (text: any) => (text === 'BANK_TRANSFER' ? 'Chuyển khoản' : ':D'),
+                      render: (text: any) => (text === 'BANK_TRANSFER' ? 'Chuyển khoản' : 'Tiền mặt'),
                     },
                   },
                   {
@@ -224,7 +228,7 @@ const Page = () => {
                           </div>
                         ) : text === 'DELIVERED' ? (
                           <div className="bg-green-100 text-center p-1 border border-blue-500 text-blue-600 rounded">
-                            {t('Đẫ Chuyển')}
+                            {t('Đã Chuyển')}
                           </div>
                         ) : (
                           <div>aaaaaaaa</div>
