@@ -70,8 +70,9 @@ export const routerLinks = (name: string, type?: string) => {
     suborgcommisionline: '/sub-org-commision-line',
     Tax: '/mt-tax',
     Connect: '/store-request',
-    Confirm: '/store-request-supplier/accept-all',
-    Listconnect:'/list-for-connect'
+    Confirm: '/store-request-supplier',
+    Listconnect: '/list-for-connect',
+    delete: '/store-request-supplier',
 
   }; // 💬 generate api to here
 
