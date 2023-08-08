@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
+import { useAppDispatch, useTypedSelector, Action, Slice, State, TLanguage } from '@store';
 import { CommonEntity, PaginationQuery } from '@models';
 import { DataType } from './type';
 
@@ -22,6 +22,7 @@ export const DataFacade = () => {
 };
 export class Data extends CommonEntity {
   constructor(
+    public name?: string,
     public type?: string,
     public image?: string,
     public order?: number,
@@ -30,7 +31,7 @@ export class Data extends CommonEntity {
     public item?: DataType,
     public translations?: {
       id: string;
-      language: string;
+      language: TLanguage;
       name: string;
       description?: string;
       position?: string;
