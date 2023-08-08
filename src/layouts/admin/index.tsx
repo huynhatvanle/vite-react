@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 // import { getMessaging, isSupported, getToken, onMessage } from 'firebase/messaging';
 import { routerLinks, language, languages } from '@utils';
 import { Avatar } from '@core/avatar';
-import { GlobalFacade } from '@store';
+import { GlobalFacade, TLanguage } from '@store';
 import Menu from './menu';
 // import { firebaseConfig } from 'variable';
 import './index.less';
@@ -78,7 +78,9 @@ const Layout = ({ children }: PropsWithChildren) => {
       navigate(globalFacade.pathname);
     }
   }, [globalFacade.pathname]);
-
+  useEffect(() => {
+    if (!!globalFacade.language && globalFacade.title) document.title = t('pages.' + globalFacade.title || '');
+  }, [globalFacade.language]);
   const Header = ({ isCollapsed, isDesktop }: { isCollapsed: boolean; isDesktop: boolean }) => (
     <header
       className={classNames(
@@ -111,7 +113,7 @@ const Layout = ({ children }: PropsWithChildren) => {
             <Select
               aria-hidden="true"
               value={globalFacade?.language}
-              onChange={(e: string) => globalFacade.setLanguage(e)}
+              onChange={(e: TLanguage) => globalFacade.setLanguage(e)}
             >
               <Select.Option value="en">
                 <img

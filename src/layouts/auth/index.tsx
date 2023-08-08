@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect } from 'react';
 import { Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { GlobalFacade } from '@store';
+import { GlobalFacade, TLanguage } from '@store';
 import { Facebook, Twitter, Linkedin, Logo } from '@svgs';
 
 import './index.less';
@@ -65,7 +65,7 @@ const Layout = ({ children }: PropsWithChildren) => {
               <Select
                 aria-hidden="true"
                 value={globalFacade.language}
-                onChange={(e: string) => globalFacade.setLanguage(e)}
+                onChange={(e: TLanguage) => globalFacade.setLanguage(e)}
               >
                 <Select.Option value="en">
                   <img

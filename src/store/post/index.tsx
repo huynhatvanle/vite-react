@@ -32,7 +32,9 @@ export class Post extends CommonEntity {
       name: string;
       description?: string;
       slug: string;
-      content?: Record<string, object>;
+      content?: {
+        blocks: Record<string, object>[];
+      };
       postId?: string;
       post?: Post;
       createdAt?: string;

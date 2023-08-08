@@ -34,7 +34,9 @@ export class Data extends CommonEntity {
       name: string;
       description?: string;
       position?: string;
-      content?: Record<string, object>;
+      content?: {
+        blocks: Record<string, object>[];
+      };
       dataId?: string;
       data?: Data;
       createdAt?: string;
