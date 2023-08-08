@@ -28,7 +28,7 @@ export class Post extends CommonEntity {
     public createdAt?: string,
     public updatedAt?: string,
     public translations?: {
-      language: TLanguage;
+      language?: TLanguage;
       name: string;
       description?: string;
       slug: string;

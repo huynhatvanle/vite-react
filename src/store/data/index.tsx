@@ -25,13 +25,13 @@ export class Data extends CommonEntity {
     public name?: string,
     public type?: string,
     public image?: string,
-    public order?: number,
+    public order: number | null = null,
     public createdAt?: string,
     public updatedAt?: string,
     public item?: DataType,
     public translations?: {
       id: string;
-      language: TLanguage;
+      language?: TLanguage;
       name: string;
       description?: string;
       position?: string;
