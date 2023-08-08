@@ -30,7 +30,7 @@ const Page = () => {
   }, []);
   const listSupplier = supplierOrderFacade?.result?.data;
   const firstSupplier = listSupplier?.[0]?.id;
-
+  const discountTotal = discountFacade.result?.total?.totalNopay?.toLocaleString();
   const param = JSON.parse(queryParams || '{}');
   const { id } = useParams();
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
@@ -76,7 +76,7 @@ const Page = () => {
       <Fragment>
         <div className="">
           <div className={'w-full mx-auto '}>
-            <div className="px-5 bg-white pt-6 pb-4 rounded-xl rounded-tl-none">
+            <div className="px-5 bg-white sm:pt-6 pt-1 pb-4 rounded-xl">
               {listSupplier && (
                 <>
                   <DataTable
@@ -105,198 +105,204 @@ const Page = () => {
                       t('routes.admin.Layout.PaginationOrder', { from, to, total })
                     }
                     showSearch={false}
+                    leftHeader={
+                      <div className="flex xl:flex-row xl:gap-3 text-left flex-row-reverse w-full mt-4 sm:mt-0">
+                        <Form
+                          values={{
+                            dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
+                            dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
+                            status: getFilter(discountFacade.queryParams, 'status'),
+                            supplierId: getFilter(discountFacade.queryParams, 'supplierId'),
+                          }}
+                          className="intro-x rounded-lg w-full md:flex justify-between form-store xl:justify-start"
+                          columns={[
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 2,
+                                render: () => (
+                                  <div className="flex sm:h-10 sm:mt-0 mt-[-6px] sm:mb-0 mb-[2px] items-center">
+                                    <p className="whitespace-nowrap">{t('Kỳ hạn từ')}</p>
+                                  </div>
+                                ),
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'dateFrom',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'month_year',
+                                onChange(value: any, form: any) {
+                                  value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
+                                    ? setMonth(true)
+                                    : setMonth(false);
+                                  dataTableRefDiscount?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      id: form.getFieldValue('supplierId'),
+                                      filter: {
+                                        dateFrom: value
+                                          ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
+                                          : '',
+                                        dateTo: form.getFieldValue('dateTo')
+                                          ? form
+                                            .getFieldValue('dateTo')
+                                            .format('MM/DD/YYYY 23:59:59')
+                                            .replace(/-/g, '/')
+                                          : '',
+                                      },
+                                      status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                      supplierId: form.getFieldValue('supplierId'),
+                                    },
+                                  });
+                                },
+                              },
+                            },
+                            {
+                              title: '',
+                              name: '',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 1,
+                                render: () => (
+                                  <div className="flex sm:h-10 sm:mt-0 mt-[-6px] sm:mb-0 mb-[2px] items-center">
+                                    <p className="whitespace-nowrap">{t('Đến')}</p>
+                                  </div>
+                                ),
+                              },
+                            },
+                            {
+                              title: '',
+                              name: 'dateTo',
+                              formItem: {
+                                tabIndex: 3,
+                                col: 4,
+                                type: 'month_year',
+                                onChange(value: any, form: any) {
+                                  value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
+                                    ? setMonth(true)
+                                    : setMonth(false);
+                                  dataTableRefDiscount?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      id: form.getFieldValue('supplierId'),
+                                      filter: {
+                                        dateFrom: form.getFieldValue('dateFrom')
+                                          ? form
+                                            .getFieldValue('dateFrom')
+                                            .format('MM/DD/YYYY 00:00:00')
+                                            .replace(/-/g, '/')
+                                          : '',
+                                        dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
+                                      },
+                                      status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                      supplierId: form.getFieldValue('supplierId'),
+                                    },
+                                  });
+                                },
+                              },
+                            },
+                          ]}
+                        />
+                        {month && (
+                          <div className="w-full flex">
+                            <span className="sm:w-[526px] text-center sm:text-right text-red-500">
+                              Tháng kết thúc phải lớn hơn Tháng bắt đầu
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    }
+                    rightHeader={
+                      <div className="w-full mr-5 xl:mt-0 sm:mt-0 mt-[-8px]">
+                        <Form
+                          values={{
+                            dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
+                            dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
+                            status: getFilter(discountFacade.queryParams, 'status'),
+                            supplierId: getFilter(discountFacade.queryParams, 'supplierId'),
+                          }}
+                          className="intro-x md:flex form-discount xl:justify-end"
+                          columns={[
+                            {
+                              title: '',
+                              name: 'status',
+                              formItem: {
+                                placeholder: 'Chọn trạng thái',
+                                type: 'select',
+                                tabIndex: 3,
+                                col: 6,
+                                list: statusDiscount,
+                                onChange(value: any, form: any) {
+                                  dataTableRefDiscount?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      id: form.getFieldValue('supplierId'),
+                                      filter: {
+                                        dateFrom: form.getFieldValue('dateFrom'),
+                                        dateTo: form.getFieldValue('dateTo'),
+                                      },
+                                      status: value,
+                                      supplierId: form.getFieldValue('supplierId'),
+                                    },
+                                  });
+                                },
+                              },
+                            },
+                            {
+                              name: 'supplierId',
+                              title: '',
+                              formItem: {
+                                placeholder: 'Chọn nhà cung cấp',
+                                type: 'select',
+                                col: 6,
+                                list: listSupplier?.map((item) => ({
+                                  label: item?.name,
+                                  value: item?.id!,
+                                })),
+                                onChange(value: any, form: any) {
+                                  value ? setSupplier(false) : setSupplier(true);
+                                  dataTableRefDiscount?.current?.onChange({
+                                    page: 1,
+                                    perPage: 10,
+                                    filter: {
+                                      id: value ? value : firstSupplier,
+                                      filter: {
+                                        dateFrom: form.getFieldValue('dateFrom'),
+                                        dateTo: form.getFieldValue('dateTo'),
+                                      },
+                                      status: form.getFieldValue('status'),
+                                      supplierId: value ? value : '',
+                                    },
+                                  });
+                                },
+                              },
+                            },
+                          ]}
+                        />
+                        {supplier && (
+                          <div className="w-full flex">
+                            <span className="sm:w-[526px] text-center sm:text-right text-red-500">
+                              Vui lòng chọn nhà cung cấp
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    }
                     subHeader={() => (
-                      <>
-                        <div className="flex my-5 flex-col 2xl:flex-row">
-                          <div className="w-full">
-                            <Form
-                              values={{
-                                dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
-                                dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
-                                status: getFilter(discountFacade.queryParams, 'status'),
-                                supplierId: getFilter(discountFacade.queryParams, 'supplierId'),
-                              }}
-                              className="intro-x rounded-lg w-full sm:flex justify-between form-store"
-                              columns={[
-                                {
-                                  title: '',
-                                  name: '',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 2,
-                                    render: () => (
-                                      <div className="flex h-10 items-center">
-                                        <p className="whitespace-nowrap">{t('Kỳ hạn từ')}</p>
-                                      </div>
-                                    ),
-                                  },
-                                },
-                                {
-                                  title: '',
-                                  name: 'dateFrom',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 4,
-                                    type: 'month_year',
-                                    onChange(value: any, form: any) {
-                                      value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
-                                        ? setMonth(true)
-                                        : setMonth(false);
-                                      dataTableRefDiscount?.current?.onChange({
-                                        page: 1,
-                                        perPage: 10,
-                                        filter: {
-                                          id: form.getFieldValue('supplierId'),
-                                          filter: {
-                                            dateFrom: value
-                                              ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
-                                              : '',
-                                            dateTo: form.getFieldValue('dateTo')
-                                              ? form
-                                                  .getFieldValue('dateTo')
-                                                  .format('MM/DD/YYYY 23:59:59')
-                                                  .replace(/-/g, '/')
-                                              : '',
-                                          },
-                                          status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                          supplierId: form.getFieldValue('supplierId'),
-                                        },
-                                      });
-                                    },
-                                  },
-                                },
-                                {
-                                  title: '',
-                                  name: '',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 2,
-                                    render: () => (
-                                      <div className="flex h-10 items-center">
-                                        <p className="whitespace-nowrap">{t('Đến')}</p>
-                                      </div>
-                                    ),
-                                  },
-                                },
-                                {
-                                  title: '',
-                                  name: 'dateTo',
-                                  formItem: {
-                                    tabIndex: 3,
-                                    col: 4,
-                                    type: 'month_year',
-                                    onChange(value: any, form: any) {
-                                      value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
-                                        ? setMonth(true)
-                                        : setMonth(false);
-                                      dataTableRefDiscount?.current?.onChange({
-                                        page: 1,
-                                        perPage: 10,
-                                        filter: {
-                                          id: form.getFieldValue('supplierId'),
-                                          filter: {
-                                            dateFrom: form.getFieldValue('dateFrom')
-                                              ? form
-                                                  .getFieldValue('dateFrom')
-                                                  .format('MM/DD/YYYY 00:00:00')
-                                                  .replace(/-/g, '/')
-                                              : '',
-                                            dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
-                                          },
-                                          status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                          supplierId: form.getFieldValue('supplierId'),
-                                        },
-                                      });
-                                    },
-                                  },
-                                },
-                              ]}
-                            />
-                            {month && (
-                              <div className="w-full flex">
-                                <span className="sm:w-[526px] text-center sm:text-right text-red-500">
-                                  Tháng kết thúc phải lớn hơn Tháng bắt đầu
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                          <div className="sm:flex lg:justify-end w-full">
-                            <Form
-                              values={{
-                                dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
-                                dateTo: getFilter(discountFacade.queryParams, 'filter')?.dateTo,
-                                status: getFilter(discountFacade.queryParams, 'status'),
-                                supplierId: getFilter(discountFacade.queryParams, 'supplierId'),
-                              }}
-                              className="intro-x sm:flex justify-start sm:mt-2 xl:justify-end xl:mt-0 form-store"
-                              columns={[
-                                {
-                                  title: '',
-                                  name: 'status',
-                                  formItem: {
-                                    placeholder: 'Chọn trạng thái',
-                                    type: 'select',
-                                    tabIndex: 3,
-                                    col: 6,
-                                    list: statusDiscount,
-                                    onChange(value: any, form: any) {
-                                      dataTableRefDiscount?.current?.onChange({
-                                        page: 1,
-                                        perPage: 10,
-                                        filter: {
-                                          id: form.getFieldValue('supplierId'),
-                                          filter: {
-                                            dateFrom: form.getFieldValue('dateFrom'),
-                                            dateTo: form.getFieldValue('dateTo'),
-                                          },
-                                          status: value,
-                                          supplierId: form.getFieldValue('supplierId'),
-                                        },
-                                      });
-                                    },
-                                  },
-                                },
-                                {
-                                  name: 'supplierId',
-                                  title: '',
-                                  formItem: {
-                                    placeholder: 'Chọn nhà cung cấp',
-                                    type: 'select',
-                                    col: 6,
-                                    list: listSupplier?.map((item) => ({
-                                      label: item?.name,
-                                      value: item?.id!,
-                                    })),
-                                    onChange(value: any, form: any) {
-                                      value ? setSupplier(false) : setSupplier(true);
-                                      dataTableRefDiscount?.current?.onChange({
-                                        page: 1,
-                                        perPage: 10,
-                                        filter: {
-                                          id: value ? value : firstSupplier,
-                                          filter: {
-                                            dateFrom: form.getFieldValue('dateFrom'),
-                                            dateTo: form.getFieldValue('dateTo'),
-                                          },
-                                          status: form.getFieldValue('status'),
-                                          supplierId: value ? value : '',
-                                        },
-                                      });
-                                    },
-                                  },
-                                },
-                              ]}
-                            />
-                            {supplier && (
-                              <div className="w-full flex">
-                                <span className="sm:w-[526px] text-center sm:text-right text-red-500">
-                                  Vui lòng chọn nhà cung cấp
-                                </span>
-                              </div>
-                            )}
-                          </div>
+                      <div className="grid grid-cols-1 sm:w-64 sm:gap-4 mt-2 sm:mb-3 mb-4">
+                        <div className="w-full rounded-xl shadow-[0_0_9px_rgb(0,0,0,0.25)] pt-3 pb-5 px-5 text-center flex flex-col items-center justify-center h-28 mb-4">
+                          <h1 className="font-bold mb-3">{t('supplier.Sup-Discount.Discounts to be paid')}</h1>
+                          <span className="text-teal-900 text-xl font-bold mt-auto"> {discountTotal} VND</span>
                         </div>
-                      </>
+                      </div>
                     )}
                     searchPlaceholder={t('placeholder.Search by order number')}
                     columns={[
@@ -307,11 +313,10 @@ const Page = () => {
                           width: 70,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${
-                                  JSON.parse(discountFacade.queryParams || '{}').page *
-                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
-                                  stt1++
-                                }`
+                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
+                              JSON.parse(discountFacade.queryParams || '{}').perPage +
+                              stt1++
+                              }`
                               : `${stt1++}`,
                         },
                       },
@@ -430,11 +435,10 @@ const Page = () => {
                           { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'status')
-                              ? `${
-                                  statusDiscount.find((item) => {
-                                    return item.value === getFilter(discountFacade.queryParams, 'status');
-                                  })?.label
-                                }`
+                              ? `${statusDiscount.find((item) => {
+                                return item.value === getFilter(discountFacade.queryParams, 'status');
+                              })?.label
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -443,11 +447,10 @@ const Page = () => {
                           { title: 'Chọn cửa hàng:', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'supplierId')
-                              ? `${
-                                  listSupplier?.find((item) => {
-                                    return item.id === getFilter(discountFacade.queryParams, 'supplierId');
-                                  })?.name
-                                }`
+                              ? `${listSupplier?.find((item) => {
+                                return item.id === getFilter(discountFacade.queryParams, 'supplierId');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
