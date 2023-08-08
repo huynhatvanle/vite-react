@@ -1,6 +1,4 @@
 import React, { Fragment, useEffect } from 'react';
-import { animationSlide, lazyLoad, renderEditorjs } from '@utils';
-import { DataFacade, GlobalFacade, Post, PostFacade } from '@store';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
@@ -8,6 +6,8 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { Spin } from 'antd';
 
+import { animationSlide, lazyLoad, renderEditorjs } from '@utils';
+import { DataFacade, GlobalFacade, Post, PostFacade } from '@store';
 import { Arrow } from '@svgs';
 const Page = () => {
   const { t } = useTranslation();
@@ -28,13 +28,6 @@ const Page = () => {
   }, [location]);
 
   useEffect(() => {
-    switch (postFacade.status) {
-      case 'getBySlug.fulfilled':
-        lazyLoad();
-        break;
-    }
-  }, [postFacade.status]);
-  useEffect(() => {
     if (postFacade.data) {
       postFacade.data?.translations?.map((item) => {
         routeLanguage[item.language || 'vn'] += '/' + item.slug;
@@ -46,17 +39,16 @@ const Page = () => {
 
   const navigate = useNavigate();
   const changeRoute = (item: Post) => {
-    postFacade.set({ data: item });
+    postFacade.set({ data: undefined });
     window.scroll({ top: 0 });
-    setTimeout(
-      () =>
-        navigate(
-          `${routeLanguage[language || 'vn']}/${
-            item.translations?.filter((item: any) => item?.language === language)[0].slug
-          }` || '',
-        ),
-      0,
-    );
+    setTimeout(() => {
+      postFacade.set({ data: item });
+      navigate(
+        `${routeLanguage[language || 'vn']}/${
+          item.translations?.filter((item: any) => item?.language === language)[0].slug
+        }` || '',
+      );
+    }, 0);
   };
   return (
     <Fragment>
@@ -109,8 +101,8 @@ const Page = () => {
                 >
                   <img
                     alt={item.translations?.filter((item: any) => item?.language === language)[0].name}
-                    className="lazy w-full h-[400px] object-cover"
-                    data-src={item.thumbnailUrl}
+                    className="w-full h-[400px] object-cover"
+                    src={item.thumbnailUrl}
                   />
                   <div className="p-5">
                     <div className="font-bold text-xl text-sky-800 mb-5 h-14 line-clamp-2">

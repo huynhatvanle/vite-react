@@ -109,9 +109,15 @@ const Layout = ({ children }: PropsWithChildren) => {
                         ? item.children.map((sub: any, subIndex: number) => ({
                             key: subIndex,
                             label: (
-                              <Link to={sub.slug} key={subIndex}>
+                              <span
+                                onClick={() => {
+                                  window.scroll({ top: 0 });
+                                  navigate(sub.slug);
+                                }}
+                                key={subIndex}
+                              >
                                 {t('layout.header.' + sub.title)}
-                              </Link>
+                              </span>
                             ),
                           }))
                         : [],
@@ -119,7 +125,10 @@ const Layout = ({ children }: PropsWithChildren) => {
                   >
                     <span
                       className="text-white font-bold hover:text-white cursor-pointer"
-                      onClick={() => navigate(item.slug)}
+                      onClick={() => {
+                        window.scroll({ top: 0 });
+                        navigate(item.slug);
+                      }}
                     >
                       {t('layout.header.' + item.title)}
                     </span>
@@ -213,6 +222,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                     'border-b ': !item.children,
                   })}
                   onClick={() => {
+                    window.scroll({ top: 0 });
                     navigate(item.slug);
                     set_showMenu(false);
                   }}
@@ -226,6 +236,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                       key={subIndex}
                       className="text-white border-white py-3 flex justify-between pl-5"
                       onClick={() => {
+                        window.scroll({ top: 0 });
                         navigate(sub.slug);
                         set_showMenu(false);
                       }}
