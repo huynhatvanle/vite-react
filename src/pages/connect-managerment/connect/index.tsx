@@ -81,7 +81,6 @@ const Page = () => {
                     tableItem: {
                         render: (text: string) => (text ? dayjs(text).format(formatDateTime).replace(/-/g, '-') : ''),
                     },
-
                 },
                 {
                     title: 'store.status.status',
@@ -104,7 +103,7 @@ const Page = () => {
                         <div className="bg-red-50 text-center p-1 border border-red-500 rounded-lg text-red-500 w-[144px]">
                           {t('store.status.REJECT_BY_ADMIN')}
                         </div>
-                      ) ,
+                      ),
                     },
                 },
             ]}

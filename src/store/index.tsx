@@ -37,6 +37,8 @@ export * from './supplier/document-sub';
 export * from './supplier/discount-detail';
 export * from './connect-managerment';
 export * from './merchandise-managerment/tax';
+export * from './connect-managerment/confirm';
+export * from './store-management/list-for-connect';
 import {
   globalSlice,
   userSlice,
@@ -63,6 +65,8 @@ import {
   detailDiscountSlice,
   ConnectSlice,
   taxSlice,
+  ConfirmSlice,
+  ListconnectSlice
 } from './';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
@@ -90,4 +94,6 @@ const rootReducer = combineReducers({
   [detailDiscountSlice.name]: detailDiscountSlice.reducer,
   [ConnectSlice.name]: ConnectSlice.reducer,
   [taxSlice.name]: taxSlice.reducer,
+  [ConfirmSlice.name]: ConfirmSlice.reducer,
+  [ListconnectSlice.name]: ListconnectSlice.reducer,
 });

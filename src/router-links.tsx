@@ -37,6 +37,7 @@ export const routerLinks = (name: string, type?: string) => {
     Product: '/product',
 
     Tax: '/merchandise-managerment/tax',
+
     Connect: '/connect-managerment/connect',
     'connect-managerment/connect': '/connect-managerment/connect/edit',
   }; // 💬 generate link to here
@@ -68,7 +69,10 @@ export const routerLinks = (name: string, type?: string) => {
     documentsuborganiztion: '/document-sub-organiztion',
     suborgcommisionline: '/sub-org-commision-line',
     Tax: '/mt-tax',
-    Connect: '/store-request'
+    Connect: '/store-request',
+    Confirm: '/store-request-supplier/accept-all',
+    Listconnect:'/list-for-connect'
+
   }; // 💬 generate api to here
 
   switch (type) {
