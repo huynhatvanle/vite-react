@@ -38,7 +38,7 @@ const Page = () => {
   const dataTableRefDiscount = useRef<TableRefObject>(null);
   const modalFormRef = useRef<any>();
   let stt1 = 1;
-
+  let i=1;
   const statusDiscount = [
     {
       label: t('Đã thanh toán'),
@@ -61,12 +61,11 @@ const Page = () => {
   }
   const columnrevenueOrder: IExcelColumn[] = [
     { title: t('STT'), key: 'stt', dataIndex: 'STT' },
-    { title: t('Mã đơn hàng'), key: 'invoiceCode', dataIndex: 'invoiceCode' },
-    { title: t('Ngày bán'), key: 'completedDate', dataIndex: 'completedDate' },
-    { title: t('Giá trị (VND)'), key: 'total', dataIndex: 'total' },
-    { title: t('Khuyến mãi (VND)'), key: 'discount', dataIndex: 'discount' },
-    { title: t('Thành tiền (VND)'), key: 'revenue', dataIndex: 'revenue' },
-    { title: t('Loại đơn'), key: 'type', dataIndex: 'type' },
+    { title: t('Thời gian'), key: 'datefrom', dataIndex: 'datefrom' },
+    { title: t('Chiết khấu (VND)'), key: 'commision', dataIndex: 'commision' },
+    { title: t('Đã thanh toán (VND)'), key: 'paid', dataIndex: 'paid' },
+    { title: t('Chưa thanh toán (VND)'), key: 'noPay', dataIndex: 'noPay' },
+    { title: t('Trạng thái'), key: 'status', dataIndex: 'status' },
   ];
   const [month, setMonth] = useState<boolean>();
   const [supplier, setSupplier] = useState<boolean>();
@@ -363,7 +362,7 @@ const Page = () => {
                           render: (text: string, item: any) =>
                             text === 'PAID' ? (
                               <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                {t('Đẫ thaanh toán')}
+                                {t('Đã thanh toán')}
                               </div>
                             ) : text === 'NOT_PAID' ? (
                               <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
@@ -387,24 +386,24 @@ const Page = () => {
                       }
                       onClick={() => {
                         const inventory = discountFacade?.result?.data?.map((item) => {
-                          // return {
-                          //   STT: i++,
-                          //   discountFacadeCode: item.invoiceCode,
-                          //   completedDate: item.completedDate
-                          //     ? dayjs(item.completedDate).format('DD/MM/YYYY').replace(/-/g, '/')
-                          //     : '',
-                          //   total: item.total?.toLocaleString(),
-                          //   discount: item.discount?.toLocaleString(),
-                          //   revenue: item.revenue?.toLocaleString(),
-                          //   type:
-                          //     item.type === 'DELEVERED'
-                          //       ? t('Bán hàng')
-                          //       : item.type === 'REFUND'
-                          //       ? t('Trả hàng')
-                          //       : item.type === 'REFUND'
-                          //       ? t('Đã huỷ')
-                          //       : '',
-                          // };
+                          return {
+                            STT: i++,
+                            datefrom: item.datefrom
+                              ? dayjs(item.datefrom).format('MM/YYYY').replace(/-/g, '/') + '-' +
+                                dayjs(item?.dateto, 'YYYY-MM-DDTHH:mm:ss').format('MM/YYYY').replace(/-/g, '/')
+                              : '',
+                            commision: item.commision?.toLocaleString() ? item.commision?.toLocaleString(): '0',
+                            paid: item.paid?.toLocaleString() ? item.paid?.toLocaleString() :'0',
+                            noPay: item.noPay?.toLocaleString(),
+                            status:
+                              item.status === 'PAID'
+                                ? t('Đã thanh toán')
+                                : item.status === 'NOT_PAID'
+                                ? t('Chưa thanh toán')
+                                : item.status === 'NOT_COMPLETED_PAID'
+                                ? t('Chưa hoàn tất')
+                                : '',
+                          };
                         });
 
                         const excel = new Excel();
@@ -419,20 +418,32 @@ const Page = () => {
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
                           { title: '', dataIndex: '' },
-                          { title: '', dataIndex: '' },
-                          { title: 'BÁO CÁO DOANH THU CỬA HÀNG THEO ĐƠN HÀNG', dataIndex: '' },
+                          { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
                         ]);
                         // sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
-                          { title: 'Tìm kiếm:', dataIndex: '' },
+                          { title: 'Kỳ hạn từ', dataIndex: '' },
                           {
-                            title: JSON.parse(discountFacade.queryParams || '{}').fullTextSearch || '',
+                            title: getFilter(discountFacade.queryParams, 'filter')?.dateFrom
+                              ? dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateFrom).format('MM/YYYY')
+                              : '',
                             dataIndex: '',
                           },
                           { title: '', dataIndex: '' },
 
-                          { title: 'Chọn loại đơn hàng:', dataIndex: '' },
+                          { title: 'Đến', dataIndex: '' },
+                          {
+                            title: getFilter(discountFacade.queryParams, 'filter')?.dateTo
+                              ? dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateTo).format('MM/YYYY')
+                              : '',
+                            dataIndex: '',
+                          },
+                          { title: '', dataIndex: '' },
+                        ]);
+                        sheet.addRow();
+                        sheet.addColumns([
+                          { title: 'Chọn trạng thái', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'status')
                               ? `${statusDiscount.find((item) => {
@@ -444,7 +455,7 @@ const Page = () => {
                           },
                           { title: '', dataIndex: '' },
 
-                          { title: 'Chọn cửa hàng:', dataIndex: '' },
+                          { title: 'Chọn nhà cung cấp:', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'supplierId')
                               ? `${listSupplier?.find((item) => {
@@ -458,25 +469,9 @@ const Page = () => {
                         ]);
                         sheet.addRow();
                         sheet.addColumns([
-                          { title: 'Từ ngày', dataIndex: '' },
-                          {
-                            title: getFilter(discountFacade.queryParams, 'dateFrom')
-                              ? dayjs(getFilter(discountFacade.queryParams, 'dateFrom')).format('DD/MM/YYYY')
-                              : '',
-                            dataIndex: '',
-                          },
-                          { title: '', dataIndex: '' },
-
-                          { title: 'Đến ngày', dataIndex: '' },
-                          {
-                            title: getFilter(discountFacade.queryParams, 'dateTo')
-                              ? dayjs(getFilter(discountFacade.queryParams, 'dateTo')).format('DD/MM/YYYY')
-                              : '',
-                            dataIndex: '',
-                          },
-                          { title: '', dataIndex: '' },
+                          { title: 'Chiết khấu cần thanh toán:', dataIndex:''},
+                          { title: discountFacade.result?.total?.totalNopay?.toLocaleString(), dataIndex:''}
                         ]);
-                        sheet.addRow();
                         sheet.addRow();
                         sheet
                           .addColumns(columnrevenueOrder)
@@ -485,20 +480,19 @@ const Page = () => {
                           })
                           .addColumns([
                             { title: '', dataIndex: '' },
-                            { title: '', dataIndex: '' },
                             { title: 'Tổng cộng', dataIndex: '' },
-                            { title: discountFacade.result?.total?.total?.toLocaleString(), dataIndex: '' },
+                            { title: discountFacade.result?.total?.totalCommission?.toLocaleString(), dataIndex: '' },
                             {
-                              title: discountFacade.result?.total?.totalDiscount?.toLocaleString(),
+                              title: discountFacade.result?.total?.totalNopay?.toLocaleString(),
                               dataIndex: '',
                             },
                             {
-                              title: discountFacade.result?.total?.totalRevenue?.toLocaleString(),
+                              title: discountFacade.result?.total?.totalPaid?.toLocaleString(),
                               dataIndex: '',
                             },
                             { title: '', dataIndex: '' },
                           ])
-                          .saveAs(t('Doanh thu cửa hàng theo đơn hàng.xlsx'));
+                          .saveAs(t('Chiết khấu nhà cung cấp.xlsx'));
                       }}
                     />
                   </div>
