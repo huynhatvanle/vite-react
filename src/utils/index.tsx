@@ -94,7 +94,7 @@ export const renderEditorjs = (blocks: Record<string, object>[]) => {
             <div className="text-center py-5">
               <img alt={subItem.data.caption} src={subItem.data.file.url} />
               {subItem.data.caption && (
-                <caption className={''} dangerouslySetInnerHTML={{ __html: subItem.data.caption }} />
+                <span className={'caption'} dangerouslySetInnerHTML={{ __html: subItem.data.caption }} />
               )}
             </div>
           )}

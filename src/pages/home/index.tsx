@@ -123,7 +123,7 @@ const Page = () => {
               slidesPerView={1}
               className={'mt-14'}
               modules={[Pagination]}
-              pagination={true}
+              pagination={{ clickable: true, dynamicBullets: true }}
               onSlideChangeTransitionStart={(e) => animationSlide(e.slides[e.activeIndex], 0)}
             >
               {dataFacade.services.map((data, index) => (
@@ -213,7 +213,7 @@ const Page = () => {
               slidesPerView={1}
               className={'mt-14'}
               modules={[Pagination]}
-              pagination={true}
+              pagination={{ clickable: true, dynamicBullets: true }}
               onSlideChangeTransitionStart={(e) => animationSlide(e.slides[e.activeIndex], 0)}
             >
               {dataFacade.member

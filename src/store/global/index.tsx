@@ -84,7 +84,7 @@ export class User extends CommonEntity {
     super();
   }
 }
-const checkLanguage = (language: 'vn' | 'en') => {
+const checkLanguage = (language: TLanguage) => {
   const formatDate = language === 'vn' ? 'DD-MM-YYYY' : 'DD-MM-YYYY';
   const locale = language === 'vn' ? viVN : enUS;
   dayjs.locale(language === 'vn' ? 'vi' : language);
@@ -109,7 +109,7 @@ export const globalSlice = createSlice({
   name: action.name,
   initialState,
   reducers: {
-    setLanguage: (state: State, action: PayloadAction<'en' | 'vn'>) => {
+    setLanguage: (state: State, action: PayloadAction<TLanguage>) => {
       if (action.payload !== state.language) {
         const { language, formatDate, locale } = checkLanguage(action.payload);
         i18n.changeLanguage(language);
@@ -262,6 +262,7 @@ export const globalSlice = createSlice({
       });
   },
 });
+export type TLanguage = 'vn' | 'en';
 interface State {
   [selector: string]: any;
   user?: User;
@@ -273,7 +274,7 @@ interface State {
   title?: string;
   pathname?: string;
   formatDate?: string;
-  language?: 'vn' | 'en';
+  language?: TLanguage;
   breadcrumbs?: Breadcrumb[];
   locale?: typeof viVN | typeof enUS;
 }
@@ -288,7 +289,7 @@ export const GlobalFacade = () => {
     login: (values: { password: string; email: string }) => dispatch(action.login(values)),
     forgottenPassword: (values: { email: string }) => dispatch(action.forgottenPassword(values)),
     resetPassword: (values: resetPassword) => dispatch(action.resetPassword(values)),
-    setLanguage: (value: 'en' | 'vn') => dispatch(globalSlice.actions.setLanguage(value)),
+    setLanguage: (value: TLanguage) => dispatch(globalSlice.actions.setLanguage(value)),
     setPathname: (value: string) => dispatch(globalSlice.actions.setPathname(value)),
     setBreadcrumbs: (value: Breadcrumb[]) => dispatch(globalSlice.actions.setBreadcrumbs(value)),
   };

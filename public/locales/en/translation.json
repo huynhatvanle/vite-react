@@ -61,7 +61,9 @@
     "Tech": "About Tech",
     "Team": "Our Core Team",
     "News": "News",
-    "Projects": "Projects"
+    "News Detail": "News Detail",
+    "Projects": "Projects",
+    "Projects Detail": "Projects Detail"
   },
   "layout": {
     "header": {

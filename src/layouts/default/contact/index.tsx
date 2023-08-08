@@ -23,7 +23,7 @@ const SectionContact = () => {
             className={'mt-14'}
             spaceBetween={16}
             modules={[Pagination]}
-            pagination={true}
+            pagination={{ clickable: true, dynamicBullets: true }}
             breakpoints={{
               1366: {
                 slidesPerView: 5,

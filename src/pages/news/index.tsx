@@ -32,8 +32,12 @@ const Page = () => {
 
   const changeRoute = (item: Post) => {
     postFacade.set({ data: item });
-    navigate(
-      item.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0].slug || '',
+    setTimeout(
+      () =>
+        navigate(
+          item.translations?.filter((item: any) => item?.language === localStorage.getItem('i18nextLng'))[0].slug || '',
+        ),
+      0,
     );
   };
 

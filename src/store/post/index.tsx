@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { useAppDispatch, useTypedSelector, Action, Slice, State, Data } from '@store';
-import { CommonEntity, PaginationQuery } from '@models';
+import { useAppDispatch, useTypedSelector, Action, Slice, State, Data, TLanguage } from '@store';
+import { CommonEntity } from '@models';
 import { API, routerLinks } from '@utils';
 
 const name = 'Post';
@@ -81,7 +81,7 @@ export class Post extends CommonEntity {
     public createdAt?: string,
     public updatedAt?: string,
     public translations?: {
-      language: 'vn' | 'en';
+      language?: TLanguage;
       name: string;
       description?: string;
       slug: string;

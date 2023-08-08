@@ -49,7 +49,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    if (language && title) document.title = t('pages.' + title || '');
+    if (!!language && title) document.title = t('pages.' + title || '');
   }, [language]);
 
   return (

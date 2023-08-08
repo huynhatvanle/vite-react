@@ -61,7 +61,9 @@
     "Tech": "Công nghệ",
     "Team": "Đội ngũ phát triển chính",
     "News": "Tin tức",
-    "Projects": "Dự án"
+    "News Detail": "Chi tiết tin tức",
+    "Projects": "Dự án",
+    "Projects Detail": "Chi tiết dự án"
   },
   "layout": {
     "header": {

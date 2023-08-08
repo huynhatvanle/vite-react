@@ -37,24 +37,26 @@ const Page = () => {
   useEffect(() => {
     if (postFacade.data) {
       postFacade.data?.translations?.map((item) => {
-        routeLanguage[item.language] += '/' + item.slug;
-        if (item.language == language) document.title = item.name;
+        routeLanguage[item.language || 'vn'] += '/' + item.slug;
+        if (item.language == language) setTimeout(() => (document.title = item.name), 0);
       });
       set({ routeLanguage });
     }
-  }, [postFacade.data]);
+  }, [postFacade.data, language, location]);
 
   const navigate = useNavigate();
   const changeRoute = (item: Post) => {
     postFacade.set({ data: item });
     window.scroll({ top: 0 });
-    setTimeout(() => {
-      navigate(
-        `${routeLanguage[language || 'vn']}/${
-          item.translations?.filter((item: any) => item?.language === language)[0].slug
-        }` || '',
-      );
-    });
+    setTimeout(
+      () =>
+        navigate(
+          `${routeLanguage[language || 'vn']}/${
+            item.translations?.filter((item: any) => item?.language === language)[0].slug
+          }` || '',
+        ),
+      0,
+    );
   };
   return (
     <Fragment>
@@ -96,7 +98,7 @@ const Page = () => {
               slidesPerView={3}
               className={'mt-14'}
               modules={[Pagination]}
-              pagination={true}
+              pagination={{ clickable: true, dynamicBullets: true }}
               spaceBetween={16}
               onSlideChangeTransitionStart={(e) => animationSlide(e.slides[e.activeIndex], 0)}
             >

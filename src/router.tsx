@@ -109,7 +109,7 @@ const Page = ({
   const globalFacade = GlobalFacade();
 
   useEffect(() => {
-    document.title = t('pages.' + title || '');
+    document.title = t('pages.' + (title || ''));
     globalFacade.set({ title });
   }, [title]);
   return <Comp />;
