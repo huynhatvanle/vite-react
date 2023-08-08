@@ -61,8 +61,11 @@ const Page = () => {
                 }
                 break;
             case 'deleteConfirm.fulfilled':
-                isReload.current = true;
-                break;
+                if (id) connectFacade.getById({ id });
+
+                return () => {
+                    isReload.current && connectFacade.get(param);
+                };
         }
     }, [confirmFacade.status]);
 
@@ -71,7 +74,7 @@ const Page = () => {
         const storeRequestId = data?.id
         confirmFacade.put({ storeRequestId });
     };
-    const handleDelete = (id) => {
+    const handleDelete = (id: any) => {
 
         confirmFacade.delete({ id: id });
     };
