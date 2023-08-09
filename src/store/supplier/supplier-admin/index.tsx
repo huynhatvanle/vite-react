@@ -1,25 +1,26 @@
+
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CommonEntity, PaginationQuery, Responses } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 
-const name = 'SupplierStore';
+const name = 'SupplierAdmin';
 
 const action = {
-  ...new Action<SupplierStore>(name),
+  ...new Action<SupplierAdmin>(name),
   getAll: createAsyncThunk(
     name + '/getAll',
-    async ({ type, storeId }: { type: string, storeId?: string }) => await API.get(routerLinks(name, 'api'), { type, storeId }),
+    async ({ type }: { type: string }) => await API.get(routerLinks(name, 'api'), { type }),
   ),
 }
 
-export const supplierStoreSlice = createSlice(
-  new Slice<SupplierStore>(action, { result: {} }, (builder) =>
+export const supplierAdminSlice = createSlice(
+  new Slice<SupplierAdmin>(action, { result: {} }, (builder) =>
     builder
       .addCase(
         action.getAll.pending,
         (
-          state: State<SupplierStore>,
+          state: State<SupplierAdmin>,
           action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
         ) => {
           state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
@@ -29,7 +30,7 @@ export const supplierStoreSlice = createSlice(
         },
       )
 
-      .addCase(action.getAll.fulfilled, (state: State<SupplierStore>, action: any) => {
+      .addCase(action.getAll.fulfilled, (state: State<SupplierAdmin>, action: any) => {
         if (action.payload.data) {
           state.result = action.payload;
           state.status = 'getAll.fulfilled';
@@ -43,17 +44,16 @@ export const supplierStoreSlice = createSlice(
   ),
 );
 
-export const SupplierStoreFacade = () => {
+export const SupplierAdminFacade = () => {
   const dispatch = useAppDispatch();
   return {
-    ...(useTypedSelector((state) => state[action.name]) as State<SupplierStore>),
-    set: (values: State<SupplierStore>) => dispatch(action.set(values)),
-    // get: (params: PaginationQuery<SupplierStore>) => dispatch(action.get(params)),
-    get: ({ type, storeId }: { type: string, storeId?: string }) => dispatch(action.getAll({ type, storeId })),
+    ...(useTypedSelector((state) => state[action.name]) as State<SupplierAdmin>),
+    set: (values: State<SupplierAdmin>) => dispatch(action.set(values)),
+    get: ({ type }: { type: string }) => dispatch(action.getAll({ type })),
   };
 };
 
-export class SupplierStore extends CommonEntity {
+export class SupplierAdmin extends CommonEntity {
   constructor(
     public id?: string,
     public name?: string,
@@ -62,3 +62,4 @@ export class SupplierStore extends CommonEntity {
     super();
   }
 }
+

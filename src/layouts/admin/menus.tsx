@@ -14,8 +14,11 @@ const Layout = () => [
     name: 'Merchandise-managerment',
     child: [
       {
-        name: 'Tax',
+        name: 'inventory-management/product',
       },
+      {
+        name: 'Tax',
+      }
     ],
   },
   {

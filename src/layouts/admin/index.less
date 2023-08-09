@@ -125,13 +125,23 @@ main {
   .group-input {
     @apply !pt-0;
   .col-store {
-    @apply max-lg:col-span-12;
+    @apply col-span-12 lg:col-span-4;
   }
   }
 }
 .form-profile {
   .group-input {
     @apply !rounded-t-2xl;
+  }
+}
+.form-merchandise{
+  .group-input {
+      @apply !rounded-tr-2xl;
+    }
+}
+.form-merchandise2 {
+  .group-input {
+    @apply !rounded-tl-2xl;
   }
 }
 .form-profile-password {
@@ -149,11 +159,6 @@ main {
     @apply lg:!rounded-b-2xl;
   }
 }
-// .form-supplier-tab6{
-//   .group-input {
-//         @apply !p-3;
-//     }
-// }
 .form-col-tab6{
   .col-store{
     @apply !col-span-12 lg:!col-span-4;
@@ -246,13 +251,14 @@ main {
     @apply !gap-2;
   }
 }
-.ant-collapse>.ant-collapse-item>.ant-collapse-header{
+
+.ant-collapse>.ant-collapse-item>.ant-collapse-header {
   padding: 12px 8px;
   flex-direction: row-reverse;
   align-items: center;
 }
-.ant-collapse-expand-icon{
+
+.ant-collapse-expand-icon {
   color: white;
   width: 40px;
 }
-

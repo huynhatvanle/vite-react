@@ -138,9 +138,9 @@ export const Form = ({
             tabIndex={formItem.tabIndex || index}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             className={classNames(
-              'ant-input px-4 py-2.5 w-full rounded-xl text-gray-600 bg-white border border-solid input-description',
+              'ant-input px-4 py-2.5 w-full rounded-xl text-gray-600 bg-white border border-solid input-description ',
               {
-                'bg-gray-100 text-gray-400': !!formItem.disabled && formItem.disabled(values, form),
+                '!bg-gray-100 text-gray-400 !border-0': !!formItem.disabled && formItem.disabled(values, form),
               },
             )}
             rows={4}

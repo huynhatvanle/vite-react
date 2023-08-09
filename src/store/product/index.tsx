@@ -2,6 +2,8 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { CommonEntity, PaginationQuery } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
+import { values } from 'cypress/types/lodash';
+import { Message } from '@core/message';
 
 const name = 'Product';
 
@@ -25,19 +27,21 @@ const action = {
         categoryId2?: string;
         categoryId3?: string;
         isGetAll?: boolean;
+        approveStatus?: string;
       };
       sorts?: {};
     }) => {
       const filterProduct = typeof filter != 'object' ? JSON.parse(filter || '{}') : filter;
       const sortProduct = sorts ? JSON.parse(sorts.toString() || '{}') : '';
       cleanObjectKeyNull(sortProduct);
-      const data = await API.get(
+      let data = await API.get(
         routerLinks(name, 'api'),
         cleanObjectKeyNull({
           page: page,
           perPage: perPage,
           storeId: filterProduct.storeId,
           type: filterProduct.type,
+          approveStatus: filterProduct.approveStatus,
           supplierId: filterProduct.supplierId,
           categoryId: filterProduct.categoryId3
             ? filterProduct.categoryId3
@@ -60,9 +64,36 @@ const action = {
       return data;
     },
   ),
+
+  getproduct: createAsyncThunk(name + '/supplierwaitingappprove', async () => {
+    const { data } = await API.get<Product>(`${routerLinks(name, 'api')}/list/supplier-waiting-appprove`);
+    return data || {};
+  }),
+
+  getById1: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id?: string; keyState: keyof State<Product> }) => {
+    let { data } = await API.get<Product>(`${routerLinks(name, 'api')}/${id}`);
+    const exportTaxId = data?.exportTax?.id;
+    const importTaxId = data?.importTax?.id;
+    const categoryId = data?.category?.id;
+    data = { ...data, exportTaxId, importTaxId, categoryId }
+    return { data, keyState };
+  },),
+
+  putProduct: createAsyncThunk(name + '/putProduct', async ({ id }: { id?: string }) => {
+    const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/approve/${id}`);
+    if (message) await Message.success({ text: message });
+    return statusCode;
+  },),
+
+  putProductreject: createAsyncThunk(name + '/putProductreject', async ({ id, ...values }: Product) => {
+    const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/reject/${id}`, values);
+    if (message) await Message.success({ text: message });
+    return statusCode;
+  },)
+
 };
 
-export const productSlice = createSlice(new Slice<Product>(action, { result: {}, result2: {} }, (builder) =>
+export const productSlice = createSlice(new Slice<Product>(action, { result: {}, result2: {}, result3: {} }, (builder) =>
   builder
     .addCase(
       action.getProduct.pending,
@@ -88,6 +119,74 @@ export const productSlice = createSlice(new Slice<Product>(action, { result: {},
       state.status = 'getProduct.rejected';
       state.isLoading = false;
     })
+
+    .addCase(action.getproduct.pending, (state: State<Product>, action) => {
+      state.data = action.meta.arg;
+      state.isLoading = true;
+      state.status = 'getproduct.pending';
+    })
+    .addCase(action.getproduct.fulfilled, (state: State, action: PayloadAction<Product>) => {
+      if (action.payload) {
+        state.user = action.payload;
+        state.status = 'getproduct.fulfilled';
+      } else state.status = 'idle';
+      state.isLoading = false;
+    })
+
+
+    .addCase(
+      action.putProduct.pending,
+      (
+        state: State<Product>,
+        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+      ) => {
+        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+        state.queryParams = JSON.stringify(action.meta.arg);
+        state.isLoading = true;
+        state.status = 'putProduct.pending';
+      },
+    )
+    .addCase(action.putProduct.fulfilled, (state: State<Product>, action: any) => {
+      console.log(action.payload);
+
+      if (action.payload.toString() === '200') {
+        state.result = action.payload;
+        state.status = 'putProduct.fulfilled';
+      } else state.status = 'idle';
+      state.isLoading = false;
+    })
+    .addCase(action.putProduct.rejected, (state: State) => {
+      state.status = 'putProduct.rejected';
+      state.isLoading = false;
+    })
+
+
+    .addCase(
+      action.putProductreject.pending,
+      (
+        state: State<Product>,
+        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+      ) => {
+        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+        state.queryParams = JSON.stringify(action.meta.arg);
+        state.isLoading = true;
+        state.status = 'putProductreject.pending';
+      },
+    )
+    .addCase(action.putProductreject.fulfilled, (state: State<Product>, action: any) => {
+      console.log(action.payload);
+
+      if (action.payload.toString() === '200') {
+        state.result = action.payload;
+        state.status = 'putProductreject.fulfilled';
+      } else state.status = 'idle';
+      state.isLoading = false;
+    })
+    .addCase(action.putProductreject.rejected, (state: State) => {
+      state.status = 'putProductreject.rejected';
+      state.isLoading = false;
+    })
+
 ));
 
 export const ProductFacade = () => {
@@ -95,7 +194,6 @@ export const ProductFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<Product>),
     set: (values: State<Product>) => dispatch(action.set(values)),
-    // get: (params: PaginationQuery<Product>) => dispatch(action.get(params)),
     get: ({
       page,
       perPage,
@@ -108,6 +206,7 @@ export const ProductFacade = () => {
         supplierId?: string;
         storeId?: string;
         type: string;
+        approveStatus: string;
         categoryId1?: string;
         categoryId2?: string;
         categoryId3?: string;
@@ -117,11 +216,14 @@ export const ProductFacade = () => {
     }) => {
       return dispatch(action.getProduct({ page, perPage, filter, sorts }));
     },
-    getById: ({ id, keyState = 'isVisible' }: { id: string; keyState?: keyof State<Product> }) =>
-      dispatch(action.getById({ id, keyState })),
+    getById: ({ id, keyState = 'isVisible' }: { id?: string; keyState?: keyof State<Product> }) =>
+      dispatch(action.getById1({ id, keyState })),
     post: (values: Product) => dispatch(action.post(values)),
     put: (values: Product) => dispatch(action.put(values)),
     delete: (id: string) => dispatch(action.delete(id)),
+    getproduct: () => dispatch(action.getproduct()),
+    putProduct: ({ id }: { id?: string }) => dispatch(action.putProduct({ id })),
+    putProductreject: (values: Product) => dispatch(action.putProductreject(values)),
   };
 };
 
@@ -145,6 +247,9 @@ export class Product extends CommonEntity {
     public basicUnit?: string,
     public price?: string,
     public sellingPrice?: string,
+    public exportTaxId?: string,
+    public importTaxId?: string,
+    public rejectReasonId?: string,
     public category?: {
       child: {
         child: {
@@ -157,6 +262,7 @@ export class Product extends CommonEntity {
       id: string;
       name: string;
     },
+    public categoryId?: string,
     public exportTax?: {
       id: string;
       name: string;
@@ -172,12 +278,23 @@ export class Product extends CommonEntity {
         minQuantity: string;
       },
     ],
+    public priceBalanceCommission?:
+      {
+        amountBalance: string;
+        revenue: string;
+        percentBalance: string;
+      }[],
     public child?: {},
     public photos?: [
       {
         url?: string;
       },
     ],
+    public information?: {
+      id: string;
+      content: string,
+      url: string,
+    }[],
     public approveStatus?: string,
     public subOrg?: {
       id: string;
@@ -195,7 +312,11 @@ export class Product extends CommonEntity {
           name: string
         },
       }
-    ]
+    ],
+    public rejectReason?: {
+      id: string;
+      name: string;
+    }
   ) {
     super();
   }

@@ -92,6 +92,10 @@
     "User/Button": "Thêm quản trị viên",
     "User/Add": "Thêm người dùng",
     "User/Edit": "Chỉnh sửa người dùng",
+    "Inventory Management": "Quản Lý Hàng hóa",
+    "inventory-management/product": "Quản lý sản phẩm",
+    "inventory-management/category": "Danh mục",
+    "inventory-management/tax": "Quản lý Thuế",
     "Userinformation": "Thông tin người dùng",
     "MyProfile": "Thông tin cá nhân",
     "Supplier": "Quản lý nhà cung cấp",
@@ -147,6 +151,10 @@
     "User/List": "Quản Lý Người Dùng",
     "User/Add": "Quản Lý Người Dùng",
     "User/Edit": "Quản Lý Người Dùng",
+    "Inventory Management": "Quản Lý Hàng hóa",
+    "inventory-management/product": "Quản lý Hàng hóa",
+    "inventory-management/category": "Quản lý Hàng hóa",
+    "inventory-management/tax": "Thuế",
     "Store": "Quản Lý Cửa Hàng",
     "store-managerment/edit": "Quản Lý Cửa Hàng",
     "store-managerment/create": "Quản Lý Cửa Hàng",
@@ -286,11 +294,15 @@
     "status": {
       "delivered": "Đã giao",
       "wait for confirmation": "Chờ xác nhận",
+      "decline": "Từ chối",
+      "Decline": "Đã Từ chối",
+      "out of stock": "Hết hàng",
       "delivering": "Đang giao",
       "waiting for the goods": "Chờ lấy hàng",
       "canceled": "Đã huỷ",
       "on sale": "Đang bán",
-      "stop selling": "Ngưng bán"
+      "stop selling": "Ngưng bán",
+      "wait for confirm": "Chờ phê duyệt"
     },
     "Supplier revenue Order": "Doanh thu nhà cung cấp theo đơn hàng.xlsx",
     "Supplier revenue product": "Doanh thu nhà cung cấp theo sản phẩm.xlsx",
@@ -464,6 +476,15 @@
     "Search by order supplier": "Tìm kiếm mã sản phẩm, tên, mã vạch",
     "Choose a time": "Chọn thời điểm",
     "Select status": "Chọn trạng thái"
+  },
+  "merchant": {
+    "ALL":"Tất cả",
+    "APPROVED":"Đang bán",
+    "WAITING_APPROVE":"Chờ xác nhận",
+    "REJECTED":"Từ chối",
+    "OUT_OF_STOCK":"Hết hàng",
+    "STOP_SELLING":"Ngừng bán",
+    "CANCELLED":"Đã huỷ"
   },
   "tax": {
     "stt": "STT",
