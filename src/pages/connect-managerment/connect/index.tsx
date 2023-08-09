@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import dayjs from 'dayjs';
-import { Infor, Plus } from '@svgs';
-import { ConnectFacade,GlobalFacade } from '@store';
+
+import { ConnectFacade, GlobalFacade } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { language, languages, routerLinks } from '@utils';
-import { Tooltip } from 'antd';
+
 
 const Page = () => {
     const { t } = useTranslation();
@@ -34,9 +34,9 @@ const Page = () => {
             className=' bg-white p-5 rounded-lg'
             onRow={(data: any) => ({
                 onDoubleClick: () => {
-                    
+
                     navigate(`/${lang}${routerLinks('connect-managerment/connect')}/${data.id}`)
-                    
+
                 },
             })}
             pageSizeRender={(sizePage: number) => sizePage}
@@ -52,20 +52,20 @@ const Page = () => {
                         width: 150,
                     },
                 },
-                
+
                 {
                     title: 'store.Name',
                     name: 'store',
                     tableItem: {
-                        render:(text, item) => item?.store?.name,
-                        
+                        render: (text, item) => item?.store?.name,
+
                     },
                 },
                 {
                     title: 'store.productName',
                     name: 'productName',
                     tableItem: {
-                       
+
                     },
                 },
                 {
@@ -86,28 +86,28 @@ const Page = () => {
                     title: 'store.status.status',
                     name: 'status',
                     tableItem: {
-                       render:(text, item) => item?.status === 'APPROVED' ? 
-                       (
-                        <div className="bg-green-50 text-center p-1 border border-green-500 rounded-lg text-green-500 w-[144px]">
-                          {t('store.status.APPROVED')}
-                        </div>
-                      ) :item?.status === 'WAITING_ADMIN' ? (
-                        <div className="bg-yellow-50 text-center p-1 border border-yellow-500 rounded-lg text-yellow-500 w-[144px]">
-                          {t('store.status.WAITING_ADMIN')}
-                        </div>
-                      ):item?.status === 'WAITING_STORE'?(
-                        <div className="bg-blue-50 text-center p-1 border border-blue-500 rounded-lg text-blue-500 w-[144px]">
-                          {t('store.status.WAITING_STORE')}
-                        </div>
-                      ):(
-                        <div className="bg-red-50 text-center p-1 border border-red-500 rounded-lg text-red-500 w-[144px]">
-                          {t('store.status.REJECT_BY_ADMIN')}
-                        </div>
-                      ),
+                        render: (text, item) => item?.status === 'APPROVED' ?
+                            (
+                                <div className="bg-green-50 text-center p-1 border border-green-500 rounded-lg text-green-500 w-[144px]">
+                                    {t('store.status.APPROVED')}
+                                </div>
+                            ) : item?.status === 'WAITING_ADMIN' ? (
+                                <div className="bg-yellow-50 text-center p-1 border border-yellow-500 rounded-lg text-yellow-500 w-[144px]">
+                                    {t('store.status.WAITING_ADMIN')}
+                                </div>
+                            ) : item?.status === 'WAITING_STORE' ? (
+                                <div className="bg-blue-50 text-center p-1 border border-blue-500 rounded-lg text-blue-500 w-[144px]">
+                                    {t('store.status.WAITING_STORE')}
+                                </div>
+                            ) : (
+                                <div className="bg-red-50 text-center p-1 border border-red-500 rounded-lg text-red-500 w-[144px]">
+                                    {t('store.status.REJECT_BY_ADMIN')}
+                                </div>
+                            ),
                     },
                 },
             ]}
-            
+
         />
     );
 };

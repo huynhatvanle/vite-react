@@ -60,6 +60,12 @@ const Page = () => {
                     isBack.current = true;
                 }
                 break;
+            case 'deleteConfirm.fulfilled':
+                if (id) connectFacade.getById({ id });
+
+                return () => {
+                    isReload.current && connectFacade.get(param);
+                };
         }
     }, [confirmFacade.status]);
 
@@ -68,9 +74,9 @@ const Page = () => {
         const storeRequestId = data?.id
         confirmFacade.put({ storeRequestId });
     };
-    const handleDelete = () => {
-        const storeRequestId = data?.id
-        confirmFacade.put({ storeRequestId });
+    const handleDelete = (id: any) => {
+
+        confirmFacade.delete({ id: id });
     };
     return (
         <Fragment>
@@ -308,12 +314,14 @@ const Page = () => {
                                     tableItem: {
                                         render: (text, item) =>
                                         (
-
                                             <Button
                                                 className='!bg-white !border-red-500 hover:!border-red-400 !border-solid !border  !rounded-xl !text-red-400 hover:!text-red-300 p-2 hover:cursor-pointer deleteBtn'
                                                 text={t('Xóa')}
-                                                onClick={() => modalFormRef?.current?.handleEdit()}
+
+                                                onClick={() => handleDelete(item?.id)
+                                                }
                                             />
+
                                         )
                                     },
                                 },
@@ -321,14 +329,31 @@ const Page = () => {
 
                         />
                         <ModalForm
-                            facade={connectFacade}
+                            keyState=''
+                            facade={confirmFacade}
                             ref={modalFormRefxemgia}
                             title={(data: any) => t('Xem giá')}
                             className='z'
+
                             columns={[
-                               
+                                {
+                                    title: 'STT',
+                                    name: 'reason',
+                                    formItem: {
+                                        type: 'select',
+                                        list: listReason,
+                                    }
+                                },
+                                {
+                                    title: 'Chi tiết',
+                                    name: 'note',
+                                    formItem: {
+                                        type: 'textarea',
+                                        rules: [{ type: 'textarea' }]
+                                    }
+                                }
                             ]}
-                            widthModal={600}
+                            widthModal={1000}
                             footerCustom={(handleOk, handleCancel) => (
                                 <div className="flex justify-end gap-2">
                                     <Button

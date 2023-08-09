@@ -1,8 +1,8 @@
-{"level":30,"time":"2023-07-21T10:14:51.037Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Listening on 52297"}
-{"level":30,"time":"2023-07-21T10:14:51.236Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T10:14:51.236Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T10:14:51.238Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T10:14:51.238Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-08-06T05:00:22.134Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Listening on 54663"}
+{"level":30,"time":"2023-08-06T05:00:22.317Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-08-06T05:00:22.317Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-08-06T05:00:22.320Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-08-06T05:00:22.320Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
 ================= Original suppressed error =================
 Error: Browser has been closed.
     at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
@@ -15,54 +15,53 @@ Error: Browser has been closed.
     at endReadableNT (node:internal/streams/readable:1359:12)
     at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 =============================================================
-{"level":30,"time":"2023-07-21T10:14:51.249Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newBrowser"}
-{"level":30,"time":"2023-07-21T10:14:51.567Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newBrowser"}
-{"level":30,"time":"2023-07-21T10:14:51.571Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newPage"}
-{"level":30,"time":"2023-07-21T10:14:51.571Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"currentBrowser: [object Object]"}
-{"level":30,"time":"2023-07-21T10:14:51.585Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active context"}
-{"level":30,"time":"2023-07-21T10:14:52.019Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Video path: undefined"}
-{"level":30,"time":"2023-07-21T10:14:52.019Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active page"}
-{"level":30,"time":"2023-07-21T10:14:52.616Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newPage"}
-{"level":30,"time":"2023-07-21T10:14:52.637Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
-{"level":30,"time":"2023-07-21T10:14:52.638Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
-{"level":30,"time":"2023-07-21T10:14:53.648Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
-{"level":30,"time":"2023-07-21T10:14:53.651Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
-{"level":30,"time":"2023-07-21T10:14:53.651Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
-{"level":30,"time":"2023-07-21T10:14:53.671Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
-{"level":30,"time":"2023-07-21T10:14:53.687Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
-{"level":30,"time":"2023-07-21T10:14:53.687Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
-{"level":30,"time":"2023-07-21T10:14:53.712Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
-{"level":30,"time":"2023-07-21T10:14:53.720Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
-{"level":30,"time":"2023-07-21T10:14:53.720Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
-{"level":30,"time":"2023-07-21T10:14:53.754Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
-{"level":30,"time":"2023-07-21T10:14:53.760Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
-{"level":30,"time":"2023-07-21T10:14:53.761Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//button[@title = \"Đăng nhập\"] in page."}
-{"level":30,"time":"2023-07-21T10:14:53.817Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
-{"level":30,"time":"2023-07-21T10:14:53.820Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
-{"level":30,"time":"2023-07-21T10:14:53.821Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-popover\")]//*[contains(@class, \"ant-btn-primary\")] in page."}
-{"level":30,"time":"2023-07-21T10:14:53.826Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
-{"level":30,"time":"2023-07-21T10:14:53.833Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T10:14:53.839Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T10:14:53.841Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T10:14:53.843Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T10:14:53.844Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T10:14:53.845Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T10:14:53.846Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T10:14:53.848Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T10:14:53.849Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T10:14:53.851Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
-{"level":30,"time":"2023-07-21T10:14:53.857Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:14:53.857Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
-{"level":30,"time":"2023-07-21T10:14:54.707Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Đăng nhập thành công"}
-{"level":30,"time":"2023-07-21T10:14:54.708Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:14:54.713Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method waitForElementState"}
-{"level":30,"time":"2023-07-21T10:14:54.713Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"swal2-confirm\")] in page."}
-{"level":30,"time":"2023-07-21T10:14:54.819Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  waitForElementState"}
+{"level":30,"time":"2023-08-06T05:00:22.327Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newBrowser"}
+{"level":30,"time":"2023-08-06T05:00:22.706Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newBrowser"}
+{"level":30,"time":"2023-08-06T05:00:22.709Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method newPage"}
+{"level":30,"time":"2023-08-06T05:00:22.709Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"currentBrowser: [object Object]"}
+{"level":30,"time":"2023-08-06T05:00:22.721Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active context"}
+{"level":30,"time":"2023-08-06T05:00:23.263Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Video path: undefined"}
+{"level":30,"time":"2023-08-06T05:00:23.264Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Changed active page"}
+{"level":30,"time":"2023-08-06T05:00:23.875Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method newPage"}
+{"level":30,"time":"2023-08-06T05:00:23.909Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-08-06T05:00:23.910Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:24.538Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-08-06T05:00:24.543Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-08-06T05:00:24.544Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Tên đăng nhập\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:24.597Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-08-06T05:00:24.638Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-08-06T05:00:24.638Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:24.689Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-08-06T05:00:24.704Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-08-06T05:00:24.705Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Mật khẩu\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:24.759Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-08-06T05:00:24.764Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-08-06T05:00:24.765Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//button[@title = \"Đăng nhập\"] in page."}
+{"level":30,"time":"2023-08-06T05:00:24.993Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-08-06T05:00:24.998Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-08-06T05:00:24.998Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-popover\")]//*[contains(@class, \"ant-btn-primary\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:25.003Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-08-06T05:00:25.007Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:25.013Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:25.016Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:25.018Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:25.019Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:25.020Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:25.023Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:25.024Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:25.026Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:25.027Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:25.034Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:25.034Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:25.451Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Đăng nhập thành công"}
+{"level":30,"time":"2023-08-06T05:00:25.451Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:25.471Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method waitForElementState"}
+{"level":30,"time":"2023-08-06T05:00:25.471Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"swal2-confirm\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:25.580Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Error of node method  waitForElementState"}
 ================= Original suppressed error =================
 locator.waitFor: Timeout 100ms exceeded.
 =========================== logs ===========================
 waiting for locator('xpath=//*[contains(@class, "swal2-confirm")]') to be visible
-  locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
   locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
   locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
   locator resolved to hidden <button type="button" aria-label="" class="swal2-confirm…>OK</button>
@@ -72,92 +71,145 @@ waiting for locator('xpath=//*[contains(@class, "swal2-confirm")]') to be visibl
   name: 'TimeoutError'
 }
 =============================================================
-{"level":30,"time":"2023-07-21T10:14:54.824Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
-{"level":30,"time":"2023-07-21T10:14:54.824Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","Take screenshot with options: ":{"path":"C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\screenshot\\fail-screenshot-1.png","fileType":"png","fullPage":false,"timeout":60000,"omitBackground":false}}
-{"level":30,"time":"2023-07-21T10:14:54.941Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method takeScreenshot"}
-{"level":30,"time":"2023-07-21T10:14:54.957Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
-{"level":30,"time":"2023-07-21T10:14:54.957Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
-{"level":30,"time":"2023-07-21T10:14:54.962Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
-{"level":30,"time":"2023-07-21T10:14:54.968Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
-{"level":30,"time":"2023-07-21T10:14:54.968Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//li[descendant::span[contains(text(), \"Quản lý cửa hàng\")]] in page."}
-{"level":30,"time":"2023-07-21T10:14:57.959Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
-{"level":30,"time":"2023-07-21T10:14:57.969Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
-{"level":30,"time":"2023-07-21T10:14:57.969Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//input[contains(@placeholder, \"Tìm kiếm\")] in page."}
-{"level":30,"time":"2023-07-21T10:14:58.128Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
-{"level":30,"time":"2023-07-21T10:14:58.131Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
-{"level":30,"time":"2023-07-21T10:14:58.131Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//input[contains(@placeholder, \"Tìm kiếm\")] in page."}
-{"level":30,"time":"2023-07-21T10:14:58.141Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
-{"level":30,"time":"2023-07-21T10:15:01.149Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
-{"level":30,"time":"2023-07-21T10:15:01.149Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
-{"level":30,"time":"2023-07-21T10:15:01.152Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
-{"level":30,"time":"2023-07-21T10:15:01.156Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElements"}
-{"level":30,"time":"2023-07-21T10:15:01.156Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//tr[contains(@class, \"ant-table-row ant-table-row-level-0\")]/td[1] in page."}
-{"level":30,"time":"2023-07-21T10:15:01.156Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Wait element to reach attached state."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Found 10 elements."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 0 Locator in page."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElements"}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 1 Locator in page."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 2 Locator in page."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 3 Locator in page."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 4 Locator in page."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 5 Locator in page."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 6 Locator in page."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 7 Locator in page."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 8 Locator in page."}
-{"level":30,"time":"2023-07-21T10:15:01.161Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Find 9 Locator in page."}
-{"level":30,"time":"2023-07-21T10:15:01.164Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.164Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=b170b96c-61f8-402f-badd-13cc1b7589e0 selector parsed without children"}
-{"level":30,"time":"2023-07-21T10:15:01.164Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
-{"level":30,"time":"2023-07-21T10:15:01.172Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=b170b96c-61f8-402f-badd-13cc1b7589e0 containing STR1176"}
-{"level":30,"time":"2023-07-21T10:15:01.172Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.177Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.177Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=8cc4450c-b4b3-42dc-b494-6226d31038ab selector parsed without children"}
-{"level":30,"time":"2023-07-21T10:15:01.177Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
-{"level":30,"time":"2023-07-21T10:15:01.186Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=8cc4450c-b4b3-42dc-b494-6226d31038ab containing STR1177"}
-{"level":30,"time":"2023-07-21T10:15:01.186Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.191Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.191Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=ee84beb5-0d2e-4f36-81af-9c0ca1a71c7f selector parsed without children"}
-{"level":30,"time":"2023-07-21T10:15:01.191Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
-{"level":30,"time":"2023-07-21T10:15:01.199Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=ee84beb5-0d2e-4f36-81af-9c0ca1a71c7f containing STR1175"}
-{"level":30,"time":"2023-07-21T10:15:01.199Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.205Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.205Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=dcba3df6-542a-4f9f-9ea7-9af4e7c0a6cc selector parsed without children"}
-{"level":30,"time":"2023-07-21T10:15:01.205Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
-{"level":30,"time":"2023-07-21T10:15:01.214Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=dcba3df6-542a-4f9f-9ea7-9af4e7c0a6cc containing STR1172"}
-{"level":30,"time":"2023-07-21T10:15:01.214Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.226Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.226Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=5c72881a-53d6-4e64-ac6f-c4ed54963d2a selector parsed without children"}
-{"level":30,"time":"2023-07-21T10:15:01.226Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
-{"level":30,"time":"2023-07-21T10:15:01.267Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=5c72881a-53d6-4e64-ac6f-c4ed54963d2a containing STR1154"}
-{"level":30,"time":"2023-07-21T10:15:01.267Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.279Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.279Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=9b31e69f-bdc9-4028-8bd1-ce9a2d03fa12 selector parsed without children"}
-{"level":30,"time":"2023-07-21T10:15:01.279Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
-{"level":30,"time":"2023-07-21T10:15:01.317Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=9b31e69f-bdc9-4028-8bd1-ce9a2d03fa12 containing STR1173"}
-{"level":30,"time":"2023-07-21T10:15:01.318Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.331Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.331Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=43033c0a-6a25-47b8-821e-3801c7348eca selector parsed without children"}
-{"level":30,"time":"2023-07-21T10:15:01.331Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
-{"level":30,"time":"2023-07-21T10:15:01.346Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=43033c0a-6a25-47b8-821e-3801c7348eca containing STR1171"}
-{"level":30,"time":"2023-07-21T10:15:01.347Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.359Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.359Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=2cd28f6a-084e-4372-9b4b-8368c42ec38a selector parsed without children"}
-{"level":30,"time":"2023-07-21T10:15:01.359Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
-{"level":30,"time":"2023-07-21T10:15:01.383Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=2cd28f6a-084e-4372-9b4b-8368c42ec38a containing STR1135"}
-{"level":30,"time":"2023-07-21T10:15:01.383Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.393Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.393Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=ef8aef47-18e0-49de-a3af-a8d0060bebc5 selector parsed without children"}
-{"level":30,"time":"2023-07-21T10:15:01.393Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
-{"level":30,"time":"2023-07-21T10:15:01.416Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=ef8aef47-18e0-49de-a3af-a8d0060bebc5 containing STR1136"}
-{"level":30,"time":"2023-07-21T10:15:01.416Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.426Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.426Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"element=59b6309b-1279-47a7-9042-8a6da2859675 selector parsed without children"}
-{"level":30,"time":"2023-07-21T10:15:01.427Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Only locator handle defined, return cached Locator."}
-{"level":30,"time":"2023-07-21T10:15:01.446Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element element=59b6309b-1279-47a7-9042-8a6da2859675 containing STR1134"}
-{"level":30,"time":"2023-07-21T10:15:01.446Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
-{"level":30,"time":"2023-07-21T10:15:01.456Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
-{"level":30,"time":"2023-07-21T10:15:01.496Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Removed page=a6eef2b0-be8e-49ad-9bf9-73d5f69d3582 from context=8fa50068-6a49-4926-a696-475fc616a9f5 page stack"}
-{"level":30,"time":"2023-07-21T10:15:01.797Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}
+{"level":30,"time":"2023-08-06T05:00:25.584Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
+{"level":30,"time":"2023-08-06T05:00:25.585Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","Take screenshot with options: ":{"path":"C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\screenshot\\fail-screenshot-1.png","fileType":"png","fullPage":false,"timeout":60000,"omitBackground":false}}
+{"level":30,"time":"2023-08-06T05:00:25.767Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method takeScreenshot"}
+{"level":30,"time":"2023-08-06T05:00:25.790Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-08-06T05:00:25.790Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:25.796Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-08-06T05:00:25.805Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method waitForElementState"}
+{"level":30,"time":"2023-08-06T05:00:25.806Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-spin-spinning\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:28.738Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method waitForElementState"}
+{"level":30,"time":"2023-08-06T05:00:28.744Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-08-06T05:00:28.744Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//li[contains(@class, \"items-center\") and descendant::span[contains(text(), \"Quản lý cửa hàng\")]] in page."}
+{"level":30,"time":"2023-08-06T05:00:28.826Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-08-06T05:00:28.837Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-08-06T05:00:28.837Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with //*[contains(@class, \"ant-table-row\")][2] in page."}
+{"level":30,"time":"2023-08-06T05:00:29.133Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-08-06T05:00:29.169Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method clearText"}
+{"level":30,"time":"2023-08-06T05:00:29.169Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Số fax\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:29.709Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method clearText"}
+{"level":30,"time":"2023-08-06T05:00:29.713Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method fillText"}
+{"level":30,"time":"2023-08-06T05:00:29.714Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//*[contains(@class, \"ant-form-item-label\")]/label[text()=\"Số fax\"]/../../*[contains(@class, \"ant-form-item\")]//input[contains(@class, \"ant-input\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:29.750Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method fillText"}
+{"level":30,"time":"2023-08-06T05:00:29.762Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method click"}
+{"level":30,"time":"2023-08-06T05:00:29.762Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with xpath=//button[@title = \"Lưu\"] in page."}
+{"level":30,"time":"2023-08-06T05:00:29.994Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method click"}
+{"level":30,"time":"2023-08-06T05:00:30.000Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getElementCount"}
+{"level":30,"time":"2023-08-06T05:00:30.000Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is disabled, return Locator: xpath=//*[contains(@class, \"ant-popover\")]//*[contains(@class, \"ant-btn-primary\")] in page."}
+{"level":30,"time":"2023-08-06T05:00:30.004Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getElementCount"}
+{"level":30,"time":"2023-08-06T05:00:30.011Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:30.014Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:30.018Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:30.034Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:30.036Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:30.122Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:30.124Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:30.146Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:30.149Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:30.160Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method evaluateJavascript"}
+{"level":30,"time":"2023-08-06T05:00:30.172Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.172Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.195Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.195Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.208Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.208Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.254Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.255Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.279Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.279Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.314Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.315Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.332Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.332Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.362Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.362Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.381Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.381Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.410Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.410Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.432Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.432Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.494Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.495Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.513Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.513Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.564Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.564Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.585Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.585Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.651Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.652Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.666Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.666Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.708Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.708Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.722Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.722Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.755Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.755Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.769Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.769Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.798Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.798Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.811Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.811Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.833Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.833Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.847Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.847Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.937Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.937Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.954Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.954Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.969Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.969Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.983Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:30.983Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:30.999Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:30.999Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.011Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.011Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:31.023Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:31.023Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.037Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.037Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:31.048Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:31.048Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.060Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.060Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:31.068Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:31.068Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.080Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.081Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:31.090Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:31.090Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.102Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.102Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:31.111Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:31.111Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.124Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.124Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:31.135Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:31.135Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.147Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.147Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:31.156Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:31.156Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.170Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.170Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:31.179Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:31.179Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.191Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.191Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Strict mode is enabled, find Locator with id=swal2-html-container in page."}
+{"level":30,"time":"2023-08-06T05:00:31.199Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Retrieved text for element id=swal2-html-container containing Số Fax đã được đăng kí trước đó."}
+{"level":30,"time":"2023-08-06T05:00:31.199Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getText"}
+{"level":30,"time":"2023-08-06T05:00:31.201Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method takeScreenshot"}
+{"level":30,"time":"2023-08-06T05:00:31.201Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","Take screenshot with options: ":{"path":"C:\\Users\\Admin\\Documents\\GitHub\\vite-react\\browser\\screenshot\\fail-screenshot-2.png","fileType":"png","fullPage":false,"timeout":60000,"omitBackground":false}}
+{"level":30,"time":"2023-08-06T05:00:31.336Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method takeScreenshot"}
+{"level":30,"time":"2023-08-06T05:00:31.399Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2023-08-06T05:00:31.419Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Removed page=9fc78a9f-e63b-4a8a-94e4-94dbb14877c0 from context=99f5b049-6abf-44a1-ae2f-505cd9ec4b5b page stack"}
+{"level":30,"time":"2023-08-06T05:00:31.782Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}
 ================= Original suppressed error =================
 Error: Browser has been closed.
     at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
@@ -170,8 +222,8 @@ Error: Browser has been closed.
     at endReadableNT (node:internal/streams/readable:1359:12)
     at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 =============================================================
-{"level":30,"time":"2023-07-21T10:15:01.803Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T10:15:01.803Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-08-06T05:00:31.788Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-08-06T05:00:31.789Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
 ================= Original suppressed error =================
 Error: Browser has been closed.
     at PlaywrightState.getActiveBrowser (C:\Users\Admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:9436:15)
@@ -184,7 +236,7 @@ Error: Browser has been closed.
     at endReadableNT (node:internal/streams/readable:1359:12)
     at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 =============================================================
-{"level":30,"time":"2023-07-21T10:15:01.809Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T10:15:01.809Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2023-07-21T10:15:03.895Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
-{"level":30,"time":"2023-07-21T10:15:03.896Z","pid":15488,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}
+{"level":30,"time":"2023-08-06T05:00:31.794Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2023-08-06T05:00:31.795Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2023-08-06T05:00:33.870Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2023-08-06T05:00:33.870Z","pid":8664,"hostname":"DESKTOP-8IM1HB1","msg":"End of node method closeAllBrowsers"}
