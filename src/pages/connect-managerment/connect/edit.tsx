@@ -366,19 +366,30 @@ const Page = () => {
                         />
                     </div>)}
 
-                    <div className='justify-between flex'>
+                    <div className='flex flex-col-reverse sm:flex-row items-center sm:justify-between mt-10  '>
                         <Button
                             text={t('components.form.modal.cancel')}
-                            className={'button sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto !h-[40px]'}
+                            className={'button sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto !h-[40px] !rounded-xl '}
                             onClick={handleBack}
                         />
-                        <div>
+                        <div className='flex sm:flex-row flex-col items-center sm:w-auto w-[100%] sm:justify-end sm:items-end text-sm sm:mb-0'>
                             <>
                                 <Button
-                                    className=' !bg-red-500 text-white text-base p-2 rounded-xl hover:!bg-red-400 mt-1 mx-5 !h-[40px] !font-normal'
+                                    className=' !bg-red-500 text-white text-base p-2 !rounded-xl hover:!bg-red-400 mt-1 mx-5 !h-[40px] !font-normal w-3/5 sm:w-auto justify-center'
                                     text={t('Từ chối yêu cầu')}
                                     onClick={() => modalFormRef?.current?.handleEdit()}
                                 />
+                               
+                            </>
+
+                            <Button
+                                className='!bg-teal-900 text-white text-base p-2 !rounded-xl hover:!bg-teal-600 mt-1 mx-5 !h-[40px] !font-normal sm:ml-4 sm:w-auto  w-3/5 justify-center '
+                                text={t('Phê duyệt yêu cầu')}
+                                onClick={() => handleSubmit()}
+                            />
+                        </div>
+                        <>
+                               
                                 <ModalForm
                                     keyState=''
                                     facade={connectFacade}
@@ -422,12 +433,6 @@ const Page = () => {
                                 />
                             </>
 
-                            <Button
-                                className='!bg-teal-900 text-white text-base p-2 rounded-xl hover:!bg-teal-600 mt-1 !h-[40px] !font-normal'
-                                text={t('Phê duyệt yêu cầu')}
-                                onClick={() => handleSubmit()}
-                            />
-                        </div>
                     </div>
 
                 </div>
