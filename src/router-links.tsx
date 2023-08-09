@@ -70,6 +70,7 @@ export const routerLinks = (name: string, type?: string) => {
     Tax: '/mt-tax',
     StoreOder: '/sub-organization/store-order',
     SupplierOrder: '/sub-organization/supplier-order',
+    CommisionPayment: '/sub-org-commision-payment',
   }; // 💬 generate api to here
 
   switch (type) {

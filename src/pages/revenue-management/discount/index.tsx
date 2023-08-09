@@ -146,14 +146,12 @@ const Page = () => {
                                     filter: {
                                       id: form.getFieldValue('supplierId'),
                                       filter: {
-                                        dateFrom: value
-                                          ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/')
-                                          : '',
+                                        dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                         dateTo: form.getFieldValue('dateTo')
                                           ? form
-                                            .getFieldValue('dateTo')
-                                            .format('MM/DD/YYYY 23:59:59')
-                                            .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                           : '',
                                       },
                                       status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -195,9 +193,9 @@ const Page = () => {
                                       filter: {
                                         dateFrom: form.getFieldValue('dateFrom')
                                           ? form
-                                            .getFieldValue('dateFrom')
-                                            .format('MM/DD/YYYY 00:00:00')
-                                            .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                           : '',
                                         dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                       },
@@ -313,10 +311,11 @@ const Page = () => {
                           width: 70,
                           render: (value: any, item: any) =>
                             JSON.parse(discountFacade.queryParams || '{}').page != 1
-                              ? `${JSON.parse(discountFacade.queryParams || '{}').page *
-                              JSON.parse(discountFacade.queryParams || '{}').perPage +
-                              stt1++
-                              }`
+                              ? `${
+                                  JSON.parse(discountFacade.queryParams || '{}').page *
+                                    JSON.parse(discountFacade.queryParams || '{}').perPage +
+                                  stt1++
+                                }`
                               : `${stt1++}`,
                         },
                       },
@@ -435,10 +434,11 @@ const Page = () => {
                           { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'status')
-                              ? `${statusDiscount.find((item) => {
-                                return item.value === getFilter(discountFacade.queryParams, 'status');
-                              })?.label
-                              }`
+                              ? `${
+                                  statusDiscount.find((item) => {
+                                    return item.value === getFilter(discountFacade.queryParams, 'status');
+                                  })?.label
+                                }`
                               : '',
                             dataIndex: '',
                           },
@@ -447,10 +447,11 @@ const Page = () => {
                           { title: 'Chọn cửa hàng:', dataIndex: '' },
                           {
                             title: getFilter(discountFacade.queryParams, 'supplierId')
-                              ? `${listSupplier?.find((item) => {
-                                return item.id === getFilter(discountFacade.queryParams, 'supplierId');
-                              })?.name
-                              }`
+                              ? `${
+                                  listSupplier?.find((item) => {
+                                    return item.id === getFilter(discountFacade.queryParams, 'supplierId');
+                                  })?.name
+                                }`
                               : '',
                             dataIndex: '',
                           },
