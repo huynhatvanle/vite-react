@@ -79,7 +79,7 @@ const Page = () => {
               {listSupplier && (
                 <>
                   <DataTable
-                    className="form-supplier-tab4"
+                    className="form-discount-index"
                     ref={dataTableRefDiscount}
                     facade={discountFacade}
                     defaultRequest={{
