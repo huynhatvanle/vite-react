@@ -34,8 +34,6 @@ const Page = () => {
   const { id } = useParams();
 
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
-
-  const [statusPayment, setStatusPayment] = useState<boolean>();
   useEffect(() => {
     if (id) {
       discountFacade.getById({ id });
@@ -44,8 +42,7 @@ const Page = () => {
       isReload.current && discountFacade.get(param);
     };
   }, [id]);
-  
-  
+
   const handleBack = () => window.history.back();
   const modalFormRef = useRef<any>();
   let i = 1;
@@ -60,16 +57,11 @@ const Page = () => {
     }
   }, [status]);
 
-  if (commisionPaymentFacade?.data) {
-    // if (commisionPaymentFacade?.data?.status == 'RECIVED') {
-    //   setStatusPayment(true);
-    // }
-    // setStatusPayment(false);
-  }
-
   const handleSubmit = (values: any) => {
     commisionPaymentFacade.put({ ...commisionPaymentFacade?.data, status: 'RECIVED' });
   };
+
+  console.log(discountFacade);
 
   return (
     <div className={'w-full'}>
@@ -95,13 +87,9 @@ const Page = () => {
                             <div className="flex mb-5">
                               <div className="font-semibold text-black ">Thời gian:</div>
                               <div className="ml-4">
-                                {dayjs(values?.data?.dateFrom)
-                                  .format('DD/MM/YYYY')
-                                  .replace(/-/g, '/') + 
-                                  '-'  +
-                                  dayjs(values?.data?.dateTo)
-                                    .format('DD/MM/YYYY')
-                                    .replace(/-/g, '/')}
+                                {dayjs(values?.data?.dateFrom).format('DD/MM/YYYY').replace(/-/g, '/') +
+                                  '-' +
+                                  dayjs(values?.data?.dateTo).format('DD/MM/YYYY').replace(/-/g, '/')}
                               </div>
                             </div>
                             <div className="flex mb-5">
@@ -113,7 +101,11 @@ const Page = () => {
                             <div className="flex mb-5">
                               <div className="font-semibold text-black ">Trạng thái:</div>
                               <div className="ml-4">
-                                {values?.data?.status === 'NOT_PAID' ? 'Chưa thanh toán' : values?.data?.status === 'NOT_COMPLETED_PAID' ? 'Chưa hoàn tất': 'Đã thanh toán'}
+                                {values?.data?.status === 'NOT_PAID'
+                                  ? 'Chưa thanh toán'
+                                  : values?.data?.status === 'NOT_COMPLETED_PAID'
+                                  ? 'Chưa hoàn tất'
+                                  : 'Đã thanh toán'}
                               </div>
                             </div>
                             <div className="flex mb-5">
@@ -123,76 +115,16 @@ const Page = () => {
                           </div>
                           <div className="flex w-full mb-5 lg:w-1/3">
                             <div className="font-semibold  text-black ">Cần thanh toán:</div>
-                            <div className="ml-4"> {(values?.data?.commisionTotal - values?.data?.totalPayment).toLocaleString()} VND</div>
+                            <div className="ml-4">
+                              {' '}
+                              {(values?.data?.commisionTotal - values?.data?.totalPayment).toLocaleString()} VND
+                            </div>
                           </div>
                         </div>
                       );
                     },
                   },
                 },
-                // {
-                //   title: '',
-                //   name: 'createdAt',
-                //   formItem: {
-                //     col: 4,
-                //     render: (form, values) => {
-                //       return (
-                //         <div className="flex items-center h-full text-base sm:mt-0 mt-4">
-                //           <div className="font-semibold text-teal-900 ">Trạng thái:</div>
-                //           <div className="ml-4">
-                //             {dayjs(values.createdAt).format('DD/MM/YYYY').replace(/-/g, '/')} -{' '}
-                //             {dayjs(values.createdAt).format('HH:mm')}{' '}
-                //           </div>
-                //         </div>
-                //       );
-                //     },
-                //   },
-                // },
-                // {
-                //   title: '',
-                //   name: 'createdAt',
-                //   formItem: {
-                //     col: 4,
-                //     render: (form, values) => {
-                //       return (
-                //         <div className="flex items-center h-full text-base sm:mt-0 mt-4">
-                //           <div className="font-semibold text-teal-900 ">Cần thanh toán:</div>
-                //           <div className="ml-4">
-                //             {dayjs(values.createdAt).format('DD/MM/YYYY').replace(/-/g, '/')} -{' '}
-                //             {dayjs(values.createdAt).format('HH:mm')}{' '}
-                //           </div>
-                //         </div>
-                //       );
-                //     },
-                //   },
-                // },
-                // {
-                //   title: '',
-                //   name: 'code',
-                //   formItem: {
-                //     col: 12,
-                //     render: (form, values) => {
-                //       return (
-                //         <div className="flex items-center h-10 text-base sm:mt-0 mt-4">
-                //           <div className="font-semibold text-teal-900">Thông tin hợp đồng:</div>
-                //           <a
-                //             onClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)}
-                //             className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
-                //           >
-                //             Nhấn vào đây
-                //           </a>
-                //           <div className="font-semibold text-teal-900 ml-4">Tệp đã ký:</div>
-                //           <a
-                //             onClick={(activeKey: any) => navigate(`/${lang}${routerLinks('Contract-View')}/${id}`)}
-                //             className="text-blue-500 ml-4 underline hover:underline hover:text-blue-500"
-                //           >
-                //             Nhấn vào đây
-                //           </a>
-                //         </div>
-                //       );
-                //     },
-                //   },
-                // },
               ]}
             />
           </div>
@@ -200,11 +132,11 @@ const Page = () => {
             <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Danh sách thanh toán</p>
           </div>
           <div className="px-5 pb-4">
-            {discountFacade.result?.data && (
+            {discountFacade.data?.subOrgCommisionPayment && (
               <>
                 <DataTable
-                  facade={discountFacade}
                   xScroll="895px"
+                  data={discountFacade?.data?.subOrgCommisionPayment}
                   showPagination={false}
                   pageSizeRender={(sizePage: number) => sizePage}
                   pageSizeWidth={'50px'}
