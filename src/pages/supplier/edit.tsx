@@ -84,6 +84,7 @@ const Page = () => {
       isReload.current && supplierFacade.get(param);
     };
   }, [id]);
+  
 
   useEffect(() => {
     if (test == true) {
@@ -193,16 +194,6 @@ const Page = () => {
     },
     {
       label: t('supplier.Sup-Status.Discontinued'),
-      value: 'STOP_SELLING',
-    },
-  ];
-  const statusContract = [
-    {
-      label: t('supplier.Sup-Status.Signed'),
-      value: 'SIGNED_CONTRACT',
-    },
-    {
-      label: t('supplier.Sup-Status.Waiting'),
       value: 'STOP_SELLING',
     },
   ];

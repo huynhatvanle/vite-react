@@ -35,11 +35,13 @@ export const routerLinks = (name: string, type?: string) => {
     Category: '/category',
 
     Product: '/product',
-
-    Tax: '/merchandise-managerment/tax',
-
     Connect: '/connect-managerment/connect',
     'connect-managerment/connect': '/connect-managerment/connect/edit',
+    MerchandiseManagermentCategory: '/merchandise-managerment/category',
+    Tax: '/merchandise-managerment/tax',
+    'revenue-management/store': '/revenue-management/store',
+    'revenue-management/discount': '/revenue-management/discount',
+    'revenue-management/supplier': '/revenue-management/supplier',
   }; // 💬 generate link to here
 
   const apis: {
@@ -74,6 +76,8 @@ export const routerLinks = (name: string, type?: string) => {
     Listconnect: '/list-for-connect',
     delete: '/store-request-supplier',
 
+    StoreOder: '/sub-organization/store-order',
+    SupplierOrder: '/sub-organization/supplier-order',
   }; // 💬 generate api to here
 
   switch (type) {
