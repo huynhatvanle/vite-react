@@ -44,7 +44,8 @@ const Page = () => {
       isReload.current && discountFacade.get(param);
     };
   }, [id]);
-
+  
+  
   const handleBack = () => window.history.back();
   const modalFormRef = useRef<any>();
   let i = 1;
@@ -79,7 +80,7 @@ const Page = () => {
               <p className="sm:text-xl text-base text-teal-900 pt-0 mr-5">Chi tiết chiết khấu</p>
             </div>
             <Form
-              values={{ ...data }}
+              values={discountFacade}
               className="intro-x border-b"
               columns={[
                 {
@@ -94,11 +95,11 @@ const Page = () => {
                             <div className="flex mb-5">
                               <div className="font-semibold text-black ">Thời gian:</div>
                               <div className="ml-4">
-                                {dayjs(values?.data?.dateFrom, 'YYYY-MM-DDTHH:mm:ss')
+                                {dayjs(values?.data?.dateFrom)
                                   .format('DD/MM/YYYY')
-                                  .replace(/-/g, '/') +
-                                  '-' +
-                                  dayjs(values?.data?.dateTo, 'YYYY-MM-DDTHH:mm:ss')
+                                  .replace(/-/g, '/') + 
+                                  '-'  +
+                                  dayjs(values?.data?.dateTo)
                                     .format('DD/MM/YYYY')
                                     .replace(/-/g, '/')}
                               </div>
@@ -112,7 +113,7 @@ const Page = () => {
                             <div className="flex mb-5">
                               <div className="font-semibold text-black ">Trạng thái:</div>
                               <div className="ml-4">
-                                {values?.data?.status === 'NOT_PAID' ? 'Chưa thanh toán' : 'Đã thanh toán'}
+                                {values?.data?.status === 'NOT_PAID' ? 'Chưa thanh toán' : values?.data?.status === 'NOT_COMPLETED_PAID' ? 'Chưa hoàn tất': 'Đã thanh toán'}
                               </div>
                             </div>
                             <div className="flex mb-5">
@@ -122,7 +123,7 @@ const Page = () => {
                           </div>
                           <div className="flex w-full mb-5 lg:w-1/3">
                             <div className="font-semibold  text-black ">Cần thanh toán:</div>
-                            <div className="ml-4">{values?.data?.commisionTotal.toLocaleString()} VND</div>
+                            <div className="ml-4"> {(values?.data?.commisionTotal - values?.data?.totalPayment).toLocaleString()} VND</div>
                           </div>
                         </div>
                       );
