@@ -41,7 +41,8 @@ const Page = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const tab = urlParams.get('tab');
   const listSupplierStore = supplierAdminFacade.result?.data
-  const listSupplierAdmin = productFacade?.user
+  const listSupplierAdmin = productFacade.user
+  console.log(listSupplierAdmin)
 
   const category1 = categoryFacade.result?.data
   const category2 = categoryFacade.result2?.data
@@ -92,7 +93,8 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    if (activeKey == '2')
+    if (activeKey == '2') {
+      supplierAdminFacade.get({ type: 'BALANCE', })
       notapprovedFacade.get({
         page: 1,
         perPage: 10,
@@ -101,6 +103,7 @@ const Page = () => {
           // , supplierId: ''
         }
       })
+    }
   }, []);
 
   useEffect(() => {
@@ -646,10 +649,7 @@ const Page = () => {
                             filter: {
                               type: 'BALANCE',
                               categoryId: form.getFieldValue('categoryId1'),
-                              supplierId: value,
-                              categoryId1: form.getFieldValue('categoryId1'),
-                              categoryId2: form.getFieldValue('categoryId2'),
-                              categoryId3: form.getFieldValue('categoryId3'),
+                              supplierId: value
                             },
                           });
                         },

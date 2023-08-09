@@ -85,8 +85,8 @@ const action = {
     return statusCode;
   },),
 
-  putProductreject: createAsyncThunk(name + '/putProductreject', async ({ id }: { id?: string }) => {
-    const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/reject/${id}`);
+  putProductreject: createAsyncThunk(name + '/putProductreject', async ({ id, ...values }: Product) => {
+    const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/reject/${id}`, values);
     if (message) await Message.success({ text: message });
     return statusCode;
   },)
@@ -120,15 +120,13 @@ export const productSlice = createSlice(new Slice<Product>(action, { result: {},
       state.isLoading = false;
     })
 
-
-
     .addCase(action.getproduct.pending, (state: State<Product>, action) => {
       state.data = action.meta.arg;
       state.isLoading = true;
       state.status = 'getproduct.pending';
     })
     .addCase(action.getproduct.fulfilled, (state: State, action: PayloadAction<Product>) => {
-      if (action.payload.toString() === '200') {
+      if (action.payload) {
         state.user = action.payload;
         state.status = 'getproduct.fulfilled';
       } else state.status = 'idle';
@@ -225,7 +223,7 @@ export const ProductFacade = () => {
     delete: (id: string) => dispatch(action.delete(id)),
     getproduct: () => dispatch(action.getproduct()),
     putProduct: ({ id }: { id?: string }) => dispatch(action.putProduct({ id })),
-    putProductreject: ({ id }: { id?: string }) => dispatch(action.putProductreject({ id }))
+    putProductreject: (values: Product) => dispatch(action.putProductreject(values)),
   };
 };
 
@@ -251,6 +249,7 @@ export class Product extends CommonEntity {
     public sellingPrice?: string,
     public exportTaxId?: string,
     public importTaxId?: string,
+    public rejectReasonId?: string,
     public category?: {
       child: {
         child: {
@@ -279,13 +278,12 @@ export class Product extends CommonEntity {
         minQuantity: string;
       },
     ],
-    public priceBalanceCommission?: [
+    public priceBalanceCommission?:
       {
         amountBalance: string;
         revenue: string;
         percentBalance: string;
-      },
-    ],
+      }[],
     public child?: {},
     public photos?: [
       {
@@ -315,7 +313,10 @@ export class Product extends CommonEntity {
         },
       }
     ],
-    public rejectReason?: string
+    public rejectReason?: {
+      id: string;
+      name: string;
+    }
   ) {
     super();
   }

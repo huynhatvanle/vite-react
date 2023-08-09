@@ -76,7 +76,6 @@ const Page = () => {
       stt: index + 1,
       Content: item?.content,
       Url: item?.url
-      // substring(109, 125)
     };
   });
 
@@ -84,7 +83,7 @@ const Page = () => {
     { label: 'Đơn vị cơ bản không đúng', value: 'Đơn vị cơ bản không đúng' },
     { label: 'Danh mục sản phẩm không đúng', value: 'Danh mục sản phẩm không đúng' },
     { label: 'Mô tả sản phẩm không phù hợp', value: 'Mô tả sản phẩm không phù hợp' },
-    { label: 'Bản đánh giá cửa hàng không phù hợp', value: 'Bản đ ánh giá cửa hàng không phù hợp' },
+    { label: 'Bản đánh giá cửa hàng không phù hợp', value: 'Bản đánh giá cửa hàng không phù hợp' },
     { label: 'Chiết khấu với BALANCE không phù hợp', value: 'Chiết khấu với BALANCE không phù hợp' },
     { label: 'Khác', value: 'other' },
   ];
@@ -731,7 +730,7 @@ const Page = () => {
                       showCloseButton: true,
                       showConfirmButton: true,
                       onConfirm() {
-                        modalformRef?.current?.handleEdit({ data })
+                        modalformRef?.current?.handleEdit(data)
                       },
                     })}
                   />
@@ -758,7 +757,7 @@ const Page = () => {
             className="form"
             ref={modalformRef}
             widthModal={600}
-            title={(data) => (data?.id)}
+            title={(data) => ''}
             columns={[
               {
                 title: '',
@@ -774,6 +773,7 @@ const Page = () => {
                   }
                 }
               },
+
               {
                 title: 'Lý do',
                 name: 'rejectReason',
@@ -784,15 +784,6 @@ const Page = () => {
                     label: item.label,
                     value: item.value!
                   })),
-                  onChange(value, form) {
-                    modalformRef?.current?.({
-                      filter: {
-                        type: form.getFieldValue('type'),
-                        rejectReason: value,
-                      },
-                    }),
-                      setOrther(true)
-                  },
                 }
               },
               {
@@ -801,6 +792,7 @@ const Page = () => {
                 formItem: {
                   type: other ? 'hidden' : 'textarea',
                   placeholder: 'Vui lòng nhập lý do của bạn',
+                  rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
                 }
               }
             ]}
