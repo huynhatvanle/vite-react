@@ -52,7 +52,12 @@ const Page = () => {
                 {t('page.home.Product Development')}
               </li>
             </ul>
-            <button className="gsap bottom bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-3xl mt-4">
+            <button
+              className="gsap bottom bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-3xl mt-4"
+              onClick={() => {
+                window.scrollTo({ top: document.getElementById('services')!.offsetTop, behavior: 'smooth' });
+              }}
+            >
               {t('page.home.Get Started')} <Arrow className={'w-4 h-4 ml-1 inline-block'} />
             </button>
           </div>
@@ -128,7 +133,7 @@ const Page = () => {
             >
               {dataFacade.services.map((data, index) => (
                 <SwiperSlide key={index} className={'lg:flex items-center'}>
-                  <img alt="Ari" className="lazy lg:w-1/2 lg:pr-14 gsap zoom" data-src={data.image} />
+                  <img alt="Ari" className="lazy lg:w-1/2 lg:pr-14" data-src={data.image} />
                   <div className="lg:w-1/2 mt-5 lg:mt-0">
                     <h3 className="text-2xl text-blue-500 font-bold mb-1 gsap top">
                       {
