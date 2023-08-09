@@ -13,6 +13,7 @@ import dayjs from 'dayjs';
 import { TableRefObject } from '@models';
 import { Excel } from 'antd-table-saveas-excel';
 import { ModalForm } from '@core/modal/form';
+import { Supplier } from '@store/supplier';
 
 const Page = () => {
   const taxFacade = TaxFacade();
@@ -68,7 +69,6 @@ const Page = () => {
     { title: t('Trạng thái'), key: 'status', dataIndex: 'status' },
   ];
   const [month, setMonth] = useState<boolean>();
-  const [supplier, setSupplier] = useState<boolean>();
 
   return (
     <div className={'w-full'}>
@@ -105,7 +105,7 @@ const Page = () => {
                     }
                     showSearch={false}
                     leftHeader={
-                      <div className="flex xl:flex-row xl:gap-3 text-left flex-row-reverse w-full mt-4 sm:mt-0">
+                      <div className="flex flex-col xl:gap-3 text-left w-full mt-4 sm:mt-0">
                         <Form
                           values={{
                             dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
@@ -113,7 +113,7 @@ const Page = () => {
                             status: getFilter(discountFacade.queryParams, 'status'),
                             supplierId: getFilter(discountFacade.queryParams, 'supplierId'),
                           }}
-                          className="intro-x rounded-lg w-full md:flex justify-between form-store xl:justify-start"
+                          className="intro-x rounded-lg w-full md:flex justify-between form-discount xl:justify-start"
                           columns={[
                             {
                               title: '',
@@ -169,7 +169,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 1,
                                 render: () => (
-                                  <div className="flex sm:h-10 sm:mt-0 mt-[-6px] sm:mb-0 mb-[2px] items-center">
+                                  <div className="flex sm:h-10 sm:mt-0 mt-[-4px] sm:mb-0 mb-[2px] items-center">
                                     <p className="whitespace-nowrap">{t('Đến')}</p>
                                   </div>
                                 ),
@@ -209,8 +209,8 @@ const Page = () => {
                             },
                           ]}
                         />
-                        {month && (
-                          <div className="w-full flex">
+                        {month && ( 
+                          <div className="w-full flex xl:mt-[42px] xl:mb-5 xl:ml-[-160px] sm:ml-[-100px] sm:mb-4 mb-[12px] sm:mt-[-14px] mt-[-14px] z-10 xl:absolute">
                             <span className="sm:w-[526px] text-center sm:text-right text-red-500">
                               Tháng kết thúc phải lớn hơn Tháng bắt đầu
                             </span>
@@ -266,9 +266,9 @@ const Page = () => {
                                   label: item?.name,
                                   value: item?.id!,
                                 })),
+                                rules: [{type: 'required', message: 'Vui lòng chọn nhà cung cấp'}],
                                 onChange(value: any, form: any) {
-                                  value ? setSupplier(false) : setSupplier(true);
-                                  dataTableRefDiscount?.current?.onChange({
+                                  value && dataTableRefDiscount?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
                                     filter: {
@@ -286,13 +286,6 @@ const Page = () => {
                             },
                           ]}
                         />
-                        {supplier && (
-                          <div className="w-full flex">
-                            <span className="sm:w-[526px] text-center sm:text-right text-red-500">
-                              Vui lòng chọn nhà cung cấp
-                            </span>
-                          </div>
-                        )}
                       </div>
                     }
                     subHeader={() => (
