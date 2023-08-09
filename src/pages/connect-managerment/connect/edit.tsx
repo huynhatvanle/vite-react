@@ -107,7 +107,7 @@ const Page = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={'sm:text-xl text-base font-bold text-teal-900 py-4 mr-5 '}>{t('titles.informationstore')}</div>
+                    <div className={'sm:text-xl text-base font-bold text-teal-900 py-4 mr-5  '}>{t('titles.informationstore')}</div>
                     <div className='flex w-full'>
                         <div className='w-full'>
                             <div className='w-full sm:flex sm:flex-row gap-5 mb-5 text-base'>
@@ -130,14 +130,14 @@ const Page = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='w-full flex flex-row mb-5 text-base border-b'>
+                    <div className='w-full sm:flex sm:flex-row gap-5 mb-5 text-base  border-b'>
                         <div className='font-bold text-teal-900 w-36  mb-5 '>Địa chỉ:</div>
                         <div>{data?.store?.address?.street},{data?.store?.address?.ward?.name},{data?.store?.address?.district?.name},{data?.store?.address?.province?.name}</div>
                     </div>
-                    <div className={'sm:text-xl text-base font-bold text-teal-900 py-4 mr-5 '}>{t('titles.informationstoreRequestSupplier')}</div>
-                    <div className='flex w-full'>
+                    {/* <div className={'sm:text-xl text-base font-bold text-teal-900 py-4 mr-5 '}>{t('titles.informationstoreRequestSupplier')}</div> */}
+                    {/* <div className='flex w-full'>
                         <div className='w-full'>
-                            <div className='w-full sm:flex sm:flex-row gap-5 mb-5 text-base'>
+                            <div className='w-full sm:flex sm:flex-row gap-5 mb-5 text-base '>
                                 <div className='font-bold text-teal-900 w-36'>Nhà cung cấp:</div>
                                 <div>{data?.storeRequestSupplier?.[0]?.supplier?.name}</div>
                             </div>
@@ -158,10 +158,10 @@ const Page = () => {
 
                         </div>
                     </div>
-                    <div className='w-full flex flex-row mb-5 text-base'>
+                    <div className='w-full flex flex-row mb-5 text-base border-b'>
                         <div className='font-bold text-teal-900 w-36'>Địa chỉ:</div>
                         <div>{data?.storeRequestSupplier?.[0]?.supplier?.address?.street},{data?.storeRequestSupplier?.[0]?.supplier?.address?.ward?.name},{data?.storeRequestSupplier?.[0]?.supplier?.address?.district?.name},{data?.storeRequestSupplier?.[0]?.supplier?.address?.province?.name}</div>
-                    </div>
+                    </div> */}
                     <Button
                         text={t('components.form.modal.cancel')}
                         className={'button sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
@@ -225,7 +225,7 @@ const Page = () => {
 
                         </div>
                     </div>
-                    <div className='w-full flex flex-row mb-5 text-base border-b'>
+                    <div className='w-full sm:flex sm:flex-row gap-5 mb-5 text-base  border-b'>
                         <div className='font-bold text-teal-900 w-36  mb-5 '>Địa chỉ:</div>
                         <div>{data?.store?.address?.street},{data?.store?.address?.ward?.name},{data?.store?.address?.district?.name},{data?.store?.address?.province?.name}</div>
                     </div>
@@ -296,40 +296,6 @@ const Page = () => {
                                                     text={t('Xem giá')}
                                                     onClick={() => modalFormRefxemgia?.current?.handleEdit()}
                                                 />
-                                                {/* <ModalForm
-                                                    facade={connectFacade}
-                                                    ref={modalFormRefxemgia}
-                                                    title={(data: any) => t('Xem giá')}
-                                                    className='z'
-                                                    columns={[
-                                                        {
-                                                            title: 'Lý do',
-                                                            name: 'reason',
-                                                            formItem: {
-                                                                type: 'select',
-                                                                list: listReason,
-                                                            }
-                                                        },
-                                                        {
-                                                            title: 'Chi tiết',
-                                                            name: 'note',
-                                                            formItem: {
-                                                                type: 'textarea',
-                                                                rules: [{ type: 'textarea' }]
-                                                            }
-                                                        }
-                                                    ]}
-                                                    widthModal={600}
-                                                    footerCustom={(handleOk, handleCancel) => (
-                                                        <div className="flex justify-end gap-2">
-                                                            <Button
-                                                                text={t('components.form.modal.cancel')}
-                                                                className="!bg-white !text-teal-900 btn-cancel"
-                                                                onClick={handleCancel}
-                                                            />
-                                                        </div>
-                                                    )}
-                                                /> */}
                                             </>
 
                                         )
@@ -360,22 +326,7 @@ const Page = () => {
                             title={(data: any) => t('Xem giá')}
                             className='z'
                             columns={[
-                                {
-                                    title: 'Lý do',
-                                    name: 'reason',
-                                    formItem: {
-                                        type: 'select',
-                                        list: listReason,
-                                    }
-                                },
-                                {
-                                    title: 'Chi tiết',
-                                    name: 'note',
-                                    formItem: {
-                                        type: 'textarea',
-                                        rules: [{ type: 'textarea' }]
-                                    }
-                                }
+                               
                             ]}
                             widthModal={600}
                             footerCustom={(handleOk, handleCancel) => (
@@ -403,8 +354,8 @@ const Page = () => {
                                     text={t('Từ chối yêu cầu')}
                                     onClick={() => modalFormRef?.current?.handleEdit()}
                                 />
-                                {/* <ModalForm
-                                    key={2}
+                                <ModalForm
+                                    keyState=''
                                     facade={connectFacade}
                                     ref={modalFormRef}
                                     title={(data: any) => t('Từ chối yêu cầu sản phẩm')}
@@ -443,7 +394,7 @@ const Page = () => {
                                             />
                                         </div>
                                     )}
-                                /> */}
+                                />
                             </>
 
                             <Button
@@ -511,14 +462,110 @@ const Page = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='w-full flex flex-row mb-5 text-base border-b'>
+                    <div className='w-full sm:flex sm:flex-row gap-5 mb-5 text-base border-b'>
                         <div className='font-bold text-teal-900 w-36  mb-5 '>Địa chỉ:</div>
                         <div>{data?.store?.address?.street},{data?.store?.address?.ward?.name},{data?.store?.address?.district?.name},{data?.store?.address?.province?.name}</div>
                     </div>
-                    <div className={'sm:text-xl text-base font-bold text-teal-900 py-4 mr-5 '}>{t('titles.informationstoreRequestSupplier')}</div>
+                    <div className={'sm:text-xl text-base font-bold text-teal-900 py-4 mr-5 '}>{t('titles.SupplierList')}</div>
+                    {data?.storeRequestSupplier?.length === 0 ? ("") : (<div>
+                        <DataTable
+                            data={data.storeRequestSupplier}
+                            defaultRequest={{ page: 1, perPage: 10 }}
+                            xScroll='1440px'
+                            className=' bg-white p-5 rounded-lg'
+                            // onRow={(data: any) => ({
+                            //     onDoubleClick: () => {
+
+                            //         navigate(`/${lang}${routerLinks('connect-managerment/connect')}/${data.id}`)
+
+                            //     },
+                            // })}
+                            showSearch={false}
+                            showPagination={false}
+                            columns={[
+                                {
+                                    title: 'tax.stt',
+                                    name: 'stt',
+                                    tableItem: {
+                                        width: 70,
+                                        render: () => `${stt++}`
+                                    },
+                                },
+                                {
+                                    title: 'Tên nhà cung cấp',
+                                    name: 'supplier',
+                                    tableItem: {
+                                        render: (text, item) => item?.supplier?.name,
+                                    },
+                                },
+
+                                {
+                                    title: 'Địa chỉ',
+                                    name: 'store',
+                                    tableItem: {
+                                        render: (text, item) => item?.supplier?.address?.street + ', ' + item?.supplier?.address?.ward?.name + ', ' + item?.supplier?.address?.district?.name + ', ' + item?.supplier?.address?.province?.name
+
+                                    },
+                                },
+                                {
+                                    title: 'store.productName',
+                                    name: 'productName',
+                                    tableItem: {
+                                        render: (text, item) => item?.product?.name
+                                    },
+                                },
+                                {
+                                    title: 'Giá bán lẻ(VNĐ)',
+                                    name: 'requestedAt',
+                                    tableItem: {
+                                        render: (text, item) => item?.product?.productPrice?.[0]?.price
+                                    },
+                                },
+                                {
+                                    title: 'Bảng giá',
+                                    name: 'approvedAt',
+                                    tableItem: {
+                                        render: (text, item) =>
+                                        (
+                                            <>
+                                                <Button
+                                                    className='!bg-white !border-teal-900 hover:!border-teal-600 !border-solid !border !rounded-xl !text-teal-900 hover:!text-teal-600 p-2 priceBtn min-w-[83px]'
+                                                    text={t('Xem giá')}
+                                                    onClick={() => modalFormRefxemgia?.current?.handleEdit()}
+                                                />
+                                            </>
+
+                                        )
+                                    },
+
+                                },
+                            ]}
+
+                        />
+                        <ModalForm
+                        keyState=''
+                            facade={connectFacade}
+                            ref={modalFormRefxemgia}
+                            title={(data: any) => t('Xem giá')}
+                            className='z'
+                            columns={[
+                                
+                            ]}
+                            
+                            footerCustom={(handleOk, handleCancel) => (
+                                <div className="flex justify-end gap-2">
+                                    <Button
+                                        text={t('components.form.modal.cancel')}
+                                        className="!bg-white !text-teal-900 btn-cancel"
+                                        onClick={handleCancel}
+                                    />
+                                </div>
+                            )}
+                        />
+                    </div>)}                    
                     <Button
                         text={t('components.form.modal.cancel')}
-                        className={'button sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
+                        className={'!bg-white !border-teal-900 hover:!border-teal-600 !border-solid !border !rounded-xl !text-teal-900 hover:!text-teal-600 p-2 priceBtn min-w-[83px] '}
                         onClick={handleBack}
                     />
                 </div>
@@ -575,7 +622,7 @@ const Page = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='w-full flex flex-row mb-5 text-base border-b'>
+                    <div className='w-full sm:flex sm:flex-row gap-5 mb-5 text-base  border-b'>
                         <div className='font-bold text-teal-900 w-36  mb-5 '>Địa chỉ:</div>
                         <div>{data?.store?.address?.street},{data?.store?.address?.ward?.name},{data?.store?.address?.district?.name},{data?.store?.address?.province?.name}</div>
                     </div>

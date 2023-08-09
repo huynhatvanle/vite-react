@@ -130,7 +130,8 @@
     "informationstoreRequestSupplier":"Thông tin nhà cung cấp",
     "Merchandise-managerment": "Quản lý hàng hóa",
     "Merchandise-Managerment/Tax": "Quản lý thuế",
-    "Tax": "Thuế"
+    "Tax": "Thuế",
+    "SupplierList":"Danh sách nhà cung cấp"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
