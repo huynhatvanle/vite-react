@@ -161,7 +161,8 @@
     "Store-Revenue": "Doanh thu cửa hàng",
     "Merchandise-Managerment/Tax": "Thuế",
     "Supplier-Revenue": "Doanh thu nhà cung cấp",
-    "revenue-management/discount": "Chiết khấu NCC"
+    "revenue-management/discount": "Chiết khấu NCC",
+    "Discount-Detail": "Chi Tiết Chiết Khấu"
   },
   "columns": {
     "auth": {
