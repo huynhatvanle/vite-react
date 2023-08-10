@@ -43,6 +43,7 @@ export * from './discount/CommisionPayment';
 export * from './product/product-not-approved';
 export * from './merchandise-managerment/tax';
 export * from './merchandise-managerment/tax/getAllTax';
+export * from './inventory-order';
 import {
   globalSlice,
   userSlice,
@@ -74,6 +75,7 @@ import {
   commisionPaymentSlice,
   notApprovedSlice,
   taxAdminSlice,
+  inventoryOrderSlice,
 } from './';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
@@ -107,4 +109,5 @@ const rootReducer = combineReducers({
   [notApprovedSlice.name]: notApprovedSlice.reducer,
   [taxSlice.name]: taxSlice.reducer,
   [taxAdminSlice.name]: taxAdminSlice.reducer,
+  [inventoryOrderSlice.name]: inventoryOrderSlice.reducer,
 });

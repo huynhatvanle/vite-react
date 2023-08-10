@@ -41,6 +41,8 @@ export const routerLinks = (name: string, type?: string) => {
     'revenue-management/store': '/revenue-management/store',
     'revenue-management/discount': '/revenue-management/discount',
     'revenue-management/supplier': '/revenue-management/supplier',
+    'merchandise-supplier-management/return-goods/detail': '/merchandise-supplier-management/return-goods/detail',
+    'revenue/detail': '/revenue/detail'
   }; // 💬 generate link to here
 
   const apis: {
@@ -75,7 +77,8 @@ export const routerLinks = (name: string, type?: string) => {
     StoreOder: '/sub-organization/store-order',
     SupplierOrder: '/sub-organization/supplier-order',
     CommisionPayment: '/sub-org-commision-payment',
-    TaxAdmin: '/mt-tax/get-all-tax'
+    TaxAdmin: '/mt-tax/get-all-tax',
+    InventoryOrder: '/inventory-order'
   }; // 💬 generate api to here
 
   switch (type) {

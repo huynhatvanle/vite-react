@@ -463,7 +463,10 @@
     "status": "Trạng thái",
     "List Balance": "Danh sách hàng hóa Balance.xlsx",
     "List": "Danh sách hàng hóa.xlsx",
-    "Image": "Link hình ảnh"
+    "Image": "Link hình ảnh",
+    "UnitPrice": "Đơn giá",
+    "Quantity": "Số lượng",
+    "TotalAmount": "Tổng tiền sau thuế(VND)"
   },
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",
@@ -478,13 +481,13 @@
     "Select status": "Chọn trạng thái"
   },
   "merchant": {
-    "ALL":"Tất cả",
-    "APPROVED":"Đang bán",
-    "WAITING_APPROVE":"Chờ xác nhận",
-    "REJECTED":"Từ chối",
-    "OUT_OF_STOCK":"Hết hàng",
-    "STOP_SELLING":"Ngừng bán",
-    "CANCELLED":"Đã huỷ"
+    "ALL": "Tất cả",
+    "APPROVED": "Đang bán",
+    "WAITING_APPROVE": "Chờ xác nhận",
+    "REJECTED": "Từ chối",
+    "OUT_OF_STOCK": "Hết hàng",
+    "STOP_SELLING": "Ngừng bán",
+    "CANCELLED": "Đã huỷ"
   },
   "tax": {
     "stt": "STT",
