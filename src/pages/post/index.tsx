@@ -61,7 +61,7 @@ const Page = () => {
   }, [postTypeFacade.status]);
 
   const request = JSON.parse(postFacade.queryParams || '{}');
-  request.filter = JSON.parse(request?.filter || '{}');
+  if (!request.filter || typeof request?.filter === 'string') request.filter = JSON.parse(request?.filter || '{}');
   const { t } = useTranslation();
   const dataTableRef = useRef<TableRefObject>(null);
   return (

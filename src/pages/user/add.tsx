@@ -20,7 +20,7 @@ const Page = () => {
     set({
       breadcrumbs: [
         { title: 'titles.User', link: '' },
-        { title: id ? 'titles.User/Edit' : 'titles.User/Add', link: '' },
+        { title: id ? 'pages.User/Edit' : 'pages.User/Add', link: '' },
       ],
     });
   }, [id]);
