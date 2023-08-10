@@ -8,7 +8,7 @@ import { Avatar } from '@core/avatar';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { DayoffFacade, GlobalFacade } from '@store';
-import { CheckCircle, Plus, Times, Trash } from '@svgs';
+import { CheckCircle, Plus, Spinner, Times, Trash } from '@svgs';
 import { lang, keyRole, routerLinks } from '@utils';
 
 const Page = () => {
@@ -156,12 +156,12 @@ const Page = () => {
               render: (text: number) =>
                 text !== 0 ? (
                   text === 1 ? (
-                    <CheckCircle className="w-5 h-5 fill-green-500 !flex !justify-center" />
+                    <CheckCircle className="w-5 h-5 fill-green-500" />
                   ) : (
-                    <Times className="w-5 h-5 fill-red-500 !flex !justify-center" />
+                    <Times className="w-5 h-5 fill-red-500" />
                   )
                 ) : (
-                  ''
+                  <Spinner className="w-5 h-5 fill-blue-500 animate-spin" />
                 ),
             },
           },
