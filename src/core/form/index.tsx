@@ -12,7 +12,6 @@ import { Chips, SelectTag, Select, TreeSelect, TableTransfer, Password, Mask, Ad
 import { Upload } from '../upload';
 import { Button } from '../button';
 import { Editor } from '../editor';
-import { DraggableLayout } from '../draggable/layout';
 
 export const Form = ({
   className,
@@ -105,8 +104,6 @@ export const Form = ({
         );
       case 'editor':
         return <Editor />;
-      case 'layout':
-        return <DraggableLayout />;
       case 'upload':
         return <Upload multiple={!!formItem.mode} />;
       case 'table_transfer':

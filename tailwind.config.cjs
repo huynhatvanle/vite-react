@@ -296,8 +296,17 @@ module.exports = {
           transform: 'translateX(0px)',
         },
       },
+      spin: {
+        from: {
+          transform: 'rotate(0deg)',
+        },
+        to: {
+          transform: 'rotate(360deg)'
+        }
+      }
     },
     animation: {
+      spin: 'spin 1s linear infinite',
       shine: 'shine 0.8s',
       'intro-x-animation': 'introXAnimation .4s ease-in-out forwards .33333s',
       'burger-hover-2': 'burgerHover 1s infinite ease-in-out alternate forwards 200ms',

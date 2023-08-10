@@ -10,10 +10,7 @@
     "build:prod": "tsc && vite build --mode prod",
     "preview": "vite preview",
     "format": "prettier --write \"{src,public}/**/*.{tsx,jsx,less}\"",
-    "lint": "eslint \"{src,public}/**/*.{tsx,jsx}\" --fix",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
-    "test-storybook": "test-storybook"
+    "lint": "eslint \"{src,public}/**/*.{tsx,jsx}\" --fix"
   },
   "dependencies": {
     "@editorjs/code": "^2.8.0",
@@ -31,7 +28,6 @@
     "@editorjs/table": "^2.2.1",
     "@editorjs/underline": "^1.1.0",
     "@reduxjs/toolkit": "^1.9.5",
-    "@shopify/draggable": "^1.0.0-beta.8",
     "antd": "^5.5.0",
     "echarts": "^5.4.2",
     "glightbox": "^3.2.0",

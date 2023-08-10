@@ -26,5 +26,5 @@
     "importHelpers": true,
     "outDir": "./dist/out-tsc"
   },
-  "include": ["./src/**/*", "cypress/**/*"],
+  "include": ["./src/**/*"],
 }
