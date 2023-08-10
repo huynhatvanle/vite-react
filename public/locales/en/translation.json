@@ -184,7 +184,8 @@
         "Upload avatar": "Upload avatar",
         "Full name": "Full Name",
         "Phone Number": "Phone Number",
-        "Action": "Action"
+        "Action": "Action",
+        "Leave date cannot exceed": "Leave date cannot exceed {{day}} days"
       },
       "Code": {
         "Type": "Type Code",

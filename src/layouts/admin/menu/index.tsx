@@ -117,33 +117,33 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                       'active-menu': location.pathname.indexOf(`/${lang}${routerLinks(item.name)}`) > -1,
                     })}
                     defaultActiveKey={menuActive}
-                  >
-                    <Collapse.Panel
-                      key={`/${lang}${routerLinks(item.name)}`}
-                      showArrow={!isCollapsed}
-                      header={
-                        <ul>
-                          <li
-                            className={classNames('flex items-center text-gray-600 fill-gray-600 menu', {
-                              'justify-center ': isCollapsed,
-                            })}
-                          >
-                            <span className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</span>
-                            <span
-                              className={classNames('pl-2.5 transition-all duration-300 ease-in-out font-bold', {
-                                'opacity-100': !isCollapsed,
-                                'opacity-0 text-[0]': isCollapsed,
+                    items={[
+                      {
+                        key: `/${lang}${routerLinks(item.name)}`,
+                        showArrow: !isCollapsed,
+                        label: (
+                          <ul>
+                            <li
+                              className={classNames('flex items-center text-gray-600 fill-gray-600 menu', {
+                                'justify-center ': isCollapsed,
                               })}
                             >
-                              {t(`titles.${item.name}`)}
-                            </span>
-                          </li>
-                        </ul>
-                      }
-                    >
-                      {subMenu(item.child)}
-                    </Collapse.Panel>
-                  </Collapse>
+                              <span className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</span>
+                              <span
+                                className={classNames('pl-2.5 transition-all duration-300 ease-in-out font-bold', {
+                                  'opacity-100': !isCollapsed,
+                                  'opacity-0 text-[0]': isCollapsed,
+                                })}
+                              >
+                                {t(`titles.${item.name}`)}
+                              </span>
+                            </li>
+                          </ul>
+                        ),
+                        children: subMenu(item.child),
+                      },
+                    ]}
+                  />
                 </li>
               );
             }

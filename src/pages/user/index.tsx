@@ -51,9 +51,8 @@ const Page = () => {
         break;
     }
   }, [userFacade.status]);
-
-  const request = JSON.parse(userFacade.queryParams || '{}');
-  request.filter = JSON.parse(request?.filter || '{}');
+  const request = JSON.parse(userFacade?.queryParams || '{}');
+  if (!request.filter || typeof request?.filter === 'string') request.filter = JSON.parse(request?.filter || '{}');
   const { t } = useTranslation();
   const dataTableRef = useRef<TableRefObject>(null);
   return (
