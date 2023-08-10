@@ -44,7 +44,8 @@ export const convertFormValue = (columns: FormModel[], values: { [selector: stri
             }
             break;
           case 'number':
-            if (!exportData && values && values[item.name]) values[item.name] = parseFloat(values[item.name]);
+            if (!exportData && values && values[item.name])
+              values[item.name] = !item.formItem?.mask ? parseFloat(values[item.name]) : values[item.name].toString();
             if (exportData) values[item.name] = parseFloat(values[item.name]);
             break;
           case 'tab':
