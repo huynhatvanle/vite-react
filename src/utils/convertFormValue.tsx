@@ -56,10 +56,6 @@ export const convertFormValue = (columns: FormModel[], values: { [selector: stri
                   .formItem!.column!.filter((col) => !!col.formItem)
                   .forEach((col) => {
                     switch (col!.formItem!.type) {
-                      case 'layout':
-                        result[col.name] =
-                          values[item.name]?.length && values[item.name] ? values[item.name][i][col.name] || [] : [];
-                        break;
                       case 'upload':
                         result[col.name] =
                           values[item.name]?.length && values[item.name]
@@ -74,9 +70,6 @@ export const convertFormValue = (columns: FormModel[], values: { [selector: stri
                 return result;
               });
             }
-            break;
-          case 'layout':
-            if (!exportData && !values[item.name]) values[item.name] = [];
             break;
           case 'select':
             if (!exportData && item?.formItem?.mode === 'multiple' && values[item.name]) {
