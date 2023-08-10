@@ -145,6 +145,16 @@ const pages = [
         component: React.lazy(() => import('@pages/revenue-management/supplier/index')),
         title: 'Supplier-Revenue',
       },
+      {
+        path: routerLinks('merchandise-supplier-management/return-goods/detail') + '/:id',
+        component: React.lazy(() => import('@pages/revenue-management/supplier/return-goods')),
+        title: 'Return-Goods',
+      },
+      {
+        path: routerLinks('revenue/detail') + '/:id',
+        component: React.lazy(() => import('@pages/revenue-management/supplier/revenue')),
+        title: 'Revenue',
+      },
     ], // 💬 generate link to here
   },
 ];

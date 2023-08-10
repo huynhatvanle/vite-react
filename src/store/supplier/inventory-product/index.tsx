@@ -53,8 +53,8 @@ const action = {
           categoryId3: filterProduct.categoryId3 ? filterProduct.categoryId3 : null,
           fullTextSearch: fullTextSearch ? fullTextSearch : null,
           filterDate: {
-            dateFrom: filterProduct.dateFrom ? filterProduct.dateFrom : '',
-            dateTo: filterProduct.dateTo ? filterProduct.dateTo : '',
+            dateFrom: filterProduct.filterDate?.dateFrom ? filterProduct.filterDate?.dateFrom : '',
+            dateTo: filterProduct.filterDate?.dateTo ? filterProduct.filterDate?.dateTo : '',
           },
         }),
       );

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { API, routerLinks } from '@utils';
+import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { CommonEntity, PaginationQuery, Responses } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
@@ -13,7 +13,7 @@ const action = {
   }),
   get1: createAsyncThunk(
     name + '/get',
-    async ({ subOrgId }: { subOrgId?: string }) => await API.get(routerLinks(name, 'api'), { subOrgId }),
+    async ({ subOrgId }: { subOrgId?: string }) => await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({ subOrgId })),
   ),
   get2: createAsyncThunk(name + '/get2', async ({ id, subOrgId }: { id: string, subOrgId?: string }) => await API.get(routerLinks(name, 'api'), { id, subOrgId })),
   get3: createAsyncThunk(name + '/get3', async ({ id, subOrgId }: { id: string, subOrgId?: string }) => await API.get(routerLinks(name, 'api'), { id, subOrgId })),

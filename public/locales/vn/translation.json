@@ -448,7 +448,10 @@
     "status": "Trạng thái",
     "List Balance": "Danh sách hàng hóa Balance.xlsx",
     "List": "Danh sách hàng hóa.xlsx",
-    "Image": "Link hình ảnh"
+    "Image": "Link hình ảnh",
+    "UnitPrice": "Đơn giá",
+    "Quantity": "Số lượng",
+    "TotalAmount": "Tổng tiền sau thuế(VND)"
   },
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",
