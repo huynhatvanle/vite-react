@@ -57,7 +57,7 @@ export class Data extends CommonEntity {
     public name?: string,
     public type?: string,
     public image?: string,
-    public order?: number | null,
+    public order: number | null = null,
     public createdAt?: string,
     public updatedAt?: string,
     public translations?: {
