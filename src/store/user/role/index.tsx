@@ -21,6 +21,7 @@ export const UserRoleFacade = () => {
       dispatch(action.getById({ id, keyState })),
     post: (values: UserRole) => dispatch(action.post(values)),
     put: (values: UserRole) => dispatch(action.put(values)),
+    putDisable: (values: { id: string; disable: boolean }) => dispatch(action.putDisable(values)),
     delete: (id: string) => dispatch(action.delete(id)),
     getPermission: () => dispatch(action.getPermission()),
   };

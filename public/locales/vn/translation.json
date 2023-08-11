@@ -7,7 +7,11 @@
       "pleaseEnterValueToSearch": "Tìm kiếm",
       "reset": "Cài lại",
       "search": "Tìm kiếm",
-      "areYouSureWant": "Bạn có chắc muốn xóa ?",
+      "areYouSureWant": "Bạn có chắc muốn xóa?",
+      "areYouSureWantDisable": "Bạn có chắc muốn vô hiệu hóa?",
+      "areYouSureWantEnable": "Bạn có chắc chắn muốn kích hoạt?",
+      "Disabled": "Đã vô hiệu hóa",
+      "Enabled": "Đã kích hoạt",
       "cancel": "Huỷ bỏ",
       "ok": "Đồng ý",
       "No Data": "Trống"
@@ -39,24 +43,6 @@
         "cancel": "Huỷ bỏ"
       },
       "Select Date": "Chọn ngày"
-    },
-    "media-management": {
-      "filename": "Tên tệp",
-      "fileSize": "Kích thước tập tin",
-      "lastModified": "Sửa đổi lần cuối",
-      "detail": "Chi tiết",
-      "areYouSure": "Bạn có chắc chắn muốn xóa?",
-      "mediaManagement": "Quản lý phương tiện truyền thông",
-      "filesOnSystem": "Tệp trên hệ thống",
-      "addFiles": "Thêm các tập tin",
-      "multiFiles": "Nhiều tệp",
-      "createFolder": "Tạo thư mục",
-      "uploadFile": "Tải lên tệp",
-      "moveUpLevel": "Tiến lên một cấp độ",
-      "outsideLink": "Liên kết bên ngoài",
-      "save": "Lưu lại",
-      "nameFolder": "Tên thư mục",
-      "onlyLettersAndDigitsAllowed": "Chỉ cho phép các chữ cái và chữ số"
     },
     "message": {
       "Success": "Thành công",

@@ -82,7 +82,7 @@ export const Form = ({
     handleFilter();
   }, [handleFilter, values]);
 
-  const generateInput = (formItem: FormItem, item: FormModel, values: any, name: string, index: number) => {
+  const generateInput = (formItem: FormItem, item: FormModel, values: any, name: string) => {
     switch (formItem.type) {
       case 'hidden':
         return <input type={'hidden'} name={item.name} tabIndex={-1} />;
@@ -537,11 +537,9 @@ export const Form = ({
       }
 
       return item.formItem.type !== 'addable' ? (
-        <AntForm.Item {...otherProps}>
-          {generateInput(item.formItem, item, values, otherProps.name, index)}
-        </AntForm.Item>
+        <AntForm.Item {...otherProps}>{generateInput(item.formItem, item, values, otherProps.name)}</AntForm.Item>
       ) : (
-        generateInput(item.formItem, item, values, otherProps.name, index)
+        generateInput(item.formItem, item, values, otherProps.name)
       );
     }
     return null;

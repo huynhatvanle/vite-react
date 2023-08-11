@@ -16,6 +16,7 @@ export const DataTypeFacade = () => {
       dispatch(action.getById({ id, keyState })),
     post: (values: DataType) => dispatch(action.post(values)),
     put: (values: DataType) => dispatch(action.put(values)),
+    putDisable: (values: { id: string; disable: boolean }) => dispatch(action.putDisable(values)),
     delete: (id: string) => dispatch(action.delete(id)),
   };
 };

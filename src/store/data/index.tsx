@@ -17,6 +17,7 @@ export const DataFacade = () => {
       dispatch(action.getById({ id, keyState })),
     post: (values: Data) => dispatch(action.post(values)),
     put: (values: Data) => dispatch(action.put(values)),
+    putDisable: (values: { id: string; disable: boolean }) => dispatch(action.putDisable(values)),
     delete: (id: string) => dispatch(action.delete(id)),
   };
 };

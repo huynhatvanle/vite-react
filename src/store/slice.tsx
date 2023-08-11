@@ -127,6 +127,20 @@ export class Slice<T extends CommonEntity> {
           state.isLoading = false;
         })
 
+        .addCase(action.putDisable.pending, (state: State<T>) => {
+          state.isLoading = true;
+          state.status = 'putDisable.pending';
+        })
+        .addCase(action.putDisable.fulfilled, (state: State<T>, action: PayloadAction<T>) => {
+          state.isVisible = false;
+          state.status = action.payload ? 'putDisable.fulfilled' : 'idle';
+          state.isLoading = false;
+        })
+        .addCase(action.putDisable.rejected, (state: State) => {
+          state.status = 'putDisable.rejected';
+          state.isLoading = false;
+        })
+
         .addCase(action.delete.pending, (state: State<T>) => {
           state.isLoading = true;
           state.status = 'delete.pending';

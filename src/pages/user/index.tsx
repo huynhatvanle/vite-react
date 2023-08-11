@@ -9,7 +9,7 @@ import { DataTable } from '@core/data-table';
 
 import { TableRefObject } from '@models';
 import { UserFacade, GlobalFacade, CodeFacade, UserRoleFacade } from '@store';
-import { Edit, Plus, Trash } from '@svgs';
+import { Check, Disable, Edit, Plus, Trash } from '@svgs';
 import { keyRole, routerLinks, lang } from '@utils';
 import classNames from 'classnames';
 import { createSearchParams } from 'react-router-dom';
@@ -249,6 +249,39 @@ const Page = () => {
                     align: 'center',
                     render: (text: string, data) => (
                       <div className={'flex gap-2'}>
+                        {user?.role?.permissions?.includes(keyRole.P_USER_UPDATE) && (
+                          <Tooltip
+                            title={t(
+                              data.isDisabled ? 'components.datatable.Disabled' : 'components.datatable.Enabled',
+                            )}
+                          >
+                            <Popconfirm
+                              placement="left"
+                              title={t(
+                                !data.isDisabled
+                                  ? 'components.datatable.areYouSureWantDisable'
+                                  : 'components.datatable.areYouSureWantEnable',
+                              )}
+                              onConfirm={() => userFacade.putDisable({ id: data.id, disable: !data.isDisabled })}
+                              okText={t('components.datatable.ok')}
+                              cancelText={t('components.datatable.cancel')}
+                            >
+                              <button
+                                title={
+                                  t(
+                                    data.isDisabled ? 'components.datatable.Disabled' : 'components.datatable.Enabled',
+                                  ) || ''
+                                }
+                              >
+                                {data.isDisabled ? (
+                                  <Disable className="icon-cud bg-yellow-700 hover:bg-yellow-500" />
+                                ) : (
+                                  <Check className="icon-cud bg-green-600 hover:bg-green-400" />
+                                )}
+                              </button>
+                            </Popconfirm>
+                          </Tooltip>
+                        )}
                         {user?.role?.permissions?.includes(keyRole.P_USER_UPDATE) && (
                           <Tooltip title={t('routes.admin.Layout.Edit')}>
                             <button
