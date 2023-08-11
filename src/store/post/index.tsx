@@ -17,6 +17,7 @@ export const PostFacade = () => {
       dispatch(action.getById({ id, keyState })),
     post: (values: Post) => dispatch(action.post(values)),
     put: (values: Post) => dispatch(action.put(values)),
+    putDisable: (values: { id: string; disable: boolean }) => dispatch(action.putDisable(values)),
     delete: (id: string) => dispatch(action.delete(id)),
   };
 };

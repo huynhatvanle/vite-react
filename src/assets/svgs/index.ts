@@ -7,6 +7,7 @@ export { ReactComponent as CheckSquare } from './check-square.svg';
 export { ReactComponent as Cog } from './cog.svg';
 export { ReactComponent as Copy } from './copy.svg';
 export { ReactComponent as Coffee } from './coffee-solid.svg';
+export { ReactComponent as Disable } from './disable.svg';
 export { ReactComponent as DoubleArrow } from './double-arrow.svg';
 export { ReactComponent as Edit } from './edit.svg';
 export { ReactComponent as Eye } from './eye.svg';

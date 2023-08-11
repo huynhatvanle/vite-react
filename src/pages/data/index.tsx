@@ -5,7 +5,7 @@ import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { lang, keyRole, routerLinks } from '@utils';
 import { GlobalFacade, DataTypeFacade, DataFacade } from '@store';
-import { Edit, Plus, Trash } from '@svgs';
+import { Check, Disable, Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
 import { Popconfirm, Select, Spin, Tooltip } from 'antd';
 import { useNavigate } from 'react-router';
@@ -162,7 +162,40 @@ const Page = () => {
                     align: 'center',
                     render: (text: string, data) => (
                       <div className={'flex gap-2'}>
-                        {user?.role?.permissions?.includes(keyRole.P_CODE_UPDATE) && (
+                        {user?.role?.permissions?.includes(keyRole.P_DATA_UPDATE) && (
+                          <Tooltip
+                            title={t(
+                              data.isDisabled ? 'components.datatable.Disabled' : 'components.datatable.Enabled',
+                            )}
+                          >
+                            <Popconfirm
+                              placement="left"
+                              title={t(
+                                !data.isDisabled
+                                  ? 'components.datatable.areYouSureWantDisable'
+                                  : 'components.datatable.areYouSureWantEnable',
+                              )}
+                              onConfirm={() => dataFacade.putDisable({ id: data.id, disable: !data.isDisabled })}
+                              okText={t('components.datatable.ok')}
+                              cancelText={t('components.datatable.cancel')}
+                            >
+                              <button
+                                title={
+                                  t(
+                                    data.isDisabled ? 'components.datatable.Disabled' : 'components.datatable.Enabled',
+                                  ) || ''
+                                }
+                              >
+                                {data.isDisabled ? (
+                                  <Disable className="icon-cud bg-yellow-700 hover:bg-yellow-500" />
+                                ) : (
+                                  <Check className="icon-cud bg-green-600 hover:bg-green-400" />
+                                )}
+                              </button>
+                            </Popconfirm>
+                          </Tooltip>
+                        )}
+                        {user?.role?.permissions?.includes(keyRole.P_DATA_UPDATE) && (
                           <Tooltip title={t('routes.admin.Layout.Edit')}>
                             <button
                               title={t('routes.admin.Layout.Edit') || ''}
@@ -172,7 +205,7 @@ const Page = () => {
                             </button>
                           </Tooltip>
                         )}
-                        {user?.role?.permissions?.includes(keyRole.P_CODE_DELETE) && (
+                        {user?.role?.permissions?.includes(keyRole.P_DATA_DELETE) && (
                           <Tooltip title={t('routes.admin.Layout.Delete')}>
                             <Popconfirm
                               placement="left"

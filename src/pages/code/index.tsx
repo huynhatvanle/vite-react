@@ -8,7 +8,7 @@ import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { lang, keyRole, routerLinks } from '@utils';
 import { GlobalFacade, CodeFacade, CodeTypeFacade } from '@store';
-import { Edit, Plus, Trash } from '@svgs';
+import { Check, Disable, Edit, Plus, Trash } from '@svgs';
 import { TableRefObject } from '@models';
 import { createSearchParams } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -45,6 +45,7 @@ const Page = () => {
   useEffect(() => {
     switch (codeFacade.status) {
       case 'put.fulfilled':
+      case 'putDisable.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
         dataTableRef?.current?.onChange(request);
@@ -145,6 +146,39 @@ const Page = () => {
                     align: 'center',
                     render: (text: string, data) => (
                       <div className={'flex gap-2'}>
+                        {user?.role?.permissions?.includes(keyRole.P_CODE_UPDATE) && (
+                          <Tooltip
+                            title={t(
+                              data.isDisabled ? 'components.datatable.Disabled' : 'components.datatable.Enabled',
+                            )}
+                          >
+                            <Popconfirm
+                              placement="left"
+                              title={t(
+                                !data.isDisabled
+                                  ? 'components.datatable.areYouSureWantDisable'
+                                  : 'components.datatable.areYouSureWantEnable',
+                              )}
+                              onConfirm={() => codeFacade.putDisable({ id: data.id, disable: !data.isDisabled })}
+                              okText={t('components.datatable.ok')}
+                              cancelText={t('components.datatable.cancel')}
+                            >
+                              <button
+                                title={
+                                  t(
+                                    data.isDisabled ? 'components.datatable.Disabled' : 'components.datatable.Enabled',
+                                  ) || ''
+                                }
+                              >
+                                {data.isDisabled ? (
+                                  <Disable className="icon-cud bg-yellow-700 hover:bg-yellow-500" />
+                                ) : (
+                                  <Check className="icon-cud bg-green-600 hover:bg-green-400" />
+                                )}
+                              </button>
+                            </Popconfirm>
+                          </Tooltip>
+                        )}
                         {user?.role?.permissions?.includes(keyRole.P_CODE_UPDATE) && (
                           <Tooltip title={t('routes.admin.Layout.Edit')}>
                             <button
