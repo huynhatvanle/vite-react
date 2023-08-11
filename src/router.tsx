@@ -163,7 +163,7 @@ const pages = [
       {
         path: routerLinks('revenue/detail') + '/:id',
         component: React.lazy(() => import('@pages/revenue-management/supplier/revenue')),
-        title: 'Revenue',
+        title: 'RevenueManagement',
       },
     ], // 💬 generate link to here
   },

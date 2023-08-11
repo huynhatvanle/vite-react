@@ -139,7 +139,9 @@
     "Tax": "Thuế",
     "revenue-management/discount": "Chiết khấu NCC",
     "revenue-management/supplier": "Doanh thu NCC",
-    "Supplier-Revenue": "Doanh thu nhà cung cấp"
+    "Supplier-Revenue": "Doanh thu nhà cung cấp",
+    "Return-Goods": "Trả hàng",
+    "RevenueManagement": "Quản lý doanh thu"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -170,7 +172,9 @@
     "Merchandise-Managerment/Tax": "Thuế",
     "Supplier-Revenue": "Doanh thu nhà cung cấp",
     "revenue-management/discount": "Chiết khấu NCC",
-    "Discount-Detail": "Chi Tiết Chiết Khấu"
+    "Discount-Detail": "Chi Tiết Chiết Khấu",
+    "Return-Goods": "Chi tiết trả hàng",
+    "Revenue": "Doanh thu"
   },
   "columns": {
     "auth": {
