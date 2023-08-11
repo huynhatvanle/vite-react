@@ -1,36 +1,29 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
-
-import { Infor, Plus } from '@svgs';
+import { useNavigate } from 'react-router';
+import { Form as AntForm, Tabs } from 'antd';
+import dayjs from 'dayjs';
+import { Excel } from 'antd-table-saveas-excel';
 import {
     CategoryFacade,
-    ConnectSupplierFacade,
     GlobalFacade,
     InventorySupplierFacade,
-    InvoiceKiotVietFacade,
-    InvoiceRevenueFacade,
     SupplierOderFacade,
     inventoryOrdersFacade,
     InventoryListProductFacade,
-    StoreOderFacade,
 } from '@store';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { getFilter, language, languages, routerLinks } from '@utils';
 import { Form } from '@core/form';
-import { Form as AntForm, Dropdown, Select, Tabs, Tooltip, UploadFile } from 'antd';
-import dayjs from 'dayjs';
 import { TableRefObject } from '@models';
-import { Excel } from 'antd-table-saveas-excel';
-import { ModalForm } from '@core/modal/form';
 
 const Page = () => {
     const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
     const { t } = useTranslation();
     const navigate = useNavigate();
     const isReload = useRef(false);
-    const { formatDate, formatDateTime } = GlobalFacade();
+    const { formatDate } = GlobalFacade();
     const inventoryOrders = inventoryOrdersFacade();
     const supplierOrderFacade = SupplierOderFacade()
     const { isLoading } = supplierOrderFacade;
@@ -44,6 +37,12 @@ const Page = () => {
     const revenueTotal = inventoryOrders.result?.statistical?.totalRenueve?.toLocaleString();
 
     useEffect(() => {
+        if (getFilter(inventoryOrders.queryParams, 'idSupplier')) {
+            inventorySupplier.get({
+                id: getFilter(inventoryOrders.queryParams, 'idSupplier')
+            });
+        }
+
         supplierOrderFacade.get({ supplierType: 'BALANCE' });
         return () => {
             isReload.current && supplierOrderFacade.get({ supplierType: 'BALANCE' });
@@ -52,14 +51,6 @@ const Page = () => {
 
     const [idSupplier, setIdSupplier] = useState();
     const firstSupplier = supplierOrderFacade?.result?.data ? supplierOrderFacade.result.data[0].id : '';
-
-    useEffect(() => {
-        if (getFilter(inventoryOrders.queryParams, 'idSupplier')) {
-            inventorySupplier.get({
-                id: getFilter(inventoryOrders.queryParams, 'idSupplier')
-            });
-        }
-    }, [getFilter(inventoryOrders.queryParams, 'idSupplier')]);
     const suppliers = inventorySupplier.result?.data ? inventorySupplier.result?.data : []
 
     const statusCategory = [
@@ -128,6 +119,7 @@ const Page = () => {
     const category3 = categoryFacade.result3?.data;
 
     let stt = 1;
+    let stt2 = 1;
     let i = 1;
 
     const [activeKey, setActiveKey] = useState<string>(localStorage.getItem('activeRevenueStoreTab') || '1');
@@ -220,6 +212,103 @@ const Page = () => {
                                         paginationDescription={(from: number, to: number, total: number) =>
                                             t('routes.admin.Layout.PaginationOrder', { from, to, total })
                                         }
+                                        columns={[
+                                            {
+                                                title: `supplier.Order.STT`,
+                                                name: 'id',
+                                                tableItem: {
+                                                    width: 70,
+                                                    sorter: true,
+                                                    render: (value: any, item: any) =>
+                                                        JSON.parse(inventoryOrders.queryParams || '{}').page != 1
+                                                            ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
+                                                            JSON.parse(inventoryOrders.queryParams || '{}').perPage +
+                                                            stt++
+                                                            }`
+                                                            : `${stt++}`,
+                                                },
+                                            },
+                                            {
+                                                title: `supplier.Order.Order ID`,
+                                                name: 'invoiceCode',
+                                                tableItem: {
+                                                    width: 175,
+                                                },
+                                            },
+                                            {
+                                                title: `supplier.Order.Store Name`,
+                                                name: 'storeName',
+                                                tableItem: {
+                                                    width: 180,
+                                                },
+                                            },
+                                            {
+                                                title: `supplier.Order.Order Date`,
+                                                name: 'pickUpDate',
+                                                tableItem: {
+                                                    width: 135,
+                                                    render: (text: string) => (text ? dayjs(text).format(formatDate).replace(/-/g, '/') : ''),
+                                                },
+                                            },
+                                            {
+                                                title: `supplier.Order.Delivery Date`,
+                                                name: 'completedDate',
+                                                tableItem: {
+                                                    width: 150,
+                                                    render: (text: string) => (text ? dayjs(text).format(formatDate).replace(/-/g, '/') : ''),
+                                                },
+                                            },
+                                            {
+                                                title: `supplier.Order.Before Tax`,
+                                                name: 'subTotal',
+                                                tableItem: {
+                                                    width: 145,
+                                                    render: (value: any, item: any) => item?.subTotal?.toLocaleString(),
+                                                },
+                                            },
+                                            {
+                                                title: `supplier.Order.After Tax`,
+                                                name: 'total',
+                                                tableItem: {
+                                                    width: 130,
+                                                    render: (value: any, item: any) => item?.total?.toLocaleString(),
+                                                },
+                                            },
+                                            {
+                                                title: `supplier.Order.Promotion`,
+                                                name: 'voucherAmount',
+                                                tableItem: {
+                                                    width: 160,
+                                                    render: (value: any, item: any) => item?.voucherAmount?.toLocaleString(),
+                                                },
+                                            },
+                                            {
+                                                title: `supplier.Order.Total Amount`,
+                                                name: 'total',
+                                                tableItem: {
+                                                    width: 145,
+                                                    render: (value: any, item: any) => item?.total.toLocaleString(),
+                                                },
+                                            },
+                                            {
+                                                title: `supplier.Order.Order Type`,
+                                                name: 'total',
+                                                tableItem: {
+                                                    width: 100,
+                                                    render: (text: string, item: any) =>
+                                                        item?.billType === 'RECIEVED' ? (
+                                                            <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
+                                                                {t('supplier.Sup-Status.Sell goods')}
+                                                            </div>
+                                                        ) : (
+                                                            <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
+                                                                {t('supplier.Sup-Status.Return goods')}
+                                                            </div>
+                                                        ),
+                                                },
+                                            },
+                                        ]}
+
                                         rightHeader={
                                             <div className="flex justify-end text-left flex-col w-full mt-4 sm:mt-1.5 xl:mt-0 2xl:flex-row 2xl:gap-3">
                                                 <Form
@@ -273,7 +362,7 @@ const Page = () => {
                                                                     value: item?.id!,
                                                                 })),
                                                                 onChange(value, form) {
-                                                                    setIdSupplier(value)
+                                                                    // setIdSupplier(value)
                                                                     value && dataTableRefRevenue?.current?.onChange({
                                                                         page: 1,
                                                                         perPage: 10,
@@ -299,7 +388,7 @@ const Page = () => {
                                                                 placeholder: 'placeholder.Choose a store',
                                                                 type: 'select',
                                                                 col: 4,
-                                                                // disabled: () => { console.log(idSupplier); return true },
+                                                                // disabled: () => idSupplier ? false : true,
                                                                 list: suppliers.map((item) => ({
                                                                     label: item?.name!,
                                                                     value: item?.id!,
@@ -443,102 +532,6 @@ const Page = () => {
                                             </div>
                                         }
                                         searchPlaceholder={t('placeholder.Search by order number')}
-                                        columns={[
-                                            {
-                                                title: `supplier.Order.STT`,
-                                                name: 'id',
-                                                tableItem: {
-                                                    width: 70,
-                                                    sorter: true,
-                                                    render: (value: any, item: any) =>
-                                                        JSON.parse(inventoryOrders.queryParams || '{}').page != 1
-                                                            ? `${JSON.parse(inventoryOrders.queryParams || '{}').page *
-                                                            JSON.parse(inventoryOrders.queryParams || '{}').perPage +
-                                                            stt++
-                                                            }`
-                                                            : `${stt++}`,
-                                                },
-                                            },
-                                            {
-                                                title: `supplier.Order.Order ID`,
-                                                name: 'invoiceCode',
-                                                tableItem: {
-                                                    width: 175,
-                                                },
-                                            },
-                                            {
-                                                title: `supplier.Order.Store Name`,
-                                                name: 'storeName',
-                                                tableItem: {
-                                                    width: 180,
-                                                },
-                                            },
-                                            {
-                                                title: `supplier.Order.Order Date`,
-                                                name: 'pickUpDate',
-                                                tableItem: {
-                                                    width: 135,
-                                                    render: (text: string) => (text ? dayjs(text).format(formatDate).replace(/-/g, '/') : ''),
-                                                },
-                                            },
-                                            {
-                                                title: `supplier.Order.Delivery Date`,
-                                                name: 'completedDate',
-                                                tableItem: {
-                                                    width: 150,
-                                                    render: (text: string) => (text ? dayjs(text).format(formatDate).replace(/-/g, '/') : ''),
-                                                },
-                                            },
-                                            {
-                                                title: `supplier.Order.Before Tax`,
-                                                name: 'subTotal',
-                                                tableItem: {
-                                                    width: 145,
-                                                    render: (value: any, item: any) => item?.subTotal?.toLocaleString(),
-                                                },
-                                            },
-                                            {
-                                                title: `supplier.Order.After Tax`,
-                                                name: 'total',
-                                                tableItem: {
-                                                    width: 130,
-                                                    render: (value: any, item: any) => item?.total?.toLocaleString(),
-                                                },
-                                            },
-                                            {
-                                                title: `supplier.Order.Promotion`,
-                                                name: 'voucherAmount',
-                                                tableItem: {
-                                                    width: 160,
-                                                    render: (value: any, item: any) => item?.voucherAmount?.toLocaleString(),
-                                                },
-                                            },
-                                            {
-                                                title: `supplier.Order.Total Amount`,
-                                                name: 'total',
-                                                tableItem: {
-                                                    width: 145,
-                                                    render: (value: any, item: any) => item?.total.toLocaleString(),
-                                                },
-                                            },
-                                            {
-                                                title: `supplier.Order.Order Type`,
-                                                name: 'total',
-                                                tableItem: {
-                                                    width: 100,
-                                                    render: (text: string, item: any) =>
-                                                        item?.billType === 'RECIEVED' ? (
-                                                            <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                                                                {t('supplier.Sup-Status.Sell goods')}
-                                                            </div>
-                                                        ) : (
-                                                            <div className="bg-red-50 text-center p-1 border border-red-500 text-red-600 rounded">
-                                                                {t('supplier.Sup-Status.Return goods')}
-                                                            </div>
-                                                        ),
-                                                },
-                                            },
-                                        ]}
                                         subHeader={() => (
                                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-4 sm:mb-3 mb-4">
                                                 {subHeader.map((e) => (
@@ -756,22 +749,21 @@ const Page = () => {
                                             t('routes.admin.Layout.PaginationSupplier', { from, to, total })
                                         }
                                         columns={[
-                                            // {
-                                            //     title: `supplier.Order.STT`,
-                                            //     name: 'id',
-                                            //     tableItem: {
-                                            //       width: 70,
-                                            //       sorter: true,
-                                            //       render: (value: any, item: any) =>
-                                            //         JSON.parse(inventoryListProductFacade.queryParams || '{}').page != 1
-                                            //           ? `${
-                                            //               JSON.parse(inventoryListProductFacade.queryParams || '{}').page *
-                                            //                 JSON.parse(inventoryListProductFacade.queryParams || '{}').perPage +
-                                            //               stt1++
-                                            //             }`
-                                            //           : `${stt1++}`,
-                                            //     },
-                                            //   },
+                                            {
+                                                title: `supplier.Order.STT`,
+                                                name: 'id',
+                                                tableItem: {
+                                                    width: 70,
+                                                    sorter: true,
+                                                    render: (value: any, item: any) =>
+                                                        JSON.parse(inventoryListProductFacade.queryParams || '{}').page != 1
+                                                            ? `${JSON.parse(inventoryListProductFacade.queryParams || '{}').page *
+                                                            JSON.parse(inventoryListProductFacade.queryParams || '{}').perPage +
+                                                            stt2++
+                                                            }`
+                                                            : `${stt2++}`,
+                                                },
+                                            },
                                             {
                                                 title: `Mã sản phẩm`,
                                                 name: 'productCode',
@@ -877,12 +869,13 @@ const Page = () => {
                                                                 placeholder: 'placeholder.Choose a supplier',
                                                                 col: 6,
                                                                 type: 'select',
+                                                                rules: [{ type: 'required', message: 'Vui lòng chọn nhà cung cấp' }],
                                                                 list: supplierOrderFacade?.result?.data!.map((item) => ({
                                                                     label: item?.name,
                                                                     value: item?.id!
                                                                 })),
                                                                 onChange(value, form) {
-                                                                    dataTableRefInventory?.current?.onChange({
+                                                                    value && dataTableRefInventory?.current?.onChange({
                                                                         page: 1,
                                                                         perPage: 10,
                                                                         filter: {
@@ -987,7 +980,7 @@ const Page = () => {
                                                                 type: 'date',
                                                                 placeholder: 'placeholder.Choose a time',
                                                                 onChange(value, form) {
-                                                                    value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
+                                                                    form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false)
                                                                     dataTableRefInventory?.current?.onChange({
                                                                         page: 1,
                                                                         perPage: 10,

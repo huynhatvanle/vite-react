@@ -6,7 +6,6 @@ import { useNavigate, useParams } from 'react-router';
 import { Tag } from '@svgs';
 import { GlobalFacade, OrdersFacade } from '@store';
 import { Button } from '@core/button';
-import { DataTable } from '@core/data-table';
 import Select from 'antd/es/select';
 import { lang, routerLinks } from '@utils';
 
@@ -19,7 +18,6 @@ const Page = () => {
     const { data, queryParams } = ordersFacade;
     const param = JSON.parse(queryParams || '{}');
     const { id } = useParams();
-    const dataTableRef = useRef<any>();
 
     useEffect(() => {
         if (id) {
@@ -31,7 +29,7 @@ const Page = () => {
     }, [id]);
 
     return (
-        <div className='bg-white w-full p-5 pt-0 rounded-xl mt-5 relative'>
+        <div className='bg-white w-full p-5 pt-0 rounded-xl relative'>
             {!!data && (
                 <>
                     <div className='flex flex-col sm:flex-row items-center'>

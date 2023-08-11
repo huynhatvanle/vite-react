@@ -2,22 +2,22 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import { Select } from 'antd';
 
 import { Tag } from '@svgs';
 import { GlobalFacade, InventoryOrderFacade } from '@store';
 import { Button } from '@core/button';
-import { DataTable } from '@core/data-table';
-import { Popconfirm, Select, Tooltip } from 'antd';
+import { lang, routerLinks } from '@utils';
 
 const Page = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const isReload = useRef(false);
     const inventoryOrderFacade = InventoryOrderFacade();
     const { formatDate } = GlobalFacade();
     const { data, queryParams } = inventoryOrderFacade;
     const param = JSON.parse(queryParams || '{}');
     const { id } = useParams();
-    const dataTableRef = useRef<any>();
 
     let totalAmount = 0
     let tax = 0
@@ -33,7 +33,7 @@ const Page = () => {
     }, [id]);
 
     return (
-        <div className='bg-white w-full p-5 pt-0 rounded-xl mt-5 relative'>
+        <div className='bg-white w-full p-5 pt-0 rounded-xl relative'>
             {!!data && (
                 <>
                     <div className='flex flex-col sm:flex-row items-center'>
@@ -140,6 +140,15 @@ const Page = () => {
                                 <p className="text-teal-900 font-bold text-base">{parseInt(total.toString()).toLocaleString()}</p>
                             </div>
                         </div>
+                    </div>
+                    <div className='flex mx-auto sm:justify-between justify-center sm:w-auto mt-10 '>
+                        <Button
+                            text={t('components.form.modal.cancel')}
+                            className={'sm:w-32 justify-center out-line w-1/2 mt-4 '}
+                            onClick={() => {
+                                navigate(`/${lang}${routerLinks('revenue-management/supplier')}`)
+                            }}
+                        />
                     </div>
                 </>
             )
