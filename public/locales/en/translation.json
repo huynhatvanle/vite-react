@@ -7,7 +7,11 @@
       "pleaseEnterValueToSearch": "Search",
       "reset": "Reset",
       "search": "Search",
-      "areYouSureWant": "Are you sure want delete ?",
+      "areYouSureWant": "Are you sure want delete?",
+      "areYouSureWantDisable": "Are you sure want disable?",
+      "areYouSureWantEnable": "Are you sure want enable?",
+      "Disabled": "Disabled",
+      "Enabled": "Enabled",
       "cancel": "Cancel",
       "ok": "Ok",
       "No Data": "No Data"

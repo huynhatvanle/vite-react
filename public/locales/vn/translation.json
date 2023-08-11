@@ -7,7 +7,11 @@
       "pleaseEnterValueToSearch": "Tìm kiếm",
       "reset": "Cài lại",
       "search": "Tìm kiếm",
-      "areYouSureWant": "Bạn có chắc muốn xóa ?",
+      "areYouSureWant": "Bạn có chắc muốn xóa?",
+      "areYouSureWantDisable": "Bạn có chắc muốn vô hiệu hóa?",
+      "areYouSureWantEnable": "Bạn có chắc chắn muốn kích hoạt?",
+      "Disabled": "Đã vô hiệu hóa",
+      "Enabled": "Đã kích hoạt",
       "cancel": "Huỷ bỏ",
       "ok": "Đồng ý",
       "No Data": "Trống"
