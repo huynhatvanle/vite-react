@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const SectionContact = () => {
   const { t } = useTranslation();
-  const { isLoading } = GlobalFacade();
+  const { isLoading, data, sendEmailContact } = GlobalFacade();
   const dataFacade = DataFacade();
   return (
     <section className="bg-[url('/assets/images/partner.jpg')] w-full bg-cover bg-center">
@@ -57,7 +57,7 @@ const SectionContact = () => {
                 columns={[
                   {
                     title: 'page.footer.First Name',
-                    name: 'name',
+                    name: 'firstName',
                     formItem: {
                       col: 6,
                       rules: [{ type: 'required' }],
@@ -65,7 +65,7 @@ const SectionContact = () => {
                   },
                   {
                     title: 'page.footer.Last Name',
-                    name: 'password',
+                    name: 'lastName',
                     formItem: {
                       col: 6,
                       rules: [{ type: 'required' }],
@@ -96,7 +96,8 @@ const SectionContact = () => {
                     },
                   },
                 ]}
-                handSubmit={() => null}
+                handSubmit={sendEmailContact}
+                values={{ ...data }}
                 disableSubmit={isLoading}
                 textSubmit={'page.footer.Submit now'}
               />

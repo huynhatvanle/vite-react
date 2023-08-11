@@ -48,6 +48,11 @@ const action = {
     if (message) Message.success({ text: message });
     return !!data;
   }),
+  sendEmailContact: createAsyncThunk(name + '/send-email-contact', async (values: iContact) => {
+    const { data, message } = await API.post(`${routerLinks(name, 'api')}/send-email-contact`, values);
+    if (message) Message.success({ text: message });
+    return !!data;
+  }),
   resetPassword: createAsyncThunk(name + '/reset-password', async ({ token, ...values }: resetPassword) => {
     const { data, message } = await API.post(
       `${routerLinks(name, 'api')}/reset-password`,
@@ -63,6 +68,13 @@ interface resetPassword {
   password: string;
   retypedPassword: string;
   token: string;
+}
+interface iContact {
+  email: string;
+  phoneNumber: string;
+  description: string;
+  firstName: string;
+  lastName: string;
 }
 interface Breadcrumb {
   title: string;
@@ -179,6 +191,20 @@ export const globalSlice = createSlice({
         state.isLoading = false;
       })
 
+      .addCase(action.sendEmailContact.pending, (state: State, action) => {
+        state.data = action.meta.arg;
+        state.isLoading = true;
+        state.status = 'sendEmailContact.pending';
+      })
+      .addCase(action.sendEmailContact.fulfilled, (state: State) => {
+        state.isLoading = false;
+        state.status = 'sendEmailContact.fulfilled';
+      })
+      .addCase(action.sendEmailContact.rejected, (state: State) => {
+        state.isLoading = false;
+        state.status = 'sendEmailContact.rejected';
+      })
+
       .addCase(
         action.login.pending,
         (
@@ -286,6 +312,7 @@ export const GlobalFacade = () => {
     putProfile: (values: User) => dispatch(action.putProfile(values)),
     login: (values: { password: string; email: string }) => dispatch(action.login(values)),
     forgottenPassword: (values: { email: string }) => dispatch(action.forgottenPassword(values)),
+    sendEmailContact: (values: iContact) => dispatch(action.sendEmailContact(values)),
     resetPassword: (values: resetPassword) => dispatch(action.resetPassword(values)),
     setLanguage: (value: TLanguage) => dispatch(globalSlice.actions.setLanguage(value)),
   };
