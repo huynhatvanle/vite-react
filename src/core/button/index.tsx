@@ -26,7 +26,7 @@ export const Button = ({ text = '', icon, className, disabled, isLoading = false
 
 type Type = {
   icon?: React.ReactNode;
-  text?: string | TFunction;
+  text?: any;
   title?: string;
   className?: string;
   disabled?: boolean;
