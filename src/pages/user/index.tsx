@@ -47,6 +47,7 @@ const Page = () => {
   useEffect(() => {
     switch (userFacade.status) {
       case 'delete.fulfilled':
+      case 'putDisable.fulfilled':
         dataTableRef?.current?.onChange(request);
         break;
     }

@@ -50,6 +50,7 @@ const Page = () => {
   useEffect(() => {
     switch (dataFacade.status) {
       case 'put.fulfilled':
+      case 'putDisable.fulfilled':
       case 'post.fulfilled':
       case 'delete.fulfilled':
         dataTableRef?.current?.onChange(request);
