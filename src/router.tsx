@@ -198,9 +198,9 @@ const Page = ({
   const globalFacade = GlobalFacade();
 
   useEffect(() => {
-    document.title = t('pages.' + title || '');
-    globalFacade.set({ title, formatDate: globalFacade.formatDate });
-  }, [title]);
+    document.title = t('pages.' + title || '', globalFacade.titleOption || {});
+    globalFacade.set({ title });
+  }, [title, globalFacade.titleOption]);
   return <Comp />;
 };
 const Pages = () => {

@@ -5,20 +5,17 @@ const Component = ({
   value = '',
   placeholder,
   disabled,
-  tabIndex,
   ...prop
 }: {
   value?: string;
   placeholder: string;
   disabled: boolean;
-  tabIndex: number;
 }) => {
   const [toggle, set_toggle] = useState(true);
 
   return (
     <div className="relative">
       <input
-        tabIndex={tabIndex}
         value={value}
         placeholder={placeholder}
         disabled={disabled}

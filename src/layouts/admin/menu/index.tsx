@@ -8,6 +8,7 @@ import { language, languages, routerLinks } from '@utils';
 import listMenu from '../menus';
 import './index.less';
 import { v4 } from 'uuid';
+import { createSearchParams, URLSearchParamsInit } from 'react-router-dom';
 
 const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean; permission?: string[] }) => {
   const { t } = useTranslation();
@@ -35,8 +36,8 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
     }
   }, [isCollapsed]);
 
-  const subMenu = (child: { name: string; permission: string }[]) => (
-    <ul>
+  const subMenu = (child: { name: string; permission: string; queryParams?: URLSearchParamsInit }[]) => (
+    <ul className={'menu'}>
       {child
         // .filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
         .map((subItem: any, index: number) => (
@@ -98,7 +99,12 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                     'fill-gray-300': location.pathname !== `/${lang}${routerLinks(item.name)}`,
                     'justify-center': isCollapsed,
                   })}
-                  onClick={() => navigate(`/${lang}${routerLinks(item.name)}`)}
+                  onClick={() =>
+                    navigate({
+                      pathname: `/${lang}${routerLinks(item.name)}`,
+                      search: `?${createSearchParams(item.queryParams)}`,
+                    })
+                  }
                   key={index}
                 >
                   {/* <img src={item.icon} className='h-8  w-8 block text-slate-700 fill-red-700'/> */}
@@ -131,35 +137,33 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                       'active-menu': location.pathname.indexOf(`/${lang}${routerLinks(item.name)}`) > -1,
                     })}
                     defaultActiveKey={menuActive}
-                  >
-                    <Collapse.Panel
-                      key={`/${lang}${routerLinks(item.name)}`}
-                      showArrow={!isCollapsed}
-                      header={
-                        <div
-                          className={classNames('flex items-center text-gray-300 fill-gray-300  ', {
-                            'justify-center ': isCollapsed,
-                          })}
-                        >
-                          {/* <img src={item.icon} className={classNames('h-8 w-8 block !fill-red-700', { 'ml-1': !isCollapsed})}/> */}
-                          <div className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</div>
-                          <span
-                            className={classNames(
-                              'pl-2.5 transition-all duration-300 ease-in-out font-medium text-base text-gray-300',
-                              {
-                                'opacity-100': !isCollapsed,
-                                'opacity-0 text-[0]': isCollapsed,
-                              },
-                            )}
-                          >
-                            {t(`titles.${item.name}`)}
-                          </span>
-                        </div>
-                      }
-                    >
-                      {subMenu(item.child)}
-                    </Collapse.Panel>
-                  </Collapse>
+                    items={[
+                      {
+                        key: `/${lang}${routerLinks(item.name)}`,
+                        showArrow: !isCollapsed,
+                        label: (
+                          <ul>
+                            <li
+                              className={classNames('flex items-center text-gray-300 fill-gray-300 menu', {
+                                'justify-center ': isCollapsed,
+                              })}
+                            >
+                              <span className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</span>
+                              <span
+                                className={classNames('pl-2.5 transition-all duration-300 ease-in-out font-medium text-base text-gray-300', {
+                                  'opacity-100': !isCollapsed,
+                                  'opacity-0 text-[0]': isCollapsed,
+                                })}
+                              >
+                                {t(`titles.${item.name}`)}
+                              </span>
+                            </li>
+                          </ul>
+                        ),
+                        children: subMenu(item.child),
+                      },
+                    ]}
+                  />
                 </li>
               );
             }

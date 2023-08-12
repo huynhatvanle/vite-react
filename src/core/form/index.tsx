@@ -1,14 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  Form as AntForm,
-  Checkbox,
-  Radio,
-  Switch,
-  Slider,
-  DatePicker as DateAntDesign,
-  FormInstance,
-  ConfigProvider,
-} from 'antd';
+import { Form as AntForm, Checkbox, Radio, Switch, Slider, DatePicker as DateAntDesign, FormInstance } from 'antd';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -21,9 +12,6 @@ import { Chips, SelectTag, Select, TreeSelect, TableTransfer, Password, Mask, Ad
 import { Upload } from '../upload';
 import { Button } from '../button';
 import { Editor } from '../editor';
-import { DraggableLayout } from '../draggable/layout';
-import 'dayjs/locale/vi';
-import locale from 'antd/locale/vi_VN';
 
 export const Form = ({
   className,
@@ -94,7 +82,7 @@ export const Form = ({
     handleFilter();
   }, [handleFilter, values]);
 
-  const generateInput = (formItem: FormItem, item: FormModel, values: any, name: string, index: number) => {
+  const generateInput = (formItem: FormItem, item: FormModel, values: any, name: string) => {
     switch (formItem.type) {
       case 'hidden':
         return <input type={'hidden'} name={item.name} tabIndex={-1} />;
@@ -116,8 +104,6 @@ export const Form = ({
         );
       case 'editor':
         return <Editor />;
-      case 'layout':
-        return <DraggableLayout />;
       case 'upload':
         return <Upload multiple={!!formItem.mode} />;
       case 'table_transfer':
@@ -125,7 +111,6 @@ export const Form = ({
       case 'password':
         return (
           <Password
-            tabIndex={formItem.tabIndex || index}
             placeholder={
               t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
             }
@@ -135,7 +120,6 @@ export const Form = ({
       case 'textarea':
         return (
           <textarea
-            tabIndex={formItem.tabIndex || index}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             className={classNames(
               'ant-input px-4 py-2.5 w-full rounded-xl text-gray-600 bg-white border border-solid input-description ',
@@ -175,21 +159,13 @@ export const Form = ({
       case 'date':
         return (
           <DatePicker
-            tabIndex={formItem.tabIndex || index}
             format={
               !formItem.picker || formItem.picker === 'date'
                 ? (formatDate || '') + (formItem.showTime ? ' HH:mm' : '')
                 : formatDate || ''
             }
-            onChange={(date: any) => {
-              formItem.onChange && formItem.onChange(date, form, reRender);
-            }}
-            // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
-            disabledDate={(current) => {
-              const now = dayjs();
-              const currentDate = dayjs(current);
-              return now.isBefore(currentDate, 'date');
-            }}
+            onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
+            disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
             showTime={!!formItem.showTime}
             picker={formItem.picker || 'date'}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
@@ -197,34 +173,6 @@ export const Form = ({
             name={item.name}
             placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
           />
-        );
-      case 'month_year':
-        return (
-          // <ConfigProvider locale={locale}>
-          <DatePicker
-            tabIndex={formItem.tabIndex || index}
-            format={
-              !formItem.picker || formItem.picker === 'month'
-                ? ('MM/YYYY' || '') + (formItem.showTime ? ' HH:mm' : '')
-                : 'MM/YYYY' || ''
-            }
-            onChange={(date: any) => {
-              formItem.onChange && formItem.onChange(date, form, reRender);
-            }}
-            // disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
-            disabledDate={(current) => {
-              const now = dayjs();
-              const currentMonth = dayjs(current);
-              return now.isBefore(currentMonth, 'month');
-            }}
-            showTime={!!formItem.showTime}
-            picker={formItem.picker || 'month'}
-            disabled={!!formItem.disabled && formItem.disabled(values, form)}
-            form={form}
-            // name={item.name}
-            placeholder={t(formItem.placeholder || '') || t('placeholder.Choose a time') || ''}
-          />
-          // </ConfigProvider>
         );
       case 'date_range':
         return (
@@ -301,7 +249,6 @@ export const Form = ({
       case 'select':
         return (
           <Select
-            tabIndex={formItem.tabIndex || index}
             showSearch={formItem.showSearch}
             maxTagCount={formItem.maxTagCount || 'responsive'}
             onChange={(value: any) => formItem.onChange && formItem.onChange(value, form, reRender)}
@@ -334,27 +281,10 @@ export const Form = ({
             defaultChecked={!!values && values[item.name || ''] === 1}
           />
         );
-      case 'number':
-        return (
-          <input
-            type="number"
-            tabIndex={formItem.tabIndex || index}
-            disabled={!!formItem.disabled && formItem.disabled(values, form)}
-            className={classNames('w-full h-10 text-gray-600 bg-white px-4 ant-input border rounded-xl', {
-              'bg-gray-100 text-gray-400': !!formItem.disabled && formItem.disabled(values, form),
-            })}
-            placeholder={
-              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
-            }
-            onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
-            onChange={(e) => formItem.onChange && formItem.onChange(e.target.value, form, reRender)}
-          />
-        );
       default:
         // @ts-ignore
         return (
           <Mask
-            tabIndex={formItem.tabIndex || index}
             form={form}
             mask={formItem.mask}
             addonBefore={formItem.addonBefore}
@@ -390,7 +320,6 @@ export const Form = ({
                   case 'number':
                   case 'hidden':
                   case 'password':
-                  case 'name':
                   case 'textarea':
                     rules.push({
                       required: true,
@@ -529,20 +458,6 @@ export const Form = ({
                   },
                 }));
                 break;
-              case 'textarea':
-                rules.push(() => ({
-                  validator(_: any, value: any) {
-                    if (value?.trim().length > 500) {
-                      return Promise.reject(
-                        t(rule.message || 'components.form.ruleTextarea', {
-                          max: 500,
-                        }),
-                      );
-                    }
-                    return Promise.resolve();
-                  },
-                }));
-                break;
               case 'custom':
                 rules.push(rule.validator);
                 break;
@@ -622,11 +537,9 @@ export const Form = ({
       }
 
       return item.formItem.type !== 'addable' ? (
-        <AntForm.Item {...otherProps}>
-          {generateInput(item.formItem, item, values, otherProps.name, index)}
-        </AntForm.Item>
+        <AntForm.Item {...otherProps}>{generateInput(item.formItem, item, values, otherProps.name)}</AntForm.Item>
       ) : (
-        generateInput(item.formItem, item, values, otherProps.name, index)
+        generateInput(item.formItem, item, values, otherProps.name)
       );
     }
     return null;

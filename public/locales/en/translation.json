@@ -7,7 +7,11 @@
       "pleaseEnterValueToSearch": "Search",
       "reset": "Reset",
       "search": "Search",
-      "areYouSureWant": "Are you sure want delete ?",
+      "areYouSureWant": "Are you sure want delete?",
+      "areYouSureWantDisable": "Are you sure want disable?",
+      "areYouSureWantEnable": "Are you sure want enable?",
+      "Disabled": "Disabled",
+      "Enabled": "Enabled",
       "cancel": "Cancel",
       "ok": "Ok",
       "No Data": "No Data"
@@ -43,24 +47,6 @@
         "Lenght Password": "Password must be at least 8 characters long"
       },
       "Select Date": "Select Date"
-    },
-    "media-management": {
-      "filename": "File name",
-      "fileSize": "File size",
-      "lastModified": "Last modified",
-      "detail": "Detail",
-      "areYouSure": "Are you sure you want to delete?",
-      "mediaManagement": "Media Management",
-      "filesOnSystem": "Files on system",
-      "addFiles": "Add files",
-      "multiFiles": "Multi files",
-      "createFolder": "Create folder",
-      "uploadFile": "Upload file",
-      "moveUpLevel": "Move up a level",
-      "outsideLink": "Outside link",
-      "save": "Save",
-      "nameFolder": "Name folder",
-      "onlyLettersAndDigitsAllowed": "Only letters and digits allowed"
     },
     "message": {
       "Success": "Success",

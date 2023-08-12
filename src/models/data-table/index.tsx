@@ -1,9 +1,8 @@
 import { CheckboxOptionType } from 'antd';
-import { DefaultTFuncReturn } from 'i18next';
 
 export class DataTableModel {
   name?: string;
-  title?: string | DefaultTFuncReturn;
+  title?: any;
   tableItem?: TableItem;
 }
 
@@ -12,10 +11,10 @@ export class TableItem {
   width?: number;
   fixed?: string;
   sorter?: boolean;
-  onCell?: (data: any) => { style: any; onClick?: any };
+  onCell?: (record: any) => { style?: any; onClick?: any; className?: string };
   align?: 'left' | 'right' | 'center' | null;
   onClick?: any;
-  render?: (text: any, item: any) => JSX.Element | string | void;
+  render?: (text: any, item: any) => JSX.Element | string;
   defaultSortOrder?: string;
   defaultFilteredValue?: string;
 }
@@ -33,6 +32,7 @@ export class TableGet {
   method?: string;
   format?: (item: any) => CheckboxOptionType;
   params?: (fullTextSearch: string, value?: any) => any;
+  data?: any;
 }
 
 export class TableItemFilterList {
@@ -40,5 +40,5 @@ export class TableItemFilterList {
   value?: string | number;
 }
 export class TableRefObject {
-  constructor(public onChange: (request?: any) => void, public handleDelete: (id: string) => void) { }
+  constructor(public onChange: (request?: any) => void, public handleDelete: (id: string) => void) {}
 }

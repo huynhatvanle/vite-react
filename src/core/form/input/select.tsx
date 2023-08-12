@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FormInstance, Select } from 'antd';
 
 import { TableGet } from '@models';
-import { cleanObjectKeyNull } from '@utils';
+import { arrayUnique, cleanObjectKeyNull } from '@utils';
 
 const Component = ({
   formItem,
@@ -13,13 +13,13 @@ const Component = ({
   onChange,
   placeholder,
   disabled,
-  tabIndex,
   get,
   ...prop
 }: Type) => {
   const [_list, set_list] = useState(formItem.list ? formItem.list : []);
   const facade = get?.facade() || {};
-  const list = !get ? _list : facade[get.key || 'result']?.data?.map(get.format).filter((item: any) => !!item.value);
+  let list = !get ? _list : facade[get.key || 'result']?.data?.map(get.format).filter((item: any) => !!item.value);
+  const [_temp, set_temp] = useState();
   const loadData = async (fullTextSearch: string) => {
     if (get) {
       const { time, queryParams } = facade;
@@ -43,9 +43,20 @@ const Component = ({
     }
   }, []);
 
+  useEffect(() => {
+    if (get?.data) {
+      let data = get.data();
+      if (get?.format && data) {
+        if (formItem.mode === 'multiple') data = data.map(get.format);
+        else data = [get.format(data)];
+        if (JSON.stringify(data) !== JSON.stringify(_temp)) set_temp(data);
+      }
+    }
+  }, [get?.data]);
+  if (_temp) list = list?.length ? arrayUnique([..._temp, ...list], 'value') : _temp;
+
   return (
     <Select
-      tabIndex={tabIndex}
       maxTagCount={maxTagCount}
       onChange={onChange}
       placeholder={placeholder}
@@ -83,7 +94,6 @@ type Type = {
   onChange: (e: any) => any;
   placeholder: string;
   disabled: boolean;
-  tabIndex: number;
   get?: TableGet;
 };
 export default Component;

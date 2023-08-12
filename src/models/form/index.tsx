@@ -11,6 +11,7 @@ export class FormItem {
     | 'name'
     | 'hidden'
     | 'number'
+    | 'text'
     | 'tab'
     | 'addable'
     | 'editor'
@@ -29,8 +30,7 @@ export class FormItem {
     | 'chips'
     | 'select'
     | 'tree_select'
-    | 'switch'
-    | 'layout';
+    | 'switch';
   col?: number;
   condition?: (value: string, form: FormInstance, index: number, values: any) => boolean;
   list?: CheckboxOptionType[];
@@ -73,8 +73,6 @@ export class FormItem {
   isTable?: boolean;
   showRemove?: any;
   idCheck?: any;
-  tabIndex?: number;
-  onlyImage?: boolean;
   firstLoad?: (data: any) => void;
   notDefaultValid?: boolean;
   render?: (form: FormInstance, values: any, generateForm: void, index: number, reRender: void) => JSX.Element;

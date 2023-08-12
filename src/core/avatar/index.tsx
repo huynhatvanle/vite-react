@@ -214,7 +214,6 @@ export const Avatar = ({
               'object-cover': showName,
             })}
             src={src}
-            alt="Avatar"
           />
         </div>
       ) : (

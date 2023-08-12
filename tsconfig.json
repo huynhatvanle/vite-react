@@ -16,7 +16,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["cypress", "node", "@shelex/cypress-allure-plugin"],
+    "types": ["node"],
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
@@ -26,5 +26,5 @@
     "importHelpers": true,
     "outDir": "./dist/out-tsc"
   },
-  "include": ["./src/**/*", "cypress/**/*"],
+  "include": ["./src/**/*"],
 }
