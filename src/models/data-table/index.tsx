@@ -32,6 +32,7 @@ export class TableGet {
   method?: string;
   format?: (item: any) => CheckboxOptionType;
   params?: (fullTextSearch: string, value?: any) => any;
+  data?: any;
 }
 
 export class TableItemFilterList {

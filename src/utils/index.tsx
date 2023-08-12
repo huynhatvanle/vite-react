@@ -109,3 +109,13 @@ export const renderEditorjs = (blocks: Record<string, object>[]) => {
     </div>
   );
 };
+export const arrayUnique = (array: any, key?: string) => {
+  const a = array.concat();
+  for (let i = 0; i < a.length; ++i) {
+    for (let j = i + 1; j < a.length; ++j) {
+      if (key && a[i][key] === a[j][key]) a.splice(j--, 1);
+      else if (JSON.stringify(a[i]) === JSON.stringify(a[j])) a.splice(j--, 1);
+    }
+  }
+  return a;
+};
