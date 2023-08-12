@@ -83,8 +83,10 @@
     "Code/Edit":"Edit Code {{type}}",
     "Data": "List Data",
     "Data/Add": "Add new Data {{type}}",
-    "Post": "List Data",
-    "Post/Add": "Add new Data {{type}}"
+    "Data/Edit": "Edit Data {{type}}",
+    "Post": "List Post",
+    "Post/Add": "Add new Post {{type}}",
+    "Post/Edit": "Edit Post {{type}}"
   },
   "columns": {
     "auth": {
