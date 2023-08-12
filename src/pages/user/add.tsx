@@ -11,6 +11,7 @@ import { Form } from '@core/form';
 
 const Page = () => {
   const { id, roleCode } = useParams();
+  const data: any = useRef();
   const userFacade = UserFacade();
   const param = JSON.parse(userFacade.queryParams || `{"filter":"{\\"roleCode\\":\\"${roleCode}\\"}"}`);
   const { set } = GlobalFacade();
@@ -68,6 +69,7 @@ const Page = () => {
       }
     }
   }, [userRoleFacade.result]);
+  data.current = userFacade.data;
   const { t } = useTranslation();
   return (
     <div className={'max-w-4xl mx-auto bg-white p-4 shadow rounded-xl'}>
@@ -192,6 +194,7 @@ const Page = () => {
                     fullTextSearch,
                     extend: { id: getFieldValue('teamId') || undefined },
                   }),
+                  data: () => data.current?.teams,
                 },
               },
             },
@@ -212,6 +215,7 @@ const Page = () => {
                     filter: { roleCode: 'manager' },
                     skip: { id: getFieldValue('id') || undefined },
                   }),
+                  data: () => data.current?.manager,
                 },
               },
             },
