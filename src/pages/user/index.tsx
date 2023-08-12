@@ -181,7 +181,7 @@ const Page = () => {
                         }),
                         params: (fullTextSearch: string, value) => ({
                           fullTextSearch,
-                          filter: { type: 'POS' },
+                          filter: { type: 'position' },
                           extend: { code: value },
                         }),
                       },
