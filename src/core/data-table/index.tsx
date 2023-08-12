@@ -1,6 +1,6 @@
 import React, { forwardRef, Fragment, Ref, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { v4 } from 'uuid';
-import { Checkbox, CheckboxOptionType, DatePicker, Popover, Radio, Table } from 'antd';
+import { Checkbox, CheckboxOptionType, DatePicker, Popover, Radio, Spin, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
 import dayjs from 'dayjs';
@@ -187,30 +187,37 @@ export const DataTable = forwardRef(
           if (get && !facade?.result?.data && valueFilter.current[key]) columnSearch(get, '', undefined, facade);
         }, [valueFilter.current[key]]);
         return (
-          <div className={'p-1'}>
-            <input
-              className="w-full sm:w-52 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4 mb-1"
-              type="text"
-              placeholder={t('components.datatable.pleaseEnterValueToSearch') || ''}
-              onChange={(e) => {
-                clearTimeout(timeoutSearch.current);
-                timeoutSearch.current = setTimeout(() => columnSearch(get, e.target.value, selectedKeys), 500);
-              }}
-              onKeyUp={async (e) => {
-                if (e.key === 'Enter') await columnSearch(get, e.currentTarget.value, undefined, facade);
-              }}
-            />
-            <div>
-              <RadioGroup
-                options={
-                  filters || get?.facade?.result?.data?.map(get.format).filter((item: any) => !!item.value) || []
-                }
-                value={selectedKeys}
-                onChange={(e) => setSelectedKeys(e.target.value + '')}
-              />
+          <Spin spinning={facade.isLoading === true || false}>
+            <div className="p-1">
+              {get?.facade && (
+                <input
+                  className="w-full h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4 mb-1"
+                  type="text"
+                  placeholder={t('components.datatable.pleaseEnterValueToSearch') || ''}
+                  onChange={(e) => {
+                    clearTimeout(timeoutSearch.current);
+                    timeoutSearch.current = setTimeout(() => columnSearch(get, e.target.value, selectedKeys), 500);
+                  }}
+                  onKeyUp={async (e) => {
+                    if (e.key === 'Enter') await columnSearch(get, e.currentTarget.value, undefined, facade);
+                  }}
+                />
+              )}
+              <div>
+                <RadioGroup
+                  options={
+                    filters || get?.facade?.result?.data?.map(get.format).filter((item: any) => !!item.value) || []
+                  }
+                  value={selectedKeys}
+                  onChange={(e) => setSelectedKeys(e.target.value + '')}
+                />
+                {(filters?.length === 0 || facade?.result?.data?.length === 0) && (
+                  <span className={'px-2'}>{t('components.datatable.No Data')}</span>
+                )}
+              </div>
+              {groupButton(confirm, clearFilters, key, selectedKeys)}
             </div>
-            {groupButton(confirm, clearFilters, key, selectedKeys)}
-          </div>
+          </Spin>
         );
       },
       filterIcon: () => <CheckCircle className="h-4 w-4 fill-gray-600" />,
@@ -224,28 +231,38 @@ export const DataTable = forwardRef(
           if (get && !facade?.result?.data && valueFilter.current[key]) columnSearch(get, '', undefined, facade);
         }, [valueFilter.current[key]]);
         return (
-          <div className={'p-1'}>
-            <input
-              className="w-full sm:w-52 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4 mb-1"
-              type="text"
-              placeholder={t('components.datatable.pleaseEnterValueToSearch') || ''}
-              onChange={(e) => {
-                clearTimeout(timeoutSearch.current);
-                timeoutSearch.current = setTimeout(() => columnSearch(get, e.target.value, selectedKeys, facade), 500);
-              }}
-              onKeyUp={async (e) => {
-                if (e.key === 'Enter') await columnSearch(get, e.currentTarget.value, undefined, facade);
-              }}
-            />
-            <div>
-              <CheckboxGroup
-                options={filters || facade?.result?.data?.map(get.format).filter((item: any) => !!item.value) || []}
-                defaultValue={selectedKeys}
-                onChange={(e) => setSelectedKeys(e)}
-              />
+          <Spin spinning={facade.isLoading === true || false}>
+            <div className="p-1">
+              {!!get?.facade && (
+                <input
+                  className="w-full h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4 mb-1"
+                  type="text"
+                  placeholder={t('components.datatable.pleaseEnterValueToSearch') || ''}
+                  onChange={(e) => {
+                    clearTimeout(timeoutSearch.current);
+                    timeoutSearch.current = setTimeout(
+                      () => columnSearch(get, e.target.value, selectedKeys, facade),
+                      500,
+                    );
+                  }}
+                  onKeyUp={async (e) => {
+                    if (e.key === 'Enter') await columnSearch(get, e.currentTarget.value, undefined, facade);
+                  }}
+                />
+              )}
+              <div>
+                <CheckboxGroup
+                  options={filters || facade?.result?.data?.map(get.format).filter((item: any) => !!item.value) || []}
+                  defaultValue={selectedKeys}
+                  onChange={(e) => setSelectedKeys(e)}
+                />
+                {(filters?.length === 0 || facade?.result?.data?.length === 0) && (
+                  <span className={'px-2'}>{t('components.datatable.No Data')}</span>
+                )}
+              </div>
+              {groupButton(confirm, clearFilters, key, selectedKeys)}
             </div>
-            {groupButton(confirm, clearFilters, key, selectedKeys)}
-          </div>
+          </Spin>
         );
       },
       filterIcon: (filtered: boolean) => (
@@ -401,7 +418,7 @@ export const DataTable = forwardRef(
             <div className="relative">
               <input
                 id={idTable.current + '_input_search'}
-                className="w-full sm:w-52 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4"
+                className="w-full h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4"
                 defaultValue={params.fullTextSearch}
                 type="text"
                 placeholder={searchPlaceholder || (t('components.datatable.pleaseEnterValueToSearch') as string)}
