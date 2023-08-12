@@ -30,7 +30,7 @@ export const dayoffSlice = createSlice(
         state.status = 'putStatus.pending';
       })
       .addCase(action.putStatus.fulfilled, (state: StateDayOff<DayOff>, action: PayloadAction<StateDayOff<DayOff>>) => {
-        state.data = action.payload.data;
+        state.data = action.payload;
         state.isLoading = false;
         state.isVisibleReject = false;
         state.isVisibleDetail = false;
