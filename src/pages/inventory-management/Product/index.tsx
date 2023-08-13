@@ -175,7 +175,7 @@ const Page = () => {
               })}
               defaultRequest={{ page: 1, perPage: 10, filter: { type: 'BALANCE', approveStatus: 'APPROVED' } }}
               xScroll="1270px"
-              className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-supplier-index"
+              className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-header-product2"
               showSearch={false}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
@@ -360,7 +360,7 @@ const Page = () => {
               leftHeader={
                 <Form
                   formAnt={forms}
-                  className="intro-x rounded-lg form-store form-mechandise"
+                  className="intro-x sm:flex form-reverse-input"
                   values={{
                     supplierName: getFilter(productFacade.queryParams, 'supplierId'),
                     categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
@@ -375,8 +375,8 @@ const Page = () => {
                       name: 'supplierName',
                       formItem: {
                         placeholder: 'placeholder.Choose a supplier',
-                        col: 6,
                         type: 'select',
+                        col: 6,
                         list: listSupplierStore?.map((item) => ({
                           label: item.name,
                           value: item.id!
@@ -402,8 +402,8 @@ const Page = () => {
                       title: '',
                       name: 'approveStatus',
                       formItem: {
-                        col: 6,
                         type: 'select',
+                        col: 6,
                         placeholder: "product.status",
                         list: listOption?.map((item) => ({
                           label: item.label,
@@ -426,14 +426,14 @@ const Page = () => {
                         },
 
                       },
-                    },
+                    }
                   ]}
                 />
               }
               subHeader={() => (
-                <div className="flex flex-col-reverse lg:flex-row">
+                <div>
                   <Form
-                    className="intro-x rounded-lg w-full form-store form-header-category col-supplier"
+                    className="intro-x rounded-lg w-full form-store form-header-category"
                     values={{
                       categoryId1: getFilter(productFacade.queryParams, 'categoryId1'),
                       categoryId2: getFilter(productFacade.queryParams, 'categoryId2'),
@@ -623,7 +623,7 @@ const Page = () => {
 
               leftHeader={
                 <Form
-                  className="intro-x rounded-lg w-full form-store form-mechandise"
+                  className="intro-x rounded-lg w-full form-store"
                   values={{
                     supplierName: getFilter(notapprovedFacade.queryParams, 'supplierId'),
                     categoryId1: getFilter(notapprovedFacade.queryParams, 'categoryId1'),
@@ -660,7 +660,7 @@ const Page = () => {
               }
               subHeader={() => (
                 <Form
-                  className="intro-x rounded-lg w-full form-store"
+                  className="intro-x rounded-lg w-full form-store form-header-category"
                   values={{
                     categoryId1: getFilter(notapprovedFacade.queryParams, 'categoryId1'),
                     categoryId2: getFilter(notapprovedFacade.queryParams, 'categoryId2'),

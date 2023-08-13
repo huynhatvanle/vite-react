@@ -293,7 +293,7 @@ const Page = () => {
           </>
         )}
         extendButton={(form) => (
-          <div className='flex gap-2 !w-full justify-between sm:flex-row  flex-col text-center items-center'>
+          <div className='flex gap-2 !w-full justify-between sm:flex-row flex-col text-center items-center'>
             <Button
               text={'Trở về'}
               className={'sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
