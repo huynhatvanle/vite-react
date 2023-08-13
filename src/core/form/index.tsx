@@ -317,6 +317,7 @@ export const Form = ({
               case 'required':
                 switch (item.formItem.type) {
                   case 'text':
+                  case 'name':
                   case 'number':
                   case 'hidden':
                   case 'password':
@@ -463,7 +464,7 @@ export const Form = ({
                   validator(_: any, value: any) {
                     if (value?.trim().length > 500) {
                       return Promise.reject(
-                        t(rule.message || 'components.form.ruleTextarea', {
+                        t(rule.message || 'components.form.ruleMaxLength', {
                           max: 500,
                         }),
                       );
