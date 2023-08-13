@@ -458,6 +458,20 @@ export const Form = ({
                   },
                 }));
                 break;
+              case 'textarea':
+                rules.push(() => ({
+                  validator(_: any, value: any) {
+                    if (value?.trim().length > 500) {
+                      return Promise.reject(
+                        t(rule.message || 'components.form.ruleTextarea', {
+                          max: 500,
+                        }),
+                      );
+                    }
+                    return Promise.resolve();
+                  },
+                }));
+                break;
               case 'custom':
                 rules.push(rule.validator);
                 break;
