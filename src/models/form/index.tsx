@@ -10,6 +10,7 @@ export class FormItem {
     | 'hidden'
     | 'number'
     | 'text'
+    | 'name'
     | 'tab'
     | 'addable'
     | 'editor'
