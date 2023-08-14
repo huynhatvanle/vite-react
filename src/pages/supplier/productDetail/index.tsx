@@ -5,7 +5,7 @@ import { language, languages, routerLinks } from '@utils';
 import { CategoryFacade, Product, ProductFacade, TaxAdminFacade } from '@store';
 import { Form } from '@core/form';
 import { Tags } from '@svgs';
-import { Dropdown, Table } from 'antd';
+import { Dropdown, Select, Table } from 'antd';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { Message } from '@core/message';
@@ -87,7 +87,6 @@ const Page = () => {
     { label: 'Chiết khấu với BALANCE không phù hợp', value: 'Chiết khấu với BALANCE không phù hợp' },
     { label: 'Khác', value: 'other' },
   ];
-
 
   const [other, setOther] = useState(true);
   const [a, setA] = useState<any>()
@@ -781,43 +780,16 @@ const Page = () => {
         <div className='p-5'>
           {productFacade.data && productFacade?.data?.approveStatus === 'WAITING_APPROVE' ?
             (
-              <div className='sm:flex sm:justify-between flex-row-reverse'>
-                <div className='mb-2 sm:mb-0 form-merchandise-detail form-merchandise-detail2'>
+              <div className='form-merchandise-detail'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
+                  onClick={() => navigate(`/${lang}${routerLinks('inventory-management/product')}`)}
+                />
+                <div className='form-merchandise-detail2'>
                   <Button
                     text={t('Từ chối yêu cầu')}
-                    className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5 sm:mr-5'}
-                    onClick={() => Message.confirm({
-                      title: 'Thông báo',
-                      text: 'Bạn có chắc muốn từ chối sản phẩm này ?',
-                      cancelButtonColor: '',
-                      cancelButtonText: "Huỷ",
-                      confirmButtonColor: '#134e4a',
-                      showCloseButton: true,
-                      showConfirmButton: true,
-                      onConfirm() {
-                        setA(data?.id)
-                        modalformRef?.current?.handleEdit({ id: data?.id })
-                      },
-                    })}
-                  />
-                  <Button
-                    text={t('Phê duyệt yêu cầu')}
-                    className={'md:min-w-[8rem] justify-center !bg-teal-900 w-3/5 sm:w-auto mb-2 sm:mb-0'}
-                    onClick={() => productFacade.putProduct({ id })
-                    }
-                  />
-                </div>
-                <div className='form-merchandise-detail'>
-                  <Button
-                    text={t('components.form.modal.cancel')}
-                    className={'sm:min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
-                    onClick={() => navigate(`/${lang}${routerLinks('inventory-management/product')}`)}
-                  />
-                </div>
-                {/* <div>
-                  <Button
-                    text={t('Từ chối yêu cầu')}
-                    className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5 mr-5'}
+                    className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5'}
                     onClick={() => Message.confirm({
                       title: 'Thông báo',
                       text: 'Bạn có chắc muốn từ chối sản phẩm này ?',
@@ -838,7 +810,7 @@ const Page = () => {
                     onClick={() => productFacade.putProduct({ id })
                     }
                   />
-                </div> */}
+                </div>
               </div>
             )
             : (
@@ -866,9 +838,12 @@ const Page = () => {
                 formItem: {
                   render: (form, values) => {
                     return (
-                      <div className='flex flex-col'>
+                      <div className=''>
                         <p className='text-5xl flex mb-2 justify-center'>Thông báo</p>
-                        <div className='text-base text-gray-600 flex justify-center mb-5'>Bạn có chắc muốn từ chối phê duyệt sản phẩm này?</div>
+                        <div className='flex flex-col sm:flex-row justify-center'>
+                          <div className='text-sm text-gray-600 flex justify-center pr-1'>Bạn có chắc muốn từ chối phê duyệt</div>
+                          <div className='text-sm text-gray-600 flex justify-center mb-5'>sản phẩm này?</div>
+                        </div>
                       </div>
                     )
                   }
@@ -884,6 +859,40 @@ const Page = () => {
                     label: item.label,
                     value: item.value!
                   })),
+                  onChange(value, form, reRender) {
+                    console.log(value);
+
+                  },
+                  // render: (form, values, item) => {
+                  //   // const roleCode = values.roleCode;
+                  //   return (
+                  //     <div>
+                  //       {'lý do'}
+                  //       <Select value={'other'} className="py-2" style={{ width: "100%" }}>
+                  //         <option value="Đơn vị cơ bản không đúng">Đơn vị cơ bản không đúng</option>
+                  //         <option value="Danh mục sản phẩm không đúng">Danh mục sản phẩm không đúng</option>
+                  //         <option value="Mô tả sản phẩm không phù hợp">Mô tả sản phẩm không phù hợp</option>
+                  //         <option value="Bản đánh giá cửa hàng không phù hợp">Bản đánh giá cửa hàng không phù hợp</option>
+                  //         <option value="Chiết khấu với BALANCE không phù hợp">Chiết khấu với BALANCE không phù hợp</option>
+                  //         <option value="other">Khác</option>
+                  //       </Select>
+                  //       {/* <Select value={'other'} className="py-2" style={{ width: "100%" }}>
+                  //         <Select.Option value="Đơn vị cơ bản không đúng">{'Đơn vị cơ bản không đúng'}</Select.Option>
+                  //         <Select.Option value="Danh mục sản phẩm không đúng">{'Danh mục sản phẩm không đúng'}</Select.Option>
+                  //         <Select.Option value="Mô tả sản phẩm không phù hợp">{'Mô tả sản phẩm không phù hợp'}</Select.Option>
+                  //         <Select.Option value="Bản đánh giá cửa hàng không phù hợp">{'Bản đánh giá cửa hàng không phù hợp'}</Select.Option>
+                  //         <Select.Option value="Chiết khấu với BALANCE không phù hợp">{'Chiết khấu với BALANCE không phù hợp'}</Select.Option>
+                  //         <Select.Option value="other">{'Khác'}</Select.Option>
+                  //         {/* <option value="Đơn vị cơ bản không đúng">Đơn vị cơ bản không đúng</option>
+                  //         <option value="Danh mục sản phẩm không đúng">Danh mục sản phẩm không đúng</option>
+                  //         <option value="Mô tả sản phẩm không phù hợp">Mô tả sản phẩm không phù hợp</option>
+                  //         <option value="Bản đánh giá cửa hàng không phù hợp">Bản đánh giá cửa hàng không phù hợp</option>
+                  //         <option value="Chiết khấu với BALANCE không phù hợp">Chiết khấu với BALANCE không phù hợp</option>
+                  //         <option value="other">Khác</option> */}
+                  //       {/* </Select> */}
+                  //     </div>
+                  //   )
+                  // }
                 }
               },
               {
