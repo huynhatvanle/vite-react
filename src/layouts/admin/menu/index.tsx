@@ -8,6 +8,7 @@ import { language, languages, routerLinks } from '@utils';
 import listMenu from '../menus';
 import './index.less';
 import { v4 } from 'uuid';
+import { createSearchParams, URLSearchParamsInit } from 'react-router-dom';
 
 const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean; permission?: string[] }) => {
   const { t } = useTranslation();
@@ -35,9 +36,9 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
     }
   }, [isCollapsed]);
 
-  const subMenu = (child: { name: string; permission: string }[]) => (
-    <ul>
-      {child
+  const subMenu = (child: { name: string; permission: string; queryParams?: URLSearchParamsInit }[]) => (
+    <ul className={'menu'}>
+     {child
         // .filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
         .map((subItem: any, index: number) => (
           <li
@@ -79,7 +80,8 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
   );
 
   return (
-    <ul className="menu relative h-[calc(100vh-5rem)]" id={'menu-sidebar'} ref={refMenu}>
+    <div className='overflow-y-auto scroll scrollbar'>
+      <ul className="menu relative h-[calc(100vh-5rem)] " id={'menu-sidebar'} ref={refMenu}>
       {!!menuActive &&
         listMenu()
           .filter((item: any) => {
@@ -96,10 +98,15 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                   className={classNames('flex items-center text-gray-300 h-12 m-3 relative cursor-pointer py-1', {
                     'bg-teal-700 text-white !fill-gray-300 rounded-2xl opacity-100':
                       location.pathname === `/${lang}${routerLinks(item.name)}`,
-                    'fill-gray-300': location.pathname !== `/${lang}${routerLinks(item.name)}`,
+                    'fill-gray-300': location.pathname !== `/${lang}${routerLinks(item.icon)}`,
                     'justify-center': isCollapsed,
                   })}
-                  onClick={() => navigate(`/${lang}${routerLinks(item.name)}`)}
+                  onClick={() =>
+                    navigate({
+                      pathname: `/${lang}${routerLinks(item.name)}`,
+                      search: `?${createSearchParams(item.queryParams)}`,
+                    })
+                  }
                   key={index}
                 >
                   {/* <img src={item.icon} className='h-8  w-8 block text-slate-700 fill-red-700'/> */}
@@ -135,7 +142,33 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                       'active-menu': location.pathname.indexOf(`/${lang}${routerLinks(item.name)}`) > -1,
                     })}
                     defaultActiveKey={menuActive}
-                  >
+                    // items={[
+                    //   {
+                    //     key: `/${lang}${routerLinks(item.name)}`,
+                    //     showArrow: !isCollapsed,
+                    //     label: (
+                    //       <ul>
+                    //         <li
+                    //           className={classNames('flex items-center text-gray-300 fill-gray-300 menu', {
+                    //             'justify-center ': isCollapsed,
+                    //           })}
+                    //         >
+                    //           <span className={classNames({ 'ml-1': !isCollapsed })}>{item.icon}</span>
+                    //           <span
+                    //             className={classNames('pl-2.5 transition-all duration-300 ease-in-out font-medium text-base text-gray-300', {
+                    //               'opacity-100': !isCollapsed,
+                    //               'opacity-0 text-[0]': isCollapsed,
+                    //             })}
+                    //           >
+                    //             {t(`titles.${item.name}`)}
+                    //           </span>
+                    //         </li>
+                    //       </ul>
+                    //     ),
+                    //     children: subMenu(item.child),
+                    //   },
+                    // ]}
+                    >
                     <Collapse.Panel
                       key={`/${lang}${routerLinks(item.name)}`}
                       showArrow={!isCollapsed}
@@ -169,6 +202,7 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
             }
           })}
     </ul>
+    </div>
   );
 };
 export default Layout;

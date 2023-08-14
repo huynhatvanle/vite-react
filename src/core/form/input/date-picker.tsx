@@ -55,6 +55,5 @@ type Type = {
   showTime: boolean;
   picker: 'time' | 'date' | 'week' | 'month' | 'quarter' | 'year' | undefined;
   disabled: boolean;
-  tabIndex: number;
 };
 export default Component;

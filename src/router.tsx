@@ -71,6 +71,11 @@ const pages = [
         title: 'User/Edit',
       },
       {
+        path: routerLinks('inventory-management/product'),
+        component: React.lazy(() => import('@pages/inventory-management/Product')),
+        title: 'inventory-management/product',
+      },
+      {
         path: routerLinks('Store'),
         component: React.lazy(() => import('@pages/store')),
         title: 'Store',
@@ -150,6 +155,16 @@ const pages = [
         component: React.lazy(() => import('@pages/revenue-management/supplier/index')),
         title: 'Supplier-Revenue',
       },
+      {
+        path: routerLinks('merchandise-supplier-management/return-goods/detail') + '/:id',
+        component: React.lazy(() => import('@pages/revenue-management/supplier/return-goods')),
+        title: 'Return-Goods',
+      },
+      {
+        path: routerLinks('revenue/detail') + '/:id',
+        component: React.lazy(() => import('@pages/revenue-management/supplier/revenue')),
+        title: 'RevenueManagement',
+      },
     ], // 💬 generate link to here
   },
 ];
@@ -183,9 +198,9 @@ const Page = ({
   const globalFacade = GlobalFacade();
 
   useEffect(() => {
-    document.title = t('pages.' + title || '');
-    globalFacade.set({ title, formatDate: globalFacade.formatDate });
-  }, [title]);
+    document.title = t('pages.' + title || '', globalFacade.titleOption || {});
+    globalFacade.set({ title });
+  }, [title, globalFacade.titleOption]);
   return <Comp />;
 };
 const Pages = () => {

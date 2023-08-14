@@ -321,21 +321,19 @@ export class StoreManagement extends CommonEntity {
       ward?: Ward;
     },
     public userRole?: {
-      0: {
-        createdAt: string;
-        isDeleted: boolean;
-        roleId: number;
-        subOrgId: string;
+      createdAt: string;
+      isDeleted: boolean;
+      roleId: number;
+      subOrgId: string;
+      id: string;
+      userAdminId: string;
+      userAdmin: {
         id: string;
-        userAdminId: string;
-        userAdmin: {
-          id: string;
-          email: string;
-          name: string;
-          phoneNumber: string;
-        };
+        email: string;
+        name: string;
+        phoneNumber: string;
       };
-    },
+    }[],
   ) {
     super();
   }

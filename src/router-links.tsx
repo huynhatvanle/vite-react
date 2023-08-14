@@ -15,6 +15,8 @@ export const routerLinks = (name: string, type?: string) => {
     'User/Add': '/user/add',
     'User/Edit': '/user/edit',
 
+    'inventory-management/product': '/inventory-management/product',
+
     Supplier: '/supplier',
     'Supplier/Add': '/supplier/add',
     'Supplier/Edit': '/supplier/edit',
@@ -39,6 +41,8 @@ export const routerLinks = (name: string, type?: string) => {
     'revenue-management/store': '/revenue-management/store',
     'revenue-management/discount': '/revenue-management/discount',
     'revenue-management/supplier': '/revenue-management/supplier',
+    'merchandise-supplier-management/return-goods/detail': '/merchandise-supplier-management/return-goods/detail',
+    'revenue/detail': '/revenue/detail'
   }; // 💬 generate link to here
 
   const apis: {
@@ -54,6 +58,7 @@ export const routerLinks = (name: string, type?: string) => {
     Ward: '/ward',
     Category: '/category',
     Product: '/product',
+    notApproved: '/product/list',
     Orders: '/orders',
     SubStore: '/sub-organization/sub-org-in-store',
     ConnectSupplier: '/store-connect-supplier/supplier',
@@ -63,6 +68,7 @@ export const routerLinks = (name: string, type?: string) => {
     InvoiceRevenue: '/invoice-kiot-viet/invoice',
     InventoryOrders: '/inventory-order/revenue-list',
     SupplierStore: '/sub-organization/store/all-supplier-store',
+    SupplierAdmin: '/sub-organization/admin/all-supplier',
     InventorySupplier: '/inventory-order/store-by-suppier',
     InventoryListProduct: '/inventory-order/revenue-list-product',
     documentsuborganiztion: '/document-sub-organiztion',
@@ -71,6 +77,8 @@ export const routerLinks = (name: string, type?: string) => {
     StoreOder: '/sub-organization/store-order',
     SupplierOrder: '/sub-organization/supplier-order',
     CommisionPayment: '/sub-org-commision-payment',
+    TaxAdmin: '/mt-tax/get-all-tax',
+    InventoryOrder: '/inventory-order'
   }; // 💬 generate api to here
 
   switch (type) {

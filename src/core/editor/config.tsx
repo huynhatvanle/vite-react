@@ -53,6 +53,10 @@ export const editorjsConfig: any = {
     header: {
       class: Header,
       inlineToolbar,
+      config: {
+        levels: [3, 4, 5, 6],
+        defaultLevel: 4,
+      },
     },
     image: {
       class: Image,
@@ -75,11 +79,18 @@ export const editorjsConfig: any = {
                 },
               },
             );
-
             return {
               success: 1,
               file: {
                 url: data.url,
+              },
+            };
+          },
+          async uploadByUrl(url) {
+            return {
+              success: 1,
+              file: {
+                url: url,
               },
             };
           },

@@ -7,7 +7,11 @@
       "pleaseEnterValueToSearch": "Tìm kiếm",
       "reset": "Cài lại",
       "search": "Tìm kiếm",
-      "areYouSureWant": "Bạn có chắc muốn xóa ?",
+      "areYouSureWant": "Bạn có chắc muốn xóa?",
+      "areYouSureWantDisable": "Bạn có chắc muốn vô hiệu hóa?",
+      "areYouSureWantEnable": "Bạn có chắc chắn muốn kích hoạt?",
+      "Disabled": "Đã vô hiệu hóa",
+      "Enabled": "Đã kích hoạt",
       "areYouSureWantTax": "Bạn có chắc muốn xóa thuế này ?",
       "yes": "Xóa",
       "no": "Hủy",
@@ -50,24 +54,6 @@
       },
       "Select Date": "Chọn ngày"
     },
-    "media-management": {
-      "filename": "Tên tệp",
-      "fileSize": "Kích thước tập tin",
-      "lastModified": "Sửa đổi lần cuối",
-      "detail": "Chi tiết",
-      "areYouSure": "Bạn có chắc chắn muốn xóa?",
-      "mediaManagement": "Quản lý phương tiện truyền thông",
-      "filesOnSystem": "Tệp trên hệ thống",
-      "addFiles": "Thêm các tập tin",
-      "multiFiles": "Nhiều tệp",
-      "createFolder": "Tạo thư mục",
-      "uploadFile": "Tải lên tệp",
-      "moveUpLevel": "Tiến lên một cấp độ",
-      "outsideLink": "Liên kết bên ngoài",
-      "save": "Lưu lại",
-      "nameFolder": "Tên thư mục",
-      "onlyLettersAndDigitsAllowed": "Chỉ cho phép các chữ cái và chữ số"
-    },
     "message": {
       "Success": "Thành công",
       "Warning": "Thông báo",
@@ -92,6 +78,10 @@
     "User/Button": "Thêm quản trị viên",
     "User/Add": "Thêm người dùng",
     "User/Edit": "Chỉnh sửa người dùng",
+    "Inventory Management": "Quản Lý Hàng hóa",
+    "inventory-management/product": "Quản lý sản phẩm",
+    "inventory-management/category": "Danh mục",
+    "inventory-management/tax": "Quản lý Thuế",
     "Userinformation": "Thông tin người dùng",
     "MyProfile": "Thông tin cá nhân",
     "Supplier": "Quản lý nhà cung cấp",
@@ -135,7 +125,9 @@
     "Tax": "Thuế",
     "revenue-management/discount": "Chiết khấu NCC",
     "revenue-management/supplier": "Doanh thu NCC",
-    "Supplier-Revenue": "Doanh thu nhà cung cấp"
+    "Supplier-Revenue": "Doanh thu nhà cung cấp",
+    "Return-Goods": "Trả hàng",
+    "RevenueManagement": "Quản lý doanh thu"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
@@ -147,6 +139,10 @@
     "User/List": "Quản Lý Người Dùng",
     "User/Add": "Quản Lý Người Dùng",
     "User/Edit": "Quản Lý Người Dùng",
+    "Inventory Management": "Quản Lý Hàng hóa",
+    "inventory-management/product": "Quản lý Hàng hóa",
+    "inventory-management/category": "Quản lý Hàng hóa",
+    "inventory-management/tax": "Thuế",
     "Store": "Quản Lý Cửa Hàng",
     "store-managerment/edit": "Quản Lý Cửa Hàng",
     "store-managerment/create": "Quản Lý Cửa Hàng",
@@ -161,7 +157,10 @@
     "Store-Revenue": "Doanh thu cửa hàng",
     "Merchandise-Managerment/Tax": "Thuế",
     "Supplier-Revenue": "Doanh thu nhà cung cấp",
-    "revenue-management/discount": "Chiết khấu NCC"
+    "revenue-management/discount": "Chiết khấu NCC",
+    "Discount-Detail": "Chi Tiết Chiết Khấu",
+    "Return-Goods": "Chi tiết trả hàng",
+    "Revenue": "Doanh thu"
   },
   "columns": {
     "auth": {
@@ -285,11 +284,15 @@
     "status": {
       "delivered": "Đã giao",
       "wait for confirmation": "Chờ xác nhận",
+      "decline": "Từ chối",
+      "Decline": "Đã Từ chối",
+      "out of stock": "Hết hàng",
       "delivering": "Đang giao",
       "waiting for the goods": "Chờ lấy hàng",
       "canceled": "Đã huỷ",
       "on sale": "Đang bán",
-      "stop selling": "Ngưng bán"
+      "stop selling": "Ngưng bán",
+      "wait for confirm": "Chờ phê duyệt"
     },
     "Supplier revenue Order": "Doanh thu nhà cung cấp theo đơn hàng.xlsx",
     "Supplier revenue product": "Doanh thu nhà cung cấp theo sản phẩm.xlsx",
@@ -450,7 +453,10 @@
     "status": "Trạng thái",
     "List Balance": "Danh sách hàng hóa Balance.xlsx",
     "List": "Danh sách hàng hóa.xlsx",
-    "Image": "Link hình ảnh"
+    "Image": "Link hình ảnh",
+    "UnitPrice": "Đơn giá",
+    "Quantity": "Số lượng",
+    "TotalAmount": "Tổng tiền sau thuế(VND)"
   },
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",
@@ -463,6 +469,15 @@
     "Search by order supplier": "Tìm kiếm mã sản phẩm, tên, mã vạch",
     "Choose a time": "Chọn thời điểm",
     "Select status": "Chọn trạng thái"
+  },
+  "merchant": {
+    "ALL": "Tất cả",
+    "APPROVED": "Đang bán",
+    "WAITING_APPROVE": "Chờ xác nhận",
+    "REJECTED": "Từ chối",
+    "OUT_OF_STOCK": "Hết hàng",
+    "STOP_SELLING": "Ngừng bán",
+    "CANCELLED": "Đã huỷ"
   },
   "tax": {
     "stt": "STT",

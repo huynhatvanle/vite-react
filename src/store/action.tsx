@@ -17,6 +17,7 @@ export class Action<T extends CommonEntity> {
   >;
   public post: AsyncThunk<T | undefined, T, object>;
   public put: AsyncThunk<T | undefined, T, object>;
+  public putDisable: AsyncThunk<T | undefined, { id: string; disable: boolean }, object>;
   public delete: AsyncThunk<T | undefined, string, object>;
   constructor(name: string) {
     this.name = name;
@@ -42,6 +43,14 @@ export class Action<T extends CommonEntity> {
       if (message) Message.success({ text: message });
       return data;
     });
+    this.putDisable = createAsyncThunk(
+      name + '/putDisable',
+      async ({ id, disable }: { id: string; disable: boolean }) => {
+        const { data, message } = await API.put<T>(`${routerLinks(name, 'api')}/${id}/disable/${disable}`, {});
+        if (message) Message.success({ text: message });
+        return data;
+      },
+    );
     this.delete = createAsyncThunk(name + '/delete', async (id: string) => {
       const { data, message } = await API.delete<T>(`${routerLinks(name, 'api')}/${id}`);
       if (message) Message.success({ text: message });

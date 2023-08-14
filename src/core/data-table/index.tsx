@@ -1,6 +1,6 @@
 import React, { forwardRef, Fragment, Ref, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { v4 } from 'uuid';
-import { Checkbox, CheckboxOptionType, DatePicker, Popover, Radio, Table } from 'antd';
+import { Checkbox, CheckboxOptionType, DatePicker, Popover, Radio, Spin, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
 import dayjs from 'dayjs';
@@ -12,7 +12,6 @@ import { DataTableModel, PaginationQuery, TableGet, TableRefObject } from '@mode
 import { cleanObjectKeyNull, getSizePageByHeight } from '@utils';
 import { Calendar, CheckCircle, CheckSquare, Search, Times } from '@svgs';
 import { SorterResult } from 'antd/lib/table/interface';
-import { DefaultTFuncReturn } from 'i18next';
 
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
@@ -46,12 +45,12 @@ export const DataTable = forwardRef(
   (
     {
       columns = [],
-      // row = [],
+      id,
       showList = true,
       footer,
       defaultRequest = {
         page: 1,
-        perPage: 10,
+        perPage: 1,
       },
       showPagination = true,
       leftHeader,
@@ -86,7 +85,6 @@ export const DataTable = forwardRef(
     const idTable = useRef(idElement);
     const timeoutSearch = useRef<ReturnType<typeof setTimeout>>();
     const cols = useRef<DataTableModel[]>();
-    // const rows = useRef<DataTableModel[]>();
     const refPageSizeOptions = useRef<number[]>();
     const { result, isLoading, queryParams, time } = facade;
     // eslint-disable-next-line prefer-const
@@ -96,11 +94,11 @@ export const DataTable = forwardRef(
         : defaultRequest,
     );
 
+    const scroll = useRef<{ x?: number; y?: number }>({ x: xScroll, y: yScroll });
     useEffect(() => {
       if (pageSizeOptions?.length === 0) {
-        if (params?.perPage === 1) {
-          params.perPage = getSizePageByHeight();
-        }
+        if (params?.perPage === 1) params.perPage = getSizePageByHeight();
+        if (params.perPage! < 5) params.perPage = 5;
         refPageSizeOptions.current = [
           params.perPage || 10,
           (params.perPage || 10) * 2,
@@ -121,6 +119,15 @@ export const DataTable = forwardRef(
         if (!result?.data || new Date().getTime() > time || JSON.stringify(params) != queryParams)
           onChange(params, false);
       }
+      if (!scroll.current.x) {
+        scroll.current.x = 0;
+        columns.forEach((item) => {
+          if (item.tableItem) {
+            scroll.current.x! += item.tableItem?.width || 150;
+          }
+        });
+      }
+
       return () => localStorage.removeItem(idTable.current);
     }, []);
 
@@ -180,35 +187,41 @@ export const DataTable = forwardRef(
           if (get && !facade?.result?.data && valueFilter.current[key]) columnSearch(get, '', undefined, facade);
         }, [valueFilter.current[key]]);
         return (
-          <div className={'p-1'}>
-            <input
-              className="w-full sm:w-52 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4 mb-1"
-              type="text"
-              placeholder={t('components.datatable.pleaseEnterValueToSearch') || ''}
-              onChange={(e) => {
-                clearTimeout(timeoutSearch.current);
-                timeoutSearch.current = setTimeout(() => columnSearch(get, e.target.value, selectedKeys), 500);
-              }}
-              onKeyUp={async (e) => {
-                if (e.key === 'Enter') await columnSearch(get, e.currentTarget.value, undefined, facade);
-              }}
-            />
-            <div>
-              <RadioGroup
-                options={
-                  filters || get?.facade?.result?.data?.map(get.format).filter((item: any) => !!item.value) || []
-                }
-                value={selectedKeys}
-                onChange={(e) => setSelectedKeys(e.target.value + '')}
-              />
+          <Spin spinning={facade.isLoading === true || false}>
+            <div className="p-1">
+              {get?.facade && (
+                <input
+                  className="w-full h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4 mb-1"
+                  type="text"
+                  placeholder={t('components.datatable.pleaseEnterValueToSearch') || ''}
+                  onChange={(e) => {
+                    clearTimeout(timeoutSearch.current);
+                    timeoutSearch.current = setTimeout(() => columnSearch(get, e.target.value, selectedKeys), 500);
+                  }}
+                  onKeyUp={async (e) => {
+                    if (e.key === 'Enter') await columnSearch(get, e.currentTarget.value, undefined, facade);
+                  }}
+                />
+              )}
+              <div>
+                <RadioGroup
+                  options={
+                    filters || get?.facade?.result?.data?.map(get.format).filter((item: any) => !!item.value) || []
+                  }
+                  value={selectedKeys}
+                  onChange={(e) => setSelectedKeys(e.target.value + '')}
+                />
+                {(filters?.length === 0 || facade?.result?.data?.length === 0) && (
+                  <span className={'px-2'}>{t('components.datatable.No Data')}</span>
+                )}
+              </div>
+              {groupButton(confirm, clearFilters, key, selectedKeys)}
             </div>
-            {groupButton(confirm, clearFilters, key, selectedKeys)}
-          </div>
+          </Spin>
         );
       },
       filterIcon: () => <CheckCircle className="h-4 w-4 fill-gray-600" />,
     });
-
     // noinspection JSUnusedGlobalSymbols
     const getColumnSearchCheckbox = (filters: any, key: any, get: TableGet = {}) => ({
       onFilterDropdownOpenChange: async (visible: boolean) => (valueFilter.current[key] = visible),
@@ -218,28 +231,38 @@ export const DataTable = forwardRef(
           if (get && !facade?.result?.data && valueFilter.current[key]) columnSearch(get, '', undefined, facade);
         }, [valueFilter.current[key]]);
         return (
-          <div className={'p-1'}>
-            <input
-              className="w-full sm:w-52 h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4 mb-1"
-              type="text"
-              placeholder={t('components.datatable.pleaseEnterValueToSearch') || ''}
-              onChange={(e) => {
-                clearTimeout(timeoutSearch.current);
-                timeoutSearch.current = setTimeout(() => columnSearch(get, e.target.value, selectedKeys, facade), 500);
-              }}
-              onKeyUp={async (e) => {
-                if (e.key === 'Enter') await columnSearch(get, e.currentTarget.value, undefined, facade);
-              }}
-            />
-            <div>
-              <CheckboxGroup
-                options={filters || facade?.result?.data?.map(get.format).filter((item: any) => !!item.value) || []}
-                defaultValue={selectedKeys}
-                onChange={(e) => setSelectedKeys(e)}
-              />
+          <Spin spinning={facade.isLoading === true || false}>
+            <div className="p-1">
+              {!!get?.facade && (
+                <input
+                  className="w-full h-10 rounded-xl text-gray-600 bg-white border border-solid border-gray-100 pr-9 pl-4 mb-1"
+                  type="text"
+                  placeholder={t('components.datatable.pleaseEnterValueToSearch') || ''}
+                  onChange={(e) => {
+                    clearTimeout(timeoutSearch.current);
+                    timeoutSearch.current = setTimeout(
+                      () => columnSearch(get, e.target.value, selectedKeys, facade),
+                      500,
+                    );
+                  }}
+                  onKeyUp={async (e) => {
+                    if (e.key === 'Enter') await columnSearch(get, e.currentTarget.value, undefined, facade);
+                  }}
+                />
+              )}
+              <div>
+                <CheckboxGroup
+                  options={filters || facade?.result?.data?.map(get.format).filter((item: any) => !!item.value) || []}
+                  defaultValue={selectedKeys}
+                  onChange={(e) => setSelectedKeys(e)}
+                />
+                {(filters?.length === 0 || facade?.result?.data?.length === 0) && (
+                  <span className={'px-2'}>{t('components.datatable.No Data')}</span>
+                )}
+              </div>
+              {groupButton(confirm, clearFilters, key, selectedKeys)}
             </div>
-            {groupButton(confirm, clearFilters, key, selectedKeys)}
-          </div>
+          </Spin>
         );
       },
       filterIcon: (filtered: boolean) => (
@@ -342,6 +365,10 @@ export const DataTable = forwardRef(
           item.defaultSortOrder =
             sorts[col!.name!] === 'ASC' ? 'ascend' : sorts[col!.name!] === 'DESC' ? 'descend' : '';
         if (!item?.render) item!.render = (text: string) => text && checkTextToShort(text);
+        if (item && !item?.onCell)
+          item.onCell = (record) => ({
+            className: record?.id && record?.id === (id || facade?.data?.id) ? '!bg-blue-100' : '',
+          });
         // noinspection JSUnusedGlobalSymbols
         return {
           title: t(col.title || ''),
@@ -352,7 +379,7 @@ export const DataTable = forwardRef(
 
     const handleTableChange = (
       pagination?: { page?: number; perPage?: number },
-      filters = params.filter,
+      filters = {},
       sorts?: SorterResult<any>,
       tempFullTextSearch?: string,
     ) => {
@@ -365,7 +392,7 @@ export const DataTable = forwardRef(
               [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
             }
           : sorts?.field
-          ? ''
+          ? null
           : sorts;
 
       if (tempFullTextSearch !== params.fullTextSearch) tempPageIndex = 1;
@@ -374,7 +401,7 @@ export const DataTable = forwardRef(
         page: tempPageIndex,
         perPage: tempPageSize,
         sorts: JSON.stringify(tempSort),
-        filter: JSON.stringify(cleanObjectKeyNull({ ...(params.filter as Object), ...(filters as Object) })),
+        filter: JSON.stringify(cleanObjectKeyNull(filters)),
         fullTextSearch: tempFullTextSearch,
       });
       onChange && onChange(tempParams);
@@ -384,10 +411,9 @@ export const DataTable = forwardRef(
       array
         ? array.map((item) => ({ ...item, key: item.id || v4(), children: item.children && loopData(item.children) }))
         : [];
-
     return (
       <div className={classNames(className, 'intro-x')}>
-        <div className="lg:flex justify-between mb-2.5 responsive-header supplier-tab4 store-tab3 flex-wrap form-index-supplier">
+        <div className="lg:flex justify-between mb-2.5 gap-y-2.5 responsive-header supplier-tab4 store-tab3 flex-wrap form-index-supplier">
           {showSearch ? (
             <div className="relative">
               <input
@@ -511,10 +537,10 @@ export const DataTable = forwardRef(
                       <span className="font-bold text-base">Tổng cộng</span>
                     </td>
                     <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.subTotal.toLocaleString()}
+                      {parseInt(facade?.result?.total?.subTotal).toLocaleString()}
                     </td>
                     <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.total.toLocaleString()}
+                      {parseInt(facade?.result?.total?.total).toLocaleString()}
                     </td>
                     <td className="ant-table-cell font-bold text-base"></td>
                   </tr>
@@ -562,7 +588,7 @@ export const DataTable = forwardRef(
                 handleTableChange(undefined, filters, sorts as SorterResult<any>, params.fullTextSearch)
               }
               showSorterTooltip={false}
-              scroll={{ x: xScroll, y: yScroll }}
+              scroll={scroll.current}
               size="small"
               {...prop}
             />
@@ -591,8 +617,8 @@ export const DataTable = forwardRef(
 );
 DataTable.displayName = 'HookTable';
 type Type = {
+  id?: string;
   columns: DataTableModel[];
-  // row?: DataTableModel[];
   showList?: boolean;
   footer?: (result: any) => any;
   defaultRequest?: PaginationQuery;
@@ -601,12 +627,12 @@ type Type = {
   rightHeader?: JSX.Element;
   showSearch?: boolean;
   save?: boolean;
-  searchPlaceholder?: string | DefaultTFuncReturn;
+  searchPlaceholder?: string;
   subHeader?: (count: number) => any;
-  xScroll?: string | number | true;
-  yScroll?: string | number;
+  xScroll?: number;
+  yScroll?: number;
   emptyText?: JSX.Element | string;
-  onRow?: (data: any) => { onDoubleClick: () => void };
+  onRow?: (data: any) => { onDoubleClick?: () => void };
   pageSizeOptions?: number[];
   pageSizeRender?: (sizePage: number) => number | string;
   pageSizeWidth?: string;

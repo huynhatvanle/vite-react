@@ -2,7 +2,6 @@
 Library     Browser
 Library     FakerLibrary    locale=en_IN
 Library     String
-Resource    ../testcases/user.robot
 Library     XML
 
 
@@ -379,6 +378,7 @@ Enter field blanks in "${name}"
 Click field blanks Address with "${name}"
     ${element}=    Set Variable
     ...    //*[contains(@class, "ant-form-item-label")]/label[text()="${name}"]/../../../*[contains(@class, "ant-form-item")]/div/div/div/div
+
 Check Url "${url}" Page
     ${url_current}=    Get Url
     Should Be Equal    ${url_current}    ${URL_DEFAULT}${url}

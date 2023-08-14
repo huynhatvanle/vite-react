@@ -60,8 +60,9 @@ const Page = () => {
   const handleSubmit = (values: any) => {
     commisionPaymentFacade.put({ ...commisionPaymentFacade?.data, status: 'RECIVED' });
   };
+// console.log('discountFacade', discountFacade?.data?.commisionTotal);
 
-  console.log(discountFacade);
+  const discountToBePaid = Math.floor(discountFacade?.data?.commisionTotal - discountFacade?.data?.totalPayment).toLocaleString();
 
   return (
     <div className={'w-full'}>
@@ -94,7 +95,7 @@ const Page = () => {
                             </div>
                             <div className="flex mb-5">
                               <div className="font-semibold text-black ">Chiết khấu:</div>
-                              <div className="ml-4">{values?.data?.commisionTotal.toLocaleString()} VND</div>
+                              <div className="ml-4">{Math.floor(values?.data?.commisionTotal).toLocaleString()} VND</div>
                             </div>
                           </div>
                           <div className=" w-full lg:w-1/3">
@@ -110,14 +111,14 @@ const Page = () => {
                             </div>
                             <div className="flex mb-5">
                               <div className="font-semibold text-black ">Đã thanh toán:</div>
-                              <div className="ml-4">{values?.data?.totalPayment.toLocaleString()} VND</div>
+                              <div className="ml-4">{Math.floor(values?.data?.totalPayment).toLocaleString()} VND</div>
                             </div>
                           </div>
                           <div className="flex w-full mb-5 lg:w-1/3">
                             <div className="font-semibold  text-black ">Cần thanh toán:</div>
                             <div className="ml-4">
                               {' '}
-                              {(values?.data?.commisionTotal - values?.data?.totalPayment).toLocaleString()} VND
+                              {Math.floor(values?.data?.commisionTotal - values?.data?.totalPayment).toLocaleString()} VND
                             </div>
                           </div>
                         </div>
@@ -176,7 +177,7 @@ const Page = () => {
                       name: 'paymentMethod',
                       tableItem: {
                         width: 170,
-                        render: (text: any) => (text === 'BANK_TRANSFER' ? 'Chuyển khoản' : ':D'),
+                        render: (text: any) => (text === 'BANK_TRANSFER' ? 'Chuyển khoản' : 'Tiền mặt'),
                       },
                     },
                     {
@@ -187,11 +188,11 @@ const Page = () => {
                         render: (text: any) =>
                           text === 'RECIVED' ? (
                             <div className="bg-green-100 text-center p-1 border border-green-500 text-green-600 rounded">
-                              {t('Đẫ nhận')}
+                              {t('Đã nhận')}
                             </div>
                           ) : text === 'DELIVERED' ? (
                             <div className="bg-green-100 text-center p-1 border border-blue-500 text-blue-600 rounded">
-                              {t('Đẫ Chuyển')}
+                              {t('Đã Chuyển')}
                             </div>
                           ) : (
                             <div>aaaaaaaa</div>
@@ -214,35 +215,35 @@ const Page = () => {
                         render: (form, values) => {
                           return (
                             <div className="sm:pt-2 border-y">
-                              <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-5">
+                              <div className="flex sm:items-center h-full text-base lg:mt-0 mt-4 form-store mb-5 sm:flex-row flex-col">
                                 <div className="font-semibold text-teal-900 ">Ngày thanh toán:</div>
-                                <div className="ml-4">
+                                <div className="sm:ml-4 ml-0">
                                   {dayjs(values?.createdAt).format('DD/MM/YYYY').replace(/-/g, '/')}
                                 </div>
                               </div>
-                              <div className="flex items-center h-full w-full text-base lg:mt-0 mt-4 form-store mb-5">
-                                <div className="w-1/2 flex">
+                              <div className="flex md:items-center h-full w-full text-base lg:mt-0 mt-4 form-store mb-5 md:flex-row flex-col">
+                                <div className="md:w-1/2 w-full flex sm:flex-row flex-col">
                                   <div className="font-semibold text-teal-900 ">Chiết khấu cần thanh toán:</div>
-                                  <div className="ml-4">0 VND</div>
+                                  <div className="sm:ml-4 ml-0">{discountToBePaid} VND</div>
                                 </div>
-                                <div className="w-1/2 flex">
+                                <div className="md:w-1/2 w-full flex md:mt-0 mt-5 sm:flex-row flex-col">
                                   <div className="font-semibold text-teal-900 ">Phương thức thanh toán:</div>
-                                  <div className="ml-4">
-                                    <div className="w-60 py-2.5 px-4 bg-gray-100 rounded-2xl border-gray-200 ml-4 flex justify-between cursor-not-allowed">
+                                  <div className="sm:ml-4 ml-0">
+                                    <div className="w-60 py-2.5 px-4 bg-gray-100 rounded-2xl border-gray-200 sm:ml-4 ml-0 flex justify-between cursor-not-allowed">
                                       <p className="text-gray-400"> {t('Chuyển khoản')}</p>
                                       <DownArrow className="w-4 h-5 text-gray-400 pt-1" />
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                              <div className="flex items-center h-full w-full text-base lg:mt-0 mt-4 form-store mb-5">
-                                <div className="w-1/2 flex">
+                              <div className="flex md:items-center h-full w-full text-base lg:mt-0 mt-4 form-store mb-5 md:flex-row flex-col">
+                                <div className="md:w-1/2 w-full flex sm:flex-row flex-col">
                                   <div className="font-semibold text-teal-900">Chiết khấu đã thanh toán:</div>
-                                  <div className="ml-4">{values?.commisionMoney?.toLocaleString()} VND</div>
+                                  <div className="sm:ml-4 ml-0">{values?.commisionMoney?.toLocaleString()} VND</div>
                                 </div>
-                                <div className="w-1/2 flex">
+                                <div className="md:w-1/2 w-full flex md:mt-0 mt-5">
                                   <div className="font-semibold text-teal-900 ">Trạng thái:</div>
-                                  <div className="ml-4">
+                                  <div className="sm:ml-4 ml-0">
                                     {values?.status === 'RECIVED' ? (
                                       <div className="ml-4">Đã nhận</div>
                                     ) : (
@@ -272,9 +273,9 @@ const Page = () => {
                   widthModal={1000}
                   footerCustom={(handleOk, handleCancel) => (
                     <div className=" w-full bg-white ">
-                      <div className="w-full flex flex-col sm:flex-row sm:!justify-between mb-[33px] ml-[9px]">
+                      <div className="w-full flex flex-row sm:!justify-between">
                         <button
-                          className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11"
+                          className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mr-1 sm:mr-0 text-sm h-11"
                           onClick={handleCancel}
                         >
                           {t('components.form.modal.cancel')}
@@ -283,7 +284,7 @@ const Page = () => {
                           <Button
                             text={t('Đã nhận thanh toán')}
                             className={
-                              'flex bg-teal-900 text-white sm:w-44 w-[64%] rounded-xl items-center justify-center disabled:opacity-50'
+                              'flex bg-teal-900 text-white sm:w-44 w-[64%] md:!w-1/5 rounded-xl items-center justify-center disabled:opacity-50 ml-1 sm:ml-0'
                             }
                             onClick={handleSubmit}
                           />

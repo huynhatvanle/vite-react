@@ -42,6 +42,7 @@ export const UserFacade = () => {
       dispatch(action.getById({ id, keyState })),
     post: (values: User) => dispatch(action.post(values)),
     put: (values: User) => dispatch(action.put(values)),
+    putDisable: (values: { id: string; disable: boolean }) => dispatch(action.putDisable(values)),
     delete: (id: string) => dispatch(action.delete(id)),
   };
 };

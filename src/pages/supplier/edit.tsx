@@ -704,14 +704,6 @@ const Page = () => {
                                   label: item?.name!,
                                   value: item?.id!,
                                 })),
-                                // firstLoad: () => ({}),
-                                // get: {
-                                //   facade: CategoryFacade,
-                                //   format: (item: any) => ({
-                                //     label: item.name,
-                                //     value: item.id,
-                                //   }),
-                                // },
                                 onChange(value, form) {
                                   setCategoryId1(value);
                                   setCategoryId2('');
@@ -2257,7 +2249,8 @@ const Page = () => {
                                   formItem: {
                                     tabIndex: 3,
                                     col: 4,
-                                    type: 'month_year',
+                                    type: 'date',
+                                picker: 'month',
                                     onChange(value, form) {
                                       value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
                                         ? setMonth(true)
@@ -2303,7 +2296,8 @@ const Page = () => {
                                   formItem: {
                                     tabIndex: 3,
                                     col: 4,
-                                    type: 'month_year',
+                                    type: 'date',
+                                picker: 'month',
                                     onChange(value, form) {
                                       value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
                                         ? setMonth(true)

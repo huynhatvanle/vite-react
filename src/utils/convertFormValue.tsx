@@ -14,23 +14,13 @@ export const convertFormValue = (columns: FormModel[], values: { [selector: stri
             break;
           case 'upload':
             if (values[item.name] && typeof values[item.name] === 'object' && exportData) {
-              if (item.formItem?.onlyImage && values[item.name].length > 0)
-                values[item.name] = values[item.name][1]?.[0];
+              if (!item.formItem?.mode && values[item.name].length > 0) values[item.name] = values[item.name][0].url;
               else if (values[item.name].length > 1) {
                 values[item.name] = values[item.name].filter((_item: any) => _item.status === 'done' || !_item.status);
               }
             }
             break;
           case 'date':
-            if (values[item.name]) {
-              if (exportData) {
-                values[item.name] = values[item.name]
-                  .add(new Date().getTimezoneOffset() / 60, 'hour')
-                  .format('YYYY-MM-DDTHH:mm:ss[Z]');
-              } else values[item.name] = dayjs(values[item.name]);
-            }
-            break;
-          case 'month_year':
             if (values[item.name]) {
               if (exportData) {
                 values[item.name] = values[item.name]
@@ -54,31 +44,32 @@ export const convertFormValue = (columns: FormModel[], values: { [selector: stri
             }
             break;
           case 'number':
-            if (!exportData && values && values[item.name]) values[item.name] = parseFloat(values[item.name]);
+            if (!exportData && values && values[item.name])
+              values[item.name] = !item.formItem?.mask ? parseFloat(values[item.name]) : values[item.name].toString();
             if (exportData) values[item.name] = parseFloat(values[item.name]);
             break;
           case 'tab':
             if (!exportData) {
               values[item.name] = item?.formItem?.list?.map((subItem, i) => {
                 const result: { [selector: string]: any } = { [item!.formItem!.tab!.label!]: subItem.value };
-                item!.formItem!.column!.forEach((col) => {
-                  switch (col!.formItem!.type) {
-                    case 'layout':
-                      result[col.name] = values[item.name] ? values[item.name][i][col.name] || [] : [];
-                      break;
-                    case 'upload':
-                      result[col.name] = values[item.name] ? values[item.name][i][col.name] || null : null;
-                      break;
-                    default:
-                      result[col.name] = values[item.name] ? values[item.name][i][col.name] || '' : '';
-                  }
-                });
+                item!
+                  .formItem!.column!.filter((col) => !!col.formItem)
+                  .forEach((col) => {
+                    switch (col!.formItem!.type) {
+                      case 'upload':
+                        result[col.name] =
+                          values[item.name]?.length && values[item.name]
+                            ? values[item.name][i][col.name] || null
+                            : null;
+                        break;
+                      default:
+                        result[col.name] =
+                          values[item.name]?.length && values[item.name] ? values[item.name][i][col.name] || '' : '';
+                    }
+                  });
                 return result;
               });
             }
-            break;
-          case 'layout':
-            if (!exportData && !values[item.name]) values[item.name] = [];
             break;
           case 'select':
             if (!exportData && item?.formItem?.mode === 'multiple' && values[item.name]) {

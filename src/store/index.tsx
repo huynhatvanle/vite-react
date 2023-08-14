@@ -30,6 +30,7 @@ export * from './store-management/inventory-product';
 export * from './store-management/invoice-kiot-viet';
 export * from './supplier/inventory-order';
 export * from './store-management/all-supplier-store';
+export * from './supplier/supplier-admin';
 export * from './supplier/inventory-supplier';
 export * from './store-management/invoice-revenue';
 export * from './supplier/inventory-product';
@@ -39,6 +40,10 @@ export * from './revenue-management/revenue-store';
 export * from './merchandise-managerment/tax';
 export * from './store-management/supplier-order';
 export * from './discount/CommisionPayment';
+export * from './product/product-not-approved';
+export * from './merchandise-managerment/tax';
+export * from './merchandise-managerment/tax/getAllTax';
+export * from './inventory-order';
 import {
   globalSlice,
   userSlice,
@@ -58,6 +63,7 @@ import {
   invoiceKiotVietSlice,
   inventoryOrdersSlice,
   supplierStoreSlice,
+  supplierAdminSlice,
   InventorySupplierSlice,
   invoiceRevenueSlice,
   inventoryListProductSlice,
@@ -67,6 +73,9 @@ import {
   taxSlice,
   supplierOderSlice,
   commisionPaymentSlice,
+  notApprovedSlice,
+  taxAdminSlice,
+  inventoryOrderSlice,
 } from './';
 const rootReducer = combineReducers({
   [globalSlice.name]: globalSlice.reducer,
@@ -87,6 +96,7 @@ const rootReducer = combineReducers({
   [invoiceKiotVietSlice.name]: invoiceKiotVietSlice.reducer,
   [inventoryOrdersSlice.name]: inventoryOrdersSlice.reducer,
   [supplierStoreSlice.name]: supplierStoreSlice.reducer,
+  [supplierAdminSlice.name]: supplierAdminSlice.reducer,
   [InventorySupplierSlice.name]: InventorySupplierSlice.reducer,
   [invoiceRevenueSlice.name]: invoiceRevenueSlice.reducer,
   [inventoryListProductSlice.name]: inventoryListProductSlice.reducer,
@@ -96,4 +106,8 @@ const rootReducer = combineReducers({
   [taxSlice.name]: taxSlice.reducer,
   [supplierOderSlice.name]: supplierOderSlice.reducer,
   [commisionPaymentSlice.name]: commisionPaymentSlice.reducer,
+  [notApprovedSlice.name]: notApprovedSlice.reducer,
+  [taxSlice.name]: taxSlice.reducer,
+  [taxAdminSlice.name]: taxAdminSlice.reducer,
+  [inventoryOrderSlice.name]: inventoryOrderSlice.reducer,
 });

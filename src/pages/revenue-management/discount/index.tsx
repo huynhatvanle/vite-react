@@ -60,6 +60,9 @@ const Page = () => {
     key: string;
     dataIndex: string;
   }
+
+  console.log(getFilter(discountFacade.queryParams, 'filter')?.dateFrom);
+  
   const columnrevenueOrder: IExcelColumn[] = [
     { title: t('STT'), key: 'stt', dataIndex: 'STT' },
     { title: t('Thời gian'), key: 'datefrom', dataIndex: 'datefrom' },
@@ -79,7 +82,7 @@ const Page = () => {
               {listSupplier && (
                 <>
                   <DataTable
-                    className="form-supplier-tab4"
+                    className="form-discount-index"
                     ref={dataTableRefDiscount}
                     facade={discountFacade}
                     defaultRequest={{
@@ -132,11 +135,11 @@ const Page = () => {
                               title: '',
                               name: 'dateFrom',
                               formItem: {
-                                tabIndex: 3,
                                 col: 4,
-                                type: 'month_year',
+                                type: 'date',
+                                picker: 'month',
                                 onChange(value: any, form: any) {
-                                  value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
+                                 value  && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
                                     ? setMonth(true)
                                     : setMonth(false);
                                   dataTableRefDiscount?.current?.onChange({
@@ -167,7 +170,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 1,
                                 render: () => (
-                                  <div className="flex sm:h-10 sm:mt-0 mt-[-4px] sm:mb-0 mb-[2px] items-center">
+                                  <div className="flex sm:h-10 sm:mt-0 mt-[-10px] sm:mb-0 mb-[2px] items-center">
                                     <p className="whitespace-nowrap">{t('Đến')}</p>
                                   </div>
                                 ),
@@ -177,11 +180,13 @@ const Page = () => {
                               title: '',
                               name: 'dateTo',
                               formItem: {
-                                tabIndex: 3,
                                 col: 4,
-                                type: 'month_year',
+                                type: 'date',
+                                picker: 'month',
                                 onChange(value: any, form: any) {
-                                  value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
+                                    console.log(form.getFieldValue('dateFrom'));
+                                    
+                                    value <  form.getFieldValue('dateFrom')
                                     ? setMonth(true)
                                     : setMonth(false);
                                   dataTableRefDiscount?.current?.onChange({
@@ -208,7 +213,7 @@ const Page = () => {
                           ]}
                         />
                         {month && ( 
-                          <div className="w-full flex xl:mt-[42px] xl:mb-5 xl:ml-[-160px] sm:ml-[-100px] sm:mb-4 mb-[12px] sm:mt-[-14px] mt-[-14px] z-10 xl:absolute">
+                          <div className="w-full flex xl:mt-[42px] xl:mb-5 xl:ml-[-160px] sm:ml-[-158px] sm:mb-4 mb-[12px] sm:mt-[-14px] mt-[-14px] z-10 xl:absolute">
                             <span className="sm:w-[526px] text-center sm:text-right text-red-500">
                               Tháng kết thúc phải lớn hơn Tháng bắt đầu
                             </span>

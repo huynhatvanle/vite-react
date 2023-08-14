@@ -106,13 +106,13 @@ export const Pagination: any = ({
         let listOfRange: { index: number; type: string; disabled: boolean }[];
         const prevFiveItem = {
           type: 'prev_5',
-          index: 0,
-          disabled: true,
+          index: -1,
+          disabled: false,
         };
         const nextFiveItem = {
           type: 'next_5',
-          index: 0,
-          disabled: true,
+          index: -1,
+          disabled: false,
         };
         const firstPageItem = generatePage(1, 1);
         const lastPageItem = generatePage(lastIndex, lastIndex);
@@ -136,6 +136,7 @@ export const Pagination: any = ({
           <label htmlFor={idElement + '_page_size'}>
             {showSizeChanger && (
               <Select
+                className={'w-full sm:w-auto'}
                 id={idElement + '_page_size'}
                 defaultValue={perPage}
                 style={{ minWidth: pageSizeWidth }}
@@ -150,9 +151,7 @@ export const Pagination: any = ({
             )}
           </label>
           {showTotal && (
-            <div className="ml-3 text-black">
-              <span>{paginationDescription(ranges[0], ranges[1], total)}</span>
-            </div>
+            <span className="sm:ml-3 text-black my-3">{paginationDescription(ranges[0], ranges[1], total)}</span>
           )}
         </div>
         <div className="mt-3 sm:mt-0 right flex justify-center p-1 rounded-xl bg-white">

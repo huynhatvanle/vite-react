@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { API, routerLinks } from '@utils';
+import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { CommonEntity, PaginationQuery, Responses } from '@models';
 import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
 
@@ -11,12 +11,12 @@ const action = {
     const data = await API.get<Category>(`${routerLinks(name, 'api')}/${id}`);
     return { data };
   }),
-  // get1: createAsyncThunk(
-  //   name + '/get',
-  //   async (params: PaginationQuery<Category>) => await API.get(routerLinks(name, 'api'), params),
-  // ),
-  get2: createAsyncThunk(name + '/get2', async (id: string) => await API.get(routerLinks(name, 'api'), { id })),
-  get3: createAsyncThunk(name + '/get3', async (id: string) => await API.get(routerLinks(name, 'api'), { id })),
+  get1: createAsyncThunk(
+    name + '/get',
+    async ({ subOrgId }: { subOrgId?: string }) => await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({ subOrgId })),
+  ),
+  get2: createAsyncThunk(name + '/get2', async ({ id, subOrgId }: { id: string, subOrgId?: string }) => await API.get(routerLinks(name, 'api'), { id, subOrgId })),
+  get3: createAsyncThunk(name + '/get3', async ({ id, subOrgId }: { id: string, subOrgId?: string }) => await API.get(routerLinks(name, 'api'), { id, subOrgId })),
 };
 
 export const categorySlice = createSlice(
@@ -78,9 +78,9 @@ export const CategoryFacade = () => {
   return {
     ...(useTypedSelector((state) => state[action.name]) as State<Category>),
     set: (values: State<Category>) => dispatch(action.set(values)),
-    get: (params: PaginationQuery<Category>) => dispatch(action.get(params)),
-    get2: ({ id }: { id: string }) => dispatch(action.get2(id)),
-    get3: ({ id }: { id: string }) => dispatch(action.get3(id)),
+    get: ({ subOrgId }: { subOrgId?: string }) => dispatch(action.get1({ subOrgId })),
+    get2: ({ id, subOrgId }: { id: string, subOrgId?: string }) => dispatch(action.get2({ id, subOrgId })),
+    get3: ({ id, subOrgId }: { id: string, subOrgId?: string }) => dispatch(action.get3({ id, subOrgId })),
     getById: ({ fullTextSearch, id }: { fullTextSearch: string; id: string }) => dispatch(action.getByIdCategory(id)),
     post: (values: Category) => dispatch(action.post(values)),
     put: (values: Category) => dispatch(action.put(values)),
@@ -100,6 +100,7 @@ export class Category extends CommonEntity {
     public isKiotViet?: boolean,
     public categoryKiotId?: string,
     public parentId?: string,
+    public subOrgId?: string,
   ) {
     super();
   }

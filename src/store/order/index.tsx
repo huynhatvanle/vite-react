@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { API, cleanObjectKeyNull, routerLinks } from '@utils';
 import { CommonEntity, PaginationQuery } from '@models';
-import { useAppDispatch, useTypedSelector, Action, Slice, State } from '@store';
+import { useAppDispatch, useTypedSelector, Action, Slice, State, Product, StoreManagement, Supplier } from '@store';
 
 const name = 'Orders';
 
@@ -69,7 +69,119 @@ export class Orders extends CommonEntity {
     public confirmAt?: string,
     public createdAt?: string,
     public deliveredAt?: string,
-    public total?: number,
+    public cancelledAt?: string,
+    public cancelledReason?: string,
+    public importedReason?: string,
+    public isApplyTax?: string,
+    public isStoreCancel?: string,
+    public oderInvoiceCode?: string,
+    public orderInvoice?: {
+      code?: string,
+      typeOrderInvoice?: string,
+      url?: string,
+    }[],
+    public orderLineItem?: OrderLineItem[],
+    public orderPhase?: OrderPhase[],
+    public ownerSupplier?: OwnerSupplier,
+    public paymentSupplierOrder?: string,
+    public paymentSupplierStatus?: string,
+    public pickupAt?: string,
+    public poIdKiotViet?: string,
+    public status?: string,
+    public store?: StoreManagement,
+    public storeAdmin?: {
+      phoneNumber?: string,
+    },
+    public storeId?: string,
+    public supplier?: Supplier,
+    public supplierId?: string,
+    public total?: string,
+    public totalReceived?: string,
+    public totalTax?: string,
+    public typeOrder?: string,
+    public updateOrderCount?: string,
+    public updatedAt?: string,
+    public voucher?: string,
+    public voucherAmount?: string,
+    public voucherReceiptAmount?: string,
+  ) {
+    super();
+  }
+}
+
+export class OrderLineItem extends CommonEntity {
+  constructor(
+    public id?: string,
+    public isDeleted?: string,
+    public orderId?: string,
+    public price?: string,
+    public product?: Product,
+    public productId?: string,
+    public quantity?: string,
+    public remainQuantity?: string,
+    public storeBarcode?: string,
+    public subTotal?: string,
+    public tax?: string,
+    public total?: string,
+    public totalReceived?: string,
+  ) {
+    super();
+  }
+}
+
+export class OrderPhase extends CommonEntity {
+  constructor(
+    public id?: string,
+    public order?: {
+      id?: string,
+      isApplyTax?: string,
+      total?: string,
+    },
+    public orderId?: string,
+    public orderLineItemPhase?: string,
+    public receivedDate?: Product,
+    public totalReceivedOrderPhase?: string,
+  ) {
+    super();
+  }
+}
+export class OrderLineItemPhase extends CommonEntity {
+  constructor(
+    public id?: string,
+    public orderLineItem?: OrderLineItem,
+    public orderPhaseId?: string,
+    public quantity?: string,
+    public remainQuantity?: string,
+    public totalReceived?: string,
+    public updatedReason?: string,
+  ) {
+    super();
+  }
+}
+export class OwnerSupplier extends CommonEntity {
+  constructor(
+    public addressId?: string,
+    public code?: string,
+    public createdOn?: string,
+    public dateOfBirth?: string,
+    public email?: string,
+    public gender?: string,
+    public id?: string,
+    public identityCard?: string,
+    public isActive?: boolean,
+    public isDeactivated?: boolean,
+    public lastLogin?: string,
+    public name?: string,
+    public note?: string,
+    public orgId?: string,
+    public password?: string,
+    public phoneNumber?: string,
+    public profileImage?: string,
+    public status?: string,
+    public subOrgId?: string,
+    public updatedAt?: string,
+    public username?: string,
+    public uuid?: string,
   ) {
     super();
   }
