@@ -260,7 +260,8 @@ const Page = () => {
                       title: 'store.Note',
                       name: 'note',
                       formItem: {
-                        disabled: (values: any) => (values?.status === 'RECIVED' ? true : false),
+                        // disabled: (values: any) => (values?.status === 'RECIVED' ? true : false),
+                        disabled: () => true,
                         type: 'textarea',
                         rules: [{ type: 'textarea_max_length' }],
                         tabIndex: 1,

@@ -40,17 +40,18 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
       {child
         // .filter((subItem: any) => !subItem.permission || permission?.includes(subItem.permission))
         .map((subItem: any, index: number) => (
-          <li className={classNames('group flex items-center pl-9 py-2 cursor-pointer rounded-2xl text-gray-300 font-medium text-base', {
-            'bg-teal-700 text-white !fill-gray-300':
-              location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
-          })}
+          <li
+            className={classNames(
+              'group flex items-center pl-9 py-2 cursor-pointer rounded-2xl text-gray-300 font-medium text-base',
+              {
+                'bg-teal-700 text-white !fill-gray-300':
+                  location.pathname.indexOf(`/${lang}${routerLinks(subItem.name)}`) > -1,
+              },
+            )}
             onClick={() => navigate(`/${lang}${routerLinks(subItem.name)}`)}
           >
-            <p className='h-1 w-1 mr-3 rounded-lg bg-white group-hover:w-2 duration-300 ease-in-out transition-all'></p>
-            <a
-              className='hover:text-white sub-menu'
-              key={index + v4()}
-            >
+            <p className="h-1 w-1 mr-3 rounded-lg bg-white group-hover:w-2 duration-300 ease-in-out transition-all"></p>
+            <a className="hover:text-white sub-menu" key={index + v4()}>
               <span>{t(`titles.${subItem.name}`)}</span>
             </a>
           </li>
@@ -105,10 +106,13 @@ const Layout = ({ isCollapsed = false, permission = [] }: { isCollapsed: boolean
                   {/* {item.icon} */}
                   <div className={classNames({ absolute: isCollapsed })}>{item.icon}</div>
                   <span
-                    className={classNames('ml-2.5 transition-all duration-300 ease-in-out font-medium text-base !h-8 flex items-center', {
-                      'opacity-100': !isCollapsed,
-                      'hidden': isCollapsed,
-                    })}
+                    className={classNames(
+                      'ml-2.5 transition-all duration-300 ease-in-out font-medium text-base !h-8 flex items-center',
+                      {
+                        'opacity-100': !isCollapsed,
+                        hidden: isCollapsed,
+                      },
+                    )}
                   >
                     {t(`titles.${item.name}`)}
                   </span>
