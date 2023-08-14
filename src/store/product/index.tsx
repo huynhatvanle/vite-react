@@ -85,8 +85,9 @@ const action = {
     return statusCode;
   },),
 
-  putProductreject: createAsyncThunk(name + '/putProductreject', async ({ id, ...values }: Product) => {
-    const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/reject/${id}`, values);
+  putProductreject: createAsyncThunk(name + '/putProductreject', async (values: any) => {
+    const rejectReason = values.rejectReason == 'other' ? values.reason : values.rejectReason
+    const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/reject/${values?.id}`, { rejectReason });
     if (message) await Message.success({ text: message });
     return statusCode;
   },)
@@ -223,7 +224,7 @@ export const ProductFacade = () => {
     delete: (id: string) => dispatch(action.delete(id)),
     getproduct: () => dispatch(action.getproduct()),
     putProduct: ({ id }: { id?: string }) => dispatch(action.putProduct({ id })),
-    putProductreject: (values: Product) => dispatch(action.putProductreject(values)),
+    putProductreject: (values: any) => dispatch(action.putProductreject(values)),
   };
 };
 
@@ -249,7 +250,6 @@ export class Product extends CommonEntity {
     public sellingPrice?: string,
     public exportTaxId?: string,
     public importTaxId?: string,
-    public rejectReasonId?: string,
     public category?: {
       child: {
         child: {
@@ -313,10 +313,7 @@ export class Product extends CommonEntity {
         },
       }
     ],
-    public rejectReason?: {
-      id: string;
-      name: string;
-    }
+    public rejectReason?: string
   ) {
     super();
   }
