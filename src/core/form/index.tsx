@@ -124,7 +124,7 @@ export const Form = ({
             className={classNames(
               'ant-input px-4 py-2.5 w-full rounded-xl text-gray-600 bg-white border border-solid input-description ',
               {
-                '!bg-gray-100 text-gray-400 !border-0': !!formItem.disabled && formItem.disabled(values, form),
+                '!bg-white text-gray-400 !border-0': !!formItem.disabled && formItem.disabled(values, form),
               },
             )}
             rows={4}
@@ -162,7 +162,7 @@ export const Form = ({
             format={
               !formItem.picker || formItem.picker === 'date'
                 ? (formatDate || '') + (formItem.showTime ? ' HH:mm' : '')
-                : formatDate || ''
+                : 'MM/YYYY' || ''
             }
             onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
             disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
@@ -170,7 +170,7 @@ export const Form = ({
             picker={formItem.picker || 'date'}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             form={form}
-            name={item.name}
+            // name={item.name}
             placeholder={t(formItem.placeholder || '') || t('components.form.Select Date') || ''}
           />
         );

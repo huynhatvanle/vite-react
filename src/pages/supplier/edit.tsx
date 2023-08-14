@@ -2249,7 +2249,8 @@ const Page = () => {
                                   formItem: {
                                     tabIndex: 3,
                                     col: 4,
-                                    type: 'month_year',
+                                    type: 'date',
+                                picker: 'month',
                                     onChange(value, form) {
                                       value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
                                         ? setMonth(true)
@@ -2295,7 +2296,8 @@ const Page = () => {
                                   formItem: {
                                     tabIndex: 3,
                                     col: 4,
-                                    type: 'month_year',
+                                    type: 'date',
+                                picker: 'month',
                                     onChange(value, form) {
                                       value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
                                         ? setMonth(true)

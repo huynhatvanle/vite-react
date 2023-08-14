@@ -95,7 +95,7 @@ const Page = () => {
                             </div>
                             <div className="flex mb-5">
                               <div className="font-semibold text-black ">Chiết khấu:</div>
-                              <div className="ml-4">{values?.data?.commisionTotal.toLocaleString()} VND</div>
+                              <div className="ml-4">{Math.floor(values?.data?.commisionTotal).toLocaleString()} VND</div>
                             </div>
                           </div>
                           <div className=" w-full lg:w-1/3">
@@ -111,7 +111,7 @@ const Page = () => {
                             </div>
                             <div className="flex mb-5">
                               <div className="font-semibold text-black ">Đã thanh toán:</div>
-                              <div className="ml-4">{values?.data?.totalPayment.toLocaleString()} VND</div>
+                              <div className="ml-4">{Math.floor(values?.data?.totalPayment).toLocaleString()} VND</div>
                             </div>
                           </div>
                           <div className="flex w-full mb-5 lg:w-1/3">
