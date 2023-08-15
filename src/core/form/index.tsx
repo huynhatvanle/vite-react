@@ -166,6 +166,11 @@ export const Form = ({
             }
             onChange={(date: any) => formItem.onChange && formItem.onChange(date, form, reRender)}
             disabledDate={(current: any) => (formItem.disabledDate ? formItem.disabledDate(current, form) : false)}
+            // disabledDate={(current) => {
+            //   const now = dayjs();
+            //   const currentDate = dayjs(current);
+            //   return now.isBefore(currentDate, 'date');
+            // }}
             showTime={!!formItem.showTime}
             picker={formItem.picker || 'date'}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
@@ -281,6 +286,22 @@ export const Form = ({
             defaultChecked={!!values && values[item.name || ''] === 1}
           />
         );
+      case 'number': 
+      return (
+        <input
+            type="number"
+            // tabIndex={formItem.tabIndex || index}
+            disabled={!!formItem.disabled && formItem.disabled(values, form)}
+            className={classNames('w-full h-10 text-gray-600 bg-white px-4 ant-input border rounded-xl', {
+              'bg-gray-100 text-gray-400': !!formItem.disabled && formItem.disabled(values, form),
+            })}
+            placeholder={
+              t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
+            }
+            // onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+            onChange={(e) => formItem.onChange && formItem.onChange(e.target.value, form, reRender)}
+          />
+      )
       default:
         // @ts-ignore
         return (

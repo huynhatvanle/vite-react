@@ -346,6 +346,7 @@ const Page = () => {
                                       tabIndex: 3,
                                       col: 4,
                                       type: 'date',
+                                      disabledDate:((current, form) => current ? true : false),
                                       onChange(value: any, form: any) {
                                         value && form.getFieldValue('dateFrom') > value
                                           ? setDateOder(true)
