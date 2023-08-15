@@ -290,7 +290,7 @@ export const Form = ({
         return (
           <input
             type="number"
-            tabIndex={formItem.tabIndex}
+            // tabIndex={formItem.tabIndex}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             className={classNames('w-full h-10 text-gray-600 bg-white px-4 ant-input border rounded-xl', {
               'bg-gray-100 text-gray-400': !!formItem.disabled && formItem.disabled(values, form),

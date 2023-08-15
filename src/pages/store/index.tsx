@@ -30,7 +30,7 @@ const Page = () => {
     <DataTable
       facade={storeFace}
       defaultRequest={{ page: 1, perPage: 10, filter: { type: 'STORE' }, fullTextSearch: '' }}
-      xScroll='1440px'
+      xScroll={1440}
       className=' bg-white p-5 rounded-lg'
       onRow={(data: any) => ({
         onDoubleClick: () => {

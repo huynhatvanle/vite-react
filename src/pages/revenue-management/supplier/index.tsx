@@ -206,7 +206,7 @@ const Page = () => {
                                                     : navigate(`/${lang}${routerLinks('revenue/detail')}/${data.orderId}`)
                                             },
                                         })}
-                                        xScroll="1400px"
+                                        xScroll={1400}
                                         pageSizeRender={(sizePage: number) => sizePage}
                                         pageSizeWidth={'50px'}
                                         paginationDescription={(from: number, to: number, total: number) =>
@@ -327,7 +327,6 @@ const Page = () => {
                                                             formItem: {
                                                                 placeholder: 'placeholder.Select order type',
                                                                 type: 'select',
-                                                                tabIndex: 3,
                                                                 col: 4,
                                                                 list: statusCategory,
                                                                 onChange(value, form) {
@@ -430,7 +429,6 @@ const Page = () => {
                                                                 title: '',
                                                                 name: '',
                                                                 formItem: {
-                                                                    tabIndex: 3,
                                                                     col: 2,
                                                                     render: () => (
                                                                         <div className="flex h-10 items-center -mt-3 sm:mt-0">
@@ -443,7 +441,6 @@ const Page = () => {
                                                                 title: '',
                                                                 name: 'dateFrom',
                                                                 formItem: {
-                                                                    tabIndex: 3,
                                                                     col: 4,
                                                                     type: 'date',
                                                                     onChange(value, form) {
@@ -477,7 +474,6 @@ const Page = () => {
                                                                 title: '',
                                                                 name: '',
                                                                 formItem: {
-                                                                    tabIndex: 3,
                                                                     col: 2,
                                                                     render: () => (
                                                                         <div className="flex h-10 items-center -mt-3 sm:mt-0">
@@ -490,7 +486,6 @@ const Page = () => {
                                                                 title: '',
                                                                 name: 'dateTo',
                                                                 formItem: {
-                                                                    tabIndex: 3,
                                                                     col: 4,
                                                                     type: 'date',
                                                                     onChange(value, form) {
@@ -531,7 +526,7 @@ const Page = () => {
                                                 </div>
                                             </div>
                                         }
-                                        searchPlaceholder={t('placeholder.Search by order number')}
+                                        searchPlaceholder={('Tìm kiếm theo mã đơn hàng')}
                                         subHeader={() => (
                                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-4 mt-4 sm:mb-3 mb-4">
                                                 {subHeader.map((e) => (
@@ -742,7 +737,7 @@ const Page = () => {
                                                 },
                                             },
                                         }}
-                                        xScroll='1270px'
+                                        xScroll={1270}
                                         pageSizeRender={(sizePage: number) => sizePage}
                                         pageSizeWidth={'50px'}
                                         paginationDescription={(from: number, to: number, total: number) =>
@@ -838,7 +833,6 @@ const Page = () => {
                                                             formItem: {
                                                                 placeholder: 'placeholder.Select status',
                                                                 type: 'select',
-                                                                tabIndex: 3,
                                                                 col: 6,
                                                                 list: statusProduct,
                                                                 onChange(value, form) {
@@ -914,7 +908,6 @@ const Page = () => {
                                                             title: '',
                                                             name: '',
                                                             formItem: {
-                                                                tabIndex: 3,
                                                                 col: 2,
                                                                 render: () => (
                                                                     <div className="flex h-10 items-center !w-full -mt-3 sm:mt-0">
@@ -927,7 +920,6 @@ const Page = () => {
                                                             title: '',
                                                             name: 'dateFrom',
                                                             formItem: {
-                                                                tabIndex: 3,
                                                                 col: 4,
                                                                 type: 'date',
                                                                 placeholder: 'placeholder.Choose a time',
@@ -962,7 +954,6 @@ const Page = () => {
                                                             title: '',
                                                             name: '',
                                                             formItem: {
-                                                                tabIndex: 3,
                                                                 col: 2,
                                                                 render: () => (
                                                                     <div className="flex h-10 items-center !w-full -mt-3 sm:mt-0">
@@ -975,7 +966,6 @@ const Page = () => {
                                                             title: '',
                                                             name: 'dateTo',
                                                             formItem: {
-                                                                tabIndex: 3,
                                                                 col: 4,
                                                                 type: 'date',
                                                                 placeholder: 'placeholder.Choose a time',
@@ -1027,7 +1017,6 @@ const Page = () => {
                                                             title: '',
                                                             name: 'categoryId1',
                                                             formItem: {
-                                                                tabIndex: 3,
                                                                 placeholder: 'placeholder.Main categories',
                                                                 type: 'select',
                                                                 col: 3,
