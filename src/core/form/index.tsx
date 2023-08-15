@@ -286,11 +286,11 @@ export const Form = ({
             defaultChecked={!!values && values[item.name || ''] === 1}
           />
         );
-      case 'number': 
-      return (
-        <input
+      case 'number':
+        return (
+          <input
             type="number"
-            // tabIndex={formItem.tabIndex || index}
+            tabIndex={formItem.tabIndex}
             disabled={!!formItem.disabled && formItem.disabled(values, form)}
             className={classNames('w-full h-10 text-gray-600 bg-white px-4 ant-input border rounded-xl', {
               'bg-gray-100 text-gray-400': !!formItem.disabled && formItem.disabled(values, form),
@@ -298,10 +298,10 @@ export const Form = ({
             placeholder={
               t(formItem.placeholder || '') || t('components.form.Enter') + ' ' + t(item.title)!.toLowerCase()
             }
-            // onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
             onChange={(e) => formItem.onChange && formItem.onChange(e.target.value, form, reRender)}
           />
-      )
+        )
       default:
         // @ts-ignore
         return (
@@ -620,13 +620,13 @@ export const Form = ({
                   className={classNames(
                     column?.formItem?.classItem,
                     'col-span-12 col-store' +
-                      (' sm:col-span-' +
-                        (column?.formItem?.colTablet
-                          ? column?.formItem?.colTablet
-                          : column?.formItem?.col
+                    (' sm:col-span-' +
+                      (column?.formItem?.colTablet
+                        ? column?.formItem?.colTablet
+                        : column?.formItem?.col
                           ? column?.formItem?.col
                           : 12)) +
-                      (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
+                    (' lg:col-span-' + (column?.formItem?.col ? column?.formItem?.col : 12)),
                   )}
                   key={index}
                 >
