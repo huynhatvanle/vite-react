@@ -151,7 +151,6 @@ const Page = () => {
                         title: 'tax.taxRate',
                         name: 'taxRate',
                         formItem: {
-                            type: 'number',
                             placeholder: 'Nhập thuế',
                             rules: [{ type: 'required', message: 'components.form.ruleRequiredPassword' },
                             {

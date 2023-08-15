@@ -29,6 +29,7 @@ const Component = ({
     <div className={classNames('flex items-center', { 'ant-input border rounded-xl': !!addonBefore || !!addonAfter })}>
       {!!addonBefore && <div>{addonBefore(form)}</div>}
       <input
+        type='number'
         ref={input}
         className={classNames('w-full h-10 text-gray-600 bg-white px-4', {
           'ant-input': !addonBefore && !addonAfter,
