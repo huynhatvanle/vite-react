@@ -152,7 +152,16 @@ const Page = () => {
                         name: 'taxRate',
                         formItem: {
                             placeholder: 'Nhập thuế',
-                            type: 'number',
+                            mask: {
+                                alias: 'numeric',
+                                groupSeparator: '',
+                                autoGroup: true,
+                                digits: 2,
+                                digitsOptional: true,
+                                radixPoint: '.',
+                                placeholder: undefined,
+                                autoUnmask: true,
+                            },
                             rules: [{ type: 'required', message: 'components.form.ruleRequiredPassword' },
                             {
                                 type: 'custom',
