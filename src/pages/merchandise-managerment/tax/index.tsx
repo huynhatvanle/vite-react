@@ -36,7 +36,7 @@ const Page = () => {
             <DataTable
                 facade={taxFacade}
                 ref={dataTableRef}
-                xScroll='768px'
+                xScroll={768}
                 className=' bg-white p-5 rounded-lg'
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
@@ -152,6 +152,16 @@ const Page = () => {
                         name: 'taxRate',
                         formItem: {
                             placeholder: 'Nhập thuế',
+                            mask: {
+                                alias: 'numeric',
+                                groupSeparator: '',
+                                autoGroup: true,
+                                digits: 2,
+                                digitsOptional: true,
+                                radixPoint: '.',
+                                placeholder: undefined,
+                                autoUnmask: true,
+                            },
                             rules: [{ type: 'required', message: 'components.form.ruleRequiredPassword' },
                             {
                                 type: 'custom',

@@ -66,7 +66,6 @@ const Page = () => {
             title: 'store.Name',
             name: 'name',
             formItem: {
-              tabIndex: 1,
               col: 6,
               rules: [{ type: 'required' }],
             },
@@ -75,7 +74,6 @@ const Page = () => {
             title: 'store.Fax',
             name: 'fax',
             formItem: {
-              tabIndex: 2,
               col: 6,
               rules: [{ type: 'phone', min: 8, max: 12 }],
             },
@@ -103,7 +101,6 @@ const Page = () => {
             title: 'store.Province',
             name: 'provinceId',
             formItem: {
-              tabIndex: 3,
               col: 3,
               type: 'select',
               rules: [{ type: 'required' }],
@@ -233,7 +230,6 @@ const Page = () => {
                     title: 'client_id',
                     name: 'clientid',
                     formItem: {
-                      tabIndex: 1,
                       col: 6,
                       rules: [{ type: 'required' },],
                     },
@@ -242,7 +238,6 @@ const Page = () => {
                     title: 'client_secret',
                     name: 'clientsecret',
                     formItem: {
-                      tabIndex: 2,
                       col: 6,
                       rules: [{ type: 'required' },],
                     },
@@ -251,7 +246,6 @@ const Page = () => {
                     title: 'retailer',
                     name: 'retailer',
                     formItem: {
-                      tabIndex: 1,
                       col: 6,
                       rules: [{ type: 'required' },],
                     },
@@ -260,7 +254,6 @@ const Page = () => {
                     title: 'branchId',
                     name: 'branchid',
                     formItem: {
-                      tabIndex: 2,
                       col: 6,
                       rules: [{ type: 'required' },],
                     },

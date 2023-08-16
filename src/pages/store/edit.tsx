@@ -193,9 +193,9 @@ const Page = () => {
       //   filter: { storeId: id, type: 'NON_BALANCE' },
       // })
     }
-  }, [activeKey, isBalance]);
-  const listSupplierStore = supplierStoreFacade.result?.data;
-  console.log(supplierStoreFacade);
+  }, [activeKey, isBalance])
+  const listSupplierStore = supplierStoreFacade.result?.data
+  console.log(supplierStoreFacade)
 
   useEffect(() => {
     if (activeKey == '5' && !isRevenueByOrder) {
@@ -396,7 +396,6 @@ const Page = () => {
                         title: 'store.Code',
                         name: 'code',
                         formItem: {
-                          tabIndex: 1,
                           col: 4,
                           disabled: () => true,
                         },
@@ -405,7 +404,6 @@ const Page = () => {
                         title: 'store.Name',
                         name: 'name',
                         formItem: {
-                          tabIndex: 2,
                           col: 4,
                           rules: [{ type: 'required' }],
                         },
@@ -414,7 +412,6 @@ const Page = () => {
                         title: 'store.Fax',
                         name: 'fax',
                         formItem: {
-                          tabIndex: 3,
                           col: 4,
                           rules: [{ type: 'phone', min: 8, max: 12 }],
                         },
@@ -443,7 +440,6 @@ const Page = () => {
                         name: 'provinceId',
                         formItem: {
                           firstLoad: () => ({}),
-                          tabIndex: 4,
                           col: 3,
                           rules: [{ type: 'required' }],
                           type: 'select',
@@ -466,7 +462,6 @@ const Page = () => {
                           firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.province?.code}` }),
                           type: 'select',
                           rules: [{ type: 'required' }],
-                          tabIndex: 5,
                           col: 3,
                           get: {
                             facade: DistrictFacade,
@@ -491,7 +486,6 @@ const Page = () => {
                           firstLoad: () => ({ fullTextSearch: '', code: `${data?.address?.district?.code}` }),
                           type: 'select',
                           rules: [{ type: 'required' }],
-                          tabIndex: 6,
                           col: 3,
                           get: {
                             facade: WardFacade,
@@ -511,7 +505,6 @@ const Page = () => {
                         name: 'street',
                         formItem: {
                           rules: [{ type: 'required' }],
-                          tabIndex: 7,
                           col: 3,
                         },
                       },
@@ -534,7 +527,6 @@ const Page = () => {
                         title: 'store.ContactName',
                         name: 'nameContact',
                         formItem: {
-                          tabIndex: 8,
                           col: 4,
                           type: 'name',
                           rules: [{ type: 'required' }],
@@ -544,7 +536,6 @@ const Page = () => {
                         title: 'store.Contact Phone Number',
                         name: 'phoneNumber',
                         formItem: {
-                          tabIndex: 9,
                           col: 4,
                           rules: [{ type: 'required' }, { type: 'phone', min: 8, max: 12 }],
                         },
@@ -553,7 +544,6 @@ const Page = () => {
                         title: 'store.Contact Email',
                         name: 'emailContact',
                         formItem: {
-                          tabIndex: 10,
                           col: 4,
                           rules: [{ type: 'required' }, { type: 'email' }],
                         },
@@ -562,7 +552,6 @@ const Page = () => {
                         name: 'note',
                         title: 'store.Note',
                         formItem: {
-                          tabIndex: 11,
                           type: 'textarea',
                           rules: [{ type: 'textarea' }],
                         },
@@ -589,7 +578,6 @@ const Page = () => {
                                 title: 'client_id',
                                 name: 'clientid',
                                 formItem: {
-                                  tabIndex: 1,
                                   col: 6,
                                   rules: [{ type: 'required' }],
                                 },
@@ -598,7 +586,6 @@ const Page = () => {
                                 title: 'client_secret',
                                 name: 'clientsecret',
                                 formItem: {
-                                  tabIndex: 2,
                                   col: 6,
                                   rules: [{ type: 'required' }],
                                 },
@@ -607,7 +594,6 @@ const Page = () => {
                                 title: 'retailer',
                                 name: 'retailer',
                                 formItem: {
-                                  tabIndex: 1,
                                   col: 6,
                                   rules: [{ type: 'required' }],
                                 },
@@ -616,7 +602,6 @@ const Page = () => {
                                 title: 'branchId',
                                 name: 'branchid',
                                 formItem: {
-                                  tabIndex: 2,
                                   col: 6,
                                   rules: [{ type: 'required' }],
                                 },
@@ -692,7 +677,7 @@ const Page = () => {
                   perPage: 10,
                   filter: isBalance ? { storeId: id, type: 'BALANCE' } : { storeId: id, type: 'NON_BALANCE' },
                 }}
-                xScroll="1270px"
+                xScroll={1270}
                 className=" bg-white p-5 rounded-lg form-store form-header-category"
                 columns={[
                   {
@@ -1128,7 +1113,7 @@ const Page = () => {
                   },
                 })}
                 defaultRequest={{ page: 1, perPage: 10, filter: { storeId: id, supplierType: 'BALANCE' } }}
-                xScroll="1270px"
+                xScroll={1270}
                 className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-supplier-index"
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
@@ -1275,7 +1260,7 @@ const Page = () => {
                         perPage: 10,
                         filter: { idSuppiler: id },
                       }}
-                      xScroll="1270px"
+                      xScroll={1270}
                       pageSizeRender={(sizePage: number) => sizePage}
                       pageSizeWidth={'50px'}
                       paginationDescription={(from: number, to: number, total: number) =>
@@ -1351,7 +1336,7 @@ const Page = () => {
                       perPage: 10,
                       filter: { storeId: id, supplierType: 'NON_BALANCE' },
                     }}
-                    xScroll="1270px"
+                    xScroll={1270}
                     // onRow={(data: any) => ({
                     //   onDoubleClick: () => {
                     //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
@@ -1477,13 +1462,13 @@ const Page = () => {
                           dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                         },
                       }}
-                      xScroll="1270px"
+                      xScroll={1270}
                       pageSizeRender={(sizePage: number) => sizePage}
                       pageSizeWidth={'50px'}
                       paginationDescription={(from: number, to: number, total: number) =>
                         t('routes.admin.Layout.PaginationOrder', { from, to, total })
                       }
-                      searchPlaceholder={t('placeholder.Search by order number')}
+                      searchPlaceholder={'Tìm kiếm theo mã đơn hàng'}
                       columns={[
                         {
                           title: 'store.Revenue.Serial number',
@@ -1591,7 +1576,6 @@ const Page = () => {
                                 title: '',
                                 name: '',
                                 formItem: {
-                                  tabIndex: 3,
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center !w-full">
@@ -1604,7 +1588,6 @@ const Page = () => {
                                 title: '',
                                 name: 'dateFrom',
                                 formItem: {
-                                  tabIndex: 3,
                                   col: 4,
                                   type: 'date',
                                   disabledDate: (current) => {
@@ -1638,7 +1621,6 @@ const Page = () => {
                                 title: '',
                                 name: '',
                                 formItem: {
-                                  tabIndex: 3,
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center !w-full">
@@ -1651,7 +1633,6 @@ const Page = () => {
                                 title: '',
                                 name: 'dateTo',
                                 formItem: {
-                                  tabIndex: 3,
                                   col: 4,
                                   type: 'date',
                                   disabledDate: (current) => {
@@ -1716,7 +1697,7 @@ const Page = () => {
                         dateTo: dayjs().format('YYYY/MM/DD 23:59:59').replace(/-/g, '/'),
                       },
                     }}
-                    xScroll="1270px"
+                    xScroll={1270}
                     // onRow={(data: any) => ({
                     //   onDoubleClick: () => {
                     //     navigate(routerLinks('store-managerment/edit') + '/' + data.id);
@@ -1807,7 +1788,6 @@ const Page = () => {
                               formItem: {
                                 placeholder: 'placeholder.Select status',
                                 type: 'select',
-                                tabIndex: 3,
                                 col: 6,
                                 list: listStatusProduct,
                                 onChange(value, form) {
@@ -1876,7 +1856,6 @@ const Page = () => {
                               title: '',
                               name: '',
                               formItem: {
-                                tabIndex: 3,
                                 col: 2,
                                 render: () => (
                                   <div className="flex h-10 items-center !w-full">
@@ -1889,7 +1868,6 @@ const Page = () => {
                               title: '',
                               name: 'dateFrom',
                               formItem: {
-                                tabIndex: 3,
                                 col: 4,
                                 type: 'date',
                                 disabledDate: (current) => {
@@ -1924,7 +1902,6 @@ const Page = () => {
                               title: '',
                               name: '',
                               formItem: {
-                                tabIndex: 3,
                                 col: 2,
                                 render: () => (
                                   <div className="flex h-10 items-center !w-full">
@@ -1937,7 +1914,6 @@ const Page = () => {
                               title: '',
                               name: 'dateTo',
                               formItem: {
-                                tabIndex: 3,
                                 col: 4,
                                 type: 'date',
                                 disabledDate: (current) => {
@@ -2151,7 +2127,7 @@ const Page = () => {
                 ref={dataTableRefInventory}
                 facade={inventoryProductFacade}
                 defaultRequest={{ page: 1, perPage: 10, filter: { idStore: id } }}
-                xScroll="1270px"
+                xScroll={1270}
                 className=" bg-white p-5 rounded-lg form-store form-store-tab3"
                 pageSizeRender={(sizePage: number) => sizePage}
                 pageSizeWidth={'50px'}
