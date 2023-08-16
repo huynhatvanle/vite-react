@@ -34,7 +34,6 @@ const Page = () => {
   const { t } = useTranslation();
   const supplierFacade = SupplierFacade();
   const { data, isLoading, queryParams, status } = supplierFacade;
-  console.log('data', data?.address?.street);
 
   const navigate = useNavigate();
   const isBack = useRef(true);
@@ -84,7 +83,6 @@ const Page = () => {
       isReload.current && supplierFacade.get(param);
     };
   }, [id]);
-  
 
   useEffect(() => {
     if (test == true) {
@@ -446,7 +444,7 @@ const Page = () => {
                         name: 'provinceId',
                         formItem: {
                           firstLoad: () => ({}),
-                          tabIndex: 3,
+
                           col: 3,
                           rules: [{ type: 'required' }],
                           type: 'select',
@@ -1090,7 +1088,7 @@ const Page = () => {
                                 formItem: {
                                   placeholder: 'placeholder.Select order type',
                                   type: 'select',
-                                  tabIndex: 3,
+
                                   col: 6,
                                   list: statusCategory,
                                   onChange(value, form) {
@@ -1169,7 +1167,6 @@ const Page = () => {
                                   title: '',
                                   name: '',
                                   formItem: {
-                                    tabIndex: 3,
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 items-center">
@@ -1182,9 +1179,12 @@ const Page = () => {
                                   title: '',
                                   name: 'dateFrom',
                                   formItem: {
-                                    tabIndex: 3,
                                     col: 4,
                                     type: 'date',
+                                    disabledDate: (current) => {
+                                      const currentDate = new Date();
+                                      return current && current > currentDate;
+                                    },
                                     onChange(value, form) {
                                       form.getFieldValue('dateFrom') && value > form.getFieldValue('dateTo')
                                         ? setDate(true)
@@ -1216,7 +1216,6 @@ const Page = () => {
                                   title: '',
                                   name: '',
                                   formItem: {
-                                    tabIndex: 3,
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 items-center">
@@ -1229,9 +1228,12 @@ const Page = () => {
                                   title: '',
                                   name: 'dateTo',
                                   formItem: {
-                                    tabIndex: 3,
                                     col: 4,
                                     type: 'date',
+                                    disabledDate: (current) => {
+                                      const currentDate = new Date();
+                                      return current && current > currentDate;
+                                    },
                                     onChange(value, form) {
                                       value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
                                         ? setDate(true)
@@ -1562,7 +1564,7 @@ const Page = () => {
                         },
                       },
                     }}
-                    xScroll="1400px"
+                    xScroll={1400}
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
@@ -1636,7 +1638,6 @@ const Page = () => {
                                 title: '',
                                 name: '',
                                 formItem: {
-                                  tabIndex: 3,
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center xl:ml-4 ml-0">
@@ -1649,9 +1650,12 @@ const Page = () => {
                                 title: '',
                                 name: 'dateFrom',
                                 formItem: {
-                                  tabIndex: 3,
                                   col: 4,
                                   type: 'date',
+                                  disabledDate: (current) => {
+                                    const currentDate = new Date();
+                                    return current && current > currentDate;
+                                  },
                                   onChange(value, form) {
                                     form.getFieldValue('dateTo') && value > form.getFieldValue('dateTo')
                                       ? setDate(true)
@@ -1689,7 +1693,6 @@ const Page = () => {
                                 title: '',
                                 name: '',
                                 formItem: {
-                                  tabIndex: 3,
                                   col: 2,
                                   render: () => (
                                     <div className="flex h-10 items-center">
@@ -1702,9 +1705,12 @@ const Page = () => {
                                 title: '',
                                 name: 'dateTo',
                                 formItem: {
-                                  tabIndex: 3,
                                   col: 4,
                                   type: 'date',
+                                  disabledDate: (current) => {
+                                    const currentDate = new Date();
+                                    return current && current > currentDate;
+                                  },
                                   onChange(value, form) {
                                     value && form.getFieldValue('dateFrom') > value ? setDate(true) : setDate(false);
                                     dataTableRefListProduct?.current?.onChange({
@@ -2139,7 +2145,7 @@ const Page = () => {
                     onRow={(data: any) => ({
                       onDoubleClick: () => navigate(`/${lang}${routerLinks('Discount-Detail')}/${data.id}`),
                     })}
-                    xScroll="1370px"
+                    xScroll={1370}
                     pageSizeRender={(sizePage: number) => sizePage}
                     pageSizeWidth={'50px'}
                     paginationDescription={(from: number, to: number, total: number) =>
@@ -2233,7 +2239,6 @@ const Page = () => {
                                   title: '',
                                   name: '',
                                   formItem: {
-                                    tabIndex: 3,
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
@@ -2247,10 +2252,9 @@ const Page = () => {
                                   title: '',
                                   name: 'dateFrom',
                                   formItem: {
-                                    tabIndex: 3,
                                     col: 4,
                                     type: 'date',
-                                picker: 'month',
+                                    picker: 'month',
                                     onChange(value, form) {
                                       value && form.getFieldValue('dateFrom') > form.getFieldValue('dateTo')
                                         ? setMonth(true)
@@ -2281,7 +2285,6 @@ const Page = () => {
                                   title: '',
                                   name: '',
                                   formItem: {
-                                    tabIndex: 3,
                                     col: 2,
                                     render: () => (
                                       <div className="flex h-10 text-xs items-center">
@@ -2294,10 +2297,9 @@ const Page = () => {
                                   title: '',
                                   name: 'dateTo',
                                   formItem: {
-                                    tabIndex: 3,
                                     col: 4,
                                     type: 'date',
-                                picker: 'month',
+                                    picker: 'month',
                                     onChange(value, form) {
                                       value && form.getFieldValue('dateTo') < form.getFieldValue('dateFrom')
                                         ? setMonth(true)
@@ -2348,7 +2350,7 @@ const Page = () => {
                                   formItem: {
                                     placeholder: 'placeholder.Select status',
                                     type: 'select',
-                                    tabIndex: 3,
+
                                     col: 12,
                                     list: listStatusDiscount,
                                     onChange(value, form) {

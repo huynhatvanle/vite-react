@@ -46,10 +46,10 @@ const action = {
           categoryId: filterProduct.categoryId3
             ? filterProduct.categoryId3
             : filterProduct.categoryId2
-              ? filterProduct.categoryId2
-              : filterProduct.categoryId1
-                ? filterProduct.categoryId1
-                : null,
+            ? filterProduct.categoryId2
+            : filterProduct.categoryId1
+            ? filterProduct.categoryId1
+            : null,
           categoryId1: filterProduct.categoryId1,
           categoryId2: filterProduct.categoryId2,
           categoryId3: filterProduct.categoryId3,
@@ -70,125 +70,130 @@ const action = {
     return data || {};
   }),
 
-  getById1: createAsyncThunk(name + '/getById', async ({ id, keyState = 'isVisible' }: { id?: string; keyState: keyof State<Product> }) => {
-    let { data } = await API.get<Product>(`${routerLinks(name, 'api')}/${id}`);
-    const exportTaxId = data?.exportTax?.id;
-    const importTaxId = data?.importTax?.id;
-    const categoryId = data?.category?.id;
-    data = { ...data, exportTaxId, importTaxId, categoryId }
-    return { data, keyState };
-  },),
+  getById1: createAsyncThunk(
+    name + '/getById',
+    async ({ id, keyState = 'isVisible' }: { id?: string; keyState: keyof State<Product> }) => {
+      let { data } = await API.get<Product>(`${routerLinks(name, 'api')}/${id}`);
+      const exportTaxId = data?.exportTax?.id;
+      const importTaxId = data?.importTax?.id;
+      const categoryId = data?.category?.id;
+      data = { ...data, exportTaxId, importTaxId, categoryId };
+      return { data, keyState };
+    },
+  ),
 
   putProduct: createAsyncThunk(name + '/putProduct', async ({ id }: { id?: string }) => {
     const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/approve/${id}`);
     if (message) await Message.success({ text: message });
     return statusCode;
-  },),
+  }),
 
   putProductreject: createAsyncThunk(name + '/putProductreject', async (values: any) => {
-    const rejectReason = values.rejectReason == 'other' ? values.reason : values.rejectReason
-    const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/reject/${values?.id}`, { rejectReason });
+    const rejectReason = values.rejectReason == 'other' ? values.reason : values.rejectReason;
+    const { statusCode, message } = await API.put<Product>(`${routerLinks(name, 'api')}/reject/${values?.id}`, {
+      rejectReason,
+    });
     if (message) await Message.success({ text: message });
     return statusCode;
-  },)
-
+  }),
 };
 
-export const productSlice = createSlice(new Slice<Product>(action, { result: {}, result2: {}, result3: {} }, (builder) =>
-  builder
-    .addCase(
-      action.getProduct.pending,
-      (
-        state: State<Product>,
-        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
-      ) => {
-        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-        state.queryParams = JSON.stringify(action.meta.arg);
+export const productSlice = createSlice(
+  new Slice<Product>(action, { result: {}, result2: {}, result3: {} }, (builder) =>
+    builder
+      .addCase(
+        action.getProduct.pending,
+        (
+          state: State<Product>,
+          action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+          state.queryParams = JSON.stringify(action.meta.arg);
+          state.isLoading = true;
+          state.status = 'getProduct.pending';
+        },
+      )
+
+      .addCase(action.getProduct.fulfilled, (state: State<Product>, action: any) => {
+        if (action.payload.data) {
+          typeof action.meta.arg.filter == 'string'
+            ? (state.result = action.payload)
+            : (state.result2 = action.payload);
+          state.status = 'getProduct.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
+      .addCase(action.getProduct.rejected, (state: State) => {
+        state.status = 'getProduct.rejected';
+        state.isLoading = false;
+      })
+
+      .addCase(action.getproduct.pending, (state: State<Product>, action: any) => {
+        state.data = action.meta.arg;
         state.isLoading = true;
-        state.status = 'getProduct.pending';
-      },
-    )
+        state.status = 'getproduct.pending';
+      })
+      .addCase(action.getproduct.fulfilled, (state: State, action: PayloadAction<Product>) => {
+        if (action.payload) {
+          state.user = action.payload;
+          state.status = 'getproduct.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
 
-    .addCase(action.getProduct.fulfilled, (state: State<Product>, action: any) => {
-      if (action.payload.data) {
-        typeof action.meta.arg.filter == 'string' ? state.result = action.payload : state.result2 = action.payload;
-        state.status = 'getProduct.fulfilled';
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
-    .addCase(action.getProduct.rejected, (state: State) => {
-      state.status = 'getProduct.rejected';
-      state.isLoading = false;
-    })
+      .addCase(
+        action.putProduct.pending,
+        (
+          state: State<Product>,
+          action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+          state.queryParams = JSON.stringify(action.meta.arg);
+          state.isLoading = true;
+          state.status = 'putProduct.pending';
+        },
+      )
+      .addCase(action.putProduct.fulfilled, (state: State<Product>, action: any) => {
+        console.log(action.payload);
 
-    .addCase(action.getproduct.pending, (state: State<Product>, action) => {
-      state.data = action.meta.arg;
-      state.isLoading = true;
-      state.status = 'getproduct.pending';
-    })
-    .addCase(action.getproduct.fulfilled, (state: State, action: PayloadAction<Product>) => {
-      if (action.payload) {
-        state.user = action.payload;
-        state.status = 'getproduct.fulfilled';
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
+        if (action.payload.toString() === '200') {
+          state.result = action.payload;
+          state.status = 'putProduct.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
+      .addCase(action.putProduct.rejected, (state: State) => {
+        state.status = 'putProduct.rejected';
+        state.isLoading = false;
+      })
 
+      .addCase(
+        action.putProductreject.pending,
+        (
+          state: State<Product>,
+          action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
+        ) => {
+          state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
+          state.queryParams = JSON.stringify(action.meta.arg);
+          state.isLoading = true;
+          state.status = 'putProductreject.pending';
+        },
+      )
+      .addCase(action.putProductreject.fulfilled, (state: State<Product>, action: any) => {
+        console.log(action.payload);
 
-    .addCase(
-      action.putProduct.pending,
-      (
-        state: State<Product>,
-        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
-      ) => {
-        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-        state.queryParams = JSON.stringify(action.meta.arg);
-        state.isLoading = true;
-        state.status = 'putProduct.pending';
-      },
-    )
-    .addCase(action.putProduct.fulfilled, (state: State<Product>, action: any) => {
-      console.log(action.payload);
-
-      if (action.payload.toString() === '200') {
-        state.result = action.payload;
-        state.status = 'putProduct.fulfilled';
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
-    .addCase(action.putProduct.rejected, (state: State) => {
-      state.status = 'putProduct.rejected';
-      state.isLoading = false;
-    })
-
-
-    .addCase(
-      action.putProductreject.pending,
-      (
-        state: State<Product>,
-        action: PayloadAction<undefined, string, { arg: any; requestId: string; requestStatus: 'pending' }>,
-      ) => {
-        state.time = new Date().getTime() + (state.keepUnusedDataFor || 60) * 1000;
-        state.queryParams = JSON.stringify(action.meta.arg);
-        state.isLoading = true;
-        state.status = 'putProductreject.pending';
-      },
-    )
-    .addCase(action.putProductreject.fulfilled, (state: State<Product>, action: any) => {
-      console.log(action.payload);
-
-      if (action.payload.toString() === '200') {
-        state.result = action.payload;
-        state.status = 'putProductreject.fulfilled';
-      } else state.status = 'idle';
-      state.isLoading = false;
-    })
-    .addCase(action.putProductreject.rejected, (state: State) => {
-      state.status = 'putProductreject.rejected';
-      state.isLoading = false;
-    })
-
-));
+        if (action.payload.toString() === '200') {
+          state.result = action.payload;
+          state.status = 'putProductreject.fulfilled';
+        } else state.status = 'idle';
+        state.isLoading = false;
+      })
+      .addCase(action.putProductreject.rejected, (state: State) => {
+        state.status = 'putProductreject.rejected';
+        state.isLoading = false;
+      }),
+  ),
+);
 
 export const ProductFacade = () => {
   const dispatch = useAppDispatch();
@@ -207,7 +212,7 @@ export const ProductFacade = () => {
         supplierId?: string;
         storeId?: string;
         type: string;
-        approveStatus: string;
+        approveStatus?: string;
         categoryId1?: string;
         categoryId2?: string;
         categoryId3?: string;
@@ -278,12 +283,11 @@ export class Product extends CommonEntity {
         minQuantity: string;
       },
     ],
-    public priceBalanceCommission?:
-      {
-        amountBalance: string;
-        revenue: string;
-        percentBalance: string;
-      }[],
+    public priceBalanceCommission?: {
+      amountBalance: string;
+      revenue: string;
+      percentBalance: string;
+    }[],
     public child?: {},
     public photos?: [
       {
@@ -292,8 +296,8 @@ export class Product extends CommonEntity {
     ],
     public information?: {
       id: string;
-      content: string,
-      url: string,
+      content: string;
+      url: string;
     }[],
     public approveStatus?: string,
     public subOrg?: {
@@ -309,11 +313,11 @@ export class Product extends CommonEntity {
     public productCategory?: [
       {
         category: {
-          name: string
-        },
-      }
+          name: string;
+        };
+      },
     ],
-    public rejectReason?: string
+    public rejectReason?: string,
   ) {
     super();
   }
