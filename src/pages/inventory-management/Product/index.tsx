@@ -42,8 +42,6 @@ const Page = () => {
   const tab = urlParams.get('tab');
   const listSupplierStore = supplierAdminFacade.result?.data
   const listSupplierAdmin = productFacade.user
-  console.log(listSupplierAdmin)
-
   const category1 = categoryFacade.result?.data
   const category2 = categoryFacade.result2?.data
   const category3 = categoryFacade.result3?.data

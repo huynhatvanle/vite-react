@@ -220,7 +220,7 @@ export const ProductFacade = () => {
     getById: ({ id, keyState = 'isVisible' }: { id?: string; keyState?: keyof State<Product> }) =>
       dispatch(action.getById1({ id, keyState })),
     post: (values: Product) => dispatch(action.post(values)),
-    put: (values: Product) => dispatch(action.put(values)),
+    put: (values: Product) => dispatch(action.putProductreject(values)),
     delete: (id: string) => dispatch(action.delete(id)),
     getproduct: () => dispatch(action.getproduct()),
     putProduct: ({ id }: { id?: string }) => dispatch(action.putProduct({ id })),

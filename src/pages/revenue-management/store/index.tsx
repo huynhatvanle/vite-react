@@ -206,70 +206,70 @@ const Page = () => {
                         rightHeader={
                           <div className="2xl:flex text-left flex-row-reverse w-full mt-4 sm:mt-0">
                             <div className='relative'>
-                            <Form
-                              values={{
-                                dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
-                                dateTo: getFilter(invoice.queryParams, 'dateTo'),
-                                status: getFilter(invoice.queryParams, 'status'),
-                                idStore: getFilter(invoice.queryParams, 'idStore'),
-                              }}
-                              className="intro-x md:flex form-store "
-                              columns={[
-                                {
-                                  title: '',
-                                  name: 'status',
-                                  formItem: {
-                                    placeholder: 'placeholder.Select order type',
-                                    type: 'select',
-                                    tabIndex: 3,
-                                    col: 6,
-                                    list: statusCategoryOrder,
-                                    onChange(value: any, form: any) {
-                                      dataTableRefRevenueOder?.current?.onChange({
-                                        page: 1,
-                                        perPage: 10,
-                                        filter: {
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form.getFieldValue('dateFrom')
-                                            : '',
-                                          dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
-                                          idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
-                                          status: value ? value : '',
-                                        },
-                                      });
+                              <Form
+                                values={{
+                                  dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
+                                  dateTo: getFilter(invoice.queryParams, 'dateTo'),
+                                  status: getFilter(invoice.queryParams, 'status'),
+                                  idStore: getFilter(invoice.queryParams, 'idStore'),
+                                }}
+                                className="intro-x md:flex form-store "
+                                columns={[
+                                  {
+                                    title: '',
+                                    name: 'status',
+                                    formItem: {
+                                      placeholder: 'placeholder.Select order type',
+                                      type: 'select',
+                                      tabIndex: 3,
+                                      col: 6,
+                                      list: statusCategoryOrder,
+                                      onChange(value: any, form: any) {
+                                        dataTableRefRevenueOder?.current?.onChange({
+                                          page: 1,
+                                          perPage: 10,
+                                          filter: {
+                                            dateFrom: form.getFieldValue('dateFrom')
+                                              ? form.getFieldValue('dateFrom')
+                                              : '',
+                                            dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                            idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
+                                            status: value ? value : '',
+                                          },
+                                        });
+                                      },
                                     },
                                   },
-                                },
-                                {
-                                  name: 'idStore',
-                                  title: '',
-                                  formItem: {
-                                    placeholder: 'placeholder.Choose a store',
-                                    type: 'select',
-                                    col: 6,
-                                    list: storeorder?.map((item) => ({
-                                      label: item?.name,
-                                      value: item?.id!,
-                                    })),
-                                    rules: [{ type: 'required', message: 'Vui lòng chọn cửa hàng' }],
-                                    onChange(value: any, form: any) {
-                                      value && dataTableRefRevenueOder?.current?.onChange({
-                                        page: 1,
-                                        perPage: 10,
-                                        filter: {
-                                          idStore: value ? value : '',
-                                          dateFrom: form.getFieldValue('dateFrom')
-                                            ? form.getFieldValue('dateFrom')
-                                            : '',
-                                          dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
-                                          status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
-                                        },
-                                      });
+                                  {
+                                    name: 'idStore',
+                                    title: '',
+                                    formItem: {
+                                      placeholder: 'placeholder.Choose a store',
+                                      type: 'select',
+                                      col: 6,
+                                      list: storeorder?.map((item) => ({
+                                        label: item?.name,
+                                        value: item?.id!,
+                                      })),
+                                      rules: [{ type: 'required', message: 'Vui lòng chọn cửa hàng' }],
+                                      onChange(value: any, form: any) {
+                                        value && dataTableRefRevenueOder?.current?.onChange({
+                                          page: 1,
+                                          perPage: 10,
+                                          filter: {
+                                            idStore: value ? value : '',
+                                            dateFrom: form.getFieldValue('dateFrom')
+                                              ? form.getFieldValue('dateFrom')
+                                              : '',
+                                            dateTo: form.getFieldValue('dateTo') ? form.getFieldValue('dateTo') : '',
+                                            status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
+                                          },
+                                        });
+                                      },
                                     },
                                   },
-                                },
-                              ]}
-                            />
+                                ]}
+                              />
                             </div>
                             <div className="w-full mr-5 mt-[-16px]">
                               <Form
@@ -315,9 +315,9 @@ const Page = () => {
                                               : '',
                                             dateTo: form.getFieldValue('dateTo')
                                               ? form
-                                                  .getFieldValue('dateTo')
-                                                  .format('MM/DD/YYYY 23:59:59')
-                                                  .replace(/-/g, '/')
+                                                .getFieldValue('dateTo')
+                                                .format('MM/DD/YYYY 23:59:59')
+                                                .replace(/-/g, '/')
                                               : '',
                                             idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
                                             status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -357,9 +357,9 @@ const Page = () => {
                                             idSupplier: id,
                                             dateFrom: form.getFieldValue('dateFrom')
                                               ? form
-                                                  .getFieldValue('dateFrom')
-                                                  .format('MM/DD/YYYY 00:00:00')
-                                                  .replace(/-/g, '/')
+                                                .getFieldValue('dateFrom')
+                                                .format('MM/DD/YYYY 00:00:00')
+                                                .replace(/-/g, '/')
                                               : '',
                                             dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                             idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
@@ -390,11 +390,10 @@ const Page = () => {
                               width: 70,
                               render: (value: any, item: any) =>
                                 JSON.parse(invoice.queryParams || '{}').page != 1
-                                  ? `${
-                                      JSON.parse(invoice.queryParams || '{}').page *
-                                        JSON.parse(invoice.queryParams || '{}').perPage +
-                                      stt1++
-                                    }`
+                                  ? `${JSON.parse(invoice.queryParams || '{}').page *
+                                  JSON.parse(invoice.queryParams || '{}').perPage +
+                                  stt1++
+                                  }`
                                   : `${stt1++}`,
                             },
                           },
@@ -560,10 +559,10 @@ const Page = () => {
                               item.type === 'DELEVERED'
                                 ? t('Bán hàng')
                                 : item.type === 'REFUND'
-                                ? t('Trả hàng')
-                                : item.type === 'REFUND'
-                                ? t('Đã huỷ')
-                                : '',
+                                  ? t('Trả hàng')
+                                  : item.type === 'REFUND'
+                                    ? t('Đã huỷ')
+                                    : '',
                           };
                         });
 
@@ -595,11 +594,10 @@ const Page = () => {
                           { title: 'Chọn loại đơn hàng:', dataIndex: '' },
                           {
                             title: getFilter(invoice.queryParams, 'status')
-                              ? `${
-                                  statusCategoryOrder.find((item) => {
-                                    return item.value === getFilter(invoice.queryParams, 'status');
-                                  })?.label
-                                }`
+                              ? `${statusCategoryOrder.find((item) => {
+                                return item.value === getFilter(invoice.queryParams, 'status');
+                              })?.label
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -608,11 +606,10 @@ const Page = () => {
                           { title: 'Chọn cửa hàng:', dataIndex: '' },
                           {
                             title: getFilter(invoice.queryParams, 'idStore')
-                              ? `${
-                                  storeorder?.find((item) => {
-                                    return item.id === getFilter(invoice.queryParams, 'idStore');
-                                  })?.name
-                                }`
+                              ? `${storeorder?.find((item) => {
+                                return item.id === getFilter(invoice.queryParams, 'idStore');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -678,7 +675,7 @@ const Page = () => {
                       facade={invoiceKiotVietFacade}
                       defaultRequest={{
                         page: 1,
-                        perPage: 10,  
+                        perPage: 10,
                         filter: {
                           idStore: firstStore,
                           dateFrom: `${dayjs().subtract(1, 'month').format('MM/DD/YYYY 00:00:00')}`,
@@ -979,7 +976,7 @@ const Page = () => {
                                     col: 4,
                                     type: 'date',
                                     onChange(value: any, form: any) {
-                                      form.getFieldValue('dateFrom') && value  > form.getFieldValue('dateTo')
+                                      form.getFieldValue('dateFrom') && value > form.getFieldValue('dateTo')
                                         ? setDateProduct(true)
                                         : setDateProduct(false);
                                       dataTableRefRevenueProduct?.current?.onChange({
@@ -998,9 +995,9 @@ const Page = () => {
                                           dateFrom: value ? value.format('MM/DD/YYYY 00:00:00').replace(/-/g, '/') : '',
                                           dateTo: form.getFieldValue('dateTo')
                                             ? form
-                                                .getFieldValue('dateTo')
-                                                .format('MM/DD/YYYY 23:59:59')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateTo')
+                                              .format('MM/DD/YYYY 23:59:59')
+                                              .replace(/-/g, '/')
                                             : '',
                                           idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
                                           status: form.getFieldValue('status') ? form.getFieldValue('status') : '',
@@ -1051,9 +1048,9 @@ const Page = () => {
                                             : '',
                                           dateFrom: form.getFieldValue('dateFrom')
                                             ? form
-                                                .getFieldValue('dateFrom')
-                                                .format('MM/DD/YYYY 00:00:00')
-                                                .replace(/-/g, '/')
+                                              .getFieldValue('dateFrom')
+                                              .format('MM/DD/YYYY 00:00:00')
+                                              .replace(/-/g, '/')
                                             : '',
                                           dateTo: value ? value.format('MM/DD/YYYY 23:59:59').replace(/-/g, '/') : '',
                                           idStore: form.getFieldValue('idStore') ? form.getFieldValue('idStore') : '',
@@ -1088,11 +1085,10 @@ const Page = () => {
                             sorter: true,
                             render: (value: any, item: any) =>
                               JSON.parse(invoiceKiotVietFacade.queryParams || '{}').page != 1
-                                ? `${
-                                    JSON.parse(invoiceKiotVietFacade.queryParams || '{}').page *
-                                      JSON.parse(invoiceKiotVietFacade.queryParams || '{}').perPage +
-                                    stt1++
-                                  }`
+                                ? `${JSON.parse(invoiceKiotVietFacade.queryParams || '{}').page *
+                                JSON.parse(invoiceKiotVietFacade.queryParams || '{}').perPage +
+                                stt1++
+                                }`
                                 : `${stt1++}`,
                           },
                         },
@@ -1175,8 +1171,8 @@ const Page = () => {
                               item.status === 'APPROVED'
                                 ? t('Đang bán')
                                 : item.status === 'STOP_SELLING'
-                                ? t('Ngừng bán')
-                                : '',
+                                  ? t('Ngừng bán')
+                                  : '',
                           };
                         });
 
@@ -1209,11 +1205,10 @@ const Page = () => {
                           { title: 'Chọn trạng thái:', dataIndex: '' },
                           {
                             title: getFilter(invoiceKiotVietFacade.queryParams, 'status')
-                              ? `${
-                                  statusCategoryProduct.find((item) => {
-                                    return item.value === getFilter(invoiceKiotVietFacade.queryParams, 'status');
-                                  })?.label
-                                }`
+                              ? `${statusCategoryProduct.find((item) => {
+                                return item.value === getFilter(invoiceKiotVietFacade.queryParams, 'status');
+                              })?.label
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -1222,11 +1217,10 @@ const Page = () => {
                           { title: 'Chọn cửa hàng:', dataIndex: '' },
                           {
                             title: getFilter(invoiceKiotVietFacade.queryParams, 'idStore')
-                              ? `${
-                                  storeorder?.find((item) => {
-                                    return item.id === getFilter(invoiceKiotVietFacade.queryParams, 'idStore');
-                                  })?.name
-                                }`
+                              ? `${storeorder?.find((item) => {
+                                return item.id === getFilter(invoiceKiotVietFacade.queryParams, 'idStore');
+                              })?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },
@@ -1234,11 +1228,10 @@ const Page = () => {
                           { title: 'Chọn nhà cung cấp:', dataIndex: '' },
                           {
                             title: getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier')
-                              ? `${
-                                  supplier?.find((item) => {
-                                    return item.id === getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier');
-                                  })?.supplier?.name
-                                }`
+                              ? `${supplier?.find((item) => {
+                                return item.id === getFilter(invoiceKiotVietFacade.queryParams, 'idSupplier');
+                              })?.supplier?.name
+                              }`
                               : '',
                             dataIndex: '',
                           },

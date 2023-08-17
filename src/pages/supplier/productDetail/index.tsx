@@ -2,15 +2,14 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { language, languages, routerLinks } from '@utils';
-import { CategoryFacade, Product, ProductFacade, TaxAdminFacade } from '@store';
+import { ProductFacade, TaxAdminFacade } from '@store';
 import { Form } from '@core/form';
 import { Tags } from '@svgs';
-import { Dropdown, Select, Table } from 'antd';
+import { Select, Table } from 'antd';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { Message } from '@core/message';
 import { ModalForm } from '@core/modal/form';
-import TextArea from 'antd/es/input/TextArea';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -23,7 +22,7 @@ const Page = () => {
   const navigate = useNavigate();
   const modalformRef = useRef<any>();
 
-
+  let test = '';
 
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
@@ -88,17 +87,16 @@ const Page = () => {
     { label: 'Chiết khấu với BALANCE không phù hợp', value: 'Chiết khấu với BALANCE không phù hợp' },
     { label: 'Khác', value: 'other' },
   ];
-  // const List = [
-  //   'Đơn vị cơ bản không đúng',
-  //   'Danh mục sản phẩm không đúng',
-  //   'Mô tả sản phẩm không phù hợp',
-  //   'Bản đánh giá cửa hàng không phù hợp',
-  //   'Chiết khấu với BALANCE không phù hợp',
-  //   'Khác',
-  // ];
-  const [defaultValue, setdefaultValue] = useState<any>()
+
   const [other, setOther] = useState(true);
   const [a, setA] = useState<any>()
+  const [T, setT] = useState<any>('other')
+  const [reason, setReason] = useState<any>()
+
+
+  const handleSubmit = (values: any) => {
+    productFacade.put({ id: data?.id, rejectReason: T === 'other' ? test : T });
+  };
 
   return (
     <div className={'w-full rounded-2xl bg-white'}>
@@ -858,29 +856,18 @@ const Page = () => {
                     formItem: {
                       type: 'select',
                       rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
-                      list: listOptionreason?.map((item) => ({
-                        label: item.label,
-                        value: item.value!
-                      })),
+                      list: listOptionreason,
                       render(form, value) {
                         return (
                           <div>
                             <p className='text-base text-black'>{('Lý do')}</p>
                             <Select
-                              defaultValue="Khác"
+                              defaultValue={'other'}
                               style={{ width: '100%' }}
                               className='py-2'
-                              options={[
-                                { label: 'Đơn vị cơ bản không đúng', value: 'Đơn vị cơ bản không đúng' },
-                                { label: 'Danh mục sản phẩm không đúng', value: 'Danh mục sản phẩm không đúng' },
-                                { label: 'Mô tả sản phẩm không phù hợp', value: 'Mô tả sản phẩm không phù hợp' },
-                                { label: 'Bản đánh giá cửa hàng không phù hợp', value: 'Bản đánh giá cửa hàng không phù hợp' },
-                                { label: 'Chiết khấu với BALANCE không phù hợp', value: 'Chiết khấu với BALANCE không phù hợp' },
-                                { label: 'Khác', value: 'other' },
-                              ]}
+                              options={listOptionreason}
                               onChange={(value) => {
-                                // setdefaultValue(value);
-                                // console.log(value)
+                                setT(value)
                                 form.setFieldValue('rejectReason', value);
                                 value !== 'other' ? setOther(false) : true
                               }}
@@ -897,6 +884,8 @@ const Page = () => {
                       type: 'textarea',
                       placeholder: 'Vui lòng nhập lý do của bạn',
                       rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
+                      onChange: (value) => (test = value),
+                      onBlur: () => (setReason(test))
                     }
                   },
                 ]}
@@ -910,7 +899,7 @@ const Page = () => {
                     </button>
                     <button
                       className="!rounded-none !w-auto border-teal-900 text-white hover:bg-teal-900 bg-teal-800"
-                      onClick={handleOk}
+                      onClick={handleSubmit}
                     >
                       {t('Đồng ý')}
                     </button>
@@ -950,31 +939,21 @@ const Page = () => {
                     formItem: {
                       type: 'select',
                       rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
-                      list: listOptionreason?.map((item) => ({
-                        label: item.label,
-                        value: item.value!
-                      })),
+                      list: listOptionreason,
                       render(form, value) {
                         return (
                           <div>
                             <p className='text-base text-black'>{('Lý do')}</p>
                             <Select
                               style={{ width: '100%' }}
-                              // defaultValue={defaultValue}
                               className='py-2'
-                              options={[
-                                { label: 'Đơn vị cơ bản không đúng', value: 'Đơn vị cơ bản không đúng' },
-                                { label: 'Danh mục sản phẩm không đúng', value: 'Danh mục sản phẩm không đúng' },
-                                { label: 'Mô tả sản phẩm không phù hợp', value: 'Mô tả sản phẩm không phù hợp' },
-                                { label: 'Bản đánh giá cửa hàng không phù hợp', value: 'Bản đánh giá cửa hàng không phù hợp' },
-                                { label: 'Chiết khấu với BALANCE không phù hợp', value: 'Chiết khấu với BALANCE không phù hợp' },
-                                { label: 'Khác', value: 'other' },
-                              ]}
+                              options={listOptionreason}
                               onChange={(value) => {
-                                // console.log(value)
+                                setT(value)
                                 form.setFieldValue('rejectReason', value);
                                 value == 'other' ? setOther(true) : false
-                              }}
+                              }
+                              }
                             />
                           </div>
                         )
@@ -992,7 +971,7 @@ const Page = () => {
                     </button>
                     <button
                       className="!rounded-none !w-auto border-teal-900 text-white hover:bg-teal-900 bg-teal-800"
-                      onClick={handleOk}
+                      onClick={handleSubmit}
                     >
                       {t('Đồng ý')}
                     </button>
