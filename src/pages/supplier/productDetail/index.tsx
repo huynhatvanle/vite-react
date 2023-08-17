@@ -10,6 +10,7 @@ import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { Message } from '@core/message';
 import { ModalForm } from '@core/modal/form';
+import TextArea from 'antd/es/input/TextArea';
 
 const Page = () => {
   const { t } = useTranslation();
@@ -87,7 +88,15 @@ const Page = () => {
     { label: 'Chiết khấu với BALANCE không phù hợp', value: 'Chiết khấu với BALANCE không phù hợp' },
     { label: 'Khác', value: 'other' },
   ];
-
+  // const List = [
+  //   'Đơn vị cơ bản không đúng',
+  //   'Danh mục sản phẩm không đúng',
+  //   'Mô tả sản phẩm không phù hợp',
+  //   'Bản đánh giá cửa hàng không phù hợp',
+  //   'Chiết khấu với BALANCE không phù hợp',
+  //   'Khác',
+  // ];
+  const [defaultValue, setdefaultValue] = useState<any>()
   const [other, setOther] = useState(true);
   const [a, setA] = useState<any>()
 
@@ -95,7 +104,7 @@ const Page = () => {
     <div className={'w-full rounded-2xl bg-white'}>
       <Fragment>
         <div className='flex lg:flex-row flex-col'>
-          <div className='flex-initial lg:rounded-xl w-auto form-merchandise2'>
+          <div className='flex-initial lg:rounded-xl w-auto form-merchandise2 form-store-1'>
             <Form
               values={{
                 ...data,
@@ -822,7 +831,7 @@ const Page = () => {
                 facade={productFacade}
                 className="form"
                 ref={modalformRef}
-                keyPut='putProductreject'
+                // keyPut='putProductreject'
                 widthModal={600}
                 title={(data) => ''}
                 columns={[
@@ -853,8 +862,31 @@ const Page = () => {
                         label: item.label,
                         value: item.value!
                       })),
-                      onChange(value, form, reRender) {
-                        value == 'other' ? setOther(false) : true
+                      render(form, value) {
+                        return (
+                          <div>
+                            <p className='text-base text-black'>{('Lý do')}</p>
+                            <Select
+                              defaultValue="Khác"
+                              style={{ width: '100%' }}
+                              className='py-2'
+                              options={[
+                                { label: 'Đơn vị cơ bản không đúng', value: 'Đơn vị cơ bản không đúng' },
+                                { label: 'Danh mục sản phẩm không đúng', value: 'Danh mục sản phẩm không đúng' },
+                                { label: 'Mô tả sản phẩm không phù hợp', value: 'Mô tả sản phẩm không phù hợp' },
+                                { label: 'Bản đánh giá cửa hàng không phù hợp', value: 'Bản đánh giá cửa hàng không phù hợp' },
+                                { label: 'Chiết khấu với BALANCE không phù hợp', value: 'Chiết khấu với BALANCE không phù hợp' },
+                                { label: 'Khác', value: 'other' },
+                              ]}
+                              onChange={(value) => {
+                                // setdefaultValue(value);
+                                // console.log(value)
+                                form.setFieldValue('rejectReason', value);
+                                value !== 'other' ? setOther(false) : true
+                              }}
+                            />
+                          </div>
+                        )
                       },
                     }
                   },
@@ -867,13 +899,6 @@ const Page = () => {
                       rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
                     }
                   },
-                  {
-                    title: '',
-                    name: 'id',
-                    formItem: {
-                      type: 'hidden',
-                    }
-                  }
                 ]}
                 footerCustom={(handleOk, handleCancel) => (
                   <div className="flex gap-2">
@@ -898,7 +923,7 @@ const Page = () => {
                 facade={productFacade}
                 className="form"
                 ref={modalformRef}
-                keyPut='putProductreject'
+                // keyPut='putProductreject'
                 widthModal={600}
                 title={(data) => ''}
                 columns={[
@@ -929,8 +954,30 @@ const Page = () => {
                         label: item.label,
                         value: item.value!
                       })),
-                      onChange(value, form, reRender) {
-                        value !== 'other' ? setOther(true) : false
+                      render(form, value) {
+                        return (
+                          <div>
+                            <p className='text-base text-black'>{('Lý do')}</p>
+                            <Select
+                              style={{ width: '100%' }}
+                              // defaultValue={defaultValue}
+                              className='py-2'
+                              options={[
+                                { label: 'Đơn vị cơ bản không đúng', value: 'Đơn vị cơ bản không đúng' },
+                                { label: 'Danh mục sản phẩm không đúng', value: 'Danh mục sản phẩm không đúng' },
+                                { label: 'Mô tả sản phẩm không phù hợp', value: 'Mô tả sản phẩm không phù hợp' },
+                                { label: 'Bản đánh giá cửa hàng không phù hợp', value: 'Bản đánh giá cửa hàng không phù hợp' },
+                                { label: 'Chiết khấu với BALANCE không phù hợp', value: 'Chiết khấu với BALANCE không phù hợp' },
+                                { label: 'Khác', value: 'other' },
+                              ]}
+                              onChange={(value) => {
+                                // console.log(value)
+                                form.setFieldValue('rejectReason', value);
+                                value == 'other' ? setOther(true) : false
+                              }}
+                            />
+                          </div>
+                        )
                       },
                     }
                   },
