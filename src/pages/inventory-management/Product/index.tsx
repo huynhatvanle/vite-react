@@ -42,8 +42,6 @@ const Page = () => {
   const tab = urlParams.get('tab');
   const listSupplierStore = supplierAdminFacade.result?.data
   const listSupplierAdmin = productFacade.user
-  console.log(listSupplierAdmin)
-
   const category1 = categoryFacade.result?.data
   const category2 = categoryFacade.result2?.data
   const category3 = categoryFacade.result3?.data
@@ -175,7 +173,7 @@ const Page = () => {
               })}
               defaultRequest={{ page: 1, perPage: 10, filter: { type: 'BALANCE', approveStatus: 'APPROVED' } }}
               xScroll="1270px"
-              className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-header-product2"
+              className=" bg-white p-5 form-rounded-table form-store form-store-tab3 form-header-product2 form-merchandise-tab"
               showSearch={false}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}
@@ -560,7 +558,7 @@ const Page = () => {
                   navigate(`/${lang}${routerLinks('Merchandise-Managerment/Product/Detail')}/${data.id}`),
               })}
               xScroll="1270px"
-              className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-supplier-index"
+              className=" bg-white p-5 rounded-lg form-store form-store-tab3 form-supplier-index form-merchandise-tab"
               showSearch={false}
               pageSizeRender={(sizePage: number) => sizePage}
               pageSizeWidth={'50px'}

@@ -72,6 +72,11 @@ main {
     @apply !p-0;
   }
 }
+.form-store-1 {
+  .group-input {
+    @apply pb-0 lg:pb-5;
+  }
+}
 
 .form-Payment-discount {
   .group-input {
@@ -292,8 +297,16 @@ main {
   }
 }
 .form-merchandise-detail{
-  @apply ml-16 sm:ml-0 ;
+  @apply gap-2 flex sm:w-auto !w-full text-center justify-between items-center sm:flex-row flex-col-reverse mt-5;
 }
 .form-merchandise-detail2 {
-    @apply flex sm:flex-row flex-col-reverse;
+    @apply gap-2 flex !w-full items-center sm:flex-row sm:items-end sm:justify-end flex-col-reverse;
+}
+.form-rounded-table{
+  @apply rounded-b-lg rounded-tr-lg;
+}
+.form-merchandise-tab{
+  .form-tab{
+    @apply !mb-0;
+  }
 }
