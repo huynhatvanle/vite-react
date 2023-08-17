@@ -350,7 +350,10 @@ const Layout = ({ children }: PropsWithChildren) => {
                   <a
                     key={index}
                     className="text-white font-bold hover:text-white cursor-pointer block"
-                    onClick={() => navigate(item.slug)}
+                    onClick={() => {
+                      window.scroll({ top: 0 });
+                      navigate(item.children?.length ? item.children[0].slug : item.slug);
+                    }}
                   >
                     {t('layout.header.' + item.title)}
                   </a>
