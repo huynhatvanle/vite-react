@@ -49,8 +49,20 @@ const Page = () => {
         };
     }, []);
 
-    const [idSupplier, setIdSupplier] = useState();
+    const [idSupplier, setIdSupplier] = useState<string>();
     const firstSupplier = supplierOrderFacade?.result?.data ? supplierOrderFacade.result.data[0].id : '';
+
+    // useEffect(() => {
+    //     if (firstSupplier) {
+    //         setIdSupplier(firstSupplier)
+    //     }
+    // }, [firstSupplier]);
+
+    // useEffect(() => {
+    //     if (idSupplier) {
+    //         inventorySupplier.get({ id: idSupplier });
+    //     }
+    // }, [idSupplier]);
     const suppliers = inventorySupplier.result?.data ? inventorySupplier.result?.data : []
 
     const statusCategory = [
@@ -361,8 +373,7 @@ const Page = () => {
                                                                     value: item?.id!,
                                                                 })),
                                                                 onChange(value, form) {
-                                                                    // setIdSupplier(value)
-                                                                    value && dataTableRefRevenue?.current?.onChange({
+                                                                    value ? dataTableRefRevenue?.current?.onChange({
                                                                         page: 1,
                                                                         perPage: 10,
                                                                         filter: {
@@ -376,7 +387,10 @@ const Page = () => {
                                                                             idStore: form.getFieldValue('store') ? form.getFieldValue('store') : '',
                                                                             type: form.getFieldValue('type') ? form.getFieldValue('type') : '',
                                                                         },
-                                                                    });
+                                                                    }) &&
+                                                                        setIdSupplier(value)
+                                                                        :
+                                                                        setIdSupplier(value)
                                                                 },
                                                             },
                                                         },
@@ -387,7 +401,7 @@ const Page = () => {
                                                                 placeholder: 'placeholder.Choose a store',
                                                                 type: 'select',
                                                                 col: 4,
-                                                                // disabled: () => idSupplier ? false : true,
+                                                                disabled: () => suppliers.length > 0 ? false : true,
                                                                 list: suppliers.map((item) => ({
                                                                     label: item?.name!,
                                                                     value: item?.id!,

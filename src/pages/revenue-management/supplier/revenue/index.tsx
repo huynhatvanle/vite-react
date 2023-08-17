@@ -174,9 +174,9 @@ const Page = () => {
                                         <td className="py-5">{item?.product?.basicUnit}</td>
                                         <td className="py-5">{parseInt(item?.price!).toLocaleString()}</td>
                                         <td className="py-5">{item?.quantity}</td>
-                                        <td className="py-5">{parseInt(item?.subTotal!).toLocaleString()}</td>
+                                        <td className="py-5">{parseInt(item?.subTotal ? item.subTotal : '0').toLocaleString()}</td>
                                         <td className="py-5">{item?.tax + '%'}</td>
-                                        <td className="py-5">{parseInt(item?.total!).toLocaleString()}</td>
+                                        <td className="py-5">{parseInt(item?.total ? item.total : '0').toLocaleString()}</td>
                                     </tr>
                                 ))}
                             </tbody>

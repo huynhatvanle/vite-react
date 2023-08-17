@@ -160,7 +160,8 @@
     "revenue-management/discount": "Chiết khấu NCC",
     "Discount-Detail": "Chi Tiết Chiết Khấu",
     "Return-Goods": "Chi tiết trả hàng",
-    "Revenue": "Doanh thu"
+    "Revenue": "Doanh thu",
+    "RevenueManagement": "Doanh thu"
   },
   "columns": {
     "auth": {
