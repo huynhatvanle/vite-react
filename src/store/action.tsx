@@ -41,6 +41,7 @@ export class Action<T extends CommonEntity> {
     this.put = createAsyncThunk(name + '/put', async ({ id, ...values }: T) => {
       const { data, message } = await API.put<T>(`${routerLinks(name, 'api')}/${id}`, values);
       if (message) Message.success({ text: message });
+      console.log(values)
       return data;
     });
     this.putDisable = createAsyncThunk(

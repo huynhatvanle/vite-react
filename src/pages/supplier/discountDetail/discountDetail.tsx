@@ -60,7 +60,7 @@ const Page = () => {
   const handleSubmit = (values: any) => {
     commisionPaymentFacade.put({ ...commisionPaymentFacade?.data, status: 'RECIVED' });
   };
-// console.log('discountFacade', discountFacade?.data?.commisionTotal);
+  // console.log('discountFacade', discountFacade?.data?.commisionTotal);
 
   const discountToBePaid = Math.floor(discountFacade?.data?.commisionTotal - discountFacade?.data?.totalPayment).toLocaleString();
 
@@ -105,8 +105,8 @@ const Page = () => {
                                 {values?.data?.status === 'NOT_PAID'
                                   ? 'Chưa thanh toán'
                                   : values?.data?.status === 'NOT_COMPLETED_PAID'
-                                  ? 'Chưa hoàn tất'
-                                  : 'Đã thanh toán'}
+                                    ? 'Chưa hoàn tất'
+                                    : 'Đã thanh toán'}
                               </div>
                             </div>
                             <div className="flex mb-5">
