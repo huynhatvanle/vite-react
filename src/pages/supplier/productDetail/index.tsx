@@ -98,6 +98,23 @@ const Page = () => {
     productFacade.put({ id: data?.id, rejectReason: T === 'other' ? test : T });
   };
 
+  // const [initialOther, setInitialOther] = useState({});
+  // const handleBack = () => {
+  //   setOther(initialOther); // Đặt điều kiện về trạng thái ban đầu khi nhấn nút "Hủy"
+  // };
+
+  // const handleOtherChange = (values: any) => {
+  //   if (values) {
+  //     window.location.reload();
+  //   } else {
+  //     setOther(values);
+  //   }
+  // };
+
+  // const handleOtherChange = () => {
+  //   setOther(true);
+  // };
+
   return (
     <div className={'w-full rounded-2xl bg-white'}>
       <Fragment>

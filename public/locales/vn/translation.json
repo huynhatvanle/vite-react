@@ -456,7 +456,10 @@
     "Image": "Link hình ảnh",
     "UnitPrice": "Đơn giá",
     "Quantity": "Số lượng",
-    "TotalAmount": "Tổng tiền sau thuế(VND)"
+    "TotalAmount": "Tổng tiền sau thuế(VND)",
+    "Unitproduct":"Đơn vị tính",
+    "price":"Giá",
+    "statCANCELLEDus":"Trạng thái"
   },
   "placeholder": {
     "Choose a supplier": "Chọn nhà cung cấp",
