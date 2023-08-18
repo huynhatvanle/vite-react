@@ -61,7 +61,6 @@ const Page = () => {
     dataIndex: string;
   }
 
-  console.log(getFilter(discountFacade.queryParams, 'filter')?.dateFrom);
   
   const columnrevenueOrder: IExcelColumn[] = [
     { title: t('STT'), key: 'stt', dataIndex: 'STT' },
@@ -184,8 +183,6 @@ const Page = () => {
                                 type: 'date',
                                 picker: 'month',
                                 onChange(value: any, form: any) {
-                                    console.log(form.getFieldValue('dateFrom'));
-                                    
                                     value <  form.getFieldValue('dateFrom')
                                     ? setMonth(true)
                                     : setMonth(false);
@@ -242,6 +239,7 @@ const Page = () => {
                                 col: 6,
                                 list: statusDiscount,
                                 onChange(value: any, form: any) {
+                                  form.getFieldValue('supplierId') ?
                                   dataTableRefDiscount?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
@@ -254,7 +252,7 @@ const Page = () => {
                                       status: value,
                                       supplierId: form.getFieldValue('supplierId'),
                                     },
-                                  });
+                                  }): '';
                                 },
                               },
                             },
@@ -271,7 +269,7 @@ const Page = () => {
                                 })),
                                 rules: [{type: 'required', message: 'Vui lòng chọn nhà cung cấp'}],
                                 onChange(value: any, form: any) {
-                                  value && dataTableRefDiscount?.current?.onChange({
+                                  value ? dataTableRefDiscount?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
                                     filter: {
@@ -283,7 +281,7 @@ const Page = () => {
                                       status: form.getFieldValue('status'),
                                       supplierId: value ? value : '',
                                     },
-                                  });
+                                  }): '';
                                 },
                               },
                             },
