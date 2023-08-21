@@ -195,7 +195,6 @@ const Page = () => {
     }
   }, [activeKey, isBalance])
   const listSupplierStore = supplierStoreFacade.result?.data
-  console.log(supplierStoreFacade)
 
   useEffect(() => {
     if (activeKey == '5' && !isRevenueByOrder) {
@@ -281,92 +280,93 @@ const Page = () => {
         { title: t('product.Image'), key: 'linkImage', dataIndex: 'linkImage' },
       ];
   // useEffect(() => {
-  //   if (productFacade.result2?.data) {
-  //     let stt = 0
-  //     const excel = new Excel();
-  //     const sheet = excel.addSheet("Sheet1")
-  //     sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' })
-  //     sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' })
-  //     sheet.setRowHeight(0.8, 'cm')
-  //     // sheet.drawCell(12, 0, '')
-  //     sheet.addColumns([
-  //       { title: '', dataIndex: '' },
-  //       { title: '', dataIndex: '' },
-  //       { title: '', dataIndex: '' },
-  //       { title: 'DANH SÁCH HÀNG HÓA BALANCE', dataIndex: '' },
-  //     ]);
-  //     sheet.addRow();
-  //     sheet.addColumns([
-  //       { title: 'Chọn nhà cung cấp:', dataIndex: '' },
-  //       {
-  //         title: getFilter(productFacade.queryParams, 'supplierId')
-  //           ? `${supplierStoreFacade.result?.data?.find((item) => {
-  //             return item.id === getFilter(productFacade.queryParams, 'supplierId');
-  //           })?.name
-  //           }`
-  //           : '',
-  //         dataIndex: '',
-  //       },
-  //     ]);
-  //     sheet.addRow();
-  //     sheet.addColumns([
-  //       { title: 'Danh mục chính', dataIndex: '' },
-  //       {
-  //         title: getFilter(productFacade.queryParams, 'categoryId1')
-  //           ? `${categoryFacade.result?.data?.find((item) => {
-  //             return item.id === getFilter(productFacade.queryParams, 'categoryId1');
-  //           })?.name
-  //           }`
-  //           : '',
-  //         dataIndex: '',
-  //       },
-  //       { title: '', dataIndex: '' },
-  //       { title: 'Danh mục cấp 1', dataIndex: '' },
-  //       {
-  //         title: getFilter(productFacade.queryParams, 'categoryId2')
-  //           ? `${categoryFacade.result2?.data?.find((item) => {
-  //             return item.id === getFilter(productFacade.queryParams, 'categoryId2');
-  //           })?.name
-  //           }`
-  //           : '',
-  //         dataIndex: '',
-  //       },
-  //       { title: '', dataIndex: '' },
-  //       { title: 'Danh mục cấp 2', dataIndex: '' },
-  //       {
-  //         title: getFilter(productFacade.queryParams, 'categoryId3')
-  //           ? `${categoryFacade.result3?.data?.find((item) => {
-  //             return item.id === getFilter(productFacade.queryParams, 'categoryId3');
-  //           })?.name
-  //           }`
-  //           : '',
-  //         dataIndex: '',
-  //       },
-  //       { title: '', dataIndex: '' },
-  //     ]);
-  //     sheet.addRow()
-  //     sheet
-  //       .addColumns(columnproduct)
-  //       .addDataSource(productFacade?.result2?.data?.map((item) => ({
-  //         stt: ++stt,
-  //         productPrice: item?.productPrice!.length > 0 ? item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()) : '0',
-  //         basicUnit: item?.basicUnit,
-  //         supplierName: item?.supplierName ? item?.supplierName : item.subOrg?.name,
-  //         category: item?.productCategory!.length > 0 ? item?.productCategory!.map((item) => item.category?.name) : '',
-  //         name: item?.name,
-  //         barcode: item?.barcode,
-  //         storeBarcode: item?.storeBarcode,
-  //         code: item?.code,
-  //         // sellingPrice: item?.sellingPrice ? parseInt(item?.sellingPrice).toLocaleString() : ''
-  //         price: item.price ? parseInt(item?.price).toLocaleString() : '',
-  //         status: item.approveStatus == 'APPROVED' ? 'Đang bán' : '',
-  //         linkImage: item?.photos?.map((i) => i.url)
-  //       })) ?? [], {
-  //         str2Percent: true
-  //       })
-  //       .saveAs(t('product.List Balance'))
-  //   }
-  // }, [productFacade.result2?.data])
+  //   console.log(productFacade.queryParams, 1)
+  //   // if (productFacade.result2?.data) {
+  //   //   let stt = 0
+  //   //   const excel = new Excel();
+  //   //   const sheet = excel.addSheet("Sheet1")
+  //   //   sheet.setTHeadStyle({ background: 'FFFFFFFF', borderColor: 'C0C0C0C0', wrapText: false, fontName: 'Calibri' })
+  //   //   sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' })
+  //   //   sheet.setRowHeight(0.8, 'cm')
+  //   //   // sheet.drawCell(12, 0, '')
+  //   //   sheet.addColumns([
+  //   //     { title: '', dataIndex: '' },
+  //   //     { title: '', dataIndex: '' },
+  //   //     { title: '', dataIndex: '' },
+  //   //     { title: 'DANH SÁCH HÀNG HÓA BALANCE', dataIndex: '' },
+  //   //   ]);
+  //   //   sheet.addRow();
+  //   //   sheet.addColumns([
+  //   //     { title: 'Chọn nhà cung cấp:', dataIndex: '' },
+  //   //     {
+  //   //       title: getFilter(productFacade.queryParams, 'supplierId')
+  //   //         ? `${supplierStoreFacade.result?.data?.find((item) => {
+  //   //           return item.id === getFilter(productFacade.queryParams, 'supplierId');
+  //   //         })?.name
+  //   //         }`
+  //   //         : '',
+  //   //       dataIndex: '',
+  //   //     },
+  //   //   ]);
+  //   //   sheet.addRow();
+  //   //   sheet.addColumns([
+  //   //     { title: 'Danh mục chính', dataIndex: '' },
+  //   //     {
+  //   //       title: getFilter(productFacade.queryParams, 'categoryId1')
+  //   //         ? `${categoryFacade.result?.data?.find((item) => {
+  //   //           return item.id === getFilter(productFacade.queryParams, 'categoryId1');
+  //   //         })?.name
+  //   //         }`
+  //   //         : '',
+  //   //       dataIndex: '',
+  //   //     },
+  //   //     { title: '', dataIndex: '' },
+  //   //     { title: 'Danh mục cấp 1', dataIndex: '' },
+  //   //     {
+  //   //       title: getFilter(productFacade.queryParams, 'categoryId2')
+  //   //         ? `${categoryFacade.result2?.data?.find((item) => {
+  //   //           return item.id === getFilter(productFacade.queryParams, 'categoryId2');
+  //   //         })?.name
+  //   //         }`
+  //   //         : '',
+  //   //       dataIndex: '',
+  //   //     },
+  //   //     { title: '', dataIndex: '' },
+  //   //     { title: 'Danh mục cấp 2', dataIndex: '' },
+  //   //     {
+  //   //       title: getFilter(productFacade.queryParams, 'categoryId3')
+  //   //         ? `${categoryFacade.result3?.data?.find((item) => {
+  //   //           return item.id === getFilter(productFacade.queryParams, 'categoryId3');
+  //   //         })?.name
+  //   //         }`
+  //   //         : '',
+  //   //       dataIndex: '',
+  //   //     },
+  //   //     { title: '', dataIndex: '' },
+  //   //   ]);
+  //   //   sheet.addRow()
+  //   //   sheet
+  //   //     .addColumns(columnproduct)
+  //   //     .addDataSource(productFacade?.result2?.data?.map((item) => ({
+  //   //       stt: ++stt,
+  //   //       productPrice: item?.productPrice!.length > 0 ? item?.productPrice?.map((item) => parseInt(item?.price).toLocaleString()) : '0',
+  //   //       basicUnit: item?.basicUnit,
+  //   //       supplierName: item?.supplierName ? item?.supplierName : item.subOrg?.name,
+  //   //       category: item?.productCategory!.length > 0 ? item?.productCategory!.map((item) => item.category?.name) : '',
+  //   //       name: item?.name,
+  //   //       barcode: item?.barcode,
+  //   //       storeBarcode: item?.storeBarcode,
+  //   //       code: item?.code,
+  //   //       // sellingPrice: item?.sellingPrice ? parseInt(item?.sellingPrice).toLocaleString() : ''
+  //   //       price: item.price ? parseInt(item?.price).toLocaleString() : '',
+  //   //       status: item.approveStatus == 'APPROVED' ? 'Đang bán' : '',
+  //   //       linkImage: item?.photos?.map((i) => i.url)
+  //   //     })) ?? [], {
+  //   //       str2Percent: true
+  //   //     })
+  //   //     .saveAs(t('product.List Balance'))
+  //   // }
+  // }, [productFacade.result2?.data,productFacade.queryParams])
 
   const [date, setDate] = useState<boolean>();
   let stt = 1;
@@ -1971,7 +1971,6 @@ const Page = () => {
                             title: '',
                             name: 'categoryId1',
                             formItem: {
-                              tabIndex: 3,
                               placeholder: 'placeholder.Main categories',
                               type: 'select',
                               col: 3,

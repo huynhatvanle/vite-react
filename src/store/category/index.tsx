@@ -15,8 +15,8 @@ const action = {
     name + '/get',
     async ({ subOrgId }: { subOrgId?: string }) => await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({ subOrgId })),
   ),
-  get2: createAsyncThunk(name + '/get2', async ({ id, subOrgId }: { id: string, subOrgId?: string }) => await API.get(routerLinks(name, 'api'), { id, subOrgId })),
-  get3: createAsyncThunk(name + '/get3', async ({ id, subOrgId }: { id: string, subOrgId?: string }) => await API.get(routerLinks(name, 'api'), { id, subOrgId })),
+  get2: createAsyncThunk(name + '/get2', async ({ id, subOrgId }: { id: string, subOrgId?: string }) => await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({ id, subOrgId }))),
+  get3: createAsyncThunk(name + '/get3', async ({ id, subOrgId }: { id: string, subOrgId?: string }) => await API.get(routerLinks(name, 'api'), cleanObjectKeyNull({ id, subOrgId }))),
 };
 
 export const categorySlice = createSlice(
