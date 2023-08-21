@@ -32,12 +32,12 @@ const checkTextToShort = (text: string) => {
 const getQueryStringParams = (query: string) => {
   return query
     ? (/^[?#]/.test(query) ? query.slice(1) : query)
-      .split('&')
-      .reduce((params: { [selector: string]: string }, param: string) => {
-        const [key, value] = param.split('=');
-        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-        return params;
-      }, {})
+        .split('&')
+        .reduce((params: { [selector: string]: string }, param: string) => {
+          const [key, value] = param.split('=');
+          params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+          return params;
+        }, {})
     : {}; // Trim - from end of text
 };
 
@@ -45,6 +45,7 @@ export const DataTable = forwardRef(
   (
     {
       columns = [],
+      summary,
       id,
       showList = true,
       footer,
@@ -389,11 +390,11 @@ export const DataTable = forwardRef(
       const tempSort =
         sorts && sorts?.field && sorts?.order
           ? {
-            [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
-          }
+              [sorts.field as string]: sorts.order === 'ascend' ? 'ASC' : sorts.order === 'descend' ? 'DESC' : '',
+            }
           : sorts?.field
-            ? null
-            : sorts;
+          ? null
+          : sorts;
 
       if (tempFullTextSearch !== params.fullTextSearch) tempPageIndex = 1;
       const tempParams = cleanObjectKeyNull({
@@ -487,101 +488,102 @@ export const DataTable = forwardRef(
               }}
               loading={isLoading}
               columns={cols.current}
-              summary={() =>
-                facade?.status === 'getDiscount.fulfilled' && facade?.result?.data?.length != 0 ? (
-                  <tr className="text-black">
-                    <td></td>
-                    <td className="ant-table-cell">
-                      <span className="font-bold text-base">Tổng cộng</span>
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.totalCommission.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.totalPaid.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.totalNopay.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base"></td>
-                  </tr>
-                ) : facade?.status === 'getOrder.fulfilled' && facade?.result?.data?.length != 0 ? (
-                  <tr className="text-black">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td className="ant-table-cell">
-                      <span className="font-bold text-base">Tổng cộng</span>
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.sumSubTotal.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.sumTotal.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.sumVoucherAmount.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.sumMoney.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base"></td>
-                  </tr>
-                ) : facade?.status === 'getInventoryListProduct.fulfilled' && facade?.result?.data?.length != 0 ? (
-                  <tr className="text-black">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td className="ant-table-cell">
-                      <span className="font-bold text-base">Tổng cộng</span>
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {parseInt(facade?.result?.total?.subTotal).toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {parseInt(facade?.result?.total?.total).toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base"></td>
-                  </tr>
-                ) : facade?.result?.message === 'Lấy danh sách hoá đơn của doanh thu thành công.' &&
-                  facade?.result?.data?.length != 0 ? (
-                  <tr className="text-black">
-                    <td></td>
-                    <td></td>
-                    <td className="ant-table-cell">
-                      <span className="font-bold text-base">Tổng cộng</span>
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.total.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.totalDiscount.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.totalRevenue.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base"></td>
-                  </tr>
-                ) : facade?.result?.message === 'Lấy danh sách sản phẩm của doanh thu thành công.' &&
-                  facade?.result?.data?.length != 0 ? (
-                  <tr className="text-black">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td className="ant-table-cell">
-                      <span className="font-bold text-base">Tổng cộng</span>
-                    </td>
-                    <td className="ant-table-cell font-bold text-base">
-                      {facade?.result?.total?.total.toLocaleString()}
-                    </td>
-                    <td className="ant-table-cell font-bold text-base"></td>
-                  </tr>
-                ) : (
-                  <tr className="hidden"></tr>
-                )
-              }
+              summary={summary}
+              // summary={() =>
+              //   facade?.status === 'getDiscount.fulfilled' && facade?.result?.data?.length != 0 ? (
+              //     <tr className="text-black">
+              //       <td></td>
+              //       <td className="ant-table-cell">
+              //         <span className="font-bold text-base">Tổng cộng</span>
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.totalCommission.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.totalPaid.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.totalNopay.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base"></td>
+              //     </tr>
+              //   ) : facade?.status === 'getOrder.fulfilled' && facade?.result?.data?.length != 0 ? (
+              //     <tr className="text-black">
+              //       <td></td>
+              //       <td></td>
+              //       <td></td>
+              //       <td></td>
+              //       <td className="ant-table-cell">
+              //         <span className="font-bold text-base">Tổng cộng</span>
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.sumSubTotal.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.sumTotal.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.sumVoucherAmount.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.sumMoney.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base"></td>
+              //     </tr>
+              //   ) : facade?.status === 'getInventoryListProduct.fulfilled' && facade?.result?.data?.length != 0 ? (
+              //     <tr className="text-black">
+              //       <td></td>
+              //       <td></td>
+              //       <td></td>
+              //       <td className="ant-table-cell">
+              //         <span className="font-bold text-base">Tổng cộng</span>
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {parseInt(facade?.result?.total?.subTotal).toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {parseInt(facade?.result?.total?.total).toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base"></td>
+              //     </tr>
+              //   ) : facade?.result?.message === 'Lấy danh sách hoá đơn của doanh thu thành công.' &&
+              //     facade?.result?.data?.length != 0 ? (
+              //     <tr className="text-black">
+              //       <td></td>
+              //       <td></td>
+              //       <td className="ant-table-cell">
+              //         <span className="font-bold text-base">Tổng cộng</span>
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.total.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.totalDiscount.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.totalRevenue.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base"></td>
+              //     </tr>
+              //   ) : facade?.result?.message === 'Lấy danh sách sản phẩm của doanh thu thành công.' &&
+              //     facade?.result?.data?.length != 0 ? (
+              //     <tr className="text-black">
+              //       <td></td>
+              //       <td></td>
+              //       <td></td>
+              //       <td></td>
+              //       <td className="ant-table-cell">
+              //         <span className="font-bold text-base">Tổng cộng</span>
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base">
+              //         {facade?.result?.total?.total.toLocaleString()}
+              //       </td>
+              //       <td className="ant-table-cell font-bold text-base"></td>
+              //     </tr>
+              //   ) : (
+              //     <tr className="hidden"></tr>
+              //   )
+              // }
               pagination={false}
               dataSource={loopData(data)}
               onChange={(pagination, filters, sorts) =>
@@ -619,6 +621,7 @@ DataTable.displayName = 'HookTable';
 type Type = {
   id?: string;
   columns: DataTableModel[];
+  summary: (data: any) => any;
   showList?: boolean;
   footer?: (result: any) => any;
   defaultRequest?: PaginationQuery;
