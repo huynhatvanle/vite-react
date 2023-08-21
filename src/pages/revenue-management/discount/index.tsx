@@ -371,6 +371,28 @@ const Page = () => {
                         },
                       },
                     ]}
+                    summary={(data: any) =>
+                          discountFacade?.status === 'getDiscount.fulfilled' && discountFacade?.result?.data?.length != 0 ? (
+                  <tr className="text-black">
+                    <td></td>
+                    <td className="ant-table-cell">
+                      <span className="font-bold text-base">Tổng cộng</span>
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {discountFacade?.result?.total?.totalCommission?.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {discountFacade?.result?.total?.totalPaid?.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base">
+                      {discountFacade?.result?.total?.totalNopay?.toLocaleString()}
+                    </td>
+                    <td className="ant-table-cell font-bold text-base"></td>
+                  </tr>
+                ) : (
+                        ''
+                      )
+                }
                   />
                   <div className="flex sm:justify-end justify-center items-center p-5">
                     <Button
@@ -402,39 +424,41 @@ const Page = () => {
                         });
 
                         const excel = new Excel();
-                        const sheet = excel.addSheet('Sheet1');
+                          const sheet = excel.addSheet('Sheet1');
                         sheet.setTHeadStyle({
                           background: 'FFFFFFFF',
                           borderColor: 'C0C0C0C0',
                           wrapText: false,
                           fontName: 'Calibri',
+                          bold: false,
                         });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
-                        sheet.setRowHeight(0.8, 'cm');
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' ,bold: false });
+                        sheet.setRowHeight(0.5, 'cm');
                         sheet.addColumns([
-                          { title: '', dataIndex: '' },
-                          { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
+                          { title: '', dataIndex: '', width: 70 },
+                          { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '', width: 70 },
                         ]);
-                        // sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
-                          { title: 'Kỳ hạn từ', dataIndex: '' },
-                          {
+                          { title: 'Kỳ hạn từ', dataIndex: '',width: 70 },
+                          { 
                             title: getFilter(discountFacade.queryParams, 'filter')?.dateFrom
                               ? dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateFrom).format('MM/YYYY')
                               : '',
                             dataIndex: '',
+                            width: 70
                           },
-                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '',width: 70 },
 
-                          { title: 'Đến', dataIndex: '' },
+                          { title: 'Đến', dataIndex: '',width: 70 },
                           {
                             title: getFilter(discountFacade.queryParams, 'filter')?.dateTo
                               ? dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateTo).format('MM/YYYY')
                               : '',
                             dataIndex: '',
+                            width: 70
                           },
-                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '',width: 70 },
                         ]);
                         sheet.addRow();
                         sheet.addColumns([
@@ -451,7 +475,7 @@ const Page = () => {
                           },
                           { title: '', dataIndex: '' },
 
-                          { title: 'Chọn nhà cung cấp:', dataIndex: '' },
+                          { title: 'Chọn nhà cung cấp:', dataIndex: ''},
                           {
                             title: getFilter(discountFacade.queryParams, 'supplierId')
                               ? `${
@@ -480,11 +504,11 @@ const Page = () => {
                             { title: 'Tổng cộng', dataIndex: '' },
                             { title: discountFacade.result?.total?.totalCommission?.toLocaleString(), dataIndex: '' },
                             {
-                              title: discountFacade.result?.total?.totalNopay?.toLocaleString(),
+                              title: discountFacade.result?.total?.totalPaid?.toLocaleString(),
                               dataIndex: '',
                             },
                             {
-                              title: discountFacade.result?.total?.totalPaid?.toLocaleString(),
+                              title: discountFacade.result?.total?.totalNopay?.toLocaleString(),
                               dataIndex: '',
                             },
                             { title: '', dataIndex: '' },

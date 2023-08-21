@@ -1669,6 +1669,30 @@ const Page = () => {
                           )}
                         </div>
                       }
+                      summary={(data: any) =>
+                        invoiceRevenueFacade?.result?.message === 'Lấy danh sách hoá đơn của doanh thu thành công.' &&
+                        invoiceRevenueFacade?.result?.data?.length != 0 ? (
+                          <tr className="text-black">
+                            <td></td>
+                            <td></td>
+                            <td className="ant-table-cell">
+                              <span className="font-bold text-base">Tổng cộng</span>
+                            </td>
+                            <td className="ant-table-cell font-bold text-base">
+                              {invoiceRevenueFacade?.result?.total?.total?.toLocaleString()}
+                            </td>
+                            <td className="ant-table-cell font-bold text-base">
+                              {invoiceRevenueFacade?.result?.total?.totalDiscount?.toLocaleString()}
+                            </td>
+                            <td className="ant-table-cell font-bold text-base">
+                              {invoiceRevenueFacade?.result?.total?.totalRevenue?.toLocaleString()}
+                            </td>
+                            <td className="ant-table-cell font-bold text-base"></td>
+                          </tr>
+                        ) : (
+                          ''
+                        )
+                      }
                     />
                     <div className="flex sm:justify-end justify-center items-center p-5">
                       <Button
@@ -2097,6 +2121,26 @@ const Page = () => {
                         disableSubmit={isLoading}
                       />
                     )}
+                    summary={(data: any) =>
+                      invoiceKiotVietFacade?.result?.message === 'Lấy danh sách sản phẩm của doanh thu thành công.' &&
+                          invoiceKiotVietFacade?.result?.data?.length != 0 ? (
+                          <tr className="text-black">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td className="ant-table-cell">
+                              <span className="font-bold text-base">Tổng cộng</span>
+                            </td>
+                            <td className="ant-table-cell font-bold text-base">
+                              {invoiceKiotVietFacade?.result?.total?.total?.toLocaleString()}
+                            </td>
+                            <td className="ant-table-cell font-bold text-base"></td>
+                          </tr>
+                        )  : (
+                        ''
+                      )
+                    }
                   />
                   <div className="flex sm:justify-end justify-center items-center p-5">
                     <Button
