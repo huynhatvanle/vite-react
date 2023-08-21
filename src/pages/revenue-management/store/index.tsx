@@ -608,25 +608,27 @@ const Page = () => {
                           borderColor: 'C0C0C0C0',
                           wrapText: false,
                           fontName: 'Calibri',
+                          bold: false,
                         });
-                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
-                        sheet.setRowHeight(0.8, 'cm');
+                        sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri', bold: false });
+                        sheet.setRowHeight(0.5, 'cm');
                         sheet.addColumns([
-                          { title: '', dataIndex: '' },
-                          { title: '', dataIndex: '' },
-                          { title: 'BÁO CÁO DOANH THU CỬA HÀNG THEO ĐƠN HÀNG', dataIndex: '' },
+                          { title: '', dataIndex: '', width: 70  },
+                          { title: '', dataIndex: '', width: 70  },
+                          { title: 'BÁO CÁO DOANH THU CỬA HÀNG THEO ĐƠN HÀNG', dataIndex: '',  width: 70  },
                         ]);
                         // sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
-                          { title: 'Tìm kiếm:', dataIndex: '' },
+                          { title: 'Tìm kiếm:', dataIndex: '',  width: 70  },
                           {
                             title: JSON.parse(invoice.queryParams || '{}').fullTextSearch || '',
                             dataIndex: '',
+                            width: 70 
                           },
-                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '', width: 70  },
 
-                          { title: 'Chọn loại đơn hàng:', dataIndex: '' },
+                          { title: 'Chọn loại đơn hàng:', dataIndex: '', width: 70  },
                           {
                             title: getFilter(invoice.queryParams, 'status')
                               ? `${
@@ -636,10 +638,11 @@ const Page = () => {
                                 }`
                               : '',
                             dataIndex: '',
+                            width: 70 
                           },
-                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '',  width: 70  },
 
-                          { title: 'Chọn cửa hàng:', dataIndex: '' },
+                          { title: 'Chọn cửa hàng:', dataIndex: '',  width: 70  },
                           {
                             title: getFilter(invoice.queryParams, 'idStore')
                               ? `${
@@ -649,28 +652,31 @@ const Page = () => {
                                 }`
                               : '',
                             dataIndex: '',
+                            width: 70 
                           },
-                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '',  width: 70  },
                         ]);
                         sheet.addRow();
                         sheet.addColumns([
-                          { title: 'Từ ngày', dataIndex: '' },
+                          { title: 'Từ ngày', dataIndex: '',  width: 70  },
                           {
                             title: getFilter(invoice.queryParams, 'dateFrom')
                               ? dayjs(getFilter(invoice.queryParams, 'dateFrom')).format('DD/MM/YYYY')
                               : '',
                             dataIndex: '',
+                            width: 70 
                           },
-                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '',  width: 70  },
 
-                          { title: 'Đến ngày', dataIndex: '' },
+                          { title: 'Đến ngày', dataIndex: '',  width: 70  },
                           {
                             title: getFilter(invoice.queryParams, 'dateTo')
                               ? dayjs(getFilter(invoice.queryParams, 'dateTo')).format('DD/MM/YYYY')
                               : '',
                             dataIndex: '',
+                            width: 70 
                           },
-                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '',  width: 70  },
                         ]);
                         sheet.addRow();
                         sheet.addRow();
@@ -1199,6 +1205,26 @@ const Page = () => {
                           },
                         },
                       ]}
+                      summary={(data: any) =>
+                        invoiceKiotVietFacade?.result?.message === 'Lấy danh sách sản phẩm của doanh thu thành công.'&&
+                            invoiceKiotVietFacade?.result?.data?.length != 0 ? (
+                            <tr className="text-black">
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td className="ant-table-cell">
+                                <span className="font-bold text-base">Tổng cộng</span>
+                              </td>
+                              <td className="ant-table-cell font-bold text-base">
+                                {invoiceKiotVietFacade?.result?.total?.total?.toLocaleString()}
+                              </td>
+                              <td className="ant-table-cell font-bold text-base"></td>
+                            </tr>
+                          ) : (
+                          ''
+                        )
+                      }
                     />
                   )}
                   <div className="flex sm:justify-end justify-center items-center p-5">

@@ -17,6 +17,7 @@ import { DataTable } from '@core/data-table';
 import { getFilter, language, languages, routerLinks } from '@utils';
 import { Form } from '@core/form';
 import { TableRefObject } from '@models';
+import { parse } from 'uuid';
 
 const Page = () => {
     const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
@@ -551,6 +552,34 @@ const Page = () => {
                                                 ))}
                                             </div>
                                         )}
+                                        summary={(data: any) =>
+                                            inventoryOrders?.status === 'getOrder.fulfilled' && inventoryOrders?.result?.data?.length != 0 ? (
+                                                    <tr className="text-black">
+                                                      <td></td>
+                                                      <td></td>
+                                                      <td></td>
+                                                      <td></td>
+                                                      <td className="ant-table-cell">
+                                                        <span className="font-bold text-base">Tổng cộng</span>
+                                                      </td>
+                                                      <td className="ant-table-cell font-bold text-base">
+                                                        {parseInt(inventoryOrders?.result?.total?.sumSubTotal).toLocaleString()}
+                                                      </td>
+                                                      <td className="ant-table-cell font-bold text-base">
+                                                        {parseInt(inventoryOrders?.result?.total?.sumTotal).toLocaleString()}
+                                                      </td>
+                                                      <td className="ant-table-cell font-bold text-base">
+                                                        {parseInt(inventoryOrders?.result?.total?.sumVoucherAmount).toLocaleString()}
+                                                      </td>
+                                                      <td className="ant-table-cell font-bold text-base">
+                                                        {parseInt(inventoryOrders?.result?.total?.sumMoney).toLocaleString()}
+                                                      </td>
+                                                      <td className="ant-table-cell font-bold text-base"></td>
+                                                    </tr>
+                                                  ): (
+                                              ''
+                                            )
+                                          }
                                     />
                                 )}
                                 <div className="flex sm:justify-end justify-center items-center p-5">
@@ -1137,6 +1166,27 @@ const Page = () => {
                                                 disableSubmit={isLoading}
                                             />
                                         )}
+                                        summary={(data: any) =>
+                                            inventoryListProductFacade?.status === 'getInventoryListProduct.fulfilled' && inventoryListProductFacade?.result?.data?.length != 0 ? (
+                                                    <tr className="text-black">
+                                                      <td></td>
+                                                      <td></td>
+                                                      <td></td>
+                                                      <td className="ant-table-cell">
+                                                        <span className="font-bold text-base">Tổng cộng</span>
+                                                      </td>
+                                                      <td className="ant-table-cell font-bold text-base">
+                                                        {parseInt(inventoryListProductFacade?.result?.total?.subTotal).toLocaleString()}
+                                                      </td>
+                                                      <td className="ant-table-cell font-bold text-base">
+                                                        {parseInt(inventoryListProductFacade?.result?.total?.total).toLocaleString()}
+                                                      </td>
+                                                      <td className="ant-table-cell font-bold text-base"></td>
+                                                    </tr>
+                                                  ): (
+                                              ''
+                                            )
+                                          }
                                     />
                                 )}
                                 <div className="flex sm:justify-end justify-center items-center p-5">
