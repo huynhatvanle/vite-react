@@ -45,6 +45,7 @@ export const DataTable = forwardRef(
   (
     {
       columns = [],
+      summary,
       id,
       showList = true,
       footer,
@@ -487,6 +488,7 @@ export const DataTable = forwardRef(
               }}
               loading={isLoading}
               columns={cols.current}
+              summary={summary}
               pagination={false}
               dataSource={loopData(data)}
               onChange={(pagination, filters, sorts) =>
@@ -524,6 +526,7 @@ DataTable.displayName = 'HookTable';
 type Type = {
   id?: string;
   columns: DataTableModel[];
+  summary?: (data: any) => any;
   showList?: boolean;
   footer?: (result: any) => any;
   defaultRequest?: PaginationQuery;
