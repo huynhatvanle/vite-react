@@ -204,7 +204,7 @@ const Page = () => {
                           t('routes.admin.Layout.PaginationOrder', { from, to, total })
                         }
                         rightHeader={
-                          <div className="2xl:flex text-left flex-row w-full mt-4 sm:mt-0">
+                          <div className="3xl:flex text-left flex-row 3xl:w-auto w-full mt-4 sm:mt-0 3xl:fixed 3xl:right-0">
                             <div className='relative'>
                             <Form
                               values={{
@@ -213,8 +213,8 @@ const Page = () => {
                                 status: getFilter(invoice.queryParams, 'status'),
                                 idStore: getFilter(invoice.queryParams, 'idStore'),
                               }}
-                              className="intro-x md:flex form-discount xl:justify-end sm:justify-start 2xl:ml-[70px]"
-                              columns={[
+                              className="intro-x md:flex form-discount xl:!justify-end sm:justify-start 2xl:ml-[-30px]"
+                              columns={[  
                                 {
                                   title: '',
                                   name: 'status',
@@ -272,7 +272,7 @@ const Page = () => {
                                 ]}
                               />
                             </div>
-                            <div className="w-full 2xl:mr-0 mr-5 2xl:mt-0 mt-[-16px]">
+                            <div className="w-full 3xl:mr-0 mr-5 3xl:mt-0 mt-[-16px]">
                               <Form
                                 values={{
                                   dateFrom: getFilter(invoice.queryParams, 'dateFrom'),
@@ -280,7 +280,7 @@ const Page = () => {
                                   status: getFilter(invoice.queryParams, 'status'),
                                   idStore: getFilter(invoice.queryParams, 'idStore'),
                                 }}
-                                className="intro-x rounded-lg w-full md:flex justify-between form-store 2xl:!justify-start"
+                                className="intro-x rounded-lg w-full md:flex justify-between form-store 3xl:!justify-start"
                                 columns={[
                                   {
                                     title: '',

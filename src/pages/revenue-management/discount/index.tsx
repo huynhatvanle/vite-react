@@ -402,39 +402,42 @@ const Page = () => {
                         });
 
                         const excel = new Excel();
-                        const sheet = excel.addSheet('Sheet1');
+                          const sheet = excel.addSheet('Sheet1');
                         sheet.setTHeadStyle({
                           background: 'FFFFFFFF',
                           borderColor: 'C0C0C0C0',
                           wrapText: false,
                           fontName: 'Calibri',
+
                         });
                         sheet.setTBodyStyle({ wrapText: false, fontSize: 12, fontName: 'Calibri' });
                         sheet.setRowHeight(0.8, 'cm');
                         sheet.addColumns([
-                          { title: '', dataIndex: '' },
-                          { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '' },
+                          { title: '', dataIndex: '', width: 50 },
+                          { title: 'BÁO CÁO CHIẾT KHẤU NHÀ CUNG CẤP', dataIndex: '', width: 50 },
                         ]);
                         // sheet.drawCell(10, 0, '');
                         sheet.addRow();
                         sheet.addColumns([
-                          { title: 'Kỳ hạn từ', dataIndex: '' },
+                          { title: 'Kỳ hạn từ', dataIndex: '',width: 50 },
                           {
                             title: getFilter(discountFacade.queryParams, 'filter')?.dateFrom
                               ? dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateFrom).format('MM/YYYY')
                               : '',
                             dataIndex: '',
+                            width: 50
                           },
-                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '',width: 50 },
 
-                          { title: 'Đến', dataIndex: '' },
+                          { title: 'Đến', dataIndex: '',width: 50 },
                           {
                             title: getFilter(discountFacade.queryParams, 'filter')?.dateTo
                               ? dayjs(getFilter(discountFacade.queryParams, 'filter')?.dateTo).format('MM/YYYY')
                               : '',
                             dataIndex: '',
+                            width: 50
                           },
-                          { title: '', dataIndex: '' },
+                          { title: '', dataIndex: '',width: 50 },
                         ]);
                         sheet.addRow();
                         sheet.addColumns([
@@ -451,7 +454,7 @@ const Page = () => {
                           },
                           { title: '', dataIndex: '' },
 
-                          { title: 'Chọn nhà cung cấp:', dataIndex: '' },
+                          { title: 'Chọn nhà cung cấp:', dataIndex: ''},
                           {
                             title: getFilter(discountFacade.queryParams, 'supplierId')
                               ? `${
