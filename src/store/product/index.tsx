@@ -46,10 +46,10 @@ const action = {
           categoryId: filterProduct.categoryId3
             ? filterProduct.categoryId3
             : filterProduct.categoryId2
-            ? filterProduct.categoryId2
-            : filterProduct.categoryId1
-            ? filterProduct.categoryId1
-            : null,
+              ? filterProduct.categoryId2
+              : filterProduct.categoryId1
+                ? filterProduct.categoryId1
+                : null,
           categoryId1: filterProduct.categoryId1,
           categoryId2: filterProduct.categoryId2,
           categoryId3: filterProduct.categoryId3,
@@ -180,7 +180,6 @@ export const productSlice = createSlice(
         },
       )
       .addCase(action.putProductreject.fulfilled, (state: State<Product>, action: any) => {
-        console.log(action.payload);
 
         if (action.payload.toString() === '200') {
           state.result = action.payload;
@@ -225,7 +224,7 @@ export const ProductFacade = () => {
     getById: ({ id, keyState = 'isVisible' }: { id?: string; keyState?: keyof State<Product> }) =>
       dispatch(action.getById1({ id, keyState })),
     post: (values: Product) => dispatch(action.post(values)),
-    put: (values: Product) => dispatch(action.put(values)),
+    put: (values: Product) => dispatch(action.putProductreject(values)),
     delete: (id: string) => dispatch(action.delete(id)),
     getproduct: () => dispatch(action.getproduct()),
     putProduct: ({ id }: { id?: string }) => dispatch(action.putProduct({ id })),

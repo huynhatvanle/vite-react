@@ -2,10 +2,10 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { language, languages, routerLinks } from '@utils';
-import { CategoryFacade, Product, ProductFacade, TaxAdminFacade } from '@store';
+import { ProductFacade, TaxAdminFacade } from '@store';
 import { Form } from '@core/form';
 import { Tags } from '@svgs';
-import { Dropdown, Table } from 'antd';
+import { Select, Table } from 'antd';
 import { Button } from '@core/button';
 import { DataTable } from '@core/data-table';
 import { Message } from '@core/message';
@@ -22,7 +22,7 @@ const Page = () => {
   const navigate = useNavigate();
   const modalformRef = useRef<any>();
 
-
+  let test = '';
 
   const lang = languages.indexOf(location.pathname.split('/')[1]) > -1 ? location.pathname.split('/')[1] : language;
 
@@ -88,24 +88,38 @@ const Page = () => {
     { label: 'Khác', value: 'other' },
   ];
 
-
   const [other, setOther] = useState(true);
   const [a, setA] = useState<any>()
+  const [T, setT] = useState<any>('other')
+  const [reason, setReason] = useState<any>()
 
-  // const handleSubmit = () => {
-  //   const id = a;
-  //   const rejectReason = listOptionreason;
-  //   console.log(id, rejectReason)
-  //   // const rejectReason = modalformRef?.current?.getFieldValue('rejectReason');
-  //   productFacade.putProductreject({ id, rejectReason });
+
+  const handleSubmit = (values: any) => {
+    productFacade.put({ id: data?.id, rejectReason: T === 'other' ? test : T });
+  };
+
+  // const [initialOther, setInitialOther] = useState({});
+  // const handleBack = () => {
+  //   setOther(initialOther); // Đặt điều kiện về trạng thái ban đầu khi nhấn nút "Hủy"
   // };
 
+  // const handleOtherChange = (values: any) => {
+  //   if (values) {
+  //     window.location.reload();
+  //   } else {
+  //     setOther(values);
+  //   }
+  // };
+
+  // const handleOtherChange = () => {
+  //   setOther(true);
+  // };
 
   return (
     <div className={'w-full rounded-2xl bg-white'}>
       <Fragment>
         <div className='flex lg:flex-row flex-col'>
-          <div className='flex-initial lg:rounded-xl w-auto form-merchandise2'>
+          <div className='flex-initial lg:rounded-xl w-auto form-merchandise2 form-store-1'>
             <Form
               values={{
                 ...data,
@@ -781,43 +795,16 @@ const Page = () => {
         <div className='p-5'>
           {productFacade.data && productFacade?.data?.approveStatus === 'WAITING_APPROVE' ?
             (
-              <div className='sm:flex sm:justify-between flex-row-reverse'>
-                <div className='mb-2 sm:mb-0 form-merchandise-detail form-merchandise-detail2'>
+              <div className='form-merchandise-detail'>
+                <Button
+                  text={t('components.form.modal.cancel')}
+                  className={'sm:min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
+                  onClick={() => navigate(`/${lang}${routerLinks('inventory-management/product')}`)}
+                />
+                <div className='form-merchandise-detail2'>
                   <Button
                     text={t('Từ chối yêu cầu')}
-                    className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5 sm:mr-5'}
-                    onClick={() => Message.confirm({
-                      title: 'Thông báo',
-                      text: 'Bạn có chắc muốn từ chối sản phẩm này ?',
-                      cancelButtonColor: '',
-                      cancelButtonText: "Huỷ",
-                      confirmButtonColor: '#134e4a',
-                      showCloseButton: true,
-                      showConfirmButton: true,
-                      onConfirm() {
-                        setA(data?.id)
-                        modalformRef?.current?.handleEdit({ id: data?.id })
-                      },
-                    })}
-                  />
-                  <Button
-                    text={t('Phê duyệt yêu cầu')}
-                    className={'md:min-w-[8rem] justify-center !bg-teal-900 w-3/5 sm:w-auto mb-2 sm:mb-0'}
-                    onClick={() => productFacade.putProduct({ id })
-                    }
-                  />
-                </div>
-                <div className='form-merchandise-detail'>
-                  <Button
-                    text={t('components.form.modal.cancel')}
-                    className={'sm:min-w-[8rem] justify-center out-line !border-black max-sm:w-3/5'}
-                    onClick={() => navigate(`/${lang}${routerLinks('inventory-management/product')}`)}
-                  />
-                </div>
-                {/* <div>
-                  <Button
-                    text={t('Từ chối yêu cầu')}
-                    className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5 mr-5'}
+                    className={'md:min-w-[8rem] justify-center !bg-red-500 max-sm:w-3/5'}
                     onClick={() => Message.confirm({
                       title: 'Thông báo',
                       text: 'Bạn có chắc muốn từ chối sản phẩm này ?',
@@ -838,10 +825,11 @@ const Page = () => {
                     onClick={() => productFacade.putProduct({ id })
                     }
                   />
-                </div> */}
+                </div>
               </div>
             )
-            : (
+            :
+            (
               <div className='flex items-center justify-center mt-9 sm:mt-2 sm:block'>
                 <Button
                   text={t('components.form.modal.cancel')}
@@ -851,78 +839,166 @@ const Page = () => {
               </div>
             )
           }
-          <ModalForm
-            keyState=''
-            facade={productFacade}
-            className="form"
-            ref={modalformRef}
-            keyPut='putProductreject'
-            widthModal={600}
-            title={(data) => ''}
-            columns={[
-              {
-                title: '',
-                name: '',
-                formItem: {
-                  render: (form, values) => {
-                    return (
-                      <div className='flex flex-col'>
-                        <p className='text-5xl flex mb-2 justify-center'>Thông báo</p>
-                        <div className='text-base text-gray-600 flex justify-center mb-5'>Bạn có chắc muốn từ chối phê duyệt sản phẩm này?</div>
-                      </div>
-                    )
-                  }
-                }
-              },
-              {
-                title: 'Lý do',
-                name: 'rejectReason',
-                formItem: {
-                  type: 'select',
-                  rules: [{ type: 'required', message: '' }],
-                  list: listOptionreason?.map((item) => ({
-                    label: item.label,
-                    value: item.value!
-                  })),
-                }
-              },
-              {
-                title: '',
-                name: 'reason',
-                formItem: {
-                  type: 'textarea',
-                  placeholder: 'Vui lòng nhập lý do của bạn',
-                  rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
-                }
-              },
-              {
-                title: '',
-                name: 'id',
-                formItem: {
-                  type: 'hidden',
-                }
-              }
-            ]}
-            footerCustom={(handleOk, handleCancel) => (
-              <div className="flex gap-2">
-                <button
-                  className="!rounded-none !w-auto border-teal-900 text-teal-900 hover:bg-gray-300 bg-white"
-                  onClick={handleCancel}
-                >
-                  {t('Hủy')}
-                </button>
-                <button
-                  className="!rounded-none !w-auto border-teal-900 text-white hover:bg-teal-900 bg-teal-800"
-                  onClick={handleOk}
-                >
-                  {t('Đồng ý')}
-                </button>
-              </div>
-            )}
-          />
+          {
+            other ?
+              <ModalForm
+                keyState=''
+                facade={productFacade}
+                className="form"
+                ref={modalformRef}
+                // keyPut='putProductreject'
+                widthModal={600}
+                title={(data) => ''}
+                columns={[
+                  {
+                    title: '',
+                    name: '',
+                    formItem: {
+                      render: (form, values) => {
+                        return (
+                          <div className=''>
+                            <p className='text-5xl flex mb-2 justify-center'>Thông báo</p>
+                            <div className='flex flex-col sm:flex-row justify-center'>
+                              <div className='text-sm text-gray-600 flex justify-center pr-1'>Bạn có chắc muốn từ chối phê duyệt</div>
+                              <div className='text-sm text-gray-600 flex justify-center mb-5'>sản phẩm này?</div>
+                            </div>
+                          </div>
+                        )
+                      }
+                    }
+                  },
+                  {
+                    title: 'Lý do',
+                    name: 'rejectReason',
+                    formItem: {
+                      type: 'select',
+                      rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
+                      list: listOptionreason,
+                      render(form, value) {
+                        return (
+                          <div>
+                            <p className='text-base text-black'>{('Lý do')}</p>
+                            <Select
+                              defaultValue={'other'}
+                              style={{ width: '100%' }}
+                              className='py-2'
+                              options={listOptionreason}
+                              onChange={(value) => {
+                                setT(value)
+                                form.setFieldValue('rejectReason', value);
+                                value !== 'other' ? setOther(false) : true
+                              }}
+                            />
+                          </div>
+                        )
+                      },
+                    }
+                  },
+                  {
+                    title: '',
+                    name: 'reason',
+                    formItem: {
+                      type: 'textarea',
+                      placeholder: 'Vui lòng nhập lý do của bạn',
+                      rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
+                      onChange: (value) => (test = value),
+                      onBlur: () => (setReason(test))
+                    }
+                  },
+                ]}
+                footerCustom={(handleOk, handleCancel) => (
+                  <div className="flex gap-2">
+                    <button
+                      className="!rounded-none !w-auto border-teal-900 text-teal-900 hover:bg-gray-300 bg-white"
+                      onClick={handleCancel}
+                    >
+                      {t('Hủy')}
+                    </button>
+                    <button
+                      className="!rounded-none !w-auto border-teal-900 text-white hover:bg-teal-900 bg-teal-800"
+                      onClick={handleSubmit}
+                    >
+                      {t('Đồng ý')}
+                    </button>
+                  </div>
+                )}
+              />
+              :
+              <ModalForm
+                keyState=''
+                facade={productFacade}
+                className="form"
+                ref={modalformRef}
+                // keyPut='putProductreject'
+                widthModal={600}
+                title={(data) => ''}
+                columns={[
+                  {
+                    title: '',
+                    name: '',
+                    formItem: {
+                      render: (form, values) => {
+                        return (
+                          <div className=''>
+                            <p className='text-5xl flex mb-2 justify-center'>Thông báo</p>
+                            <div className='flex flex-col sm:flex-row justify-center'>
+                              <div className='text-sm text-gray-600 flex justify-center pr-1'>Bạn có chắc muốn từ chối phê duyệt</div>
+                              <div className='text-sm text-gray-600 flex justify-center mb-5'>sản phẩm này?</div>
+                            </div>
+                          </div>
+                        )
+                      }
+                    }
+                  },
+                  {
+                    title: 'Lý do',
+                    name: 'rejectReason',
+                    formItem: {
+                      type: 'select',
+                      rules: [{ type: 'required', message: 'Hãy điền lý do của bạn !' }],
+                      list: listOptionreason,
+                      render(form, value) {
+                        return (
+                          <div>
+                            <p className='text-base text-black'>{('Lý do')}</p>
+                            <Select
+                              style={{ width: '100%' }}
+                              className='py-2'
+                              options={listOptionreason}
+                              onChange={(value) => {
+                                setT(value)
+                                form.setFieldValue('rejectReason', value);
+                                value == 'other' ? setOther(true) : false
+                              }
+                              }
+                            />
+                          </div>
+                        )
+                      },
+                    }
+                  },
+                ]}
+                footerCustom={(handleOk, handleCancel) => (
+                  <div className="flex gap-2">
+                    <button
+                      className="!rounded-none !w-auto border-teal-900 text-teal-900 hover:bg-gray-300 bg-white"
+                      onClick={handleCancel}
+                    >
+                      {t('Hủy')}
+                    </button>
+                    <button
+                      className="!rounded-none !w-auto border-teal-900 text-white hover:bg-teal-900 bg-teal-800"
+                      onClick={handleSubmit}
+                    >
+                      {t('Đồng ý')}
+                    </button>
+                  </div>
+                )}
+              />
+          }
         </div>
-      </Fragment>
-    </div>
+      </Fragment >
+    </div >
   );
 };
 export default Page;

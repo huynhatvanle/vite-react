@@ -61,7 +61,6 @@ const Page = () => {
     dataIndex: string;
   }
 
-  console.log(getFilter(discountFacade.queryParams, 'filter')?.dateFrom);
   
   const columnrevenueOrder: IExcelColumn[] = [
     { title: t('STT'), key: 'stt', dataIndex: 'STT' },
@@ -108,7 +107,7 @@ const Page = () => {
                     }
                     showSearch={false}
                     leftHeader={
-                      <div className="flex flex-col xl:gap-3 text-left w-full mt-4 sm:mt-0">
+                      <div className="flex flex-col xl:gap-3 text-left w-full mt-4 sm:mt-0 sm:ml-0 ml-[6px]">
                         <Form
                           values={{
                             dateFrom: getFilter(discountFacade.queryParams, 'filter')?.dateFrom,
@@ -116,7 +115,7 @@ const Page = () => {
                             status: getFilter(discountFacade.queryParams, 'status'),
                             supplierId: getFilter(discountFacade.queryParams, 'supplierId'),
                           }}
-                          className="intro-x rounded-lg w-full md:flex justify-between form-discount xl:justify-start"
+                          className="intro-x rounded-lg w-full md:flex justify-between form-discount-date xl:justify-start"
                           columns={[
                             {
                               title: '',
@@ -125,7 +124,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 2,
                                 render: () => (
-                                  <div className="flex sm:h-10 sm:mt-0 mt-[-6px] sm:mb-0 mb-[2px] items-center">
+                                  <div className="flex !w-full sm:h-10 sm:mt-0 mt-[-6px] sm:mb-0 mb-[2px] items-center">
                                     <p className="whitespace-nowrap">{t('Kỳ hạn từ')}</p>
                                   </div>
                                 ),
@@ -170,7 +169,7 @@ const Page = () => {
                                 tabIndex: 3,
                                 col: 1,
                                 render: () => (
-                                  <div className="flex sm:h-10 sm:mt-0 mt-[-10px] sm:mb-0 mb-[2px] items-center">
+                                  <div className="flex !w-full sm:h-10 sm:mt-0 mt-[-10px] sm:mb-0 mb-[2px] items-center">
                                     <p className="whitespace-nowrap">{t('Đến')}</p>
                                   </div>
                                 ),
@@ -184,8 +183,6 @@ const Page = () => {
                                 type: 'date',
                                 picker: 'month',
                                 onChange(value: any, form: any) {
-                                    console.log(form.getFieldValue('dateFrom'));
-                                    
                                     value <  form.getFieldValue('dateFrom')
                                     ? setMonth(true)
                                     : setMonth(false);
@@ -242,6 +239,7 @@ const Page = () => {
                                 col: 6,
                                 list: statusDiscount,
                                 onChange(value: any, form: any) {
+                                  form.getFieldValue('supplierId') ?
                                   dataTableRefDiscount?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
@@ -254,7 +252,7 @@ const Page = () => {
                                       status: value,
                                       supplierId: form.getFieldValue('supplierId'),
                                     },
-                                  });
+                                  }): '';
                                 },
                               },
                             },
@@ -271,7 +269,7 @@ const Page = () => {
                                 })),
                                 rules: [{type: 'required', message: 'Vui lòng chọn nhà cung cấp'}],
                                 onChange(value: any, form: any) {
-                                  value && dataTableRefDiscount?.current?.onChange({
+                                  value ? dataTableRefDiscount?.current?.onChange({
                                     page: 1,
                                     perPage: 10,
                                     filter: {
@@ -283,7 +281,7 @@ const Page = () => {
                                       status: form.getFieldValue('status'),
                                       supplierId: value ? value : '',
                                     },
-                                  });
+                                  }): '';
                                 },
                               },
                             },
