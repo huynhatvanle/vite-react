@@ -141,7 +141,8 @@
     "Tax": "Thuế",
     "revenue-management/discount": "Chiết khấu NCC",
     "revenue-management/supplier": "Doanh thu NCC",
-    "Supplier-Revenue": "Doanh thu nhà cung cấp"
+    "Supplier-Revenue": "Doanh thu nhà cung cấp",
+    "SupplierList": "Danh sách nhà cung cấp"
   },
   "pages": {
     "Dashboard": "Tra cứu dữ liệu",
