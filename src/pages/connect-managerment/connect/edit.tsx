@@ -423,7 +423,7 @@ const Page = () => {
                             facade={confirmFacade}
                             ref={modalFormRefclick}
                             title={(data: any) => t('Chi tiết sản phẩm')}
-                            className='z'
+                            className='z form1'
                             columns={[
                                 {
                                     title: 'Chi tiết sản phẩm',
@@ -431,107 +431,114 @@ const Page = () => {
                                     formItem: {
                                         render: (form, values) => {
                                             return (
-                                                <div className="sm:pt-2 border-y">
-                                                    <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-5">
-                                                        <p className="font-semibold text-teal-900 text-[20px]">Thông tin nhà cung cấp</p>
+                                                <div className="sm:pt-2 ">
+                                                    <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-2">
+                                                        <p className="font-bold text-teal-900 w-full text-base">Thông tin nhà cung cấp</p>
                                                     </div>
-                                                    <div className="flex items-center h-full w-full text-base lg:mt-0 mt-4 form-store mb-5">
-                                                        <div className="w-1/2 flex">
-                                                            <div className="font-semibold text-teal-900 ">Nhà cung cấp:</div>
-                                                            <div className="ml-4">{values?.supplier?.name}</div>
+                                                    <div className="sm:flex w-full  ">
+                                                        <div className="sm:w-[50%] w-full flex flex-row  text-base gap-3">
+                                                            <div className="font-bold text-teal-900 flex-none">Nhà cung cấp:</div>
+                                                            <div className="ml-2">{values?.supplier?.name}</div>
                                                         </div>
-                                                        <div className="w-1/2 flex">
-                                                            <div className="font-semibold text-teal-900 ">Địa chỉ:</div>
-                                                            <div className="ml-4">
-                                                                {values?.supplier?.address?.street}
+                                                        <div className="w-full sm:flex flex-row text-base gap-4 sm:p-0 py-4">
+                                                            <div className=" font-bold text-teal-900 flex-none  ">Địa chỉ:</div>
+                                                            <div className="ml-2">
+                                                                {values?.supplier?.address?.street},{values?.supplier?.address?.ward?.name},{values?.supplier?.address?.district?.name},{values?.supplier?.address?.province?.name}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="flex ">
-                                                        <div className="w-1/4">
-                                                            <img src={values?.product?.photos?.[0]?.url} alt="" />
+                                                    <div className="sm:flex sm:flex-row w-full mt-2 border-t pt-1.5 ">
+                                                        <div className="bg-white relative pb-5 rounded-xl">
+                                                            <img className='sm:max-w-[224px]  max-w-[110px] aspect-square object-cover rounded-xl shadow-md' src={values?.product?.photos?.[0]?.url} alt="" />
                                                         </div>
-                                                        <div className="w-3/4">
-                                                            <div className='flex'>
-                                                                <div className='flex'>
-                                                                    <div >Tên sản phẩm:</div>
-                                                                    <div>{values?.product?.name}</div>
+                                                        <div className="bg-white  w-full rounded-xl sm:pl-5 sm:ml-2">
+                                                            <div className='sm:flex w-full gap-4'>
+                                                                <div className='w-full flex flex-row text-base'>
+                                                                    <div className='font-bold text-teal-900 flex-none'>Tên sản phẩm:</div>
+                                                                    <div className='text-base text-black ml-3 '>{values?.product?.name}</div>
                                                                 </div>
-                                                                <div className='flex'>
-                                                                    <div >Đơn vị tính:</div>
-                                                                    <div>{values?.product?.basicUnit}</div>
+                                                                <div className='w-full flex flex-row mb-5 text-base'>
+                                                                    <div className='font-bold text-teal-900 flex-none'>Đơn vị tính:</div>
+                                                                    <div className=' text-black ml-3'>{values?.product?.basicUnit}</div>
                                                                 </div>
                                                             </div>
-                                                            <div>Khả năng cung ứng:</div>
+                                                            <div className='font-bold text-teal-900 w-full text-base mt-2'>Khả năng cung ứng:</div>
                                                             {values?.product?.abilitySupply?.month === null ? ("") :
-                                                                (<div className='flex'>
-                                                                    <div className='flex'>
-                                                                        <div>Theo quý:</div>
-                                                                        <div>{values?.product?.abilitySupply?.quarter}</div>
+                                                                (<div className='sm:flex sm:flex-row w-full gap-4 mt-[8px] mb-[16px] sm:ml-0 ml-4'>
+                                                                    <div className='w-full flex gap-2'>
+                                                                        <div className='text-teal-900 flex-none'>Theo quý:</div>
+                                                                        <div className='font-[16px] text-black'>{values?.product?.abilitySupply?.quarter}</div>
                                                                     </div>
-                                                                    <div className='flex'>
-                                                                        <div>Theo tháng:</div>
-                                                                        <div>{values?.product?.abilitySupply?.month}</div>
+                                                                    <div className='w-full flex gap-2'>
+                                                                        <div className='text-teal-900 flex-none'>Theo tháng:</div>
+                                                                        <div className='font-[16px] text-black'>{values?.product?.abilitySupply?.month}</div>
                                                                     </div>
-                                                                    <div className='flex'>
-                                                                        <div>Theo năm:</div>
-                                                                        <div>{values?.product?.abilitySupply?.year}</div>
+                                                                    <div className='w-full flex gap-2'>
+                                                                        <div className='text-teal-900 flex-none'>Theo năm:</div>
+                                                                        <div className='font-[16px] text-black'>{values?.product?.abilitySupply?.year}</div>
                                                                     </div>
 
                                                                 </div>)}
-                                                            <div className="w-full">
-                                                                <table className="w-full">
-                                                                    <thead>
-                                                                        <tr className="text-left">
-                                                                            <th className="p-5">STT</th>
-                                                                            <th className="p-5">Chủng loại giá</th>
-                                                                            <th className="p-5">Số lượng tối thiểu</th>
-                                                                            <th className="p-5">Giá bán (VND)</th>
+                                                            <div className="w-full flex flex-col mb-5">
+                                                            <div className="font-bold text-teal-900 w-[180px] text-base ">Bảng giá sản phẩm:</div>
+                                                                <table className="sm:table-auto table_discount h-16 sm:w-[98%] w-[400px]  mt-4  text-gray-900 mb-auto rounded-xl ">
+                                                                    <thead className='text-left  '>
+                                                                        <tr className="font-normal  text-[14px] border-b-[0.5px]">
+                                                                            <th className=" pt-2 pb-2   !bg-white  text-center w-[10%] ">STT</th>
+                                                                            <th className="pt-2 pb-2 !bg-white w-[30%] ">Chủng loại giá</th>
+                                                                            <th className="pt-2 pb-2 !bg-white ">Số lượng tối thiểu</th>
+                                                                            <th className="pt-2 pb-2 !bg-white ">Giá bán (VND)</th>
 
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         {values?.product?.productPrice?.map((items: any, stt1: number) => (
                                                                             <tr className="text-left">
-                                                                                <td className="p-5">{++stt1}</td>
-                                                                                <td className="p-5">{items?.priceType}</td>
-                                                                                <td className="p-5">{items?.minQuantity}</td>
-                                                                                <td className="p-5">{items?.price.toLocaleString()}</td>
+                                                                                <td className="font-normal text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2 text-center w-[10%]">{++stt1}</td>
+                                                                                <td className="font-normal  text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2">{items?.priceType}</td>
+                                                                                <td className="font-normal text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2">{items?.minQuantity}</td>
+                                                                                <td className="font-normal text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2">{items?.price.toLocaleString()}</td>
                                                                             </tr>
                                                                         ))}
                                                                     </tbody>
                                                                 </table>
                                                             </div>
-                                                            <div className='flex'>
-                                                                <div>
-                                                                    <div className='flex'>
-                                                                        <div>Mã sản phẩm:</div>
-                                                                        <div>{values?.product?.code}</div>
+                                                            <div className='mt-3 w-full'>
+                                                                <div className='w-full sm:flex sm:flex-row'>
+                                                                    <div className='w-full'>
+                                                                        <div className='w-full flex flex-row mb-5 gap-2 text-base'>
+                                                                            <div className='font-bold text-teal-900 flex-none'>Mã sản phẩm:</div>
+                                                                            <div>{values?.product?.code}</div>
+                                                                        </div>
+                                                                        <div className='w-full flex flex-row mb-5 gap-2 text-base'>
+                                                                            <div className='font-bold text-teal-900 flex-none'>Thương hiệu:</div>
+                                                                            <div>{values?.product?.brand}</div>
+                                                                        </div>
                                                                     </div>
-                                                                    <div className='flex'>
-                                                                        <div>Thương hiệu:</div>
-                                                                        <div>{values?.product?.brand}</div>
-                                                                    </div>
-                                                                </div>
-                                                                <div>
-                                                                    <div className='flex'>
-                                                                        <div>Mã vạch:</div>
-                                                                        <div>{values?.product?.barcode}</div>
-                                                                    </div>
-                                                                    <div className='flex'>
-                                                                        <div>Danh mục:</div>
-                                                                        <div>{values?.product?.productCategory?.[0]?.category?.name}</div>
+                                                                    <div className='w-full'>
+                                                                        <div className='w-full flex flex-row mb-5 gap-2 text-base'>
+                                                                            <div className='font-bold text-teal-900 flex-none'>Mã vạch:</div>
+                                                                            <div>{values?.product?.barcode}</div>
+                                                                        </div>
+                                                                        <div className='w-full flex flex-row mb-5 gap-2 text-base'>
+                                                                            <div className='font-bold text-teal-900 flex-none'>Danh mục:</div>
+                                                                            <div>{values?.product?.productCategory?.[0]?.category?.name}</div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             {values?.product?.exportMarket === null ? ("") : (
                                                                 <>
-                                                                    <div className='flex'>
-                                                                        <div>Thị trường xuất khẩu:</div>
-                                                                        <div>{values?.product?.exportMarket}</div>
+                                                                    <div className='w-full flex flex-row'>
+                                                                        <div className='w-full flex flex-row mb-5 text-base'>
+                                                                            <div className='font-bold text-teal-900 w-48'>Thị trường xuất khẩu:</div>
+                                                                            <div>{values?.product?.exportMarket}</div>
+                                                                        </div>
                                                                     </div>
-                                                                    <div>Mô tả sản phẩm:</div>
-                                                                    <div>{values?.product?.description}</div>
+                                                                    <div className='w-full flex flex-col gap-2  text-base'>
+                                                                        <div className='font-bold text-teal-900 text-justify'>Mô tả sản phẩm:</div>
+                                                                        <div className='text-justify '>{values?.product?.description}</div>
+                                                                    </div>
 
                                                                 </>
                                                             )}
@@ -546,7 +553,7 @@ const Page = () => {
                             ]}
                             widthModal={1000}
                             footerCustom={(handleCancel) => (
-                                <div className="flex justify-end gap-2">
+                                <div className="flex gap-2 !justify-between">
                                     <Button
                                         text={t('components.form.modal.cancel')}
                                         className="!bg-white !text-teal-900 btn-cancel"
@@ -554,8 +561,8 @@ const Page = () => {
                                     />
                                     <Button
                                         isLoading={isLoading}
-                                        text={'Xóa'}
-                                        className="!bg-red-600 !border-red-600 "
+                                        text={'Xóa nhà cung cấp'}
+                                        className="!bg-red-600 !border-red-600 !w-44  "
                                         onClick={() => handleDelete(confirmFacade?.data?.id)}
                                     />
                                 </div>
@@ -788,8 +795,8 @@ const Page = () => {
                                                                             </div>
                                                                             <DataTable
                                                                                 data={values.productPrice}
-                                                                                xScroll='1440px'
-                                                                                className=' bg-white p-5 rounded-lg'
+                                                                                xScroll='1550px'
+                                                                                className=' bg-white p-3 rounded-lg'
                                                                                 showPagination={false}
                                                                                 showSearch={false}
                                                                                 columns={[
@@ -837,7 +844,7 @@ const Page = () => {
                                                     widthModal={1000}
                                                     footerCustom={(handleOk, handleCancel) => (
                                                         <div className=" w-full bg-white ">
-                                                            <div className="flex flex-col items-end mb-[33px] ml-[9px]">
+                                                            <div className="flex flex-col items-end mb-[3px] ml-[9px]">
                                                                 <button
                                                                     className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11"
                                                                     onClick={handleCancel}
@@ -863,7 +870,7 @@ const Page = () => {
                             facade={confirmFacade}
                             ref={modalFormRefclick}
                             title={(data: any) => t('Chi tiết sản phẩm')}
-                            className='z'
+                            className='z form1'
                             columns={[
                                 {
                                     title: 'Chi tiết sản phẩm',
@@ -871,40 +878,34 @@ const Page = () => {
                                     formItem: {
                                         render: (form, values) => {
                                             return (
-                                                <div className="w-full">
-                                                  <div className='w-full mb-4 '>
-                                                      <div className="font-bold text-teal-900 w-full text-base">
-                                                         Thông tin nhà cung cấp
-                                                      </div>
-                                                    <div className="sm:flex w-full mt-2">
+                                                <div className="sm:pt-2">
+                                                    <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-2">
+                                                        <p className="font-bold text-teal-900 w-full text-base">Thông tin nhà cung cấp</p>
+                                                    </div>
+                                                    <div className="sm:flex w-full  ">
                                                         <div className="sm:w-[50%] w-full flex flex-row  text-base gap-3">
-                                                            <div className="font-bold text-teal-900 flex-none ">Nhà cung cấp:</div>
+                                                            <div className="font-bold text-teal-900 flex-none">Nhà cung cấp:</div>
                                                             <div className="ml-2">{values?.supplier?.name}</div>
                                                         </div>
                                                         <div className="w-full sm:flex flex-row text-base gap-4 sm:p-0 py-4">
-                                                            <div className=" font-bold text-teal-900 flex-none ">Địa chỉ:</div>
+                                                            <div className=" font-bold text-teal-900 flex-none  ">Địa chỉ:</div>
                                                             <div className="ml-2">
                                                                 {values?.supplier?.address?.street},{values?.supplier?.address?.ward?.name},{values?.supplier?.address?.district?.name},{values?.supplier?.address?.province?.name}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                  </div>
-                                                    <div className="flex border-t sm:flex sm:flex-row w-full mt-2">
-                                                        <div className="bg-white relative pb-5 rounded-xl h-fit">
-                                                            <div className='flex justify-center flex-col items-center '>
-                                                                <div className='sm:p-3'>
-                                                                   <img src={values?.product?.photos?.[0]?.url} alt="" className='sm:max-w-[224px]  max-w-[110px] aspect-square object-cover rounded-xl shadow-md' />
-                                                                </div>
-                                                            </div>
+                                                    <div className="sm:flex sm:flex-row w-full mt-2 ">
+                                                        <div className="bg-white relative pb-5 rounded-xl">
+                                                            <img className='sm:max-w-[224px]  max-w-[110px] aspect-square object-cover rounded-xl shadow-md' src={values?.product?.photos?.[0]?.url} alt="" />
                                                         </div>
-                                                        <div className="bg-white  w-full rounded-xl sm:pl-5 sm:ml-2 mt-2">
+                                                        <div className="bg-white  w-full rounded-xl sm:pl-5 sm:ml-2">
                                                             <div className='sm:flex w-full gap-4'>
                                                                 <div className='w-full flex flex-row text-base'>
                                                                     <div className='font-bold text-teal-900 flex-none'>Tên sản phẩm:</div>
                                                                     <div className='text-base text-black ml-3 '>{values?.product?.name}</div>
                                                                 </div>
                                                                 <div className='w-full flex flex-row mb-5 text-base'>
-                                                                    <div className='font-bold text-teal-900 flex-none' >Đơn vị tính:</div>
+                                                                    <div className='font-bold text-teal-900 flex-none'>Đơn vị tính:</div>
                                                                     <div className=' text-black ml-3'>{values?.product?.basicUnit}</div>
                                                                 </div>
                                                             </div>
@@ -926,30 +927,28 @@ const Page = () => {
 
                                                                 </div>)}
                                                             <div className="w-full flex flex-col mb-5">
-                                                                <div className='font-bold text-teal-900 w-[160px] text-base '>Bảng giá sản phẩm</div>
-                                                                <div className=' overflow-x-auto '>
-                                                                    <table className="sm:table-auto  h-16 sm:w-[98%] w-[400px]  mt-4  text-gray-700 mb-auto rounded-xl ">
-                                                                        <thead className='text-left'>
-                                                                            <tr className="font-normal  text-[14px] border-b-[0.5px]">
-                                                                                <th className=" pt-2 pb-2   !bg-white  text-center w-[10%] ">STT</th>
-                                                                                <th className=" pt-2 pb-2 !bg-white w-[30%]  ">Chủng loại giá</th>
-                                                                                <th className=" pt-2 pb-2 !bg-white  ">Số lượng tối thiểu</th>
-                                                                                <th className=" pt-2 pb-2 !bg-white  ">Giá bán (VND)</th>
+                                                            <div className="font-bold text-teal-900 w-[180px] text-base ">Bảng giá sản phẩm:</div>
+                                                                <table className="sm:table-auto table_discount h-16 sm:w-[98%] w-[400px]  mt-4  text-gray-900 mb-auto rounded-xl ">
+                                                                    <thead className='text-left  '>
+                                                                        <tr className="font-normal  text-[14px] border-b-[0.5px]">
+                                                                            <th className=" pt-2 pb-2   !bg-white  text-center w-[10%] ">STT</th>
+                                                                            <th className="pt-2 pb-2 !bg-white w-[30%] ">Chủng loại giá</th>
+                                                                            <th className="pt-2 pb-2 !bg-white ">Số lượng tối thiểu</th>
+                                                                            <th className="pt-2 pb-2 !bg-white ">Giá bán (VND)</th>
 
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {values?.product?.productPrice?.map((items: any, stt1: number) => (
+                                                                            <tr className="text-left">
+                                                                                <td className="font-normal text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2 text-center w-[10%]">{++stt1}</td>
+                                                                                <td className="font-normal  text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2">{items?.priceType}</td>
+                                                                                <td className="font-normal text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2">{items?.minQuantity}</td>
+                                                                                <td className="font-normal text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2">{items?.price.toLocaleString()}</td>
                                                                             </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            {values?.product?.productPrice?.map((items: any, stt1: number) => (
-                                                                                <tr >
-                                                                                    <td className="font-normal text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2 text-center w-[10%]">{++stt1}</td>
-                                                                                    <td className="font-normal  text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2">{items?.priceType}</td>
-                                                                                    <td className="font-normal text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2">{items?.minQuantity}</td>
-                                                                                    <td className="font-normal text-[14px] sm:pt-3 pt-2 sm:pb-2 pb-2">{items?.price.toLocaleString()}</td>
-                                                                                </tr>
-                                                                            ))}
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                        ))}
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                             <div className='mt-3 w-full'>
                                                                 <div className='w-full sm:flex sm:flex-row'>
@@ -970,31 +969,26 @@ const Page = () => {
                                                                         </div>
                                                                         <div className='w-full flex flex-row mb-5 gap-2 text-base'>
                                                                             <div className='font-bold text-teal-900 flex-none'>Danh mục:</div>
-                                                                        <div>{values?.product?.productCategory?.[0]?.category?.name}</div>
+                                                                            <div>{values?.product?.productCategory?.[0]?.category?.name}</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                
-                                                            
+                                                            </div>
                                                             {values?.product?.exportMarket === null ? ("") : (
                                                                 <>
-                                                                <div className='w-full flex flex-row'>
-                                                                    <div className='class="w-full flex flex-row mb-5 text-base"'>
-                                                                        <div className='font-bold text-teal-900 w-[190px]'>Thị trường xuất khẩu:</div>
-                                                                        <div>{values?.product?.exportMarket}</div>
+                                                                    <div className='w-full flex flex-row'>
+                                                                        <div className='w-full flex flex-row mb-5 text-base'>
+                                                                            <div className='font-bold text-teal-900 w-48'>Thị trường xuất khẩu:</div>
+                                                                            <div>{values?.product?.exportMarket}</div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div className='w-full flex flex-row'>
-                                                                    <div className='w-full'>
-                                                                        <div className='w-full flex flex-col gap-2 mb-5 text-base'>
-                                                                           <div className='font-bold text-teal-900 text-justify'>Mô tả sản phẩm:</div>
-                                                                           <div className='text-justify '>{values?.product?.description}</div>
-                                                                       </div>
+                                                                    <div className='w-full flex flex-col gap-2  text-base'>
+                                                                        <div className='font-bold text-teal-900 text-justify'>Mô tả sản phẩm:</div>
+                                                                        <div className='text-justify '>{values?.product?.description}</div>
                                                                     </div>
-                                                                </div>
+
                                                                 </>
                                                             )}
-                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -1007,7 +1001,7 @@ const Page = () => {
                             widthModal={1000}
                             footerCustom={(handleOk, handleCancel) => (
                                 <div className=" w-full bg-white ">
-                                    <div className="flex flex-col items-start mb-[33px] ml-[9px]">
+                                    <div className="flex flex-col items-start mb-[2px] ml-[9px]">
                                         <button
                                             className="z-10 px-8 sm:w-auto w-3/5 bg-white border-teal-900 hover:border-teal-600 border-solid border p-2 rounded-xl text-teal-900 hover:text-teal-600 sm:mt-1 mt-2 text-sm h-11"
                                             onClick={handleCancel}
