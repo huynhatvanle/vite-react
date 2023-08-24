@@ -94,7 +94,7 @@ const Page = () => {
                             </div>
                             <div className='w-full flex flex-row mb-5 text-base'>
                                 <div className='font-bold text-teal-900 w-36 '>Trạng thái:</div>
-                                <div>{data?.status}</div>
+                                <div>{t('store.status.APPROVED')}</div>
                             </div>
                             <div className='w-full flex flex-row mb-5 text-base'>
                                 <div className='font-bold text-teal-900 w-36 '>Tên sản phẩm:</div>
@@ -173,7 +173,7 @@ const Page = () => {
                     </div> */}
                     <Button
                         text={t('components.form.modal.cancel')}
-                        className={'button sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
+                        className={'!z-10 !px-8 !sm:w-auto w-28 !bg-white !border-teal-900 !hover:border-teal-600 !border-solid !border !p-2 !rounded-xl !text-teal-900 !hover:text-teal-600 !sm:mt-1 !mt-2 !text-sm !h-10'}
                         onClick={handleBack}
                     />
                 </div>
@@ -188,7 +188,7 @@ const Page = () => {
                             </div>
                             <div className='w-full flex flex-row mb-5 text-base'>
                                 <div className='font-bold text-teal-900 w-36 '>Trạng thái:</div>
-                                <div>{data?.status}</div>
+                                <div>{t('store.status.WAITING_ADMIN')}</div>
                             </div>
                             <div className='w-full flex flex-row mb-5 text-base'>
                                 <div className='font-bold text-teal-900 w-36 '>Tên sản phẩm:</div>
@@ -432,7 +432,7 @@ const Page = () => {
                                         render: (form, values) => {
                                             return (
                                                 <div className="sm:pt-2 ">
-                                                    <div className="flex items-center h-full text-base lg:mt-0 mt-4 form-store mb-2">
+                                                    <div className="flex items-center h-full text-base lg:mt-0 mt-4  mb-2">
                                                         <p className="font-bold text-teal-900 w-full text-base">Thông tin nhà cung cấp</p>
                                                     </div>
                                                     <div className="sm:flex w-full  ">
@@ -574,7 +574,7 @@ const Page = () => {
                     <div className='flex flex-col-reverse sm:flex-row items-center sm:justify-between mt-10  '>
                         <Button
                             text={t('components.form.modal.cancel')}
-                            className={'button sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto !h-[40px] !rounded-xl '}
+                            className={'!z-10 !px-8 !sm:w-auto w-28 !bg-white !border-teal-900 !hover:border-teal-600 !border-solid !border !p-2 !rounded-xl !text-teal-900 !hover:text-teal-600 !sm:mt-1 !mt-2 !text-sm !h-10 '}
                             onClick={handleBack}
                         />
                         <div className='flex sm:flex-row flex-col items-center sm:w-auto w-[100%] sm:justify-end sm:items-end text-sm sm:mb-0'>
@@ -652,7 +652,7 @@ const Page = () => {
                             </div>
                             <div className='w-full flex flex-row mb-5 text-base'>
                                 <div className='font-bold text-teal-900 w-36 '>Trạng thái:</div>
-                                <div>{data?.status}</div>
+                                <div>{t('store.status.WAITING_STORE')}</div>
                             </div>
                             <div className='w-full flex flex-row mb-5 text-base'>
                                 <div className='font-bold text-teal-900 w-36 '>Tên sản phẩm:</div>
@@ -894,7 +894,7 @@ const Page = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="sm:flex sm:flex-row w-full mt-2 ">
+                                                    <div className="sm:flex sm:flex-row w-full mt-2  border-t pt-1.5">
                                                         <div className="bg-white relative pb-5 rounded-xl">
                                                             <img className='sm:max-w-[224px]  max-w-[110px] aspect-square object-cover rounded-xl shadow-md' src={values?.product?.photos?.[0]?.url} alt="" />
                                                         </div>
@@ -1013,10 +1013,11 @@ const Page = () => {
                             )}
                         />
                        
-                    </div>)}                    
+                    </div>)}   
+                                     
                     <Button
                         text={t('components.form.modal.cancel')}
-                        className={'!bg-white !border-teal-900 hover:!border-teal-600 !border-solid !border !rounded-xl !text-teal-900 hover:!text-teal-600 p-2 priceBtn min-w-[83px] '}
+                        className={'!z-10 !px-8 !sm:w-auto w-28 !bg-white !border-teal-900 !hover:border-teal-600 !border-solid !border !p-2 !rounded-xl !text-teal-900 !hover:text-teal-600 !sm:mt-1 !mt-2 !text-sm !h-10 '}
                         onClick={handleBack}
                     />
                     
@@ -1032,7 +1033,7 @@ const Page = () => {
                             </div>
                             <div className='w-full flex flex-row mb-5 text-base'>
                                 <div className='font-bold text-teal-900 w-36 '>Trạng thái:</div>
-                                <div>{data?.status}</div>
+                                <div>{t('store.status.REJECT_BY_ADMIN')}</div>
                             </div>
                             <div className='w-full flex flex-row mb-5 text-base'>
                                 <div className='font-bold text-teal-900 w-36 '>Tên sản phẩm:</div>
@@ -1100,7 +1101,7 @@ const Page = () => {
                     </div>
                     <Button
                         text={t('components.form.modal.cancel')}
-                        className={'button sm:min-w-[8rem] justify-center out-line !border-black w-3/5 sm:w-auto'}
+                        className={'!z-10 !px-8 !sm:w-auto w-28 !bg-white !border-teal-900 !hover:border-teal-600 !border-solid !border !p-2 !rounded-xl !text-teal-900 !hover:text-teal-600 !sm:mt-1 !mt-2 !text-sm !h-10'}
                         onClick={handleBack}
                     />
                 </div>
